@@ -1,0 +1,101 @@
+@startuml
+title ACH Operations - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: ACH Operations
+' Source image: ach-operations-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_30941.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Payment Instruction" as N82747 {
+  + Payment Instruction Direction Type : Text
+  + Payment Instruction Type : PaymentTypeValues
+  + Payment Instruction Requested Mechanism : Text
+  + Payment Instruction Processing Validity Time : DateTimePeriod
+  + Payment Instruction Priority : PriorityValueTypes
+  + Payment Instruction Clearing Channel : ClearingChannelTypeValues
+  + Payment Instruction Credit Debit Indicator : DebitCreditIndicatortValues
+  + Payment Instruction Status : PaymentInstructionStatus
+  + Payment Instruction Amount and Currency : PaymentAmountAndCurrency[1..*]
+  + Payment Instruction Date and Time : PaymentDateTime[1..*]
+  + Payment Instruction Identification : PaymentIdentification
+  + Payment Instruction Method : PaymentMethodTypeValues
+  + Payment Instruction Description : Text
+}
+
+class "Product Sales Agreement" as N82792 {
+}
+
+class "Product Sales Agreement Involvement" as N82662 {
+}
+
+class "Party Role" as N82799 {
+}
+
+class "Party" as N82784 {
+}
+
+class "ACH System" as N82788 {
+  + ACH System Identifier : Identifier
+}
+
+class "System" as N82736 {
+}
+
+class "Session" as N82645 {
+}
+
+class "ACH Session" as N82642 {
+  + ACH Session Identifier : Identifier
+}
+
+class "Payment Transaction" as N82720 {
+}
+
+class "Payment Transaction Involvement" as N82703 {
+}
+
+class "Instruction Batch" as N82679 {
+  + Batch Identifier : String
+}
+
+class "Account" as N82777 {
+}
+
+class "Correspondent Banking Agreement" as N82743 {
+}
+
+class "Correspondent Banking Involvement" as N82761 {
+}
+
+class "Instruction" as N82691 {
+}
+
+class "Payment Arrangement" as N82656 {
+}
+
+' Relationships
+N82792 "0..1" -- "1..*" N82656
+N82792 "0..1 / 0..*" -- N82662
+N82799 <|-- N82662
+N82736 <|-- N82788
+N82736 "SystemIn / Session / 1" -- "Operating / Session / 0..*" N82645
+N82645 <|-- N82642
+N82642 "ACH Payment Order / 0..1" -- "1..*" N82747
+N82799 <|-- N82703
+N82720 "0..1" -- "0..*" N82703
+N82679 "0..1" -- "0..*" N82747
+N82642 "ACH Batch / 0..1" -- N82679 : 0..1
+N82642 "0..1" -- "0..1" N82720
+N82777 "Payer / Account / 0..1" -- "0..*" N82720
+N82720 "0..*" -- "Payee / Account / 0..1" N82777
+N82743 "0..1" -- "1..*" N82656
+N82743 "0..1 / 0..*" -- N82761
+N82799 <|-- N82761
+N82691 <|-- N82747
+N82747 "1" -- "Causes / 0..*" N82720
+N82784 "1" -- "0..*" N82799
+N82656 "0..1" -- "0..*" N82747
+@enduml

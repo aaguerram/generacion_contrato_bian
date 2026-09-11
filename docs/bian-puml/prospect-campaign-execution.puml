@@ -1,0 +1,96 @@
+@startuml
+title Prospect Campaign Execution - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Prospect Campaign Execution
+' Source image: prospect-campaign-execution-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36752.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Procedure" as N194875 {
+}
+
+class "Workstep" as N194797 {
+}
+
+class "Prospect Campaign Procedure" as N194800 {
+}
+
+class "Item Inventory" as N194829 {
+}
+
+class "Item" as N194867 {
+}
+
+class "Customer Relationship Lifecycle Phase" as N194811 {
+}
+
+class "Customer Relationship" as N194879 {
+}
+
+class "Prospect" as N194818 {
+}
+
+class "Prospect Campaign Metric" as N194851 {
+  + Prospect Campaign Metric Definition : String
+  + Prospect Campaign Metric Goal : String
+}
+
+class "Prospect Campaign Assessment" as N194827 {
+}
+
+class "Party Role" as N194863 {
+}
+
+class "Party" as N194830 {
+}
+
+class "Campaign" as N194846 {
+  + Campaign Type : CampaignTypeValues
+  + Campaign Version : Text
+  + Campaign Description : Text
+  + Campaign Period : DateTimePeriod
+}
+
+class "Assessment" as N194856 {
+}
+
+class "Prospect Campaign" as N194794 {
+}
+
+class "Prospect Campaign Involvement" as N194819 {
+}
+
+class "Product" as N194869 {
+}
+
+class "Prospect Campaign Procedure Workstep" as N194826 {
+}
+
+enum "ProspectCampaignProcedureWorkstepTypeValues" as N194812 {
+  CandidateSelection
+  Execution
+  AnalysisFeedback
+}
+
+' Relationships
+N194875 -- "0..*" N194797
+N194875 <|-- N194800
+N194800 "0..*" -- "InventoryOf / ConsumableItems / 0..*" N194829
+N194829 -- "0..*" N194867 : 0..1
+N194879 "1" -- "1..*" N194811
+N194794 "0..*" -- "ProspectInCampaign / 0..*" N194818
+N194811 <|-- N194818
+N194846 <|-- N194794
+N194851 "0..*" -- "0..1" N194827
+N194819 "PartyRole" -- "0..1" N194794 : 0..*
+N194827 "0..*" -- "0..1" N194794
+N194856 <|-- N194827
+N194863 <|-- N194819
+N194794 "0..1" -- "0..1" N194800
+N194869 "ProductInCampaign / 0..*" -- "0..*" N194794
+N194800 "0..1" -- "0..1" N194826
+N194830 "1 / 0..*" -- N194863
+@enduml

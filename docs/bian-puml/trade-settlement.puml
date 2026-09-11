@@ -1,0 +1,165 @@
+@startuml
+title Trade Settlement - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Trade Settlement
+' Source image: trade-settlement-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51911.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Financial Instrument" as N183685 {
+}
+
+enum "TradeIdentificationTypeValues" as N183679 {
+  Counterparty Reference
+  Common Identification
+  Matching Reference
+  Unique Trade Identifier
+  Clearing Broker Identification
+  Trade Identification
+}
+
+class "Security" as N183684 {
+  + Security Amount : Amount
+  + Security Price : Arrangement
+  + Security Identification : SecurityIdentification
+  + Security Balance : AccountBalance
+  + Security Status : SecurityStatus
+  + Security Fees : Fee Arrangement
+  + Security Date : Date Time
+  + Security Rate : Rate
+  + Security Tax : Tax Arrangement
+  + Security Jurisdiction : Jurisdiction
+}
+
+class "TradeIdentification" as N183768 <<datatype>> {
+  + Trade Identification : Identifier
+  + Trade Identification Type : TradeIdentificationTypeValues
+}
+
+class "Market Trade" as N183686 {
+  + Trade Execute Date : DateTime
+  + Trade Value Date : DateTime
+  + Trade End Date : DateTime
+  + Trade Identification : TradeIdentification
+  + Trade Start Date : DateTime
+  + Trade Asset : Asset
+  + Trade Market : Market
+  + Market Order : Market Order Agreement
+  + Trade Commission : Fee Arrangement
+}
+
+class "Workstep" as N183627 {
+}
+
+class "Procedure" as N183709 {
+}
+
+class "Market Trade Settlement" as N183644 {
+  + Market Trade Settlement Workstep : Workstep[1..*]
+  + Market Trade Settlement Workstep Type : MarketTradeSettlementWorkstepType
+}
+
+enum "MarketTradeSettlementWorkstepType" as N183640 {
+  Market Trade Settlement Confirmation
+  Market Trade Securities Settlement
+  Market Trade Cash Settlement
+}
+
+class "SecurityIdentification" as N183753 <<datatype>> {
+  + Security Identification : Identifier
+  + Security Identification Type : SecurityIdentificationTypeValues
+}
+
+enum "SecurityIdentificationTypeValues" as N183752 {
+  RIC
+  TickerSymbol
+  Bloomberg
+  CTA
+  Common
+  Name
+  SEDOL
+  CUSIP
+  QUICK
+  Wertpapier
+  Dutch
+  Valoren
+  Sicovam
+  Belgian
+  IdentificationSuffix
+  GenericIdentification
+  ValidityPeriod
+  ApplicableTradingMarket
+  PrimeIdentification
+  RelatedOtherIdentification
+  TradingIdentification
+}
+
+class "SecurityStatus" as N183778 <<datatype>> {
+  + Security Status : Status
+  + Security Status Type : SecurityStatusTypeValues
+}
+
+enum "SecurityStatusTypeValues" as N183761 {
+  Inactive
+  WhenIssued
+  WhenDistributed
+  Issued
+  Suspended
+  InDefault
+  Worthless
+}
+
+class "Securities Settlement" as N183669 {
+  + Settlement Date : Date
+  + Settlement Amount : Amount
+  + Currency To Buy : CurrencyCode
+  + Currency To Sell : CurrencyCode
+  + Accrued Interest : Arrangement
+  + Position : Position
+  + Settled Allocation : Securities Allocation
+  + Settlement Type : SecuritiesSettlementTypeValues
+}
+
+class "Settlement" as N183630 {
+}
+
+class "Account" as N183681 {
+}
+
+class "Securities Account" as N183654 {
+  + Securities Account Type : SecuritiesAccountTypeValues
+  + Securities Account Identification : Identifier
+  + Securities Account Name : Name
+  + Securities Account Balance : AccountBalance
+}
+
+enum "SecuritiesAccountTypeValues" as N183718 {
+  Margin
+  Short Sale
+  Abroad
+  Centralised
+  Cash DVP
+  Physical
+  Fungible
+  Non Fungible
+}
+
+enum "SecuritiesSettlementTypeValues" as N183773 {
+  Separate Settlement
+  Against Payment Settlement
+}
+
+' Relationships
+N183686 "0..*" -- "Traded / Security / 0..1" N183684
+N183685 <|-- N183684
+N183709 -- "0..*" N183627
+N183709 <|-- N183644
+N183686 "0..1" -- "0..*" N183644
+N183630 <|-- N183669
+N183681 <|-- N183654
+N183684 "0..1" -- "0..1" N183654
+N183684 "0..1" -- "0..1" N183669
+@enduml

@@ -1,0 +1,106 @@
+@startuml
+title Prospect Campaign Design - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Prospect Campaign Design
+' Source image: prospect-campaign-design-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36519.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Design Specification Aspect" as N172679 {
+}
+
+class "Campaign" as N172757 {
+  + Campaign Type : CampaignTypeValues
+  + Campaign Version : Text
+  + Campaign Description : Text
+  + Campaign Period : DateTimePeriod
+}
+
+class "Prospect Campaign" as N172668 {
+}
+
+class "Prospect Campaign Assessment" as N172724 {
+}
+
+class "Prospect Campaign Metric" as N172753 {
+  + Prospect Campaign Metric Definition : String
+  + Prospect Campaign Metric Goal : String
+}
+
+class "Assessment" as N172716 {
+}
+
+class "Prospect Campaign Design Specification" as N172722 {
+}
+
+class "Prospect Campaign Involvement" as N172770 {
+}
+
+class "Party Role" as N172731 {
+}
+
+class "Party" as N172703 {
+}
+
+class "Customer Relationship Lifecycle Phase" as N172758 {
+}
+
+class "Customer Relationship" as N172713 {
+}
+
+class "Prospect" as N172717 {
+}
+
+class "Product" as N172691 {
+}
+
+class "Prospect Campaign Arrangement" as N172762 {
+}
+
+class "Arrangement" as N172767 {
+}
+
+class "Prospect Campaign Rule Set" as N172765 {
+}
+
+class "Rule Set" as N172754 {
+}
+
+class "Prospect Campaign Procedure" as N172706 {
+}
+
+class "Item Inventory" as N172778 {
+}
+
+class "Item" as N172687 {
+}
+
+class "Design Specification" as N172665 {
+}
+
+' Relationships
+N172665 "0..1" -- "0..*" N172679
+N172757 <|-- N172668
+N172724 "0..*" -- "0..1" N172668
+N172753 "0..*" -- "0..1" N172724
+N172716 <|-- N172724
+N172665 <|-- N172722
+N172770 "PartyRole / 0..*" -- "0..1" N172668
+N172731 <|-- N172770
+N172713 "1" -- "1..*" N172758
+N172668 "0..*" -- "ProspectInCampaign / 0..*" N172717
+N172758 <|-- N172717
+N172691 "ProductInCampaign / 0..*" -- "0..*" N172668
+N172668 "0..1" -- "0..*" N172762
+N172767 <|-- N172762
+N172668 "0..1" -- "0..*" N172765
+N172754 <|-- N172765
+N172668 "0..1" -- "0..1" N172706
+N172706 "0..*" -- "InventoryOf / ConsumableItems / 0..*" N172778
+N172778 "0..1" -- "0..*" N172687
+N172668 "0..*" -- "0..*" N172722
+N172703 "1" -- "0..*" N172731
+@enduml

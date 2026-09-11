@@ -1,0 +1,87 @@
+@startuml
+title Financial Gateway - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Financial Gateway
+' Source image: financial-gateway-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_28976.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Session" as N112289 {
+}
+
+class "Session Issue" as N112332 {
+}
+
+class "Session Report" as N112295 {
+  + Session Report Information Type
+  + Session Report Information
+}
+
+class "Production Issue Involvement" as N112350 {
+}
+
+class "Party Role" as N112364 {
+}
+
+class "Production Issue" as N112319 {
+  + Production Issue Type : String
+  + Production Issue Description : String
+  + Production Issue Diagnosis : String
+  + Production Issue Resolution Task : String
+  + Production Issue Status : String
+}
+
+class "Session Event" as N112369 {
+  + Session Eventy Type : String
+  + Session Event Date Time : String
+}
+
+class "System" as N112344 {
+}
+
+class "Financial Gateway Session" as N112281 {
+}
+
+class "Financial Gateway Issue" as N112363 {
+}
+
+class "Financial Gateway Session Report" as N112372 {
+}
+
+class "Financial Message" as N112284 {
+  + Financial Message Type : String
+  + Financial Message Direction : ChannelSessionDirection
+  + Financial Message Content : String
+  + Financial Message Delivery Status : String
+}
+
+class "Financial Message Involvement" as N112300 {
+}
+
+class "Financial Gateway" as N112292 {
+  + Financial Gateway Service Network Reference : String
+}
+
+' Relationships
+N112289 "1" -- "0..*" N112295
+N112364 <|-- N112350
+N112319 "1" -- "0..*" N112350
+N112369 <|-- N112332
+N112289 -- "1..*" N112369 : 1
+N112344 "SystemIn / Session / 1" -- "Operating / Session / 0..*" N112289
+N112332 "0..*" -- "0..*" N112319
+N112344 <|-- N112292
+N112289 <|-- N112281
+N112292 "0..1" -- "0..1" N112281
+N112332 <|-- N112363
+N112281 "1..*" -- "0..*" N112363
+N112295 <|-- N112372
+N112281 "1" -- "0..*" N112372
+N112281 "0..1" -- "exchanged in / 0..*" N112284
+N112284 "0..1" -- "0..1" N112300
+N112364 <|-- N112300
+N112284 "1..*" -- "0..*" N112363
+@enduml

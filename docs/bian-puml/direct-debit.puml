@@ -1,0 +1,144 @@
+@startuml
+title Direct Debit - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Direct Debit
+' Source image: direct-debit-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52770.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Direct Debit Mandate" as N177517 {
+  + Direct Debit Mandate Identification : Identifier
+  + Direct Debit Purpose : Text
+  + Direct Debit Source Account : Account
+  + Direct Debit Status : DirectDebitStatusTypeValues
+  + Direct Debit Type : DirectDebitTypeValues
+}
+
+class "Direct Debit Service" as N177412 {
+}
+
+class "Mandate" as N177432 {
+  + Status : MandateStatus
+  + Tracking Days : Number
+  + Identification : Identifier
+  + Type : MandateTypeValues
+  + Duration : DateTimePeriod
+  + Tracking Indicator : YesNoIndicator
+}
+
+class "Account" as N177421 {
+}
+
+class "Direct Debit Instruction" as N177591 {
+}
+
+class "Direct Debit Mandate Arrangement" as N177447 {
+}
+
+class "Payment Service" as N177566 {
+}
+
+class "Arrangement" as N177415 {
+}
+
+class "Payment Transaction" as N177406 {
+}
+
+class "Direct Debit Transaction" as N177437 {
+}
+
+class "Payment Instruction" as N177409 {
+}
+
+class "Agreement" as N177501 {
+}
+
+enum "DirectDebitMandateInvolvementTypeValues" as N177606 {
+  Creditor
+  Debtor
+  Debtor Bank
+  Creditor Bank
+}
+
+class "Service" as N177546 {
+}
+
+class "Product Feature" as N177491 {
+}
+
+class "Product" as N177495 {
+}
+
+class "Direct Debit Mandate Involvement" as N177584 {
+  + Involvement Type : PaymentInvolvementTypeValues
+  + Mandate Reference : Direct Debit Mandate
+  + Party Reference : Party
+}
+
+class "Party Role" as N177462 {
+}
+
+class "Party" as N177525 {
+}
+
+class "Transaction" as N177536 {
+}
+
+class "Instruction" as N177614 {
+}
+
+class "Service Arrangement" as N177526 {
+}
+
+enum "TransactionTypeValues" as N177590 {
+  Financial Transaction
+  Business Transaction
+  Banking Transaction
+  Accounting Transaction
+  Booking Transaction
+  Allocation Transaction
+  Delivery Transaction
+  Production Transaction
+}
+
+enum "FinancialTransactionTypeValues" as N177609 {
+  Pricing Transaction
+  Fee Transaction
+  Withdrawal Transaction
+  Deposit Transaction
+  Payment Transaction
+  Clearing Transaction
+  Settlement Transaction
+  ReconciliationTransaction
+  UpdateTransaction
+  SecuritiesTransaction
+  Repayment Transaction
+}
+
+' Relationships
+N177432 <|-- N177517
+N177517 "1" -- "0..*" N177447
+N177412 "0..1" -- "0..*" N177447
+N177566 <|-- N177412
+N177447 "0..1" -- "0..*" N177591
+N177526 <|-- N177447
+N177591 "0..1" -- "0..*" N177437
+N177409 <|-- N177591
+N177409 "1" -- "Causes / 0..*" N177406
+N177447 "0..*" -- "Arrangement / Account / 0..1" N177421
+N177501 <|-- N177432
+N177432 "0..*" -- "0..*" N177501
+N177501 "1" -- "1..*" N177415
+N177546 <|-- N177566
+N177491 "1" -- "0..*" N177415
+N177495 -- N177491
+N177495 "0..1" -- "0..*" N177501
+N177584 "0..*" -- N177517 : 0..1
+N177462 <|-- N177584
+N177536 <|-- N177437
+N177614 <|-- N177591
+N177525 "1" -- "0..*" N177462
+@enduml

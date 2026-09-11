@@ -1,0 +1,56 @@
+@startuml
+title Servicing Event History - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Servicing Event History
+' Source image: servicing-event-history-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_32393.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Servicing Event Log" as N194752 {
+}
+
+class "Servicing Event" as N194719 {
+}
+
+class "Log" as N194716 {
+}
+
+class "Event" as N194722 {
+}
+
+class "Point Of Service Session" as N194744 {
+}
+
+class "Point Of Service" as N194781 {
+}
+
+class "Dialogue Session" as N194759 {
+}
+
+class "Customer Contact" as N194776 {
+}
+
+class "Point Of Service Session Involvement" as N194747 {
+}
+
+class "Session Dialogue Log Entry" as N194751 {
+}
+
+class "Session Dialogue Log" as N194737 {
+}
+
+' Relationships
+N194752 "0..1" -- "LogEntry / 0..*" N194719
+N194716 <|-- N194752
+N194744 "0..1" -- "Session / Event / 0..*" N194719
+N194781 "SystemInSession / 0..1" -- "Operating / Session / 0..*" N194744
+N194781 "HandlingPoS / 0..1" -- "CustomerInteractionSession / HandledByPoS / 0..*" N194759
+N194759 "DialogueSession / WithinContact / 0..*" -- "Structured / Interaction / 1" N194776
+N194744 "0..1" -- "0..*" N194747
+N194737 "0..1" -- "LogEntry / 0..*" N194751
+N194716 <|-- N194737
+N194759 "1" -- "0..*" N194751
+@enduml

@@ -1,0 +1,1450 @@
+{
+  "service_domain": "Promotional Events",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "ExecuteMarketTracking",
+      "method": "PUT",
+      "path": "/PromotionalEvents/{promotionaleventsid}/MarketTracking/{markettrackingid}/Execute",
+      "tipo": "BQ",
+      "grupo": "MarketTracking",
+      "request_schema": "MarketTracking",
+      "response_schema": "MarketTracking",
+      "summary": "ExBQ Execute an automated task for the tracking activity",
+      "description": "ExBQ Execute an automated task for the tracking activity",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    },
+    {
+      "operation_id": "UpdateImpactAssessment",
+      "method": "PUT",
+      "path": "/PromotionalEvents/{promotionaleventsid}/ImpactAssessment/{impactassessmentid}/Update",
+      "tipo": "BQ",
+      "grupo": "ImpactAssessment",
+      "request_schema": "ImpactAssessment",
+      "response_schema": "ImpactAssessment",
+      "summary": "UpBQ Update details of promotional event impact assessment",
+      "description": "UpBQ Update details of promotional event impact assessment",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    },
+    {
+      "operation_id": "RequestParticipation",
+      "method": "PUT",
+      "path": "/PromotionalEvents/{promotionaleventsid}/Participation/{participationid}/Request",
+      "tipo": "BQ",
+      "grupo": "Participation",
+      "request_schema": "Participation",
+      "response_schema": "Participation",
+      "summary": "RqBQ Request manual intervention to the schedules",
+      "description": "RqBQ Request manual intervention to the schedules",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/PromotionalEvents/{promotionaleventsid}/Request",
+      "tipo": "CR",
+      "grupo": "PromotionalEventManagementPlan",
+      "request_schema": "PromotionalEventManagementPlan",
+      "response_schema": "PromotionalEventManagementPlan",
+      "summary": "RqCR Request manual intervention in the event plan",
+      "description": "RqCR Request manual intervention in the event plan"
+    },
+    {
+      "operation_id": "Grant",
+      "method": "PUT",
+      "path": "/PromotionalEvents/{promotionaleventsid}/Grant",
+      "tipo": "CR",
+      "grupo": "PromotionalEventManagementPlan",
+      "request_schema": "PromotionalEventManagementPlan",
+      "response_schema": "PromotionalEventManagementPlan",
+      "summary": "GrCR Obtain a permission grant against the plan",
+      "description": "GrCR Obtain a permission grant against the plan"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/PromotionalEvents/{promotionaleventsid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "PromotionalEventManagementPlan",
+      "request_schema": "",
+      "response_schema": "PromotionalEventManagementPlan",
+      "summary": "ReCR Retrieve details about the promotional event management plan",
+      "description": "ReCR Retrieve details about the promotional event management plan"
+    },
+    {
+      "operation_id": "ExecuteImpactAssessment",
+      "method": "PUT",
+      "path": "/PromotionalEvents/{promotionaleventsid}/ImpactAssessment/{impactassessmentid}/Execute",
+      "tipo": "BQ",
+      "grupo": "ImpactAssessment",
+      "request_schema": "ImpactAssessment",
+      "response_schema": "ImpactAssessment",
+      "summary": "ExBQ Execute an automated action for an impact assessment",
+      "description": "ExBQ Execute an automated action for an impact assessment",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    },
+    {
+      "operation_id": "RequestImpactAssessment",
+      "method": "PUT",
+      "path": "/PromotionalEvents/{promotionaleventsid}/ImpactAssessment/{impactassessmentid}/Request",
+      "tipo": "BQ",
+      "grupo": "ImpactAssessment",
+      "request_schema": "ImpactAssessment",
+      "response_schema": "ImpactAssessment",
+      "summary": "RqBQ Request manual intervention to an impact assessment",
+      "description": "RqBQ Request manual intervention to an impact assessment",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    },
+    {
+      "operation_id": "UpdateParticipation",
+      "method": "PUT",
+      "path": "/PromotionalEvents/{promotionaleventsid}/Participation/{participationid}/Update",
+      "tipo": "BQ",
+      "grupo": "Participation",
+      "request_schema": "Participation",
+      "response_schema": "Participation",
+      "summary": "UpBQ Update the event participation schedule",
+      "description": "UpBQ Update the event participation schedule",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/PromotionalEvents/{promotionaleventsid}/Update",
+      "tipo": "CR",
+      "grupo": "PromotionalEventManagementPlan",
+      "request_schema": "PromotionalEventManagementPlan",
+      "response_schema": "PromotionalEventManagementPlan",
+      "summary": "UpCR Update details of the promotional event management plan",
+      "description": "UpCR Update details of the promotional event management plan"
+    },
+    {
+      "operation_id": "UpdateMarketTracking",
+      "method": "PUT",
+      "path": "/PromotionalEvents/{promotionaleventsid}/MarketTracking/{markettrackingid}/Update",
+      "tipo": "BQ",
+      "grupo": "MarketTracking",
+      "request_schema": "MarketTracking",
+      "response_schema": "MarketTracking",
+      "summary": "UpBQ Update details of the market tracking activity",
+      "description": "UpBQ Update details of the market tracking activity",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    },
+    {
+      "operation_id": "RetrieveMarketTracking",
+      "method": "GET",
+      "path": "/PromotionalEvents/{promotionaleventsid}/MarketTracking/{markettrackingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "MarketTracking",
+      "request_schema": "",
+      "response_schema": "MarketTracking",
+      "summary": "ReBQ Retrieve details about the market tracking activity",
+      "description": "ReBQ Retrieve details about the market tracking activity",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    },
+    {
+      "operation_id": "CreateImpactAssessment",
+      "method": "POST",
+      "path": "/PromotionalEvents/{promotionaleventsid}/ImpactAssessment/Create",
+      "tipo": "BQ",
+      "grupo": "ImpactAssessment",
+      "request_schema": "ImpactAssessment",
+      "response_schema": "ImpactAssessment",
+      "summary": "CrBQ Create an impact assessment of the promotional event activity",
+      "description": "CrBQ Create an impact assessment of the promotional event activity",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    },
+    {
+      "operation_id": "CreateParticipation",
+      "method": "POST",
+      "path": "/PromotionalEvents/{promotionaleventsid}/Participation/Create",
+      "tipo": "BQ",
+      "grupo": "Participation",
+      "request_schema": "Participation",
+      "response_schema": "Participation",
+      "summary": "CrBQ Create promotional event participation plan",
+      "description": "CrBQ Create promotional event participation plan",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    },
+    {
+      "operation_id": "Create",
+      "method": "POST",
+      "path": "/PromotionalEvents/Create",
+      "tipo": "CR",
+      "grupo": "PromotionalEventManagementPlan",
+      "request_schema": "PromotionalEventManagementPlan",
+      "response_schema": "PromotionalEventManagementPlan",
+      "summary": "CrCR Create and invoke the promotional event management plan",
+      "description": "CrCR Create and invoke the promotional event management plan"
+    },
+    {
+      "operation_id": "RequestMarketTracking",
+      "method": "PUT",
+      "path": "/PromotionalEvents/{promotionaleventsid}/MarketTracking/{markettrackingid}/Request",
+      "tipo": "BQ",
+      "grupo": "MarketTracking",
+      "request_schema": "MarketTracking",
+      "response_schema": "MarketTracking",
+      "summary": "RqBQ Request manual intervention in the market tracking",
+      "description": "RqBQ Request manual intervention in the market tracking",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    },
+    {
+      "operation_id": "RetrieveImpactAssessment",
+      "method": "GET",
+      "path": "/PromotionalEvents/{promotionaleventsid}/ImpactAssessment/{impactassessmentid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "ImpactAssessment",
+      "request_schema": "",
+      "response_schema": "ImpactAssessment",
+      "summary": "ReBQ Retrieve details about promotional event impact assessment activity",
+      "description": "ReBQ Retrieve details about promotional event impact assessment activity",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    },
+    {
+      "operation_id": "RetrieveParticipation",
+      "method": "GET",
+      "path": "/PromotionalEvents/{promotionaleventsid}/Participation/{participationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Participation",
+      "request_schema": "",
+      "response_schema": "Participation",
+      "summary": "ReBQ Retrieve details about promotional event participation activity",
+      "description": "ReBQ Retrieve details about promotional event participation activity",
+      "parent_control_record": "PromotionalEventManagementPlan"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Amount",
+    "Amounttypevalues",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "BudgetArrangement",
+    "Budgetarrangement",
+    "Budgettype",
+    "Budgettypevalues",
+    "Currencycode",
+    "DateTime",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Geographicalareatypevalues",
+    "Goal",
+    "Goaldatetime",
+    "Goaldatetimetypevalues",
+    "Goalstatus",
+    "Goalstatustypevalues",
+    "Goaltypevalues",
+    "HTTPError",
+    "Identifier",
+    "ImpactAssessment",
+    "Involvedparty",
+    "Location",
+    "MarketTracking",
+    "Metric",
+    "Name",
+    "Participation",
+    "Plannedaction",
+    "Plantypevalues",
+    "Portfolio",
+    "PromotionalEvent",
+    "PromotionalEventManagementPlan",
+    "Schedule",
+    "Status",
+    "Strategy",
+    "Subject",
+    "Task",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "BudgetArrangement",
+      "kind": "object",
+      "description": "The make-up of the sponsorship arrangements for participation in the event",
+      "properties": [
+        {
+          "name": "BudgetType",
+          "type": "object",
+          "ref": "Budgettype"
+        },
+        {
+          "name": "BudgetAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Budgetarrangement",
+      "kind": "object",
+      "description": "An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)",
+      "properties": [
+        {
+          "name": "BudgetType",
+          "type": "object",
+          "ref": "Budgettype"
+        },
+        {
+          "name": "BudgetAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Budgettype",
+      "kind": "object",
+      "description": "A Classification value that specifies the type of Budget",
+      "properties": [
+        {
+          "name": "BudgetTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "BudgetType",
+          "type": "object",
+          "ref": "Budgettypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Budgettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OperatingBudget` - \r\n* `FinancialBudget` - \r\n* `ResourceBudget` - \r\n",
+      "enum_values": [
+        "OperatingBudget",
+        "FinancialBudget",
+        "ResourceBudget"
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "DateTime",
+      "kind": "object",
+      "description": "The date-time the performance assessment task is performed",
+      "properties": [
+        {
+          "name": "TimeIndication",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeIndicationType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "Goal",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "GoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "GoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "GoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetime",
+      "kind": "object",
+      "description": "The key dates and times of Goal like Setting Data, Planning Date, Start Date, Review Date, Completion Date.",
+      "properties": [
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "GoalDateAndTimeType",
+          "type": "object",
+          "ref": "Goaldatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SettingDate` - \r\n* `PlanningDate` - \r\n* `StartDate` - \r\n* `ReviewDate` - \r\n* `CompletionDate` - \r\n",
+      "enum_values": [
+        "SettingDate",
+        "PlanningDate",
+        "StartDate",
+        "ReviewDate",
+        "CompletionDate"
+      ]
+    },
+    {
+      "name": "Goalstatus",
+      "kind": "object",
+      "description": "The lifecycle status of Goal like Goal Setting, Planning, Execution, Monitoring and Evaluation, Completion or Achievement, Maintenance or Sustainment, Closure or Renewal",
+      "properties": [
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "GoalStatusType",
+          "type": "object",
+          "ref": "Goalstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goalstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Setting` - \r\n* `Planning` - \r\n* `Execution` - \r\n* `MonitoringAndEvaluation` - \r\n* `CompletionOrAchievement` - \r\n* `MaintenanceOrSustainment` - \r\n* `ClosureOrRenewal` - \r\n",
+      "enum_values": [
+        "Setting",
+        "Planning",
+        "Execution",
+        "MonitoringAndEvaluation",
+        "CompletionOrAchievement",
+        "MaintenanceOrSustainment",
+        "ClosureOrRenewal"
+      ]
+    },
+    {
+      "name": "Goaltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Short-TermGoal` - \r\n* `Long-TermGoal` - \r\n* `BusinessGoal` - \r\n* `PerformanceGoal` - \r\n* `FinancialGoal` - \r\n* `OutcomeGoal` - \r\n* `SMARTGoal` - \r\n",
+      "enum_values": [
+        "Short-TermGoal",
+        "Long-TermGoal",
+        "BusinessGoal",
+        "PerformanceGoal",
+        "FinancialGoal",
+        "OutcomeGoal",
+        "SMARTGoal"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "Reference to an internally maintained market research viewpoint",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "ImpactAssessment",
+      "kind": "object",
+      "description": "A collection of one or more responsibilities or tasks under management\n\nExamples: Relationship development, Troubleshooting",
+      "properties": [
+        {
+          "name": "ImpactAssessmentWorkTaskType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ImpactAssessmentWorkTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ImpactAssessmentWorkTaskWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "ImpactAssessmentWorkTaskResult",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ImpactAssessmentWorkTaskDateandTime",
+          "type": "object",
+          "ref": "DateTime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "MarketTracking",
+      "kind": "object",
+      "description": "A collection of one or more responsibilities or tasks under management\n\nExamples: Relationship development, Troubleshooting",
+      "properties": [
+        {
+          "name": "MarketTrackingWorkTaskType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketTrackingWorkTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "GeneralMarketResearchDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "MarketTrackingWorkTaskWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "MarketTrackingWorkTaskResult",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "MarketTrackingWorkTaskDateandTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Metric",
+      "kind": "object",
+      "description": "Metrics that are defined to assess the target and actual impact of the promotional event",
+      "properties": [
+        {
+          "name": "Metric",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Participation",
+      "kind": "object",
+      "description": "A collection of one or more responsibilities or tasks under management\n\nExamples: Relationship development, Troubleshooting",
+      "properties": [
+        {
+          "name": "PromotionalEventParticipationInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "PromotionalEventSponsorshipBudget",
+          "type": "object",
+          "ref": "BudgetArrangement"
+        },
+        {
+          "name": "EmployeeorBusinessUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "PromotionalEventExecutionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "PromotionalEventResult",
+          "type": "object",
+          "ref": "PromotionalEvent"
+        }
+      ]
+    },
+    {
+      "name": "Plannedaction",
+      "kind": "object",
+      "description": "An action that is arranged in a plan for doing or achieving something ",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Plantypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `AdministrativePlan` - \r\n* `ManagementPlan` - \r\n* `StratgyPlan` - \r\n* `FinancialPlan` - \r\n* `DevelopmentPlan` - \r\n",
+      "enum_values": [
+        "AdministrativePlan",
+        "ManagementPlan",
+        "StratgyPlan",
+        "FinancialPlan",
+        "DevelopmentPlan"
+      ]
+    },
+    {
+      "name": "Portfolio",
+      "kind": "object",
+      "description": "The collection of promotional events that is used to assess performance and coverage and support promotional event sponsorship and participation decisions",
+      "properties": [
+        {
+          "name": "PortfolioIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "PortfolioName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PortfolioStrategy",
+          "type": "object",
+          "ref": "Strategy"
+        },
+        {
+          "name": "PortfolioDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PromotionalEvent",
+      "kind": "object",
+      "description": "The result/impact of the overall promotional event  (can refer to any detected up-tick in brand awareness and sales)",
+      "properties": [
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "PromotionalEventManagementPlan",
+      "kind": "object",
+      "description": "Oversee the working of a business unit, assign work, manage against a plan and troubleshoot issues within Promotional Events.",
+      "properties": [
+        {
+          "name": "PromotionalEventPortfolio",
+          "type": "object",
+          "ref": "Portfolio"
+        },
+        {
+          "name": "PromotionalEventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PromotionalEventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PromotionalEventMetrics",
+          "type": "object",
+          "ref": "Metric"
+        },
+        {
+          "name": "PromotionalEventMetricDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PromotionalEventMetricGoal",
+          "type": "object",
+          "ref": "Goal"
+        },
+        {
+          "name": "PromotionalEventSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "PromotionalEventPerformanceRecord",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule for participation in the event",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "The tracked status (e.g. under construction or repair, inhabited, vacant).",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Strategy",
+      "kind": "object",
+      "description": "Strategy set for the portfolio.(ISO20022)",
+      "properties": [
+        {
+          "name": "PlanGoal",
+          "type": "object",
+          "ref": "Goal"
+        },
+        {
+          "name": "PlanBudget",
+          "type": "object",
+          "ref": "Budgetarrangement"
+        },
+        {
+          "name": "PlannedAction",
+          "type": "object",
+          "ref": "Plannedaction"
+        },
+        {
+          "name": "PlanType",
+          "type": "object",
+          "ref": "Plantypevalues"
+        },
+        {
+          "name": "PlanValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "PlanDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "The make-up of the market tracking task performed, includes consolidation and analysis of market research to assess brand awareness and  the impact of promotional events",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "File of consolidated notes, evaluations and findings for the market tracking work task",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "PromotionalEventManagementPlan",
+        "operations": [
+          "Request",
+          "Grant",
+          "Retrieve",
+          "Update",
+          "Create"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "ImpactAssessment",
+        "parent_control_record": "PromotionalEventManagementPlan",
+        "operations": [
+          "UpdateImpactAssessment",
+          "ExecuteImpactAssessment",
+          "RequestImpactAssessment",
+          "CreateImpactAssessment",
+          "RetrieveImpactAssessment"
+        ]
+      },
+      {
+        "name": "MarketTracking",
+        "parent_control_record": "PromotionalEventManagementPlan",
+        "operations": [
+          "ExecuteMarketTracking",
+          "UpdateMarketTracking",
+          "RetrieveMarketTracking",
+          "RequestMarketTracking"
+        ]
+      },
+      {
+        "name": "Participation",
+        "parent_control_record": "PromotionalEventManagementPlan",
+        "operations": [
+          "RequestParticipation",
+          "UpdateParticipation",
+          "CreateParticipation",
+          "RetrieveParticipation"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PromotionalEvents.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "34a0387575b44d0151de4111fc2b051edd7c14b1fe023c165140de4e77594754",
+    "retrieved_at": "2026-09-10T22:24:05.803141+00:00"
+  }
+}

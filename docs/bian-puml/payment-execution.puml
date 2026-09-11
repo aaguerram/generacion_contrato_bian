@@ -1,0 +1,419 @@
+@startuml
+title Payment Execution - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Payment Execution
+' Source image: payment-execution-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_37242.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "ACH System" as N66075 {
+  + ACH System Identifier : Identifier
+}
+
+class "System" as N66648 {
+}
+
+class "Session" as N66743 {
+}
+
+class "ACH Session" as N66246 {
+  + ACH Session Identifier : Identifier
+}
+
+class "Correspondent Access System" as N66434 {
+  + Cirrespondent System Identifier : Identifier
+}
+
+class "Correspondent Service Session" as N66608 {
+  + Correspondent Service Session Identifier : Identifier
+}
+
+class "Procedure" as N66229 {
+}
+
+class "Payment Execution Procedure" as N66039 {
+}
+
+class "Workstep" as N66113 {
+}
+
+class "Payment Execution Task" as N66630 {
+}
+
+class "Payment System Selection" as N66042 {
+}
+
+class "Payment Service Provider Instruction" as N66367 {
+  + Used Mechanism : String
+  + Original Amount : Amount
+  + Original Currency : CurrencyCode
+  + Original Instruction Reference : Payment Instruction
+}
+
+class "Task Input Output" as N66503 {
+}
+
+class "Payment Transaction" as N66493 {
+  + Payment Transaction Type : PaymentTypeValues
+  + Payment Transaction Amount : Amount[1..*]
+  + Payment Transaction Identification : PaymentIdentification
+  + Payment Transaction Used Mechanism : Text
+  + Payment Transaction DateTime : PaymentDateTime[1..*]
+  + Payment Transaction Purpose : PaymentPurposeValues
+  + Payment Transaction Status : PaymentTransactionStatus
+  + Payment Transaction Applied Fee Amount : Amount
+  + Payment Transaction Currency : CurrencyTypeValues[1..*]
+  + Payment Transaction Credit Debit Indicator : DebitCreditIndicatortValues
+}
+
+class "Payment Instruction" as N66708 {
+  + Payment Instruction Direction Type : Text
+  + Payment Instruction Type : PaymentTypeValues
+  + Payment Instruction Requested Mechanism : Text
+  + Payment Instruction Processing Validity Time : DateTimePeriod
+  + Payment Instruction Priority : PriorityValueTypes
+  + Payment Instruction Clearing Channel : ClearingChannelTypeValues
+  + Payment Instruction Credit Debit Indicator : DebitCreditIndicatortValues
+  + Payment Instruction Status : PaymentInstructionStatus
+  + Payment Instruction Amount and Currency : PaymentAmountAndCurrency[1..*]
+  + Payment Instruction Date and Time : PaymentDateTime[1..*]
+  + Payment Instruction Identification : PaymentIdentification
+  + Payment Instruction Method : PaymentMethodTypeValues
+  + Payment Instruction Description : Text
+}
+
+class "Instruction" as N66598 {
+}
+
+class "Transaction" as N66581 {
+}
+
+class "Arrangement" as N66480 {
+}
+
+class "Payment Arrangement" as N66741 {
+  + Service Type : PaymentServiceTypeValues
+  + Payment Date : PaymentDateTime[1..*]
+  + Payment Period : DateTimePeriod
+  + Payment Purpose : PaymentPurposeValues
+  + Payment Amount and Currency : PaymentAmountAndCurrency[1..*]
+  + Payment Method : PaymentMethodTypeValues
+  + Payment Type : PaymentTypeValues
+  + Payment Time : PaymentTimeValues
+  + Payment Identification : PaymentIdentification[1..*]
+  + Payment Schedule : Schedule
+  + Payment Frequency : Frequency
+  + Payment Description : Text[0..*]
+}
+
+enum "PaymentInvolvementTypeValues" as N66307 {
+  Payer or Debtor
+  Payee Bank or Creditor Agent
+  Payee or Creditor
+  Payer Bank or Debtor Agent
+  Initiator
+  PSU
+  PSP
+  Ultimate Debtor
+  Ultimate Creditor
+}
+
+class "Payment Transaction Involvement" as N66106 {
+  + Involvement Type : PaymentInvolvementTypeValues
+  + Party Reference : Party
+  + Payment Transaction Reference : Payment Transaction
+}
+
+class "Party" as N66654 {
+}
+
+class "Account" as N66697 {
+}
+
+class "Account Entry" as N66644 {
+}
+
+enum "PaymentDateTimeTypeValues" as N66475 {
+  Requested Execution Date
+  Acceptance Date
+  Creation Date
+  Value Date
+  Due Date
+  Expiry Date
+  Expected Date
+  Pooling Adjustment Date
+}
+
+enum "PaymentTransactionStatusTypeValues" as N66702 {
+  AcceptedTechnicalValidation
+  Received
+  PartiallyAccepted
+  Rejected
+  Pending
+  AcceptedCustomerProfile
+  AcceptedSettlementInProcess
+  AcceptedSettlementCompleted
+  Accepted
+  AcceptedCancellationRequest
+  RejectedCancellationRequest
+  AcceptedWithChange
+  PartiallyAcceptedCancellationRequest
+  PendingCancellationRequest
+  AcceptedCreditSettlementCompleted
+  PaymentCancelled
+  NoCancellationProcess
+}
+
+enum "PaymentPurposeValues" as N66545 {
+  SalaryPayment
+  TreasuryPayment
+  AdvancePayment
+  AgriculturalTransfer
+  AlimonyPayment
+  ChildBenefit
+  UnemploymentDisabilityBenefit
+  BonusPayment.
+  CashManagementTransfer
+  CapitalBuilding
+  CharityPayment
+  CollectionPayment
+  CommodityTransfer
+  CommercialPayment
+  Commission
+  Costs
+  Copyright
+  Dividend
+  ForeignExchange
+  PurchaseSaleOfGoods
+  GovernmentPayment
+  InstalmentHirePurchaseAgreement
+  IntraCompanyPayment
+  InsurancePremium
+  Interest
+  LicenseFee
+  Loan
+  LoanRepayment
+  Netting
+  Payroll
+  PensionPayment
+  Refund
+  Rent
+  Royalties
+  PurchaseSaleOfServices
+  Securities
+  SocialSecurityBenefit
+  Subscription
+  TaxPayment
+  ValueAddedTaxPayment
+  ConsumerThirdPartyConsolidatedPayment
+  DebitCollectionPayment
+  SupplierPayment
+  Hedging
+  MultipleServiceTypes
+  NotOtherwiseSpecified
+  CardPayment
+  CreditCardBill
+  Ferry
+  Air
+  Bus
+  Railway
+  ConvalescentCareFacility
+  DentalServices
+  AnesthesiaServices
+  HomeHealthCare
+  HospitalCare
+  IntermediateCareFacility
+  LongTermCareFacility
+  MedicalServices
+  VisionCare
+  DurableMedicaleEquipment
+  CableTVBill
+  ElectricityBill
+  GasBill
+  TelephoneBill
+  OtherTelecomRelatedBill
+  WaterBill
+  Study
+  PricePayment
+  Installment
+  RecurringInstallmentPayment
+  OpeningFee
+  CancellationFee
+  GovernmentInsurance
+  InsurancePremiumCar
+  LaborInsurance
+  LifeInsurance
+  PropertyInsurance
+  HealthInsurance
+  CarLoanPrincipalRepayment
+  HousingLoanRepayment
+  CompanySocialLoanPaymentToBank
+  EstateTax
+  HousingTax
+  IncomeTax
+  NetIncomeTax
+  BusinessExpenses
+  TrustFund
+  NetworkCharge
+  NetworkCommunication
+  ReceiptPayment
+  PaymentTerms
+  Other
+  WithHolding
+}
+
+enum "PaymentTypeValues" as N66403 {
+  CashTransaction
+  DomesticPayment
+  DomesticHighValuePayment
+  DomesticPriorityPayment
+  CrossBorderPayment
+  CrossBorderPriorityPayment
+  CrossBorderHighValuePayment
+  ThirdCurrencyPayment
+  ThirdCurrencyHighValuePayment
+  ThirdCurrencyPriorityPayment
+  TradeSettlementPayment
+  ForeignExchange
+  EquivalentAmount
+  Loan
+  LoanRepayment
+  Securities
+  LockBox
+  Dividend
+  CrossedCheque
+  OpenCheque
+  OrderCheque
+  CircularCheque
+  TravellersCheques
+  BankDraft
+  DocumentaryCredit
+  BillOfExchange
+  Collection
+  CashManagementTransfer
+  TopAccount
+  ZeroBalanceAccount
+  StandingFacilities
+  StandardServiceLevelCredit
+  LiquidityTransfer
+  AdvancePayment
+  ValueDateAdjustment
+  DVPGross
+  DVPNet
+  Netting
+  LimitPayment
+  BackUp
+  ExpressPayment
+  CentralBankOperation
+  CLSPayment
+  EuroDomesticPayment
+  AgriculturalTransfer
+  AlimonyPayment
+  BalanceRetail
+  BonusPayment.
+  BrokerageFee
+  CapitalBuilding
+  CharityPayment
+  ChildBenefit
+  CommercialCredit
+  Commission
+  CommodityTransfer
+  Costs
+  Copyright
+  GovernmentPayment
+  InstalmentHirePurchaseAgreement
+  InsurancePremium
+  IntraCompanyPayment
+  Interest
+  LicenseFee
+  Metals
+  PensionPayment
+  PurchaseSaleOfGoods
+  Refund
+  Rent
+  Royalties
+  PurchaseSaleOfServices
+  SalaryPayment
+  SocialSecurityBenefit
+  StandingOrder
+  Subscription
+  TreasuryStatePayment
+  UnemploymentDisabilityBenefit
+  ValueAddedTaxPayment
+  TaxPayment
+  OvernightDeposit
+  MarginalLending
+  Other
+  Upfront
+  UnWind
+  PrincipalExchange
+}
+
+enum "AmountTypeValues" as N66069 {
+  Principal
+  Actual
+  Estimated
+  Maximum
+  Default
+  Replacement
+  Incremental
+  Decremental
+  Reserved
+  Available
+  Used
+  Due Payable
+  Minimum
+  Open
+  Unknown
+  Fixed
+}
+
+enum "CurrencyTypeValues" as N66621 {
+  Base Currency
+  Reporting Currency
+  Secondary Currency
+  Transfer Currency
+  Settlement Currency
+}
+
+class "PaymentDateTime" as N66377 <<datatype>> {
+  + Payment Date : DateTime
+  + Payment Date Type : PaymentDateTimeTypeValues
+}
+
+class "Amount" as N66056 <<datatype>> {
+  + Amount Value : Value
+  + Amount Currency : CurrencyCode
+  + Decimal Point Position : Text
+  + Amount Type : AmountTypeValues
+}
+
+' Relationships
+N66648 <|-- N66075
+N66648 "SystemIn / Session / 1" -- "Operating / Session / 0..*" N66743
+N66743 <|-- N66246
+N66648 <|-- N66434
+N66743 <|-- N66608
+N66229 <|-- N66039
+N66229 -- "0..*" N66113
+N66039 -- "0..*" N66630
+N66113 <|-- N66630
+N66648 "0..1" -- "0..1" N66042
+N66042 "0..1" -- "0..1" N66367
+N66503 "0..1" -- "0..1" N66042
+N66503 "0..1" -- "0..1" N66367
+N66630 "0..1" -- "0..*" N66503
+N66708 "1" -- "Causes / 0..*" N66493
+N66708 <|-- N66367
+N66598 <|-- N66708
+N66581 <|-- N66493
+N66480 <|-- N66741
+N66741 "0..1" -- "0..*" N66708
+N66493 "0..1" -- "0..*" N66106
+N66654 "0..1" -- "0..*" N66106
+N66697 "1" -- "0..*" N66644
+N66493 "0..1" -- "0..*" N66644
+@enduml

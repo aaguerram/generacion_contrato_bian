@@ -1,0 +1,94 @@
+@startuml
+title Leasing Item Administration - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Leasing Item Administration
+' Source image: leasing-item-administration-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51945.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Lease Agreement" as N159805 {
+}
+
+class "Lease Arrangement" as N159755 {
+}
+
+class "Agreement" as N159796 {
+}
+
+class "Arrangement" as N159785 {
+}
+
+class "Leasing Item Administrative Plan" as N159736 {
+}
+
+class "Administrative Plan" as N159808 {
+}
+
+class "Routine" as N159777 {
+}
+
+class "Asset Valuation" as N159849 {
+  + Asset Value : Value
+  + Asset Value Type : Text
+  + Asset Valuation Type : Text
+  + Asset Valuation Date : DateTime
+  + Asset Valuation Rate : Rate
+  + Asset Valuation Status : Status
+  + Asset Valuation Validity Period : DateTimePeriod
+  + Asse Valuation Amount : Amount
+}
+
+class "Asset" as N159733 {
+  + Asset Title : Text
+  + Asset Identification : Identifier
+  + Asset Type : AssetTypeValues
+  + Asset Description : Text
+  + Asset Status : Status
+  + Asset Date : DateTime
+  + Asset Classification : Text
+  + Asset Classification Type : AssetClassificationTypeValues
+  + Asset Sub Classification Type : AssetSubClassificationTypeValues
+  + Asset Sub Classification : Text
+}
+
+class "Assessment" as N159832 {
+}
+
+class "Leasing Item Arrangement" as N159865 {
+}
+
+class "Lease Instruction" as N159773 {
+}
+
+class "Lease Transaction" as N159847 {
+}
+
+class "Transaction" as N159744 {
+}
+
+class "Instruction" as N159853 {
+}
+
+' Relationships
+N159805 "1" -- "1..*" N159755
+N159733 "Leased / Item / 0..1" -- "0..*" N159805
+N159796 <|-- N159805
+N159785 <|-- N159755
+N159796 "1" -- "1..*" N159785
+N159733 "0..1" -- "0..*" N159736
+N159808 <|-- N159736
+N159808 "0..1" -- "0..*" N159777
+N159733 "0..1" -- "0..*" N159849
+N159832 <|-- N159849
+N159755 <|-- N159865
+N159733 "0..1" -- "Subject / Matter/Leased Item / 0..1" N159865
+N159773 "0..*" -- "0..1" N159755
+N159773 "0..1" -- "0..*" N159847
+N159744 <|-- N159847
+N159853 <|-- N159773
+N159853 "0..*" -- "0..1" N159785
+N159853 "0..1" -- "0..*" N159744
+@enduml

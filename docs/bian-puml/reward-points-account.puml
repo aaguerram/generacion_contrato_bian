@@ -1,0 +1,70 @@
+@startuml
+title Reward Points Account - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Reward Points Account
+' Source image: reward-points-account-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52819.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Reward Point" as N187690 {
+}
+
+class "Log" as N187656 {
+}
+
+class "Log Entry" as N187731 {
+}
+
+class "Event" as N187655 {
+}
+
+class "Reward Point Log" as N187649 {
+}
+
+class "Reward Point Log Entry" as N187675 {
+}
+
+class "Reward Point Transaction" as N187697 {
+}
+
+class "Reward Point Log Position" as N187727 {
+  + Position Type : String
+  + Position Definition : String
+  + Position : String[1..*]
+}
+
+class "Position" as N187710 {
+  + Position Value : Value
+  + Position Quantity : Number
+  + Position Date : DateTime
+  + Position Amount : Amount
+}
+
+class "Reward Point Arrangement" as N187722 {
+}
+
+class "Arrangement" as N187691 {
+}
+
+class "Limit Arrangement" as N187671 {
+}
+
+' Relationships
+N187656 "1" -- "LogEntry / 1..*" N187731
+N187731 "PostingEntry / 1..*" -- "PostedEvent / 0..1" N187655
+N187656 <|-- N187649
+N187649 "0..1" -- "1..*" N187675
+N187655 <|-- N187697
+N187675 "1..*" -- "0..1" N187697
+N187731 <|-- N187675
+N187690 "SubjectOf / Arrangement / 0..1" -- "0..*" N187722
+N187649 -- N187727
+N187727 -- N187710
+N187722 "0..1" -- "0..*" N187697
+N187691 <|-- N187722
+N187691 <|-- N187671
+N187722 "0..*" -- "0..*" N187671
+@enduml

@@ -1,0 +1,71 @@
+@startuml
+title Issued Device Tracking - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Issued Device Tracking
+' Source image: issued-device-tracking-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_45192.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Device" as N156787 {
+}
+
+class "Device Arrangement" as N156727 {
+  + Device Functionality : Action
+  + Device Remuneration : Fee Arrangement
+}
+
+class "Issued Device" as N156714 {
+  + Issued Device Status : IssuedDeviceStatusTypeValues
+  + Issued Device Party Reference : Text
+  + Issued Device Configuration : Text
+  + Issued Device Reference : Text
+  + Issued Device Validity Period : DateTimePeriod
+  + Issued Device Delivery Method : Text
+  + Device Issue Date : DateTime
+  + Issued Device Collect Location : Branch
+  + Issued Device Product Reference : Text
+  + Issed Device Customization Type : DeviceCustomizationTypeValues
+}
+
+class "Product Sales Agreement" as N156723 {
+  + Involved Party : Product Sales Agreement Involvement[2..*]
+  + Agreement Identification : Identifier
+  + Product Reference : Product
+}
+
+class "Device Usage" as N156783 {
+  + Device Transaction Used Element : String
+  + Device Usage Amount : Amount
+}
+
+class "Issued Device Agreement Allocation" as N156745 {
+  + Device Agreement Allocation Status : String
+  + Device Agreement Functionality : String
+}
+
+class "Issued Device Measurement" as N156717 {
+  + Device Measurement Date Time : String
+  + Device Measurement Details : String
+  + Device Measurement Result : String
+  + Information Feed Reference : String
+}
+
+class "Measurement" as N156711 {
+}
+
+class "System" as N156731 {
+}
+
+' Relationships
+N156723 "1" -- "0..*" N156727
+N156714 -- "0..*" N156783 : 1
+N156714 "1" -- "1..*" N156745
+N156727 "1" -- "0..*" N156745
+N156714 "1" -- "0..*" N156717
+N156711 <|-- N156717
+N156731 "1" -- "0..*" N156717
+N156787 "0..1" -- "0..*" N156714
+@enduml

@@ -1,0 +1,1394 @@
+{
+  "service_domain": "Customer Behavior Insights",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Evaluate",
+      "method": "POST",
+      "path": "/CustomerBehaviorInsights/Evaluate",
+      "tipo": "CR",
+      "grupo": "CustomerBehaviorAnalysis",
+      "request_schema": "CustomerBehaviorAnalysis",
+      "response_schema": "CustomerBehaviorAnalysis",
+      "summary": "EvCR Set-up evaluation of customer behavior insights for a customer",
+      "description": "EvCR Set-up evaluation of customer behavior insights for a customer"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/CustomerBehaviorInsights/{customerbehaviorinsightsid}/Exchange",
+      "tipo": "CR",
+      "grupo": "CustomerBehaviorAnalysis",
+      "request_schema": "CustomerBehaviorAnalysis",
+      "response_schema": "CustomerBehaviorAnalysis",
+      "summary": "EcCR Accept, verify, etc. customer behavior insights",
+      "description": "EcCR Accept, verify, etc. customer behavior insights"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/CustomerBehaviorInsights/{customerbehaviorinsightsid}/Request",
+      "tipo": "CR",
+      "grupo": "CustomerBehaviorAnalysis",
+      "request_schema": "CustomerBehaviorAnalysis",
+      "response_schema": "CustomerBehaviorAnalysis",
+      "summary": "RqCR Request manual intervention for customer insights (e.g. unscheduled revision)",
+      "description": "RqCR Request manual intervention for customer insights (e.g. unscheduled revision)"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/CustomerBehaviorInsights/{customerbehaviorinsightsid}/Execute",
+      "tipo": "CR",
+      "grupo": "CustomerBehaviorAnalysis",
+      "request_schema": "CustomerBehaviorAnalysis",
+      "response_schema": "CustomerBehaviorAnalysis",
+      "summary": "ExCR Execute an automated task for customer insights (e.g. automated refresh",
+      "description": "ExCR Execute an automated task for customer insights (e.g. automated refresh"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/CustomerBehaviorInsights/{customerbehaviorinsightsid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "CustomerBehaviorAnalysis",
+      "request_schema": "",
+      "response_schema": "CustomerBehaviorAnalysis",
+      "summary": "ReCR Retrieve details about customer behavior insights",
+      "description": "ReCR Retrieve details about customer behavior insights"
+    },
+    {
+      "operation_id": "ExchangeInsight",
+      "method": "PUT",
+      "path": "/CustomerBehaviorInsights/{customerbehaviorinsightsid}/Insight/{insightid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "Insight",
+      "request_schema": "Insight",
+      "response_schema": "Insight",
+      "summary": "EcBQ Accept, verify etc. a selected type of customer behavior insight",
+      "description": "EcBQ Accept, verify etc. a selected type of customer behavior insight",
+      "parent_control_record": "CustomerBehaviorAnalysis"
+    },
+    {
+      "operation_id": "ExecuteInsight",
+      "method": "PUT",
+      "path": "/CustomerBehaviorInsights/{customerbehaviorinsightsid}/Insight/{insightid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Insight",
+      "request_schema": "Insight",
+      "response_schema": "Insight",
+      "summary": "ExBQ Execute an automated task for a specific customer behavior insight (e.g. refresh)",
+      "description": "ExBQ Execute an automated task for a specific customer behavior insight (e.g. refresh)",
+      "parent_control_record": "CustomerBehaviorAnalysis"
+    },
+    {
+      "operation_id": "RequestInsight",
+      "method": "PUT",
+      "path": "/CustomerBehaviorInsights/{customerbehaviorinsightsid}/Insight/{insightid}/Request",
+      "tipo": "BQ",
+      "grupo": "Insight",
+      "request_schema": "Insight",
+      "response_schema": "Insight",
+      "summary": "RqBQ Request manual intervention for a specific customer behavior insight (e.g. re-calculate)",
+      "description": "RqBQ Request manual intervention for a specific customer behavior insight (e.g. re-calculate)",
+      "parent_control_record": "CustomerBehaviorAnalysis"
+    },
+    {
+      "operation_id": "RetrieveInsight",
+      "method": "GET",
+      "path": "/CustomerBehaviorInsights/{customerbehaviorinsightsid}/Insight/{insightid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Insight",
+      "request_schema": "",
+      "response_schema": "Insight",
+      "summary": "ReBQ Retrieve details about a specific customer behavior insight",
+      "description": "ReBQ Retrieve details about a specific customer behavior insight",
+      "parent_control_record": "CustomerBehaviorAnalysis"
+    }
+  ],
+  "schemas": [
+    "Analysistypevalues",
+    "CustomerBehaviorAnalysis",
+    "CustomerBehaviorInsightAnalysis",
+    "CustomerBehaviorModel",
+    "CustomerDemographicInsight",
+    "CustomerEngagementInsight",
+    "CustomerEventLog",
+    "CustomerInsight",
+    "CustomerJourneyInsight",
+    "CustomerPsychographicInsight",
+    "CustomerRelationship",
+    "CustomerRetentionandChurnInsight",
+    "CustomerSatisfactionandSentimentInsight",
+    "Customerbehaviormodeltypevalues",
+    "Customerinsighttypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Document",
+    "Documentdatetimetypevalues",
+    "Financialdocumenttypevalues",
+    "HTTPError",
+    "Identifier",
+    "Insight",
+    "Involvedparty",
+    "Log",
+    "MarketResearchReport",
+    "Marketresearchreporttypevalues",
+    "Marketresearchviewpointtypevalues",
+    "Model",
+    "Name",
+    "Report",
+    "Reporttypevalues",
+    "Schedule",
+    "ServicingEventLog",
+    "Status",
+    "Task",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "CustomerBehaviorAnalysis",
+      "kind": "object",
+      "description": "Analyze the performance or behavior of some on-going activity or entity  within Customer Behavior Insights. \nExamples: Provide behavioral insights and analysis into customer behavior and analyze financial market activity in order to identify opportunities, define pricing and evaluate risks.\n\nAnalyze the performance or behavior of some on-going activity or entity. Examples: Provide behavioral insights and analysis into customer behavior and analyze financial market activity in order to identify opportunities, define pricing and evaluate risks.",
+      "properties": [
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "CustomerRelationship"
+        },
+        {
+          "name": "CustomerBehaviorInsightsAnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CustomerBehaviorInsightsAnalysisRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerInsightType",
+          "type": "object",
+          "ref": "Customerinsighttypevalues"
+        },
+        {
+          "name": "CustomerInsight",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "CustomerInsightCalculationDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CustomerBehaviorInsightsAnalysis",
+          "type": "object",
+          "ref": "CustomerBehaviorInsightAnalysis"
+        },
+        {
+          "name": "CustomerBehaviorInsightsAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "CustomerBehaviorInsightsAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "CustomerBehaviorInsightsAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "CustomerBehaviorInsightsAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        }
+      ]
+    },
+    {
+      "name": "CustomerBehaviorInsightAnalysis",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "CustomerBehaviorModel",
+      "kind": "object",
+      "description": "Reference to the behavior model used to develop the insight",
+      "properties": [
+        {
+          "name": "CustomerBehaviorModelType",
+          "type": "object",
+          "ref": "Customerbehaviormodeltypevalues"
+        },
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "CustomerDemographicInsight",
+      "kind": "object",
+      "description": "•    Mapping the entire customer journey from awareness to purchase and beyond.•    \nIdentifying touchpoints, pain points, and opportunities to improve the customer experience.",
+      "properties": [
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        }
+      ]
+    },
+    {
+      "name": "CustomerEngagementInsight",
+      "kind": "object",
+      "description": "•    Mapping the entire customer journey from awareness to purchase and beyond.•    \nIdentifying touchpoints, pain points, and opportunities to improve the customer experience.",
+      "properties": [
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        }
+      ]
+    },
+    {
+      "name": "CustomerEventLog",
+      "kind": "object",
+      "description": "The Record containing the selected event records from the log",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "CustomerInsight",
+      "kind": "object",
+      "description": "Refers to the insight",
+      "properties": [
+        {
+          "name": "CustomerInsightType",
+          "type": "object",
+          "ref": "Customerinsighttypevalues"
+        },
+        {
+          "name": "CustomerInsightValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerInsightCalculationDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CustomerInsightDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerInsightIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "CustomerJourneyInsight",
+      "kind": "object",
+      "description": "•    Mapping the entire customer journey from awareness to purchase and beyond.•    \nIdentifying touchpoints, pain points, and opportunities to improve the customer experience.",
+      "properties": [
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        }
+      ]
+    },
+    {
+      "name": "CustomerPsychographicInsight",
+      "kind": "object",
+      "description": "•    Mapping the entire customer journey from awareness to purchase and beyond.•    \nIdentifying touchpoints, pain points, and opportunities to improve the customer experience.",
+      "properties": [
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        }
+      ]
+    },
+    {
+      "name": "CustomerRelationship",
+      "kind": "object",
+      "description": "Reference to the associated customer (can currently be a person or a company)",
+      "properties": [
+        {
+          "name": "RelationshipType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RelationshipValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "RelationshipStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "RelationshipEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "RelationshipLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "RelationshipIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "CustomerRetentionandChurnInsight",
+      "kind": "object",
+      "description": "•    Mapping the entire customer journey from awareness to purchase and beyond.•    \nIdentifying touchpoints, pain points, and opportunities to improve the customer experience.",
+      "properties": [
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        }
+      ]
+    },
+    {
+      "name": "CustomerSatisfactionandSentimentInsight",
+      "kind": "object",
+      "description": "•    Mapping the entire customer journey from awareness to purchase and beyond.•    \nIdentifying touchpoints, pain points, and opportunities to improve the customer experience.",
+      "properties": [
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        }
+      ]
+    },
+    {
+      "name": "Customerbehaviormodeltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DemographicModel` - Analyze customer behavior based on demographic factors such as age, gender, income, education, and occupation.\nExample: Segmenting customers by age group to tailor marketing strategies.\r\n* `PsychographicModel` - Focus on psychological attributes, including values, attitudes, interests, and lifestyles.\nExample: Creating buyer personas based on lifestyle choices and interests.\r\n* `GeographicModel` - Look at customer behavior based on geographic location, considering factors like regional preferences and climate.\nExample: Targeting advertisements based on location-specific needs.\r\n* `SocioeconomicModel` - Combine social and economic factors to understand consumer behavior\nExample: Analyzing how economic status influences buying decisions\r\n* `SituationalModel` - Consider the context or situation in which the consumer is making a decision, including time of day, season, and situational needs.\nExample: Promoting holiday-related products during festive seasons.\r\n* `CulturalModel` - Focus on the influence of culture, traditions, and social norms on consumer behavior.\nExample: Adapting marketing messages to align with cultural values and practices.\r\n* `Usage-BasedModel` - Segment customers based on how they use a product or service, including frequency and intensity of use.\nExample: Differentiating between heavy, moderate, and light users of a product.\r\n* `Benefit-SoughtModel` - Classify customers according to the benefits they seek from a product or service.\nExample: Marketing products based on specific benefits like convenience, cost-saving, or luxury.\r\n* `HybridModel` - Combine elements from various models to provide a comprehensive view of customer behavior.\nExample: Using demographic, psychographic, and behavioral data together for more precise targeting\r\n",
+      "enum_values": [
+        "DemographicModel",
+        "PsychographicModel",
+        "GeographicModel",
+        "SocioeconomicModel",
+        "SituationalModel",
+        "CulturalModel",
+        "Usage-BasedModel",
+        "Benefit-SoughtModel",
+        "HybridModel"
+      ]
+    },
+    {
+      "name": "Customerinsighttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerBehavioralInsight` - Understanding how customers interact with products, services, and brands.\r\n* `CustomerDemographicInsight` - Analyzing customer characteristics such as age, gender, income, education, and location.\r\n* `CustomerPsychographicInsight` - Exploring customers' lifestyles, values, interests, and attitudes.\r\n* `CustomerTransactionalInsight` - Examining purchase history, order frequency, average transaction value, and payment methods\r\n* `CustomerFeedbackAndSentimentInsight` - Gathering and analyzing customer feedback through surveys, reviews, social media, and customer support interactions\r\n* `CustomerJourneyInsight` - Mapping the entire customer journey from awareness to purchase and beyond\r\n* `CustomerRetentionAndChurnInsight` - Understanding the factors that influence customer retention and attrition\r\n* `CustomerFinancialInsight` - Customer financial insights refer to the analysis and understanding of the financial aspects related to customer interactions and behaviors. \r\n",
+      "enum_values": [
+        "CustomerBehavioralInsight",
+        "CustomerDemographicInsight",
+        "CustomerPsychographicInsight",
+        "CustomerTransactionalInsight",
+        "CustomerFeedbackAndSentimentInsight",
+        "CustomerJourneyInsight",
+        "CustomerRetentionAndChurnInsight",
+        "CustomerFinancialInsight"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Refers to a document used in the insight analysis",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Insight",
+      "kind": "object",
+      "description": "•    Mapping the entire customer journey from awareness to purchase and beyond.•    \nIdentifying touchpoints, pain points, and opportunities to improve the customer experience.",
+      "properties": [
+        {
+          "name": "InsightEvaluationCustomerInsightType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InsightEvaluationTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightEvaluationRequestSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "insightEvaluationCustomerBehaviorModelReference",
+          "type": "object",
+          "ref": "CustomerBehaviorModel"
+        },
+        {
+          "name": "InsightEvaluationProductandServiceActivityReport",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightEvaluationCustomerEventLogReport",
+          "type": "object",
+          "ref": "CustomerEventLog"
+        },
+        {
+          "name": "InsightEvaluationServicingEventLogReport",
+          "type": "object",
+          "ref": "ServicingEventLog"
+        },
+        {
+          "name": "InsightEvaluationChannelEventLogReport",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InsightEvaluationMarketResearchReport",
+          "type": "object",
+          "ref": "MarketResearchReport"
+        },
+        {
+          "name": "InsightEvaluationWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightEvaluationRequestResult",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Refers to a log used in the insight analysis like Customer Event Log, Servicing Even Log, etc.",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "MarketResearchReport",
+      "kind": "object",
+      "description": "The content of a specific market research report or database in any suitable form",
+      "properties": [
+        {
+          "name": "MarketResearchReportContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketResearchViewpointType",
+          "type": "object",
+          "ref": "Marketresearchviewpointtypevalues"
+        },
+        {
+          "name": "MarketResearchReportPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "MarketResearchReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketResearchReportType",
+          "type": "object",
+          "ref": "Marketresearchreporttypevalues"
+        },
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Marketresearchreporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `IndustryReport` - \r\n* `MarketResearchReport` - \r\n* `ConsumerInsightsReport` - \r\n* `CompetitiveAnalysisReport` - \r\n* `TrendAnalysisReport` - \r\n* `ProductServiceReport` - \r\n* `BrandAnalysisReport` - \r\n* `CustomerSatisfactionAndLoyaltyReport` - \r\n* `FeasibilityStudies` - \r\n* `EconomicAnalysisReport` - \r\n* `TechnologyAndInnovationReport` - \r\n* `GeographicMarketReport` - \r\n* `EnvironmentalAndSustainabilityReport` - \r\n",
+      "enum_values": [
+        "IndustryReport",
+        "MarketResearchReport",
+        "ConsumerInsightsReport",
+        "CompetitiveAnalysisReport",
+        "TrendAnalysisReport",
+        "ProductServiceReport",
+        "BrandAnalysisReport",
+        "CustomerSatisfactionAndLoyaltyReport",
+        "FeasibilityStudies",
+        "EconomicAnalysisReport",
+        "TechnologyAndInnovationReport",
+        "GeographicMarketReport",
+        "EnvironmentalAndSustainabilityReport"
+      ]
+    },
+    {
+      "name": "Marketresearchviewpointtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerViewpoint` - \r\n* `CompetitorViewpoint` - \r\n* `MarketDynamicsViewpoint` - \r\n* `ProductServiceViewpoint` - \r\n* `GeographicViewpoint` - \r\n* `EconomicAndPoliticalViewpoint` - \r\n* `TechnologicalViewpoint` - \r\n* `EnvironmentalAndSustainabilityViewpoint` - \r\n* `ChannelAndDistributionViewpoint` - \r\n* `FinancialViewpoint` - \r\n",
+      "enum_values": [
+        "CustomerViewpoint",
+        "CompetitorViewpoint",
+        "MarketDynamicsViewpoint",
+        "ProductServiceViewpoint",
+        "GeographicViewpoint",
+        "EconomicAndPoliticalViewpoint",
+        "TechnologicalViewpoint",
+        "EnvironmentalAndSustainabilityViewpoint",
+        "ChannelAndDistributionViewpoint",
+        "FinancialViewpoint"
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "Refers to a model used in the insight analysis like Customer Behavior Model",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Report",
+      "kind": "object",
+      "description": "Refers to a report used in the insight analysis like Market Research Report",
+      "properties": [
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule for refreshing the analyses for a customer",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ServicingEventLog",
+      "kind": "object",
+      "description": "The Record containing the selected event records from the log",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "Refers to a task for doing the insight analysis",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "Refers to work documentation, forms and schedules produced and referenced during the insight analysis",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "CustomerBehaviorAnalysis",
+        "operations": [
+          "Evaluate",
+          "Exchange",
+          "Request",
+          "Execute",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Insight",
+        "parent_control_record": "CustomerBehaviorAnalysis",
+        "operations": [
+          "ExchangeInsight",
+          "ExecuteInsight",
+          "RequestInsight",
+          "RetrieveInsight"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerBehaviorInsights.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "bfbdf3bdb041c9074983566a765343556b330a7f73cc7ca61c8e1baf318a93aa",
+    "retrieved_at": "2026-09-10T22:23:41.752172+00:00"
+  }
+}

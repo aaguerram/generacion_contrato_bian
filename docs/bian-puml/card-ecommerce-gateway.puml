@@ -1,0 +1,169 @@
+@startuml
+title Card eCommerce Gateway - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Card eCommerce Gateway
+' Source image: card-ecommerce-gateway-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_45766.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Session" as N191533 {
+}
+
+class "System" as N191691 {
+}
+
+class "eCommerce Gateway" as N191511 {
+}
+
+class "eCommerce Gateway Session" as N191488 {
+}
+
+class "Payment Transaction" as N191627 {
+}
+
+class "Payment Service" as N191581 {
+}
+
+class "Card Payment Transaction" as N191603 {
+  + Amount : Amount[1..*]
+  + Merchant Location : Location
+  + Debit Credit Direction : DebitCreditIndicatortValues
+  + Card Transaction Channel : TransactionChannelTypeValues
+  + Point Of Interaction : Point Of Service
+  + Card Transaction Date Time : DateTime
+  + Card Transaction Environment Type : TransactionEnvironmentTypeValues
+  + Merchant Country : Country
+  + Card Network : Card Network
+  + Amount Qualifier : AmountQualifierTypeValues
+  + Card Payment Status : Status
+  + Card Transaction Category : CardTransactionCategoryTypeValues
+  + Card Payment Transaction Identification : CardPaymentTransactionIdentification
+  + Card Payment Transaction Service Type : CardPaymentTransactionServiceTypeValues
+}
+
+class "Card Payment Involvement" as N191736 {
+  + Involvement Type : CardPaymentInvolvementTypeValues
+  + Agreement Reference : Card Payment Agreement
+  + Party Reference : Party
+}
+
+class "Card Payment Service" as N191721 {
+  + Card Payment Service Identifier : Identifier
+  + Card Payment Service Type : CardPaymentServiceTypeValues
+  + Card Payment Service Configuration : Text
+}
+
+class "Payment Card" as N191748 {
+  + Card Type : PaymentCardTypeValues
+  + Card Number : Number
+  + Card Start Date : DateTime
+  + Card Expiry Date : DateTime
+  + Card Security Code : Number
+  + Card Verification Value : Number
+  + Bank Identification Number : Identifier
+  + Card Sequence Number : Text
+  + Card Brand : Text
+  + Card Currency Code : CurrencyCode
+  + Card Country Code : Country
+  + Card Product Profile : Text
+}
+
+class "Device" as N191662 {
+}
+
+enum "CardPaymentInvolvementTypeValues" as N191726 {
+  Card Holder
+  CardI ssuer
+  Card Acceptor
+  Card Acquirer
+  Merchant
+  Card Network
+}
+
+class "Transaction Batch" as N191491 {
+  + Batch Transaction Date Time : String
+}
+
+class "Card Payment Authentication" as N191626 {
+  + Card Holder : InvolvedParty
+}
+
+class "Card Payment Authorization" as N191532 {
+  + Transaction Success : TrueFalseIndicatorValues
+  + Merchant Override : TrueFalseIndicatorValues
+  + Validity Date : Date
+  + Response : Text
+  + Authorization Code : Value
+  + Cardholder Address Verification Result : CardholderAddressVerificationResultTypeValues
+  + CSC Result : CSCResultTypeValues
+  + Electronic Commerce Authentication Result : Text
+  + Failure Reason : FailureReasonTypeValues
+  + Authorization Entity : InvolvedParty
+}
+
+class "Authorization" as N191716 {
+}
+
+class "Authentication" as N191720 {
+}
+
+class "Location" as N191561 {
+}
+
+class "Product" as N191590 {
+}
+
+class "Service" as N191599 {
+}
+
+class "Party" as N191643 {
+}
+
+class "Assessment" as N191499 {
+}
+
+class "Account Entry" as N191525 {
+}
+
+class "Account" as N191512 {
+}
+
+enum "PaymentCardTypeValues" as N191592 {
+  CreditCard
+  DebitCard
+}
+
+class "PaymentCardType" as N191684 <<datatype>> {
+  + Payment Card Type : PartyIdentificationTypeValues
+  + Payment Card Type Name : Name
+}
+
+' Relationships
+N191691 <|-- N191511
+N191533 <|-- N191488
+N191511 "0..1" -- "OperationSession / 0..1" N191488 : SystemInSession
+N191627 <|-- N191603
+N191603 "0..1" -- "2..*" N191736
+N191581 <|-- N191721
+N191721 "0..*" -- "0..1" N191511
+N191721 "0..1" -- "0..*" N191603
+N191748 "1" -- "UsedCard / 0..*" N191603
+N191662 <|-- N191748
+N191491 "0..1" -- "0..*" N191603
+N191603 "0..1" -- "0..1" N191626
+N191532 "0..*" -- "0..1" N191603
+N191716 <|-- N191532
+N191720 <|-- N191626
+N191603 "0..*" -- "0..*" N191561
+N191603 "0..*" -- "PurchasedProduct / 0..*" N191590
+N191599 <|-- N191581
+N191499 <|-- N191720
+N191499 <|-- N191716
+N191748 "0..*" -- "Offering / Service / 0..*" N191721
+N191603 "0..1" -- "2..*" N191525
+N191512 "1" -- "0..*" N191525
+N191643 "0..1" -- "0..*" N191736
+@enduml

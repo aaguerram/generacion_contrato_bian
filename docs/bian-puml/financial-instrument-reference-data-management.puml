@@ -1,0 +1,168 @@
+@startuml
+title Financial Instrument Reference Data Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Financial Instrument Reference Data Management
+' Source image: financial-instrument-reference-data-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52602.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Financial Instrument" as N68300 {
+  + Financial Instrument Type : FinancialInstrumentTypeValues
+  + Financial Instrument Identification : FinancialInstrumentIdentification[1..*]
+  + Financial Instrument Name : Name[1..*]
+  + Financial Instrument Date : FinancialInstrumentDateTime
+}
+
+class "Directory" as N68305 {
+}
+
+class "Directory Entry" as N68376 {
+}
+
+class "Financial Instrument Directory Entry" as N68288 {
+}
+
+class "Financial Instrument Directory" as N68484 {
+}
+
+class "Financial Market" as N68364 {
+  + Financial Market Type : FinancialMarketTypeValues
+}
+
+class "Market" as N68335 {
+}
+
+class "Location" as N68268 {
+}
+
+class "Party" as N68366 {
+}
+
+class "Financial Instrument Involvement" as N68446 {
+  + Financial Instrument Involvement Type : FinancialInstrumentInvolvementTypeValues
+}
+
+enum "FinancialInstrumentInvolvementTypeValues" as N68401 {
+  Issuer
+  Portfolio Manager
+  Investment Advisor
+  Warrant Agent
+  Trader
+  Trustee
+}
+
+enum "FinancialInstrumentTypeValues" as N68296 {
+  Loan
+  Bond
+  Deposit
+  Stock
+  Option
+  Share
+  Debt
+  LetterOfCredit
+  Security
+  Derivative
+}
+
+enum "FinancialInstrumentIdentificationTypeValues" as N68372 {
+  NASDAQ
+  ISIN
+}
+
+class "FinancialInstrumentIdentification" as N68360 <<datatype>> {
+  + Financial Instrument Identification : Identifier
+  + Financial Instrument Identification Type : FinancialInstrumentIdentificationTypeValues
+}
+
+class "Identifier" as N68349 <<datatype>> {
+  + Identifier Value : Value
+  + Identifier Issuer Reference : InvolvedParty
+  + Identifier Start Date : DateTime
+  + Identifier End Date : DateTime
+}
+
+class "Investment Portfolio Item" as N68483 {
+}
+
+class "Investment Portfolio" as N68365 {
+}
+
+class "Portfolio" as N68342 {
+}
+
+class "SecurityStatus" as N68368 <<datatype>> {
+  + Security Status : Status
+  + Security Status Type : SecurityStatusTypeValues
+}
+
+class "Security" as N68494 {
+  + Security Amount : Amount
+  + Security Price : Arrangement
+  + Security Identification : SecurityIdentification
+  + Security Balance : AccountBalance
+  + Security Status : SecurityStatus
+  + Security Fees : Fee Arrangement
+  + Security Date : Date Time
+  + Security Rate : Rate
+  + Security Tax : Tax Arrangement
+  + Security Jurisdiction : Jurisdiction
+}
+
+enum "SecurityIdentificationTypeValues" as N68357 {
+  RIC
+  TickerSymbol
+  Bloomberg
+  CTA
+  Common
+  Name
+  SEDOL
+  CUSIP
+  QUICK
+  Wertpapier
+  Dutch
+  Valoren
+  Sicovam
+  Belgian
+  IdentificationSuffix
+  GenericIdentification
+  ValidityPeriod
+  ApplicableTradingMarket
+  PrimeIdentification
+  RelatedOtherIdentification
+  TradingIdentification
+}
+
+class "SecurityIdentification" as N68250 <<datatype>> {
+  + Security Identification : Identifier
+  + Security Identification Type : SecurityIdentificationTypeValues
+}
+
+enum "SecurityStatusTypeValues" as N68246 {
+  Inactive
+  WhenIssued
+  WhenDistributed
+  Issued
+  Suspended
+  InDefault
+  Worthless
+}
+
+' Relationships
+N68300 "Registered / FinancialInstrument / 0..1" -- "0..*" N68288
+N68376 <|-- N68288
+N68305 <|-- N68484
+N68335 <|-- N68364
+N68268 "0..1" -- "0..*" N68335
+N68300 "0..*" -- "RelatedMarket / 0..*" N68364
+N68446 "0..*" -- "0..1" N68300
+N68483 "0..*" -- "1" N68300
+N68365 "0..1" -- "0..*" N68483
+N68484 "1" -- "0..*" N68288
+N68366 "0..1" -- "0..*" N68446
+N68342 <|-- N68365
+N68300 <|-- N68494
+N68349 <|-- N68360
+@enduml

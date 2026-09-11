@@ -1,0 +1,77 @@
+@startuml
+title Transaction Engine - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Transaction Engine
+' Source image: transaction-engine-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_31201.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Transaction Schedule Service" as N77138 {
+  + Service Date Time : String
+  + Service Fee Type : String
+  + Service Function Type : String
+  + Service Function Description : String
+}
+
+class "Service" as N77117 {
+  + Service Name : Name
+  + Service Description : Text
+  + Service Type : ServiceTypeValues
+  + Service Identification : Identifier
+  + Service Lifecycle Status : Status
+  + Service Feature : Feature[1..*]
+}
+
+class "Service Arrangement" as N77148 {
+}
+
+class "Transaction Schedule Arrangement" as N77076 {
+  + Applicable Service Fee Type : String
+  + Applicable Service Fee Amount : String
+  + Service Arrangement Date Time : String
+}
+
+class "Transaction Schedule Arrangement Fulfillment Event" as N77100 {
+  + Applied Service Fee Type : String
+  + Applied Service Fee Amount : String
+  + Applied Service Fee Description : String
+}
+
+class "Product" as N77141 {
+}
+
+class "Transaction" as N77151 {
+  + Transaction Identification : Identifier
+  + Transaction Date : TransactionDateTime[0..*]
+  + Transaction Type : TransactionTypeValues
+  + Transaction Description : Text
+  + Transaction Status : TransactionStatus
+  + Transaction Name : Name
+}
+
+class "Financial Transaction" as N77131 {
+  + Financial Transaction Type : FinancialTransactionTypeValues
+  + Financial Transaction Currency : CurrencyCode
+  + Financial Transaction Amount : Amount
+  + Financial Transaction From Account : Account
+  + Financial Transaction Target Account : Account
+  + Financial Transaction Date Time : DateTime[1..*]
+}
+
+class "Arrangement" as N77080 {
+}
+
+' Relationships
+N77117 <|-- N77138
+N77148 <|-- N77076
+N77138 "0..1" -- "0..*" N77076
+N77076 "0..1" -- "0..*" N77100
+N77141 "Supported / Product/Service / 0..*" -- "0..*" N77138
+N77151 "0..*" -- "AccessedBy / Transaction / 0..1" N77141
+N77138 "0..*" -- "Scheduled / FinancialTransaction / 0..1" N77131
+N77151 <|-- N77131
+N77080 <|-- N77148
+@enduml

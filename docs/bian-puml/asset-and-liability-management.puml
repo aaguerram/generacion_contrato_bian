@@ -1,0 +1,73 @@
+@startuml
+title Asset And Liability Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Asset And Liability Management
+' Source image: asset-and-liability-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_48259.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Asset And Liability Portfolio Strategy" as N188864 {
+}
+
+class "Strategy" as N188857 {
+}
+
+class "Goal" as N188843 {
+  + Goal Type : GoalTypeValues
+  + Goal Definition : Text
+  + Goal Name : Name
+  + Goal Date and Time : GoalDateTime
+  + Goal Status : GoalStatus
+}
+
+class "Balance Sheet" as N188892 {
+}
+
+class "Financial Transaction" as N188861 {
+  + Financial Transaction Type : FinancialTransactionTypeValues
+  + Financial Transaction Currency : CurrencyCode
+  + Financial Transaction Amount : Amount
+  + Financial Transaction From Account : Account
+  + Financial Transaction Target Account : Account
+  + Financial Transaction Date Time : DateTime[1..*]
+}
+
+class "Financial Asset" as N188891 {
+}
+
+class "Financial Liability" as N188873 {
+}
+
+class "Financial Instrument" as N188854 {
+}
+
+class "Asset Liability Portfolio" as N188846 {
+}
+
+class "Asset Liability Portfolio Entry" as N188859 {
+}
+
+class "Assessment" as N188840 {
+}
+
+class "Financial Position" as N188916 {
+}
+
+' Relationships
+N188857 <|-- N188864
+N188857 "0..1" -- N188843 : 0..*
+N188916 "0..*" -- "0..1" N188892
+N188854 <|-- N188873
+N188854 <|-- N188891
+N188846 "0..1" -- N188864 : 0..*
+N188846 -- "0..*" N188859 : 0..1
+N188916 "0..1" -- "0..*" N188854
+N188861 "InfluencedTransaction / 0..*" -- "0..1" N188854
+N188854 "0..1" -- "0..*" N188859
+N188861 "0..1" -- "Posting / 0..*" N188859
+N188916 "0..1" -- "0..*" N188859
+N188840 "RiskAssessment/ / AlignmentAssessment / 0..*" -- "0..*" N188861
+@enduml

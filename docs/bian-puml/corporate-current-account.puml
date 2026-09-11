@@ -1,0 +1,165 @@
+@startuml
+title Corporate Current Account - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Corporate Current Account
+' Source image: corporate-current-account-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36381.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Fee Arrangement" as N192000 {
+}
+
+class "Deposit Service Arrangement" as N192022 {
+}
+
+class "Withdrawal Service Arrangement" as N191963 {
+}
+
+class "Lien Arrangement" as N191997 {
+}
+
+class "Payment Arrangement" as N191978 {
+}
+
+class "Sweep Arrangement" as N192013 {
+}
+
+class "Account" as N191975 {
+}
+
+class "Current Account" as N191937 {
+}
+
+class "Interest Arrangement" as N192130 {
+}
+
+class "Current Account Instruction" as N192066 {
+}
+
+class "Limit Arrangement" as N191915 {
+}
+
+class "Account Statement" as N191988 {
+}
+
+enum "CurrentAccountTypeValues" as N191973 {
+  Business Current Account
+  Personal Current Account
+  Standard Current Account
+  Premium or Packaged Current Account
+  Student Current Account
+  Youth Current Account
+  Joint Current Account
+  Salary Account
+  Foreign Currency Current Account
+  Islamic Current Account
+  Basic Bank Account
+  Private Banking Current Account
+}
+
+class "Device Arrangement" as N192079 {
+}
+
+class "Current Account Agreement" as N192074 {
+}
+
+enum "ArrangementTypeValues" as N192046 {
+  Sweep Arrangement
+  Withdrawal Arrangement
+  Deposit Arrangement
+  Interest Arrangement
+  Fee Arrangement
+  Lien Arrangement
+  Information Arrangement
+  Payment Arrangement
+  Entitlement Arrangement
+  Period Arrangement
+  Collateral Arrangement
+  Limit Arrangement
+  Access Arrangement
+  Card Payment Arrangement
+  Standing Order Arrangement
+  Overdraft Arrangement
+  Repayment Arrangement
+  Statement Arrangement
+  Credit Transfer Arrangement
+  Product and Service Arrangement
+  Factoring Arrangement
+  Rollover Arrangement
+  Restructuring Arrangement
+  Insurance Arrangement
+  Collection Arrangement
+  Underwriting Arrangement
+  Termination Arrangement
+  Maturity Arrangement
+  Administrative Arrangement
+}
+
+class "Transaction" as N192086 {
+}
+
+class "Information Arrangement" as N191924 {
+}
+
+class "Instruction" as N192094 {
+}
+
+class "Account Entry" as N192009 {
+}
+
+class "Current Account Transaction" as N192103 {
+}
+
+class "Current Account Arrangement" as N191900 {
+  + Current Account Arrangement Type : ArrangementTypeValues
+  + Current Account Arrangement Product Feature Type : ProductFeatureType
+}
+
+class "Current Account Product" as N191953 {
+  + Current Account Product Type : CurrentAccountTypeValues
+}
+
+class "Product Arrangement" as N192117 {
+}
+
+class "Product" as N192120 {
+}
+
+class "Product Feature" as N192146 {
+}
+
+class "Product Agreement" as N191910 {
+}
+
+' Relationships
+N192074 -- "1..*" N191900 : 0..1
+N191975 <|-- N191937
+N191900 <|-- N192022
+N191900 <|-- N192013
+N191900 <|-- N191997
+N191900 <|-- N192000
+N191988 "0..*" -- "1" N191975
+N191900 <|-- N191915
+N191900 <|-- N191963
+N191900 <|-- N192130
+N191900 <|-- N191978
+N191900 "0..1" -- "0..*" N192066
+N191924 "0..1" -- "0..*" N191988
+N191953 "0..1" -- "0..*" N192074
+N192066 -- "0..*" N192103 : 0..1
+N191900 <|-- N191924
+N191975 "1" -- "0..*" N192009
+N192094 <|-- N192066
+N192086 <|-- N192103
+N192103 "0..1" -- "0..*" N192009
+N192146 "1" -- "NegotiatedFeature / 0..*" N192117
+N192120 -- N192146
+N192120 "1" -- "Sold / Product / 0..*" N191910
+N191910 "1" -- "1..*" N192117
+N192120 <|-- N191953
+N191910 <|-- N192074
+N192117 <|-- N191900
+@enduml

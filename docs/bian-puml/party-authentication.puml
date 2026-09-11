@@ -1,0 +1,214 @@
+@startuml
+title Party Authentication - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Party Authentication
+' Source image: party-authentication-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_49114.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Authentication" as N190941 {
+}
+
+class "Customer Relationship" as N190836 {
+}
+
+class "Customer Relationship Involvement" as N190822 {
+}
+
+enum "CustomerRelationshipInvolvementTypeValues" as N190809 {
+  Customer
+  Bank
+  Relationship Manager
+  Custome rContact Person
+  Contact Person
+}
+
+class "Assessment" as N190860 {
+}
+
+class "Test" as N190949 {
+}
+
+class "Party" as N190932 {
+}
+
+class "Party Authentication" as N190853 {
+  + Party Authentication Result : AuthenticationResultTypeValues
+  + Party Authentication Level : AuthenticationLevelTypeValues
+  + PIN : Identifier
+  + Party Authentication Value : Value
+  + Party Authentication Method : AuthenticationMethodTypeValues
+  + Party Authentication Entity : AuthenticationEntityTypeValues
+  + Party Authentication Type : AuthenticationTypeValues
+}
+
+enum "AuthenticationResultTypeValues" as N190807 {
+  Denial
+  NonParticipation
+  UnableToAuthenticate
+  MerchantNotEnroled
+  WithCryptogram
+  WithoutCryptogram
+}
+
+enum "AuthenticationMethodTypeValues" as N190918 {
+  OnLinePIN
+  OfflinePIN
+  SignatureCapture
+  Password
+  Biometry
+  CSCVerification
+  CryptogramVerification
+  UnknownMethod
+  Bypass
+  PaperSignature
+  ManualVerification
+  MerchantAuthentication
+  SecureCertificate
+  SecureNoCertificate
+  SecuredChannel
+  BillingAddressVerification
+  CardholderIdentificationData
+  PassiveAuthentication
+  SecureElectronicCommerce
+  ShippingAddressVerification
+  TokenAuthentication
+  PaymentToken
+  AuthenticationToken
+  Mobile
+  Other
+  AddressDigits
+  AlienRegistrationNumber
+  ARQCVerification
+  BirthDate
+  CardholderName
+  CityOfBirth
+  CustomerIdentification
+  DriverIdentification
+  DriverLicenseNumber
+  Email
+  EmployeeIdentificationNumber
+  EmployerIdentificationNumber
+  IdentityCardNumber
+  OneTimePassword
+  OtherCardholderIdentification
+  OtherCryptogram
+  PassportNumber
+  PostalCode
+  ShippingAddressFrom
+  ShippingAddressTo
+  CardholderAddress
+  NonVisibleCSC
+  OtherNational
+  OtherPrivate
+  PlaceOfBirth
+  SocialSecurityNumber
+  TaxIdentificationNumber
+  AccountDigitalSignature
+  ARPCVerification
+  ATC
+  OffLineBiographics
+  OffLineBiometrics
+  OffLineDataAuthentication
+  OffLineDigitisedSignatureAnalysis
+  OffLinePINEncrypted
+  OffLinePINInClear
+  OnLineBiographics
+  PhoneHome
+  PhoneWork
+  PKISignature
+  QualifiedCertificate
+  ThreeDS
+  CardholderCertificateSerialNumber
+  AcceptorCertificateSerialNumber
+  NationalIdentifier
+}
+
+enum "AuthenticationEntityTypeValues" as N191048 {
+  ICC
+  AuthorisedAgent
+  Merchant
+  Acquirer
+  Issuer
+  Terminal
+}
+
+enum "AuthenticationLevelTypeValues" as N190804 {
+  Basic Authentication
+  Two-factor Authentication
+  Multi-factor Authentication
+  Advanced Authentication
+}
+
+class "Document" as N191023 {
+}
+
+class "Device" as N190917 {
+}
+
+enum "AuthenticationTypeValues" as N190856 {
+  Knowledge-based Authentication
+  Token-based Authentication
+  Biometric Authentication
+  Certificate-based Authentication
+  Adaptive Authentication
+}
+
+class "Business Information" as N190810 {
+}
+
+class "Password" as N190796 {
+  + Password Validity Period : DateTimePeriod
+  + Password Format : Text
+  + Password Value : Value
+}
+
+class "Secret Question" as N190867 {
+  + Secret Question Template : Text
+  + Secret Question Value : Value
+}
+
+class "Biometric Data" as N190897 {
+  + Biometric Data Type : BiometricDataTypeValues
+}
+
+enum "BiometricDataTypeValues" as N191050 {
+  Physiological Biometric Data
+  Behavioral Biometric Data
+}
+
+class "Behavioral Data" as N191033 {
+}
+
+class "Authentication Data" as N190830 {
+}
+
+class "Token" as N190886 {
+}
+
+class "Party Authentication Assessment" as N190997 {
+}
+
+' Relationships
+N190836 "0..1" -- "2..*" N190822
+N190860 <|-- N190941
+N190853 <|-- N190997
+N190860 "0..1" -- "0..*" N190949
+N190932 "0..1" -- N190822 : 0..*
+N190836 "1" -- "CustomerContact / Authentication / 0..*" N190853
+N190941 <|-- N190853
+N191023 "0..*" -- "PresentedDocument / forAuthentication / 0..*" N190853
+N190917 "UsedDevice / forAuthentication / 0..*" -- "0..*" N190853
+N190830 <|-- N190796
+N190830 <|-- N190867
+N190830 <|-- N190897
+N190830 <|-- N191033
+N190830 "UsedData / forAuthentication / 0..*" -- "0..*" N190853
+N190810 <|-- N190830
+N190941 "0..1" -- "1" N190886 : Authorisation / Token
+N190917 "TokenDevice / 0..1" -- "0..*" N190886
+N190941 "0..1" -- "Refresh / Token / 0..1" N190886
+@enduml

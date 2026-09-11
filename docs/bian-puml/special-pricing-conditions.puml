@@ -1,0 +1,116 @@
+@startuml
+title Special Pricing Conditions - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Special Pricing Conditions
+' Source image: special-pricing-conditions-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52632.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Specific Pricing Term And Condition Directory Entry" as N231959 {
+}
+
+class "Directory Entry" as N231925 {
+}
+
+class "Directory" as N231980 {
+}
+
+class "Specific Pricing Term And Condition Directory" as N231996 {
+}
+
+class "Exceptional Fee Product Feature" as N232032 {
+  + Applicable Product or Service : Product
+  + Fee Type : FeeTypeValues
+  + Eligibility Criteria : Criterion
+  + Validity Period : DateTimePeriod
+  + Calculation Method : FeeCalculationModalityTypeValues
+  + Priority or Override Rules : Rule Set
+}
+
+class "Fee Product Feature" as N232024 {
+}
+
+class "Product Term And Condition" as N232044 {
+  + Product Term And Condition Type : ProductTermAndConditionType
+  + Condition Reference : Condition
+  + Product Reference : Product
+}
+
+class "Fee Arrangement" as N231960 {
+}
+
+class "Product" as N232040 {
+}
+
+class "Product Feature" as N232053 {
+}
+
+enum "DiscountTypeValues" as N231930 {
+  Percentage Discount
+  Fixed Amount Discount
+  Fee Waiver
+  Tiered/Volume Discount
+  Promotional/Time-bound
+}
+
+enum "FeeCalculationModalityTypeValues" as N232050 {
+  Fixed Amount
+  Percentage-Based
+  Tiered/Slab-Based
+  Capped Fee
+  Minimum Fee
+}
+
+class "Exceptional Fee Discount" as N231928 {
+  + Discount Type : DiscountTypeValues
+}
+
+class "Special Pricing Term and Condition" as N231939 {
+  + Applicable Product or Service : Product
+  + Pricing Adjustment Type : Text
+  + Eligibility Criteria : Criterion
+  + Validity Period : DateTimePeriod
+  + Approval or Override Rules : Rule Set
+  + Condition Identification : Identifier
+  + Campaign Reference : Customer Campaign
+  + Authorization Details : Party
+  + Funding Source or Budget Allocation : Text
+  + Condition Lifecycle Status : ConditionStatusTypeValues
+}
+
+class "Condition" as N232049 {
+}
+
+class "Customer Campaign" as N231992 {
+}
+
+class "Campaign" as N231986 {
+}
+
+class "Sales Lead" as N232019 {
+}
+
+' Relationships
+N231980 <|-- N231996
+N231925 <|-- N231959
+N231996 -- N231959
+N232032 <|-- N231928
+N232040 -- N232053
+N232053 <|-- N232044
+N232024 "Standard / Feature / 0..1" -- "Agreed / Feature / 0..*" N231960
+N232053 <|-- N232024
+N232024 "Standard / Feature / 0..1" -- "Exceptional / Feature / 0..*" N232032
+N232053 <|-- N232032
+N232032 "0..1" -- "Agreed / Feature / 0..*" N231960
+N232044 "Standar / Term&Condition / 0..*" -- "Modified / Term&Condition / 0..*" N231939
+N231939 "0..1" -- "0..*" N231959
+N231939 "0..*" -- "0..*" N232040
+N232040 "0..1" -- "0..*" N232044
+N232049 <|-- N231939
+N231986 <|-- N231992
+N231992 "0..*" -- "Triggered / Condition / 0..*" N231939
+N232019 "Generated / Opportunity / 0..*" -- "0..*" N231992
+@enduml

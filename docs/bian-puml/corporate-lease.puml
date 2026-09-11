@@ -1,0 +1,109 @@
+@startuml
+title Corporate Lease - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Corporate Lease
+' Source image: corporate-lease-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52543.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Lease Agreement" as N206101 {
+  + Lease Agreement Type : LeasingTypeValues
+}
+
+class "Lease Agreement Involvement" as N206187 {
+  + Lease Agreement Involvement Type : LeaseAgreementInvolvementTypeValues
+}
+
+enum "LeaseAgreementInvolvementTypeValues" as N206257 {
+  Lessee
+  Lessor
+}
+
+class "Lease Arrangement" as N206210 {
+}
+
+class "Collateral Agreement" as N206134 {
+}
+
+class "Account" as N206149 {
+}
+
+class "Agreement" as N206244 {
+}
+
+class "Arrangement" as N206190 {
+}
+
+class "Party" as N206118 {
+}
+
+class "Lease Transaction" as N206193 {
+}
+
+class "Transaction" as N206225 {
+}
+
+class "Account Entry" as N206243 {
+}
+
+class "Leasing Product" as N206144 {
+  + Leasing Product Type : LeasingTypeValues
+}
+
+class "Lease Instruction" as N206262 {
+}
+
+class "Instruction" as N206141 {
+}
+
+class "Asset" as N206218 {
+}
+
+class "Leasing Item Arrangement" as N206264 {
+}
+
+class "Product Arrangement" as N206171 {
+}
+
+class "Product Agreement" as N206203 {
+}
+
+class "Product" as N206209 {
+}
+
+class "Product Feature" as N206147 {
+}
+
+enum "LeasingTypeValues" as N206170 {
+  Financing Lease
+  Operating Lease
+}
+
+' Relationships
+N206101 "0..1" -- "0..*" N206187
+N206101 "1" -- "1..*" N206210
+N206101 "0..*" -- "0..1" N206134
+N206244 <|-- N206134
+N206225 <|-- N206193
+N206149 "1" -- "0..*" N206243
+N206193 "0..1" -- "0..*" N206243
+N206210 "0..*" -- "Lease / Account / 0..1" N206149
+N206190 <|-- N206210
+N206144 "0..1" -- "0..*" N206101
+N206262 "0..1" -- "0..*" N206193
+N206262 "0..*" -- "0..1" N206210
+N206141 <|-- N206262
+N206218 "Leased / Item / 0..1" -- "0..*" N206101
+N206218 "Subject / Matter/Leased Item / 0..1" -- "0..1" N206264
+N206210 <|-- N206264
+N206118 "0..1" -- "0..*" N206187
+N206209 -- N206147
+N206203 -- "1..*" N206171 : 1
+N206209 "1" -- "Sold / Product / 0..*" N206203
+N206147 "1" -- "NegotiatedFeature / 0..*" N206171
+N206209 <|-- N206144
+N206203 <|-- N206101
+@enduml

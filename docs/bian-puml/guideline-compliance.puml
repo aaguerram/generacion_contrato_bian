@@ -1,0 +1,53 @@
+@startuml
+title Guideline Compliance - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Guideline Compliance
+' Source image: guideline-compliance-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_32910.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Assessment" as N193873 {
+}
+
+class "Test" as N193867 {
+}
+
+class "Rule Set" as N193918 {
+  + Rule Set Definition : Text
+  + Rule Set Interpretation : Text
+  + Rule Set Type : RuleSetTypeValues
+  + Rule Set Name : Name
+  + Rule Set Identification : Identifier
+  + Rule Set Lifecycle Status : Status
+}
+
+class "Guideline" as N193883 {
+}
+
+class "Guideline Compliance Check" as N193887 {
+}
+
+class "Guideline Compliance" as N193870 {
+}
+
+class "Guideline Compliance Check Involvement" as N193911 {
+}
+
+class "Party Role" as N193904 {
+}
+
+class "Party" as N193894 {
+}
+
+' Relationships
+N193873 "0..1" -- "0..*" N193867
+N193918 <|-- N193883
+N193887 "0..*" -- "Checked / Guideline / 0..*" N193883
+N193870 "0..1" -- "0..*" N193887
+N193887 "0..1" -- "0..*" N193911
+N193904 <|-- N193911
+N193894 "1" -- "0..*" N193904
+@enduml

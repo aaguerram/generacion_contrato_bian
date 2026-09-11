@@ -1,0 +1,130 @@
+@startuml
+title Central Cash Handling - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Central Cash Handling
+' Source image: central-cash-handling-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52038.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Branch" as N87553 {
+  + Branch Identification : Identifier
+  + Branch Legal Entity Identification : Identifier
+  + Branch Address : Address
+  + Branch Name : Name
+}
+
+class "Criterion" as N87445 {
+}
+
+class "Party" as N87486 {
+}
+
+class "Party Role" as N87483 {
+}
+
+class "Allocation" as N87423 {
+  + Allocation Amount : Amount
+  + Allocation Duration : Duration
+  + Allocation Direction : Text
+  + Allocation Status : Status
+  + Allocation Description : Text
+}
+
+class "Cash Inventory Management Agreement" as N87589 {
+}
+
+class "ATM- Network" as N87575 {
+}
+
+class "Cash" as N87429 {
+}
+
+enum "CashStorageTypeValues" as N87537 {
+  Bank Vault
+}
+
+enum "CashTypeValues" as N87562 {
+  Vault Cash
+  Petty Cash
+  ATM Cash
+  Teller Drawer Cash
+  Branch Cash
+  Central Cash
+}
+
+class "Cash Storage" as N87577 {
+}
+
+class "Cash Storage Account" as N87608 {
+}
+
+class "Cash Allocation" as N87426 {
+}
+
+class "Cash Allocation Request" as N87526 {
+}
+
+class "Cash Allocation Arrangement" as N87522 {
+  + Allocation Amount : String
+  + Allocation Currency : String
+  + Allocation Schedule : String
+}
+
+enum "ItemInventoryTypeValues" as N87503 {
+  Non-Cash Inventory
+  Cash Inventory
+}
+
+class "Item" as N87444 {
+}
+
+class "Item Inventory" as N87545 {
+  + Item Inventory Type : Text
+}
+
+class "Point Of Service" as N87520 {
+}
+
+class "Agreement" as N87524 {
+}
+
+class "Arrangement" as N87469 {
+}
+
+class "Transaction" as N87536 {
+}
+
+class "Instruction" as N87465 {
+}
+
+' Relationships
+N87423 "0..*" -- "0..*" N87445
+N87589 "0..1" -- "0..*" N87483
+N87429 "0..1" -- "0..*" N87575
+N87553 "0..*" -- "0..*" N87429
+N87429 "Subject / 0..1" -- "0..*" N87589
+N87553 "0..1" -- "0..*" N87577
+N87577 -- "0..*" N87577
+N87429 "0..1" -- "0..*" N87577
+N87575 "0..1" -- "0..*" N87577
+N87608 "0..1" -- "0..1" N87577
+N87608 -- "0..*" N87608
+N87423 <|-- N87426
+N87526 -- "0..*" N87426 : 0..1
+N87426 "0..*" -- "0..1" N87608
+N87522 "0..1" -- "0..*" N87526
+N87589 "0..1" -- "0..1" N87522
+N87545 "0..1" -- "0..*" N87444
+N87520 "0..*" -- "TrackedByPoS / 0..*" N87545
+N87575 "0..1" -- "0..*" N87520
+N87553 "0..1" -- "0..*" N87520
+N87577 "Subject / 0..1" -- "0..*" N87522
+N87524 <|-- N87589
+N87465 <|-- N87526
+N87536 <|-- N87426
+N87469 <|-- N87522
+N87486 -- "0..*" N87483 : 1
+@enduml

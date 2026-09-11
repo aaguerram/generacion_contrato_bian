@@ -1,0 +1,74 @@
+@startuml
+title Cash Concentration - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Cash Concentration
+' Source image: cash-concentration-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_34071.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Cash Concentration Service" as N160510 {
+}
+
+class "Cash Concentration Service Arrangement" as N160491 {
+  + Cash Concentration Service Arrangement Type
+}
+
+class "Cash Concentration Instruction" as N160559 {
+}
+
+class "Cash Concentration Transaction" as N160574 {
+}
+
+class "Product Service" as N160516 {
+}
+
+class "Service Arrangement" as N160478 {
+}
+
+enum "Cash Concentration Service Arrangement Type" as N160470 {
+  Aggregation/Transfer Arrangement
+  Sweeping Arrangement
+}
+
+class "Account Entry" as N160521 {
+}
+
+class "Account" as N160534 {
+}
+
+class "Service" as N160531 {
+}
+
+class "Arrangement" as N160473 {
+}
+
+class "Instruction" as N160551 {
+}
+
+class "Transaction" as N160582 {
+}
+
+class "Party Role" as N160544 {
+}
+
+class "Party" as N160572 {
+}
+
+' Relationships
+N160516 "1" -- "0..*" N160478
+N160478 <|-- N160491
+N160531 "1" -- "0..*" N160516
+N160516 <|-- N160510
+N160491 "0..1" -- "0..*" N160559
+N160559 "0..1" -- "0..*" N160574
+N160534 "1" -- "0..*" N160521
+N160574 "0..1" -- "0..*" N160521
+N160491 "0..*" -- "Cash Concentration / Account / 0..1" N160534
+N160551 <|-- N160559
+N160582 <|-- N160574
+N160491 "1" -- "2..*" N160544
+N160572 -- "0..*" N160544 : 1
+@enduml

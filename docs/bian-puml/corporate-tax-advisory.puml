@@ -1,0 +1,85 @@
+@startuml
+title Corporate Tax Advisory - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Corporate Tax Advisory
+' Source image: corporate-tax-advisory-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_40076.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Tax Advisory Service" as N222552 {
+}
+
+class "Tax Advisory Service Arrangement" as N222586 {
+}
+
+class "Arrangement" as N222568 {
+}
+
+class "Tax Advisory Service Arrangement Fulfillment Event" as N222559 {
+}
+
+class "System" as N222569 {
+}
+
+class "Tax Advisory Service Session" as N222549 {
+}
+
+class "Session" as N222616 {
+}
+
+class "Arrangement Fulfillment Event" as N222611 {
+}
+
+class "Tax Advisory Service Arrangement Involvement" as N222584 {
+}
+
+class "Party" as N222597 {
+}
+
+class "Customer Position State" as N222589 {
+}
+
+class "Fee Arrangement" as N222577 {
+}
+
+class "Taxation Arrangement" as N222561 {
+  + Applicable Service Charge : String
+}
+
+class "Taxation Arrangement Modality" as N222546 {
+}
+
+class "Tax Optimization Advisory Service Arrangement Fulfillment Event" as N222540 {
+  + Advice Service Applied Charge : String
+  + Advice Service Recommendation : String
+  + Advice Service Result : String
+}
+
+class "Taxation Advisory Service" as N222595 {
+}
+
+class "Fee Product Feature" as N222548 {
+}
+
+' Relationships
+N222552 "0..1" -- "0..*" N222586
+N222559 "0..*" -- "0..1" N222586
+N222569 <|-- N222552
+N222552 "SystemInSession / 0..1" -- "OperatingSession / 0..*" N222549
+N222549 "0..1" -- "SessionEvent / 0..*" N222559
+N222616 <|-- N222549
+N222611 <|-- N222559
+N222584 -- "0..1" N222586 : 0..*
+N222552 "Used / AnalyticalMeasure / 0..*" -- "0..*" N222589
+N222561 "0..1" -- "0..*" N222546
+N222561 "0..1" -- "0..*" N222540
+N222568 <|-- N222586
+N222552 "0..1" -- "0..*" N222595
+N222552 "0..1" -- "0..*" N222548
+N222597 -- "0..*" N222584 : 0..1
+N222586 <|-- N222577
+N222586 <|-- N222561
+@enduml

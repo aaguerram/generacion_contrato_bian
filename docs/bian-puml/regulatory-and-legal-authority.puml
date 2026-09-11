@@ -1,0 +1,68 @@
+@startuml
+title Regulatory And Legal Authority - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Regulatory And Legal Authority
+' Source image: regulatory-and-legal-authority-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51854.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Regulatory Authority Relationship" as N218938 {
+}
+
+class "Regulatory Authority Relationship Involvement" as N218950 {
+}
+
+class "Party Role" as N219035 {
+}
+
+class "Party" as N219000 {
+}
+
+class "Management Plan" as N219007 {
+}
+
+class "Duty" as N218965 {
+}
+
+class "Regulatory Authority Relationship Management Plan" as N218971 {
+}
+
+class "Regulatory Authority Relationship Arrangement" as N218941 {
+}
+
+class "Agreement" as N218996 {
+}
+
+class "Regulatory Authority Relationship Instruction" as N219027 {
+}
+
+class "Regulatory Authority Relationship Transaction" as N218943 {
+}
+
+class "Transaction" as N218974 {
+}
+
+class "Instruction" as N219008 {
+}
+
+class "Arrangement" as N218985 {
+}
+
+' Relationships
+N218938 "0..1" -- "0..*" N218950
+N219000 <|-- N218950
+N219007 "0..1" -- "0..*" N218965
+N218938 "0..1" -- "0..*" N218971
+N219007 <|-- N218971
+N218938 "0..1" -- "0..*" N218941
+N218996 <|-- N218938
+N218941 "0..1" -- "0..*" N219027
+N219027 -- "0..*" N218943 : 0..1
+N219008 <|-- N219027
+N218974 <|-- N218943
+N218985 <|-- N218941
+N219000 "1" -- N219035 : 0..*
+@enduml

@@ -1,0 +1,147 @@
+@startuml
+title Branch Currency Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Branch Currency Management
+' Source image: branch-currency-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51693.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Allocation" as N210561 {
+  + Allocation Amount : Amount
+  + Allocation Duration : Duration
+  + Allocation Direction : Text
+  + Allocation Status : Status
+  + Allocation Description : Text
+}
+
+class "Criterion" as N210697 {
+}
+
+class "Cash Allocation" as N210664 {
+}
+
+class "Point Of Service" as N210643 {
+}
+
+class "Item Inventory" as N210607 {
+  + Item Inventory Type : Text
+}
+
+class "Item" as N210696 {
+}
+
+class "Branch" as N210629 {
+  + Branch Identification : Identifier
+  + Branch Legal Entity Identification : Identifier
+  + Branch Address : Address
+  + Branch Name : Name
+}
+
+enum "ItemInventoryTypeValues" as N210680 {
+  Non-Cash Inventory
+  Cash Inventory
+}
+
+class "Cash Allocation Request" as N210682 {
+}
+
+class "Cash Allocation Arrangement" as N210708 {
+  + Allocation Amount : String
+  + Allocation Currency : String
+  + Allocation Schedule : String
+}
+
+class "Party Role" as N210590 {
+}
+
+class "Party" as N210634 {
+}
+
+class "Cash Storage" as N210569 {
+  + Cash Storage Amount : String
+  + Cash Storage Currency : String
+  + Cash Storage Type : String
+}
+
+enum "CashStorageTypeValues" as N210592 {
+  Bank Vault
+  ATM
+  Bank Teller Drawer
+  Petty Cash Drawer
+  Customer Vault
+  Branch
+}
+
+class "Cash Storage Account" as N210564 {
+}
+
+class "Branch Cash Inventory Management Agreement" as N210624 {
+}
+
+class "Cash Inventory Management Agreement" as N210631 {
+}
+
+class "Customer Cash Inventory Management Agreement" as N210601 {
+}
+
+class "Cash" as N210558 {
+  + Cash Amount : Amount
+  + Cash Currency : AccountCurrency
+  + Cash Denomination : Text
+}
+
+enum "CashTypeValues" as N210686 {
+  Vault Cash
+  Petty Cash
+  ATM Cash
+  Teller Drawer Cash
+  Branch Cash
+  Central Cash
+}
+
+class "Agreement" as N210652 {
+}
+
+class "Arrangement" as N210702 {
+}
+
+class "Transaction" as N210715 {
+}
+
+class "Instruction" as N210685 {
+}
+
+class "Account" as N210579 {
+}
+
+' Relationships
+N210561 "0..*" -- "0..*" N210697
+N210561 <|-- N210664
+N210607 -- "0..*" N210696 : 0..1
+N210643 "0..*" -- "TrackedByPoS / 0..*" N210607
+N210629 "0..*" -- "0..*" N210558
+N210629 "0..1" -- "0..*" N210643
+N210682 -- "0..*" N210664 : 0..1
+N210708 -- "0..*" N210682 : 0..1
+N210664 "0..*" -- "0..1" N210564
+N210558 "0..1" -- "0..*" N210569
+N210629 "0..1 / 0..*" -- N210569
+N210569 -- "0..*" N210569
+N210564 "0..1" -- "0..1" N210569
+N210564 -- "0..*" N210564
+N210631 <|-- N210624
+N210631 <|-- N210601
+N210558 "Subject / 0..1" -- "0..*" N210631
+N210708 "0..*" -- "Subject / 0..1" N210569
+N210624 -- N210708
+N210624 "0..1" -- "0..*" N210590
+N210652 <|-- N210631
+N210702 <|-- N210708
+N210685 <|-- N210682
+N210715 <|-- N210664
+N210579 <|-- N210564
+N210634 "1" -- "0..*" N210590
+@enduml

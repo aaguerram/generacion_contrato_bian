@@ -1,0 +1,66 @@
+@startuml
+title Servicing Order - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Servicing Order
+' Source image: servicing-order-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_47165.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Procedure" as N188299 {
+}
+
+class "Workstep" as N188305 {
+}
+
+class "Servicing Order Procedure" as N188302 {
+}
+
+class "Servicing Order" as N188310 {
+}
+
+class "Instruction" as N188324 {
+}
+
+class "Servicing Order Involvement" as N188355 {
+}
+
+class "Customer Relationship" as N188328 {
+}
+
+class "Servicing Mandate" as N188352 {
+}
+
+class "Product Sales Agreement" as N188336 {
+}
+
+class "Servicing Arrangement" as N188361 {
+}
+
+class "Customer Product and Service Profile" as N188327 {
+}
+
+class "Party" as N188323 {
+}
+
+class "Party Role" as N188311 {
+}
+
+' Relationships
+N188299 -- "0..*" N188305
+N188299 <|-- N188302
+N188310 "0..1" -- "0..*" N188302
+N188324 <|-- N188310
+N188310 "0..1" -- "0..*" N188355
+N188336 "0..*" -- "1" N188328
+N188336 "0..*" -- "0..*" N188352
+N188352 "0..1" -- "0..*" N188361
+N188336 "0..1" -- "0..*" N188361
+N188310 "0..*" -- "0..1" N188361
+N188352 "Profile / 0..*" -- "0..*" N188327 : Permitted / UnderMandate
+N188328 "1" -- "Customer / Profile / 0..*" N188327
+N188311 <|-- N188355
+N188323 -- "0..*" N188311 : 1
+@enduml

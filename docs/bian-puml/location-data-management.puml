@@ -1,0 +1,192 @@
+@startuml
+title Location Data Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Location Data Management
+' Source image: location-data-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_49185.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Location Directory" as N189853 {
+}
+
+class "Location Directory Entry" as N189723 {
+}
+
+class "Directory" as N189846 {
+}
+
+class "Directory Entry" as N189726 {
+}
+
+class "Arrangement" as N189781 {
+}
+
+class "Location" as N189729 {
+  + Location Description : Text
+  + Location Date Time : DateTime
+  + Location Status : Status
+  + Location Type : GeographicalAreaTypeValues
+  + Location Zoning Type : Text
+  + Location Neighborhood Type : Text
+  + Location Construction Type : Text
+  + Location Occupancy Type : Text
+  + Location Value : Value
+  + Location Capacity : Text
+  + Location Identification : Identifier[0..*]
+  + Location Address : Text[1..*]
+  + Location Name : Name
+  + Location Time Zone : Text
+}
+
+class "Location_Location Relationship" as N189902 {
+  + Location_Location Relationship Type : Location_LocationRelationshipTypeValues
+  + From Location Reference : Text
+  + To Location Reference : Text
+}
+
+enum "LocationTypeValues" as N189869 {
+  Geographical Area
+  Digital Area
+  Statistical Area
+  Time Zone
+  Treaty Area
+}
+
+class "Country" as N189759 {
+  + National Regulatory Authority : InvolvedParty
+  + Country Name : Name
+  + Country Code : CountryCode
+}
+
+enum "AddressTypeValues" as N189782 {
+  Postal Address
+  Geolocation Address
+  Latitude Address
+  Longitude Address
+  Electronic Address
+}
+
+enum "GeographicalAreaTypeValues" as N189865 {
+  Continent
+  Country
+  State
+  District
+  Province
+  Town
+  City
+  Region
+}
+
+class "Location Usage" as N189760 {
+}
+
+class "Address" as N189792 {
+  + Address Type : AddressTypeValues
+  + Address Description : Text
+}
+
+class "Jurisdiction" as N189836 {
+}
+
+class "Location Arrangement" as N189940 {
+}
+
+enum "Location_LocationRelationshipTypeValues" as N189787 {
+  Location is Contained in Location
+  Location is Capital of Location
+  Location is Alternative for Location
+  Location is Replaced by Location
+}
+
+class "Party" as N189831 {
+}
+
+enum "PartyLocationTypeValues" as N189773 {
+  Location is Residential Address of Party
+  Location is Domicile Address of Party
+  Location is Place of Birth of Party
+  Location is Work Address of Party
+  Location is Delivery Point Address of Party
+  Party is Owner of Location
+  Party is Occupier of Location
+  Party is Alliance Partner of Location
+  Location is Contact Point Address of Party
+}
+
+class "Location Involvement" as N189738 {
+  + Party Location Type : PartyLocationTypeValues
+  + Location Reference : Location
+  + Party Reference : Party
+}
+
+class "Postal Address" as N189914 {
+  + Address Type : PostalAddressTypeValues
+  + Address Line : Text
+  + Street Name : Name
+  + Building Number : Number
+  + Post Code : Identifier
+  + Town Name : Name
+  + Country Sub Division : GeographicalAreaTypeValues
+  + Country : Country
+  + Department : Text
+  + Sub Department : Text
+}
+
+enum "PostalAddressTypeValues" as N189757 {
+  Business
+  Correspondence
+  DeliveryTo
+  MailTo
+  POBox
+  Postal
+  Residential
+  Statement
+}
+
+class "Phone Address" as N189859 {
+  + Phone Address Type : PhoneAddressTypeValues
+  + Phone Number : PhoneNumber
+}
+
+class "Electronic Address" as N189867 {
+  + Electronic Address Type : ElectronicAddressTypeValues
+  + Electronic Adress Description : Text
+}
+
+enum "ElectronicAddressTypeValues" as N189745 {
+  EmailAddress
+  URLAddress
+  TelexAddress
+  TeletextAddress
+  ISDNAddress
+}
+
+enum "PhoneAddressTypeValues" as N189857 {
+  PhoneNumber
+  FaxNumber
+  MobileNumber
+}
+
+' Relationships
+N189726 <|-- N189723
+N189846 <|-- N189853
+N189729 "1" -- "0..*" N189902
+N189729 "0..1" -- "0..*" N189940
+N189729 "0..*" -- "Related / Jurisdiction / 0..*" N189836
+N189729 "0..*" -- "0..1" N189759
+N189729 "1" -- "1..*" N189792
+N189729 "1" -- "0..*" N189902
+N189760 "0..*" -- "1" N189729
+N189792 <|-- N189914
+N189729 "1" -- "0..*" N189738
+N189759 "0..1" -- "PostalAddressSpecification / 0..*" N189914
+N189831 "1" -- "0..*" N189738
+N189792 <|-- N189859
+N189792 <|-- N189867
+N189781 <|-- N189940
+N189729 "1" -- "0..*" N189723
+N189853 "1" -- "0..*" N189723
+@enduml

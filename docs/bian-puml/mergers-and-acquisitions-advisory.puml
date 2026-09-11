@@ -1,0 +1,49 @@
+@startuml
+title Mergers and Acquisitions Advisory - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Mergers and Acquisitions Advisory
+' Source image: mergers-and-acquisitions-advisory-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52041.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Mergers and Acquisitions Advisory Instruction" as N165168 {
+}
+
+class "Mergers and Acquisitions Advisory Transaction" as N165180 {
+}
+
+class "Mergers and Acquisitions Advisory Arrangement" as N165163 {
+  + Mergers and Acquisitions Advisory Arrangement Type
+}
+
+class "Mergers and Acquisitions Advisory Service" as N165186 {
+}
+
+enum "MergersAndAcquisitionsAdvisoryArrangementTypeValues" as N165154 {
+  M&A Condidate Selection Arrangement
+}
+
+class "Service Arrangement" as N165204 {
+}
+
+class "Product Service" as N165190 {
+}
+
+class "Instruction" as N165183 {
+}
+
+class "Transaction" as N165179 {
+}
+
+' Relationships
+N165186 "0..1" -- "0..*" N165163
+N165163 "0..1" -- "0..*" N165168
+N165168 "0..1" -- "0..*" N165180
+N165204 <|-- N165163
+N165190 <|-- N165186
+N165183 <|-- N165168
+N165179 <|-- N165180
+@enduml

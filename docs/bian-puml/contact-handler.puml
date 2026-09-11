@@ -1,0 +1,109 @@
+@startuml
+title Contact Handler - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Contact Handler
+' Source image: contact-handler-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_28743.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Customer Contact" as N102913 {
+  + Customer Contact Type : Text
+  + Customer Contact Date and Time : DateTime
+  + Customer Contact Location : Location
+  + Customer Contact Schedule : Schedule
+  + Customer Contact Result : Text
+  + Customer Contact Purpose : Text
+  + Customer Contact Device : Device
+  + Customer Contact Indicator : Text
+  + Customer Contact Content : Text
+  + Customer Contact Identification : Identifier
+}
+
+class "Dialogue Session" as N102857 {
+}
+
+class "System" as N102881 {
+}
+
+class "Session" as N102861 {
+}
+
+class "Function" as N102849 {
+}
+
+class "Contact Involvement" as N102918 {
+  + Contact Involvement Type : ContactInvolvementTypeValues
+}
+
+enum "ContactInvolvementTypeValues" as N102942 {
+  Customer Contact Person
+  Customer Service Agent
+}
+
+class "Device" as N102976 {
+}
+
+class "Authentication" as N102867 {
+}
+
+class "Session Dialogue Log Entry" as N102964 {
+}
+
+class "Session Dialogue Log" as N102951 {
+}
+
+class "Point Of Service" as N102896 {
+}
+
+class "Point Of Service Session" as N102910 {
+}
+
+class "Servicing Event" as N102908 {
+}
+
+class "Servicing Event Log" as N102887 {
+}
+
+class "Channel Activity" as N102892 {
+}
+
+class "Routing Selection" as N102871 {
+}
+
+class "Channel Activity Log" as N102855 {
+}
+
+class "Customer Contact System" as N102926 {
+}
+
+class "Customer Contact Session" as N102902 {
+}
+
+class "Party" as N102954 {
+}
+
+' Relationships
+N102881 <|-- N102926
+N102861 <|-- N102857
+N102881 "SystemIn / Session / 1" -- "Operating / Session / 0..*" N102861
+N102857 "DialogueSession / WithinContact / 0..*" -- "Structured / Interaction / 1" N102913
+N102849 "Operational / Function / 0..*" -- "0..1" N102861
+N102913 "0..1" -- "0..*" N102918
+N102976 "ContactDevice / 0..1" -- "0..*" N102913
+N102867 "Contact / Authentication / 0..*" -- "0..*" N102913
+N102857 "1" -- "0..*" N102964
+N102951 "0..1" -- "LogEntry / 0..*" N102964
+N102896 "HandlingPoS / 0..1" -- "CustomerInteractionSession / HandledByPoS / 0..*" N102857
+N102896 "SystemInSession / Operating / Session / 0..1" -- "0..*" N102910
+N102910 "0..1" -- "Session / Event / 0..*" N102908
+N102887 "0..1" -- "LogEntry / 0..*" N102908
+N102913 "ActiveContact / 0..1" -- "ExecutedAction / UsingChannel / 0..*" N102892
+N102913 "InboundContact / 0..*" -- "0..*" N102871
+N102855 "LogEntry / 0..1" -- "1..*" N102892
+N102861 <|-- N102902
+N102902 "0..*" -- "ActiveContact / 1" N102913
+N102954 "0..1" -- "0..*" N102918
+@enduml

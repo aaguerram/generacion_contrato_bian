@@ -1,0 +1,274 @@
+@startuml
+title Financial Accounting - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Financial Accounting
+' Source image: financial-accounting-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_45066.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+enum "AccountEntryStatusTypeValues" as N195224 {
+  Booked
+  Future
+  Information
+  Pending
+}
+
+class "AccountEntryStatus" as N195361 <<datatype>> {
+  + Account Entry Status : Status
+  + Account Entry Status Type : AccountEntryStatusTypeValues
+}
+
+class "AccountEntryDateTime" as N195463 <<datatype>> {
+  + Account Entry Date : DateTime
+  + Account Entry Date Type : AccountEntryDateTimeTypeValues
+}
+
+enum "AccountEntryDateTimeTypeValues" as N195459 {
+  Entry Date
+  Value Date
+  Posting Date
+}
+
+enum "AccountEntryTypeValues" as N195372 {
+  Trial
+  Official
+  Requested
+}
+
+enum "JournalTypeValues" as N195436 {
+  General Journal
+  Recurring Journal
+  Accrual Journal
+  Adjustment Journal
+  Reversing Journal
+  Subledger Journal
+  Sales Journal
+  Purchases Journal
+  Cash Receipts Journal
+  Cash Disbursements Journal
+  Payroll Journal
+  Intercompany Journal
+  Consolidation Journal
+  Tax Journal
+  Budget Journal
+}
+
+enum "JournalStatusTypeValues" as N195230 {
+  Draft or In Progress
+  Submitted or Pending Approval
+  Rejected or Returned
+  Approved
+  Scheduled
+  Posted
+  Partially Posted
+  Reversed
+  Voided or Canceled
+  Archived or Closed
+}
+
+class "Transaction" as N195278 {
+}
+
+class "Rule Set" as N195412 {
+}
+
+class "Ledger" as N195306 {
+  + Ledger Identification : Identifier
+  + Ledger Currency : CurrencyCode
+  + Ledger Type : LedgerTypeValues
+  + Ledger Fiscal Calendar : Calendar
+  + Ledger Fiscal Period : DateTimePeriod
+  + Chart Of Account Reference : Chart Of Accounts
+  + Ledger Accounting Method or Basis : LedgerAccountingBasisTypeValues
+  + Ledger Posting Rule and Permission : Condition
+  + Ledger Legal Entity or Business Unit Reference : Organisation[1..*]
+}
+
+class "Account" as N195498 {
+  + Account Status : AccountStatus
+  + Account Identification : AccountIdentification[0..*]
+  + Account Date : AccountDateTime[0..*]
+  + Account Type : AccountTypeValues
+  + Account Purpose : Text
+  + Account Balance : AccountBalance[0..*]
+  + Account Currency : AccountCurrency[0..*]
+  + Account Description : Text
+  + Account Name : Name
+}
+
+class "Accounting Rule Set" as N195411 {
+}
+
+class "Financial Transaction" as N195256 {
+  + Financial Transaction Type : FinancialTransactionTypeValues
+  + Financial Transaction Currency : CurrencyCode
+  + Financial Transaction Amount : Amount
+  + Financial Transaction From Account : Account
+  + Financial Transaction Target Account : Account
+  + Financial Transaction Date Time : DateTime[1..*]
+}
+
+class "Journal" as N195318 {
+  + Journal Identification : Identifier
+  + Journal Name : Name
+  + Journal Type : JournalTypeValues
+  + Journal Description : Text
+  + Journal Status : JournalStatusTypeValues
+  + Ledger Reference : Ledger
+}
+
+class "Journal Entry Line" as N195367 {
+  + Journal Entry Line Identification : Identifier
+  + Journal Entry Reference : Journal Entry
+  + Journal Entry Line Number : Number
+  + Account Reference : Account
+  + Debit Amount : Amount
+  + Credit Amount : Amount
+  + Currency : CurrencyCode
+  + Amount in Ledger Currency : Amount
+  + Journal Entry Line Description : Text
+  + Financial Transaction Reference : Financial Transaction
+}
+
+class "Chart Of Accounts" as N195189 {
+  + COA Identification : Identifier
+  + COA Name : Name
+  + COA Description : Text
+  + Accounting Standard : AccountingStandardTypeValues
+  + COA Validity Period : DateTimePeriod
+  + COA Status : Status
+  + COA Version : Text
+  + COA Structure Definition : Text
+}
+
+class "Journal Entry" as N195503 {
+  + Journal Entry Identification : Identifier
+  + Journal Reference : Journal
+  + Ledger Reference : Ledger
+  + Journal Entry Date : DateTime
+  + Journal Posting Date : DateTime
+  + Journal Entry Description : Text
+  + Financial Document Reference : Document
+  + Journal Entry Status : Status
+  + Journal Entry Created By : InvolvedParty
+  + Financial Transaction Reference : Financial Transaction
+}
+
+class "Account Entry" as N195229 {
+  + Entry Amount : Amount
+  + Entry Currency : AccountCurrency
+  + Entry Purpose : Text
+  + Entry Date : AccountEntryDateTime[1..*]
+  + Entry Status : AccountEntryStatus
+  + Entry Type : AccountEntryTypeValues
+  + Journal Posting Reference : Journal Entry
+  + Financial Accounting Transaction Reference : Financial Accounting Transaction
+  + Entry Debit Credit Indicatior : DebitCreditIndicatortValues
+  + Financial Document Reference : Document
+  + Entry Identification : Identifier
+}
+
+class "Financial Accounting Transaction" as N195134 {
+  + Financial Accounting Transaction Identification : Identifier
+  + Financial Accounting Transaction Type : FinancialTransactionTypeValues
+  + Ledger Reference : Ledger
+  + Financial Accounting Transaction Posting Date : DateTime
+  + Financial Accounting Transaction Date : DateTime
+  + Financial Accounting Transaction Amount and Currency : Amount
+  + Ledger Amount and Currency : Amount
+  + Account Reference : Account
+  + Booking Schema Reference : Booking Scheme
+  + Financial Accounting Transaction Status : TransactionStatus
+  + Financial Transaction Reference : Financial Transaction
+  + Financial Accounting Transaction Description : Text
+  + Financial Document Reference : Document
+}
+
+class "Booking Scheme" as N195253 {
+  + Booking Schema Identification : Identifier
+  + Booking Schema Name : Name
+  + Booking Schema Description : Text
+  + Booking Schema Transaction Type : FinancialTransactionTypeValues
+  + Ledger Reference : Ledger[1..*]
+  + Journal Reference : Journal[1..*]
+  + Account Reference : Account[2..*]
+  + Booking Schema Posting Rule : Rule Set
+}
+
+enum "FinancialTransactionTypeValues" as N195321 {
+  Pricing Transaction
+  Fee Transaction
+  Withdrawal Transaction
+  Deposit Transaction
+  Payment Transaction
+  Clearing Transaction
+  Settlement Transaction
+  ReconciliationTransaction
+  UpdateTransaction
+  SecuritiesTransaction
+  Repayment Transaction
+}
+
+enum "LedgerTypeValues" as N195380 {
+  Primary
+  Secondary
+  Statutory
+  Management
+  Budget
+  Tax
+  Consolidation
+  Adjustment
+}
+
+enum "LedgerAccountingBasisTypeValues" as N195202 {
+  GAAP
+  IFRS
+  Local statutory accounting
+  Cash basis accounting
+  Tax basis accounting
+}
+
+class "Log" as N195343 {
+}
+
+class "Log Entry" as N195426 {
+}
+
+class "Transaction Log" as N195478 {
+}
+
+class "Transaction Log Entry" as N195477 {
+}
+
+enum "AccountingStandardTypeValues" as N195450 {
+  US GAAP
+  IFRS
+  Local GAAP
+  Statutory Accounting
+  Internal Accounting Standard
+  Tax Basis
+}
+
+' Relationships
+N195306 "1" -- "0..*" N195498
+N195367 "0..*" -- "1" N195498
+N195503 "1" -- "2..*" N195367
+N195256 "0..1" -- "0..*" N195134
+N195134 "0..1" -- "2..*" N195229
+N195229 "0..1" -- "1..*" N195367
+N195278 <|-- N195134
+N195498 "1" -- "0..*" N195229
+N195412 <|-- N195411
+N195189 "0..1" -- "0..*" N195498
+N195318 -- "1" N195503 : 0..*
+N195278 <|-- N195256
+N195411 <|-- N195253
+N195426 <|-- N195477
+N195343 <|-- N195478
+N195253 "0..1" -- "0..*" N195503
+N195478 "1" -- "LogEntry / 1..*" N195477
+N195256 "0..1" -- "1..*" N195477
+@enduml

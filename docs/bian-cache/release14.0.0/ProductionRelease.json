@@ -1,0 +1,751 @@
+{
+  "service_domain": "Production Release",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Evaluate",
+      "method": "POST",
+      "path": "/ProductionRelease/Evaluate",
+      "tipo": "CR",
+      "grupo": "ProductionSystemAssessment",
+      "request_schema": "ProductionSystemAssessment",
+      "response_schema": "ProductionSystemAssessment",
+      "summary": "EvCR Evaluate various risk exposures for a production release",
+      "description": "EvCR Evaluate various risk exposures for a production release"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/ProductionRelease/{productionreleaseid}/Exchange",
+      "tipo": "CR",
+      "grupo": "ProductionSystemAssessment",
+      "request_schema": "ProductionSystemAssessment",
+      "response_schema": "ProductionSystemAssessment",
+      "summary": "EcCR Accept, reject, etc aspects of an evaluation",
+      "description": "EcCR Accept, reject, etc aspects of an evaluation"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/ProductionRelease/{productionreleaseid}/Update",
+      "tipo": "CR",
+      "grupo": "ProductionSystemAssessment",
+      "request_schema": "ProductionSystemAssessment",
+      "response_schema": "ProductionSystemAssessment",
+      "summary": "UpCR Update aspects of an active production release evaluation",
+      "description": "UpCR Update aspects of an active production release evaluation"
+    },
+    {
+      "operation_id": "Grant",
+      "method": "PUT",
+      "path": "/ProductionRelease/{productionreleaseid}/Grant",
+      "tipo": "CR",
+      "grupo": "ProductionSystemAssessment",
+      "request_schema": "ProductionSystemAssessment",
+      "response_schema": "ProductionSystemAssessment",
+      "summary": "GrCR Obtain a permission grant under the production release evaluation",
+      "description": "GrCR Obtain a permission grant under the production release evaluation"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/ProductionRelease/{productionreleaseid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "ProductionSystemAssessment",
+      "request_schema": "",
+      "response_schema": "ProductionSystemAssessment",
+      "summary": "ReCR Retrieve details about a production release evaluation",
+      "description": "ReCR Retrieve details about a production release evaluation"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/ProductionRelease/{productionreleaseid}/Request",
+      "tipo": "CR",
+      "grupo": "ProductionSystemAssessment",
+      "request_schema": "ProductionSystemAssessment",
+      "response_schema": "ProductionSystemAssessment",
+      "summary": "RqCR Request manual intervention in an evaluation",
+      "description": "RqCR Request manual intervention in an evaluation"
+    },
+    {
+      "operation_id": "ExchangeFunctionalRisk",
+      "method": "PUT",
+      "path": "/ProductionRelease/{productionreleaseid}/FunctionalRisk/{functionalriskid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "FunctionalRisk",
+      "request_schema": "FunctionalRisk",
+      "response_schema": "FunctionalRisk",
+      "summary": "EcBQ Accept, reject, confirm a functional risk assessment",
+      "description": "EcBQ Accept, reject, confirm a functional risk assessment",
+      "parent_control_record": "ProductionSystemAssessment"
+    },
+    {
+      "operation_id": "RetrieveProductionRisk",
+      "method": "GET",
+      "path": "/ProductionRelease/{productionreleaseid}/ProductionRisk/{productionriskid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "ProductionRisk",
+      "request_schema": "",
+      "response_schema": "ProductionRisk",
+      "summary": "ReBQ Retrieve details about a production risk assessment",
+      "description": "ReBQ Retrieve details about a production risk assessment",
+      "parent_control_record": "ProductionSystemAssessment"
+    },
+    {
+      "operation_id": "RetrieveFunctionalRisk",
+      "method": "GET",
+      "path": "/ProductionRelease/{productionreleaseid}/FunctionalRisk/{functionalriskid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "FunctionalRisk",
+      "request_schema": "",
+      "response_schema": "FunctionalRisk",
+      "summary": "ReBQ Retrieve details about a functional risk assessment",
+      "description": "ReBQ Retrieve details about a functional risk assessment",
+      "parent_control_record": "ProductionSystemAssessment"
+    },
+    {
+      "operation_id": "ExchangeBusinessRisk",
+      "method": "PUT",
+      "path": "/ProductionRelease/{productionreleaseid}/BusinessRisk/{businessriskid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "BusinessRisk",
+      "request_schema": "BusinessRisk",
+      "response_schema": "BusinessRisk",
+      "summary": "EcBQ Accept, reject, confirm a business risk assessment",
+      "description": "EcBQ Accept, reject, confirm a business risk assessment",
+      "parent_control_record": "ProductionSystemAssessment"
+    },
+    {
+      "operation_id": "ExchangeProductionRisk",
+      "method": "PUT",
+      "path": "/ProductionRelease/{productionreleaseid}/ProductionRisk/{productionriskid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "ProductionRisk",
+      "request_schema": "ProductionRisk",
+      "response_schema": "ProductionRisk",
+      "summary": "EcBQ Accept, reject, confirm a production risk assessment",
+      "description": "EcBQ Accept, reject, confirm a production risk assessment",
+      "parent_control_record": "ProductionSystemAssessment"
+    },
+    {
+      "operation_id": "RetrieveBusinessRisk",
+      "method": "GET",
+      "path": "/ProductionRelease/{productionreleaseid}/BusinessRisk/{businessriskid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "BusinessRisk",
+      "request_schema": "",
+      "response_schema": "BusinessRisk",
+      "summary": "ReBQ Retrieve details about a business risk assessment",
+      "description": "ReBQ Retrieve details about a business risk assessment",
+      "parent_control_record": "ProductionSystemAssessment"
+    },
+    {
+      "operation_id": "ExchangeOperationalRisk",
+      "method": "PUT",
+      "path": "/ProductionRelease/{productionreleaseid}/OperationalRisk/{operationalriskid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "OperationalRisk",
+      "request_schema": "OperationalRisk",
+      "response_schema": "OperationalRisk",
+      "summary": "EcBQ Accept, reject, confirm a operational risk assessment",
+      "description": "EcBQ Accept, reject, confirm a operational risk assessment",
+      "parent_control_record": "ProductionSystemAssessment"
+    },
+    {
+      "operation_id": "RetrieveOperationalRisk",
+      "method": "GET",
+      "path": "/ProductionRelease/{productionreleaseid}/OperationalRisk/{operationalriskid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "OperationalRisk",
+      "request_schema": "",
+      "response_schema": "OperationalRisk",
+      "summary": "ReBQ Retrieve details about a operational risk assessment",
+      "description": "ReBQ Retrieve details about a operational risk assessment",
+      "parent_control_record": "ProductionSystemAssessment"
+    }
+  ],
+  "schemas": [
+    "BusinessRisk",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Directoryentrydatetypevalues",
+    "DocumentDirectoryEntry",
+    "FunctionalRisk",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Name",
+    "OperationalRisk",
+    "ProductionRisk",
+    "ProductionSystemAssessment",
+    "Profile",
+    "Schedule",
+    "Status",
+    "Test",
+    "Testtypevalues",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "BusinessRisk",
+      "kind": "object",
+      "description": "All kind of verifications \n\nExamples: Password verification",
+      "properties": [
+        {
+          "name": "BusinessRiskSystemTestType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessRiskSystemTestDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessRiskTestWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "BusinessRiskTestResult",
+          "type": "object",
+          "ref": "Test"
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Directoryentrydatetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpenDate` - \r\n* `RefreshDate` - \r\n",
+      "enum_values": [
+        "OpenDate",
+        "RefreshDate"
+      ]
+    },
+    {
+      "name": "DocumentDirectoryEntry",
+      "kind": "object",
+      "description": "Reference to associated documents",
+      "properties": [
+        {
+          "name": "DocumentDirectoryEntryIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Directoryentrydatetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "DirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "FunctionalRisk",
+      "kind": "object",
+      "description": "All kind of verifications \n\nExamples: Password verification",
+      "properties": [
+        {
+          "name": "FunctionalRiskSystemTestType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FunctionalRiskSystemTestDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FunctionalRiskSystemTestWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "FunctionalRiskSystemTestResult",
+          "type": "object",
+          "ref": "Test"
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The reference to and descriptive name of the production release system",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "OperationalRisk",
+      "kind": "object",
+      "description": "All kind of verifications \n\nExamples: Password verification",
+      "properties": [
+        {
+          "name": "OperationalRiskSystemTestType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OperationalRiskSystemTestDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OperationalRiskSystemTestWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "OperationalRiskSystemTestResult",
+          "type": "object",
+          "ref": "Test"
+        }
+      ]
+    },
+    {
+      "name": "ProductionRisk",
+      "kind": "object",
+      "description": "All kind of verifications \n\nExamples: Password verification",
+      "properties": [
+        {
+          "name": "ProductionRiskSystemTestType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionRiskSystemTestDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionRiskSystemTestWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "ProductionRiskSystemTestResult",
+          "type": "object",
+          "ref": "Test"
+        }
+      ]
+    },
+    {
+      "name": "ProductionSystemAssessment",
+      "kind": "object",
+      "description": "To test or assess an entity, possibly against some formal qualification or certification requirement within Production Release. ",
+      "properties": [
+        {
+          "name": "ProductionReleaseName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "EmployeeorBusinessUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "ProductionReleaseType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionReleaseDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionReleaseTestProfile",
+          "type": "object",
+          "ref": "Profile"
+        },
+        {
+          "name": "ProductionReleaseTestSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "ProductionReleaseConsolidationRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "DateType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        },
+        {
+          "name": "Date",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "kind": "object",
+      "description": "Details the types of production release tests to be and actually applied",
+      "properties": [
+        {
+          "name": "Profile",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule for performing the range of release tests (planned and actual)",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Test",
+      "kind": "object",
+      "description": "The result of the business risk test (including required remedial actions/fixes where appropriate)",
+      "properties": [
+        {
+          "name": "TestResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TestGuidance",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TestType",
+          "type": "object",
+          "ref": "Testtypevalues"
+        },
+        {
+          "name": "TestDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Testtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ProductEligibilityTest` - \r\n* `NextBestProductTest` - \r\n* `IssuedDeviceTest` - \r\n* `CardHolderAuthenticationTest` - \r\n* `CardFundsAvailableTest` - \r\n* `CardTransactionFraudTest` - \r\n* `CardStand-InAuthorizationTest` - \r\n* `ExternalAccessRequestTest` - \r\n* `SuitabilityTest` - \r\n* `LegalComplianceTest` - \r\n* `RegulatoryComplianceTest` - \r\n* `SystemFunctionalTest` - \r\n* `SystemProductionTest` - \r\n* `SystemBusinessRiskTest` - \r\n* `SystemOperationsTest` - \r\n* `CreditPolicyComplianceTest` - \r\n* `RuleSetAndDecisionTreeTest` - \r\n* `ModelBasedTests` - \r\n* `AssetAndLiabilityValuationTest` - \r\n* `LiquidityAndCashFlowTest` - \r\n* `RiskTest` - \r\n* `SensitivityTest` - \r\n",
+      "enum_values": [
+        "ProductEligibilityTest",
+        "NextBestProductTest",
+        "IssuedDeviceTest",
+        "CardHolderAuthenticationTest",
+        "CardFundsAvailableTest",
+        "CardTransactionFraudTest",
+        "CardStand-InAuthorizationTest",
+        "ExternalAccessRequestTest",
+        "SuitabilityTest",
+        "LegalComplianceTest",
+        "RegulatoryComplianceTest",
+        "SystemFunctionalTest",
+        "SystemProductionTest",
+        "SystemBusinessRiskTest",
+        "SystemOperationsTest",
+        "CreditPolicyComplianceTest",
+        "RuleSetAndDecisionTreeTest",
+        "ModelBasedTests",
+        "AssetAndLiabilityValuationTest",
+        "LiquidityAndCashFlowTest",
+        "RiskTest",
+        "SensitivityTest"
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "Reference to testing materials, results, assessments and other documents",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "ProductionSystemAssessment",
+        "operations": [
+          "Evaluate",
+          "Exchange",
+          "Update",
+          "Grant",
+          "Retrieve",
+          "Request"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "BusinessRisk",
+        "parent_control_record": "ProductionSystemAssessment",
+        "operations": [
+          "ExchangeBusinessRisk",
+          "RetrieveBusinessRisk"
+        ]
+      },
+      {
+        "name": "FunctionalRisk",
+        "parent_control_record": "ProductionSystemAssessment",
+        "operations": [
+          "ExchangeFunctionalRisk",
+          "RetrieveFunctionalRisk"
+        ]
+      },
+      {
+        "name": "OperationalRisk",
+        "parent_control_record": "ProductionSystemAssessment",
+        "operations": [
+          "ExchangeOperationalRisk",
+          "RetrieveOperationalRisk"
+        ]
+      },
+      {
+        "name": "ProductionRisk",
+        "parent_control_record": "ProductionSystemAssessment",
+        "operations": [
+          "RetrieveProductionRisk",
+          "ExchangeProductionRisk"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ProductionRelease.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "7d1bd97b285c5c72a1eec5bea30dccb7a54dd2b37e06f455dc8f2dbd2e9007be",
+    "retrieved_at": "2026-09-10T22:24:04.935083+00:00"
+  }
+}

@@ -1,0 +1,71 @@
+@startuml
+title Product Portfolio - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Product Portfolio
+' Source image: product-portfolio-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_45152.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Product" as N186281 {
+}
+
+class "Analysis" as N186234 {
+}
+
+class "Product Portfolio Analysis" as N186237 {
+  + Product Portfolio Analysis Type : String
+  + Product Portfolio Analysis Date Time : String
+  + Product Portfolio Analysis Goal : String
+  + Product Portfolio Analysis Result : String
+  + Product Portfolio Analysis Schedule : String
+}
+
+class "Document" as N186274 {
+}
+
+class "Product Portfolio Analysis Document" as N186260 {
+  + Product Portfolio Analysis Document Identification : String
+}
+
+class "Product Portfolio Analysis Model" as N186321 {
+}
+
+class "Production Transaction" as N186280 {
+}
+
+class "Market Research" as N186255 {
+}
+
+class "Algorithm" as N186231 {
+}
+
+class "Market Research Report" as N186293 {
+}
+
+class "Product Portfolio Analysis Request" as N186304 {
+  + Product Portfolio Analysis Request Identification : String
+}
+
+class "Product Portfolio" as N186244 {
+}
+
+class "Portfolio" as N186271 {
+}
+
+' Relationships
+N186237 "0..*" -- "0..*" N186244
+N186234 <|-- N186237
+N186260 "0..*" -- N186237 : 0..1
+N186274 "0..1" -- "0..*" N186260
+N186237 "Model / UsedInAnalysis / 0..*" -- "0..*" N186321
+N186237 "Transaction / UsedInAnalysis / 0..*" -- "0..*" N186280
+N186244 "0..*" -- "0..*" N186255
+N186234 -- "0..*" N186231
+N186255 "0..*" -- "0..*" N186293
+N186237 "0..*" -- "0..1" N186304
+N186244 "1" -- "1..*" N186281
+N186271 <|-- N186244
+@enduml

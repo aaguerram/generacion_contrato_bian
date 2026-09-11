@@ -1,0 +1,107 @@
+@startuml
+title Customer Credit Rating - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Credit Rating
+' Source image: customer-credit-rating-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_43994.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Measurement" as N77762 {
+}
+
+class "Signal" as N77819 {
+}
+
+class "Customer Behavior Model" as N77767 {
+}
+
+class "Credit Rating Agency" as N77774 {
+}
+
+class "Party Role" as N77791 {
+}
+
+class "Internal Credit Analysis Report" as N77754 {
+}
+
+class "Report" as N77866 {
+}
+
+class "Customer Relationship" as N77809 {
+}
+
+class "Internal Credit Analysis" as N77834 {
+}
+
+class "External Credit Rating Service" as N77854 {
+}
+
+class "Analysis" as N77825 {
+}
+
+class "Credit Alert" as N77877 {
+}
+
+class "Event" as N77786 {
+}
+
+class "External Credit Rating Report" as N77847 {
+}
+
+class "Customer Credit Rating Assessment" as N77845 {
+  + Credit Rating Assessment Type
+}
+
+class "Customer Rating" as N77748 {
+  + Customer Rating Type : CustomerRatingTypeValues
+  + Customer Rating Value : Value
+  + Customer Rating Description : Text
+  + Customer Rating Value Date : DateTime
+  + Customer Rating Validity Period : DateTimePeriod
+}
+
+class "Assessment" as N77777 {
+}
+
+class "Customer Credit Rating Measurement" as N77784 {
+}
+
+class "Customer Activity Report" as N77820 {
+}
+
+enum "CustomerRatingTypeValues" as N77833 {
+  Customer Profitability Rating
+  Customer Credit Rating
+  Customer Risk Rating
+}
+
+class "Party" as N77780 {
+}
+
+' Relationships
+N77762 "0..1" -- "0..*" N77819
+N77791 <|-- N77774
+N77854 "0..1" -- "0..*" N77774
+N77834 "0..*" -- "ResultOfInternalAnalysis / 0..1" N77754
+N77786 <|-- N77877
+N77854 "0..*" -- "ResultOfExternalRating / 0..1" N77847
+N77762 <|-- N77784
+N77784 "0..1" -- "0..*" N77845
+N77809 "1" -- "0..*" N77748
+N77845 "0..1" -- "0..*" N77748
+N77777 <|-- N77845
+N77845 "0..*" -- "0..1" N77767 : Used4Assessment
+N77809 "0..1" -- "0..*" N77767
+N77845 "0..1" -- "0..*" N77877
+N77866 <|-- N77820
+N77820 "Used4InternalAnalysis / 0..1" -- "0..*" N77834
+N77825 <|-- N77834
+N77866 <|-- N77754
+N77866 <|-- N77847
+N77845 "0..1" -- "0..1" N77834
+N77845 "0..1" -- "0..1" N77854
+N77780 "1" -- "0..*" N77791
+@enduml

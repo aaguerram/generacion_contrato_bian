@@ -1,0 +1,155 @@
+@startuml
+title Consumer Investments - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Consumer Investments
+' Source image: consumer-investments-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_33573.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Securities Order" as N197060 {
+  + Securities Order Type : SecuritiesOrderTypeValues
+  + Securities Order Effective Date : DateTime
+  + Securities Order Expiry Date : DateTime
+  + Securities Order Identification : Identifier
+  + Settlement Currency : CurrencyCode
+  + Order Originator Eligibility : OrderOriginatorEligibilityTypeValues
+  + Ordered Amount : Amount
+  + Securities Order Status : Status
+  + Securities Order Date : Date
+  + Place Of Trade : Location
+  + Order Price : Arrangement
+  + Stop Price : Arrangement
+  + Securities Order Allocation : Allocation
+  + Order Execution Result : Text
+  + Order Execution Term and Condition : Arrangement
+}
+
+class "Transaction" as N197033 {
+}
+
+class "Instruction" as N197159 {
+}
+
+class "Securities Order Involvement" as N197094 {
+  + Securities Order Involvement Type : SecuritiesOrderInvolvementTypeValues
+}
+
+class "Investment Account Arrangement" as N197129 {
+}
+
+class "Investment Account" as N197139 {
+}
+
+class "Security" as N197093 {
+  + Security Amount : Amount
+  + Security Price : Arrangement
+  + Security Identification : SecurityIdentification
+  + Security Balance : AccountBalance
+  + Security Status : SecurityStatus
+  + Security Fees : Fee Arrangement
+  + Security Date : Date Time
+  + Security Rate : Rate
+  + Security Tax : Tax Arrangement
+  + Security Jurisdiction : Jurisdiction
+}
+
+class "Investment Portfolio" as N197199 {
+}
+
+class "Party" as N197216 {
+}
+
+class "Assessment" as N197065 {
+}
+
+class "Securities Transaction" as N197157 {
+  + Replaced Amount : Amount
+}
+
+class "Cash Account" as N197217 {
+}
+
+class "Market Order Instruction" as N197049 {
+}
+
+enum "SecuritiesOrderInvolvementTypeValues" as N197092 {
+  Order Origination Trader
+  Order Origination Firm
+  Entering Firm
+  Sponsoring Firm
+  Introducing Firm
+}
+
+class "Financial Instrument" as N197136 {
+}
+
+class "SecurityIdentification" as N197177 <<datatype>> {
+  + Security Identification : Identifier
+  + Security Identification Type : SecurityIdentificationTypeValues
+}
+
+enum "SecurityIdentificationTypeValues" as N197218 {
+  RIC
+  TickerSymbol
+  Bloomberg
+  CTA
+  Common
+  Name
+  SEDOL
+  CUSIP
+  QUICK
+  Wertpapier
+  Dutch
+  Valoren
+  Sicovam
+  Belgian
+  IdentificationSuffix
+  GenericIdentification
+  ValidityPeriod
+  ApplicableTradingMarket
+  PrimeIdentification
+  RelatedOtherIdentification
+  TradingIdentification
+}
+
+enum "SecurityStatusTypeValues" as N197152 {
+  Inactive
+  WhenIssued
+  WhenDistributed
+  Issued
+  Suspended
+  InDefault
+  Worthless
+}
+
+class "SecurityStatus" as N197126 <<datatype>> {
+  + Security Status : Status
+  + Security Status Type : SecurityStatusTypeValues
+}
+
+class "Account" as N197070 {
+}
+
+class "Arrangement" as N197041 {
+}
+
+' Relationships
+N197060 "0..1" -- "0..*" N197157
+N197033 <|-- N197157
+N197159 <|-- N197060
+N197060 -- "0..*" N197094 : 0..1
+N197217 "CashAccount / 0..1" -- "0..*" N197157 : Underlying
+N197093 "Traded / Security / 0..1" -- "0..*" N197060
+N197199 "Associated / InvestmentPortfolio / 0..1" -- "0..*" N197060
+N197139 "Underlying / InvestmentAccount / 0..1" -- "0..*" N197157
+N197049 "Underlying / MarketOrder / 0..1" -- "0..*" N197060
+N197216 "0..1" -- "0..*" N197094
+N197136 <|-- N197093
+N197070 <|-- N197139
+N197070 <|-- N197217
+N197129 "0..*" -- "0..1" N197139
+N197041 <|-- N197129
+@enduml

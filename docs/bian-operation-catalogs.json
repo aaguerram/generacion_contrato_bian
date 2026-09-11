@@ -1,0 +1,1245 @@
+{
+  "release": "14.0.0",
+  "source": "BIAN BOM Extended API - catalogos oficiales normalizados (bian-official/public, release 14.0.0)",
+  "service_domains": {
+    "ContactHandler": {
+      "release": "14.0.0",
+      "profile": "BIAN_BOM_EXTENDED_API",
+      "operations": [
+        {
+          "operation_id": "Initiate",
+          "method": "POST",
+          "path": "/ContactHandler/Initiate",
+          "tipo": "CR",
+          "grupo": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "Update",
+          "method": "PUT",
+          "path": "/ContactHandler/{contacthandlerid}/Update",
+          "tipo": "CR",
+          "grupo": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "Control",
+          "method": "PUT",
+          "path": "/ContactHandler/{contacthandlerid}/Control",
+          "tipo": "CR",
+          "grupo": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "Exchange",
+          "method": "PUT",
+          "path": "/ContactHandler/{contacthandlerid}/Exchange",
+          "tipo": "CR",
+          "grupo": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "Execute",
+          "method": "PUT",
+          "path": "/ContactHandler/{contacthandlerid}/Execute",
+          "tipo": "CR",
+          "grupo": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "Retrieve",
+          "method": "GET",
+          "path": "/ContactHandler/{contacthandlerid}/Retrieve",
+          "tipo": "CR",
+          "grupo": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "Request",
+          "method": "PUT",
+          "path": "/ContactHandler/{contacthandlerid}/Request",
+          "tipo": "CR",
+          "grupo": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "RetrieveAuthentication",
+          "method": "GET",
+          "path": "/ContactHandler/{contacthandlerid}/Authentication/{authenticationid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Authentication",
+          "parent_control_record": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "RetrieveRouting",
+          "method": "GET",
+          "path": "/ContactHandler/{contacthandlerid}/Routing/{routingid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Routing",
+          "parent_control_record": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "UpdateSession",
+          "method": "PUT",
+          "path": "/ContactHandler/{contacthandlerid}/Session/{sessionid}/Update",
+          "tipo": "BQ",
+          "grupo": "Session",
+          "parent_control_record": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "ControlSession",
+          "method": "PUT",
+          "path": "/ContactHandler/{contacthandlerid}/Session/{sessionid}/Control",
+          "tipo": "BQ",
+          "grupo": "Session",
+          "parent_control_record": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "ExecuteSession",
+          "method": "PUT",
+          "path": "/ContactHandler/{contacthandlerid}/Session/{sessionid}/Execute",
+          "tipo": "BQ",
+          "grupo": "Session",
+          "parent_control_record": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "RetrieveSession",
+          "method": "GET",
+          "path": "/ContactHandler/{contacthandlerid}/Session/{sessionid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Session",
+          "parent_control_record": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "InitiateSession",
+          "method": "POST",
+          "path": "/ContactHandler/{contacthandlerid}/Session/Initiate",
+          "tipo": "BQ",
+          "grupo": "Session",
+          "parent_control_record": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "UpdateHistory",
+          "method": "PUT",
+          "path": "/ContactHandler/{contacthandlerid}/History/{historyid}/Update",
+          "tipo": "BQ",
+          "grupo": "History",
+          "parent_control_record": "CustomerContactOperatingSession"
+        },
+        {
+          "operation_id": "RetrieveHistory",
+          "method": "GET",
+          "path": "/ContactHandler/{contacthandlerid}/History/{historyid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "History",
+          "parent_control_record": "CustomerContactOperatingSession"
+        }
+      ]
+    },
+    "CustomerAccessEntitlement": {
+      "release": "14.0.0",
+      "profile": "BIAN_BOM_EXTENDED_API",
+      "operations": [
+        {
+          "operation_id": "Evaluate",
+          "method": "POST",
+          "path": "/CustomerAccessEntitlement/Evaluate",
+          "tipo": "CR",
+          "grupo": "CustomerAccessProfileAgreement"
+        },
+        {
+          "operation_id": "Update",
+          "method": "PUT",
+          "path": "/CustomerAccessEntitlement/{customeraccessentitlementid}/Update",
+          "tipo": "CR",
+          "grupo": "CustomerAccessProfileAgreement"
+        },
+        {
+          "operation_id": "Exchange",
+          "method": "PUT",
+          "path": "/CustomerAccessEntitlement/{customeraccessentitlementid}/Exchange",
+          "tipo": "CR",
+          "grupo": "CustomerAccessProfileAgreement"
+        },
+        {
+          "operation_id": "Request",
+          "method": "PUT",
+          "path": "/CustomerAccessEntitlement/{customeraccessentitlementid}/Request",
+          "tipo": "CR",
+          "grupo": "CustomerAccessProfileAgreement"
+        },
+        {
+          "operation_id": "Control",
+          "method": "PUT",
+          "path": "/CustomerAccessEntitlement/{customeraccessentitlementid}/Control",
+          "tipo": "CR",
+          "grupo": "CustomerAccessProfileAgreement"
+        },
+        {
+          "operation_id": "Grant",
+          "method": "PUT",
+          "path": "/CustomerAccessEntitlement/{customeraccessentitlementid}/Grant",
+          "tipo": "CR",
+          "grupo": "CustomerAccessProfileAgreement"
+        },
+        {
+          "operation_id": "Retrieve",
+          "method": "GET",
+          "path": "/CustomerAccessEntitlement/{customeraccessentitlementid}/Retrieve",
+          "tipo": "CR",
+          "grupo": "CustomerAccessProfileAgreement"
+        },
+        {
+          "operation_id": "UpdateRestrictions",
+          "method": "PUT",
+          "path": "/CustomerAccessEntitlement/{customeraccessentitlementid}/Restrictions/{restrictionsid}/Update",
+          "tipo": "BQ",
+          "grupo": "Restrictions",
+          "parent_control_record": "CustomerAccessProfileAgreement"
+        },
+        {
+          "operation_id": "EvaluateRestrictions",
+          "method": "POST",
+          "path": "/CustomerAccessEntitlement/{customeraccessentitlementid}/Restrictions/Evaluate",
+          "tipo": "BQ",
+          "grupo": "Restrictions",
+          "parent_control_record": "CustomerAccessProfileAgreement"
+        },
+        {
+          "operation_id": "RetrieveRestrictions",
+          "method": "GET",
+          "path": "/CustomerAccessEntitlement/{customeraccessentitlementid}/Restrictions/{restrictionsid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Restrictions",
+          "parent_control_record": "CustomerAccessProfileAgreement"
+        },
+        {
+          "operation_id": "EvaluatePreferences",
+          "method": "POST",
+          "path": "/CustomerAccessEntitlement/{customeraccessentitlementid}/Preferences/Evaluate",
+          "tipo": "BQ",
+          "grupo": "Preferences",
+          "parent_control_record": "CustomerAccessProfileAgreement"
+        },
+        {
+          "operation_id": "UpdatePreferences",
+          "method": "PUT",
+          "path": "/CustomerAccessEntitlement/{customeraccessentitlementid}/Preferences/{preferencesid}/Update",
+          "tipo": "BQ",
+          "grupo": "Preferences",
+          "parent_control_record": "CustomerAccessProfileAgreement"
+        },
+        {
+          "operation_id": "RetrievePreferences",
+          "method": "GET",
+          "path": "/CustomerAccessEntitlement/{customeraccessentitlementid}/Preferences/{preferencesid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Preferences",
+          "parent_control_record": "CustomerAccessProfileAgreement"
+        }
+      ]
+    },
+    "FraudDiagnosis": {
+      "release": "14.0.0",
+      "profile": "BIAN_BOM_EXTENDED_API",
+      "operations": [
+        {
+          "operation_id": "Update",
+          "method": "PUT",
+          "path": "/FraudDiagnosis/{frauddiagnosisid}/Update",
+          "tipo": "CR",
+          "grupo": "FraudDiagnosisAnalysis"
+        },
+        {
+          "operation_id": "Evaluate",
+          "method": "POST",
+          "path": "/FraudDiagnosis/Evaluate",
+          "tipo": "CR",
+          "grupo": "FraudDiagnosisAnalysis"
+        },
+        {
+          "operation_id": "Exchange",
+          "method": "PUT",
+          "path": "/FraudDiagnosis/{frauddiagnosisid}/Exchange",
+          "tipo": "CR",
+          "grupo": "FraudDiagnosisAnalysis"
+        },
+        {
+          "operation_id": "Request",
+          "method": "PUT",
+          "path": "/FraudDiagnosis/{frauddiagnosisid}/Request",
+          "tipo": "CR",
+          "grupo": "FraudDiagnosisAnalysis"
+        },
+        {
+          "operation_id": "Retrieve",
+          "method": "GET",
+          "path": "/FraudDiagnosis/{frauddiagnosisid}/Retrieve",
+          "tipo": "CR",
+          "grupo": "FraudDiagnosisAnalysis"
+        },
+        {
+          "operation_id": "RetrieveEconomicModel",
+          "method": "GET",
+          "path": "/FraudDiagnosis/{frauddiagnosisid}/EconomicModel/{economicmodelid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "EconomicModel",
+          "parent_control_record": "FraudDiagnosisAnalysis"
+        },
+        {
+          "operation_id": "RetrieveCustomerBehavior",
+          "method": "GET",
+          "path": "/FraudDiagnosis/{frauddiagnosisid}/CustomerBehavior/{customerbehaviorid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "CustomerBehavior",
+          "parent_control_record": "FraudDiagnosisAnalysis"
+        },
+        {
+          "operation_id": "RequestAnalystReview",
+          "method": "PUT",
+          "path": "/FraudDiagnosis/{frauddiagnosisid}/AnalystReview/{analystreviewid}/Request",
+          "tipo": "BQ",
+          "grupo": "AnalystReview",
+          "parent_control_record": "FraudDiagnosisAnalysis"
+        },
+        {
+          "operation_id": "RetrieveAnalystReview",
+          "method": "GET",
+          "path": "/FraudDiagnosis/{frauddiagnosisid}/AnalystReview/{analystreviewid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "AnalystReview",
+          "parent_control_record": "FraudDiagnosisAnalysis"
+        }
+      ]
+    },
+    "FraudEvaluation": {
+      "release": "14.0.0",
+      "profile": "BIAN_BOM_EXTENDED_API",
+      "operations": [
+        {
+          "operation_id": "Evaluate",
+          "method": "POST",
+          "path": "/FraudEvaluation/Evaluate",
+          "tipo": "CR",
+          "grupo": "FraudEvaluationAssessment"
+        },
+        {
+          "operation_id": "Exchange",
+          "method": "PUT",
+          "path": "/FraudEvaluation/{fraudevaluationid}/Exchange",
+          "tipo": "CR",
+          "grupo": "FraudEvaluationAssessment"
+        },
+        {
+          "operation_id": "Execute",
+          "method": "PUT",
+          "path": "/FraudEvaluation/{fraudevaluationid}/Execute",
+          "tipo": "CR",
+          "grupo": "FraudEvaluationAssessment"
+        },
+        {
+          "operation_id": "Grant",
+          "method": "PUT",
+          "path": "/FraudEvaluation/{fraudevaluationid}/Grant",
+          "tipo": "CR",
+          "grupo": "FraudEvaluationAssessment"
+        },
+        {
+          "operation_id": "Request",
+          "method": "PUT",
+          "path": "/FraudEvaluation/{fraudevaluationid}/Request",
+          "tipo": "CR",
+          "grupo": "FraudEvaluationAssessment"
+        },
+        {
+          "operation_id": "Retrieve",
+          "method": "GET",
+          "path": "/FraudEvaluation/{fraudevaluationid}/Retrieve",
+          "tipo": "CR",
+          "grupo": "FraudEvaluationAssessment"
+        },
+        {
+          "operation_id": "RetrieveRuleSetsandDecisionTrees",
+          "method": "GET",
+          "path": "/FraudEvaluation/{fraudevaluationid}/RuleSetsandDecisionTrees/{rulesetsanddecisiontreesid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "RuleSetsandDecisionTrees",
+          "parent_control_record": "FraudEvaluationAssessment"
+        },
+        {
+          "operation_id": "RetrieveModels",
+          "method": "GET",
+          "path": "/FraudEvaluation/{fraudevaluationid}/Models/{modelsid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Models",
+          "parent_control_record": "FraudEvaluationAssessment"
+        }
+      ]
+    },
+    "FraudResolution": {
+      "release": "14.0.0",
+      "profile": "BIAN_BOM_EXTENDED_API",
+      "operations": [
+        {
+          "operation_id": "Initiate",
+          "method": "POST",
+          "path": "/FraudResolution/Initiate",
+          "tipo": "CR",
+          "grupo": "FraudResolutionProcedure"
+        },
+        {
+          "operation_id": "Exchange",
+          "method": "PUT",
+          "path": "/FraudResolution/{fraudresolutionid}/Exchange",
+          "tipo": "CR",
+          "grupo": "FraudResolutionProcedure"
+        },
+        {
+          "operation_id": "Update",
+          "method": "PUT",
+          "path": "/FraudResolution/{fraudresolutionid}/Update",
+          "tipo": "CR",
+          "grupo": "FraudResolutionProcedure"
+        },
+        {
+          "operation_id": "Retrieve",
+          "method": "GET",
+          "path": "/FraudResolution/{fraudresolutionid}/Retrieve",
+          "tipo": "CR",
+          "grupo": "FraudResolutionProcedure"
+        },
+        {
+          "operation_id": "RetrieveCaseAnalysis",
+          "method": "GET",
+          "path": "/FraudResolution/{fraudresolutionid}/CaseAnalysis/{caseanalysisid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "CaseAnalysis",
+          "parent_control_record": "FraudResolutionProcedure"
+        },
+        {
+          "operation_id": "ExchangeCaseDetermination",
+          "method": "PUT",
+          "path": "/FraudResolution/{fraudresolutionid}/CaseDetermination/{casedeterminationid}/Exchange",
+          "tipo": "BQ",
+          "grupo": "CaseDetermination",
+          "parent_control_record": "FraudResolutionProcedure"
+        },
+        {
+          "operation_id": "RetrieveCaseDetermination",
+          "method": "GET",
+          "path": "/FraudResolution/{fraudresolutionid}/CaseDetermination/{casedeterminationid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "CaseDetermination",
+          "parent_control_record": "FraudResolutionProcedure"
+        },
+        {
+          "operation_id": "RetrieveCaseResolution",
+          "method": "GET",
+          "path": "/FraudResolution/{fraudresolutionid}/CaseResolution/{caseresolutionid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "CaseResolution",
+          "parent_control_record": "FraudResolutionProcedure"
+        },
+        {
+          "operation_id": "RequestCaseResolution",
+          "method": "PUT",
+          "path": "/FraudResolution/{fraudresolutionid}/CaseResolution/{caseresolutionid}/Request",
+          "tipo": "BQ",
+          "grupo": "CaseResolution",
+          "parent_control_record": "FraudResolutionProcedure"
+        }
+      ]
+    },
+    "IssuedDeviceAdministration": {
+      "release": "14.0.0",
+      "profile": "BIAN_BOM_EXTENDED_API",
+      "operations": [
+        {
+          "operation_id": "Initiate",
+          "method": "POST",
+          "path": "/IssuedDeviceAdministration/Initiate",
+          "tipo": "CR",
+          "grupo": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "Update",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/Update",
+          "tipo": "CR",
+          "grupo": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "Control",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/Control",
+          "tipo": "CR",
+          "grupo": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "Exchange",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/Exchange",
+          "tipo": "CR",
+          "grupo": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "Retrieve",
+          "method": "GET",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/Retrieve",
+          "tipo": "CR",
+          "grupo": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "UpdatePasswordAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/PasswordAssignment/{passwordassignmentid}/Update",
+          "tipo": "BQ",
+          "grupo": "PasswordAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "ControlPasswordAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/PasswordAssignment/{passwordassignmentid}/Control",
+          "tipo": "BQ",
+          "grupo": "PasswordAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "RetrievePasswordAssignment",
+          "method": "GET",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/PasswordAssignment/{passwordassignmentid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "PasswordAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "CapturePasswordAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/PasswordAssignment/{passwordassignmentid}/Capture",
+          "tipo": "BQ",
+          "grupo": "PasswordAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "InitiatePasswordAssignment",
+          "method": "POST",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/PasswordAssignment/Initiate",
+          "tipo": "BQ",
+          "grupo": "PasswordAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "ExchangePasswordAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/PasswordAssignment/{passwordassignmentid}/Exchange",
+          "tipo": "BQ",
+          "grupo": "PasswordAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "ControlQuestionAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/QuestionAssignment/{questionassignmentid}/Control",
+          "tipo": "BQ",
+          "grupo": "QuestionAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "InitiateQuestionAssignment",
+          "method": "POST",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/QuestionAssignment/Initiate",
+          "tipo": "BQ",
+          "grupo": "QuestionAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "UpdateQuestionAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/QuestionAssignment/{questionassignmentid}/Update",
+          "tipo": "BQ",
+          "grupo": "QuestionAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "ExchangeQuestionAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/QuestionAssignment/{questionassignmentid}/Exchange",
+          "tipo": "BQ",
+          "grupo": "QuestionAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "CaptureQuestionAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/QuestionAssignment/{questionassignmentid}/Capture",
+          "tipo": "BQ",
+          "grupo": "QuestionAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "RetrieveQuestionAssignment",
+          "method": "GET",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/QuestionAssignment/{questionassignmentid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "QuestionAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "InitiateBiometricAssignment",
+          "method": "POST",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/BiometricAssignment/Initiate",
+          "tipo": "BQ",
+          "grupo": "BiometricAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "ExchangeBiometricAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/BiometricAssignment/{biometricassignmentid}/Exchange",
+          "tipo": "BQ",
+          "grupo": "BiometricAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "UpdateBiometricAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/BiometricAssignment/{biometricassignmentid}/Update",
+          "tipo": "BQ",
+          "grupo": "BiometricAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "ControlBiometricAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/BiometricAssignment/{biometricassignmentid}/Control",
+          "tipo": "BQ",
+          "grupo": "BiometricAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "RetrieveBiometricAssignment",
+          "method": "GET",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/BiometricAssignment/{biometricassignmentid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "BiometricAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "RetrieveDeviceAssignment",
+          "method": "GET",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/DeviceAssignment/{deviceassignmentid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "DeviceAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "UpdateDeviceAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/DeviceAssignment/{deviceassignmentid}/Update",
+          "tipo": "BQ",
+          "grupo": "DeviceAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "ControlDeviceAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/DeviceAssignment/{deviceassignmentid}/Control",
+          "tipo": "BQ",
+          "grupo": "DeviceAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "CaptureDeviceAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/DeviceAssignment/{deviceassignmentid}/Capture",
+          "tipo": "BQ",
+          "grupo": "DeviceAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "UpdateReaderAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/ReaderAssignment/{readerassignmentid}/Update",
+          "tipo": "BQ",
+          "grupo": "ReaderAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "RetrieveReaderAssignment",
+          "method": "GET",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/ReaderAssignment/{readerassignmentid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "ReaderAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "ControlReaderAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/ReaderAssignment/{readerassignmentid}/Control",
+          "tipo": "BQ",
+          "grupo": "ReaderAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "CaptureReaderAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/ReaderAssignment/{readerassignmentid}/Capture",
+          "tipo": "BQ",
+          "grupo": "ReaderAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "InitiateChequesAssignment",
+          "method": "POST",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/ChequesAssignment/Initiate",
+          "tipo": "BQ",
+          "grupo": "ChequesAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "ExchangeChequesAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/ChequesAssignment/{chequesassignmentid}/Exchange",
+          "tipo": "BQ",
+          "grupo": "ChequesAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "RetrieveChequesAssignment",
+          "method": "GET",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/ChequesAssignment/{chequesassignmentid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "ChequesAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "ControlChequesAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/ChequesAssignment/{chequesassignmentid}/Control",
+          "tipo": "BQ",
+          "grupo": "ChequesAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "RetrieveTokenAssignment",
+          "method": "GET",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/TokenAssignment/{tokenassignmentid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "TokenAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "CaptureTokenAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/TokenAssignment/{tokenassignmentid}/Capture",
+          "tipo": "BQ",
+          "grupo": "TokenAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "UpdateTokenAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/TokenAssignment/{tokenassignmentid}/Update",
+          "tipo": "BQ",
+          "grupo": "TokenAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "ExecuteTokenAssignment",
+          "method": "PUT",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/TokenAssignment/{tokenassignmentid}/Execute",
+          "tipo": "BQ",
+          "grupo": "TokenAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        },
+        {
+          "operation_id": "ProvideTokenAssignment",
+          "method": "POST",
+          "path": "/IssuedDeviceAdministration/{issueddeviceadministrationid}/TokenAssignment/Provide",
+          "tipo": "BQ",
+          "grupo": "TokenAssignment",
+          "parent_control_record": "IssuedDeviceAllocation"
+        }
+      ]
+    },
+    "PartyAuthentication": {
+      "release": "14.0.0",
+      "profile": "BIAN_BOM_EXTENDED_API",
+      "operations": [
+        {
+          "operation_id": "Update",
+          "method": "PUT",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Update",
+          "tipo": "CR",
+          "grupo": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "Evaluate",
+          "method": "POST",
+          "path": "/PartyAuthentication/Evaluate",
+          "tipo": "CR",
+          "grupo": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "Exchange",
+          "method": "PUT",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Exchange",
+          "tipo": "CR",
+          "grupo": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "Execute",
+          "method": "PUT",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Execute",
+          "tipo": "CR",
+          "grupo": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "Request",
+          "method": "PUT",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Request",
+          "tipo": "CR",
+          "grupo": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "Grant",
+          "method": "PUT",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Grant",
+          "tipo": "CR",
+          "grupo": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "Retrieve",
+          "method": "GET",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Retrieve",
+          "tipo": "CR",
+          "grupo": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "EvaluatePassword",
+          "method": "POST",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Password/Evaluate",
+          "tipo": "BQ",
+          "grupo": "Password",
+          "parent_control_record": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "RetrievePassword",
+          "method": "GET",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Password/{passwordid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Password",
+          "parent_control_record": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "EvaluateQuestion",
+          "method": "POST",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Question/Evaluate",
+          "tipo": "BQ",
+          "grupo": "Question",
+          "parent_control_record": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "RetrieveQuestion",
+          "method": "GET",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Question/{questionid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Question",
+          "parent_control_record": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "RetrieveDocument",
+          "method": "GET",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Document/{documentid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Document",
+          "parent_control_record": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "EvaluateDocument",
+          "method": "POST",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Document/Evaluate",
+          "tipo": "BQ",
+          "grupo": "Document",
+          "parent_control_record": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "EvaluateDevice",
+          "method": "POST",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Device/Evaluate",
+          "tipo": "BQ",
+          "grupo": "Device",
+          "parent_control_record": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "RetrieveDevice",
+          "method": "GET",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Device/{deviceid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Device",
+          "parent_control_record": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "EvaluateBiometric",
+          "method": "POST",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Biometric/Evaluate",
+          "tipo": "BQ",
+          "grupo": "Biometric",
+          "parent_control_record": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "RetrieveBiometric",
+          "method": "GET",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Biometric/{biometricid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Biometric",
+          "parent_control_record": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "EvaluateBehavior",
+          "method": "POST",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Behavior/Evaluate",
+          "tipo": "BQ",
+          "grupo": "Behavior",
+          "parent_control_record": "PartyAuthenticationAssessment"
+        },
+        {
+          "operation_id": "RetrieveBehavior",
+          "method": "GET",
+          "path": "/PartyAuthentication/{partyauthenticationid}/Behavior/{behaviorid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Behavior",
+          "parent_control_record": "PartyAuthenticationAssessment"
+        }
+      ]
+    },
+    "SessionDialogue": {
+      "release": "14.0.0",
+      "profile": "BIAN_BOM_EXTENDED_API",
+      "operations": [
+        {
+          "operation_id": "Initiate",
+          "method": "POST",
+          "path": "/SessionDialogue/Initiate",
+          "tipo": "CR",
+          "grupo": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "Update",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Update",
+          "tipo": "CR",
+          "grupo": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "Control",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Control",
+          "tipo": "CR",
+          "grupo": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "Exchange",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Exchange",
+          "tipo": "CR",
+          "grupo": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "Execute",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Execute",
+          "tipo": "CR",
+          "grupo": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "Request",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Request",
+          "tipo": "CR",
+          "grupo": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "Retrieve",
+          "method": "GET",
+          "path": "/SessionDialogue/{sessiondialogueid}/Retrieve",
+          "tipo": "CR",
+          "grupo": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "InitiateQuery",
+          "method": "POST",
+          "path": "/SessionDialogue/{sessiondialogueid}/Query/Initiate",
+          "tipo": "BQ",
+          "grupo": "Query",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "UpdateQuery",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Query/{queryid}/Update",
+          "tipo": "BQ",
+          "grupo": "Query",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "RetrieveQuery",
+          "method": "GET",
+          "path": "/SessionDialogue/{sessiondialogueid}/Query/{queryid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Query",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "RetrieveAuthentication",
+          "method": "GET",
+          "path": "/SessionDialogue/{sessiondialogueid}/Authentication/{authenticationid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Authentication",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "UpdateAuthentication",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Authentication/{authenticationid}/Update",
+          "tipo": "BQ",
+          "grupo": "Authentication",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "InitiateSales",
+          "method": "POST",
+          "path": "/SessionDialogue/{sessiondialogueid}/Sales/Initiate",
+          "tipo": "BQ",
+          "grupo": "Sales",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "UpdateSales",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Sales/{salesid}/Update",
+          "tipo": "BQ",
+          "grupo": "Sales",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "RetrieveSales",
+          "method": "GET",
+          "path": "/SessionDialogue/{sessiondialogueid}/Sales/{salesid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Sales",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "InitiateOffer",
+          "method": "POST",
+          "path": "/SessionDialogue/{sessiondialogueid}/Offer/Initiate",
+          "tipo": "BQ",
+          "grupo": "Offer",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "UpdateOffer",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Offer/{offerid}/Update",
+          "tipo": "BQ",
+          "grupo": "Offer",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "RetrieveOffer",
+          "method": "GET",
+          "path": "/SessionDialogue/{sessiondialogueid}/Offer/{offerid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Offer",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "InitiateProductorService",
+          "method": "POST",
+          "path": "/SessionDialogue/{sessiondialogueid}/ProductorService/Initiate",
+          "tipo": "BQ",
+          "grupo": "ProductorService",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "UpdateProductorService",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/ProductorService/{productorserviceid}/Update",
+          "tipo": "BQ",
+          "grupo": "ProductorService",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "RetrieveProductorService",
+          "method": "GET",
+          "path": "/SessionDialogue/{sessiondialogueid}/ProductorService/{productorserviceid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "ProductorService",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "ExecuteProductorService",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/ProductorService/{productorserviceid}/Execute",
+          "tipo": "BQ",
+          "grupo": "ProductorService",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "ExchangeProductorService",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/ProductorService/{productorserviceid}/Exchange",
+          "tipo": "BQ",
+          "grupo": "ProductorService",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "InitiateCase",
+          "method": "POST",
+          "path": "/SessionDialogue/{sessiondialogueid}/Case/Initiate",
+          "tipo": "BQ",
+          "grupo": "Case",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "UpdateCase",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Case/{caseid}/Update",
+          "tipo": "BQ",
+          "grupo": "Case",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "RetrieveCase",
+          "method": "GET",
+          "path": "/SessionDialogue/{sessiondialogueid}/Case/{caseid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Case",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "InitiateOrder",
+          "method": "POST",
+          "path": "/SessionDialogue/{sessiondialogueid}/Order/Initiate",
+          "tipo": "BQ",
+          "grupo": "Order",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "RetrieveOrder",
+          "method": "GET",
+          "path": "/SessionDialogue/{sessiondialogueid}/Order/{orderid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Order",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "UpdateOrder",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Order/{orderid}/Update",
+          "tipo": "BQ",
+          "grupo": "Order",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "ExchangeOrder",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Order/{orderid}/Exchange",
+          "tipo": "BQ",
+          "grupo": "Order",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "InitiateIntelligence",
+          "method": "POST",
+          "path": "/SessionDialogue/{sessiondialogueid}/Intelligence/Initiate",
+          "tipo": "BQ",
+          "grupo": "Intelligence",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "UpdateIntelligence",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/Intelligence/{intelligenceid}/Update",
+          "tipo": "BQ",
+          "grupo": "Intelligence",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "RetrieveIntelligence",
+          "method": "GET",
+          "path": "/SessionDialogue/{sessiondialogueid}/Intelligence/{intelligenceid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "Intelligence",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "UpdateHistory",
+          "method": "PUT",
+          "path": "/SessionDialogue/{sessiondialogueid}/History/{historyid}/Update",
+          "tipo": "BQ",
+          "grupo": "History",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        },
+        {
+          "operation_id": "RetrieveHistory",
+          "method": "GET",
+          "path": "/SessionDialogue/{sessiondialogueid}/History/{historyid}/Retrieve",
+          "tipo": "BQ",
+          "grupo": "History",
+          "parent_control_record": "CustomerContactSessionProcedure"
+        }
+      ]
+    },
+    "TransactionAuthorization": {
+      "release": "14.0.0",
+      "profile": "BIAN_BOM_EXTENDED_API",
+      "operations": [
+        {
+          "operation_id": "Evaluate",
+          "method": "POST",
+          "path": "/TransactionAuthorization/Evaluate",
+          "tipo": "CR",
+          "grupo": "InteractiveTransactionAssessment"
+        },
+        {
+          "operation_id": "Request",
+          "method": "PUT",
+          "path": "/TransactionAuthorization/{transactionauthorizationid}/Request",
+          "tipo": "CR",
+          "grupo": "InteractiveTransactionAssessment"
+        },
+        {
+          "operation_id": "Retrieve",
+          "method": "GET",
+          "path": "/TransactionAuthorization/{transactionauthorizationid}/Retrieve",
+          "tipo": "CR",
+          "grupo": "InteractiveTransactionAssessment"
+        },
+        {
+          "operation_id": "Exchange",
+          "method": "PUT",
+          "path": "/TransactionAuthorization/{transactionauthorizationid}/Exchange",
+          "tipo": "CR",
+          "grupo": "InteractiveTransactionAssessment"
+        },
+        {
+          "operation_id": "Update",
+          "method": "PUT",
+          "path": "/TransactionAuthorization/{transactionauthorizationid}/Update",
+          "tipo": "CR",
+          "grupo": "InteractiveTransactionAssessment"
+        },
+        {
+          "operation_id": "Execute",
+          "method": "PUT",
+          "path": "/TransactionAuthorization/{transactionauthorizationid}/Execute",
+          "tipo": "CR",
+          "grupo": "InteractiveTransactionAssessment"
+        },
+        {
+          "operation_id": "Grant",
+          "method": "PUT",
+          "path": "/TransactionAuthorization/{transactionauthorizationid}/Grant",
+          "tipo": "CR",
+          "grupo": "InteractiveTransactionAssessment"
+        }
+      ]
+    }
+  }
+}

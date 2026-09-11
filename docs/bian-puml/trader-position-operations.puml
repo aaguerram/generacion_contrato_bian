@@ -1,0 +1,93 @@
+@startuml
+title Trader Position Operations - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Trader Position Operations
+' Source image: trader-position-operations-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52391.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Traded Position" as N221548 {
+}
+
+class "Traded Position Operating Session" as N221494 {
+  + Traded Position Operating Session Function : Function[1..*]
+  + Traded Position Operating Session Function Type : TradedPositionOperatingSessionFunctionTypeValues
+}
+
+class "Session" as N221563 {
+}
+
+class "System" as N221522 {
+}
+
+class "Financial Instrument" as N221566 {
+}
+
+class "Security" as N221535 {
+  + Security Amount : Amount
+  + Security Price : Arrangement
+  + Security Identification : SecurityIdentification
+  + Security Balance : AccountBalance
+  + Security Status : SecurityStatus
+  + Security Fees : Fee Arrangement
+  + Security Date : Date Time
+  + Security Rate : Rate
+  + Security Tax : Tax Arrangement
+  + Security Jurisdiction : Jurisdiction
+}
+
+enum "FinancialInstrumentInvolvementTypeValues" as N221577 {
+  Issuer
+  Portfolio Manager
+  Investment Advisor
+  Warrant Agent
+  Trader
+  Trustee
+}
+
+class "Party" as N221541 {
+}
+
+class "Financial Instrument Involvement" as N221579 {
+  + Financial Instrument Involvement Type : FinancialInstrumentInvolvementTypeValues
+}
+
+class "Party Role" as N221557 {
+}
+
+enum "TradedPositionOperatingSessionFunctionTypeValues" as N221504 {
+  Trade Deal Blotter Function
+  Trade Capture and Reporting Function
+  Trade Quote and Pricing Function
+  Trader Security Position Management and Analysis Function
+  Trader Trading Permissions and Limits Function
+}
+
+class "Market Trade" as N221562 {
+  + Trade Execute Date : DateTime
+  + Trade Value Date : DateTime
+  + Trade End Date : DateTime
+  + Trade Identification : TradeIdentification
+  + Trade Start Date : DateTime
+  + Trade Asset : Asset
+  + Trade Market : Market
+  + Market Order : Market Order Agreement
+  + Trade Commission : Fee Arrangement
+}
+
+' Relationships
+N221548 "0..1" -- "0..1" N221494
+N221522 <|-- N221548
+N221563 <|-- N221494
+N221566 <|-- N221535
+N221494 "0..1" -- "Selected / Securities / 0..*" N221535
+N221541 "1" -- "0..*" N221557
+N221579 "0..*" -- "0..1" N221566
+N221557 <|-- N221579
+N221494 "0..1" -- "Appointed / Traders / 0..*" N221579
+N221562 "0..*" -- "Traded / Security / 0..1" N221535
+N221494 "0..1" -- "0..*" N221562
+@enduml

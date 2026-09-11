@@ -1,0 +1,87 @@
+@startuml
+title Account Reconciliation - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Account Reconciliation
+' Source image: account-reconciliation-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52800.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Account Reconciliation Procedure" as N211127 {
+  + Account Reconciliation Workstep : Workstep[1..*]
+  + Account Reconciliation Workstep Type : AccountReconciliationWorkstepTypeValues
+  + Account Reference : Account
+  + Document Reference : Document[1..*]
+  + System Reference : System
+}
+
+class "Procedure" as N211130 {
+}
+
+class "Account" as N211197 {
+}
+
+class "Workstep" as N211133 {
+}
+
+enum "AccountReconciliationWorkstepTypeValues" as N211181 {
+  Account Assessment
+  Account Resolution
+}
+
+class "Reconciliation Transaction" as N211196 {
+  + Cumulative Amount : Amount
+  + Transaction Type : TransactionTotalsTypeValues
+  + Reconciliation Transaction Identification : Identifier
+  + Currency : CurrencyCode
+}
+
+enum "TransactionTotalsTypeValues" as N211260 {
+  Debit
+  DebitReverse
+  Credit
+  CreditReverse
+  Declined
+  Failed
+  Reservation
+}
+
+class "Transaction" as N211237 {
+}
+
+class "Document" as N211157 {
+}
+
+class "Transaction Reconciliation Arrangement" as N211217 {
+  + Total Number : Number
+  + Transaction Type : TransactionTotalsTypeValues
+  + Reconciliation Identification : Identifier
+  + Card Payment : Card Payment Arrangement
+  + Close Period Indicator : Boolean
+}
+
+class "Instruction" as N211232 {
+}
+
+class "Arrangement" as N211247 {
+}
+
+class "Reconciliation Instruction" as N211164 {
+}
+
+class "System" as N211156 {
+}
+
+' Relationships
+N211130 <|-- N211127
+N211197 "0..1" -- "0..*" N211127
+N211130 -- "0..*" N211133
+N211237 <|-- N211196
+N211157 "0..*" -- "0..*" N211127
+N211247 <|-- N211217
+N211232 <|-- N211164
+N211164 "0..1" -- "0..*" N211196
+N211127 "0..*" -- "0..*" N211156
+@enduml

@@ -1,0 +1,1638 @@
+{
+  "service_domain": "Contact Handler",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/ContactHandler/Initiate",
+      "tipo": "CR",
+      "grupo": "CustomerContactOperatingSession",
+      "request_schema": "CustomerContactOperatingSession",
+      "response_schema": "CustomerContactOperatingSession",
+      "summary": "InCR Initiate a contact",
+      "description": "InCR Initiate a contact"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/ContactHandler/{contacthandlerid}/Update",
+      "tipo": "CR",
+      "grupo": "CustomerContactOperatingSession",
+      "request_schema": "CustomerContactOperatingSession",
+      "response_schema": "CustomerContactOperatingSession",
+      "summary": "UpCR Update details for a customer contact",
+      "description": "UpCR Update details for a customer contact"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/ContactHandler/{contacthandlerid}/Control",
+      "tipo": "CR",
+      "grupo": "CustomerContactOperatingSession",
+      "request_schema": "CustomerContactOperatingSession",
+      "response_schema": "CustomerContactOperatingSession",
+      "summary": "CoCR Control a customer contact (e.g. terminate)",
+      "description": "CoCR Control a customer contact (e.g. terminate)"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/ContactHandler/{contacthandlerid}/Exchange",
+      "tipo": "CR",
+      "grupo": "CustomerContactOperatingSession",
+      "request_schema": "CustomerContactOperatingSession",
+      "response_schema": "CustomerContactOperatingSession",
+      "summary": "EcCR Accept, reject, etc a contact action",
+      "description": "EcCR Accept, reject, etc a contact action"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/ContactHandler/{contacthandlerid}/Execute",
+      "tipo": "CR",
+      "grupo": "CustomerContactOperatingSession",
+      "request_schema": "CustomerContactOperatingSession",
+      "response_schema": "CustomerContactOperatingSession",
+      "summary": "ExCR Execute an automated task for a contact (e.g. route to specialist)",
+      "description": "ExCR Execute an automated task for a contact (e.g. route to specialist)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/ContactHandler/{contacthandlerid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "CustomerContactOperatingSession",
+      "request_schema": "",
+      "response_schema": "CustomerContactOperatingSession",
+      "summary": "ReCR Retrieve details about a customer contact",
+      "description": "ReCR Retrieve details about a customer contact"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/ContactHandler/{contacthandlerid}/Request",
+      "tipo": "CR",
+      "grupo": "CustomerContactOperatingSession",
+      "request_schema": "CustomerContactOperatingSession",
+      "response_schema": "CustomerContactOperatingSession",
+      "summary": "RqCR Request manual intervention in a contact (e.g. override routing decision)",
+      "description": "RqCR Request manual intervention in a contact (e.g. override routing decision)"
+    },
+    {
+      "operation_id": "RetrieveAuthentication",
+      "method": "GET",
+      "path": "/ContactHandler/{contacthandlerid}/Authentication/{authenticationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Authentication",
+      "request_schema": "",
+      "response_schema": "Authentication",
+      "summary": "ReBQ Retrieve details about an authentication task",
+      "description": "ReBQ Retrieve details about an authentication task",
+      "parent_control_record": "CustomerContactOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveRouting",
+      "method": "GET",
+      "path": "/ContactHandler/{contacthandlerid}/Routing/{routingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Routing",
+      "request_schema": "",
+      "response_schema": "Routing",
+      "summary": "ReBQ Retrieve details about a routing task",
+      "description": "ReBQ Retrieve details about a routing task",
+      "parent_control_record": "CustomerContactOperatingSession"
+    },
+    {
+      "operation_id": "UpdateSession",
+      "method": "PUT",
+      "path": "/ContactHandler/{contacthandlerid}/Session/{sessionid}/Update",
+      "tipo": "BQ",
+      "grupo": "Session",
+      "request_schema": "Session",
+      "response_schema": "Session",
+      "summary": "UpBQ Update details about a servicing session",
+      "description": "UpBQ Update details about a servicing session",
+      "parent_control_record": "CustomerContactOperatingSession"
+    },
+    {
+      "operation_id": "ControlSession",
+      "method": "PUT",
+      "path": "/ContactHandler/{contacthandlerid}/Session/{sessionid}/Control",
+      "tipo": "BQ",
+      "grupo": "Session",
+      "request_schema": "Session",
+      "response_schema": "Session",
+      "summary": "CoBQ Control the processing of a session (e.g. reroute)",
+      "description": "CoBQ Control the processing of a session (e.g. reroute)",
+      "parent_control_record": "CustomerContactOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteSession",
+      "method": "PUT",
+      "path": "/ContactHandler/{contacthandlerid}/Session/{sessionid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Session",
+      "request_schema": "Session",
+      "response_schema": "Session",
+      "summary": "ExBQ Execute an automated task in a session (e.g. re-authenticate)",
+      "description": "ExBQ Execute an automated task in a session (e.g. re-authenticate)",
+      "parent_control_record": "CustomerContactOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveSession",
+      "method": "GET",
+      "path": "/ContactHandler/{contacthandlerid}/Session/{sessionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Session",
+      "request_schema": "",
+      "response_schema": "Session",
+      "summary": "ReBQ Retrieve details about a customer servicing session",
+      "description": "ReBQ Retrieve details about a customer servicing session",
+      "parent_control_record": "CustomerContactOperatingSession"
+    },
+    {
+      "operation_id": "InitiateSession",
+      "method": "POST",
+      "path": "/ContactHandler/{contacthandlerid}/Session/Initiate",
+      "tipo": "BQ",
+      "grupo": "Session",
+      "request_schema": "Session",
+      "response_schema": "Session",
+      "summary": "InBQ Initiate a servicing session",
+      "description": "InBQ Initiate a servicing session",
+      "parent_control_record": "CustomerContactOperatingSession"
+    },
+    {
+      "operation_id": "UpdateHistory",
+      "method": "PUT",
+      "path": "/ContactHandler/{contacthandlerid}/History/{historyid}/Update",
+      "tipo": "BQ",
+      "grupo": "History",
+      "request_schema": "History",
+      "response_schema": "History",
+      "summary": "UpBQ Update a contact history record content",
+      "description": "UpBQ Update a contact history record content",
+      "parent_control_record": "CustomerContactOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveHistory",
+      "method": "GET",
+      "path": "/ContactHandler/{contacthandlerid}/History/{historyid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "History",
+      "request_schema": "",
+      "response_schema": "History",
+      "summary": "ReBQ Retrieve historical details about a contact event",
+      "description": "ReBQ Retrieve historical details about a contact event",
+      "parent_control_record": "CustomerContactOperatingSession"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Amount",
+    "Amounttypevalues",
+    "Authentication",
+    "Channeltypevalues",
+    "Communicationchannel",
+    "Currencycode",
+    "CustomerContact",
+    "CustomerContactOperatingSession",
+    "CustomerEventLog",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Device",
+    "Deviceidentification",
+    "Deviceidentificationtypevalues",
+    "Deviceoperatingsystemtypevalues",
+    "Devicetypevalues",
+    "DialogueSession",
+    "Dialoguesessionrequestedactionoutcomestatustypevalues",
+    "Duration",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "History",
+    "Identifier",
+    "Instruction",
+    "Instructiondatetime",
+    "Instructiondatetimetypevalues",
+    "Instructionidentification",
+    "Instructionidentificationtypevalues",
+    "Instructionstatus",
+    "Instructionstatustypevalues",
+    "Instructiontypevalues",
+    "Involvedparty",
+    "Location",
+    "Log",
+    "Name",
+    "Position",
+    "Routing",
+    "Schedule",
+    "ServicingResource",
+    "Session",
+    "Sessiontype",
+    "Sessiontypevalues",
+    "Status",
+    "Systemidentificationtypevalues",
+    "Systemstatustypevalues",
+    "Task",
+    "Yesnoindicator"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "Action executed during the session, such as processing service requests, placing orders, delivering notifications, or updating customer data.",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Authentication",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "AuthenticationTaskRecord",
+          "type": "object",
+          "ref": "Task"
+        }
+      ]
+    },
+    {
+      "name": "Channeltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommunicationChannel` - \r\n* `AuthenticationChannel` - \r\n",
+      "enum_values": [
+        "CommunicationChannel",
+        "AuthenticationChannel"
+      ]
+    },
+    {
+      "name": "Communicationchannel",
+      "kind": "object",
+      "description": "The communication medium through which the party (e.g., customer) interacts with the enterprise during the session. Examples include voice call, chat, email, social media message, or self-service porta",
+      "properties": [
+        {
+          "name": "ChannelType",
+          "type": "object",
+          "ref": "Channeltypevalues"
+        },
+        {
+          "name": "SystemAccessSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SystemType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SystemIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "SystemIdentificationType",
+          "type": "object",
+          "ref": "Systemidentificationtypevalues"
+        },
+        {
+          "name": "SystemStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SystemStatusType",
+          "type": "object",
+          "ref": "Systemstatustypevalues"
+        },
+        {
+          "name": "SystemDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SystemLanguage",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CustomerContact",
+      "kind": "object",
+      "description": "Reference to the contact record assembled during the customer contact",
+      "properties": [
+        {
+          "name": "CustomerContactType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CustomerContactLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "CustomerContactSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CustomerContactResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactDevice",
+          "type": "object",
+          "ref": "Device"
+        },
+        {
+          "name": "CustomerContactIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "CustomerContactOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within Contact Handler. ",
+      "properties": [
+        {
+          "name": "CustomerContactInboundorOutboundIndicator",
+          "type": "object",
+          "ref": "Yesnoindicator"
+        },
+        {
+          "name": "eBranchOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "AdvancedVoiceServiceOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "CustomerContactRecordReference",
+          "type": "object",
+          "ref": "CustomerContact"
+        },
+        {
+          "name": "CustomerContactRecord",
+          "type": "object",
+          "ref": "CustomerContact"
+        },
+        {
+          "name": "CustomerContactRecordCustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerContactRecordContactDevice",
+          "type": "object",
+          "ref": "Device"
+        },
+        {
+          "name": "CustomerContactRecordAuthenticationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "CustomerContactRecordRoutingSelectionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "CustomerContactRecordMenuSelection",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactRecordServicingRequest",
+          "type": "object",
+          "ref": "Instruction"
+        },
+        {
+          "name": "CustomerContactRecordServicingEventHistory",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactRecordServicingPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "CustomerContactRecordServicingResourceReference",
+          "type": "object",
+          "ref": "ServicingResource"
+        },
+        {
+          "name": "CustomerContactRecordActivityRecord",
+          "type": "object",
+          "ref": "CustomerEventLog"
+        },
+        {
+          "name": "CustomerSessionDialogueReference",
+          "type": "object",
+          "ref": "DialogueSession"
+        },
+        {
+          "name": "CustomerSessionDialogueRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactRecordDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "CustomerContactRecordResult",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CustomerEventLog",
+      "kind": "object",
+      "description": "Records the actions performed during contact, including all dialogue sessions",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "Key dates and times for the session",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Device",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Deviceidentification"
+        },
+        {
+          "name": "DeviceType",
+          "type": "object",
+          "ref": "Devicetypevalues"
+        },
+        {
+          "name": "DeviceProperty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceElement",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DeviceVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DeviceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DeviceLanguage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DevicePhoneNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceLocationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceManufacturer",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceCountryReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceAddressReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceOperatingSystem",
+          "type": "object",
+          "ref": "Deviceoperatingsystemtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Deviceidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DeviceIdentificationType",
+          "type": "object",
+          "ref": "Deviceidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Deviceidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `IMEI` - International Mobile Equipment Identity.\r\n* `Serialnumber` - Device serial number.\r\n* `Secureelementidentification` - Secure element ID.\r\n* `Othernational` - Other nationally assigned code.\r\n* `Otherprivate` - Other privately assigned code.\r\n",
+      "enum_values": [
+        "IMEI",
+        "Serialnumber",
+        "Secureelementidentification",
+        "Othernational",
+        "Otherprivate"
+      ]
+    },
+    {
+      "name": "Deviceoperatingsystemtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Android` - Android operating system.\r\n* `Ios` - iOS operating system.\r\n* `Windows` - Windows operating system.\r\n* `Blackberry` - Blackberry operating system.\r\n* `Tizen` - Tizen operating system.\r\n* `Othernational` - Other nationally defined code.\r\n* `Otherprivate` - Other privately defined code.\r\n",
+      "enum_values": [
+        "Android",
+        "Ios",
+        "Windows",
+        "Blackberry",
+        "Tizen",
+        "Othernational",
+        "Otherprivate"
+      ]
+    },
+    {
+      "name": "Devicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Securecardreader` - Secure card reader attached to the customer device\r\n* `Nonsecurecardreader` - Non-secure card reader attached to the customer device.\r\n* `Mobile` - Mobile phone\r\n* `Tablet` - Tablet\r\n* `Personalcomputer` - Personal computer\r\n* `Othernational` - Other device defined at national level\r\n* `Otherprivate` - Other device defined in a private way.\r\n* `Wearable` - Wearable device.\r\n* `Vehicle` - Vehicle.\r\n* `Embedded` - Embedded in a device.\r\n* `Keyfob` - Key Fob\r\n* `Jewellery` - Jewellery\r\n* `Sticker` - Sticker\r\n* `Gamingdevice` - Gaming Device\r\n* `Watch` - Watch\r\n* `Unknown` - Device type unknown\r\n* `BiometricDevice` - A biometric device is a security identification and authentication device. Such devices use automated methods of verifying or recognising the identity of a living person based on a physiological or behavioral characteristic.\nhttps://en.wikipedia.org/wiki/Biometric_device\n\r\n",
+      "enum_values": [
+        "Securecardreader",
+        "Nonsecurecardreader",
+        "Mobile",
+        "Tablet",
+        "Personalcomputer",
+        "Othernational",
+        "Otherprivate",
+        "Wearable",
+        "Vehicle",
+        "Embedded",
+        "Keyfob",
+        "Jewellery",
+        "Sticker",
+        "Gamingdevice",
+        "Watch",
+        "Unknown",
+        "BiometricDevice"
+      ]
+    },
+    {
+      "name": "DialogueSession",
+      "kind": "object",
+      "description": "Reference to any contact session dialogue records created during the contact - there can be several",
+      "properties": [
+        {
+          "name": "DialogueContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DialogueSessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DialoguePurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DialogueSessionRequestedAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "DialogueSessionOutcome",
+          "type": "object",
+          "ref": "Dialoguesessionrequestedactionoutcomestatustypevalues"
+        },
+        {
+          "name": "DialogueSessionUsedDevice",
+          "type": "object",
+          "ref": "Device"
+        },
+        {
+          "name": "DialogueSessionUsedChannel",
+          "type": "object",
+          "ref": "Communicationchannel"
+        },
+        {
+          "name": "DialogueSessionStartDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DialogueSessionEndDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DialogueSessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "DialogueSessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DialogueSessionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Dialoguesessionrequestedactionoutcomestatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Success` - Action executed successfully, requested result delivered.\r\n* `Pending` - Action accepted but not yet fully executed; requires background processing.\r\n* `Requires_Authentication` - Action cannot proceed until customer re-authenticates.\r\n* `Requires_Approval` - Action paused awaiting manual or automated approval.\r\n* `Failed_Validation` - Request failed due to invalid/missing input parameters.\r\n* `Failed_Authentication` - Request failed due to incorrect or missing authentication.\r\n* `Rejected` - Action explicitly denied due to business rules or risk controls.\r\n* `Cancelled` - Action was initiated but then stopped before completion.\r\n* `Error_System` - Request could not be completed due to a technical/system error.\r\n* `Error_Unknown` - Request failed for an unspecified or unexpected reason.\r\n",
+      "enum_values": [
+        "Success",
+        "Pending",
+        "Requires_Authentication",
+        "Requires_Approval",
+        "Failed_Validation",
+        "Failed_Authentication",
+        "Rejected",
+        "Cancelled",
+        "Error_System",
+        "Error_Unknown"
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "The time the session was active",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "History",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "HistoryTaskRecord",
+          "type": "object",
+          "ref": "Task"
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "A unique identifier assigned to each Session to distinguish it from all other sessions.",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Instruction",
+      "kind": "object",
+      "description": "The customer may provide details of servicing resource request when initiating or during contact",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Instructiondatetime"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Instructionstatus"
+        },
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Instructionidentification"
+        },
+        {
+          "name": "InstructionType",
+          "type": "object",
+          "ref": "Instructiontypevalues"
+        },
+        {
+          "name": "InstructionResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InstructionPurpose",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "InstructionDateType",
+          "type": "object",
+          "ref": "Instructiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DueDate` - \r\n* `ExecutionDate` - \r\n* `FulfillmentDate` - \r\n",
+      "enum_values": [
+        "DueDate",
+        "ExecutionDate",
+        "FulfillmentDate"
+      ]
+    },
+    {
+      "name": "Instructionidentification",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of an Instruction.\n",
+      "properties": [
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InstructionIdentificationType",
+          "type": "object",
+          "ref": "Instructionidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructionidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OrderNumber` - \r\n* `InstructionNumber` - \r\n",
+      "enum_values": [
+        "OrderNumber",
+        "InstructionNumber"
+      ]
+    },
+    {
+      "name": "Instructionstatus",
+      "kind": "object",
+      "description": "A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); ",
+      "properties": [
+        {
+          "name": "InstructionStatusType",
+          "type": "object",
+          "ref": "Instructionstatustypevalues"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Instructionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Pendingprocessing` - Processing of the instruction is pending.\r\n* `Acknowledgedaccepted` - Instruction has been acknowledged and accepted and is validated for further processing.\r\n* `Rejected` - Instruction has been rejected.\r\n* `Accepted` - Instruction has been accepted and is validated for further processing.\r\n* `Completed` - Processing has been completed.\r\n* `Notreceived` - No instruction has been received (to be used in a reminder).\r\n* `Cancelled` - Instruction has been cancelled.\r\n* `Beingcancelled` - Cancel request is being processed.\r\n* `Receivedbyissuerorregistrar` - Instruction has been received by Issuer.\r\n* `Pending` - Instruction is pending.\r\n* `Standinginstruction` - Standing instruction is applied.\r\n* `Queued` - Instruction is queued.\r\n* `Cancelledbysubcustodian` - Instruction has been cancelled by the agent, for example, due to an event deadline extension.\r\n* `Forwarded` - Accepted and sent along the chain.\r\n",
+      "enum_values": [
+        "Pendingprocessing",
+        "Acknowledgedaccepted",
+        "Rejected",
+        "Accepted",
+        "Completed",
+        "Notreceived",
+        "Cancelled",
+        "Beingcancelled",
+        "Receivedbyissuerorregistrar",
+        "Pending",
+        "Standinginstruction",
+        "Queued",
+        "Cancelledbysubcustodian",
+        "Forwarded"
+      ]
+    },
+    {
+      "name": "Instructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PaymentInstruction` - \r\n* `DeliveryOrder` - \r\n* `InformationRequest` - \r\n* `ExchangeInstruction` - \r\n* `AllocationInstruction` - \r\n* `MaintenanceInstruction` - \r\n",
+      "enum_values": [
+        "PaymentInstruction",
+        "DeliveryOrder",
+        "InformationRequest",
+        "ExchangeInstruction",
+        "AllocationInstruction",
+        "MaintenanceInstruction"
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Position",
+      "kind": "object",
+      "description": "Reference to the servicing position - can be where an inbound contact is routed, or the source of an outbound contact request",
+      "properties": [
+        {
+          "name": "PositionValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PositionQuantity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PositionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PositionAmount",
+          "type": "object",
+          "ref": "Amount"
+        }
+      ]
+    },
+    {
+      "name": "Routing",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "RoutingTaskRecord",
+          "type": "object",
+          "ref": "Task"
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ServicingResource",
+      "kind": "object",
+      "description": "Reference to the servicing resource - can be to handle an inbound contact or the source of an outbound contact request",
+      "properties": [
+        {
+          "name": "ResourceStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ResourceAvailabilitySchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ResourceLocation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ResourceQualificationProfile",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Session",
+      "kind": "object",
+      "description": "An indicator of how the session was concluded (e.g. customer completed, hang-up, further servicing required)",
+      "properties": [
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontype",
+      "kind": "object",
+      "description": "Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.",
+      "properties": [
+        {
+          "name": "SessionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ContactHandlingSession` - \r\n* `CustomerDialogueSession` - \r\n* `ChannelOperatingSession` - \r\n* `GatewayOperatingSession` - \r\n* `SwitchOperatingSession` - \r\n* `DeviceOperatingSession` - \r\n* `InterbankTransactionOperatingSession` - \r\n* `CorrespondenceOperatingSession` - \r\n* `InteractiveHelpOperatingSession` - \r\n* `ACHOperatingSession` - \r\n",
+      "enum_values": [
+        "ContactHandlingSession",
+        "CustomerDialogueSession",
+        "ChannelOperatingSession",
+        "GatewayOperatingSession",
+        "SwitchOperatingSession",
+        "DeviceOperatingSession",
+        "InterbankTransactionOperatingSession",
+        "CorrespondenceOperatingSession",
+        "InteractiveHelpOperatingSession",
+        "ACHOperatingSession"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Systemidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Model` - Identification of a model for a given manufacturer.\r\n* `Serialnumber` - Serial number of a component.\r\n* `Approvalnumber` - Unique approval number for a component, delivered by a certification body.\r\n* `Systemversion` - Version of the system, eg, \"4.0.1\" to indicate version 4.0.1.\r\n* `Systemname` - Name by which a system is known.\r\n* `Identification` - Identification of a system.\r\n",
+      "enum_values": [
+        "Model",
+        "Serialnumber",
+        "Approvalnumber",
+        "Systemversion",
+        "Systemname",
+        "Identification"
+      ]
+    },
+    {
+      "name": "Systemstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Suspended` - System is suspended, that is, not operational.\r\n* `Active` - System is functioning normally, that is, operational.\r\n* `Closed` - System is closed (eg. normal closure of an RTGS).\r\n* `Closing` - System needs to wait for completion of intermediate internal activities before going to a status Closed.\r\n* `Reservemaintenanceperiodstart` - System is starting a new maintenance period.\r\n",
+      "enum_values": [
+        "Suspended",
+        "Active",
+        "Closed",
+        "Closing",
+        "Reservemaintenanceperiodstart"
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "The task updates the contact record authentication status field and handles the interaction with the Party Authentication service domain to get the required level of authentication for the contact",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Yesnoindicator",
+      "kind": "object",
+      "description": "Indicates whether this is an inbound or outbound contact (inbound is customer initiated, outbound is servicing resource initiated)",
+      "properties": [
+        {
+          "name": "Yesnoindicator",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "CustomerContactOperatingSession",
+        "operations": [
+          "Initiate",
+          "Update",
+          "Control",
+          "Exchange",
+          "Execute",
+          "Retrieve",
+          "Request"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Authentication",
+        "parent_control_record": "CustomerContactOperatingSession",
+        "operations": [
+          "RetrieveAuthentication"
+        ]
+      },
+      {
+        "name": "History",
+        "parent_control_record": "CustomerContactOperatingSession",
+        "operations": [
+          "UpdateHistory",
+          "RetrieveHistory"
+        ]
+      },
+      {
+        "name": "Routing",
+        "parent_control_record": "CustomerContactOperatingSession",
+        "operations": [
+          "RetrieveRouting"
+        ]
+      },
+      {
+        "name": "Session",
+        "parent_control_record": "CustomerContactOperatingSession",
+        "operations": [
+          "UpdateSession",
+          "ControlSession",
+          "ExecuteSession",
+          "RetrieveSession",
+          "InitiateSession"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ContactHandler.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "1e28636d4f0757b8e1b49343ecd298c0139a64c4c02df1d3d796317ed3ca65a9",
+    "retrieved_at": "2026-09-10T22:23:29.520488+00:00"
+  }
+}

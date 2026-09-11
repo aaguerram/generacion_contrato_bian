@@ -1,0 +1,85 @@
+@startuml
+title Trust Services - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Trust Services
+' Source image: trust-services-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52521.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Trust Service" as N156602 {
+}
+
+class "Trust Service Arrangement" as N156587 {
+  + Trust Service Arrangement Type : TrustServiceArrangementInvolvementType Values
+}
+
+class "Trust Service Instruction" as N156648 {
+}
+
+class "Trust Service Transaction" as N156608 {
+}
+
+class "Arrangement" as N156641 {
+}
+
+class "Service Arrangement" as N156660 {
+}
+
+class "Financial Facility" as N156666 {
+}
+
+class "Trust Service Arrangement Involvement" as N156684 {
+  + Trust Service Arrangement Involvement Type : TrustServiceArrangementInvolvementTypeValues
+}
+
+class "Party" as N156612 {
+}
+
+class "Party Role" as N156610 {
+}
+
+enum "TrustServiceArrangementInvolvementTypeValues" as N156645 {
+  Trustee
+  Trustor
+}
+
+class "Transaction" as N156616 {
+}
+
+class "Instruction" as N156653 {
+}
+
+class "Account Entry" as N156675 {
+}
+
+class "Account" as N156668 {
+}
+
+enum "TrustServiceArrangementTypeValues" as N156594 {
+  Trust Estate, Inheritance and Income Tax Arrangement
+  Trust Tax and Expense Arrangement
+  Trust Court Administration Arrangement
+  Trust Asset Maintenance and Management Arrangement
+  Escrow Account Arrangement
+  Debt Trustee Arrangement
+  Corporate Debt Issue Oversight Arrangement
+}
+
+' Relationships
+N156602 "0..1" -- "0..*" N156587
+N156660 <|-- N156587
+N156666 <|-- N156602
+N156587 "0..1" -- "2..*" N156684
+N156612 "1" -- "0..*" N156610
+N156610 <|-- N156684
+N156587 -- "0..*" N156648 : 0..1
+N156648 -- "0..*" N156608 : 0..1
+N156668 "1" -- "0..*" N156675
+N156653 <|-- N156648
+N156616 <|-- N156608
+N156587 "0..*" -- "0..1" N156668
+N156608 "0..1" -- "0..*" N156675
+@enduml

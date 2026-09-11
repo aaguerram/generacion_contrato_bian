@@ -1,0 +1,222 @@
+@startuml
+title Party Reference Data Directory - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Party Reference Data Directory
+' Source image: party-reference-data-directory-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_44525.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Directory" as N199990 {
+}
+
+class "Directory Entry" as N199910 {
+}
+
+class "Party Reference Data Directory Entry" as N199866 {
+}
+
+class "Party" as N199879 {
+  + Party Name : Name[1..*]
+  + Party Type : PartyTypeValues
+  + Party Date Time : DateTime[1..*]
+  + Party Identification : PartyIdentification[0..*]
+  + Party Legal Structure Type : PartyLegalStructureTypeValues
+  + Party Activity Indicator : IndustryCode
+}
+
+class "Person" as N199916 {
+  + Person Identification : PersonIdentification[1..*]
+  + Residential Status : ResidentalStatusTypeValues
+  + Birth Date : Date
+  + Nationality : Country
+  + Ethnicity : Text
+  + Religion : Text
+  + Person Name : PersonName[1..*]
+  + Civil Status : CivilStatusTypeValues
+  + Job Title : Text
+  + Person Name Prefix : NamePrefixTypeValues
+}
+
+enum "PersonIdentificationTypeValues" as N199972 {
+  SocialSecurityNumber
+  DriversLicenseNumber
+  PassportNumber
+  IdentityCardNumber
+  EmployerIdentificationNumber
+  AlienRegistrationNumber
+  CustomerIdentificationNumber
+  EmployeeIdentificationNumber
+  NationalIdentityNumber
+  TelephoneNumber
+  TaxIdentificationNumber
+}
+
+class "Organisation" as N199956 {
+  + Organisation Structure Hierarchy : Text
+  + Organisation Identification : OrganisationIdentification[1..*]
+  + Organisation Sector : Text
+  + Legal Entity Indicator : String
+  + Organisation Date : OrganisationDateTime[0..*]
+  + Organisation Type : OrganisationTypeValues
+  + Organisation Name : OrganisationName[1..*]
+  + Organisation Legal Structure : OrganisationLegalStructureTypeValues
+}
+
+class "Country" as N199887 {
+  + National Regulatory Authority : InvolvedParty
+  + Country Name : Name
+  + Country Code : CountryCode
+}
+
+class "Person Location" as N199928 {
+  + Person Location Type : PersonLocationTypeValues
+  + Person Reference : Person
+  + Location Reference : Location
+}
+
+class "Location" as N199858 {
+}
+
+enum "PersonLocationTypeValues" as N200036 {
+  Place of Birth
+  Residential Address
+  Domicile Address
+  Work Address
+}
+
+class "Contact Point" as N199941 {
+  + Contact Point Type : ContactPointTypeValues
+}
+
+enum "ContactPointTypeValues" as N199953 {
+  Electronic Address
+  Postal Address
+  Phone Number
+  SocialNetworkAddress
+}
+
+enum "OrganisationIdentificationTypeValues" as N199940 {
+  LEI
+  ELF
+  MIC
+  BICFI
+  BankPartyIdentification
+  CentralBankIdentificationNumber
+  ClearingIdentificationNumber
+  CertificateOfIncorporationNumber
+  CountryIdentificationCode
+  CustomerNumber
+  DataUniversalNumberingSystem
+  EmployerIdentificationNumber
+  GS1GLNIdentifier
+  SIREN
+  SIRET
+  TaxIdentificationNumber
+  EANGLN
+}
+
+class "Organisation Location" as N199967 {
+  + Organisation Location Type : OrganisationLocationTypeValues
+  + Location Reference : Location
+  + Organisation Reference : Organisation
+}
+
+enum "OrganisationLocationTypeValues" as N199863 {
+  Place of Registration
+  Place of Operation
+}
+
+class "Party Relationship" as N199893 {
+}
+
+class "Customer Relationship" as N200037 {
+}
+
+class "Customer Relationship Involvement" as N200076 {
+}
+
+class "Party Role" as N199955 {
+}
+
+enum "PartyLegalStructureTypeValues" as N199898 {
+  Individual
+  Community Interest Company
+  Charitable Incorporated Organisation
+  Co-operative
+  Charity
+  General Partnership
+  Limited Liability Partnership
+  Scottish Limited Partnership
+  Limited Partnership
+  Private Limited Company
+  Public Limited Company
+  Sole (sole trader)
+}
+
+enum "PartyIdentificationTypeValues" as N199987 {
+  TaxIdentificationNumber
+  NationalRegistrationNumber
+  RegistrationAuthorityIdentification
+  LEI (Legal Entity Identifier)
+  AlienRegistrationNumber
+  PassportNumber
+  TaxExemptIdentificationNumber
+  CorporateIdentification
+  DriverLicenseNumber
+  ForeignInvestmentIdentityNumber
+  SocialSecurityNumber
+  IdentityCardNumber
+  Concat
+  NationalRegistrationIdentificationNumber
+}
+
+class "Party_Party Relationship" as N199984 {
+  + Relationship Type : Party_PartyRelationshipTypeValues
+  + From Party : Party
+  + To Party : Party
+}
+
+enum "Party_PartyRelationshipTypeValues" as N199917 {
+  Party is parent of Party
+  Party is subsidiary of Party
+  Party is certified by Party
+  Party is married to Party
+  Party acts on behalf of Party
+  Party is Contact Point for Party
+  Party is trusted by Party
+  Party is the Power of Attorney for Party
+  Party receives benefits from a Party
+}
+
+class "Bank Relationship" as N200043 {
+}
+
+class "Party Reference Data Directory" as N200052 {
+}
+
+' Relationships
+N199910 <|-- N199866
+N199879 "Registered / Party / 0..1" -- "0..*" N199866
+N199879 <|-- N199916
+N199956 "ParentOrganisation / 0..1" -- "Branch / 0..*" N199956
+N199879 <|-- N199956
+N199887 "0..*" -- "Citizen" N199916 : Nationality / 1..*
+N199916 -- "1 / 0..*" N199928
+N199858 "1" -- N199928 : 0..*
+N199941 -- "1..* / 0..1" N199879
+N199956 "1" -- "0..*" N199967
+N199858 "1" -- "0..*" N199967
+N199893 <|-- N200037
+N200037 "0..1" -- "2..*" N200076
+N199893 "0..1" -- "2..*" N199955
+N199955 <|-- N200076
+N199879 "1" -- "0..*" N199955
+N199879 "1" -- "0..*" N199984
+N199879 "1" -- "0..*" N199984
+N199893 <|-- N200043
+N199990 <|-- N200052
+N200052 "1" -- "0..*" N199866
+@enduml

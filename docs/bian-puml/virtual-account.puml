@@ -1,0 +1,85 @@
+@startuml
+title Virtual Account - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Virtual Account
+' Source image: virtual-account-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52123.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Virtual Account" as N228477 {
+}
+
+class "Virtual Account Arrangement" as N228499 {
+  + Virtual Account Arrangement Type
+}
+
+class "Virtual Account Agreement" as N228496 {
+}
+
+enum "VirtualAccountArrangementTypeValues" as N228554 {
+  Interest Arrangement
+  Standing Order Arrangement
+  Credit Transfer Arrangement
+  Direct Debit Arrangement
+  Account Statement Arrangement
+  Account Maintenance Arrangement
+  Account Configuration Arrangement
+  Fee Arrangement
+}
+
+class "Account" as N228480 {
+}
+
+class "Account Entry" as N228458 {
+}
+
+class "Standing Order Arrangement" as N228459 {
+}
+
+class "Direct Debit Mandate Arrangement" as N228447 {
+}
+
+class "Fee Arrangement" as N228478 {
+}
+
+class "Virtual Account Instruction" as N228491 {
+}
+
+class "Virtual Account Transaction" as N228476 {
+}
+
+class "Party" as N228557 {
+}
+
+class "Party Role" as N228434 {
+}
+
+class "Arrangement" as N228555 {
+}
+
+class "Agreement" as N228522 {
+}
+
+class "Interest Arrangement" as N228529 {
+}
+
+' Relationships
+N228496 "0..1" -- "0..1" N228499
+N228477 "0..1" -- "0..*" N228496
+N228480 "1" -- "0..*" N228458
+N228480 <|-- N228477
+N228499 <|-- N228459
+N228499 <|-- N228447
+N228499 <|-- N228478
+N228499 "0..1" -- "0..*" N228491
+N228491 "0..1" -- "0..*" N228476
+N228476 "0..1" -- "0..*" N228458
+N228499 "1" -- "2..*" N228434
+N228555 <|-- N228499
+N228522 <|-- N228496
+N228557 "1" -- "0..*" N228434
+N228499 <|-- N228529
+@enduml

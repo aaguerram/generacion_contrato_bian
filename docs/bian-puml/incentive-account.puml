@@ -1,0 +1,64 @@
+@startuml
+title Incentive Account - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Incentive Account
+' Source image: incentive-account-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51968.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Incentive Program" as N110457 {
+  + Incentive Program Type : IncentiveProgramTypeValues
+}
+
+class "Product" as N110465 {
+}
+
+class "Incentive Account Agreement" as N110441 {
+}
+
+class "Agreement" as N110440 {
+}
+
+class "Incentive Account Involvement" as N110458 {
+  + Involvement Type : IncentiveAccountInvolvementTypeValues
+}
+
+enum "IncentiveAccountInvolvementTypeValues" as N110506 {
+  Account Holder (Customer / Participant)
+  Financial Institution (Bank / Service Provider)
+  Program Administrator
+  Third-Party Service Provider
+}
+
+enum "IncentiveProgramTypeValues" as N110489 {
+  Cashback and Rewards Programs
+  Loyalty/Tiered Benefits Programs
+  Interest Rate Incentives
+  Referral Programs
+  Sales Incentive Programs
+  Performance Bonuses
+  Training or Certification Incentives
+}
+
+class "Incentive Account Arrangement" as N110491 {
+  + Arrangement Type : IncentiveAccountArrangementTypeValues
+}
+
+class "Arrangement" as N110514 {
+}
+
+enum "IncentiveAccountArrangementTypeValues" as N110508 {
+  Eligibility Criteria
+  Qualifying Conditions
+  Incentive Structure
+  Timeframes and Duration
+}
+
+' Relationships
+N110465 <|-- N110457
+N110440 <|-- N110441
+N110514 <|-- N110491
+@enduml

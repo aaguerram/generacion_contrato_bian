@@ -1,0 +1,997 @@
+{
+  "service_domain": "Fraud Diagnosis",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/FraudDiagnosis/{frauddiagnosisid}/Update",
+      "tipo": "CR",
+      "grupo": "FraudDiagnosisAnalysis",
+      "request_schema": "FraudDiagnosisAnalysis",
+      "response_schema": "FraudDiagnosisAnalysis",
+      "summary": "UpCR Update details for an active fraud diagnosis",
+      "description": "UpCR Update details for an active fraud diagnosis"
+    },
+    {
+      "operation_id": "Evaluate",
+      "method": "POST",
+      "path": "/FraudDiagnosis/Evaluate",
+      "tipo": "CR",
+      "grupo": "FraudDiagnosisAnalysis",
+      "request_schema": "FraudDiagnosisAnalysis",
+      "response_schema": "FraudDiagnosisAnalysis",
+      "summary": "EvCR Start a fraud diagnosis evaluation on a transaction",
+      "description": "EvCR Start a fraud diagnosis evaluation on a transaction"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/FraudDiagnosis/{frauddiagnosisid}/Exchange",
+      "tipo": "CR",
+      "grupo": "FraudDiagnosisAnalysis",
+      "request_schema": "FraudDiagnosisAnalysis",
+      "response_schema": "FraudDiagnosisAnalysis",
+      "summary": "ExCR Perform an automated action to an active diagnosis (e.g. upload additional data)",
+      "description": "ExCR Perform an automated action to an active diagnosis (e.g. upload additional data)"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/FraudDiagnosis/{frauddiagnosisid}/Request",
+      "tipo": "CR",
+      "grupo": "FraudDiagnosisAnalysis",
+      "request_schema": "FraudDiagnosisAnalysis",
+      "response_schema": "FraudDiagnosisAnalysis",
+      "summary": "RqCR Request manual intervention for an active diagnosis (e.g. request access to analyst)",
+      "description": "RqCR Request manual intervention for an active diagnosis (e.g. request access to analyst)"
+    },
+    {
+      "operation_id": "RetrieveEconomicModel",
+      "method": "GET",
+      "path": "/FraudDiagnosis/{frauddiagnosisid}/EconomicModel/{economicmodelid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "EconomicModel",
+      "request_schema": "",
+      "response_schema": "EconomicModel",
+      "summary": "ReBQ Retrieve details about an economic model analysis",
+      "description": "ReBQ Retrieve details about an economic model analysis",
+      "parent_control_record": "FraudDiagnosisAnalysis"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/FraudDiagnosis/{frauddiagnosisid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "FraudDiagnosisAnalysis",
+      "request_schema": "",
+      "response_schema": "FraudDiagnosisAnalysis",
+      "summary": "ReCR Retrieve details about a fraud diagnosis",
+      "description": "ReCR Retrieve details about a fraud diagnosis"
+    },
+    {
+      "operation_id": "RetrieveCustomerBehavior",
+      "method": "GET",
+      "path": "/FraudDiagnosis/{frauddiagnosisid}/CustomerBehavior/{customerbehaviorid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "CustomerBehavior",
+      "request_schema": "",
+      "response_schema": "CustomerBehavior",
+      "summary": "ReBQ Retrieve details about a customer behavior analysis",
+      "description": "ReBQ Retrieve details about a customer behavior analysis",
+      "parent_control_record": "FraudDiagnosisAnalysis"
+    },
+    {
+      "operation_id": "RequestAnalystReview",
+      "method": "PUT",
+      "path": "/FraudDiagnosis/{frauddiagnosisid}/AnalystReview/{analystreviewid}/Request",
+      "tipo": "BQ",
+      "grupo": "AnalystReview",
+      "request_schema": "AnalystReview",
+      "response_schema": "AnalystReview",
+      "summary": "RqBQ Request access to an analist for an active diagnosis",
+      "description": "RqBQ Request access to an analist for an active diagnosis",
+      "parent_control_record": "FraudDiagnosisAnalysis"
+    },
+    {
+      "operation_id": "RetrieveAnalystReview",
+      "method": "GET",
+      "path": "/FraudDiagnosis/{frauddiagnosisid}/AnalystReview/{analystreviewid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "AnalystReview",
+      "request_schema": "",
+      "response_schema": "AnalystReview",
+      "summary": "ReBQ Retrieve details about a analyst review of a transaction",
+      "description": "ReBQ Retrieve details about a analyst review of a transaction",
+      "parent_control_record": "FraudDiagnosisAnalysis"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Analysis",
+    "Analysistypevalues",
+    "AnalystReview",
+    "CustomerBehavior",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Duration",
+    "EconomicModel",
+    "EconomicModelAnalysis",
+    "FraudDiagnosisAnalysis",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Location",
+    "Name",
+    "ProductionTransaction",
+    "Profile",
+    "Schedule",
+    "Session",
+    "Sessiontype",
+    "Sessiontypevalues",
+    "Status",
+    "Transactiondatetime",
+    "Transactiondatetimetypevalues",
+    "Transactionstatus",
+    "Transactionstatustypevalues",
+    "Transactiontypevalues",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "The recommended action resulting from the analysts review",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Analysis",
+      "kind": "object",
+      "description": "The result of the economic model, including the recommended response",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "AnalystReview",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\nExamples: Average balance calculation, Propensity to buy",
+      "properties": [
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "OutboundContactReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalystReviewAnalysisResult",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "AnalystReviewWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "AnalystReviewRecommendedAction",
+          "type": "object",
+          "ref": "Action"
+        }
+      ]
+    },
+    {
+      "name": "CustomerBehavior",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\nExamples: Average balance calculation, Propensity to buy",
+      "properties": [
+        {
+          "name": "CustomerBehaviorAnalysisResult",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "CustomerBehaviorAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "Date and time at which the range starts. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The period covered by the analysis (from to date time)",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "The time the session was active",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "EconomicModel",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\nExamples: Average balance calculation, Propensity to buy",
+      "properties": [
+        {
+          "name": "EconomicModelAnalysisResult",
+          "type": "object",
+          "ref": "EconomicModelAnalysis"
+        },
+        {
+          "name": "EconomicModelWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        }
+      ]
+    },
+    {
+      "name": "EconomicModelAnalysis",
+      "kind": "object",
+      "description": "The result of the economic model, including the recommended response",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "FraudDiagnosisAnalysis",
+      "kind": "object",
+      "description": "Analyze the performance or behavior of some on-going activity or entity  within Fraud Diagnosis. \nExamples: Provide behavioral insights and analysis into customer behavior and analyze financial market activity in order to identify opportunities, define pricing and evaluate risks.\n\nAnalyze the performance or behavior of some on-going activity or entity. Examples: Provide behavioral insights and analysis into customer behavior and analyze financial market activity in order to identify opportunities, define pricing and evaluate risks.",
+      "properties": [
+        {
+          "name": "ProductProductionSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "FraudDiagnosisEvaluationProfile",
+          "type": "object",
+          "ref": "Profile"
+        },
+        {
+          "name": "FraudDiagnosisTransactionConsolidationRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FraudEvaluationProductionAnomalyRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FraudEvaluationProductionAnomalyProductionTransactionReference",
+          "type": "object",
+          "ref": "ProductionTransaction"
+        },
+        {
+          "name": "FraudDiagnosisDetermination",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FraudDiagnosisRecommendation",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "Name (label) of the location. (ISO20022)",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductionTransaction",
+      "kind": "object",
+      "description": "Reference to the one or more production transactions isolated by the fraud evaluation tests identified by Fraud Evaluation",
+      "properties": [
+        {
+          "name": "TransactionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Transactiondatetime"
+        },
+        {
+          "name": "TransactionType",
+          "type": "object",
+          "ref": "Transactiontypevalues"
+        },
+        {
+          "name": "TransactionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Transactionstatus"
+        },
+        {
+          "name": "TransactionName",
+          "type": "object",
+          "ref": "Name"
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "kind": "object",
+      "description": "Details the types of fraud diagnosis algorithms and tests are applied",
+      "properties": [
+        {
+          "name": "Profile",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the analysis performed using the algorithm",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Session",
+      "kind": "object",
+      "description": "Reference to the product fulfillment production session for which fraud diagnosis is performed",
+      "properties": [
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontype",
+      "kind": "object",
+      "description": "Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.",
+      "properties": [
+        {
+          "name": "SessionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ContactHandlingSession` - \r\n* `CustomerDialogueSession` - \r\n* `ChannelOperatingSession` - \r\n* `GatewayOperatingSession` - \r\n* `SwitchOperatingSession` - \r\n* `DeviceOperatingSession` - \r\n* `InterbankTransactionOperatingSession` - \r\n* `CorrespondenceOperatingSession` - \r\n* `InteractiveHelpOperatingSession` - \r\n* `ACHOperatingSession` - \r\n",
+      "enum_values": [
+        "ContactHandlingSession",
+        "CustomerDialogueSession",
+        "ChannelOperatingSession",
+        "GatewayOperatingSession",
+        "SwitchOperatingSession",
+        "DeviceOperatingSession",
+        "InterbankTransactionOperatingSession",
+        "CorrespondenceOperatingSession",
+        "InteractiveHelpOperatingSession",
+        "ACHOperatingSession"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "The tracked status (e.g. under construction or repair, inhabited, vacant).",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetime",
+      "kind": "object",
+      "description": "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). ",
+      "properties": [
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "TransactionDateType",
+          "type": "object",
+          "ref": "Transactiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ExecutedDate` - \r\n* `FulfillmentDate` - \r\n* `InitiatedDate` - \r\n* `CancelledDate` - \r\n* `ApprovedDate` - \r\n* `ValueDate` - \r\n* `BookingDate` - \r\n",
+      "enum_values": [
+        "ExecutedDate",
+        "FulfillmentDate",
+        "InitiatedDate",
+        "CancelledDate",
+        "ApprovedDate",
+        "ValueDate",
+        "BookingDate"
+      ]
+    },
+    {
+      "name": "Transactionstatus",
+      "kind": "object",
+      "description": "A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) ",
+      "properties": [
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "TransactionStatusType",
+          "type": "object",
+          "ref": "Transactionstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Executed` - \r\n* `Cancelled` - \r\n* `Confirmed` - \r\n* `Suspended` - \r\n* `Pending` - \r\n* `Completed` - \r\n* `Notified` - \r\n* `Booked` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Executed",
+        "Cancelled",
+        "Confirmed",
+        "Suspended",
+        "Pending",
+        "Completed",
+        "Notified",
+        "Booked",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Transactiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialTransaction` - \r\n* `BusinessTransaction` - \r\n* `BankingTransaction` - \r\n* `AccountingTransaction` - \r\n* `BookingTransaction` - \r\n* `AllocationTransaction` - \r\n* `DeliveryTransaction` - \r\n* `ProductionTransaction` - \r\n",
+      "enum_values": [
+        "FinancialTransaction",
+        "BusinessTransaction",
+        "BankingTransaction",
+        "AccountingTransaction",
+        "BookingTransaction",
+        "AllocationTransaction",
+        "DeliveryTransaction",
+        "ProductionTransaction"
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "Work documentation, forms and schedules produced and referenced during the analysis (for future reference)",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "FraudDiagnosisAnalysis",
+        "operations": [
+          "Update",
+          "Evaluate",
+          "Exchange",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "AnalystReview",
+        "parent_control_record": "FraudDiagnosisAnalysis",
+        "operations": [
+          "RequestAnalystReview",
+          "RetrieveAnalystReview"
+        ]
+      },
+      {
+        "name": "CustomerBehavior",
+        "parent_control_record": "FraudDiagnosisAnalysis",
+        "operations": [
+          "RetrieveCustomerBehavior"
+        ]
+      },
+      {
+        "name": "EconomicModel",
+        "parent_control_record": "FraudDiagnosisAnalysis",
+        "operations": [
+          "RetrieveEconomicModel"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/FraudDiagnosis.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "489ab51d8c5d88739023ab97a91928012d6921de6ca37281ec110f1be3dc4f41",
+    "retrieved_at": "2026-09-10T22:23:49.427590+00:00"
+  }
+}

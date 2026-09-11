@@ -1,0 +1,1981 @@
+{
+  "service_domain": "Party Authentication",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Update",
+      "tipo": "CR",
+      "grupo": "PartyAuthenticationAssessment",
+      "request_schema": "PartyAuthenticationAssessment",
+      "response_schema": "PartyAuthenticationAssessment",
+      "summary": "UpCR Update details of a customer authentication assessment",
+      "description": "UpCR Update details of a customer authentication assessment"
+    },
+    {
+      "operation_id": "Evaluate",
+      "method": "POST",
+      "path": "/PartyAuthentication/Evaluate",
+      "tipo": "CR",
+      "grupo": "PartyAuthenticationAssessment",
+      "request_schema": "PartyAuthenticationAssessment",
+      "response_schema": "PartyAuthenticationAssessment",
+      "summary": "EvCR Evaluate a customer's authenticity",
+      "description": "EvCR Evaluate a customer's authenticity"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Exchange",
+      "tipo": "CR",
+      "grupo": "PartyAuthenticationAssessment",
+      "request_schema": "PartyAuthenticationAssessment",
+      "response_schema": "PartyAuthenticationAssessment",
+      "summary": "EcCR Accept, reject, etc. a customer authentication assessment",
+      "description": "EcCR Accept, reject, etc. a customer authentication assessment"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Execute",
+      "tipo": "CR",
+      "grupo": "PartyAuthenticationAssessment",
+      "request_schema": "PartyAuthenticationAssessment",
+      "response_schema": "PartyAuthenticationAssessment",
+      "summary": "ExCR Execute an automated action for an assessment (e.g. submit data)",
+      "description": "ExCR Execute an automated action for an assessment (e.g. submit data)"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Request",
+      "tipo": "CR",
+      "grupo": "PartyAuthenticationAssessment",
+      "request_schema": "PartyAuthenticationAssessment",
+      "response_schema": "PartyAuthenticationAssessment",
+      "summary": "RqCR Request manual interventions in an assessment (e.g. engage specialist)",
+      "description": "RqCR Request manual interventions in an assessment (e.g. engage specialist)"
+    },
+    {
+      "operation_id": "Grant",
+      "method": "PUT",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Grant",
+      "tipo": "CR",
+      "grupo": "PartyAuthenticationAssessment",
+      "request_schema": "PartyAuthenticationAssessment",
+      "response_schema": "PartyAuthenticationAssessment",
+      "summary": "GrCR Obtain an authentication grant (a token)",
+      "description": "GrCR Obtain an authentication grant (a token)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "PartyAuthenticationAssessment",
+      "request_schema": "",
+      "response_schema": "PartyAuthenticationAssessment",
+      "summary": "ReCR Retrieve details about an authentication assessment",
+      "description": "ReCR Retrieve details about an authentication assessment"
+    },
+    {
+      "operation_id": "EvaluatePassword",
+      "method": "POST",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Password/Evaluate",
+      "tipo": "BQ",
+      "grupo": "Password",
+      "request_schema": "Password",
+      "response_schema": "Password",
+      "summary": "EvBQ Evaluate customer authenticity using passwords",
+      "description": "EvBQ Evaluate customer authenticity using passwords",
+      "parent_control_record": "PartyAuthenticationAssessment"
+    },
+    {
+      "operation_id": "RetrievePassword",
+      "method": "GET",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Password/{passwordid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Password",
+      "request_schema": "",
+      "response_schema": "Password",
+      "summary": "ReBQ Retrieve details about a password evaluation",
+      "description": "ReBQ Retrieve details about a password evaluation",
+      "parent_control_record": "PartyAuthenticationAssessment"
+    },
+    {
+      "operation_id": "EvaluateQuestion",
+      "method": "POST",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Question/Evaluate",
+      "tipo": "BQ",
+      "grupo": "Question",
+      "request_schema": "Question",
+      "response_schema": "Question",
+      "summary": "EvBQ Evaluate customer authenticity using secret questions",
+      "description": "EvBQ Evaluate customer authenticity using secret questions",
+      "parent_control_record": "PartyAuthenticationAssessment"
+    },
+    {
+      "operation_id": "RetrieveQuestion",
+      "method": "GET",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Question/{questionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Question",
+      "request_schema": "",
+      "response_schema": "Question",
+      "summary": "ReBQ Retrieve details about a secret question evaluation",
+      "description": "ReBQ Retrieve details about a secret question evaluation",
+      "parent_control_record": "PartyAuthenticationAssessment"
+    },
+    {
+      "operation_id": "RetrieveDocument",
+      "method": "GET",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Document/{documentid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Document",
+      "request_schema": "",
+      "response_schema": "Document",
+      "summary": "ReBQ Retrieve details about a document evaluation",
+      "description": "ReBQ Retrieve details about a document evaluation",
+      "parent_control_record": "PartyAuthenticationAssessment"
+    },
+    {
+      "operation_id": "EvaluateDocument",
+      "method": "POST",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Document/Evaluate",
+      "tipo": "BQ",
+      "grupo": "Document",
+      "request_schema": "Document",
+      "response_schema": "Document",
+      "summary": "EvBQ Evaluate customer authenticity using documents",
+      "description": "EvBQ Evaluate customer authenticity using documents",
+      "parent_control_record": "PartyAuthenticationAssessment"
+    },
+    {
+      "operation_id": "EvaluateDevice",
+      "method": "POST",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Device/Evaluate",
+      "tipo": "BQ",
+      "grupo": "Device",
+      "request_schema": "Device",
+      "response_schema": "Device",
+      "summary": "EvBQ Evaluate customer authenticity using a device",
+      "description": "EvBQ Evaluate customer authenticity using a device",
+      "parent_control_record": "PartyAuthenticationAssessment"
+    },
+    {
+      "operation_id": "EvaluateBiometric",
+      "method": "POST",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Biometric/Evaluate",
+      "tipo": "BQ",
+      "grupo": "Biometric",
+      "request_schema": "Biometric",
+      "response_schema": "Biometric",
+      "summary": "EvBQ Evaluate customer authenticity using biometrics",
+      "description": "EvBQ Evaluate customer authenticity using biometrics",
+      "parent_control_record": "PartyAuthenticationAssessment"
+    },
+    {
+      "operation_id": "RetrieveDevice",
+      "method": "GET",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Device/{deviceid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Device",
+      "request_schema": "",
+      "response_schema": "Device",
+      "summary": "ReBQ Retrieve details about a device evaluation",
+      "description": "ReBQ Retrieve details about a device evaluation",
+      "parent_control_record": "PartyAuthenticationAssessment"
+    },
+    {
+      "operation_id": "RetrieveBiometric",
+      "method": "GET",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Biometric/{biometricid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Biometric",
+      "request_schema": "",
+      "response_schema": "Biometric",
+      "summary": "ReBQ Retrieve details about a biometric evaluation",
+      "description": "ReBQ Retrieve details about a biometric evaluation",
+      "parent_control_record": "PartyAuthenticationAssessment"
+    },
+    {
+      "operation_id": "EvaluateBehavior",
+      "method": "POST",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Behavior/Evaluate",
+      "tipo": "BQ",
+      "grupo": "Behavior",
+      "request_schema": "Behavior",
+      "response_schema": "Behavior",
+      "summary": "EvBQ Evaluate customer authenticity using behaviors",
+      "description": "EvBQ Evaluate customer authenticity using behaviors",
+      "parent_control_record": "PartyAuthenticationAssessment"
+    },
+    {
+      "operation_id": "RetrieveBehavior",
+      "method": "GET",
+      "path": "/PartyAuthentication/{partyauthenticationid}/Behavior/{behaviorid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Behavior",
+      "request_schema": "",
+      "response_schema": "Behavior",
+      "summary": "ReBQ Retrieve details about a behavior evaluation",
+      "description": "ReBQ Retrieve details about a behavior evaluation",
+      "parent_control_record": "PartyAuthenticationAssessment"
+    }
+  ],
+  "schemas": [
+    "Address",
+    "Addresstypevalues",
+    "Assessmenttypevalues",
+    "Authenticationentitytypevalues",
+    "Authenticationleveltypevalues",
+    "Authenticationmethodtypevalues",
+    "Authenticationresulttypevalues",
+    "Authenticationtypevalues",
+    "Behavior",
+    "BehavioralData",
+    "Biometric",
+    "BiometricData",
+    "Biometricdatatypevalues",
+    "Branch",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Device",
+    "Devicecustomizationtypevalues",
+    "Deviceidentification",
+    "Deviceidentificationtypevalues",
+    "Deviceoperatingsystemtypevalues",
+    "Devicetypevalues",
+    "Directoryentrydatetypevalues",
+    "Document",
+    "DocumentDirectoryEntry",
+    "Documentdatetimetypevalues",
+    "Financialdocumenttypevalues",
+    "HTTPError",
+    "Identifier",
+    "Instructiondatetime",
+    "Instructiondatetimetypevalues",
+    "Instructionidentification",
+    "Instructionidentificationtypevalues",
+    "Instructionstatus",
+    "Instructionstatustypevalues",
+    "Instructiontypevalues",
+    "Involvedparty",
+    "IssuedDevice",
+    "Issueddevicestatustypevalues",
+    "Log",
+    "Model",
+    "Name",
+    "PartyAuthentication",
+    "PartyAuthenticationAssessment",
+    "Password",
+    "Question",
+    "Requirement",
+    "Schedule",
+    "SecretQuestion",
+    "Status",
+    "Test",
+    "Testtypevalues",
+    "Token",
+    "Tokenidentificationandverificationmethodtypevalues",
+    "Tokenprotectionmethodtypevalues",
+    "Tokenrequest",
+    "Tokenstatustypevalues",
+    "Tokenstoragelocationtypevalues",
+    "Tokentypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Address",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AddressType",
+          "type": "object",
+          "ref": "Addresstypevalues"
+        },
+        {
+          "name": "AddressDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Addresstypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PostalAddress` - \r\n* `GeolocationAddress` - \r\n* `LatitudeAddress` - \r\n* `LongitudeAddress` - \r\n* `ElectronicAddress` - \r\n",
+      "enum_values": [
+        "PostalAddress",
+        "GeolocationAddress",
+        "LatitudeAddress",
+        "LongitudeAddress",
+        "ElectronicAddress"
+      ]
+    },
+    {
+      "name": "Assessmenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Valuation` - \r\n* `Matching` - \r\n* `Authorization` - An evaluation whether a party or system is allowed to do something.\n\nThe consent given by a participant (or a third party acting on behalf of that participant) in order to transfer funds or securities. (ECB)\n\nAuthorization is a mechanism by which a computer system determines whether to allow or deny specific action to a user. Authorization is often controlled by rather complex rules and algorithms, usually specified as part of an access control model. Authorization often follows (and required) authentication, however, authentication and authorization are two separate mechanisms. In rare cases, \"authorization\" is understood as a process of allowing access, granting permissions or giving approval. Such as \"authorization\" of a request to join a group. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `Authentication` - An evaluation whether a party or system is what it claims to be.\n\nA security mechanism for verifying: 1) the identity of an individual or other entity (including verification by means of a computer or computer application); and 2) the level of authority of that person or entity (i.e. the ability of that person or entity to perform specific tasks or activities). (ECB)\n\nAuthentication is a mechanism by which a computer system checks that the user is really the one she or he claims to be. Authentication can be implemented by a broad variety of mechanisms broadly divided into three categories: something you know, something you have, something you are. Traditionally, authentication is done by the means of by username and password. Authentication is often followed by authorization, however, authentication and authorization are two separate mechanisms. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `QualityAssurance` - \r\n* `Audit` - \r\n* `ComplianceCheck` - \r\n* `FundingCheck` - \r\n* `SuitabilityCheck` - \r\n* `PerformanceCheck` - \r\n* `ImpactAssessment` - \r\n* `RiskAssessment` - \r\n* `Rating` - \r\n* `UnderwritingAssessment` - \r\n* `Qualification` - \r\n* `Verification` - A process establishing that a particular information is correct, while the meaning of \"information\" and \"correct\" varies from context to context. When dealing with identity information, this usually means formal verification of identity attributes, checking the schema, identifier uniqueness and referential integrity. However, verification may mean deeper verification, such as checking that the information is true and up-to-date.  (ISO/IEC 24760-1:2019 - IT Security and Privacy)\n\r\n* `KYCAssessment` - An assessment conducted by businesses and financial institutions to verify and confirm the identity of their customers or clients. The primary purpose of a KYC check is to prevent illegal activities, such as money laundering, terrorist financing, and fraud, by ensuring that customers are who they claim to be.\r\n* `PEPAssessment` - A PEP check, or \"Politically Exposed Person\" check, is an assessment conducted by used by businesses, financial institutions, and government agencies to identify individuals who hold prominent public positions or have significant political influence. The purpose of a PEP check is to assess and manage the potential risks associated with doing business with these individuals, as they may be more susceptible to corruption, money laundering, or other illicit activities.\r\n* `AMLAssessment` - An AML (Anti-Money Laundering) check is an assessment conducted by businesses, financial institutions, and other organizations to prevent and detect money laundering and the financing of criminal activities. The main purpose of an AML check is to ensure that financial transactions and business relationships are not being used to disguise the illegal origins of funds.\r\n* `EligibilityCheck` - Determines whether a person or case meets the criteria or preconditions to qualify for a benefit, service, or action.\r\n* `ExternalAgencyCheck` - \r\n* `EntitlementCheck` - Determines what benefit, amount, or service the person is actually entitled to receive once eligibility is confirmed.\r\n",
+      "enum_values": [
+        "Valuation",
+        "Matching",
+        "Authorization",
+        "Authentication",
+        "QualityAssurance",
+        "Audit",
+        "ComplianceCheck",
+        "FundingCheck",
+        "SuitabilityCheck",
+        "PerformanceCheck",
+        "ImpactAssessment",
+        "RiskAssessment",
+        "Rating",
+        "UnderwritingAssessment",
+        "Qualification",
+        "Verification",
+        "KYCAssessment",
+        "PEPAssessment",
+        "AMLAssessment",
+        "EligibilityCheck",
+        "ExternalAgencyCheck",
+        "EntitlementCheck"
+      ]
+    },
+    {
+      "name": "Authenticationentitytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ICC` - Application in the chip card (Integrated Circuit Card), for instance an offline PIN verification.\r\n* `Authorisedagent` - Authorisation agent of the issuer.\r\n* `Merchant` - Merchant (for example signature verification by the attendant).\r\n* `Acquirer` - Acquirer of the transaction.\r\n* `Issuer` - Card issuer.\r\n* `Terminal` - Secure application in the terminal.\r\n",
+      "enum_values": [
+        "ICC",
+        "Authorisedagent",
+        "Merchant",
+        "Acquirer",
+        "Issuer",
+        "Terminal"
+      ]
+    },
+    {
+      "name": "Authenticationleveltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `BasicAuthentication` - \r\n* `Two-FactorAuthentication` - \r\n* `Multi-FactorAuthentication` - \r\n* `AdvancedAuthentication` - \r\n",
+      "enum_values": [
+        "BasicAuthentication",
+        "Two-FactorAuthentication",
+        "Multi-FactorAuthentication",
+        "AdvancedAuthentication"
+      ]
+    },
+    {
+      "name": "Authenticationmethodtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Onlinepin` - On-line PIN authentication (Personal Identification Number).\r\n* `Offlinepin` - Off-line PIN authentication (Personal Identification Number).\r\n* `Signaturecapture` - Electronic signature capture (handwritten signature).\r\n* `Password` - Authentication by a password.\r\n* `Biometry` - Biometric authentication of the cardholder.\r\n* `Cscverification` - Verification of Card Security Code.\r\n* `Cryptogramverification` - Verification of a cryptogram generated by a chip card or another device, for instance ARQC (Authorisation Request Cryptogram).\r\n* `Unknownmethod` - Authentication method is performed unknown.\r\n* `Bypass` - Authentication bypassed by the merchant.\r\n* `Papersignature` - Handwritten paper signature.\r\n* `Manualverification` - Manual verification, for example passport or drivers license.\r\n* `Merchantauthentication` - Merchant-related authentication.\r\n* `Securecertificate` - Electronic commerce transaction secured with the X.509 certificate of a customer.\r\n* `Securenocertificate` - Secure electronic transaction without cardholder certificate.\r\n* `Securedchannel` - Channel-encrypted transaction.\r\n* `Billingaddressverification` - Cardholder billing address verification.\r\n* `Cardholderidentificationdata` - Cardholder data provided for verification, for instance social security number, driver license number, passport number.\r\n* `Passiveauthentication` - Authentication based on statistical cardholder behaviour.\r\n* `Secureelectroniccommerce` - Authentication performed during a secure electronic commerce transaction.\r\n* `Shippingaddressverification` - Cardholder shipping address verification.\r\n* `Tokenauthentication` - Cryptogram generated by the token requestor or a customer device to validate the authorised use of a token.\r\n* `Paymenttoken` - Verification or authentication related to the use of a payment token, for instance the validation of the authorised use of a token.\r\n* `Authenticationtoken` - A token is used to verify an already performed authentication.\r\n* `Mobile` - Customer mobile device.\r\n* `Other` - Other customer authentication.\r\n* `Addressdigits` - Digits of the address.\r\n* `Alienregistrationnumber` - Number assigned by a government agency to identify foreign nationals.\r\n* `Arqcverification` - Verification of a cryptogram generated by a chip card, for instance an ARQC (Authorisation Request Cryptogram).\r\n* `Birthdate` - Date of birth of a person.\r\n* `Cardholdername` - Name of cardholder\r\n* `Cityofbirth` - City of birth to authenticate a person.\r\n* `Customeridentification` - Customer number used as a mechanism of authentication.\r\n* `Driveridentification` - Identification of a driver in a fleet of vehicles.\r\n* `Driverlicensenumber` - Number assigned by a driving license authority to a person driving a car.\r\n* `Email` - Electronic mail address\r\n* `Employeeidentificationnumber` - Number assigned to an employee by an employer.\r\n* `Employeridentificationnumber` - Number assigned to an employer by a registration authority.\r\n* `Identitycardnumber` - Number assigned by a national authority to an identity card.\r\n* `Onetimepassword` - Verification of a one-time password provided by the issuer.\r\n* `Othercardholderidentification` - Other cardholder data provided for identification.\r\n* `Othercryptogram` - Verification of a cryptogram generated by a non-card form factor.\r\n* `Passportnumber` - Number assigned by a passport authority to a passport.\r\n* `Postalcode` - Verification based on digits of the postal code.\r\n* `Shippingaddressfrom` - Shipping address from verification.\r\n* `Shippingaddressto` - Shipping address to verification\r\n* `Cardholderaddress` - Verification whether the address corresponds to the cardholder's one.\r\n* `Nonvisiblecsc` - Non visible Card Security Code.\r\n* `Othernational` - Other type of verification defined at national level.\r\n* `Otherprivate` - Other type of verification defined at private level\r\n* `Placeofbirth` - Place of birth of a person.\r\n* `Socialsecuritynumber` - Number assigned by a social security agency.\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to an entity.\r\n* `Accountdigitalsignature` - Account-based digital signature authentication.\r\n* `Arpcverification` - Response Card Cryptogram (ARPC)  verification.\r\n* `ATC` - Application Transaction Counter\r\n* `Offlinebiographics` - Biographics authentication in an offline mode.\r\n* `Offlinebiometrics` - Biometrics authentication in an offline mode\r\n* `Offlinedataauthentication` - Authentication of data in an offline mode\r\n* `Offlinedigitisedsignatureanalysis` - Analysis of signature transmitted offline\r\n* `Offlinepinencrypted` - PIN generated offline and transmitted encrypted\r\n* `Offlinepininclear` - PIN generated offline and transmitted in clear\r\n* `Onlinebiographics` - Biographics authentication in an online mode.\r\n* `Phonehome` - Customer home phone number.\r\n* `Phonework` - Customer work phone number\r\n* `Pkisignature` - PKI (Public Key Infrastructure) based digital signature\r\n* `Qualifiedcertificate` - QualifiedCertificate\r\n* `Threeds` - Authentication performed during a secure electronic commerce transaction.\r\n* `Cardholdercertificateserialnumber` - Serial number of the cardholder's certificate.\r\n* `Acceptorcertificateserialnumber` - Serial number of the acceptor's certificate.\r\n* `Nationalidentifier` - Nationally assigned identifier.\r\n",
+      "enum_values": [
+        "Onlinepin",
+        "Offlinepin",
+        "Signaturecapture",
+        "Password",
+        "Biometry",
+        "Cscverification",
+        "Cryptogramverification",
+        "Unknownmethod",
+        "Bypass",
+        "Papersignature",
+        "Manualverification",
+        "Merchantauthentication",
+        "Securecertificate",
+        "Securenocertificate",
+        "Securedchannel",
+        "Billingaddressverification",
+        "Cardholderidentificationdata",
+        "Passiveauthentication",
+        "Secureelectroniccommerce",
+        "Shippingaddressverification",
+        "Tokenauthentication",
+        "Paymenttoken",
+        "Authenticationtoken",
+        "Mobile",
+        "Other",
+        "Addressdigits",
+        "Alienregistrationnumber",
+        "Arqcverification",
+        "Birthdate",
+        "Cardholdername",
+        "Cityofbirth",
+        "Customeridentification",
+        "Driveridentification",
+        "Driverlicensenumber",
+        "Email",
+        "Employeeidentificationnumber",
+        "Employeridentificationnumber",
+        "Identitycardnumber",
+        "Onetimepassword",
+        "Othercardholderidentification",
+        "Othercryptogram",
+        "Passportnumber",
+        "Postalcode",
+        "Shippingaddressfrom",
+        "Shippingaddressto",
+        "Cardholderaddress",
+        "Nonvisiblecsc",
+        "Othernational",
+        "Otherprivate",
+        "Placeofbirth",
+        "Socialsecuritynumber",
+        "Taxidentificationnumber",
+        "Accountdigitalsignature",
+        "Arpcverification",
+        "ATC",
+        "Offlinebiographics",
+        "Offlinebiometrics",
+        "Offlinedataauthentication",
+        "Offlinedigitisedsignatureanalysis",
+        "Offlinepinencrypted",
+        "Offlinepininclear",
+        "Onlinebiographics",
+        "Phonehome",
+        "Phonework",
+        "Pkisignature",
+        "Qualifiedcertificate",
+        "Threeds",
+        "Cardholdercertificateserialnumber",
+        "Acceptorcertificateserialnumber",
+        "Nationalidentifier"
+      ]
+    },
+    {
+      "name": "Authenticationresulttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Denial` - The authentication didn’t succeed.\r\n* `Nonparticipation` - The card does not participate in the authentication programme.\r\n* `Unabletoauthenticate` - The authentication couldn’t be carried out.\r\n* `Merchantnotenroled` - Merchant not enrolled in the authentication programme.\r\n* `Withcryptogram` - Authentication succeeded with a cryptogram.\r\n* `Withoutcryptogram` - Authentication succeeded without a cryptogram.\r\n",
+      "enum_values": [
+        "Denial",
+        "Nonparticipation",
+        "Unabletoauthenticate",
+        "Merchantnotenroled",
+        "Withcryptogram",
+        "Withoutcryptogram"
+      ]
+    },
+    {
+      "name": "Authenticationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Knowledge-BasedAuthentication` - \r\n* `Token-BasedAuthentication` - \r\n* `BiometricAuthentication` - \r\n* `Certificate-BasedAuthentication` - \r\n* `AdaptiveAuthentication` - \r\n",
+      "enum_values": [
+        "Knowledge-BasedAuthentication",
+        "Token-BasedAuthentication",
+        "BiometricAuthentication",
+        "Certificate-BasedAuthentication",
+        "AdaptiveAuthentication"
+      ]
+    },
+    {
+      "name": "Behavior",
+      "kind": "object",
+      "description": "All kind of verifications \n\nExamples: Password verification",
+      "properties": [
+        {
+          "name": "AuthenticationBehaviorType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AuthenticationBehaviorRecord",
+          "type": "object",
+          "ref": "BehavioralData"
+        },
+        {
+          "name": "RegisteredBehaviorInstanceReference",
+          "type": "object",
+          "ref": "BehavioralData"
+        },
+        {
+          "name": "BehaviorTestResult",
+          "type": "object",
+          "ref": "Test"
+        }
+      ]
+    },
+    {
+      "name": "BehavioralData",
+      "kind": "object",
+      "description": "The behavioral record submitted for authentication",
+      "properties": []
+    },
+    {
+      "name": "Biometric",
+      "kind": "object",
+      "description": "All kind of verifications \n\nExamples: Password verification",
+      "properties": [
+        {
+          "name": "AuthenticationBiometricType",
+          "type": "object",
+          "ref": "Biometricdatatypevalues"
+        },
+        {
+          "name": "AuthenticationBiometricRecord",
+          "type": "object",
+          "ref": "BiometricData"
+        },
+        {
+          "name": "RegisteredBiometricInstanceReference",
+          "type": "object",
+          "ref": "BiometricData"
+        },
+        {
+          "name": "BiometricTestResult",
+          "type": "object",
+          "ref": "Test"
+        }
+      ]
+    },
+    {
+      "name": "BiometricData",
+      "kind": "object",
+      "description": "The biometric record submitted for authentication (e.g. face scan, fingerprint, signature)",
+      "properties": [
+        {
+          "name": "BiometricDataType",
+          "type": "object",
+          "ref": "Biometricdatatypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Biometricdatatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PhysiologicalBiometricData` - \r\n* `BehavioralBiometricData` - \r\n",
+      "enum_values": [
+        "PhysiologicalBiometricData",
+        "BehavioralBiometricData"
+      ]
+    },
+    {
+      "name": "Branch",
+      "kind": "object",
+      "description": "The name of the branch where the party will collect the device",
+      "properties": [
+        {
+          "name": "BranchIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "BranchLegalEntityIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "BranchAddress",
+          "type": "object",
+          "ref": "Address"
+        },
+        {
+          "name": "BranchName",
+          "type": "object",
+          "ref": "Name"
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "Date and time at which the range starts. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Device",
+      "kind": "object",
+      "description": "Reference to the device being used for authentication",
+      "properties": [
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Deviceidentification"
+        },
+        {
+          "name": "DeviceType",
+          "type": "object",
+          "ref": "Devicetypevalues"
+        },
+        {
+          "name": "DeviceProperty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceElement",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DeviceVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DeviceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DeviceLanguage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DevicePhoneNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceLocationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceManufacturer",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceCountryReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceAddressReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceOperatingSystem",
+          "type": "object",
+          "ref": "Deviceoperatingsystemtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Devicecustomizationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CardDesign` - \r\n",
+      "enum_values": [
+        "CardDesign"
+      ]
+    },
+    {
+      "name": "Deviceidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DeviceIdentificationType",
+          "type": "object",
+          "ref": "Deviceidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Deviceidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `IMEI` - International Mobile Equipment Identity.\r\n* `Serialnumber` - Device serial number.\r\n* `Secureelementidentification` - Secure element ID.\r\n* `Othernational` - Other nationally assigned code.\r\n* `Otherprivate` - Other privately assigned code.\r\n",
+      "enum_values": [
+        "IMEI",
+        "Serialnumber",
+        "Secureelementidentification",
+        "Othernational",
+        "Otherprivate"
+      ]
+    },
+    {
+      "name": "Deviceoperatingsystemtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Android` - Android operating system.\r\n* `Ios` - iOS operating system.\r\n* `Windows` - Windows operating system.\r\n* `Blackberry` - Blackberry operating system.\r\n* `Tizen` - Tizen operating system.\r\n* `Othernational` - Other nationally defined code.\r\n* `Otherprivate` - Other privately defined code.\r\n",
+      "enum_values": [
+        "Android",
+        "Ios",
+        "Windows",
+        "Blackberry",
+        "Tizen",
+        "Othernational",
+        "Otherprivate"
+      ]
+    },
+    {
+      "name": "Devicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Securecardreader` - Secure card reader attached to the customer device\r\n* `Nonsecurecardreader` - Non-secure card reader attached to the customer device.\r\n* `Mobile` - Mobile phone\r\n* `Tablet` - Tablet\r\n* `Personalcomputer` - Personal computer\r\n* `Othernational` - Other device defined at national level\r\n* `Otherprivate` - Other device defined in a private way.\r\n* `Wearable` - Wearable device.\r\n* `Vehicle` - Vehicle.\r\n* `Embedded` - Embedded in a device.\r\n* `Keyfob` - Key Fob\r\n* `Jewellery` - Jewellery\r\n* `Sticker` - Sticker\r\n* `Gamingdevice` - Gaming Device\r\n* `Watch` - Watch\r\n* `Unknown` - Device type unknown\r\n* `BiometricDevice` - A biometric device is a security identification and authentication device. Such devices use automated methods of verifying or recognising the identity of a living person based on a physiological or behavioral characteristic.\nhttps://en.wikipedia.org/wiki/Biometric_device\n\r\n",
+      "enum_values": [
+        "Securecardreader",
+        "Nonsecurecardreader",
+        "Mobile",
+        "Tablet",
+        "Personalcomputer",
+        "Othernational",
+        "Otherprivate",
+        "Wearable",
+        "Vehicle",
+        "Embedded",
+        "Keyfob",
+        "Jewellery",
+        "Sticker",
+        "Gamingdevice",
+        "Watch",
+        "Unknown",
+        "BiometricDevice"
+      ]
+    },
+    {
+      "name": "Directoryentrydatetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpenDate` - \r\n* `RefreshDate` - \r\n",
+      "enum_values": [
+        "OpenDate",
+        "RefreshDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Reference to the document and document type being presented for authentication",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "DocumentDirectoryEntry",
+      "kind": "object",
+      "description": "The document reference for the authentication document",
+      "properties": [
+        {
+          "name": "DocumentDirectoryEntryIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Directoryentrydatetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "DirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of a Document.",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "InstructionDateType",
+          "type": "object",
+          "ref": "Instructiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DueDate` - \r\n* `ExecutionDate` - \r\n* `FulfillmentDate` - \r\n",
+      "enum_values": [
+        "DueDate",
+        "ExecutionDate",
+        "FulfillmentDate"
+      ]
+    },
+    {
+      "name": "Instructionidentification",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of an Instruction.\n",
+      "properties": [
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InstructionIdentificationType",
+          "type": "object",
+          "ref": "Instructionidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructionidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OrderNumber` - \r\n* `InstructionNumber` - \r\n",
+      "enum_values": [
+        "OrderNumber",
+        "InstructionNumber"
+      ]
+    },
+    {
+      "name": "Instructionstatus",
+      "kind": "object",
+      "description": "A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); ",
+      "properties": [
+        {
+          "name": "InstructionStatusType",
+          "type": "object",
+          "ref": "Instructionstatustypevalues"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Instructionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Pendingprocessing` - Processing of the instruction is pending.\r\n* `Acknowledgedaccepted` - Instruction has been acknowledged and accepted and is validated for further processing.\r\n* `Rejected` - Instruction has been rejected.\r\n* `Accepted` - Instruction has been accepted and is validated for further processing.\r\n* `Completed` - Processing has been completed.\r\n* `Notreceived` - No instruction has been received (to be used in a reminder).\r\n* `Cancelled` - Instruction has been cancelled.\r\n* `Beingcancelled` - Cancel request is being processed.\r\n* `Receivedbyissuerorregistrar` - Instruction has been received by Issuer.\r\n* `Pending` - Instruction is pending.\r\n* `Standinginstruction` - Standing instruction is applied.\r\n* `Queued` - Instruction is queued.\r\n* `Cancelledbysubcustodian` - Instruction has been cancelled by the agent, for example, due to an event deadline extension.\r\n* `Forwarded` - Accepted and sent along the chain.\r\n",
+      "enum_values": [
+        "Pendingprocessing",
+        "Acknowledgedaccepted",
+        "Rejected",
+        "Accepted",
+        "Completed",
+        "Notreceived",
+        "Cancelled",
+        "Beingcancelled",
+        "Receivedbyissuerorregistrar",
+        "Pending",
+        "Standinginstruction",
+        "Queued",
+        "Cancelledbysubcustodian",
+        "Forwarded"
+      ]
+    },
+    {
+      "name": "Instructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PaymentInstruction` - \r\n* `DeliveryOrder` - \r\n* `InformationRequest` - \r\n* `ExchangeInstruction` - \r\n* `AllocationInstruction` - \r\n* `MaintenanceInstruction` - \r\n",
+      "enum_values": [
+        "PaymentInstruction",
+        "DeliveryOrder",
+        "InformationRequest",
+        "ExchangeInstruction",
+        "AllocationInstruction",
+        "MaintenanceInstruction"
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "IssuedDevice",
+      "kind": "object",
+      "description": "Reference to the customer issued device",
+      "properties": [
+        {
+          "name": "IssuedDeviceStatus",
+          "type": "object",
+          "ref": "Issueddevicestatustypevalues"
+        },
+        {
+          "name": "IssuedDevicePartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IssuedDeviceConfiguration",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IssuedDeviceReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IssuedDeviceValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "IssuedDeviceDeliveryMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceIssueDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IssuedDeviceCollectLocation",
+          "type": "object",
+          "ref": "Branch"
+        },
+        {
+          "name": "IssuedDeviceProductReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IssedDeviceCustomizationType",
+          "type": "object",
+          "ref": "Devicecustomizationtypevalues"
+        },
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Deviceidentification"
+        },
+        {
+          "name": "DeviceType",
+          "type": "object",
+          "ref": "Devicetypevalues"
+        },
+        {
+          "name": "DeviceProperty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceElement",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DeviceVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DeviceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DeviceLanguage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DevicePhoneNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceLocationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceManufacturer",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceCountryReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceAddressReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceOperatingSystem",
+          "type": "object",
+          "ref": "Deviceoperatingsystemtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Issueddevicestatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Issued` - \r\n* `IssuedButNotActivated` - \r\n* `Activated` - \r\n* `Suspended` - \r\n* `Retrieved` - \r\n",
+      "enum_values": [
+        "Issued",
+        "IssuedButNotActivated",
+        "Activated",
+        "Suspended",
+        "Retrieved"
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PartyAuthentication",
+      "kind": "object",
+      "description": "Details the types of authentication assessments that are combined into the overall evaluation",
+      "properties": [
+        {
+          "name": "PartyAuthenticationResult",
+          "type": "object",
+          "ref": "Authenticationresulttypevalues"
+        },
+        {
+          "name": "PartyAuthenticationLevel",
+          "type": "object",
+          "ref": "Authenticationleveltypevalues"
+        },
+        {
+          "name": "PIN",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "PartyAuthenticationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartyAuthenticationMethod",
+          "type": "object",
+          "ref": "Authenticationmethodtypevalues"
+        },
+        {
+          "name": "PartyAuthenticationEntity",
+          "type": "object",
+          "ref": "Authenticationentitytypevalues"
+        },
+        {
+          "name": "PartyAuthenticationType",
+          "type": "object",
+          "ref": "Authenticationtypevalues"
+        },
+        {
+          "name": "AuthenticationLevel",
+          "type": "object",
+          "ref": "Authenticationleveltypevalues"
+        },
+        {
+          "name": "AuthenticationEntity",
+          "type": "object",
+          "ref": "Authenticationentitytypevalues"
+        },
+        {
+          "name": "AuthenticationMethod",
+          "type": "object",
+          "ref": "Authenticationmethodtypevalues"
+        },
+        {
+          "name": "AuthenticationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AuthenticationResult",
+          "type": "object",
+          "ref": "Authenticationresulttypevalues"
+        },
+        {
+          "name": "AuthenticationType",
+          "type": "object",
+          "ref": "Authenticationtypevalues"
+        },
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "PartyAuthenticationAssessment",
+      "kind": "object",
+      "description": "To test or assess an entity, possibly against some formal qualification or certification requirement within Party Authentication. ",
+      "properties": [
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "PartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "PartyAuthenticationAssessmentProfile",
+          "type": "object",
+          "ref": "PartyAuthentication"
+        },
+        {
+          "name": "AuthenticationType",
+          "type": "object",
+          "ref": "Authenticationtypevalues"
+        },
+        {
+          "name": "PartyAuthenticationConsolidationRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactAuthenticationLevel",
+          "type": "object",
+          "ref": "Authenticationleveltypevalues"
+        },
+        {
+          "name": "AuthorisationTokenReference",
+          "type": "object",
+          "ref": "Token"
+        },
+        {
+          "name": "RefreshTokenReference",
+          "type": "object",
+          "ref": "Token"
+        }
+      ]
+    },
+    {
+      "name": "Password",
+      "kind": "object",
+      "description": "Reference to an issued password",
+      "properties": [
+        {
+          "name": "PasswordValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "PasswordFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PasswordValue",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Question",
+      "kind": "object",
+      "description": "All kind of verifications \n\nExamples: Password verification",
+      "properties": [
+        {
+          "name": "AuthenticationSecretQuestionReference",
+          "type": "object",
+          "ref": "SecretQuestion"
+        },
+        {
+          "name": "AuthenticationSecretQuestionTemplate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AuthenticationSecretQuestionValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SecretQuestionTestResult",
+          "type": "object",
+          "ref": "Test"
+        }
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "SecretQuestion",
+      "kind": "object",
+      "description": "Reference to the selected secret question",
+      "properties": [
+        {
+          "name": "SecretQuestionTemplate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SecretQuestionValue",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "Status of the document (e.g. delivered, paid, etc.). ISO20022",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Test",
+      "kind": "object",
+      "description": "The result of the reference data and password checks",
+      "properties": [
+        {
+          "name": "TestResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TestGuidance",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TestType",
+          "type": "object",
+          "ref": "Testtypevalues"
+        },
+        {
+          "name": "TestDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Testtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ProductEligibilityTest` - \r\n* `NextBestProductTest` - \r\n* `IssuedDeviceTest` - \r\n* `CardHolderAuthenticationTest` - \r\n* `CardFundsAvailableTest` - \r\n* `CardTransactionFraudTest` - \r\n* `CardStand-InAuthorizationTest` - \r\n* `ExternalAccessRequestTest` - \r\n* `SuitabilityTest` - \r\n* `LegalComplianceTest` - \r\n* `RegulatoryComplianceTest` - \r\n* `SystemFunctionalTest` - \r\n* `SystemProductionTest` - \r\n* `SystemBusinessRiskTest` - \r\n* `SystemOperationsTest` - \r\n* `CreditPolicyComplianceTest` - \r\n* `RuleSetAndDecisionTreeTest` - \r\n* `ModelBasedTests` - \r\n* `AssetAndLiabilityValuationTest` - \r\n* `LiquidityAndCashFlowTest` - \r\n* `RiskTest` - \r\n* `SensitivityTest` - \r\n",
+      "enum_values": [
+        "ProductEligibilityTest",
+        "NextBestProductTest",
+        "IssuedDeviceTest",
+        "CardHolderAuthenticationTest",
+        "CardFundsAvailableTest",
+        "CardTransactionFraudTest",
+        "CardStand-InAuthorizationTest",
+        "ExternalAccessRequestTest",
+        "SuitabilityTest",
+        "LegalComplianceTest",
+        "RegulatoryComplianceTest",
+        "SystemFunctionalTest",
+        "SystemProductionTest",
+        "SystemBusinessRiskTest",
+        "SystemOperationsTest",
+        "CreditPolicyComplianceTest",
+        "RuleSetAndDecisionTreeTest",
+        "ModelBasedTests",
+        "AssetAndLiabilityValuationTest",
+        "LiquidityAndCashFlowTest",
+        "RiskTest",
+        "SensitivityTest"
+      ]
+    },
+    {
+      "name": "Token",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "TokenIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "TokenStatus",
+          "type": "object",
+          "ref": "Tokenstatustypevalues"
+        },
+        {
+          "name": "TokenIdentificationAndVerificationMethod",
+          "type": "object",
+          "ref": "Tokenidentificationandverificationmethodtypevalues"
+        },
+        {
+          "name": "TokenStatusDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "TokenDeviceReference",
+          "type": "object",
+          "ref": "Device"
+        },
+        {
+          "name": "TokenRequestReference",
+          "type": "object",
+          "ref": "Tokenrequest"
+        },
+        {
+          "name": "TokenProtectionMethod",
+          "type": "object",
+          "ref": "Tokenprotectionmethodtypevalues"
+        },
+        {
+          "name": "TokenStorageLocation",
+          "type": "object",
+          "ref": "Tokenstoragelocationtypevalues"
+        },
+        {
+          "name": "TokenType",
+          "type": "object",
+          "ref": "Tokentypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Tokenidentificationandverificationmethodtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `AssertedAuthentication` - \r\n* `RiskBasedNoninteractiveAuthentication` - \r\n* `InteractiveAuthentication` - \r\n",
+      "enum_values": [
+        "AssertedAuthentication",
+        "RiskBasedNoninteractiveAuthentication",
+        "InteractiveAuthentication"
+      ]
+    },
+    {
+      "name": "Tokenprotectionmethodtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Software` - Software protection method.\r\n* `Trustedexectutionenvironment` - Trusted execution environment method.\r\n* `Secureelement` - Secure element method.\r\n* `Secureenclave` - Secure enclave method.\r\n* `Otherprivate` - Other privately assigned code.\r\n* `Othernational` - Other code assigned by national organisation.\r\n* `Trustedplatformmodule` - Trusted Platform Module (TPM).\r\n* `Virtualtrustedexecutionenvironment` - Virtual trusted execution environment\r\n",
+      "enum_values": [
+        "Software",
+        "Trustedexectutionenvironment",
+        "Secureelement",
+        "Secureenclave",
+        "Otherprivate",
+        "Othernational",
+        "Trustedplatformmodule",
+        "Virtualtrustedexecutionenvironment"
+      ]
+    },
+    {
+      "name": "Tokenrequest",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "TokenRequestIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "TokenRequestReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Instructiondatetime"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Instructionstatus"
+        },
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Instructionidentification"
+        },
+        {
+          "name": "InstructionType",
+          "type": "object",
+          "ref": "Instructiontypevalues"
+        },
+        {
+          "name": "InstructionResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InstructionPurpose",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Tokenstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Active` - \r\n* `Expired` - \r\n* `Cancelled` - \r\n* `Generated` - \r\n* `Stored` - \r\n* `Mapped` - \r\n* `Routed` - \r\n* `Suspension` - \r\n* `Updated` - \r\n",
+      "enum_values": [
+        "Active",
+        "Expired",
+        "Cancelled",
+        "Generated",
+        "Stored",
+        "Mapped",
+        "Routed",
+        "Suspension",
+        "Updated"
+      ]
+    },
+    {
+      "name": "Tokenstoragelocationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Device` - Stored in device.\r\n* `Onfile` - Storage is on file.\r\n* `Cardacceptorwallet` - Storage is in wallet managed by card acceptor.\r\n* `Issuerwallet` - Storage is in wallet managed by Issuer.\r\n* `Thirdpartywallet` - Storage location is in wallet managed by a third party.\r\n* `Otherprivate` - Code defined by private agreement.\r\n* `Othernational` - Code defined by national standards organisation.\r\n",
+      "enum_values": [
+        "Device",
+        "Onfile",
+        "Cardacceptorwallet",
+        "Issuerwallet",
+        "Thirdpartywallet",
+        "Otherprivate",
+        "Othernational"
+      ]
+    },
+    {
+      "name": "Tokentypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `RefreshToken` - \r\n* `AccessToken` - \r\n* `SecurityToken` - \r\n* `AuthenticationToken` - \r\n",
+      "enum_values": [
+        "RefreshToken",
+        "AccessToken",
+        "SecurityToken",
+        "AuthenticationToken"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "PartyAuthenticationAssessment",
+        "operations": [
+          "Update",
+          "Evaluate",
+          "Exchange",
+          "Execute",
+          "Request",
+          "Grant",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Behavior",
+        "parent_control_record": "PartyAuthenticationAssessment",
+        "operations": [
+          "EvaluateBehavior",
+          "RetrieveBehavior"
+        ]
+      },
+      {
+        "name": "Biometric",
+        "parent_control_record": "PartyAuthenticationAssessment",
+        "operations": [
+          "EvaluateBiometric",
+          "RetrieveBiometric"
+        ]
+      },
+      {
+        "name": "Device",
+        "parent_control_record": "PartyAuthenticationAssessment",
+        "operations": [
+          "EvaluateDevice",
+          "RetrieveDevice"
+        ]
+      },
+      {
+        "name": "Document",
+        "parent_control_record": "PartyAuthenticationAssessment",
+        "operations": [
+          "RetrieveDocument",
+          "EvaluateDocument"
+        ]
+      },
+      {
+        "name": "Password",
+        "parent_control_record": "PartyAuthenticationAssessment",
+        "operations": [
+          "EvaluatePassword",
+          "RetrievePassword"
+        ]
+      },
+      {
+        "name": "Question",
+        "parent_control_record": "PartyAuthenticationAssessment",
+        "operations": [
+          "EvaluateQuestion",
+          "RetrieveQuestion"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyAuthentication.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd",
+    "retrieved_at": "2026-09-10T22:23:59.281337+00:00"
+  }
+}

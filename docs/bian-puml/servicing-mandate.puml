@@ -1,0 +1,129 @@
+@startuml
+title Servicing Mandate - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Servicing Mandate
+' Source image: servicing-mandate-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_32828.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Servicing Mandate" as N160322 {
+}
+
+class "Customer Product and Service Profile" as N160297 {
+  + Profile Type : CustomerProductServiceProfileTypeValues
+  + Customer Reference : Customer Relationship
+  + Product Reference : Product[0..*]
+  + Service Reference : Service[0..*]
+}
+
+enum "CustomerProductServiceProfileTypeValues" as N160432 {
+  CustomerProductServiceEligibilityProfile
+  CustomerProductServiceUsageProfile
+  CustomerProductServiceCoverageProfile
+  CustomerProductServiceSaleProfile
+  CustomerProductServiceConsentProfile
+}
+
+class "Mandate" as N160419 {
+}
+
+class "Agreement" as N160281 {
+}
+
+class "Product" as N160344 {
+}
+
+class "Customer Relationship" as N160331 {
+}
+
+class "Product Sales Agreement" as N160395 {
+}
+
+class "Product Usage" as N160428 {
+  + Product Usage Date Time : DateTime
+  + Product Usage Volume : Text
+  + Product Usage Indicator : YesNoIndicator
+}
+
+class "Third Party Servicing Agreement" as N160372 {
+}
+
+class "Party" as N160298 {
+}
+
+class "Servicing Mandate Arrangement" as N160317 {
+  + Access Permission Type : OBAccountAccessPermissionTypeValues
+  + Access Permission Expiration Date : DateTime
+  + Access Permission Status : ConsentStatusTypeValues
+}
+
+class "Servicing Mandate Involvement" as N160345 {
+  + Servicing Mandate Involvement Type : ServicingMandateInvolvementTypeValues
+  + Party Reference : Party
+  + Servicing Mandate Reference : Servicing Mandate
+}
+
+enum "ServicingMandateInvolvementTypeValues" as N160313 {
+  Party who gives the permission to Party
+  Party who takes the permission from Party
+  Party who authorises the permission of Party
+}
+
+class "Arrangement" as N160371 {
+}
+
+enum "OBAccountAccessPermissionTypeValues" as N160346 {
+  ReadAccountsBasic
+  ReadAccountsDetail
+  ReadBalances
+  ReadBeneficiariesBasic
+  ReadBeneficiariesDetail
+  ReadDirectDebits
+  ReadOffers
+  ReadPAN
+  ReadParty
+  ReadPartyPSU
+  ReadProducts
+  ReadScheduledPaymentsBasic
+  ReadScheduledPaymentsDetail
+  ReadStandingOrdersBasic
+  ReadStandingOrdersDetail
+  ReadStatementsBasic
+  ReadStatementsDetail
+  ReadTransactionsBasic
+  ReadTransactionsCredits
+  ReadTransactionsDebits
+  ReadTransactionsDetail
+}
+
+class "Mandate Arrangement" as N160306 {
+}
+
+enum "ConsentStatusTypeValues" as N160305 {
+  Authorised
+  Awaiting Authorization
+  Rejected
+  Revoked
+}
+
+' Relationships
+N160322 "Profile / Permitted / UnderMandate / 0..*" -- "0..*" N160297
+N160419 <|-- N160322
+N160281 <|-- N160419
+N160297 "0..*" -- "0..*" N160344
+N160331 -- "Profile / 0..*" N160297 : Customer / 1
+N160395 "0..*" -- "1" N160331
+N160344 "0..1" -- "0..*" N160428
+N160297 "0..1" -- "0..*" N160428
+N160395 "0..1" -- "0..*" N160428
+N160322 "0..1" -- "CorrespondWith / 0..*" N160372
+N160322 "0..1" -- "0..1" N160317
+N160322 "0..*" -- "0..*" N160395
+N160317 "0..1" -- "0..*" N160345
+N160298 "0..1" -- "0..*" N160345
+N160371 <|-- N160306
+N160306 <|-- N160317
+@enduml

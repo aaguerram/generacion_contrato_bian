@@ -1,0 +1,46 @@
+@startuml
+title Credit Risk Models - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Credit Risk Models
+' Source image: credit-risk-models-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52761.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Credit Risk Model" as N166125 {
+}
+
+class "Model" as N166122 {
+}
+
+class "Model Design Specification" as N166163 {
+}
+
+class "Credit Risk Model Design Specification" as N166141 {
+}
+
+class "Design Specification" as N166119 {
+}
+
+class "Design Specification Aspect" as N166130 {
+  + Design Specification Aspect Type : DesignSpecificationAspectTypeValues
+}
+
+class "Credit Risk" as N166139 {
+}
+
+class "Customer Credit Rating Assessment" as N166132 {
+}
+
+' Relationships
+N166122 <|-- N166125
+N166122 "0..1" -- "0..*" N166163
+N166163 <|-- N166141
+N166125 "0..1" -- "0..*" N166141
+N166119 "0..1" -- "0..*" N166130
+N166119 <|-- N166163
+N166139 "0..1" -- "0..*" N166125
+N166132 "0..*" -- "UsedModel / ForAssessment / 0..*" N166125
+@enduml

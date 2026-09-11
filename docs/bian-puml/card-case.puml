@@ -1,0 +1,69 @@
+@startuml
+title Card Case - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Card Case
+' Source image: card-case-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_45231.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Case" as N59444 {
+}
+
+class "Card Payment Case" as N59390 {
+  + Card Case Type : CardCaseTypeValues
+}
+
+class "Card Case Procedure" as N59365 {
+}
+
+class "Procedure" as N59403 {
+}
+
+class "Workstep" as N59362 {
+}
+
+class "Customer Relationship" as N59451 {
+}
+
+class "Customer Relationship Involvement" as N59406 {
+}
+
+enum "CustomerRelationshipInvolvementTypeValues" as N59452 {
+  Customer
+  Bank
+  Relationship Manager
+  Contact Person
+}
+
+class "Customer Contact" as N59380 {
+}
+
+class "Card Payment Transaction" as N59432 {
+}
+
+class "Card Payment Case Resolution" as N59485 {
+}
+
+class "Case Resolution" as N59474 {
+}
+
+enum "CardCaseTypeValues" as N59381 {
+  Disputed Charges
+  Merchant Fraud
+}
+
+' Relationships
+N59444 <|-- N59390
+N59403 <|-- N59365
+N59403 -- "0..*" N59362
+N59451 "Customer / RaisingCase / 0..1" -- "0..*" N59390
+N59451 "0..1" -- "2..*" N59406
+N59380 "0..*" -- N59451 : 1
+N59390 "0..*" -- "0..*" N59432
+N59474 <|-- N59485
+N59390 "0..1" -- "0..*" N59485
+N59365 "0..*" -- "0..*" N59390
+@enduml

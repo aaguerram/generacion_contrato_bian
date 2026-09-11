@@ -1,0 +1,37 @@
+@startuml
+title Customer Consent - BIAN SD Overview UML
+' Machine-readable reconstruction of the raster BIAN diagram
+' Service Domain: Customer Consent
+' Source image: customer-consent-bom-uml.png
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52786.html
+' Extraction: raster reconstruction + BIAN semantic normalization
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Customer Consent" as SD <<ServiceDomain>>
+class "Customer Mandate Catalog" as AT <<AssetType>>
+class "Customer Mandate Agreement" as CR <<ControlRecord>>
+class "Agree Terms" as FP <<FunctionalPattern>>
+class "Agreement" as GA <<GenericArtifact>>
+class "Terms" as BQT <<BehaviorQualifierType>>
+class "Customer Mandate Agreement_ Analytics Object" as AO <<AnalyticsObject>>
+
+class "Customer Consent_SD_Operations" as SG0 <<ServiceGroup>>
+class "Customer Mandate Agreement_Instantiation" as SG1 <<ServiceGroup>>
+class "Customer Mandate Agreement_Invocation" as SG2 <<ServiceGroup>>
+class "Customer Mandate Agreement_Reporting" as SG3 <<ServiceGroup>>
+
+' Explicit semantic relationships for AI context
+AT --> SD : asset type of
+SD --> CR : governed by control record
+SD --> FP : uses functional pattern
+FP --> GA : maps to generic artifact
+GA --> BQT : decomposes by behavior qualifier type
+CR --> AO : analyzed by
+SD --> SG0 : exposes service group
+SD --> SG1 : exposes service group
+SD --> SG2 : exposes service group
+SD --> SG3 : exposes service group
+
+@enduml

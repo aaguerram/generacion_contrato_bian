@@ -1,0 +1,53 @@
+@startuml
+title Systems Administration - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Systems Administration
+' Source image: systems-administration-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52527.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "IT System" as N185234 {
+}
+
+class "Administrative Plan" as N185226 {
+}
+
+class "Routine" as N185274 {
+}
+
+class "IT System Administrative Plan" as N185223 {
+}
+
+class "IT System Administrative Arrangement" as N185230 {
+  + IT System Administrative Arrangement Type : String
+}
+
+class "Arrangement" as N185251 {
+}
+
+class "Agreement" as N185245 {
+}
+
+class "IT System Administrative Arrangement Involvement" as N185288 {
+}
+
+class "Party Role" as N185267 {
+}
+
+class "Party" as N185239 {
+}
+
+' Relationships
+N185226 "0..1" -- "0..*" N185274
+N185226 <|-- N185223
+N185234 "0..1" -- "0..*" N185230
+N185245 "1" -- "1..*" N185251
+N185251 <|-- N185230
+N185234 "0..1" -- "0..*" N185223
+N185230 "0..1" -- "0..*" N185288
+N185267 <|-- N185288
+N185239 -- "0..*" N185267 : 1
+@enduml

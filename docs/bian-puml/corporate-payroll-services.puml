@@ -1,0 +1,68 @@
+@startuml
+title Corporate Payroll Services - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Corporate Payroll Services
+' Source image: corporate-payroll-services-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36605.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Payroll Payment Service" as N232277 {
+}
+
+class "Payroll Payment Service Agreement" as N232294 {
+}
+
+class "Payroll Payment Service Arrangement" as N232274 {
+  + Payroll Payment Service Arrangement Type : PayrollPaymentServiceArrangementTypeVal ues
+}
+
+class "Payroll Payment Instruction" as N232357 {
+}
+
+class "Payroll Payment Transaction" as N232293 {
+}
+
+class "Instruction" as N232344 {
+}
+
+class "Transaction" as N232307 {
+}
+
+class "Product" as N232352 {
+}
+
+class "Arrangement" as N232306 {
+}
+
+class "Agreement" as N232362 {
+}
+
+class "Account" as N232289 {
+}
+
+class "Account Entry" as N232329 {
+}
+
+enum "PayrollPaymentServiceArrangementTypeValues" as N232335 {
+  Production Service Reporting Arrangement
+  Corporate Payroll Payments Arrangement
+  Employee Payroll Details Maintenance Arrangement
+}
+
+' Relationships
+N232277 "0..1" -- "0..*" N232294
+N232362 <|-- N232294
+N232352 <|-- N232277
+N232306 <|-- N232274
+N232294 "0..1" -- "0..1" N232274
+N232274 -- "0..1" N232357 : 0..1
+N232357 "0..1" -- "0..1" N232293
+N232344 <|-- N232357
+N232307 <|-- N232293
+N232293 "0..1" -- "0..*" N232329
+N232289 "1" -- "0..*" N232329
+N232274 "Arrangement / Account / 0..*" -- "0..1" N232289
+@enduml

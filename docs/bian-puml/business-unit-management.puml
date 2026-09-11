@@ -1,0 +1,70 @@
+@startuml
+title Business Unit Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Business Unit Management
+' Source image: business-unit-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36397.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Management Plan" as N104971 {
+}
+
+class "Duty" as N104992 {
+}
+
+class "Business Unit Management Plan" as N104974 {
+}
+
+class "Rule Set" as N104985 {
+}
+
+class "Business Unit Resource Plan" as N105017 {
+}
+
+class "Business Unit Training Plan" as N105025 {
+}
+
+class "Business Unit Involvement" as N105021 {
+}
+
+class "Business Unit Operating Plan" as N105042 {
+}
+
+class "Party Role" as N105047 {
+}
+
+class "Party" as N105008 {
+}
+
+class "Business Unit Performance Analysis" as N104990 {
+}
+
+class "Business Unit Troubleshooting" as N104968 {
+  + Business Unit Production Issue : String
+  + Business Unit Issue Recommendation : String
+}
+
+class "Business Unit" as N105048 {
+  + Business Function : String
+  + Goal : String
+}
+
+' Relationships
+N104971 "0..1" -- "0..*" N104992
+N104971 <|-- N104974
+N104974 "0..*" -- "0..1" N105048
+N105048 "0..*" -- "0..*" N104985
+N104974 "0..1" -- "0..1" N105017
+N104974 "0..1" -- "0..1" N105025
+N105048 "0..1" -- "0..*" N105021
+N105042 "0..1" -- "0..1" N104974
+N105047 "0..1" -- N105021 : 0..*
+N104974 "0..1" -- "0..1" N104990
+N104974 "0..1" -- "0..1" N104968
+N104992 <|-- N104990
+N104992 <|-- N104968
+N105008 "1 / 0..*" -- N105047
+@enduml

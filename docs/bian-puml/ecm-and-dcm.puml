@@ -1,0 +1,76 @@
+@startuml
+title ECM And DCM - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: ECM And DCM
+' Source image: ecm-and-dcm-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36937.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Capital Market" as N114044 {
+  + Capital Market Type : String
+}
+
+enum "CapitalMarketTypeValues" as N114132 {
+  EquityCapitalMarket
+  DebtCapitalMarket
+  PrimaryCapitalMarket
+  SecondaryCapitalMarket
+}
+
+class "Product" as N114109 {
+}
+
+class "Product Feature" as N114041 {
+}
+
+class "Financial Instrument" as N114112 {
+}
+
+class "Arrangement" as N114038 {
+}
+
+class "Capital Market Arrangement" as N114098 {
+}
+
+class "Agreement" as N114092 {
+}
+
+class "Capital Market Agreement" as N114102 {
+}
+
+class "Capital Market Involvement" as N114081 {
+  + Capital Market Involvement Type : String
+}
+
+enum "CapitalMarketInvolvementTypeValues" as N114066 {
+  Fund Manager
+  Investment Bank
+  Public Accounting Firm
+  Institutional Investor
+  Retail Investor
+}
+
+class "Party Role" as N114116 {
+}
+
+class "Party" as N114054 {
+}
+
+' Relationships
+N114109 -- N114041
+N114044 "0..1" -- "0..*" N114112
+N114041 "1" -- "0..*" N114038
+N114038 <|-- N114098
+N114092 "1" -- "1..*" N114038
+N114044 "0..1" -- "0..*" N114102
+N114092 <|-- N114102
+N114102 "0..1" -- "0..1" N114098
+N114044 "0..1" -- "0..1" N114081
+N114098 "0..1" -- "2..*" N114081
+N114102 "0..1" -- "2..*" N114081
+N114116 <|-- N114081
+N114054 -- "0..*" N114116 : 1
+@enduml

@@ -1,0 +1,194 @@
+@startuml
+title Claim Assessment - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Claim Assessment
+' Source image: claim-assessment-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51865.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Assessment" as N86302 {
+}
+
+enum "ClaimAssessmentTypeValues" as N86545 {
+  Policy Verification
+  Event Verification
+  Claim Documentation Check
+  Claim Compliance Check
+  Financial Assessment
+  Internal Approval / Risk Check
+  Claim Eligibility Check
+  Claim Entitlement Check
+  Claim External Agency Check
+}
+
+class "Instruction" as N86470 {
+}
+
+class "Claim Instruction" as N86305 {
+}
+
+class "Claim Arrangement" as N86344 {
+  + Claim Arrangement Identification : Identifier
+  + Covered Claim Type : Text
+  + Claim Event Typ : Text
+  + Claim Waiting Period : Duration
+}
+
+class "Arrangement" as N86550 {
+}
+
+class "Claim Transaction" as N86338 {
+  + Claim Transaction Type : ClaimTransactionTypeValues
+}
+
+class "Claim Assessment" as N86299 {
+  + Claim Assessment Type : ClaimAssessmentTypeValues
+}
+
+class "Transaction" as N86362 {
+}
+
+enum "InsuranceInvolvementTypeValues" as N86468 {
+  Insurer (Insurance Company)
+  Policyholder
+  Insured Life or Person
+  Beneficiary
+  Intermediary / Broker / Agent
+  Regulator or Authority
+  Claims Assessor or Officer or Adjuster
+  Claimant
+  Claims Processor or Claims Administrator
+  Claim Approver
+  Underwriter
+}
+
+class "Claim Arrangement Involvement" as N86386 {
+  + Involvement Type : InsuranceInvolvementTypeValues
+}
+
+class "Party" as N86359 {
+}
+
+class "Test" as N86308 {
+}
+
+class "Authentication" as N86296 {
+}
+
+class "Party Authentication" as N86524 {
+}
+
+enum "AssessmentTypeValues" as N86525 {
+  Valuation
+  Matching
+  Authorization
+  Authentication
+  Quality Assurance
+  Audit
+  Compliance Check
+  Funding Check
+  Suitability Check
+  Performance Check
+  Impact Assessment
+  Risk Assessment
+  Rating
+  Underwriting Assessment
+  Qualification
+  Verification
+  KYC Assessment
+  PEP Assessment
+  AML Assessment
+  Eligibility Check
+  External Agency Check
+  Entitlement Check
+}
+
+class "Insurance Agreement" as N86416 {
+  + Insurance Agreement Type : InsuranceProductTypeValues
+}
+
+enum "InsuranceProductTypeValues" as N86500 {
+  Life Insurance
+  Funeral Policy
+  Health Insurance
+  Car/Vehicle Insurance
+  Homeowners Insurance
+  Travel Insurance
+  Disability Insurance
+  Critical Illness Insurance
+}
+
+class "Product Agreement" as N86347 {
+}
+
+class "Funeral Policy Agreement" as N86578 {
+  + Policy Number : Identifier
+  + Coverage Type : Text
+  + Policy Term : Duration
+  + Policy Status : AgreementStatus
+}
+
+class "Event" as N86544 {
+}
+
+class "Document" as N86484 {
+}
+
+enum "ClaimEligibilityCheckTypeValues" as N86343 {
+  Policy Eligibility Check
+  Coverage Eligibility Check
+  Waiting Period Check
+  Claimant / Beneficiary Eligibility Check
+  Event Eligibility Check
+}
+
+enum "ClaimEntitlementCheckTypeValues" as N86352 {
+  Benefit Type Check
+  Benefit Eligibility Check
+  Benefit Limit Check
+  Sum Assured / Coverage Amount Calculation
+  Deduction / Adjustment Check
+}
+
+enum "ClaimExternalAgencyCheckTypeValues" as N86564 {
+  Medical Examination / Medical Certification Check
+  Mortuary / Funeral Home Verification
+  Repatriation Service Provider Check
+  Death Registration / Civil Authority Check
+  Beneficiary / Identity Verification Agency
+  Legal / Notary Verification
+  Financial Institution Check
+  Forensic / Investigation Agency Check
+  Insurance Regulator / Reinsurer Consultation
+  Employer / Association Verification
+  Document Authentication Service
+  Law Enforcement / Coroner Check
+}
+
+class "Party Relationship" as N86537 {
+}
+
+' Relationships
+N86305 "0..1" -- "0..*" N86338
+N86344 "0..1" -- "0..*" N86305
+N86302 <|-- N86299
+N86362 <|-- N86338
+N86470 <|-- N86305
+N86305 "0..1" -- "0..*" N86299
+N86359 "0..1" -- "0..*" N86386
+N86344 "0..1" -- "0..*" N86386
+N86550 <|-- N86344
+N86296 <|-- N86524
+N86302 "0..1" -- "0..*" N86308
+N86416 "Insured / Agreement / 0..1" -- "0..*" N86344
+N86347 <|-- N86416
+N86416 <|-- N86578
+N86544 "Insured / Event / 0..1" -- "0..*" N86305
+N86344 "0..1" -- "Covered Event / 0..*" N86544
+N86299 "0..*" -- "0..*" N86484
+N86537 "0..*" -- "0..*" N86302
+N86302 <|-- N86296
+@enduml

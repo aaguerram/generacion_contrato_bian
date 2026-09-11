@@ -1,0 +1,136 @@
+@startuml
+title Business Development - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Business Development
+' Source image: business-development-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_43926.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Business Development" as N192153 {
+}
+
+class "Business Development Strategy" as N192150 {
+}
+
+class "Rule Set" as N192195 {
+}
+
+class "Business Initiative" as N192293 {
+  + Initiative Type : BusinessInitiativeTypeValues
+  + Initiative Description : Text
+  + Initiative Schedule : Schedule
+  + Initiative Date : ProjectDateTime
+}
+
+class "Document" as N192207 {
+}
+
+class "Correspondence" as N192224 {
+}
+
+class "Business Initiative Involvement" as N192204 {
+}
+
+class "Party" as N192230 {
+}
+
+class "Strategy" as N192159 {
+}
+
+class "Plan" as N192306 {
+}
+
+enum "BusinessInitiativeTypeValues" as N192252 {
+  Market Expansion
+  Diversification
+  Mergers and Acquisitions
+  Process Improvement
+  Cost Reduction
+  Quality Management
+  Revenue Growth
+  Cost Management
+  Capital Optimization
+  Customer Experience Improvement
+  Customer Retention
+  Customer Acquisition
+  Regulatory Compliance
+  Risk Management
+}
+
+class "Project" as N192298 {
+}
+
+enum "ProjectDareTimeTypeValues" as N192236 {
+  Kickoff Date
+  Approval Date
+  Start Date
+  Completion Date
+  Final Review Date
+  Project Closure Date
+  Review Date
+  Audit Date
+  Deliverable Handover Date
+}
+
+class "ProjectDateTime" as N192216 <<datatype>> {
+  + Project Date : DateTime
+  + Project Date Type : ProjectDateTime
+}
+
+class "Business Development Involvement" as N192169 {
+  + Business Development Involvement Type : BusinessDevelopmentInvolvementTypeValues
+}
+
+enum "BusinessDevelopmentInvolvementTypeValues" as N192183 {
+  Business Development Manager
+  Sales Team
+  Marketing Team
+  Product Development Team
+  Customer Support or Service Team
+  External Stakeholders
+}
+
+class "Goal" as N192156 {
+}
+
+class "Planned Action" as N192160 {
+}
+
+class "Business Development Goal" as N192165 {
+  + Business Development Goal Type : BusinessDevelopmentGoalTypeValues
+}
+
+enum "BusinessDevelopmentGoalTypeValues" as N192297 {
+  Revenue Growth
+  Market Expansion
+  Partnerships and Alliances
+  Brand Awareness and Reputation
+  Product Development and Innovation
+  Operational Efficiency
+  Customer Satisfaction and Loyalty
+  Talent Acquisition and Development
+  Sustainability and Corporate Social Responsibility
+  Competitive Advantage
+}
+
+' Relationships
+N192153 "0..1" -- "0..*" N192150
+N192293 "Undertaken / Initiative / 0..*" -- "Supported / Strategy / 0..*" N192150
+N192207 "0..*" -- "0..*" N192293 : Associated / Document
+N192224 "Generated / Correspondence / 0..*" -- "0..*" N192293
+N192204 "0..*" -- "0..1" N192293
+N192195 "GovernRole / 0..*" -- "0..*" N192150
+N192306 <|-- N192159
+N192159 <|-- N192150
+N192230 "0..*" -- "0..*" N192204
+N192298 <|-- N192293
+N192153 "0..1" -- "0..*" N192169
+N192169 "0..*" -- "0..1" N192230
+N192306 "0..*" -- "0..*" N192156
+N192306 "1" -- "0..*" N192160
+N192156 <|-- N192165
+N192150 "AchievingGoal / 0..1" -- "0..*" N192165
+@enduml

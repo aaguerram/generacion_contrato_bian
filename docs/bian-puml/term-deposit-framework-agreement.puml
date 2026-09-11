@@ -1,0 +1,143 @@
+@startuml
+title Term Deposit Framework Agreement - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Term Deposit Framework Agreement
+' Source image: term-deposit-framework-agreement-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_40775.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Account Entry" as N195742 {
+}
+
+enum "TermDepositAgreementTypeValues" as N195765 {
+  Term Deposit Agreement
+  Term Deposit Framework Agreement
+}
+
+class "Transaction" as N195783 {
+}
+
+class "Term Deposit Arrangement Transaction" as N195712 {
+}
+
+class "Party" as N195672 {
+}
+
+class "Account" as N195650 {
+}
+
+class "Term Deposit Agreement" as N195657 {
+  + Term Deposit Agreement Identification : Identifier
+  + Term Deposit Agreement Type : TermDepositAgreementTypeValues
+}
+
+class "Instruction" as N195695 {
+}
+
+class "Term Deposit Product" as N195716 {
+  + Term Deposit Product Type : TermDepositTypeValues
+}
+
+enum "TermDepositTypeValues" as N195737 {
+  Fixed-Term Deposit
+  Flexible-Term Deposit
+}
+
+class "Term Deposit Arrangement Account" as N195675 {
+}
+
+enum "ArrangementTypeValues" as N195734 {
+  Sweep Arrangement
+  Withdrawal Arrangement
+  Deposit Arrangement
+  Interest Arrangement
+  Fee Arrangement
+  Lien Arrangement
+  Information Arrangement
+  Payment Arrangement
+  Entitlement Arrangement
+  Period Arrangement
+  Collateral Arrangement
+  Limit Arrangement
+  Access Arrangement
+  Card Payment Arrangement
+  Standing Order Arrangement
+  Overdraft Arrangement
+  Repayment Arrangement
+  Statement Arrangement
+  Credit Transfer Arrangement
+  Product and Service Arrangement
+  Factoring Arrangement
+  Rollover Arrangement
+  Restructuring Arrangement
+  Insurance Arrangement
+  Collection Arrangement
+  Underwriting Arrangement
+  Termination Arrangement
+  Maturity Arrangement
+  Administrative Arrangement
+}
+
+enum "TermDepositAgreementInvolvementTypeValues" as N195731 {
+  Account Holder or Investor
+  Financial Institution
+}
+
+class "Term Deposit Arrangement" as N195662 {
+  + Term Deposit Arrangement Type : ArrangementTypeValues
+  + Term Deposit Arrangement Product Feature Type : ProductFeatureType
+  + Term Deposit Maturity Date : DateTime
+  + Term Deposit Open Date : DateTime
+  + Term Deposit Amount : Amount
+  + Term Deposit Duration : Duration
+}
+
+class "Term Deposint Agreement Involvement" as N195728 {
+  + Involved Type : TermDepositAgreementInvolvementTypeValues
+  + Party Reference : Party
+  + Agreement Reference : Term Deposit Agreement
+}
+
+class "Term Deposit Arrangement Instruction" as N195719 {
+}
+
+class "Term Deposit Account" as N195639 {
+}
+
+class "Product Agreement" as N195720 {
+}
+
+class "Product Feature" as N195694 {
+}
+
+class "Product Arrangement" as N195758 {
+}
+
+class "Product" as N195709 {
+}
+
+' Relationships
+N195783 <|-- N195712
+N195694 "1" -- "NegotiatedFeature / 0..*" N195758
+N195709 -- N195694
+N195650 <|-- N195675
+N195657 "0..1" -- "2..*" N195728
+N195675 "1" -- "0..*" N195662
+N195650 "1" -- "0..*" N195742
+N195657 "1" -- "1" N195639
+N195720 "1" -- "1..*" N195758
+N195662 "1..*" -- "0..1" N195657
+N195758 <|-- N195662
+N195709 <|-- N195716
+N195716 "0..1" -- "0..*" N195657
+N195720 <|-- N195657
+N195695 <|-- N195719
+N195650 <|-- N195639
+N195719 "0..1" -- "0..*" N195712
+N195662 "0..1" -- "0..*" N195719
+N195672 "0..1" -- "1..*" N195728
+N195709 "1" -- "Sold / Product / 0..*" N195720
+@enduml

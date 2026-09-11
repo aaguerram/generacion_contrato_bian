@@ -1,0 +1,729 @@
+{
+  "service_domain": "Fraud Evaluation",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Evaluate",
+      "method": "POST",
+      "path": "/FraudEvaluation/Evaluate",
+      "tipo": "CR",
+      "grupo": "FraudEvaluationAssessment",
+      "request_schema": "FraudEvaluationAssessment",
+      "response_schema": "FraudEvaluationAssessment",
+      "summary": "EvCR Start a fraud evaluation for a production transaction set",
+      "description": "EvCR Start a fraud evaluation for a production transaction set"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/FraudEvaluation/{fraudevaluationid}/Exchange",
+      "tipo": "CR",
+      "grupo": "FraudEvaluationAssessment",
+      "request_schema": "FraudEvaluationAssessment",
+      "response_schema": "FraudEvaluationAssessment",
+      "summary": "EcCR Accept, verify, reject a fraud evaluation",
+      "description": "EcCR Accept, verify, reject a fraud evaluation"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/FraudEvaluation/{fraudevaluationid}/Execute",
+      "tipo": "CR",
+      "grupo": "FraudEvaluationAssessment",
+      "request_schema": "FraudEvaluationAssessment",
+      "response_schema": "FraudEvaluationAssessment",
+      "summary": "ExCR Perform an automated action to an active evaluation (e.g. upload additional data)",
+      "description": "ExCR Perform an automated action to an active evaluation (e.g. upload additional data)"
+    },
+    {
+      "operation_id": "RetrieveRuleSetsandDecisionTrees",
+      "method": "GET",
+      "path": "/FraudEvaluation/{fraudevaluationid}/RuleSetsandDecisionTrees/{rulesetsanddecisiontreesid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "RuleSetsandDecisionTrees",
+      "request_schema": "",
+      "response_schema": "RuleSetsandDecisionTrees",
+      "summary": "ReBQ Retrieve details about rule set or decision tree based tests applied",
+      "description": "ReBQ Retrieve details about rule set or decision tree based tests applied",
+      "parent_control_record": "FraudEvaluationAssessment"
+    },
+    {
+      "operation_id": "Grant",
+      "method": "PUT",
+      "path": "/FraudEvaluation/{fraudevaluationid}/Grant",
+      "tipo": "CR",
+      "grupo": "FraudEvaluationAssessment",
+      "request_schema": "FraudEvaluationAssessment",
+      "response_schema": "FraudEvaluationAssessment",
+      "summary": "GrCR Obtain permission to act on/apply the assessment (if appropriate)",
+      "description": "GrCR Obtain permission to act on/apply the assessment (if appropriate)"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/FraudEvaluation/{fraudevaluationid}/Request",
+      "tipo": "CR",
+      "grupo": "FraudEvaluationAssessment",
+      "request_schema": "FraudEvaluationAssessment",
+      "response_schema": "FraudEvaluationAssessment",
+      "summary": "RqCR Request manual intervention to an active assessment (e.g. change test make-up)",
+      "description": "RqCR Request manual intervention to an active assessment (e.g. change test make-up)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/FraudEvaluation/{fraudevaluationid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "FraudEvaluationAssessment",
+      "request_schema": "",
+      "response_schema": "FraudEvaluationAssessment",
+      "summary": "ReCr Retrieve details about a fraud evaluation assessment",
+      "description": "ReCr Retrieve details about a fraud evaluation assessment"
+    },
+    {
+      "operation_id": "RetrieveModels",
+      "method": "GET",
+      "path": "/FraudEvaluation/{fraudevaluationid}/Models/{modelsid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Models",
+      "request_schema": "",
+      "response_schema": "Models",
+      "summary": "ReBQ Retrieve details about model based tests applied",
+      "description": "ReBQ Retrieve details about model based tests applied",
+      "parent_control_record": "FraudEvaluationAssessment"
+    }
+  ],
+  "schemas": [
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Duration",
+    "FraudEvaluationAssessment",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Models",
+    "Name",
+    "ProductionTransaction",
+    "Profile",
+    "RuleSetsandDecisionTrees",
+    "Schedule",
+    "Session",
+    "Sessiontype",
+    "Sessiontypevalues",
+    "Status",
+    "Test",
+    "Testtypevalues",
+    "Transactiondatetime",
+    "Transactiondatetimetypevalues",
+    "Transactionstatus",
+    "Transactionstatustypevalues",
+    "Transactiontypevalues",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "The time the session was active",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "FraudEvaluationAssessment",
+      "kind": "object",
+      "description": "To test or assess an entity, possibly against some formal qualification or certification requirement within Fraud Evaluation. ",
+      "properties": [
+        {
+          "name": "ProductProductionSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "FraudEvaluationTestProfile",
+          "type": "object",
+          "ref": "Profile"
+        },
+        {
+          "name": "FraudEvaluationEnsembleTechniqueType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FraudEvaluationEnsembleTechniqueDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FraudEvaluationTransactionConsolidationRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FraudEvaluationProductionAnomalyRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FraudEvaluationProductionAnomalyProductionTransactionReference",
+          "type": "object",
+          "ref": "ProductionTransaction"
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Models",
+      "kind": "object",
+      "description": "All kind of verifications \n\nExamples: Password verification",
+      "properties": [
+        {
+          "name": "ModelsTestResult",
+          "type": "object",
+          "ref": "Test"
+        },
+        {
+          "name": "ModelsTestWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductionTransaction",
+      "kind": "object",
+      "description": "Reference to the one or more production transactions isolated by the fraud evaluation tests",
+      "properties": [
+        {
+          "name": "TransactionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Transactiondatetime"
+        },
+        {
+          "name": "TransactionType",
+          "type": "object",
+          "ref": "Transactiontypevalues"
+        },
+        {
+          "name": "TransactionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Transactionstatus"
+        },
+        {
+          "name": "TransactionName",
+          "type": "object",
+          "ref": "Name"
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "kind": "object",
+      "description": "Details the types of fraud evaluation tests applied",
+      "properties": [
+        {
+          "name": "Profile",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "RuleSetsandDecisionTrees",
+      "kind": "object",
+      "description": "All kind of verifications \n\nExamples: Password verification",
+      "properties": [
+        {
+          "name": "RuleSetsAndDecisionTreesTestResult",
+          "type": "object",
+          "ref": "Test"
+        },
+        {
+          "name": "RuleSetsAndDecisionTreesTestWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Session",
+      "kind": "object",
+      "description": "Reference to the product fulfillment production session for which on-line fraud evaluation is performed",
+      "properties": [
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontype",
+      "kind": "object",
+      "description": "Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.",
+      "properties": [
+        {
+          "name": "SessionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ContactHandlingSession` - \r\n* `CustomerDialogueSession` - \r\n* `ChannelOperatingSession` - \r\n* `GatewayOperatingSession` - \r\n* `SwitchOperatingSession` - \r\n* `DeviceOperatingSession` - \r\n* `InterbankTransactionOperatingSession` - \r\n* `CorrespondenceOperatingSession` - \r\n* `InteractiveHelpOperatingSession` - \r\n* `ACHOperatingSession` - \r\n",
+      "enum_values": [
+        "ContactHandlingSession",
+        "CustomerDialogueSession",
+        "ChannelOperatingSession",
+        "GatewayOperatingSession",
+        "SwitchOperatingSession",
+        "DeviceOperatingSession",
+        "InterbankTransactionOperatingSession",
+        "CorrespondenceOperatingSession",
+        "InteractiveHelpOperatingSession",
+        "ACHOperatingSession"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Test",
+      "kind": "object",
+      "description": "The production transaction assessment test results, including reference to any potential fraud transactions - note this can be a real-time dataset",
+      "properties": [
+        {
+          "name": "TestResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TestGuidance",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TestType",
+          "type": "object",
+          "ref": "Testtypevalues"
+        },
+        {
+          "name": "TestDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Testtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ProductEligibilityTest` - \r\n* `NextBestProductTest` - \r\n* `IssuedDeviceTest` - \r\n* `CardHolderAuthenticationTest` - \r\n* `CardFundsAvailableTest` - \r\n* `CardTransactionFraudTest` - \r\n* `CardStand-InAuthorizationTest` - \r\n* `ExternalAccessRequestTest` - \r\n* `SuitabilityTest` - \r\n* `LegalComplianceTest` - \r\n* `RegulatoryComplianceTest` - \r\n* `SystemFunctionalTest` - \r\n* `SystemProductionTest` - \r\n* `SystemBusinessRiskTest` - \r\n* `SystemOperationsTest` - \r\n* `CreditPolicyComplianceTest` - \r\n* `RuleSetAndDecisionTreeTest` - \r\n* `ModelBasedTests` - \r\n* `AssetAndLiabilityValuationTest` - \r\n* `LiquidityAndCashFlowTest` - \r\n* `RiskTest` - \r\n* `SensitivityTest` - \r\n",
+      "enum_values": [
+        "ProductEligibilityTest",
+        "NextBestProductTest",
+        "IssuedDeviceTest",
+        "CardHolderAuthenticationTest",
+        "CardFundsAvailableTest",
+        "CardTransactionFraudTest",
+        "CardStand-InAuthorizationTest",
+        "ExternalAccessRequestTest",
+        "SuitabilityTest",
+        "LegalComplianceTest",
+        "RegulatoryComplianceTest",
+        "SystemFunctionalTest",
+        "SystemProductionTest",
+        "SystemBusinessRiskTest",
+        "SystemOperationsTest",
+        "CreditPolicyComplianceTest",
+        "RuleSetAndDecisionTreeTest",
+        "ModelBasedTests",
+        "AssetAndLiabilityValuationTest",
+        "LiquidityAndCashFlowTest",
+        "RiskTest",
+        "SensitivityTest"
+      ]
+    },
+    {
+      "name": "Transactiondatetime",
+      "kind": "object",
+      "description": "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). ",
+      "properties": [
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "TransactionDateType",
+          "type": "object",
+          "ref": "Transactiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ExecutedDate` - \r\n* `FulfillmentDate` - \r\n* `InitiatedDate` - \r\n* `CancelledDate` - \r\n* `ApprovedDate` - \r\n* `ValueDate` - \r\n* `BookingDate` - \r\n",
+      "enum_values": [
+        "ExecutedDate",
+        "FulfillmentDate",
+        "InitiatedDate",
+        "CancelledDate",
+        "ApprovedDate",
+        "ValueDate",
+        "BookingDate"
+      ]
+    },
+    {
+      "name": "Transactionstatus",
+      "kind": "object",
+      "description": "A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) ",
+      "properties": [
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "TransactionStatusType",
+          "type": "object",
+          "ref": "Transactionstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Executed` - \r\n* `Cancelled` - \r\n* `Confirmed` - \r\n* `Suspended` - \r\n* `Pending` - \r\n* `Completed` - \r\n* `Notified` - \r\n* `Booked` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Executed",
+        "Cancelled",
+        "Confirmed",
+        "Suspended",
+        "Pending",
+        "Completed",
+        "Notified",
+        "Booked",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Transactiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialTransaction` - \r\n* `BusinessTransaction` - \r\n* `BankingTransaction` - \r\n* `AccountingTransaction` - \r\n* `BookingTransaction` - \r\n* `AllocationTransaction` - \r\n* `DeliveryTransaction` - \r\n* `ProductionTransaction` - \r\n",
+      "enum_values": [
+        "FinancialTransaction",
+        "BusinessTransaction",
+        "BankingTransaction",
+        "AccountingTransaction",
+        "BookingTransaction",
+        "AllocationTransaction",
+        "DeliveryTransaction",
+        "ProductionTransaction"
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "Work documentation, forms and schedules produced and referenced during the assessment task",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "FraudEvaluationAssessment",
+        "operations": [
+          "Evaluate",
+          "Exchange",
+          "Execute",
+          "Grant",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Models",
+        "parent_control_record": "FraudEvaluationAssessment",
+        "operations": [
+          "RetrieveModels"
+        ]
+      },
+      {
+        "name": "RuleSetsandDecisionTrees",
+        "parent_control_record": "FraudEvaluationAssessment",
+        "operations": [
+          "RetrieveRuleSetsandDecisionTrees"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/FraudEvaluation.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "e95e7a21fc7a3956931f3cd54445f83114365b7227bcb1eee5c2ba5ef4e4f233",
+    "retrieved_at": "2026-09-10T22:23:50.221564+00:00"
+  }
+}

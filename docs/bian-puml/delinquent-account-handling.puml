@@ -1,0 +1,59 @@
+@startuml
+title Delinquent Account Handling - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Delinquent Account Handling
+' Source image: delinquent-account-handling-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36305.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Procedure" as N63317 {
+}
+
+class "Delinquent Account Handling Procedure" as N63271 {
+}
+
+class "Delinquent Account" as N63298 {
+}
+
+class "Account" as N63346 {
+}
+
+class "Customer Relationship" as N63273 {
+}
+
+class "Collateral Asset Allocation" as N63313 {
+}
+
+class "Workstep" as N63311 {
+}
+
+class "Customer Contact" as N63301 {
+}
+
+class "Delinquent Account Resolution" as N63258 {
+}
+
+class "Case Resolution" as N63316 {
+}
+
+class "Payment Transaction" as N63290 {
+}
+
+class "Transaction" as N63268 {
+}
+
+' Relationships
+N63317 <|-- N63271
+N63271 "0..1" -- "HandlingProcedure / 0..*" N63298
+N63273 "0..1" -- "0..*" N63313
+N63317 -- "0..*" N63311
+N63301 "0..*" -- "1" N63273
+N63258 "0..*" -- "0..1" N63298
+N63316 <|-- N63258
+N63346 <|-- N63298
+N63290 "0..*" -- "0..*" N63298
+N63268 <|-- N63290
+@enduml

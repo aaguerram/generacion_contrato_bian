@@ -1,0 +1,124 @@
+@startuml
+title Disbursement - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Disbursement
+' Source image: disbursement-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_33840.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Transaction" as N195566 {
+}
+
+class "Disbursement Instruction" as N195556 {
+  + Disbursement Instruction Identification : String
+  + Disbursement Arrangement Reference : String
+  + Disbursement Entitled Party Reference : String
+  + Disbursement Instruction Agreement Reference : String
+}
+
+class "Loan Agreement" as N195604 {
+}
+
+class "Account" as N195600 {
+}
+
+class "Disbursement Assessment" as N195617 {
+  + Disbursement Authorizing Employee Reference : String
+  + Disbursement Assessment Result : String
+}
+
+class "Disbursement Instruction Document" as N195582 {
+}
+
+class "Disbursement Arrangement" as N195527 {
+}
+
+class "Banking Product Agreement" as N195551 {
+}
+
+class "Money Transfer Transaction" as N195506 {
+  + Money Transfer Transaction Amount : Amount
+  + Money Transfer Transaction Currency : String
+  + Money Transfer Transaction Source Account : String
+  + Money Transfer Transaction Target Account : String
+  + Money Transfer Instruction Reference : String
+  + Money Transfer Used Method : String
+  + Money Transfer Value Date : String
+}
+
+class "Money Transfer Transaction Involvement" as N195573 {
+  + Money Transfer Involvement Type : String
+  + Money Transfer Involved Party Reference : String
+  + Money Transfer Transaction Reference : String
+}
+
+class "Money Transfer Instruction" as N195620 {
+  + Money Transfer Instruction Type : String
+  + Money Transfer Instruction Amount : String
+  + Money Transfer Instruction Amount Currency : String
+  + Money Transfer Instruction Purpose : String
+  + Money Transfer Instruction Requested Mechanism : String
+  + Money Transfer Instruction Status : InstructionStatus
+  + Money Transfer Instruction Channel Reference : String
+}
+
+class "Transaction Account Role" as N195511 {
+  + Account Transaction Role : String
+  + Transaction Reference : String
+  + Transaction Account Reference : String
+}
+
+class "Instruction Account Role" as N195612 {
+  + Account Instruction Role : String
+  + Instruction Reference : String
+  + Instruction Account Reference : String
+}
+
+class "Date Time" as N195624 {
+}
+
+class "Relevant Date Time" as N195629 {
+  + Date Time Relevance Type : String
+}
+
+class "Money Transfer Instruction Involvement" as N195535 {
+  + Money Transfer Instruction Involvement Type : MoneyTransferInvolvementTypeValues
+  + Money Transfer Instruction Involved Party Reference : String
+  + Money Transfer Instruction Reference : String
+}
+
+enum "MoneyTransferInvolvementTypeValues" as N195541 {
+  Payee
+  Payer
+  Payee Bank
+  Payer Bank
+  Initiator
+  Correspondent Bank
+  Money Source
+  Money Target
+}
+
+' Relationships
+N195604 "0..1" -- "0..*" N195527
+N195556 "0..*" -- "1" N195527
+N195556 "1..*" -- "0..*" N195582
+N195556 "1" -- "0..*" N195617
+N195551 "0..1" -- "0..*" N195527
+N195551 <|-- N195604
+N195506 "1" -- "0..2" N195573
+N195620 <|-- N195556
+N195600 "0..1" -- "0..*" N195511
+N195506 "1" -- "0..2" N195511
+N195620 -- "0..1 / 0..*" N195506
+N195617 "0..1 / 0..1" -- N195506
+N195600 "0..1" -- "0..*" N195612
+N195620 "1" -- N195612 : 0..2
+N195624 "1" -- "0..*" N195629
+N195506 "0..1" -- "0..*" N195629
+N195620 "0..1" -- "0..*" N195629
+N195566 <|-- N195506
+N195620 "1" -- "0..*" N195535
+@enduml

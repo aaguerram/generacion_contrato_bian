@@ -1,0 +1,249 @@
+@startuml
+title Credit Card - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Credit Card
+' Source image: credit-card-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_29662.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Card Payment Agreement" as N189384 {
+  + Card Payment Involvement : InvolvedParty
+  + Card Amount : Amount
+  + Card Currency : CurrencyCode
+  + Card Limit Term And Condition : Condition
+  + Card Tax Term And Condition : Condition
+}
+
+class "Card Payment Service" as N189182 {
+  + Card Payment Service Identifier : Identifier
+  + Card Payment Service Type : CardPaymentServiceTypeValues
+  + Card Payment Service Configuration : Text
+}
+
+class "Card Payment Arrangement" as N189398 {
+  + Payment Card Arrangement Identifier : Identifier
+  + Card Payment Arrangement Type : ArrangementTypeValues
+}
+
+class "Card Payment Involvement" as N189395 {
+  + Involvement Type : CardPaymentInvolvementTypeValues
+  + Agreement Reference : Card Payment Agreement
+  + Party Reference : Party
+}
+
+enum "CardPaymentInvolvementTypeValues" as N189357 {
+  Card Holder
+  CardI ssuer
+  Card Acceptor
+  Card Acquirer
+  Merchant
+  Card Network
+}
+
+class "Payment Card" as N189356 {
+  + Card Type : PaymentCardTypeValues
+  + Card Number : Number
+  + Card Start Date : DateTime
+  + Card Expiry Date : DateTime
+  + Card Security Code : Number
+  + Card Verification Value : Number
+  + Bank Identification Number : Identifier
+  + Card Sequence Number : Text
+  + Card Brand : Text
+  + Card Currency Code : CurrencyCode
+  + Card Country Code : Country
+  + Card Product Profile : Text
+}
+
+class "Device" as N189302 {
+}
+
+class "Account" as N189414 {
+}
+
+class "Party" as N189498 {
+}
+
+class "Product Service" as N189380 {
+}
+
+class "Arrangement" as N189318 {
+}
+
+class "Fee Arrangement" as N189214 {
+}
+
+class "Device Arrangement" as N189484 {
+}
+
+class "Interest Arrangement" as N189264 {
+}
+
+class "Repayment Arrangement" as N189185 {
+}
+
+class "Billing Arrangement" as N189188 {
+}
+
+class "Card Payment Instruction" as N189525 {
+}
+
+class "Card Payment Transaction" as N189400 {
+}
+
+class "Payment Transaction" as N189458 {
+}
+
+class "Transaction" as N189220 {
+}
+
+class "Payment Instruction" as N189328 {
+}
+
+class "Instruction" as N189393 {
+}
+
+class "Account Entry" as N189250 {
+}
+
+enum "CardPaymentServiceTypeValues" as N189510 {
+  CardsFundTransfer
+  OriginalCredit
+  CardPayment
+  CashBack
+  CashAdvance
+  CashDeposit
+  DeferredPayment
+  Reservation
+  Loading
+  Refund
+  QuasiCash
+  Balance
+  CardActivation
+  CardVerification
+  PINChange
+  ValidityCheck
+  Aggregation
+  DCC
+  Gratuity
+  Instalment
+  Loyalty
+  NoShow
+  PurchaseCorporate
+  RecurringPayment
+  SolicitedAvailableFunds
+  UnsolicitedAvailableFunds
+  VoiceAuthorisation
+  InitialReservation
+  UpdateReservation
+  PaymentReservation
+  AdditionalPayment
+  FirstRecurring
+  FollowingRecurring
+  PersonToBusiness
+  PersonToPerson
+  AcceptorInstalment
+  IssuerInstalment
+  Unloading
+  CardsFundTransferPush
+  CardsFundTransferPull
+  CashWithdrawal
+  PINUnblock
+  ChosenWithdrawal
+  PreAuthorisedWithdrawal
+  ProfileWithdrawal
+  StandardWithdrawal
+  TransferCardBillPayment
+  TransferFromCash
+  TransferFromCheque
+  TransferFundsDisbursementGeneral
+}
+
+enum "ArrangementTypeValues" as N189485 {
+  Sweep Arrangement
+  Withdrawal Arrangement
+  Deposit Arrangement
+  Interest Arrangement
+  Fee Arrangement
+  Lien Arrangement
+  Information Arrangement
+  Payment Arrangement
+  Entitlement Arrangement
+  Period Arrangement
+  Collateral Arrangement
+  Limit Arrangement
+  Access Arrangement
+  Card Payment Arrangement
+  Standing Order Arrangement
+  Overdraft Arrangement
+  Repayment Arrangement
+  Statement Arrangement
+  Credit Transfer Arrangement
+  Product and Service Arrangement
+  Factoring Arrangement
+  Rollover Arrangement
+  Restructuring Arrangement
+  Insurance Arrangement
+  Collection Arrangement
+  Underwriting Arrangement
+  Termination Arrangement
+  Maturity Arrangement
+  Administrative Arrangement
+}
+
+enum "PaymentCardTypeValues" as N189325 {
+  CreditCard
+  DebitCard
+}
+
+class "Payment Arrangement" as N189448 {
+}
+
+class "Product" as N189407 {
+}
+
+class "Product Feature" as N189507 {
+}
+
+class "Product Agreement" as N189265 {
+}
+
+class "Product Arrangement" as N189288 {
+}
+
+' Relationships
+N189182 "0..1" -- "0..*" N189398
+N189384 "0..1" -- "1..*" N189398
+N189384 -- "0..*" N189395 : 0..1
+N189398 "0..1" -- "2" N189395
+N189356 "0..*" -- "Offering / Service / 0..*" N189182
+N189302 <|-- N189356
+N189414 "Arrangement / Account / 0..1" -- "0..*" N189398
+N189380 <|-- N189182
+N189398 <|-- N189484
+N189398 <|-- N189214
+N189398 <|-- N189264
+N189398 <|-- N189188
+N189398 <|-- N189185
+N189398 "0..1" -- "0..*" N189525
+N189525 "0..1" -- "0..*" N189400
+N189356 "UsedCard / 1" -- "0..*" N189400
+N189393 <|-- N189328
+N189220 <|-- N189458
+N189328 <|-- N189525
+N189458 <|-- N189400
+N189400 "0..1" -- "2..*" N189250
+N189414 "1" -- "0..*" N189250
+N189498 "0..1" -- "0..*" N189395
+N189448 <|-- N189398
+N189318 <|-- N189448
+N189407 -- N189507
+N189407 "1" -- "Sold / Product / 0..*" N189265
+N189507 "1" -- "NegotiatedFeature / 0..*" N189288
+N189265 "1" -- "1..*" N189288
+N189507 <|-- N189380
+N189265 <|-- N189384
+@enduml

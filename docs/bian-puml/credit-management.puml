@@ -1,0 +1,127 @@
+@startuml
+title Credit Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Credit Management
+' Source image: credit-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_35633.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Product" as N104940 {
+}
+
+class "Customer Relationship" as N104907 {
+}
+
+class "Party Role" as N104938 {
+}
+
+class "Product Price Component" as N104877 {
+}
+
+class "Product or Service Price Type" as N104821 {
+}
+
+class "Algorithm" as N104958 {
+}
+
+class "Customer Credit Rating Algorithm" as N104853 {
+}
+
+class "Customer Credit Rating Class" as N104845 {
+}
+
+class "Customer Rating Type" as N104957 {
+}
+
+class "Customer Rating" as N104905 {
+  + Customer Rating Type : CustomerRatingTypeValues
+  + Customer Rating Value : Value
+  + Customer Rating Description : Text
+  + Customer Rating Value Date : DateTime
+  + Customer Rating Validity Period : DateTimePeriod
+}
+
+class "Credit Position" as N104812 {
+  + Credit Position Type : CreditPositionTypeValues
+  + Credit Limit Value : Value
+  + Credit Position Evaluation : Assessment
+}
+
+class "Product" as N104913 {
+}
+
+class "Activity Sector" as N104834 {
+}
+
+class "Location" as N104842 {
+}
+
+class "Notification" as N104889 {
+  + Notification Reference : Object
+  + Notification Type : String
+  + Notification Content : String
+}
+
+class "Transaction" as N104930 {
+  + Transaction Identification : Identifier
+  + Transaction Date : TransactionDateTime[0..*]
+  + Transaction Type : TransactionTypeValues
+  + Transaction Description : Text
+  + Transaction Status : TransactionStatus
+  + Transaction Name : Name
+}
+
+class "Transaction Report" as N104854 {
+}
+
+class "Measurement" as N104818 {
+}
+
+class "Signal" as N104815 {
+}
+
+class "Credit Position Measurement" as N104847 {
+}
+
+class "Product Sales Agreement" as N104879 {
+}
+
+enum "CustomerRatingTypeValues" as N104849 {
+  Customer Profitability Rating
+  Customer Credit Rating
+  Customer Risk Rating
+}
+
+class "Financial Transaction" as N104855 {
+}
+
+' Relationships
+N104940 "1" -- "0..*" N104879
+N104940 "0..1" -- "0..*" N104877
+N104821 "0..1" -- "0..*" N104877
+N104958 <|-- N104853
+N104845 -- "0..*" N104853 : 0..1
+N104821 "0..*" -- "0..*" N104853
+N104957 <|-- N104845
+N104907 "1" -- "0..*" N104905
+N104957 "0..1" -- "0..*" N104905
+N104879 "0..*" -- "0..*" N104905
+N104853 "0..1" -- "0..*" N104905
+N104907 "0..1" -- "0..*" N104812
+N104812 "0..1" -- "0..*" N104905
+N104913 "0..1" -- "0..*" N104905
+N104834 "0..1" -- "0..1" N104905
+N104842 "0..1" -- "0..*" N104905
+N104845 "0..1" -- "0..*" N104905
+N104938 "0..*" -- "0..1" N104905
+N104905 "0..1" -- "0..*" N104889
+N104854 "0..*" -- "0..1" N104905
+N104930 "0..*" -- "0..1" N104854
+N104818 "0..1" -- "0..*" N104815
+N104818 <|-- N104847
+N104847 <|-- N104905
+N104930 <|-- N104855
+@enduml

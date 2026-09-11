@@ -1,0 +1,136 @@
+@startuml
+title Card Clearing - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Card Clearing
+' Source image: card-clearing-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_37359.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Procedure" as N194292 {
+}
+
+class "Workstep" as N194307 {
+}
+
+class "Card Clearing Procedure" as N194264 {
+}
+
+class "Clearing" as N194293 {
+}
+
+class "Card Clearing" as N194261 {
+  + Card Clearing Type : CardClearingTypeValues
+}
+
+class "Clearing Procedure" as N194335 {
+}
+
+class "Card Clearing Arrangement" as N194376 {
+}
+
+class "Card Payment Transaction" as N194310 {
+  + Amount : Amount[1..*]
+  + Merchant Location : Location
+  + Debit Credit Direction : DebitCreditIndicatortValues
+  + Card Transaction Channel : TransactionChannelTypeValues
+  + Point Of Interaction : Point Of Service
+  + Card Transaction Date Time : DateTime
+  + Card Transaction Environment Type : TransactionEnvironmentTypeValues
+  + Merchant Country : Country
+  + Card Network : Card Network
+  + Amount Qualifier : AmountQualifierTypeValues
+  + Card Payment Status : Status
+  + Card Transaction Category : CardTransactionCategoryTypeValues
+  + Card Payment Transaction Identification : CardPaymentTransactionIdentification
+  + Card Payment Transaction Service Type : CardPaymentTransactionServiceTypeValues
+}
+
+class "Card Clearing Term And Condition" as N194269 {
+}
+
+class "Transaction Batch" as N194285 {
+}
+
+class "Card Payment Involvement" as N194295 {
+  + Involvement Type : CardPaymentInvolvementTypeValues
+  + Agreement Reference : Card Payment Agreement
+  + Party Reference : Party
+}
+
+enum "CardPaymentInvolvementTypeValues" as N194315 {
+  Card Holder
+  CardI ssuer
+  Card Acceptor
+  Card Acquirer
+  Merchant
+  Card Network
+}
+
+class "Card Network" as N194351 {
+}
+
+class "Card Payment Authorization" as N194400 {
+  + Transaction Success : TrueFalseIndicatorValues
+  + Merchant Override : TrueFalseIndicatorValues
+  + Validity Date : Date
+  + Response : Text
+  + Authorization Code : Value
+  + Cardholder Address Verification Result : CardholderAddressVerificationResultTypeValues
+  + CSC Result : CSCResultTypeValues
+  + Electronic Commerce Authentication Result : Text
+  + Failure Reason : FailureReasonTypeValues
+  + Authorization Entity : InvolvedParty
+}
+
+class "Card Payment Account" as N194370 {
+}
+
+class "Account" as N194362 {
+}
+
+class "Party" as N194323 {
+}
+
+class "Clearing Term And Condition" as N194387 {
+}
+
+class "Condition" as N194301 {
+}
+
+class "Arrangement" as N194379 {
+}
+
+class "Clearing Arrangement" as N194268 {
+}
+
+enum "CardClearingTypeValues" as N194404 {
+  Capture
+  Batch
+  Chargeback
+}
+
+' Relationships
+N194292 -- "0..*" N194307
+N194293 <|-- N194261
+N194292 <|-- N194335
+N194335 <|-- N194264
+N194261 "0..1" -- "SupportingProcedure / 0..1" N194264
+N194310 "0..1" -- "0..*" N194261
+N194285 "0..1" -- "0..*" N194310
+N194285 "0..1" -- "0..*" N194261
+N194310 "0..1 / 2..*" -- N194295
+N194351 "Handling / Network / 0..1" -- "0..*" N194310
+N194400 "0..*" -- "0..1" N194310
+N194310 "0..*" -- "AccountAssociated / WithCardTransaction / 0..1" N194370
+N194362 <|-- N194370
+N194323 "0..1" -- "0..*" N194295
+N194376 "0..1" -- "0..*" N194261
+N194376 "0..*" -- "0..*" N194269
+N194301 <|-- N194387
+N194387 <|-- N194269
+N194379 <|-- N194268
+N194268 <|-- N194376
+@enduml

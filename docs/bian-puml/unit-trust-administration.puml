@@ -1,0 +1,97 @@
+@startuml
+title Unit Trust Administration - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Unit Trust Administration
+' Source image: unit-trust-administration-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52426.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Unit Trust" as N210014 {
+}
+
+class "Financial Instrument" as N210067 {
+}
+
+class "Unit Trust Administrative Plan" as N210060 {
+  + Unit Trust Administrative Planned Action : Planned Action[1..*]
+  + Unit Trust Administrative Planned Action Type
+}
+
+class "Administrative Plan" as N210042 {
+}
+
+enum "UnitTrustAdministrativePlannedActionTypeValues" as N210073 {
+  Fund Management Fee
+  Fund Investor, Middle and Back Office Service
+  Fund Financial Reporting
+  Fund Enrolment
+  Fund Tax Administration
+  Fund Accounting
+}
+
+class "Investment Fund" as N210056 {
+  + Investment Fund Type : InvestmentFundTypeValues
+  + Investment Fund Legal Form Type : InvestmentFundLegalFormTypeValues
+  + Domicile Country : Country
+  + Authorised Country : Country
+  + Order Desk : Contact Point
+  + Investment Fund Class : Text
+  + Treasury Trading Party : InvolvedParty
+  + Identification : Identifier
+  + Custodian : InvolvedParty
+  + Family : Text
+  + Structure : Text
+  + Sub Fund Indicator : Text
+  + End Of Fiscal Year : DateTime
+  + Accounting Year End Date : DateTime
+  + First Accounting Year End Date : DateTime
+}
+
+class "Party" as N210052 {
+}
+
+class "Party Role" as N210086 {
+}
+
+enum "InvestmentFundTypeValues" as N210096 {
+  Exchange-Traded Fund
+  Mutual Fund
+  Money Market Fund
+  Hedge Fund
+  Unit Trust
+}
+
+enum "InvestmentFundInvolvementTypeValues" as N210040 {
+  Fund Manager
+  Fund Accountant
+  Fund Administator
+  Fund Order Desk
+  Placement Agent
+  Transfer Agent
+  Auditor
+  Grantor
+  Settlor
+}
+
+class "Investment Fund Involvement" as N210085 {
+  + Investment Fund Involvement Type : InvestmentFundInvolvementTypeValues
+}
+
+enum "InvestmentFundLegalFormTypeValues" as N210074 {
+  Contractual
+  Trust
+  Corporate
+}
+
+' Relationships
+N210014 "0..1" -- "0..*" N210060
+N210042 <|-- N210060
+N210056 "PoolOf / FinancialInstrument" -- "0..*" N210067
+N210052 "1" -- "0..*" N210086
+N210086 <|-- N210085
+N210056 "0..1" -- "0..*" N210085
+N210056 <|-- N210014
+@enduml

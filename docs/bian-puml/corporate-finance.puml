@@ -1,0 +1,99 @@
+@startuml
+title Corporate Finance - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Corporate Finance
+' Source image: corporate-finance-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52797.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Financial Advisory Service" as N210902 {
+  + Financial Advisory Service Type : FinancialAdvisoryServiceTypeValues
+}
+
+class "Financial Advisory Service Arrangement" as N210845 {
+  + Financial Advisory Service Arrangement Type : FinancialAdvisoryServiceArrangementType
+}
+
+class "Financial Advisory Service Agreement" as N210882 {
+}
+
+class "Agreement" as N210941 {
+}
+
+class "Product" as N210891 {
+}
+
+class "Arrangement" as N210914 {
+}
+
+enum "FinancialAdvisoryServiceTypeValues" as N210857 {
+  Consumer Financial Advisory Service
+  Corporate Financial Advisory Service
+}
+
+enum "FinancialAdvisoryServiceArrangementType" as N210871 {
+  Fee Arrangement
+  Financial Planning Arrangement
+  Tax Optimization Arrangement
+  Strategic Funding Arrangement
+  Tactical Funding Arrangement
+  Capital Structuring Arrangement
+  Product Guidance Arrangement
+}
+
+class "Financial Advisory Service Instruction" as N210970 {
+}
+
+class "Financial Advisory Service Transaction" as N210925 {
+}
+
+class "Instruction" as N210953 {
+}
+
+class "Transaction" as N210859 {
+}
+
+class "Account" as N210912 {
+}
+
+class "Account Entry" as N210930 {
+}
+
+class "Party" as N210884 {
+}
+
+class "Party Role" as N210880 {
+}
+
+class "Financial Advisory Service Involvement" as N210964 {
+  + Financial Advisory Service Involvement Type : FinancialAdvisoryServiceInvolvementTypeValues
+}
+
+enum "FinancialAdvisoryServiceInvolvementTypeValues" as N210938 {
+  Financial Advisor
+  Consumer Customer
+  Corporate Customer
+  Bank
+}
+
+' Relationships
+N210882 "0..*" -- "0..1" N210902
+N210882 "0..1" -- "1..*" N210845
+N210891 <|-- N210902
+N210941 <|-- N210882
+N210914 <|-- N210845
+N210845 -- "0..*" N210970 : 0..1
+N210970 -- "0..*" N210925 : 0..1
+N210953 <|-- N210970
+N210859 <|-- N210925
+N210925 "0..1" -- "0..*" N210930
+N210912 "1" -- "0..*" N210930
+N210845 "0..*" -- "Arrangement / Account / 0..1" N210912
+N210882 -- "0..1 / 2..*" N210964
+N210880 <|-- N210964
+N210845 "0..1" -- "2" N210964
+N210884 "1" -- "0..*" N210880
+@enduml

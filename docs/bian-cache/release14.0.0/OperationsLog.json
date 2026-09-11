@@ -1,0 +1,121 @@
+{
+  "service_domain": "Operations Log",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [],
+  "schemas": [
+    "HTTPError",
+    "PartnerEventLog"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PartnerEventLog",
+      "kind": "object",
+      "description": "Maintain a log of transactions or activity, typically a financial account/journal or a log of activity to support behavioral analysis within Operations Log. ",
+      "properties": [
+        {
+          "name": "PartnerEventLogParameterType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogSelectedOption",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogSchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogUsageLog",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogUpdateLog",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogAssociatedParty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogBusinessUnitReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogCustomerReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogServiceConfiguration",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogPositionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogPositionLimitTime",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerEventLogReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/OperationsLog.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "ba2b3d5298a52c3547b9b6912412c74f07159c0e38f4a5b5499b55b2391b12b0",
+    "retrieved_at": "2026-09-10T22:23:58.424618+00:00"
+  }
+}

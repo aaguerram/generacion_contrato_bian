@@ -1,0 +1,91 @@
+@startuml
+title Corporate Treasury - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Corporate Treasury
+' Source image: corporate-treasury-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_40783.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Bank Rate" as N149242 {
+  + Bank Rate Type : String
+  + Bank Rate Value : String
+}
+
+class "Bank Rate Publication" as N149285 {
+}
+
+class "Relevant Date Time" as N149282 {
+}
+
+class "Date Time" as N149259 {
+}
+
+class "Corporate Treasury Plan" as N149192 {
+}
+
+class "Corporate Treasury End" as N149229 {
+  + Corporate Treasury Objective Measure Type : String
+}
+
+class "Corporate Treasury Directive" as N149212 {
+}
+
+class "Financial Report" as N149221 {
+  + Financialreport Viewpoint : String
+  + Financial Report Scope : String
+}
+
+class "Risk Assessment" as N149211 {
+  + Risk Assessment Viewpoint : String
+}
+
+class "Corporate Treasury Management Input" as N149243 {
+}
+
+class "Corporate Treasury Domain" as N149202 {
+}
+
+class "Corporate Treasurymanagement Input Guidance" as N149260 {
+}
+
+class "Corporate Treasury Management Action" as N149197 {
+  + Corporate Treasury Action Domain : String
+}
+
+class "Corporate Asset" as N149205 {
+}
+
+class "Securization Tranch" as N149248 {
+}
+
+class "Money Transfer Transaction" as N149264 {
+}
+
+class "Management Plan" as N149215 {
+}
+
+' Relationships
+N149242 "1..*" -- "0..*" N149285
+N149259 "1" -- "0..*" N149282
+N149242 "0..1" -- "0..*" N149282
+N149285 "0..1" -- "0..*" N149282
+N149192 "0..1" -- "set in / 0..*" N149229
+N149192 "inspired by / 0..*" -- "0..*" N149212
+N149221 "details / 0..*" -- "1" N149221
+N149221 "0..1" -- "0..*" N149243
+N149243 "0..*" -- "0..1" N149211
+N149212 "1..*" -- "0..*" N149260
+N149260 "1" -- "0..*" N149243
+N149202 "1..*" -- "0..*" N149197
+N149202 "1..*" -- "1" N149212
+N149248 "0..*" -- "1..*" N149205
+N149243 "0..*" -- "0..*" N149264
+N149202 "1" -- "0..*" N149229
+N149197 -- "0..*" N149248 : 0..1
+N149243 "0..1" -- "0..1" N149205
+N149215 <|-- N149192
+N149197 "0..*" -- "0..*" N149243
+@enduml

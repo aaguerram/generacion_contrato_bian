@@ -1,0 +1,77 @@
+@startuml
+title Market Making - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Market Making
+' Source image: market-making-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52024.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Market Making Agreement" as N211862 {
+}
+
+class "Market Making Arrangement" as N211773 {
+  + Market Making Arrangement Type : MarketMakingArrangementTypeValues
+}
+
+enum "MarketMakingArrangementTypeValues" as N211796 {
+  Market Making Buy and Sell Order Arrangement
+  Market Making Security Traded Position Arrangement
+  Market Making Quote Arrangement
+}
+
+class "Market Making Instruction" as N211822 {
+}
+
+class "Market Making Transaction" as N211870 {
+}
+
+class "Market Making Involvment" as N211775 {
+  + Market Making Involvment Type : MarketMakingInvolvmentTypeValues
+}
+
+enum "MarketMakingInvolvmentTypeValues" as N211787 {
+  Market Maker
+}
+
+class "Agreement" as N211846 {
+}
+
+class "Instruction" as N211833 {
+}
+
+class "Transaction" as N211817 {
+}
+
+class "Account Entry" as N211838 {
+}
+
+class "Account" as N211851 {
+}
+
+class "Arrangement" as N211792 {
+}
+
+class "Party" as N211805 {
+}
+
+class "Party Role" as N211813 {
+}
+
+' Relationships
+N211862 "0..1" -- "0..1" N211773
+N211773 "0..1" -- "0..*" N211822
+N211822 -- "0..*" N211870 : 0..1
+N211792 <|-- N211773
+N211846 <|-- N211862
+N211833 <|-- N211822
+N211817 <|-- N211870
+N211870 "0..1" -- "0..*" N211838
+N211851 "1" -- "0..*" N211838
+N211773 "0..*" -- "Arrangement / Account / 0..1" N211851
+N211813 <|-- N211775
+N211805 "1" -- "0..*" N211813
+N211862 "0..1" -- "2..*" N211775
+@enduml

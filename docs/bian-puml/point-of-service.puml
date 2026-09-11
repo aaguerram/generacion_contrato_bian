@@ -1,0 +1,91 @@
+@startuml
+title Point of Service - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Point of Service
+' Source image: point-of-service-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_29166.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "System" as N234243 {
+}
+
+class "Session" as N234197 {
+}
+
+class "Point Of Service" as N234238 {
+}
+
+class "Point Of Service Session" as N234218 {
+}
+
+class "Service" as N234208 {
+}
+
+class "Servicing Event" as N234198 {
+}
+
+class "Customer Contact" as N234212 {
+}
+
+class "Dialogue Session" as N234264 {
+}
+
+class "Function" as N234296 {
+}
+
+class "Servicing Event Log" as N234220 {
+}
+
+class "Point Of Service Session Involvement" as N234256 {
+}
+
+class "Party Role" as N234216 {
+}
+
+class "Session Dialogue Log" as N234213 {
+}
+
+class "Item" as N234251 {
+}
+
+class "Item Inventory" as N234241 {
+  + Item Inventory Type : Text
+}
+
+class "Item Transaction" as N234214 {
+  + Item Transaction Type : String
+}
+
+class "Session Dialogue Log Entry" as N234292 {
+}
+
+class "Channel Activity" as N234237 {
+}
+
+class "Party" as N234192 {
+}
+
+' Relationships
+N234243 <|-- N234238
+N234238 "SystemInSession / 0..1" -- "0..*" N234218 : Operating / Session
+N234197 <|-- N234218
+N234208 "0..*" -- "0..*" N234238
+N234218 "0..1" -- "Session / Event / 0..*" N234198
+N234264 "DialogueSession / WithinContact / 0..*" -- "Structured / Interaction / 1" N234212
+N234296 "0..*" -- "Operational / Function / 0..1" N234197
+N234238 "HandlingPoS / 0..1" -- "CustomerInteractionSession / HandledByPoS / 0..*" N234264
+N234220 "0..1" -- "LogEntry / 0..*" N234198
+N234218 "0..1" -- "0..*" N234256
+N234216 <|-- N234256
+N234238 "0..*" -- "TrackedByPoS / 0..*" N234241
+N234241 "0..1" -- "0..*" N234251
+N234241 "0..1" -- "0..*" N234214
+N234251 "0..1" -- "0..*" N234214
+N234213 "0..1" -- "LogEntry / 0..*" N234292
+N234264 "1" -- "0..*" N234292
+N234212 "0..1" -- "ActiveContact / ExecutedAction / UsingChannel / 0..*" N234237
+N234192 -- "1 / 0..*" N234216
+@enduml

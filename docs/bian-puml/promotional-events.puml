@@ -1,0 +1,80 @@
+@startuml
+title Promotional Events - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Promotional Events
+' Source image: promotional-events-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_39747.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Management Plan" as N190335 {
+}
+
+class "Duty" as N190326 {
+}
+
+class "Promotional Event" as N190329 {
+}
+
+class "Promotional Event Management Plan" as N190332 {
+}
+
+class "Promotional Event Impact Assessment" as N190367 {
+}
+
+class "Event" as N190361 {
+  + Event Type : Text
+  + Event Date Time : DateTime
+  + Event Description : Text
+  + Event Source : Object
+  + Event Location : Location
+  + Event Action : Action
+  + Event Status : Status
+  + Event Value : Value
+  + Event Validity Period : DateTimePeriod
+  + Event Identification : Identifier
+}
+
+class "Assessment" as N190387 {
+}
+
+class "Promotional Event Impact Metric" as N190360 {
+  + Promotional Event Impact Metric Definition : String
+  + Promotional Event Impact Metric Goal : String
+}
+
+class "Promotional Event Management Plan Duty" as N190395 {
+  + Promotional Event Management Plan Duty Type : String
+}
+
+enum "PromotionalEventManagementPlanDutyTypeValues" as N190401 {
+  MarketTracking
+  ImpactAssessment
+  ParticipationDirection
+}
+
+class "Market Research" as N190363 {
+  + Market Research Source : Object
+  + Market Research Viewpoint : MarketResearchViewpointTypeValues
+  + Market Research Approach : Text
+  + Market Research Period : DateTimePeriod
+  + Researched Market : Market
+  + Market Research Aspect Type : MarketResearchAspectTypeValues[1..*]
+  + Market Research Description : Text
+  + Market Research Date and Time : DateTime
+}
+
+' Relationships
+N190335 <|-- N190332
+N190329 "0..*" -- "0..*" N190332
+N190329 "0..*" -- "0..*" N190367
+N190361 <|-- N190329
+N190387 <|-- N190367
+N190360 "0..*" -- "0..*" N190367
+N190332 "0..1" -- "0..*" N190395
+N190326 <|-- N190395
+N190367 "0..*" -- "UsedInAssessment / 0..*" N190363
+N190387 <|-- N190363
+@enduml

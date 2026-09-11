@@ -1,0 +1,165 @@
+@startuml
+title Issued Device Administration - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Issued Device Administration
+' Source image: issued-device-administration-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_33080.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Device Allocation" as N67238 {
+}
+
+class "Allocation" as N67145 {
+}
+
+class "Device" as N67148 {
+  + Device Identification : DeviceIdentification
+  + Device Type : DeviceTypeValues
+  + Device Property : Text
+  + Device Element : Text
+  + Device Status : Status
+  + Device Version : Number
+  + Device Date Time : DateTime
+  + Device Description : Text
+  + Device Name : Name
+  + Device Language : Text
+  + Device Phone Number : Text
+  + Device Location Reference : Text
+  + Device Manufacturer : Text
+  + Device Country Reference : Text
+  + Device Address Reference : Text
+  + Device Operating System : DeviceOperatingSystemTypeValues
+}
+
+class "Thing" as N67149 {
+}
+
+class "Device Allocation Arrangement" as N67186 {
+}
+
+class "Arrangement" as N67321 {
+}
+
+class "Issued Device" as N67280 {
+  + Issued Device Status : IssuedDeviceStatusTypeValues
+  + Issued Device Party Reference : Text
+  + Issued Device Configuration : Text
+  + Issued Device Reference : Text
+  + Issued Device Validity Period : DateTimePeriod
+  + Issued Device Delivery Method : Text
+  + Device Issue Date : DateTime
+  + Issued Device Collect Location : Branch
+  + Issued Device Product Reference : Text
+  + Issed Device Customization Type : DeviceCustomizationTypeValues
+}
+
+enum "IssuedDeviceStatusTypeValues" as N67188 {
+  Issued
+  Issued but not activated
+  Activated
+  Suspended
+  Retrieved
+}
+
+enum "DeviceCustomizationTypeValues" as N67192 {
+  Card Design
+}
+
+enum "DeviceIdentificationTypeValues" as N67163 {
+  IMEI
+  SerialNumber
+  SecureElementIdentification
+  OtherNational
+  OtherPrivate
+}
+
+enum "DeviceTypeValues" as N67393 {
+  SecureCardReader
+  NonSecureCardReader
+  Mobile
+  Tablet
+  PersonalComputer
+  OtherNational
+  OtherPrivate
+  Wearable
+  Vehicle
+  Embedded
+  KeyFob
+  Jewellery
+  Sticker
+  GamingDevice
+  Watch
+  Unknown
+  Biometric Device
+}
+
+enum "DeviceOperatingSystemTypeValues" as N67305 {
+  Android
+  iOS
+  Windows
+  Blackberry
+  Tizen
+  OtherNational
+  OtherPrivate
+}
+
+class "Token" as N67270 {
+  + Token Identification : Identifier
+  + Token Status : TokenStatusTypeValues
+  + Token Identification and Verification Method : TokenIdentificationAndVerificationMethodTypeValues
+  + Token Status Date : DateTime
+  + Token Device Reference : Device
+  + Token Request Reference : Token Request
+  + Token Protection Method : TokenProtectionMethodTypeValues
+  + Token Storage Location : TokenStorageLocationTypeValues
+  + Token Type : TokenTypeValues
+}
+
+enum "TokenTypeValues" as N67239 {
+  Refresh Token
+  Access Token
+  Security Token
+  Authentication Token
+}
+
+enum "TokenStatusTypeValues" as N67327 {
+  Active
+  Expired
+  Cancelled
+  Generated
+  Stored
+  Mapped
+  Routed
+  Suspension
+  Updated
+}
+
+class "Device Feature" as N67367 {
+}
+
+class "Feature" as N67223 {
+}
+
+class "Issued Device Administration" as N67901 {
+}
+
+class "Issued Device Allocation" as N67902 {
+}
+
+' Relationships
+N67238 "0..*" -- "Allocated / Device / 0..1" N67148
+N67145 <|-- N67238
+N67238 <|-- N67902
+N67149 "Allocating / Thing / 0..1" -- "0..*" N67238
+N67186 "0..1" -- "0..*" N67238
+N67321 <|-- N67186
+N67148 <|-- N67280
+N67148 "0..1" -- "0..*" N67270 : TokenDevice
+N67148 "0..1" -- "0..*" N67280
+N67223 <|-- N67367
+N67148 "0..1" -- "0..*" N67367
+N67238 "0..1" -- "0..1" N67901
+@enduml

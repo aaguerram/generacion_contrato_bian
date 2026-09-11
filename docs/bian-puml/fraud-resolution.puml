@@ -1,0 +1,69 @@
+@startuml
+title Fraud Resolution - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Fraud Resolution
+' Source image: fraud-resolution-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_47032.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Fraud Case" as N176214 {
+}
+
+class "Fraud Case Involvement" as N176190 {
+}
+
+class "Case" as N176168 {
+}
+
+class "Customer Relationship" as N176169 {
+}
+
+class "Customer Contact" as N176175 {
+}
+
+class "Workstep" as N176226 {
+}
+
+class "Procedure" as N176148 {
+}
+
+class "Fraud Case Resolution" as N176157 {
+}
+
+class "Production Transaction" as N176203 {
+}
+
+class "Product" as N176196 {
+}
+
+class "Fraud Case Root Cause Analysis" as N176183 {
+}
+
+class "Fraud Case Determination" as N176150 {
+}
+
+class "Fraud Case Involvement Agreement" as N176153 {
+}
+
+class "Adjustment Transaction" as N176225 {
+}
+
+' Relationships
+N176214 "0..1" -- "0..*" N176190
+N176168 <|-- N176214
+N176169 "Customer / RaisingCase / 0..1" -- "0..*" N176214
+N176175 "0..*" -- "1" N176169
+N176148 -- "0..*" N176226
+N176148 <|-- N176157
+N176214 "1" -- "DetectedFraudCase / ResolvingFraudCase / 0..*" N176157
+N176175 "Contact / RaisingCase / 0..1" -- "0..*" N176214
+N176214 "AssociatedWithCase / 0..*" -- "1..*" N176203
+N176214 "AssociatedWithCase / 0..*" -- "0..1" N176196
+N176157 "1" -- "0..1" N176183
+N176157 "1" -- "0..1" N176150
+N176153 "0..*" -- "0..1" N176214
+N176157 "0..1" -- "InitiatedByResolution / 0..*" N176225
+@enduml

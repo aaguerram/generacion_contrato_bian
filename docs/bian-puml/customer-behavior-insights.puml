@@ -1,0 +1,122 @@
+@startuml
+title Customer Behavior Insights - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Behavior Insights
+' Source image: customer-behavior-insights-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_38542.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Customer Behavior Insight Analysis" as N91478 {
+}
+
+class "Customer Insight" as N91548 {
+  + Customer Insight Type : CustomerInsightTypeValues
+  + Customer Insight Value : Value
+  + Customer Insight Calculation Date : DateTime
+  + Customer Insight Description : Text
+  + Customer Insight Identification : Identifier
+}
+
+class "Algorithm" as N91470 {
+}
+
+class "Customer Event Log" as N91576 {
+}
+
+class "Log" as N91615 {
+}
+
+class "Report" as N91549 {
+}
+
+class "Market Research Report" as N91567 {
+}
+
+class "Market Research" as N91486 {
+}
+
+class "Customer Relationship" as N91633 {
+}
+
+class "Analysis" as N91519 {
+}
+
+enum "CustomerInsightTypeValues" as N91604 {
+  Customer Behavioral Insight
+  Customer Demographic Insight
+  Customer Psychographic Insight
+  Customer Transactional Insight
+  Customer Feedback and Sentiment Insight
+  Customer Journey Insight
+  Customer Retention and Churn Insight
+  Customer Financial Insight
+}
+
+class "Customer Behavior Insight" as N91473 {
+  + Customer Behavior Insight Type : CustomerBehaviorInsightTypeValues
+}
+
+class "Customer Financial Insight" as N91606 {
+}
+
+class "Customer Behavior" as N91475 {
+}
+
+class "Customer Behavior Model" as N91613 {
+}
+
+class "Model" as N91591 {
+}
+
+class "Customer Behavior Insight Involvement" as N91544 {
+  + Customer Behavior Insight Involvement Type : CustomerBehaviorInsightInvolvementTypeValue s
+}
+
+class "Party" as N91583 {
+}
+
+enum "CustomerBehaviorInsightInvolvementTypeValues" as N91657 {
+  Data Analysts
+  Market Researchers
+  Customer Experience Managers
+  Business Intelligence Analysts
+  Marketing Strategists
+  Product Managers
+  Sales Analysts
+  CRM Specialists
+  Data Scientists
+  UX/UI Designers
+}
+
+enum "CustomerBehaviorInsightTypeValues" as N91595 {
+  Customer Engagement Insight
+  Customer Demographic Insight
+  Customer Psychographic Insight
+  Customer Satisfaction and Sentiment Insight
+  Customer Journey Insight
+  Customer Retention and Churn Insight
+}
+
+' Relationships
+N91519 <|-- N91478
+N91519 -- "0..*" N91470
+N91615 <|-- N91576
+N91486 "0..*" -- "0..*" N91567
+N91633 "0..1" -- "0..*" N91548
+N91548 <|-- N91473
+N91548 <|-- N91606
+N91473 "0..1" -- "0..*" N91478
+N91576 "LogUsed / InAnalysis / 0..*" -- "0..*" N91478
+N91549 <|-- N91567
+N91478 "0..*" -- "ReportUsed / InAnalysis / 0..*" N91567
+N91633 "1" -- "0..*" N91475
+N91475 "0..1" -- "0..*" N91473
+N91475 "0..1" -- "0..*" N91613
+N91613 "ModelUsed / InAnalysis / 0..*" -- "0..*" N91478
+N91591 <|-- N91613
+N91473 -- "0..*" N91544 : 0..1
+N91583 "0..1" -- "0..*" N91544
+@enduml

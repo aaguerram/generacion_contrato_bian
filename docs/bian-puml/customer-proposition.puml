@@ -1,0 +1,96 @@
+@startuml
+title Customer Proposition - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Proposition
+' Source image: customer-proposition-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52822.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Customer Proposition Agreement" as N164414 {
+}
+
+class "Agreement" as N164389 {
+}
+
+class "Customer Proposition Arrangement" as N164445 {
+  + Customer Proposition Arrangement Type : ArrangementTypeValues
+  + Customer Proposition Term and Condition Type : ProductTermAndConditionType
+}
+
+enum "ArrangementTypeValues" as N164407 {
+  Sweep Arrangement
+  Withdrawal Arrangement
+  Deposit Arrangement
+  Interest Arrangement
+  Fee Arrangement
+  Lien Arrangement
+  Information Arrangement
+  Payment Arrangement
+  Entitlement Arrangement
+  Period Arrangement
+  Collateral Arrangement
+  Limit Arrangement
+  Access Arrangement
+  Card Payment Arrangement
+  Standing Order Arrangement
+  Overdraft Arrangement
+  Repayment Arrangement
+  Statement Arrangement
+  Credit Transfer Arrangement
+  Product and Service Arrangement
+  Factoring Arrangement
+  Rollover Arrangement
+  Restructuring Arrangement
+  Insurance Arrangement
+  Collection Arrangement
+  Underwriting Arrangement
+  Termination Arrangement
+  Maturity Arrangement
+  Administrative Arrangement
+}
+
+enum "ProductStandardTermAndConditionTypeValues" as N164430 {
+  Product General Term and Condition
+  Product Context Specific Term and Condition
+  Product Combination Term and Condition
+  Product Pricing and Fee Term and Condition
+  Product Matching Term and Condition
+  Product Eligibility Term and Condition
+  Product Repayment Term and Condition
+  Product Documentation Required Term and Condition
+}
+
+class "Product" as N164369 {
+}
+
+class "Customer Relationship" as N164360 {
+}
+
+class "Product Feature" as N164434 {
+}
+
+class "Product Term And Condition" as N164435 {
+  + Product Term And Condition Type : ProductTermAndConditionType
+  + Condition Reference : Condition
+  + Product Reference : Product
+}
+
+class "Product Service" as N164377 {
+}
+
+class "Arrangement" as N164376 {
+}
+
+' Relationships
+N164389 <|-- N164414
+N164414 "0..1" -- "0..1" N164445
+N164369 "0..*" -- "0..*" N164414
+N164360 "0..1" -- "0..1" N164414
+N164369 -- N164434
+N164434 <|-- N164435
+N164434 <|-- N164377
+N164376 <|-- N164445
+@enduml

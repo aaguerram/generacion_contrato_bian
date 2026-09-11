@@ -1,0 +1,113 @@
+@startuml
+title Open Item Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Open Item Management
+' Source image: open-item-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_41114.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Procedure" as N187075 {
+}
+
+class "Product Sales Agreement" as N187088 {
+}
+
+class "Repayment Transaction" as N187071 {
+}
+
+class "Repayment Arrangement" as N187149 {
+}
+
+class "Loan Agreement" as N187150 {
+}
+
+class "Loan Arrangement" as N187110 {
+}
+
+class "Repayment Modality" as N187131 {
+  + Repayment Schedule : Schedule
+  + Repayment Modality Type : ModalityTypeValues
+}
+
+class "Repayment Instruction" as N187154 {
+}
+
+class "Invoice" as N187081 {
+}
+
+class "Invoicee" as N187175 {
+}
+
+class "Invoice Involvement" as N187184 {
+}
+
+class "Open Item" as N187114 {
+  + Open Item Type Attribute : String
+  + Open Item Description : String
+  + Open Item Reference : String
+}
+
+class "Open Item Procedure" as N187122 {
+}
+
+class "Customer Billing Procedure Execution" as N187206 {
+}
+
+class "Loan Account" as N187094 {
+  + Loan Outstanding Amount : String
+}
+
+class "Loan Agreement Involvement" as N187191 {
+}
+
+class "Loan Arrangement Involvement" as N187113 {
+}
+
+class "Agreement Involvement" as N187158 {
+}
+
+class "Arrangement Involvement" as N187103 {
+}
+
+class "Account Entry" as N187207 {
+}
+
+class "Open Item Procedrue Execution" as N187082 {
+}
+
+class "Open Item Type" as N187214 {
+}
+
+class "Agreement" as N187098 {
+}
+
+' Relationships
+N187110 <|-- N187149
+N187150 -- N187110
+N187149 "1" -- "0..*" N187131
+N187149 "1" -- "0..1" N187154
+N187184 <|-- N187175
+N187081 "0..1" -- "0..*" N187184
+N187075 <|-- N187122
+N187154 "0..1" -- "0..*" N187071
+N187081 "0..*" -- "0..*" N187154
+N187206 "1" -- "0..*" N187081
+N187150 "0..1" -- "2..*" N187191
+N187110 "1" -- "1..*" N187113
+N187158 <|-- N187191
+N187103 <|-- N187113
+N187114 "0..1" -- "0..1" N187154
+N187071 "0..1" -- "0..*" N187207
+N187094 "0..1" -- "0..*" N187207
+N187122 "1" -- "0..*" N187082
+N187082 "0..*" -- "0..*" N187114
+N187214 "1" -- "0..*" N187114
+N187122 "0..*" -- "1..*" N187214
+N187114 "0..1" -- "0..1" N187094
+N187088 <|-- N187150
+N187098 <|-- N187088
+N187098 "1" -- "1..*" N187158
+@enduml

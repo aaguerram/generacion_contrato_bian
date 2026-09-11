@@ -1,0 +1,74 @@
+@startuml
+title Lead and Opportunity Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Lead and Opportunity Management
+' Source image: lead-and-opportunity-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36048.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Sales Lead" as N148048 {
+  + Lead Origin : Text
+  + Lead Description : Text
+}
+
+class "Customer Relationship" as N148094 {
+}
+
+class "Customer Relationship Lifecycle Phase" as N148102 {
+}
+
+class "Customer Relationship Involvement" as N148106 {
+}
+
+enum "CustomerRelationshipInvolvementTypeValues" as N148080 {
+  Customer
+  Bank
+  Relationship Manager
+  Contact Person
+}
+
+class "Campaign" as N148127 {
+  + Campaign Type : CampaignTypeValues
+  + Campaign Version : Text
+  + Campaign Description : Text
+  + Campaign Period : DateTimePeriod
+}
+
+class "Party Relationship Lifecycle Phase" as N148062 {
+}
+
+class "Customer Contact" as N148113 {
+}
+
+class "Party Relationship" as N148097 {
+}
+
+class "Product" as N148117 {
+}
+
+class "Sales Lead Management" as N148043 {
+}
+
+class "Procedure" as N148040 {
+}
+
+class "Workstep" as N148086 {
+}
+
+' Relationships
+N148102 <|-- N148048
+N148094 "1" -- "1..*" N148102
+N148094 "0..1" -- "2..*" N148106
+N148127 "0..*" -- "Generated / Opportunity / 0..*" N148048
+N148062 <|-- N148102
+N148113 "0..*" -- "1" N148094
+N148113 "Structured / Interaction / 0..*" -- "0..*" N148048
+N148097 <|-- N148094
+N148048 "0..*" -- "ProductToSell / 1..*" N148117
+N148043 "1" -- "0..*" N148048
+N148040 -- "0..*" N148086
+N148040 <|-- N148043
+@enduml

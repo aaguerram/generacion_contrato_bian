@@ -1,0 +1,211 @@
+@startuml
+title Corporate Loan - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Corporate Loan
+' Source image: corporate-loan-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_35330.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Repayment Arrangement" as N65185 {
+}
+
+class "Debt Instrument" as N65245 {
+  + Debt Instrument Type : DebtInstrumentTypeValues
+}
+
+class "Withdrawal Service Arrangement" as N65179 {
+}
+
+class "Fee Arrangement" as N65407 {
+}
+
+class "Disbursement Arrangement" as N65307 {
+  + loan Disbursement Expected Date : DateTime
+}
+
+enum "LoanProductTypeValues" as N65279 {
+  Consumer Loan
+  Corporate Loan
+  Merchandising Loan
+  Mortgage Loan
+  Syndicated Loan
+}
+
+enum "ArrangementTypeValues" as N65450 {
+  Sweep Arrangement
+  Withdrawal Arrangement
+  Deposit Arrangement
+  Interest Arrangement
+  Fee Arrangement
+  Lien Arrangement
+  Information Arrangement
+  Payment Arrangement
+  Entitlement Arrangement
+  Period Arrangement
+  Collateral Arrangement
+  Limit Arrangement
+  Access Arrangement
+  Card Payment Arrangement
+  Standing Order Arrangement
+  Overdraft Arrangement
+  Repayment Arrangement
+  Statement Arrangement
+  Credit Transfer Arrangement
+  Product and Service Arrangement
+  Factoring Arrangement
+  Rollover Arrangement
+  Restructuring Arrangement
+  Insurance Arrangement
+  Collection Arrangement
+  Underwriting Arrangement
+  Termination Arrangement
+  Maturity Arrangement
+  Administrative Arrangement
+}
+
+class "Arrangement" as N65249 {
+}
+
+class "Instruction" as N65332 {
+}
+
+class "Transaction" as N65255 {
+}
+
+class "Party" as N65387 {
+}
+
+class "Loan Agreement Involvement" as N65258 {
+  + Loan Involvement Type : LoanInvolvementTypeValues
+  + Agreement Reference : Loan Agreement
+  + Party Reference : Party
+}
+
+enum "LoanInvolvementTypeValues" as N65236 {
+  Loan Lender
+  Loan Borrower
+  Syndicate
+}
+
+class "Limit Arrangement" as N65246 {
+}
+
+class "Loan Product" as N65313 {
+  + Loan Amount : Amount
+  + Loan Purpose : Text
+  + Loan Product Identifier : Identifier
+  + Loan Product Type : LoanProductTypeValues
+}
+
+class "Loan Agreement" as N65351 {
+  + Loan Term And Condition : Condition
+}
+
+class "Loan" as N65369 {
+}
+
+class "Customer Relationship" as N65465 {
+}
+
+class "Collateral Agreement" as N65374 {
+}
+
+class "Interest Arrangement" as N65182 {
+}
+
+class "Loan Instruction" as N65459 {
+}
+
+class "Loan Transaction" as N65262 {
+}
+
+class "Agreement" as N65433 {
+}
+
+class "Account Entry" as N65482 {
+}
+
+class "Customer Agreement" as N65467 {
+}
+
+class "Customer Rating" as N65470 {
+}
+
+class "Loan Arrangement" as N65443 {
+  + Loan Origination Date : Date
+  + Loan Maturity Date : Date
+  + Loan End Date : Date
+  + Loan Amount : Amount
+  + Loan Arrangement Type : ArrangementTypeValues
+}
+
+class "Account" as N65499 {
+}
+
+class "Loan Account" as N65363 {
+}
+
+enum "DebtInstrumentTypeValues" as N65529 {
+  Loan
+  Bond
+  Deposit
+}
+
+class "Financial Instrument" as N65471 {
+}
+
+class "Product Arrangement" as N65250 {
+}
+
+class "Product Agreement" as N65494 {
+}
+
+class "Product" as N65525 {
+}
+
+class "Product Feature" as N65325 {
+}
+
+class "Device Arrangement" as N65176 {
+}
+
+' Relationships
+N65332 <|-- N65459
+N65499 <|-- N65363
+N65351 -- N65443
+N65467 "0..1" -- "0..*" N65351
+N65313 "0..1" -- "0..*" N65351
+N65245 <|-- N65369
+N65351 "0..*" -- "0..*" N65374
+N65249 <|-- N65443
+N65443 <|-- N65307
+N65363 "1" -- "1" N65351
+N65465 "1" -- "0..*" N65470
+N65443 <|-- N65179
+N65262 "0..1" -- "0..*" N65482
+N65465 "1" -- "1" N65467
+N65443 <|-- N65185
+N65459 "0..1" -- "0..*" N65262
+N65351 "0..1" -- "2..*" N65258
+N65443 <|-- N65407
+N65443 <|-- N65182
+N65443 <|-- N65246
+N65255 <|-- N65262
+N65443 "0..1" -- "0..*" N65459
+N65499 "1" -- "0..*" N65482
+N65525 -- N65325
+N65433 <|-- N65467
+N65494 -- "1..*" N65250 : 1
+N65494 <|-- N65351
+N65525 <|-- N65313
+N65387 "0..1" -- "0..*" N65258
+N65525 "1" -- "Sold / Product / 0..*" N65494
+N65325 "1" -- "NegotiatedFeature / 0..*" N65250
+N65433 <|-- N65374
+N65471 <|-- N65245
+N65443 <|-- N65176
+N65471 <|-- N65525
+@enduml

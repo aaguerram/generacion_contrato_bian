@@ -1,0 +1,137 @@
+@startuml
+title Customer Product and Service Directory - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Product and Service Directory
+' Source image: customer-product-and-service-directory-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_32427.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Directory Entry" as N81605 {
+}
+
+class "Directory" as N81757 {
+}
+
+class "Customer Product and Service Directory Entry" as N81672 {
+  + Customer Product and Service Directory Entry Identification : Identifier
+}
+
+class "Product" as N81646 {
+}
+
+class "Party" as N81744 {
+}
+
+class "Arrangement" as N81692 {
+}
+
+class "Agreement" as N81669 {
+}
+
+class "Product Feature" as N81769 {
+}
+
+class "Service Arrangement" as N81758 {
+}
+
+class "Product Service" as N81768 {
+}
+
+class "Service" as N81709 {
+}
+
+class "Product Agreement" as N81615 {
+  + Product Agreement Type : ProductAgreementTypeValues
+  + Product Agreement Identification : Identifier
+}
+
+class "Product Agreement Involvement" as N81731 {
+  + Involvement Type : ProductServiceAgreementInvolvementTypeValues
+  + Party Reference : Party
+  + Agreement Reference : Product Agreement
+}
+
+class "Product Term And Condition" as N81619 {
+}
+
+enum "ServiceTypeValues" as N81633 {
+  IT Service
+  Administrative Service
+  System Service
+  Financial Service
+  Information Service
+  Business Service
+}
+
+enum "ProductAgreementTypeValues" as N81741 {
+  Current Account Agreement
+  Savings Account Agreement
+  Brokered Product Agreement
+  Consumer Loan Agreement
+  Mortgage Loan Agreement
+  Direct Debit Service Agreement
+  Term Deposit Agreement
+}
+
+class "Service Agreement" as N81608 {
+  + Type : Text
+  + Service Reference : Service
+  + Agreement Reference : Agreement
+}
+
+class "Customer Relationship" as N81611 {
+}
+
+class "Service Agreement Involvement" as N81766 {
+  + Involvement Type : ProductServiceAgreementInvolvementType Values
+  + Agreement Reference : Service Agreement
+  + Party Reference : Party
+}
+
+enum "ProductServiceAgreementInvolvementTypeValues" as N81725 {
+  Principal
+  Secondary owner
+  Beneficiary
+  Power of attorney
+  Legal guardian
+  Custodian for minor
+  Successor on death
+  Administrator
+  Other party
+  Granter
+  Settlor
+  Senior managing official
+  Protector
+  Registered shareholder name
+}
+
+class "Customer Product and Service Directory" as N81679 {
+}
+
+' Relationships
+N81605 <|-- N81672
+N81646 -- N81769
+N81769 <|-- N81768
+N81768 "1" -- "0..*" N81758
+N81709 "1" -- "0..*" N81768
+N81672 "0..*" -- "0..1" N81615
+N81615 "0..1" -- "0..*" N81692
+N81646 "1" -- "Sold / Product / 0..*" N81615
+N81692 <|-- N81758
+N81769 "1" -- "0..*" N81692
+N81615 "1" -- "0..*" N81731
+N81744 "1" -- "0..*" N81731
+N81769 <|-- N81619
+N81709 "1" -- "0..*" N81608
+N81672 "0..*" -- "0..1" N81608
+N81672 "1" -- "1" N81611
+N81744 "1" -- "1..*" N81766
+N81608 "1" -- "0..*" N81766
+N81669 <|-- N81608
+N81669 <|-- N81615
+N81757 <|-- N81679
+N81679 "1" -- "0..*" N81672
+@enduml

@@ -1,0 +1,61 @@
+@startuml
+title Card Financial Settlement - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Card Financial Settlement
+' Source image: card-financial-settlement-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_47230.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Card Settlement Procedure" as N250519 {
+}
+
+class "Procedure" as N250554 {
+}
+
+class "Card Settlement" as N250515 {
+  + Card Settlement Type : CardSettlementTypeValues
+}
+
+class "Settlement" as N250583 {
+}
+
+class "Card Payment Transaction" as N250534 {
+}
+
+class "Card Settlement Involvement" as N250535 {
+  + Card Settlement Involvement Type : CardSettlementInvolvementTypeValues
+}
+
+enum "CardSettlementInvolvementTypeValues" as N250547 {
+  Card Network
+  Card Acquirer
+  Card Issuer
+}
+
+class "Party" as N250580 {
+}
+
+class "Account Entry" as N250560 {
+}
+
+class "Account" as N250588 {
+}
+
+enum "CardSettlementTypeValues" as N250543 {
+  Scheduled Processing
+  Ad-hoc Processing
+}
+
+' Relationships
+N250554 <|-- N250519
+N250583 <|-- N250515
+N250515 "0..*" -- "Supporting / Procedure / 0..1" N250519
+N250515 "0..1" -- "0..1" N250534
+N250515 "0..1 / 0..*" -- N250535
+N250588 "1" -- "0..*" N250560
+N250534 "0..1" -- "2..*" N250560
+N250580 "0..1" -- "0..*" N250535
+@enduml

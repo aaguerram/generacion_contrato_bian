@@ -1,0 +1,149 @@
+@startuml
+title Corporate Action - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Corporate Action
+' Source image: corporate-action-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51683.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Corporate Action" as N207389 {
+  + Corporate Action Status : CorporateActionStatusTypeValues
+  + Corporate Action Type : CorporateActionTypeValues
+  + Corporate Action Date Time : CorporateActionDateTimeTypeValues[1..*]
+}
+
+class "Transaction" as N207459 {
+}
+
+enum "CorporateActionDateTimeTypeValues" as N207438 {
+  Trading Date
+  Pari Passu Date
+  Announcement Date
+  Effective Date
+  Lapsed Date
+  Margin Fixing Date
+}
+
+enum "CorporateActionTypeValues" as N207460 {
+  DividendReinvestment
+  Accumulation
+  ActiveTradingStatus
+  AnnualGeneralMeeting
+  Attachment
+  Bankruptcy
+  BondDefault
+  BonusIssue
+  CallOnIntermediateSecurities
+  CapitalDistribution
+  CapitalGainsDistribution
+  Capitalisation
+  CashDistributionFromNonEligibleSecuritiesSales
+  CashDividend
+  Change
+  ClassActionProposedSettlement
+  CompanyOption
+  Consent
+  Conversion
+  CouponStripping
+  CourtMeeting
+  CreditEvent
+  DecreaseInValue
+  Detachment
+  Disclosure
+  DividendOption
+  Drawing
+  DutchAuction
+  EarlyRedemption
+  Exchange
+  ExchangeOption
+  ExtraordinaryGeneralMeeting
+  FinalMaturity
+  FullCall
+  IncreaseInValue
+  Information
+  InstalmentCall
+  InterestPayment
+  InterestPaymentWithPrincipal
+  IntermediateSecuritiesDistribution
+  LiquidationDividend
+  MaturityExtension
+  Merger
+  NameChange
+  NonOfficialOffer
+  NonUSTEFRADCertification
+  OddLotSalePurchase
+  OrdinaryGeneralMeeting
+  OtherEvent
+  PariPassu
+  PartialRedemptionWithoutPoolFactorReduction
+  PartialRedemptionWithPoolFactorReduction
+  PayInKind
+  PlaceOfIncorporation
+  Prefunding
+  PriorityIssue
+  PutRedemption
+  Redenomination
+  Remarketing
+  RemarketingAgreement
+  RepurchaseOffer
+  ReverseStockSplit
+  RightsIssue
+  ScripDividend
+  SecuritiesHoldersMeeting
+  SharesPremiumDividend
+  SmallestNegotiableUnit
+  SpinOff
+  StockDividend
+  StockSplit
+  Subscription
+  TaxOnNonDistributedProceeds
+  TaxReclaim
+  Tender
+  TradingStatusDelisted
+  TradingStatusSuspended
+  WarrantExercise
+  WithholdingTaxReliefCertification
+  Worthless
+}
+
+enum "CorporateActionStatusTypeValues" as N207490 {
+  Active
+  Deactivated
+  Expired
+  Cancelled
+  Withdrawn
+  Inactive
+}
+
+class "Corporate Action Procedure" as N207449 {
+}
+
+class "Workstep" as N207383 {
+}
+
+class "Procedure" as N207386 {
+}
+
+class "Corporate Action Involvement" as N207400 {
+  + Corporate Action Involvement Type : CorporateActionInvolvementTypeValues
+}
+
+class "Party" as N207397 {
+}
+
+enum "CorporateActionInvolvementTypeValues" as N207412 {
+  Corporate Action Agent
+  Corporate Action Offeror
+}
+
+' Relationships
+N207459 <|-- N207389
+N207389 "0..1" -- "0..*" N207449
+N207386 -- "0..*" N207383
+N207386 <|-- N207449
+N207389 -- "0..*" N207400 : 0..1
+N207400 "0..1" -- "0..1" N207397
+@enduml

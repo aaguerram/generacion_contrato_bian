@@ -1,0 +1,209 @@
+@startuml
+title Party Lifecycle Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Party Lifecycle Management
+' Source image: party-lifecycle-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_34526.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Party Relationship Administrative Plan" as N188618 {
+}
+
+class "Party Relationship" as N188755 {
+  + Relationship Type : Text
+  + Relationship Validity Period : DateTimePeriod
+  + Relationship Start Date : DateTime
+  + Relationship End Date : DateTime
+  + Relationship Lifecycle Status : Status
+  + Relationship Identification : Identifier
+}
+
+class "Party Relationship Lifecycle Phase" as N188615 {
+  + Description : Text
+  + Is Current Phase : Text
+  + Phase Name : Name
+  + Phase Status : Status
+  + Phase Period : DateTimePeriod
+}
+
+class "Party Precedent" as N188606 {
+  + Precedent Type : Text
+  + Precedent Value : Value
+  + Precedent Value Date : DateTime
+}
+
+class "Event" as N188733 {
+}
+
+class "Document" as N188603 {
+}
+
+class "Assessment" as N188644 {
+  + Assessment Type : AssessmentTypeValues
+  + Assessment Method : Text
+  + Assessment Schedule : Schedule
+  + Assessment Description : Text
+  + Assessment Model : Model
+  + Assessment Date Time : DateTime[1..*]
+  + Assessment Result : Text
+  + Assessment Supporting Document : Document
+  + Assessment Representing Document : Document
+  + Assessment Required Adjustment : Text
+  + Assessment Requirement : Requirement
+  + Assessment Expiry Date : Date
+  + Assessment Status : Status
+  + Assessment Identification : Identifier
+}
+
+enum "AssessmentTypeValues" as N188828 {
+  Valuation
+  Matching
+  Authorization
+  Authentication
+  Quality Assurance
+  Audit
+  Compliance Check
+  Funding Check
+  Suitability Check
+  Performance Check
+  Impact Assessment
+  Risk Assessment
+  Rating
+  Underwriting Assessment
+  Qualification
+  Verification
+  KYC Assessment
+  PEP Assessment
+  AML Assessment
+  Eligibility Check
+  External Agency Check
+  Entitlement Check
+}
+
+class "Routine" as N188773 {
+}
+
+class "Administrative Plan" as N188663 {
+}
+
+class "Authentication" as N188646 {
+  + Authentication Level : AuthenticationLevelTypeValues
+  + Authentication Entity : AuthenticationEntityTypeValues
+  + Authentication Method : AuthenticationMethodTypeValues
+  + Authentication Value : Value
+  + Authentication Result : AuthenticationResultTypeValues
+  + Authentication Type : AuthenticationTypeValues
+}
+
+class "Token" as N188756 {
+}
+
+class "Device" as N188660 {
+}
+
+class "Authorization" as N188620 {
+}
+
+class "Verification" as N188672 {
+  + Verification Type : VerificationTypeValues
+  + Verification Etity : VerificationEntityTypeValues
+  + Verification Result : VerificationResultTypeValues
+  + Verification Date Time : DateTime
+  + Verification Reason : Text
+  + Verification Validity End Date : Date
+  + Verification Validity End Time : Time
+}
+
+class "KYC Assessment" as N188613 {
+  + KYC Chek Type : KYCChekTypeValues
+}
+
+class "Party Authentication" as N188677 {
+}
+
+enum "VerificationEntityTypeValues" as N188635 {
+  Acquirer
+  Agent
+  Issuer
+  Acceptor
+  OtherNational
+  OtherPrivate
+  Terminal
+  CardApplication
+  AcceptanceDevice
+}
+
+enum "VerificationTypeValues" as N188814 {
+  Identity Verification/Proofing
+  Document Verification
+}
+
+enum "VerificationResultTypeValues" as N188727 {
+  TechnicalError
+  Successful
+  PartialMatch
+  NotPerformed
+  Missing
+  Failed
+  FurtherAction
+  OtherNational
+  OtherPrivate
+  NotSupported
+}
+
+enum "KYCChekTypeValues" as N188763 {
+  Ordinary
+  Simple
+  Enhanced
+}
+
+class "PEP Assessment" as N188630 {
+  + Political Exposure Type : PoliticalExposureTypeValues
+  + Politically Exposed Person Status : PoliticallyExposedPersonStatusTypeValues
+}
+
+enum "PoliticalExposureTypeValues" as N188699 {
+  PoliticalExposureForeign
+  PoliticalExposureDomestic
+  NoPoliticalExposure
+}
+
+enum "PoliticallyExposedPersonStatusTypeValues" as N188748 {
+  NaturalPersonEntrusted
+  FamilyMember
+  CloseAssociate
+}
+
+class "AML Assessment" as N188610 {
+  + Risk Level : RiskLevelTypeValues
+}
+
+enum "RiskLevelTypeValues" as N188757 {
+  High
+  Medium
+  Low
+}
+
+' Relationships
+N188755 "1..*" -- "1" N188618
+N188755 "1" -- "1..*" N188615
+N188733 <|-- N188606
+N188755 "0..1" -- "0..*" N188606
+N188755 "0..*" -- "0..*" N188603
+N188755 "0..*" -- "0..*" N188644
+N188663 "0..1" -- "0..*" N188773
+N188663 <|-- N188618
+N188644 <|-- N188646
+N188646 "0..1" -- "Authorisation / Token / 1" N188756
+N188660 "0..1" -- "0..*" N188756 : TokenDevice
+N188644 <|-- N188620
+N188644 <|-- N188672
+N188644 <|-- N188613
+N188646 <|-- N188677
+N188644 <|-- N188630
+N188644 <|-- N188610
+N188672 "0..*" -- "Verification / Token / 0..*" N188756
+@enduml

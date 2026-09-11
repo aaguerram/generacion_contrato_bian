@@ -1,0 +1,56 @@
+@startuml
+title Legal Compliance - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Legal Compliance
+' Source image: legal-compliance-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_42956.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Legal Compliance Check" as N194525 {
+  + Legal Compliance Check Type : String
+}
+
+class "Assessment" as N194483 {
+}
+
+class "Test" as N194492 {
+}
+
+class "Law" as N194543 {
+  + Law Type : Text
+  + Law Description : Text
+  + Legal Penalty : Text
+  + Legal Guideline : Text
+}
+
+class "Rule Set" as N194542 {
+}
+
+class "Legal Compliance" as N194486 {
+}
+
+class "Jurisdiction" as N194506 {
+}
+
+class "Legal Compliance Check Involvement" as N194539 {
+}
+
+class "Party Role" as N194529 {
+}
+
+class "Party" as N194515 {
+}
+
+' Relationships
+N194483 "0..1" -- "0..*" N194492
+N194542 <|-- N194543
+N194543 "Confirmed / Law / 0..1" -- "0..*" N194486
+N194486 "0..1" -- "0..*" N194525
+N194506 "Legal / Jurisdiction / 1" -- "0..*" N194543
+N194525 "0..1" -- "0..*" N194539
+N194529 <|-- N194539
+N194515 "1" -- "0..*" N194529
+@enduml

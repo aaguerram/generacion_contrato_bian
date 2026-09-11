@@ -1,0 +1,222 @@
+@startuml
+title Customer Access Entitlement - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Access Entitlement
+' Source image: customer-access-entitlement-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_41317.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Access Restriction Arrangement" as N83564 {
+  + Access Restriction Type : AccessRestrictionTypeValues
+  + Access Restriction Description : Text
+  + Allowed Product Service : Text
+}
+
+class "Access Preference Arrangement" as N83696 {
+  + Access Preference Type : Text
+  + Preferenced Channel Device : Text
+  + Product Service Type : Text
+  + Access Preference Description : Text
+}
+
+class "Access Arrangement" as N83605 {
+  + Point Of Access Type : PointOfAccessTypeValues
+  + Access Credential Method : AuthenticationMethodTypeValues
+}
+
+class "Customer Access Agreement" as N83516 {
+  + Customer Access Agreement Identification : Identifier
+}
+
+class "Customer Relationship" as N83642 {
+}
+
+class "Access Arrangement Involvement" as N83598 {
+  + Access Agreement Involvement Identification : Identifier
+  + Involvement Type : AccessArrangementInvolvementTypeValues
+}
+
+class "Device" as N83582 {
+}
+
+class "Channel" as N83588 {
+}
+
+class "Channel Access Arrangement" as N83651 {
+}
+
+class "Device Access Arrangement" as N83870 {
+}
+
+class "Service Arrangement" as N83654 {
+}
+
+class "Arrangement" as N83513 {
+}
+
+class "Agreement" as N83551 {
+}
+
+class "Product Feature" as N83585 {
+  + Product Feature Type : ProductFeatureTypeValues
+  + Product Feature Specification : Text
+  + Product Feature Identification : Identifier
+  + Product Feature Name : Name
+  + Product Feature Lifecycle Status : Status
+}
+
+class "Product" as N83754 {
+}
+
+class "Product Service" as N83576 {
+}
+
+class "Party" as N83638 {
+}
+
+enum "AccessRestrictionTypeValues" as N83574 {
+  AccessRestrictionByChannelDevice
+  AccessRestrictionByLocation
+  AccessRestrictionByFrequency/Limit
+  AccessRestrictionByTime/Duration
+}
+
+class "Service Access Arrangement" as N83816 {
+}
+
+enum "PointOfAccessTypeValues" as N83699 {
+  Channel Access
+  Product and Service Access
+  Device Access
+  API Access
+}
+
+enum "AuthenticationMethodTypeValues" as N83708 {
+  OnLinePIN
+  OfflinePIN
+  SignatureCapture
+  Password
+  Biometry
+  CSCVerification
+  CryptogramVerification
+  UnknownMethod
+  Bypass
+  PaperSignature
+  ManualVerification
+  MerchantAuthentication
+  SecureCertificate
+  SecureNoCertificate
+  SecuredChannel
+  BillingAddressVerification
+  CardholderIdentificationData
+  PassiveAuthentication
+  SecureElectronicCommerce
+  ShippingAddressVerification
+  TokenAuthentication
+  PaymentToken
+  AuthenticationToken
+  Mobile
+  Other
+  AddressDigits
+  AlienRegistrationNumber
+  ARQCVerification
+  BirthDate
+  CardholderName
+  CityOfBirth
+  CustomerIdentification
+  DriverIdentification
+  DriverLicenseNumber
+  Email
+  EmployeeIdentificationNumber
+  EmployerIdentificationNumber
+  IdentityCardNumber
+  OneTimePassword
+  OtherCardholderIdentification
+  OtherCryptogram
+  PassportNumber
+  PostalCode
+  ShippingAddressFrom
+  ShippingAddressTo
+  CardholderAddress
+  NonVisibleCSC
+  OtherNational
+  OtherPrivate
+  PlaceOfBirth
+  SocialSecurityNumber
+  TaxIdentificationNumber
+  AccountDigitalSignature
+  ARPCVerification
+  ATC
+  OffLineBiographics
+  OffLineBiometrics
+  OffLineDataAuthentication
+  OffLineDigitisedSignatureAnalysis
+  OffLinePINEncrypted
+  OffLinePINInClear
+  OnLineBiographics
+  PhoneHome
+  PhoneWork
+  PKISignature
+  QualifiedCertificate
+  ThreeDS
+  CardholderCertificateSerialNumber
+  AcceptorCertificateSerialNumber
+  NationalIdentifier
+}
+
+class "Product" as N83572 {
+}
+
+enum "AccessArrangementInvolvementTypeValues" as N83747 {
+  Party who gives the access to Party
+  Party who takes the access from Party
+  Party who authorise the access for Party
+}
+
+class "Document" as N83707 {
+}
+
+class "Policy" as N83763 {
+  + Policy Type : PolicyTypeValues
+}
+
+class "Rule Set" as N83634 {
+}
+
+enum "ProductFeatureTypeValues" as N83617 {
+  BankingService
+  AdministrationService
+  AccessService
+  PriceFeature
+}
+
+' Relationships
+N83516 "0..1" -- "0..*" N83605
+N83642 "0..1" -- "0..*" N83516
+N83605 "0..1" -- "0..*" N83598
+N83605 <|-- N83870
+N83605 <|-- N83651
+N83870 "0..*" -- "0..1" N83582
+N83651 -- "0..1" N83588 : 0..*
+N83551 "1" -- "1..*" N83513
+N83513 <|-- N83605
+N83585 "1" -- "0..*" N83513
+N83754 -- N83585
+N83585 <|-- N83576
+N83576 "1" -- "0..*" N83654
+N83513 "0..*" -- "0..*" N83513
+N83605 <|-- N83564
+N83605 <|-- N83696
+N83605 <|-- N83816
+N83638 "0..1" -- "0..*" N83598
+N83816 "0..*" -- "0..1" N83572
+N83551 <|-- N83516
+N83513 <|-- N83654
+N83654 "0..*" -- "0..*" N83605
+N83707 "0..*" -- "0..*" N83605
+N83763 "AppliedAccessPolicy / 0..1" -- "0..*" N83605
+N83634 <|-- N83763
+@enduml

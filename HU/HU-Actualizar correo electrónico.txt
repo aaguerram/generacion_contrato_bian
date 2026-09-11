@@ -1,0 +1,64 @@
+Como      usuario de la APP Produbanco,
+Quiero    modificar mi correo electrónico registrado,
+Para        mantener actualizado mi canal de comunicación con  el banco.
+
+Escenario 1. Acceso a la pantalla de actualización del correo electrónico
+
+Dado        que el usuario está en la pantalla de datos personales
+Cuando    selecciona la flecha de la opción de “Número celular”
+Entonces  el sistema muestra la pantalla para ingresar un nuevo número de celular con los siguientes elementos (Ver diseño)
+
+Encabezado:
+Título en la parte superior: “Nuevo correo”.
+Botón de retroceso (flecha) para volver a la pantalla anterior.
+Botón de cierre (X) para salir del flujo de actualización.
+Mensaje informativo:
+Texto que indica: “Las notificaciones y códigos de seguridad se enviarán al nuevo correo registrado.”
+Campo de entrada:
+Etiqueta: “Ingresar nuevo correo eléctronico”.
+Campo de texto para que el usuario escriba el nuevo correo electronico.
+Botón de acción:
+Botón en la parte inferior “Continuar”, que permite avanzar al siguiente paso una vez ingresado un correo electrónico valido.
+
+Image
+**Revisado 24/06/26**
+
+Escenario 2. Edición del correo electrónico
+
+Dado         que el usuario visualiza su correo actual,
+Cuando     edita el correo eléctronico
+Entonces   el sistema permite ingresar un nuevo correo electrónico.
+
+Escenario 3. Habilitación de botón Continuar
+
+Dado          que el usuario modificó el correo electrónico y cumple las validaciones requeridas,
+Cuando       el sistema detecta el cambio,
+Entonces     se habilita el botón “Continuar”.
+
+Escenario 4. Botón deshabilitado sin cambios
+
+Dado         que el usuario no ha modificado el correo electrónico,
+Cuando     permanece el mismo valor registrado,
+Entonces    el botón “Continuar” permanece deshabilitado.
+
+Escenario 5. Campo obligatorio
+
+Dado          que el usuario deja vacío el campo de correo electrónico,
+Cuando      intenta continuar,
+Entonces    que el sistema mantenga deshabilitado el botón “Continuar”.
+
+
+Notas:
+
+Cuando se actualiza el correo electrónico  no se debe pedir al usuario que acepte los terminos y condiciones
+El campo del correo electrónico no puede quedar vacio.
+El botón “Continuar” se habilita solo cuando detecta cambios válidos.
+Cuando el usuario ingrese un nuevo correo electronico se deben hacer las validaciones existentes para ingresar correos electronicos.( Ver Documento)
+Las actualizacion del correo electronico genera marcas /eventos de seguimiento.(SRR) 
+Se debe enviar notificación del cambio al correo electronico antiguo y al nuevo correo electrónico (Ver HU  795144 Notificar actualización de datos)
+Se deben guardar los cambios en un log de cambios.  ​(Correo electrónico nuevo y el anterior, fecha y hora y como se autorizo la transacción)
+​Cuando el usuario seleccione el botón "Continuar" se debe realizar la validación "Smart Token" Ver HU 794680  Confirmar actualización con Smart Token.
+
+Manejo de errores:
+
+La aplicación dispone de mensajes de error genéricos que se activan ante problemas de conexión, fallas de internet u otras situaciones similares. Estos mensajes únicamente se mostrarán cuando ocurra alguna de estas circunstancias. Considerar los requerimientos generales que figuran en el documento

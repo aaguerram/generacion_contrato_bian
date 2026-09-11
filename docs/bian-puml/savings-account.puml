@@ -1,0 +1,186 @@
+@startuml
+title Savings Account - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Savings Account
+' Source image: savings-account-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36488.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Account" as N199477 {
+}
+
+class "Savings Account Agreement" as N199348 {
+  + Savings Account Agreement Identification : Identifier[1..*]
+  + Savings Account Agreement Currency : AccountCurrency[1..*]
+  + Savings Account Agreement Tax Regime : Tax Arrangement
+  + Customer Commentary : Text
+  + Joined Account Holder Indicator : Boolean
+  + Standing Order Indicator : YesNoIndicator
+}
+
+class "Savings Account" as N199458 {
+}
+
+class "Savings Account Product" as N199511 {
+  + Savings Account Product Type : Text
+}
+
+class "Savings Account Arrangement" as N199481 {
+  + Savings Account Arrangement Type : ArrangementTypeValues
+  + Savings Account Arrangement Product Feature Type : ProductFeatureType
+}
+
+class "Standing Order Arrangement" as N199442 {
+}
+
+class "Direct Debit Mandate" as N199416 {
+}
+
+class "Account Entry" as N199533 {
+}
+
+class "Account Share Arrangement" as N199449 {
+}
+
+class "Correspondence Arrangement" as N199634 {
+}
+
+class "Location" as N199431 {
+}
+
+class "Correspondence" as N199457 {
+}
+
+class "Fee Arrangement" as N199474 {
+}
+
+class "Information Arrangement" as N199480 {
+}
+
+class "Interest Arrangement" as N199410 {
+}
+
+class "Payment Arrangement" as N199546 {
+}
+
+class "Sweep Arrangement" as N199473 {
+}
+
+class "Limit Arrangement" as N199445 {
+}
+
+class "Withdrawal Service Arrangement" as N199626 {
+}
+
+class "Deposit Service Arrangement" as N199404 {
+}
+
+class "Device Arrangement" as N199485 {
+}
+
+class "Lien Arrangement" as N199619 {
+}
+
+enum "ArrangementTypeValues" as N199371 {
+  Sweep Arrangement
+  Withdrawal Arrangement
+  Deposit Arrangement
+  Interest Arrangement
+  Fee Arrangement
+  Lien Arrangement
+  Information Arrangement
+  Payment Arrangement
+  Entitlement Arrangement
+  Period Arrangement
+  Collateral Arrangement
+  Limit Arrangement
+  Access Arrangement
+  Card Payment Arrangement
+  Standing Order Arrangement
+  Overdraft Arrangement
+  Repayment Arrangement
+  Statement Arrangement
+  Credit Transfer Arrangement
+  Product and Service Arrangement
+  Factoring Arrangement
+  Rollover Arrangement
+  Restructuring Arrangement
+  Insurance Arrangement
+  Collection Arrangement
+  Underwriting Arrangement
+  Termination Arrangement
+  Maturity Arrangement
+  Administrative Arrangement
+}
+
+class "Standing Order Facility Arrangement" as N199636 {
+}
+
+class "Bill Pay Mandate Facility Arrangement" as N199602 {
+}
+
+class "Savings Account Instruction" as N199392 {
+}
+
+class "Savings Account Transaction" as N199627 {
+}
+
+class "Instruction" as N199506 {
+}
+
+class "Transaction" as N199401 {
+}
+
+class "Product" as N199605 {
+}
+
+class "Product Arrangement" as N199411 {
+}
+
+class "Product Agreement" as N199646 {
+}
+
+class "Product Feature" as N199616 {
+}
+
+' Relationships
+N199477 <|-- N199458
+N199348 "1" -- "1..*" N199481
+N199634 "0..1" -- "0..1" N199457
+N199431 "0..1" -- "0..*" N199457
+N199511 "1" -- "0..*" N199348
+N199636 "0..1" -- "0..1" N199442
+N199546 <|-- N199636
+N199546 <|-- N199602
+N199602 "0..1" -- "0..*" N199416
+N199431 "1" -- "0..*" N199634
+N199481 "0..1" -- "0..*" N199458
+N199481 <|-- N199474
+N199481 <|-- N199410
+N199481 <|-- N199626
+N199481 <|-- N199404
+N199481 <|-- N199619
+N199481 <|-- N199473
+N199481 <|-- N199546
+N199481 <|-- N199445
+N199481 <|-- N199449
+N199481 <|-- N199480
+N199481 <|-- N199485
+N199481 <|-- N199634
+N199481 "0..1" -- "0..*" N199392
+N199392 "0..1" -- "0..*" N199627
+N199627 "0..1" -- "0..*" N199533
+N199477 "1" -- "0..*" N199533
+N199401 <|-- N199627
+N199506 <|-- N199392
+N199616 "1" -- "NegotiatedFeature / 0..*" N199411
+N199605 -- N199616
+N199605 "1" -- "Sold / Product / 0..*" N199646
+N199646 "1" -- "1..*" N199411
+N199646 <|-- N199348
+N199411 <|-- N199481
+N199605 <|-- N199511
+@enduml

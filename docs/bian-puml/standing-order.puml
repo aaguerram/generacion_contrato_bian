@@ -1,0 +1,153 @@
+@startuml
+title Standing Order - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Standing Order
+' Source image: standing-order-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_37578.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Standing Order Arrangement Modality" as N65912 {
+  + Standing Order Arrangement Modality Type : ModalityTypeValues
+}
+
+class "Standing Order Agreement" as N65770 {
+}
+
+class "Standing Order Arrangement" as N65744 {
+  + Standing Order Frequency : Frequency
+  + Standing Order Purpose : Text
+  + Standing Order Amount : Amount
+  + Standing Order Currency : CurrencyCode[1..*]
+  + Standing Order Target Account Owner : InvolvedParty
+  + Standing Order Target Account Identification : AccountIdentification
+  + Standing Order Target Account Bank : InvolvedParty
+  + Standing Order Source Account : Account
+  + Standing Order Validity Period : DateTimePeriod
+  + Standing Order Day : DateTime
+  + Standing Order Type : StandingOrderTypeValues
+  + Standing Order Identification : Identifier
+  + Standing Order Arrangement Type : ArrangementTypeValues
+  + Standing Order Date Type : StandingOrderDateTimeTypeValues[1..*]
+  + Standing Order Number Of Payments : Text
+  + Standing Order Date : DateTime[1..*]
+  + Standing Order Status : Status
+  + Standing Order Schedule : Schedule
+}
+
+class "Standing Order Feature" as N65779 {
+}
+
+class "Standing Order Transaction" as N65825 {
+  + Standing Order Amount : Amount
+  + Standing Order Currency : CurrencyCode
+}
+
+class "Agreement" as N65996 {
+}
+
+class "Product Feature" as N65934 {
+}
+
+class "Arrangement" as N65960 {
+}
+
+class "Payment Instruction" as N65873 {
+}
+
+class "Payment Transaction" as N65879 {
+}
+
+class "Account Entry" as N65925 {
+}
+
+class "Account" as N65979 {
+}
+
+enum "ArrangementTypeValues" as N65774 {
+  Fee Arrangement
+  Payment Arrangement
+  Administrative Arrangement
+}
+
+enum "StandingOrderTypeValues" as N65730 {
+  User Defined Standing Order
+  Predefined Standing Order
+}
+
+class "Standing Order Service" as N65711 {
+}
+
+class "Payment Service" as N65818 {
+}
+
+class "Payment Arrangement" as N65961 {
+}
+
+enum "PaymentInvolvementTypeValues" as N65971 {
+  Payer or Debtor
+  Payee Bank or Creditor Agent
+  Payee or Creditor
+  Payer Bank or Debtor Agent
+  Initiator
+  PSU
+  PSP
+  Ultimate Debtor
+  Ultimate Creditor
+}
+
+class "Party" as N65816 {
+}
+
+class "Standing Order Involvement" as N65928 {
+  + Standing Order Involvement Type : PaymentInvolvementTypeValues
+  + Party Reference : Party
+  + Standing Order Arrangement Reference : Standing Order Arrangement
+}
+
+enum "ModalityTypeValues" as N65745 {
+  Allocation Modality
+  Calculation Modality
+  Derivation Modality
+  Payment Modality
+  Processing Modality
+  Application Modality
+  Delivery Modality
+}
+
+class "Standing Order Instruction" as N65710 {
+  + Credit Account : Account
+  + Debit Account : Account
+  + Standing Order Amount : Amount
+  + Standing Order Currency : CurrencyCode
+}
+
+enum "StandingOrderDateTimeTypeValues" as N65837 {
+  First Payment Date Time
+  Next Payment Date Time
+  Last Payment Date Time
+  Final Payment Date Time
+}
+
+' Relationships
+N65744 "0..1" -- "0..*" N65912
+N65770 "1" -- "0..*" N65744
+N65779 "0..1" -- "0..*" N65744
+N65934 <|-- N65779
+N65996 <|-- N65770
+N65879 <|-- N65825
+N65979 "1" -- "0..*" N65925
+N65825 "0..1" -- "0..*" N65925
+N65744 "Arrangement / Account / 0..*" -- "0..1" N65979
+N65711 "0..1" -- "0..*" N65779
+N65818 <|-- N65711
+N65960 <|-- N65961
+N65961 <|-- N65744
+N65744 "0..1" -- "0..*" N65928
+N65816 "0..1" -- "0..*" N65928
+N65710 "0..1" -- "0..*" N65825
+N65873 <|-- N65710
+N65744 "1" -- "0..*" N65710
+@enduml

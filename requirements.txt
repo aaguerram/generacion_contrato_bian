@@ -1,0 +1,16 @@
+# Últimas versiones (sin techo). `setup` hace `pip install -U` y genera requirements.lock.txt.
+langgraph
+langchain
+langchain-core
+langchain-google-genai
+langchain-openai      # OpenRouter (API compatible OpenAI) + OpenAI
+langchain-cohere      # embeddings Cohere (RAG vectorial multilingüe)
+langsmith
+python-dotenv
+pyyaml                # config.yaml
+pydantic
+rapidfuzz             # RAG léxico (por defecto, sin API de embeddings)
+numpy                 # RAG vectorial opcional (InMemoryVectorStore)
+
+# Proveedor LLM opcional (se instala solo si se usa):
+# langchain-anthropic

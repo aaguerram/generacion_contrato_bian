@@ -1,0 +1,33 @@
+[project]
+name = "generacion-contrato-ia-v2"
+version = "0.1.0"
+description = "Validación de BIAN Service Domains con LangGraph + RAG + LLM swappable y trazas LangSmith."
+requires-python = ">=3.11"
+dependencies = [
+    "langgraph",
+    "langchain",
+    "langchain-core",
+    "langchain-google-genai",
+    "langchain-openai",          # OpenRouter (API compatible OpenAI) + OpenAI
+    "langchain-cohere",          # embeddings Cohere (RAG vectorial multilingüe)
+    "langsmith",
+    "python-dotenv",
+    "pyyaml",                    # config.yaml
+    "pydantic",
+    "rapidfuzz",
+    "numpy",
+]
+
+[project.optional-dependencies]
+anthropic = ["langchain-anthropic"]
+
+[project.scripts]
+validar-sd = "src.adaptadores.entrada.cli:main"
+mapear-historias = "src.adaptadores.entrada.cli_mapeo:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["src*"]

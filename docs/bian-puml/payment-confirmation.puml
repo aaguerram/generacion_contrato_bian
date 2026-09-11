@@ -1,0 +1,37 @@
+@startuml
+title Payment Confirmation - BIAN SD Overview UML
+' Machine-readable reconstruction of the raster BIAN diagram
+' Service Domain: Payment Confirmation
+' Source image: payment-confirmation-bom-uml.png
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52174.html
+' Extraction: raster reconstruction + BIAN semantic normalization
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Payment Confirmation" as SD <<ServiceDomain>>
+class "Payment Confirmation Process" as AT <<AssetType>>
+class "Payment Confirmation Procedure" as CR <<ControlRecord>>
+class "Process" as FP <<FunctionalPattern>>
+class "Procedure" as GA <<GenericArtifact>>
+class "Workstep" as BQT <<BehaviorQualifierType>>
+class "Payment Confirmation Procedure_ Analytics Object" as AO <<AnalyticsObject>>
+
+class "Payment Confirmation_SD_Operations" as SG0 <<ServiceGroup>>
+class "Payment Confirmation Procedure_Instantiation" as SG1 <<ServiceGroup>>
+class "Payment Confirmation Procedure_Invocation" as SG2 <<ServiceGroup>>
+class "Payment Confirmation Procedure_Reporting" as SG3 <<ServiceGroup>>
+
+' Explicit semantic relationships for AI context
+AT --> SD : asset type of
+SD --> CR : governed by control record
+SD --> FP : uses functional pattern
+FP --> GA : maps to generic artifact
+GA --> BQT : decomposes by behavior qualifier type
+CR --> AO : analyzed by
+SD --> SG0 : exposes service group
+SD --> SG1 : exposes service group
+SD --> SG2 : exposes service group
+SD --> SG3 : exposes service group
+
+@enduml

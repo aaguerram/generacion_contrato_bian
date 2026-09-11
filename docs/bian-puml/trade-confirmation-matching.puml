@@ -1,0 +1,67 @@
+@startuml
+title Trade Confirmation Matching - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Trade Confirmation Matching
+' Source image: trade-confirmation-matching-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52212.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Trade Matching" as N113433 {
+}
+
+class "Trade Matching Operating Session" as N113456 {
+  + Trade Matching Operating Session Function : Function[1..*]
+  + Trade Matching Operating Session Function Type : TradeMatchingOperatingSessionFunctionType
+}
+
+class "System" as N113503 {
+}
+
+class "Session" as N113430 {
+}
+
+class "Market Trade" as N113449 {
+  + Trade Execute Date : DateTime
+  + Trade Value Date : DateTime
+  + Trade End Date : DateTime
+  + Trade Identification : TradeIdentification
+  + Trade Start Date : DateTime
+  + Trade Asset : Asset
+  + Trade Market : Market
+  + Market Order : Market Order Agreement
+  + Trade Commission : Fee Arrangement
+}
+
+class "TradeIdentification" as N113483 <<datatype>> {
+  + Trade Identification : Identifier
+  + Trade Identification Type : TradeIdentificationTypeValues
+}
+
+enum "TradeIdentificationTypeValues" as N113477 {
+  Counterparty Reference
+  Common Identification
+  Matching Reference
+  Unique Trade Identifier
+  Clearing Broker Identification
+  Trade Identification
+}
+
+class "Transaction" as N113494 {
+}
+
+enum "TradeMatchingOperatingSessionFunctionType" as N113436 {
+  Unmatched Market Trade Escalation
+  Transaction Confirmation or Affirmation
+  Transaction Reporting
+}
+
+' Relationships
+N113433 "0..1" -- "0..*" N113456
+N113503 <|-- N113433
+N113430 <|-- N113456
+N113456 "0..*" -- "0..1" N113449
+N113494 <|-- N113449
+@enduml

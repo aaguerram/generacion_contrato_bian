@@ -1,0 +1,41 @@
+@startuml
+title Contact Routing - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Contact Routing
+' Source image: contact-routing-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_42525.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Allocation" as N253254 {
+}
+
+class "Resource Allocation" as N253248 {
+}
+
+class "Resource" as N253251 {
+}
+
+class "Servicing Resource" as N253269 {
+}
+
+class "Servicing Resource Allocation" as N253271 {
+}
+
+class "Customer Contact Session" as N253260 {
+}
+
+class "Customer Contact" as N253284 {
+}
+
+' Relationships
+N253254 <|-- N253248
+N253248 "0..*" -- "0..1" N253251 : CurrentlyAllocated / Resource
+N253248 "Previously / AllocatedResource / 0..*" -- "0..1" N253251
+N253251 <|-- N253269
+N253248 <|-- N253271
+N253260 "ActiveContact / 0..*" -- "1" N253284
+N253271 "0..*" -- "ServicingSession / 1" N253260
+@enduml

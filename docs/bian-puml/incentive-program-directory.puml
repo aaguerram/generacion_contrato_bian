@@ -1,0 +1,38 @@
+@startuml
+title Incentive Program Directory - BIAN Control Record UML
+' Machine-readable reconstruction of the raster BIAN Control Record diagram
+' Service Domain: Incentive Program Directory
+' Source image: incentive-program-directory-bom-uml.png
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52675.html
+' Extraction: raster reconstruction; labels normalized where legible
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Incentive Program Directory" as SD <<ServiceDomain>>
+class "Incentive Program Directory Entry" as CRT <<ControlRecord>>
+class "Directory Entry" as GA <<GenericArtifact>>
+class "Property" as BQT <<BehaviorQualifierType>>
+
+class "CR Incentive Program Directory Entry Instance Record" as CRI <<ControlRecordInstance>> {
+  + Incentive Program Directory Entry Description : Text
+  + Incentive Program Directory Entry Status : Status
+  + Incentive Program Directory Entry Update Log : Log
+  + Incentive Program Directory Entry Schedule : Schedule
+  + Incentive Program Directory Entry Usage Log : Log
+  + Incentive Program Directory Entry Version Number : Number
+  + Incentive Program Directory Entry Related Object : Identifier
+  + Incentive Program Directory Entry Reference : Identifier
+}
+
+SD "1" --> "1" CRT : defines control record
+CRT "1" --> "0..*" CRI : instantiated as
+CRT --> GA : conforms to generic artifact
+GA --> BQT : qualified by
+
+note right of CRI
+  Source was a low-resolution PNG-only BIAN diagram.
+  Text has been normalized for machine-readable context.
+end note
+
+@enduml

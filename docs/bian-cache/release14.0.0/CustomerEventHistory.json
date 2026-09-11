@@ -1,0 +1,2119 @@
+{
+  "service_domain": "Customer Event History",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "UpdateRelationship",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Relationship/{relationshipid}/Update",
+      "tipo": "BQ",
+      "grupo": "Relationship",
+      "request_schema": "Relationship",
+      "response_schema": "Relationship",
+      "summary": "UpBQ Update captured relationship management event details",
+      "description": "UpBQ Update captured relationship management event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Control",
+      "tipo": "CR",
+      "grupo": "CustomerEventLog",
+      "request_schema": "CustomerEventLog",
+      "response_schema": "CustomerEventLog",
+      "summary": "CoCR Control event tracking for the customer (e.g. suspend)",
+      "description": "CoCR Control event tracking for the customer (e.g. suspend)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "CustomerEventLog",
+      "request_schema": "",
+      "response_schema": "CustomerEventLog",
+      "summary": "ReCR Retrieve details about the customer event log",
+      "description": "ReCR Retrieve details about the customer event log"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/CustomerEventHistory/Initiate",
+      "tipo": "CR",
+      "grupo": "CustomerEventLog",
+      "request_schema": "CustomerEventLog",
+      "response_schema": "CustomerEventLog",
+      "summary": "InCR Initiate customer event history tracking for a customer",
+      "description": "InCR Initiate customer event history tracking for a customer"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Update",
+      "tipo": "CR",
+      "grupo": "CustomerEventLog",
+      "request_schema": "CustomerEventLog",
+      "response_schema": "CustomerEventLog",
+      "summary": "UpCR Update details about the log",
+      "description": "UpCR Update details about the log"
+    },
+    {
+      "operation_id": "CaptureRelationship",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Relationship/{relationshipid}/Capture",
+      "tipo": "BQ",
+      "grupo": "Relationship",
+      "request_schema": "Relationship",
+      "response_schema": "Relationship",
+      "summary": "CaBQ Capture relationship management event details",
+      "description": "CaBQ Capture relationship management event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "RetrieveRelationship",
+      "method": "GET",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Relationship/{relationshipid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Relationship",
+      "request_schema": "",
+      "response_schema": "Relationship",
+      "summary": "ReBQ Retrieve relationship management event details",
+      "description": "ReBQ Retrieve relationship management event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "UpdateSales",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Sales/{salesid}/Update",
+      "tipo": "BQ",
+      "grupo": "Sales",
+      "request_schema": "Sales",
+      "response_schema": "Sales",
+      "summary": "UpBQ Update captured sales event details",
+      "description": "UpBQ Update captured sales event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "CaptureSales",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Sales/{salesid}/Capture",
+      "tipo": "BQ",
+      "grupo": "Sales",
+      "request_schema": "Sales",
+      "response_schema": "Sales",
+      "summary": "CaBQ Capture sales event details",
+      "description": "CaBQ Capture sales event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "RetrieveSales",
+      "method": "GET",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Sales/{salesid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Sales",
+      "request_schema": "",
+      "response_schema": "Sales",
+      "summary": "ReBQ Retrieve sales event details",
+      "description": "ReBQ Retrieve sales event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "UpdateServicing",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Servicing/{servicingid}/Update",
+      "tipo": "BQ",
+      "grupo": "Servicing",
+      "request_schema": "Servicing",
+      "response_schema": "Servicing",
+      "summary": "UpBQ Update captured servicing event details",
+      "description": "UpBQ Update captured servicing event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "CaptureServicing",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Servicing/{servicingid}/Capture",
+      "tipo": "BQ",
+      "grupo": "Servicing",
+      "request_schema": "Servicing",
+      "response_schema": "Servicing",
+      "summary": "CaBQ Capture servicing event details",
+      "description": "CaBQ Capture servicing event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "RetrieveServicing",
+      "method": "GET",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Servicing/{servicingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Servicing",
+      "request_schema": "",
+      "response_schema": "Servicing",
+      "summary": "ReBQ Retrieve servicing event details",
+      "description": "ReBQ Retrieve servicing event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "UpdateProductProcessing",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/ProductProcessing/{productprocessingid}/Update",
+      "tipo": "BQ",
+      "grupo": "ProductProcessing",
+      "request_schema": "ProductProcessing",
+      "response_schema": "ProductProcessing",
+      "summary": "UpBQ Update captured product processing event details",
+      "description": "UpBQ Update captured product processing event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "CaptureProductProcessing",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/ProductProcessing/{productprocessingid}/Capture",
+      "tipo": "BQ",
+      "grupo": "ProductProcessing",
+      "request_schema": "ProductProcessing",
+      "response_schema": "ProductProcessing",
+      "summary": "CaBQ Capture product processing event details",
+      "description": "CaBQ Capture product processing event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "RetrieveProductProcessing",
+      "method": "GET",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/ProductProcessing/{productprocessingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "ProductProcessing",
+      "request_schema": "",
+      "response_schema": "ProductProcessing",
+      "summary": "ReBQ Retrieve product processing event details",
+      "description": "ReBQ Retrieve product processing event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "UpdateFraud",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Fraud/{fraudid}/Update",
+      "tipo": "BQ",
+      "grupo": "Fraud",
+      "request_schema": "Fraud",
+      "response_schema": "Fraud",
+      "summary": "UpBQ Update captured fraud event details",
+      "description": "UpBQ Update captured fraud event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "RetrieveFraud",
+      "method": "GET",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Fraud/{fraudid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Fraud",
+      "request_schema": "",
+      "response_schema": "Fraud",
+      "summary": "ReBQ Retrieve fraud event details",
+      "description": "ReBQ Retrieve fraud event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "CaptureFraud",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Fraud/{fraudid}/Capture",
+      "tipo": "BQ",
+      "grupo": "Fraud",
+      "request_schema": "Fraud",
+      "response_schema": "Fraud",
+      "summary": "CaBQ Capture fraud event details",
+      "description": "CaBQ Capture fraud event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "UpdateLife",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Life/{lifeid}/Update",
+      "tipo": "BQ",
+      "grupo": "Life",
+      "request_schema": "Life",
+      "response_schema": "Life",
+      "summary": "UpBQ Update captured customer life event details",
+      "description": "UpBQ Update captured customer life event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "RetrieveLife",
+      "method": "GET",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Life/{lifeid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Life",
+      "request_schema": "",
+      "response_schema": "Life",
+      "summary": "ReBQ Retrieve customer life event details",
+      "description": "ReBQ Retrieve customer life event details",
+      "parent_control_record": "CustomerEventLog"
+    },
+    {
+      "operation_id": "CaptureLife",
+      "method": "PUT",
+      "path": "/CustomerEventHistory/{customereventhistoryid}/Life/{lifeid}/Capture",
+      "tipo": "BQ",
+      "grupo": "Life",
+      "request_schema": "Life",
+      "response_schema": "Life",
+      "summary": "CaBQ Capture customer life event details",
+      "description": "CaBQ Capture customer life event details",
+      "parent_control_record": "CustomerEventLog"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Agreement",
+    "Agreementstatus",
+    "Agreementstatustypevalues",
+    "Agreementtypevalues",
+    "Assetclassificationtypevalues",
+    "Assetsubclassificationtypevalues",
+    "Assettypevalues",
+    "Bankingproducttypevalues",
+    "Case",
+    "Casestatustypevalues",
+    "Casetypevalues",
+    "CustomerContact",
+    "CustomerEventLog",
+    "Customereventtypevalues",
+    "Customerrelationshiplifecyclephasevalues",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Device",
+    "Deviceidentification",
+    "Deviceidentificationtypevalues",
+    "Deviceoperatingsystemtypevalues",
+    "Devicetypevalues",
+    "Document",
+    "Documentdatetimetypevalues",
+    "Event",
+    "Financialdocumenttypevalues",
+    "Financialinstrumentdatetime",
+    "Financialinstrumentdatetimetypevalues",
+    "Financialinstrumentidentification",
+    "Financialinstrumentidentificationtypevalues",
+    "Financialinstrumenttypevalues",
+    "Fraud",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Life",
+    "Location",
+    "Log",
+    "Name",
+    "Product",
+    "ProductAgreement",
+    "ProductProcessing",
+    "Productagreementtypevalues",
+    "Productidentification",
+    "Productidentificationtypevalues",
+    "Productstatus",
+    "Productstatustypevalues",
+    "Relationship",
+    "Sales",
+    "SalesLead",
+    "Schedule",
+    "Servicing",
+    "Status"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Agreement",
+      "kind": "object",
+      "description": "Reference to any commission agreement if appropriate",
+      "properties": [
+        {
+          "name": "AgreementSignedDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AgreementType",
+          "type": "object",
+          "ref": "Agreementtypevalues"
+        },
+        {
+          "name": "AgreementValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AgreementVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Agreementstatus"
+        },
+        {
+          "name": "AgreementSubjectMatter",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AgreementDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Agreementstatus",
+      "kind": "object",
+      "description": "A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).",
+      "properties": [
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AgreementStatusType",
+          "type": "object",
+          "ref": "Agreementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Agreementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Offered` - \r\n* `Confirmed` - \r\n* `Completed` - \r\n* `Signed` - \r\n* `Terminated` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Offered",
+        "Confirmed",
+        "Completed",
+        "Signed",
+        "Terminated",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Agreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerAgreement` - \r\n* `SupplierAgreement` - \r\n* `BrokerAgreement` - \r\n* `SalesAgreement` - \r\n* `PurchaseAgreement` - \r\n* `MaintenanceAgreement` - \r\n* `ProductAgreement` - \r\n* `ResourceAgreement` - \r\n* `PartnerAgreement` - \r\n* `MasterAgreement` - \r\n* `BilateralAgreement` - \r\n* `RepurchaseAgreement` - \r\n",
+      "enum_values": [
+        "CustomerAgreement",
+        "SupplierAgreement",
+        "BrokerAgreement",
+        "SalesAgreement",
+        "PurchaseAgreement",
+        "MaintenanceAgreement",
+        "ProductAgreement",
+        "ResourceAgreement",
+        "PartnerAgreement",
+        "MasterAgreement",
+        "BilateralAgreement",
+        "RepurchaseAgreement"
+      ]
+    },
+    {
+      "name": "Assetclassificationtypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Assetclassificationtypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Assetsubclassificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Subassetclass` - Sub-asset class.(ISO20022)\r\n* `Timetomaturitybucket` - Time to maturity bucket.(ISO20022)\r\n* `Optiontimetomaturitybucket` - Time to maturity bucket of the option.(ISO20022)\r\n* `Swaptimetomaturitybucket` - Time to maturity bucket of the swap.(ISO20022)\r\n* `Underlyinginstrumentidentification` - Underlying instrument identification, such as an ISIN code.(ISO20022)\r\n* `Underlyingbondissuer` - Issuer of the underlying bond.(ISO20022)\r\n* `Underlyinginterestrate` - Underlying interest rate.(ISO20022)\r\n* `Underlyingbondterm` - Term of the underlying bond.(ISO20022)\r\n* `Assetclass` - Asset class.(ISO20022)\r\n* `Underlyingindexidentification` - Underlying index identification such as an ISIN or an index name.(ISO20022)\r\n* `Interestratetermofcontract` - Interest rate term of contract.(ISO20022)\r\n* `Underlyingreferenceentity` - Underlying reference entity.(ISO20022)\r\n* `Sovereignandpublictypeissuer` - Issuer of sovereign and public type.(ISO20022)\r\n* `Irdnotionalcurrency1` - Interest rate derivative notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency1` - Foreign exchange derivative notional currency 1.(ISO20022)\r\n* `Cfdnotionalcurrency1` - Contract for difference notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency2` - Foreign exchange derivative notional currency 2.(ISO20022)\r\n* `Irdnotionalcurrency2` - Interest rate derivative notional currency 2.(ISO20022)\r\n* `Cfdnotionalcurrency2` - Contract for difference notional currency 2.(ISO20022)\r\n* `Swaptionnotionalcurrency` - Notional currency of the swaption.(ISO20022)\r\n* `Creditnotionalcurrency` - Credit derivative notional currency.(ISO20022)\r\n* `Commoditynotionalcurrency` - Commodity derivative notional currency.(ISO20022)\r\n* `Contracttype` - Contract type.(ISO20022)\r\n* `Baseproduct` - Base product.(ISO20022)\r\n* `Subproduct` - Sub product.(ISO20022)\r\n* `Furthersubproduct` - Further sub product.(ISO20022)\r\n* `Deliverycashlocation` - Delivery cash settlement location.(ISO20022)\r\n* `Deliverysettlementtype` - Delivery settlement type.(ISO20022)\r\n* `Sizespecificationrelatedtofreightsubtype` - Size specification related to freight subtype.(ISO20022)\r\n* `Specificroutetimecharteraverage` - Specific route time charter average.(ISO20022)\r\n* `Equityunderlyingtype` - Equity derivative underlying type.(ISO20022)\r\n* `Parameter` - Parameter.(ISO20022)\r\n* `Inflationindexcodename` - Inflation index code or name.(ISO20022)\r\n* `ISIN` - Instrument identification.(ISO20022)\r\n* `Underlyingindexcdssubclassidentification` - Sub class of the underlying index credit default swap (CDS).(ISO20022)\r\n* `Underlyingtype` - Underlying type.(ISSO20022)\r\n",
+      "enum_values": [
+        "Subassetclass",
+        "Timetomaturitybucket",
+        "Optiontimetomaturitybucket",
+        "Swaptimetomaturitybucket",
+        "Underlyinginstrumentidentification",
+        "Underlyingbondissuer",
+        "Underlyinginterestrate",
+        "Underlyingbondterm",
+        "Assetclass",
+        "Underlyingindexidentification",
+        "Interestratetermofcontract",
+        "Underlyingreferenceentity",
+        "Sovereignandpublictypeissuer",
+        "Irdnotionalcurrency1",
+        "Fexnotionalcurrency1",
+        "Cfdnotionalcurrency1",
+        "Fexnotionalcurrency2",
+        "Irdnotionalcurrency2",
+        "Cfdnotionalcurrency2",
+        "Swaptionnotionalcurrency",
+        "Creditnotionalcurrency",
+        "Commoditynotionalcurrency",
+        "Contracttype",
+        "Baseproduct",
+        "Subproduct",
+        "Furthersubproduct",
+        "Deliverycashlocation",
+        "Deliverysettlementtype",
+        "Sizespecificationrelatedtofreightsubtype",
+        "Specificroutetimecharteraverage",
+        "Equityunderlyingtype",
+        "Parameter",
+        "Inflationindexcodename",
+        "ISIN",
+        "Underlyingindexcdssubclassidentification",
+        "Underlyingtype"
+      ]
+    },
+    {
+      "name": "Assettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `TangibleAsset` - It has a physical form and can be touched or seen.\r\n* `IntangibleAsset` - It doesn't have a physical form but hold value\r\n* `OperatingAsset` - Used in the day-to-day operations of the business.\r\n* `Non-OperatingAsset` - Not used in core business operations but still provide value\r\n* `CurrentAsset` - Expected to be converted into cash within one year.\r\n* `Non-Current(Fixed)Asset` - Provide value over the long term (more than one year).\r\n* `PersonalAsset` - Owned by individuals and not related to a business.\r\n* `BusinessAsset` - Owned by a business and used to generate revenue.\r\n",
+      "enum_values": [
+        "TangibleAsset",
+        "IntangibleAsset",
+        "OperatingAsset",
+        "Non-OperatingAsset",
+        "CurrentAsset",
+        "Non-Current(Fixed)Asset",
+        "PersonalAsset",
+        "BusinessAsset"
+      ]
+    },
+    {
+      "name": "Bankingproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LoanProduct` - \r\n* `CurrentAccountProduct` - \r\n* `SavingAccountProduct` - \r\n* `BrokeredProduct` - \r\n* `TermDepositProduct` - \r\n",
+      "enum_values": [
+        "LoanProduct",
+        "CurrentAccountProduct",
+        "SavingAccountProduct",
+        "BrokeredProduct",
+        "TermDepositProduct"
+      ]
+    },
+    {
+      "name": "Case",
+      "kind": "object",
+      "description": "Reference to the fraud case processing the analysis and response",
+      "properties": [
+        {
+          "name": "CaseCreationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CaseType",
+          "type": "object",
+          "ref": "Casetypevalues"
+        },
+        {
+          "name": "CaseLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "CaseStatus",
+          "type": "object",
+          "ref": "Casestatustypevalues"
+        },
+        {
+          "name": "CaseDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "CaseDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Casestatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Closed` - Case has been closed. (ISO20022)\r\n* `Assigned` - Case has been assigned to another party. (ISO20022)\r\n* `UnderInvestigation` - Case is currently under investigation. (ISO20022)\r\n* `Unknown` - Case has never been assigned before. (ISO20022)\r\n* `Overdue` - Investigation is taking too long. (ISO20022)\r\n",
+      "enum_values": [
+        "Closed",
+        "Assigned",
+        "UnderInvestigation",
+        "Unknown",
+        "Overdue"
+      ]
+    },
+    {
+      "name": "Casetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Card` - \r\n* `Loan` - \r\n* `Fraud` - \r\n* `Payment` - \r\n* `Market` - \r\n* `Security` - \r\n* `Other` - \r\n",
+      "enum_values": [
+        "Card",
+        "Loan",
+        "Fraud",
+        "Payment",
+        "Market",
+        "Security",
+        "Other"
+      ]
+    },
+    {
+      "name": "CustomerContact",
+      "kind": "object",
+      "description": "Reference to a contact event log",
+      "properties": [
+        {
+          "name": "CustomerContactType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CustomerContactLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "CustomerContactSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CustomerContactResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactDevice",
+          "type": "object",
+          "ref": "Device"
+        },
+        {
+          "name": "CustomerContactIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "CustomerEventLog",
+      "kind": "object",
+      "description": "Maintain a log of transactions or activity, typically a financial account/journal or a log of activity to support behavioral analysis within Customer Event History. ",
+      "properties": [
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerEventReference",
+          "type": "object",
+          "ref": "Event"
+        },
+        {
+          "name": "CustomerEventLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "CustomerEventType",
+          "type": "object",
+          "ref": "Customereventtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Customereventtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerRelationshipEvent` - A Value of Customer Event Type in which events related to the customer relationship are specified. \r\n* `CustomerSaleEvent` - A Value of Customer Event Type in which events related to the customer sale are specified. \n\r\n* `CustomerProductEvent` - A Value of Customer Event Type in which events related to the customer product are specified. \n\r\n* `CustomerFraudEvent` - A Value of Customer Event Type in which events related to the customer fraud are specified. \n\r\n* `CustomerLifeEvent` - A Value of Customer Event Type in which events related to the customer life are specified. \n\r\n",
+      "enum_values": [
+        "CustomerRelationshipEvent",
+        "CustomerSaleEvent",
+        "CustomerProductEvent",
+        "CustomerFraudEvent",
+        "CustomerLifeEvent"
+      ]
+    },
+    {
+      "name": "Customerrelationshiplifecyclephasevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Lead` - A lead is an individual or organization that has shown interest in a companys products or services. This could be through filling out a form, subscribing to a newsletter, or any other initial engagement. Leads are typically the starting point in the sales funnel and require further qualification to determine their potential as a customer.\n\r\n* `Prospect` - A prospect is a lead that has been qualified, meaning that the lead has been assessed and determined to have a higher likelihood of becoming a customer. This qualification often involves verifying that the prospect meets certain criteria, such as having the budget, authority, need, and timeline to make a purchase (often referred to as BANT criteria).\n\r\n* `Customer` - A customer is a prospect who has completed a purchase or has entered into a formal business relationship with the company. Customers are individuals or organizations that have decided to buy the company's products or services, and the focus now shifts to maintaining and enhancing the relationship to encourage repeat business.\n\r\n* `LoyalCustomer` - A loyal customer is one who not only makes repeated purchases but also demonstrates a strong, positive relationship with the company. Loyal customers often advocate for the brand, provide valuable feedback, and have a higher lifetime value. They are the result of successful customer relationship management, where the company consistently meets or exceeds their expectations.\n\n\n\nA loyal customer is someone who consistently chooses your brand's products or services over competitors, often due to positive past experiences, emotional connections, and trust built over time. Loyal customers are valuable to businesses as they typically contribute to a significant portion of revenue, are more likely to make repeat purchases, and can act as brand advocates, promoting the brand to others.\r\n",
+      "enum_values": [
+        "Lead",
+        "Prospect",
+        "Customer",
+        "LoyalCustomer"
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date on which the agreement was signed by all parties. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "Date and time at which the status was assigned.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Device",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Deviceidentification"
+        },
+        {
+          "name": "DeviceType",
+          "type": "object",
+          "ref": "Devicetypevalues"
+        },
+        {
+          "name": "DeviceProperty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceElement",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DeviceVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DeviceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DeviceLanguage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DevicePhoneNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceLocationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceManufacturer",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceCountryReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceAddressReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceOperatingSystem",
+          "type": "object",
+          "ref": "Deviceoperatingsystemtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Deviceidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DeviceIdentificationType",
+          "type": "object",
+          "ref": "Deviceidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Deviceidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `IMEI` - International Mobile Equipment Identity.\r\n* `Serialnumber` - Device serial number.\r\n* `Secureelementidentification` - Secure element ID.\r\n* `Othernational` - Other nationally assigned code.\r\n* `Otherprivate` - Other privately assigned code.\r\n",
+      "enum_values": [
+        "IMEI",
+        "Serialnumber",
+        "Secureelementidentification",
+        "Othernational",
+        "Otherprivate"
+      ]
+    },
+    {
+      "name": "Deviceoperatingsystemtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Android` - Android operating system.\r\n* `Ios` - iOS operating system.\r\n* `Windows` - Windows operating system.\r\n* `Blackberry` - Blackberry operating system.\r\n* `Tizen` - Tizen operating system.\r\n* `Othernational` - Other nationally defined code.\r\n* `Otherprivate` - Other privately defined code.\r\n",
+      "enum_values": [
+        "Android",
+        "Ios",
+        "Windows",
+        "Blackberry",
+        "Tizen",
+        "Othernational",
+        "Otherprivate"
+      ]
+    },
+    {
+      "name": "Devicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Securecardreader` - Secure card reader attached to the customer device\r\n* `Nonsecurecardreader` - Non-secure card reader attached to the customer device.\r\n* `Mobile` - Mobile phone\r\n* `Tablet` - Tablet\r\n* `Personalcomputer` - Personal computer\r\n* `Othernational` - Other device defined at national level\r\n* `Otherprivate` - Other device defined in a private way.\r\n* `Wearable` - Wearable device.\r\n* `Vehicle` - Vehicle.\r\n* `Embedded` - Embedded in a device.\r\n* `Keyfob` - Key Fob\r\n* `Jewellery` - Jewellery\r\n* `Sticker` - Sticker\r\n* `Gamingdevice` - Gaming Device\r\n* `Watch` - Watch\r\n* `Unknown` - Device type unknown\r\n* `BiometricDevice` - A biometric device is a security identification and authentication device. Such devices use automated methods of verifying or recognising the identity of a living person based on a physiological or behavioral characteristic.\nhttps://en.wikipedia.org/wiki/Biometric_device\n\r\n",
+      "enum_values": [
+        "Securecardreader",
+        "Nonsecurecardreader",
+        "Mobile",
+        "Tablet",
+        "Personalcomputer",
+        "Othernational",
+        "Otherprivate",
+        "Wearable",
+        "Vehicle",
+        "Embedded",
+        "Keyfob",
+        "Jewellery",
+        "Sticker",
+        "Gamingdevice",
+        "Watch",
+        "Unknown",
+        "BiometricDevice"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Event",
+      "kind": "object",
+      "description": "The details of the event (in a suitable format)",
+      "properties": [
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetime",
+      "kind": "object",
+      "description": "Key dates of financial instrument",
+      "properties": [
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "FinancialInstrumentDateType",
+          "type": "object",
+          "ref": "Financialinstrumentdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CouponDate` - Next payment date of an interest bearing financial instrument.(ISO20022)\r\n* `ExpiryDate` - Date on which a privilege expires.(ISO20022)\r\n* `FloatingRateFixingDate` - Date at which the interest rate of an interest bearing security will be calculated and reset, according to the terms of the issue.(ISO20022)\r\n* `MaturityDate` - Planned final repayment date at the time of issuance.(ISO20022)\r\n* `IssueDate` - Date at which the security was made available.(ISO20022)\r\n* `NextCallableDate` - Next date at which the issuer has the right to pay the security prior to maturity.(ISO20022)\r\n* `PutableDate` - Date at which the holder has the right to ask for redemption of the security prior to final maturity.(ISO20022)\r\n* `DatedDate` - First date at which a security begins to accrue interest.(ISO20022)\r\n* `FirstPaymentDate` - Date at which the first interest payment is due to holders of the security.(ISO20022)\r\n",
+      "enum_values": [
+        "CouponDate",
+        "ExpiryDate",
+        "FloatingRateFixingDate",
+        "MaturityDate",
+        "IssueDate",
+        "NextCallableDate",
+        "PutableDate",
+        "DatedDate",
+        "FirstPaymentDate"
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FinancialInstrumentIdentificationType",
+          "type": "object",
+          "ref": "Financialinstrumentidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `NASDAQ` - \r\n* `ISIN` - \r\n",
+      "enum_values": [
+        "NASDAQ",
+        "ISIN"
+      ]
+    },
+    {
+      "name": "Financialinstrumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Loan` - \r\n* `Bond` - \r\n* `Deposit` - \r\n* `Stock` - \r\n* `Option` - \r\n* `Share` - \r\n* `Debt` - Financial instruments evidencing moneys owed by the issuer to the holder on terms as specified. (ISO20022)\n\nAny type of instrument primarily classified as debt can be considered a debt instrument. Debt instruments are tools an individual, government entity, or business entity can utilize for the purpose of obtaining capital. Debt instruments provide capital to an entity that promises to repay the capital over time. Credit cards, credit lines, loans, and bonds can all be types of debt instruments. (Investopedia)\r\n* `Letterofcredit` - Instrument issued by a bank substituting its name and credit standing for that of its customer. A letter of credit is a written undertaking of the bank, issued for the account of a customer (the applicant), to honour a demand for payment, upon the beneficiary's compliance with the terms and conditions set forth in the undertaking. (ISO20022)\r\n* `Security` - Financial instruments representing a sum of rights of the investor vis-a-vis the issuer. (ISO20022)\r\n* `Derivative` - \r\n",
+      "enum_values": [
+        "Loan",
+        "Bond",
+        "Deposit",
+        "Stock",
+        "Option",
+        "Share",
+        "Debt",
+        "Letterofcredit",
+        "Security",
+        "Derivative"
+      ]
+    },
+    {
+      "name": "Fraud",
+      "kind": "object",
+      "description": "A collection of the events/transactions recorded by the log\n\n- Capture events related to Sales",
+      "properties": [
+        {
+          "name": "CustomerFraudCaseEventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactRecordReference",
+          "type": "object",
+          "ref": "CustomerContact"
+        },
+        {
+          "name": "AccessedProductandService",
+          "type": "object",
+          "ref": "Product"
+        },
+        {
+          "name": "EmployeeUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "FraudCaseReference",
+          "type": "object",
+          "ref": "Case"
+        },
+        {
+          "name": "DateandTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationReference",
+          "type": "object",
+          "ref": "Location"
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Employees involved in recording the event",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Life",
+      "kind": "object",
+      "description": "A collection of the events/transactions recorded by the log\n\n- Capture events related to Sales",
+      "properties": [
+        {
+          "name": "CustomerLifeEventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactRecordReference",
+          "type": "object",
+          "ref": "CustomerContact"
+        },
+        {
+          "name": "EmployeeUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerLifeEventRecord",
+          "type": "object",
+          "ref": "Event"
+        },
+        {
+          "name": "DateandTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationReference",
+          "type": "object",
+          "ref": "Location"
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of the phase of the relationship, such as prospect, contracted, on-board, etc.",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "kind": "object",
+      "description": "Reference to the types or instances of products/services being serviced if provided",
+      "properties": [
+        {
+          "name": "ProductIdentification",
+          "type": "object",
+          "ref": "Productidentification"
+        },
+        {
+          "name": "ProductType",
+          "type": "object",
+          "ref": "Bankingproducttypevalues"
+        },
+        {
+          "name": "ProductLifecycleStatus",
+          "type": "object",
+          "ref": "Productstatus"
+        },
+        {
+          "name": "ProductPriority",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentType",
+          "type": "object",
+          "ref": "Financialinstrumenttypevalues"
+        },
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Financialinstrumentidentification"
+        },
+        {
+          "name": "FinancialInstrumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Financialinstrumentdatetime"
+        },
+        {
+          "name": "AssetTitle",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AssetType",
+          "type": "object",
+          "ref": "Assettypevalues"
+        },
+        {
+          "name": "AssetDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssetDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetClassification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetClassificationType",
+          "type": "object",
+          "ref": "Assetclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassificationType",
+          "type": "object",
+          "ref": "Assetsubclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductAgreement",
+      "kind": "object",
+      "description": "Reference to the specific product instance being processed",
+      "properties": [
+        {
+          "name": "ProductAgreementType",
+          "type": "object",
+          "ref": "Productagreementtypevalues"
+        },
+        {
+          "name": "ProductAgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementSignedDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AgreementType",
+          "type": "object",
+          "ref": "Agreementtypevalues"
+        },
+        {
+          "name": "AgreementValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AgreementVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Agreementstatus"
+        },
+        {
+          "name": "AgreementSubjectMatter",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AgreementDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductProcessing",
+      "kind": "object",
+      "description": "A collection of the events/transactions recorded by the log\n\n- Capture events related to Sales",
+      "properties": [
+        {
+          "name": "ProductInstanceReference",
+          "type": "object",
+          "ref": "ProductAgreement"
+        },
+        {
+          "name": "ProductEventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductEventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductEventResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EmployeeUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerProductandServiceEventRecord",
+          "type": "object",
+          "ref": "Event"
+        },
+        {
+          "name": "DateandTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationReference",
+          "type": "object",
+          "ref": "Location"
+        }
+      ]
+    },
+    {
+      "name": "Productagreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CurrentAccountAgreement` - \r\n* `SavingsAccountAgreement` - \r\n* `BrokeredProductAgreement` - \r\n* `ConsumerLoanAgreement` - \r\n* `MortgageLoanAgreement` - \r\n* `DirectDebitServiceAgreement` - \r\n* `TermDepositAgreement` - \r\n",
+      "enum_values": [
+        "CurrentAccountAgreement",
+        "SavingsAccountAgreement",
+        "BrokeredProductAgreement",
+        "ConsumerLoanAgreement",
+        "MortgageLoanAgreement",
+        "DirectDebitServiceAgreement",
+        "TermDepositAgreement"
+      ]
+    },
+    {
+      "name": "Productidentification",
+      "kind": "object",
+      "description": "The identifier of product e.g. ISIN Code.",
+      "properties": [
+        {
+          "name": "ProductIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ProductIdentificationType",
+          "type": "object",
+          "ref": "Productidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ISINCode` - \r\n* `PackageCode` - \r\n* `Buyersitemnumber` - Product identifier assigned by the buyer.\r\n* `Commercialdescriptioncodename` - A code to identify a product based on applicable commercial conditions.\r\n* `EAN` - The unique EAN (European Article Number) code.\r\n* `Harmonizedtariffcodename` - Classification of goods as developed by the Customs Cooperation council.\r\n* `Manufacturersitemnumber` - Product identifier as assigned by the manufacturer.\r\n* `Modelnumber` - Reference number assigned by the manufacturer to differentiate variations in similar products in a class or group.\r\n* `Partnumber` - Reference assigned by the manufacturer to a product part.\r\n* `Quotacategory` - Product identifier used by the retail industry.\r\n* `Stylenumber` - Identification of the style of a product.\r\n* `Suppliersitemnumber` - Number assigned to an article by the supplier of that article.\r\n* `Universalproductcode` - Number assigned to a manufacturer's product by the Product Code Council.\r\n",
+      "enum_values": [
+        "ISINCode",
+        "PackageCode",
+        "Buyersitemnumber",
+        "Commercialdescriptioncodename",
+        "EAN",
+        "Harmonizedtariffcodename",
+        "Manufacturersitemnumber",
+        "Modelnumber",
+        "Partnumber",
+        "Quotacategory",
+        "Stylenumber",
+        "Suppliersitemnumber",
+        "Universalproductcode"
+      ]
+    },
+    {
+      "name": "Productstatus",
+      "kind": "object",
+      "description": "Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).",
+      "properties": [
+        {
+          "name": "ProductStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ProductStatusType",
+          "type": "object",
+          "ref": "Productstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Announced` - \r\n* `Sold` - \r\n* `Obsolete` - \r\n* `Active` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Announced",
+        "Sold",
+        "Obsolete",
+        "Active"
+      ]
+    },
+    {
+      "name": "Relationship",
+      "kind": "object",
+      "description": "A collection of the events/transactions recorded by the log\n\n- Capture events related to Sales",
+      "properties": [
+        {
+          "name": "CustomerRelationshipEventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EmployeeUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerRelationshipEventRecord",
+          "type": "object",
+          "ref": "Event"
+        },
+        {
+          "name": "CustomerRelationshipEventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "DateandTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationReference",
+          "type": "object",
+          "ref": "Location"
+        }
+      ]
+    },
+    {
+      "name": "Sales",
+      "kind": "object",
+      "description": "A collection of the events/transactions recorded by the log\n\n- Capture events related to Sales",
+      "properties": [
+        {
+          "name": "CustomerSalesEventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EmployeeUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "ProductandServiceType",
+          "type": "object",
+          "ref": "Bankingproducttypevalues"
+        },
+        {
+          "name": "LeadandOpportunityReference",
+          "type": "object",
+          "ref": "SalesLead"
+        },
+        {
+          "name": "CustomerSalesEventRecord",
+          "type": "object",
+          "ref": "Event"
+        },
+        {
+          "name": "CommissionAgreementReference",
+          "type": "object",
+          "ref": "Agreement"
+        },
+        {
+          "name": "DateandTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationReference",
+          "type": "object",
+          "ref": "Location"
+        }
+      ]
+    },
+    {
+      "name": "SalesLead",
+      "kind": "object",
+      "description": "Reference to the recorded lead/opportunity if sale progresses",
+      "properties": [
+        {
+          "name": "LeadOrigin",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LeadDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRelationshipLifecyclePhaseType",
+          "type": "object",
+          "ref": "Customerrelationshiplifecyclephasevalues"
+        },
+        {
+          "name": "Description",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IsCurrentPhase",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PhaseName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PhaseStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "PhasePeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule of past and planned customer contacts",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicing",
+      "kind": "object",
+      "description": "A collection of the events/transactions recorded by the log\n\n- Capture events related to Sales",
+      "properties": [
+        {
+          "name": "CustomerServicingEventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactRecordReference",
+          "type": "object",
+          "ref": "CustomerContact"
+        },
+        {
+          "name": "AccessedProductandService",
+          "type": "object",
+          "ref": "Product"
+        },
+        {
+          "name": "ChannelandDeviceType",
+          "type": "object",
+          "ref": "Devicetypevalues"
+        },
+        {
+          "name": "ContactPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ContactResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EmployeeUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerServicingEventRecord",
+          "type": "object",
+          "ref": "Event"
+        },
+        {
+          "name": "DateandTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationReference",
+          "type": "object",
+          "ref": "Location"
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "CustomerEventLog",
+        "operations": [
+          "Control",
+          "Retrieve",
+          "Initiate",
+          "Update"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Fraud",
+        "parent_control_record": "CustomerEventLog",
+        "operations": [
+          "UpdateFraud",
+          "RetrieveFraud",
+          "CaptureFraud"
+        ]
+      },
+      {
+        "name": "Life",
+        "parent_control_record": "CustomerEventLog",
+        "operations": [
+          "UpdateLife",
+          "RetrieveLife",
+          "CaptureLife"
+        ]
+      },
+      {
+        "name": "ProductProcessing",
+        "parent_control_record": "CustomerEventLog",
+        "operations": [
+          "UpdateProductProcessing",
+          "CaptureProductProcessing",
+          "RetrieveProductProcessing"
+        ]
+      },
+      {
+        "name": "Relationship",
+        "parent_control_record": "CustomerEventLog",
+        "operations": [
+          "UpdateRelationship",
+          "CaptureRelationship",
+          "RetrieveRelationship"
+        ]
+      },
+      {
+        "name": "Sales",
+        "parent_control_record": "CustomerEventLog",
+        "operations": [
+          "UpdateSales",
+          "CaptureSales",
+          "RetrieveSales"
+        ]
+      },
+      {
+        "name": "Servicing",
+        "parent_control_record": "CustomerEventLog",
+        "operations": [
+          "UpdateServicing",
+          "CaptureServicing",
+          "RetrieveServicing"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerEventHistory.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "d422a485b4c712874525dcd720ada58a5ddedc9fde24edc9719b4829fc39c018",
+    "retrieved_at": "2026-09-10T22:23:46.977417+00:00"
+  }
+}

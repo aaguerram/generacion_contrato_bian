@@ -1,0 +1,28 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+openrouter.md
+.cache/
+*.vectorstore.*.json
+.pytest_cache/
+
+# salidas de los CLIs (--directorio ./salida/...). Anclado a la raíz para NO ignorar
+# el paquete de adaptadores driven `src/adaptadores/salida/`.
+/salida/
+
+# artefactos de build / empaquetado
+build/
+dist/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+
+# archivos temporales de Office (lock files al abrir .xlsx/.xlsm)
+~$*
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

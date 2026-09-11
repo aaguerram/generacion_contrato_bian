@@ -1,0 +1,162 @@
+@startuml
+title Collateral Allocation Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Collateral Allocation Management
+' Source image: collateral-allocation-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_30750.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Collateral Asset" as N156135 {
+  + Collateral Asset Identification : Identifier
+  + Collateral Asset Type : CollateralTypeValues
+  + Collateral Asset Status : CollateralAssetStatusTypeValues
+}
+
+class "Asset Valuation" as N156238 {
+}
+
+class "Collateral Asset Arrangement" as N156209 {
+  + Collateral Pledged Date : Date
+  + Collateral Type : CollateralTypeValues
+  + Collateral Value Pledged : Amount
+  + Collateral Amount : Amount
+  + Collateral Balance : AccountBalance
+  + Collateral Purpose : CollateralPurposeTypeValues
+}
+
+class "Collateral Agreement" as N156110 {
+  + Collateral Agreement Identifier : Identifier
+  + Collateral Agreement Registration Reference : Text
+}
+
+class "Collateral Asset Allocation" as N156054 {
+  + Collateral Asset Allocation Status : AllocationStatusTypeValues
+}
+
+class "Allocation" as N156051 {
+}
+
+class "Payment Warranty Arrangement" as N156145 {
+  + Collateral Agreement Reference : Collateral Agreement
+  + Warranty Amount : Amount
+  + Warranty Duration : Duration
+  + Recall Plan : Schedule
+}
+
+class "Banking Product Agreement" as N156189 {
+}
+
+class "Instruction" as N156134 {
+}
+
+class "Collateral Allocation Request" as N156225 {
+  + Allocation Type : Text
+}
+
+class "Agreement" as N156087 {
+}
+
+class "Financial Instruction" as N156127 {
+  + Instruction Amount : Amount
+  + Instruction Currency : AccountCurrency
+  + Financial Instruction Type : FinancialInstructionTypeValues
+}
+
+class "Asset" as N156056 {
+}
+
+class "Payment Arrangement" as N156068 {
+}
+
+enum "CollateralTypeValues" as N156176 {
+  LetterOfCredit
+  Cash
+  Securities
+  PhysicalEntities
+  Insurance
+  StockCertificate
+  Bond
+  BankGuarantee
+  Other
+  Commodity
+  Automobile
+  IndustrialVehicle
+  CommercialTruck
+  RailVehicle
+  NauticalCommercialVehicle
+  NauticalLeisureVehicle
+  Aeroplane
+  MachineTool
+  IndustrialEquipment
+  OfficeEquipment
+  ITEquipment
+  MedicalEquipment
+  EnergyRelatedEquipment
+  CommercialBuilding
+}
+
+enum "CollateralAssetStatusTypeValues" as N156086 {
+  Offered
+  Under assessment
+  Transferred
+  Allocated
+  Free for allocation
+  Allocated to another loan
+  Issued for execution
+}
+
+class "Collateral Asset Valuation" as N156090 {
+  + Collateral Asset Valuation Status : Status
+  + Collateral Asset Valuation Date : DateTime
+  + Collateral Asset Valuation Amount : Amount
+  + Collateral Asset Valuation Currency : CurrencyCode
+}
+
+enum "AllocationStatusTypeValues" as N156103 {
+  FullyAllocated
+  PartiallyAllocated
+  Earmarked
+}
+
+class "Collateral Involvement" as N156074 {
+  + Collateral Involvement Type : CollateralInvolvementTypeValues
+}
+
+enum "CollateralInvolvementTypeValues" as N156154 {
+  Collateral Owner
+  Collateral Servicing Party Role
+  Collateral Giver
+  Collateral Taker
+  Collateral Triparty Agent
+}
+
+class "Party" as N156139 {
+}
+
+' Relationships
+N156135 "0..*" -- "1" N156209
+N156110 "1" -- "0..*" N156209
+N156068 "0..1" -- "0..*" N156054
+N156135 "0..1" -- "0..*" N156054
+N156209 "0..1" -- "0..*" N156127
+N156051 <|-- N156054
+N156068 "0..*" -- "0..*" N156145
+N156145 "0..1" -- "0..*" N156127
+N156189 "0..1" -- "0..1" N156145
+N156189 "0..1" -- "0..1" N156068
+N156110 "0..1" -- "0..*" N156145
+N156127 <|-- N156225
+N156087 <|-- N156110
+N156087 <|-- N156189
+N156225 "0..1" -- "0..*" N156054
+N156134 <|-- N156127
+N156056 <|-- N156135
+N156135 "0..1" -- "0..*" N156090
+N156238 <|-- N156090
+N156139 "0..1" -- "0..*" N156074
+N156110 "0..1" -- "0..*" N156074
+N156209 "0..1" -- "2..*" N156074
+@enduml

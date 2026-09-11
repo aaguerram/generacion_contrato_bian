@@ -1,0 +1,221 @@
+@startuml
+title Term Deposit - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Term Deposit
+' Source image: term-deposit-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_39468.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Account" as N191235 {
+}
+
+class "Term Deposit Agreement" as N191120 {
+  + Term Deposit Agreement Identification : Identifier
+  + Term Deposit Agreement Type : TermDepositAgreementTypeValues
+}
+
+class "Term Deposit Arrangement" as N191358 {
+  + Term Deposit Arrangement Type : ArrangementTypeValues
+  + Term Deposit Arrangement Product Feature Type : ProductFeatureType
+  + Term Deposit Maturity Date : DateTime
+  + Term Deposit Open Date : DateTime
+  + Term Deposit Amount : Amount
+  + Term Deposit Duration : Duration
+}
+
+class "Term Deposit Arrangement Account" as N191386 {
+}
+
+class "Term Deposit Product" as N191206 {
+  + Term Deposit Product Type : TermDepositTypeValues
+}
+
+class "Party" as N191397 {
+}
+
+enum "TermDepositAgreementTypeValues" as N191337 {
+  Term Deposit Agreement
+  Term Deposit Framework Agreement
+}
+
+class "Account Share Arrangement" as N191192 {
+}
+
+class "Direct Debit Mandate" as N191354 {
+}
+
+class "Correspondence Arrangement" as N191212 {
+}
+
+class "Correspondence" as N191407 {
+}
+
+class "Location" as N191367 {
+}
+
+class "Standing Order Arrangement" as N191240 {
+}
+
+class "Bill Pay Mandate Facility Arrangement" as N191372 {
+}
+
+class "Standing Order Facility Arrangement" as N191155 {
+}
+
+enum "ArrangementTypeValues" as N191410 {
+  Sweep Arrangement
+  Withdrawal Arrangement
+  Deposit Arrangement
+  Interest Arrangement
+  Fee Arrangement
+  Lien Arrangement
+  Information Arrangement
+  Payment Arrangement
+  Entitlement Arrangement
+  Period Arrangement
+  Collateral Arrangement
+  Limit Arrangement
+  Access Arrangement
+  Card Payment Arrangement
+  Standing Order Arrangement
+  Overdraft Arrangement
+  Repayment Arrangement
+  Statement Arrangement
+  Credit Transfer Arrangement
+  Product and Service Arrangement
+  Factoring Arrangement
+  Rollover Arrangement
+  Restructuring Arrangement
+  Insurance Arrangement
+  Collection Arrangement
+  Underwriting Arrangement
+  Termination Arrangement
+  Maturity Arrangement
+  Administrative Arrangement
+}
+
+class "Fee Arrangement" as N191231 {
+}
+
+class "Interest Arrangement" as N191371 {
+}
+
+class "Payment Arrangement" as N191468 {
+}
+
+class "Information Arrangement" as N191154 {
+}
+
+class "Sweep Arrangement" as N191152 {
+}
+
+class "Withdrawal Service Arrangement" as N191333 {
+}
+
+class "Limit Arrangement" as N191176 {
+}
+
+class "Device Arrangement" as N191146 {
+}
+
+class "Lien Arrangement" as N191481 {
+}
+
+class "Rollover Arrangement" as N191139 {
+  + New Agreement Reference : Agreement
+}
+
+class "Deposit Service Arrangement" as N191185 {
+}
+
+class "Account Entry" as N191377 {
+}
+
+class "Instruction" as N191332 {
+}
+
+class "Transaction" as N191464 {
+}
+
+class "Term Deposint Agreement Involvement" as N191218 {
+  + Involved Type : TermDepositAgreementInvolvementTypeValues
+  + Party Reference : Party
+  + Agreement Reference : Term Deposit Agreement
+}
+
+enum "TermDepositAgreementInvolvementTypeValues" as N191304 {
+  Account Holder or Investor
+  Financial Institution
+}
+
+class "Product" as N191359 {
+}
+
+class "Product Arrangement" as N191205 {
+}
+
+class "Product Agreement" as N191315 {
+}
+
+class "Product Feature" as N191349 {
+}
+
+class "Term Deposit Arrangement Instruction" as N191310 {
+}
+
+class "Term Deposit Arrangement Transaction" as N191449 {
+}
+
+enum "TermDepositTypeValues" as N191207 {
+  Fixed-Term Deposit
+  Flexible-Term Deposit
+}
+
+class "Term Deposit Account" as N191348 {
+}
+
+' Relationships
+N191386 "1" -- "0..*" N191358
+N191358 "1..*" -- "0..1" N191120
+N191235 <|-- N191386
+N191206 "0..1" -- "0..*" N191120
+N191212 "0..1" -- "0..1" N191407
+N191367 "0..1" -- "0..*" N191407
+N191367 "1" -- "0..*" N191212
+N191372 "0..1" -- "0..*" N191354
+N191468 <|-- N191372
+N191155 "0..1" -- "0..1" N191240
+N191468 <|-- N191155
+N191358 <|-- N191231
+N191358 <|-- N191371
+N191358 <|-- N191333
+N191358 <|-- N191481
+N191358 <|-- N191152
+N191358 <|-- N191468
+N191358 <|-- N191176
+N191358 <|-- N191192
+N191358 <|-- N191154
+N191358 <|-- N191146
+N191358 <|-- N191212
+N191235 "1" -- "0..*" N191377
+N191397 "0..1" -- "1..*" N191218
+N191120 "0..1" -- "2..*" N191218
+N191349 "1" -- "NegotiatedFeature / 0..*" N191205
+N191359 -- N191349
+N191359 "1" -- "Sold / Product / 0..*" N191315
+N191315 "1" -- "1..*" N191205
+N191205 <|-- N191358
+N191315 <|-- N191120
+N191120 "1" -- "1" N191348
+N191358 <|-- N191185
+N191358 "0..1" -- "0..*" N191310
+N191310 "0..1" -- "0..*" N191449
+N191464 <|-- N191449
+N191332 <|-- N191310
+N191359 <|-- N191206
+N191358 <|-- N191139
+N191235 <|-- N191348
+@enduml

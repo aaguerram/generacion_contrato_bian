@@ -1,0 +1,62 @@
+@startuml
+title Fraud Diagnosis - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Fraud Diagnosis
+' Source image: fraud-diagnosis-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_31032.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Analysis" as N193804 {
+}
+
+class "Fraud Diagnosis" as N193799 {
+  + Determination : String
+  + Recommendation : String
+}
+
+class "Product Fulfillment Session" as N193853 {
+}
+
+class "Algorithm" as N193802 {
+}
+
+class "Customer Behavior Insight Analysis" as N193821 {
+}
+
+class "Economic Model Analysis" as N193796 {
+}
+
+class "Production Transaction" as N193846 {
+}
+
+class "Fraud Evaluation" as N193863 {
+}
+
+class "Fraud Model" as N193840 {
+}
+
+class "Customer Relationship" as N193818 {
+}
+
+class "Customer Contact" as N193824 {
+}
+
+' Relationships
+N193804 <|-- N193799
+N193853 "ProductingSession / 0..1" -- "PerformedInSession / 0..*" N193799
+N193804 -- "0..*" N193802
+N193799 -- N193821
+N193804 <|-- N193821
+N193799 -- N193796
+N193804 <|-- N193796
+N193863 "0..1" -- "OutOfPatternTransaction / 0..*" N193846
+N193863 "0..*" -- "PerformedInSession / ProductingSession / 0..1" N193853
+N193799 "0..1" -- "1" N193846
+N193840 "ModelUsedToAnalyzeFraud / 0..*" -- "AnalyzingFraud / 0..*" N193799
+N193863 "DetectingFraud / 0..*" -- "ModelUsedToDetectFraud / 0..*" N193840
+N193818 "0..1" -- "0..*" N193846
+N193824 "0..*" -- "1" N193818
+@enduml

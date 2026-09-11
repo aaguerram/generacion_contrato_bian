@@ -1,0 +1,50 @@
+@startuml
+title Correspondent Bank Directory - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Correspondent Bank Directory
+' Source image: correspondent-bank-directory-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_37771.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Correspondent Banking Agreement" as N176682 {
+}
+
+class "Correspondent Banking Involvement" as N176699 {
+  + Correspondent Banking Involvement Type : CorrespondentBankingInvolvementTypeVal ues
+}
+
+class "Directory" as N176711 {
+}
+
+class "Directory Entry" as N176686 {
+}
+
+class "Party" as N176707 {
+}
+
+class "Correspondent Bank Directory" as N176688 {
+}
+
+enum "CorrespondentBankingInvolvementTypeValues" as N176698 {
+  Correspondent Bank
+  Respondent Bank
+}
+
+class "Correspondent Bank Directory Entry" as N176677 {
+}
+
+class "Agreement" as N176697 {
+}
+
+' Relationships
+N176682 "0..1" -- "0..*" N176699
+N176686 <|-- N176677
+N176682 "Registered / CorrespondentBank / 0..1" -- "0..*" N176677
+N176711 <|-- N176688
+N176697 <|-- N176682
+N176688 "1" -- "0..*" N176677
+N176707 "0..1" -- "0..*" N176699
+@enduml

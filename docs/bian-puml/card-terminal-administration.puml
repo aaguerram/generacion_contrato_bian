@@ -1,0 +1,59 @@
+@startuml
+title Card Terminal Administration - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Card Terminal Administration
+' Source image: card-terminal-administration-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_45755.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Card POS Terminal" as N223020 {
+}
+
+class "Device" as N223045 {
+  + Device Identification : DeviceIdentification
+  + Device Type : DeviceTypeValues
+  + Device Property : Text
+  + Device Element : Text
+  + Device Status : Status
+  + Device Version : Number
+  + Device Date Time : DateTime
+  + Device Description : Text
+  + Device Name : Name
+  + Device Language : Text
+  + Device Phone Number : Text
+  + Device Location Reference : Text
+  + Device Manufacturer : Text
+  + Device Country Reference : Text
+  + Device Address Reference : Text
+  + Device Operating System : DeviceOperatingSystemTypeValues
+}
+
+class "Allocation" as N223041 {
+}
+
+class "Resource Allocation" as N223017 {
+}
+
+class "Card POS Device Allocation" as N223046 {
+}
+
+class "Merchant" as N223058 {
+  + Merchant Type : MerchantTypeValues
+  + Merchant Address : Address
+}
+
+enum "MerchantTypeValues" as N223049 {
+  Retailer
+  Hotel
+}
+
+' Relationships
+N223045 <|-- N223020
+N223041 <|-- N223017
+N223017 <|-- N223046
+N223020 "0..1" -- "AllocatedDevice / 0..*" N223046
+N223058 "0..1" -- "0..*" N223046
+@enduml

@@ -1,0 +1,196 @@
+@startuml
+title Collateral Asset Administration - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Collateral Asset Administration
+' Source image: collateral-asset-administration-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_43410.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Collateral Asset Arrangement" as N223341 {
+  + Collateral Pledged Date : Date
+  + Collateral Type : CollateralTypeValues
+  + Collateral Value Pledged : Amount
+  + Collateral Amount : Amount
+  + Collateral Balance : AccountBalance
+  + Collateral Purpose : CollateralPurposeTypeValues
+}
+
+class "Collateral Asset" as N223447 {
+  + Collateral Asset Identification : Identifier
+  + Collateral Asset Type : CollateralTypeValues
+  + Collateral Asset Status : CollateralAssetStatusTypeValues
+}
+
+class "Object" as N223429 {
+  + Object Properties : String
+  + Object Description : String
+}
+
+class "Asset" as N223323 {
+  + Asset Title : Text
+  + Asset Identification : Identifier
+  + Asset Type : AssetTypeValues
+  + Asset Date : DateTime
+  + Asset Classification : Text
+  + Asset Classification Type : AssetClassificationTypeValues
+  + Asset Sub Classification Type : AssetSubClassificationTypeValues
+  + Asset Sub Classification : Text
+}
+
+class "Location" as N223378 {
+}
+
+class "Object Location Relationship" as N223385 {
+}
+
+class "Location Type" as N223469 {
+}
+
+class "Object Location Class" as N223425 {
+}
+
+class "Jurisdiction Area Class" as N223356 {
+}
+
+class "Document" as N223350 {
+}
+
+class "Party Role" as N223455 {
+}
+
+class "Party Role Type" as N223458 {
+}
+
+class "Object Party Role Class" as N223439 {
+}
+
+class "Objec Involvement Legal Type" as N223404 {
+}
+
+class "Object Owner Class" as N223465 {
+}
+
+class "Custodian Class" as N223460 {
+}
+
+class "Insurer Class" as N223319 {
+}
+
+class "Collateral Agreement" as N223324 {
+  + Collateral Agreement Identifier : Identifier
+  + Collateral Agreement Registration Reference : Text
+}
+
+class "Insurance Agreement" as N223474 {
+  + Insurance Agreement Type : InsuranceProductTypeValues
+}
+
+class "Object Insurance Arrangement" as N223372 {
+}
+
+class "Insured Object" as N223466 {
+}
+
+class "Asset Valuation" as N223314 {
+  + Asset Value : Value
+  + Asset Value Type : Text
+  + Asset Valuation Type : Text
+  + Asset Valuation Date : DateTime
+  + Asset Valuation Rate : Rate
+  + Asset Valuation Status : Status
+  + Asset Valuation Validity Period : DateTimePeriod
+  + Asse Valuation Amount : Amount
+}
+
+class "Object Maintenance" as N223375 {
+  + Maintenance Identifier : String
+  + Maintenance Record : String
+  + Maintenance Type : String
+  + Maintenance Service Reference : String
+}
+
+class "Maintenance Schedule Arrangement" as N223347 {
+  + Maintenance Schedule : String
+}
+
+class "Valuation Schedule Arrangement" as N223415 {
+  + Valuation Schedule : String
+}
+
+class "Administrative Plan" as N223311 {
+}
+
+class "Collateral Asset Administrative Plan" as N223355 {
+}
+
+enum "CollateralTypeValues" as N223453 {
+  LetterOfCredit
+  Cash
+  Securities
+  PhysicalEntities
+  Insurance
+  StockCertificate
+  Bond
+  BankGuarantee
+  Other
+  Commodity
+  Automobile
+  IndustrialVehicle
+  CommercialTruck
+  RailVehicle
+  NauticalCommercialVehicle
+  NauticalLeisureVehicle
+  Aeroplane
+  MachineTool
+  IndustrialEquipment
+  OfficeEquipment
+  ITEquipment
+  MedicalEquipment
+  EnergyRelatedEquipment
+  CommercialBuilding
+}
+
+enum "CollateralAssetStatusTypeValues" as N223386 {
+  Offered
+  Under assessment
+  Transferred
+  Allocated
+  Free for allocation
+  Allocated to another loan
+  Issued for execution
+}
+
+' Relationships
+N223447 -- "1" N223341 : 0..*
+N223429 "0..1" -- "0..*" N223447
+N223323 "0..*" -- "0..1" N223429
+N223378 "0..1" -- "0..*" N223385
+N223429 "0..1" -- "0..*" N223385
+N223469 -- "0..*" N223378 : 0..*
+N223469 <|-- N223425
+N223469 <|-- N223356
+N223350 "0..*" -- "0..*" N223341
+N223458 -- "1 / 0..*" N223455
+N223429 "0..1" -- "0..*" N223455
+N223458 <|-- N223439
+N223439 <|-- N223404
+N223404 <|-- N223465
+N223404 <|-- N223319
+N223404 <|-- N223460
+N223350 "0..*" -- "0..*" N223429
+N223350 "0..*" -- "0..*" N223455
+N223350 "0..*" -- "0..*" N223323
+N223474 "1" -- "0..*" N223372
+N223324 "1" -- "0..*" N223341
+N223372 "0..1" -- N223466 : 0..1
+N223429 "0..1" -- "0..*" N223466
+N223415 "0..1" -- "0..*" N223314
+N223347 "0..1" -- "0..1" N223375
+N223324 -- "0..1" N223347 : 0..1
+N223324 "0..1" -- "0..1" N223415
+N223311 <|-- N223355
+N223355 "0..1" -- "0..*" N223324
+@enduml

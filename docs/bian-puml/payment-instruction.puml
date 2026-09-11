@@ -1,0 +1,175 @@
+@startuml
+title Payment Instruction - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Payment Instruction
+' Source image: payment-instruction-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51821.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Payment Instruction Procedure" as N221308 {
+  + Payment Instruction Procedure Workstep : Workstep[1..*]
+  + Payment Instruction Procedure Workstep Type : PaymentInstructionProcedureWorkstepTypeValues[1..*]
+}
+
+class "Payment Instruction" as N221302 {
+  + Payment Instruction Direction Type : Text
+  + Payment Instruction Type : PaymentTypeValues
+  + Payment Instruction Requested Mechanism : Text
+  + Payment Instruction Processing Validity Time : DateTimePeriod
+  + Payment Instruction Priority : PriorityValueTypes
+  + Payment Instruction Clearing Channel : ClearingChannelTypeValues
+  + Payment Instruction Credit Debit Indicator : DebitCreditIndicatortValues
+  + Payment Instruction Status : PaymentInstructionStatus
+  + Payment Instruction Amount and Currency : PaymentAmountAndCurrency[1..*]
+  + Payment Instruction Date and Time : PaymentDateTime[1..*]
+  + Payment Instruction Identification : PaymentIdentification
+  + Payment Instruction Method : PaymentMethodTypeValues
+  + Payment Instruction Description : Text
+}
+
+class "Procedure" as N221305 {
+}
+
+enum "PaymentInvolvementTypeValues" as N221434 {
+  Payer or Debtor
+  Payee Bank or Creditor Agent
+  Payee or Creditor
+  Payer Bank or Debtor Agent
+  Initiator
+  PSU
+  PSP
+  Ultimate Debtor
+  Ultimate Creditor
+}
+
+enum "PaymentDateTimeTypeValues" as N221375 {
+  Requested Execution Date
+  Acceptance Date
+  Creation Date
+  Value Date
+  Due Date
+  Expiry Date
+  Expected Date
+  Pooling Adjustment Date
+}
+
+class "Payment Instruction Involvement" as N221392 {
+  + Payment Instruction Involvement Type : PaymentInvolvementTypeValues
+}
+
+class "Party" as N221386 {
+}
+
+class "Instruction" as N221379 {
+}
+
+class "Payment Arrangement" as N221427 {
+}
+
+class "Arrangement" as N221432 {
+}
+
+enum "PaymentInstructionProcedureWorkstepTypeValues" as N221476 {
+  Compliance Check
+  Agreement Confirmation
+}
+
+enum "PaymentTypeValues" as N221414 {
+  CashTransaction
+  DomesticPayment
+  DomesticHighValuePayment
+  DomesticPriorityPayment
+  CrossBorderPayment
+  CrossBorderPriorityPayment
+  CrossBorderHighValuePayment
+  ThirdCurrencyPayment
+  ThirdCurrencyHighValuePayment
+  ThirdCurrencyPriorityPayment
+  TradeSettlementPayment
+  ForeignExchange
+  EquivalentAmount
+  Loan
+  LoanRepayment
+  Securities
+  LockBox
+  Dividend
+  CrossedCheque
+  OpenCheque
+  OrderCheque
+  CircularCheque
+  TravellersCheques
+  BankDraft
+  DocumentaryCredit
+  BillOfExchange
+  Collection
+  CashManagementTransfer
+  TopAccount
+  ZeroBalanceAccount
+  StandingFacilities
+  StandardServiceLevelCredit
+  LiquidityTransfer
+  AdvancePayment
+  ValueDateAdjustment
+  DVPGross
+  DVPNet
+  Netting
+  LimitPayment
+  BackUp
+  ExpressPayment
+  CentralBankOperation
+  CLSPayment
+  EuroDomesticPayment
+  AgriculturalTransfer
+  AlimonyPayment
+  BalanceRetail
+  BonusPayment.
+  BrokerageFee
+  CapitalBuilding
+  CharityPayment
+  ChildBenefit
+  CommercialCredit
+  Commission
+  CommodityTransfer
+  Costs
+  Copyright
+  GovernmentPayment
+  InstalmentHirePurchaseAgreement
+  InsurancePremium
+  IntraCompanyPayment
+  Interest
+  LicenseFee
+  Metals
+  PensionPayment
+  PurchaseSaleOfGoods
+  Refund
+  Rent
+  Royalties
+  PurchaseSaleOfServices
+  SalaryPayment
+  SocialSecurityBenefit
+  StandingOrder
+  Subscription
+  TreasuryStatePayment
+  UnemploymentDisabilityBenefit
+  ValueAddedTaxPayment
+  TaxPayment
+  OvernightDeposit
+  MarginalLending
+  Other
+  Upfront
+  UnWind
+  PrincipalExchange
+}
+
+' Relationships
+N221302 "0..1" -- "0..*" N221308
+N221305 <|-- N221308
+N221302 "0..1" -- "0..*" N221392
+N221427 "0..1" -- "0..*" N221302
+N221379 <|-- N221302
+N221432 <|-- N221427
+N221392 "0..*" -- "0..1" N221386
+@enduml

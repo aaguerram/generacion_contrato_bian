@@ -1,0 +1,60 @@
+@startuml
+title Sub Custodian Agreement - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Sub Custodian Agreement
+' Source image: sub-custodian-agreement-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52197.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Sub Custodian Agreement" as N214186 {
+  + Sub Custodian Term and Condition : Condition[1..*]
+  + Sub Custodian Term and Condition Type : TermAndConditionTypeValues
+}
+
+class "Sub Custodian Agreement Involvement" as N214205 {
+  + Sub Custodian Agreement Involvement Type : SubCustodianAgreementInvolvementTypeValues
+}
+
+enum "SubCustodianAgreementInvolvementTypeValues" as N214196 {
+  Custodian
+  Sub-custodian
+}
+
+class "Custodial Agreement" as N214193 {
+}
+
+enum "TermAndConditionTypeValues" as N214164 {
+  Commission Term and Condition
+  Legal Term and Condition
+  Regulatory Term and Condition
+  Policy Term and Condition
+  Restriction Term and Condition
+  Preference Term and Condition
+  Investment Term and Condition
+  Mandate Term and Condition
+  Operational Term and Condition
+  Product Term and Condition
+  Agreement Term and Condition
+  Relationship Term and Condition
+  Confidential Term and Condition
+}
+
+class "Agreement" as N214189 {
+}
+
+class "Party Role" as N214166 {
+}
+
+class "Party" as N214179 {
+}
+
+' Relationships
+N214193 "0..1" -- "0..*" N214186
+N214186 "0..1" -- "0..*" N214205
+N214189 <|-- N214186
+N214166 <|-- N214205
+N214179 "1" -- N214166 : 0..*
+@enduml

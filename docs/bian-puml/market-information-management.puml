@@ -1,0 +1,79 @@
+@startuml
+title Market Information Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Market Information Management
+' Source image: market-information-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_46358.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Financial Market" as N188012 {
+}
+
+class "Financial Market Information Service" as N187993 {
+}
+
+class "Information Service" as N188048 {
+  + Information Service Mode : String
+  + Information Service Content : String
+  + Information Service Type : String
+  + Information Service Description : String
+  + Information Service Date Time : String
+}
+
+class "Administrative Plan" as N187996 {
+}
+
+class "Routine" as N188021 {
+  + Routine Type : Text
+  + Routine Definition : Text
+  + Routine Data Time : DateTime
+  + Routine Status : Status
+}
+
+class "Financial Market Information Service Administrative Plan" as N188017 {
+}
+
+class "System Service" as N188056 {
+}
+
+class "Agreement" as N188066 {
+}
+
+class "Information Service Report" as N188064 {
+}
+
+class "Report" as N188046 {
+  + Report Type : ReportTypeValues
+  + Report Validity Period : DateTimePeriod
+  + Report Version : Number
+  + Report Date Time : DateTime
+  + Report Format : Text
+}
+
+class "Party Role" as N188031 {
+}
+
+class "Information Service Involvement" as N188006 {
+}
+
+class "Party" as N188011 {
+}
+
+' Relationships
+N188012 "0..1" -- "0..*" N187993
+N188048 <|-- N187993
+N187996 "0..1 / 0..*" -- N188021
+N187996 <|-- N188017
+N187993 "0..*" -- "0..*" N188017
+N188056 <|-- N188048
+N188066 "InformationService / Agreement / 0..*" -- "0..*" N188048
+N188064 "0..*" -- "0..1" N188048
+N188046 "0..*" -- "Consolidated / Report / 0..1" N188046
+N188046 <|-- N188064
+N188048 "0..1" -- N188006 : 0..*
+N188031 <|-- N188006
+N188011 "1" -- N188031 : 0..*
+@enduml

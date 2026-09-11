@@ -1,0 +1,109 @@
+@startuml
+title Correspondence - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Correspondence
+' Source image: correspondence-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_38944.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Correspondence" as N191841 {
+  + Correspondence Type : CorrespondenceTypeValues
+  + Correspondence Address : Address
+  + Correspondence Date Time : DateTime
+  + Correspondence Content : Text
+  + Correspondence Template : Text
+  + Correspondence Communication Method : CorrespondenceCommunicationMethodTypeValues
+  + Correspondence Address Type : AddressTypeValues
+  + Correspondence Medium : CorrespondenceMediumTypeValues
+}
+
+class "Correspondence Management System" as N191848 {
+}
+
+class "Correspondence Management Session" as N191802 {
+}
+
+class "Session" as N191854 {
+}
+
+class "System" as N191785 {
+}
+
+class "Document" as N191800 {
+}
+
+class "Correspondence Involvement" as N191812 {
+  + Correspondence Involvement Type : CorrespondenceInvolvementTypeValues
+  + Correspondence Reference : Correspondence
+  + Party Reference : Party
+}
+
+class "Communication Channel" as N191809 {
+}
+
+class "Channel Access Arrangement" as N191853 {
+}
+
+class "Channel" as N191864 {
+}
+
+class "Access Arrangement" as N191863 {
+}
+
+enum "CorrespondenceInvolvementTypeValues" as N191862 {
+  Party is Sender of Correspondence
+  Party is Receiver of Correspondence
+}
+
+class "Party" as N191877 {
+}
+
+class "Function" as N191876 {
+}
+
+class "Correspondence Management Function" as N191830 {
+  + Correspondence Management Function Date Time : String
+}
+
+enum "CorrespondenceCommunicationMethodTypeValues" as N191788 {
+  Fax
+  Email
+  Proprietary
+  Online
+  Phone
+  PostalService
+  File
+}
+
+enum "CorrespondenceMediumTypeValues" as N191791 {
+  Paper
+  Electronic
+  PaperElectronic
+  Biometric
+}
+
+enum "CorrespondenceTypeValues" as N191850 {
+  Unsolicited Message
+  Complaint
+  Enumeration literal
+}
+
+' Relationships
+N191848 "SystemInSession" -- "0..*" N191802 : OperatingSession
+N191785 <|-- N191848
+N191854 <|-- N191802
+N191841 "Managed / Correspondence / 0..*" -- "0..1" N191848
+N191841 "0..*" -- "0..*" N191800
+N191809 "0..*" -- "0..*" N191841 : Used / Channel
+N191853 "0..*" -- "0..1" N191864
+N191864 <|-- N191809
+N191863 <|-- N191853
+N191812 "0..*" -- "0..1" N191841
+N191876 "Operational / Function / 0..*" -- "0..1" N191854
+N191876 <|-- N191830
+N191802 "0..1" -- "0..*" N191830
+N191877 "0..1" -- "0..*" N191812
+@enduml

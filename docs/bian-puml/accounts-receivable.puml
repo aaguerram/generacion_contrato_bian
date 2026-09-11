@@ -1,0 +1,95 @@
+@startuml
+title Accounts Receivable - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Accounts Receivable
+' Source image: accounts-receivable-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52690.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Accounts Receivable" as N216613 {
+}
+
+class "Accounts Receivable Procedure" as N216736 {
+}
+
+class "Procedure" as N216619 {
+  + Procedure Type : ProcedureTypeValues
+  + Procedure Date Time : DateTime
+  + Procedure Request : Instruction
+  + Procedure Schedule : Schedule
+  + Procedure Status : Status
+}
+
+class "Workstep" as N216650 {
+  + Workstep Result : Text
+  + Workstep Type : WorkstepTypeValues
+  + Workstep Description : Text
+  + Workstep Date Time : DateTime
+  + Workstep Status : Status
+  + Workstep WorkProduct : WorkProduct
+}
+
+class "Customer Relationship" as N216660 {
+}
+
+class "Customer Agreement" as N216707 {
+}
+
+class "Accounts Receivable Procedure Workstep" as N216625 {
+  + Accounts Receivable Procedure Workstep Type : String
+}
+
+enum "AccountsReceivableProcedureWorkstepTypeValues" as N216695 {
+  Receivables Evaluation
+  Customer Negotiation
+  Payment
+  Resolution
+}
+
+class "Invoice" as N216694 {
+}
+
+class "Payment Transaction" as N216616 {
+}
+
+class "Account" as N216717 {
+}
+
+class "Customer Account" as N216741 {
+}
+
+class "Account Entry" as N216726 {
+}
+
+class "Account Recovery Case" as N216622 {
+}
+
+class "Account Recovery Case Resolution" as N216641 {
+}
+
+class "Customer Contact" as N216610 {
+}
+
+' Relationships
+N216736 "0..1" -- "0..*" N216613
+N216619 -- "0..*" N216650
+N216619 <|-- N216736
+N216660 "1" -- N216707 : 1
+N216736 "0..1" -- "0..*" N216625
+N216660 "0..1" -- "0..*" N216694
+N216616 "0..*" -- "0..1" N216694
+N216694 "0..*" -- "0..1" N216717
+N216717 "Payer / Account / 0..1" -- "0..*" N216616
+N216616 "0..*" -- "Payee / Account / 0..1" N216717
+N216717 "LinkedAccount / 0..*" -- "0..1" N216717
+N216717 "1" -- "0..*" N216726
+N216717 "Underlying / Account / 0..1" -- "0..*" N216622
+N216622 -- "0..*" N216641 : 0..1
+N216717 <|-- N216741
+N216613 "Collective / Account / 0..1" -- "Account / Receivable / 0..*" N216741
+N216717 <|-- N216613
+N216610 "0..*" -- "1" N216660
+@enduml

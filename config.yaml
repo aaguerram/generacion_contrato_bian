@@ -1,0 +1,160 @@
+version: "1.0"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  Toda la configuración movible del proyecto.
+#  El .env SOLO lleva API keys (una por proveedor). Aquí van modelos, orden,
+#  umbrales y rutas.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── Orden de failover ────────────────────────────────────────────────────────
+#  Se intenta el 1er proveedor con TODOS sus modelos en orden; si ninguno tiene
+#  cuota (429 / sin créditos / no disponible), se pasa al siguiente proveedor y
+#  se recorren sus modelos. Es un reintento hasta agotar todo.
+#
+#  Groq va primero: inferencia LPU muy rápida (0.7-2.5s), free tier generoso y modelos
+#  fuertes (gpt-oss). Luego Gemini, luego Hugging Face (modelos fuertes pero crédito
+#  mensual free muy pequeño) y OpenRouter (free lento) como último recurso.
+routing:
+  llm_priority: [groq, gemini, huggingface, openrouter]
+  # Embeddings SOLO para validar_sd.rag_estrategia: vectorial. Orden = precisión de retrieval.
+  # Cohere primero (mejores modelos multilingües free-tier); Gemini y OpenRouter de respaldo.
+  embedding_priority: [cohere, gemini, openrouter]
+
+# ── Proveedores ─────────────────────────────────────────────────────────────
+providers:
+  groq:
+    enabled: true
+    api_key_env: GROQ_API_KEY
+    base_url: https://api.groq.com/openai/v1
+    structured_method: json_schema
+    llm:
+      models:
+        - openai/gpt-oss-120b               # ~nivel gemini-3.8-flash, ~2.5s, structured OK
+        - openai/gpt-oss-20b                # más rápido (~0.7s), algo menos calibrado
+    # NOTA: el free tier de Groq limita ~15k tokens/min. `validar-sd` (prompts pequeños)
+    # sí usa Groq; `mapear-historias` (catálogo BIAN ~26k tokens) recibe 413 y el failover
+    # pasa al siguiente proveedor. Groq no publica endpoint de embeddings.
+
+  huggingface:
+    enabled: true
+    api_key_env: HF_TOKEN
+    base_url: https://router.huggingface.co/v1
+    structured_method: json_schema
+    llm:
+      models:
+        - deepseek-ai/DeepSeek-V4-Flash             # flash frontier, ~3s, structured OK
+        - openai/gpt-oss-120b                       # ~0.5s, mejor calibrado
+        - meta-llama/Llama-3.3-70B-Instruct         # sólido de respaldo, ~2s
+    # NOTA: el free tier de HF Inference es un crédito mensual pequeño (~$0.10). Cuando se
+    # agota devuelve 402/"exceeded credits" y el failover pasa a OpenRouter.
+
+  openrouter:
+    enabled: true
+    api_key_env: OPENROUTER_API_KEY
+    base_url: https://openrouter.ai/api/v1
+    structured_method: json_schema          # cómo pedir salida estructurada
+    llm:
+      models:
+        - nvidia/nemotron-3-super-120b-a12b:free
+        - nvidia/nemotron-3.5-lightning:free
+        - google/gemma-4-31b-it:free
+        - openrouter/free                    # auto-router de modelos free (último recurso)
+    embedding:
+      models:
+        - openai/text-embedding-3-small
+
+  gemini:
+    enabled: true
+    api_key_env: GOOGLE_API_KEY
+    llm:
+      models:
+        - gemini-3.6-flash                   # free tier 20 req/día
+        - gemini-3.5-flash
+        - gemini-3.5-flash-lite
+    embedding:
+      models:
+        - models/gemini-embedding-001
+
+  # ── Cohere: SOLO embeddings (retrieval multilingüe ES↔EN) ──────────────────
+  #  Token free-tier / "trial key": acceso a TODOS los modelos de embed, límite de
+  #  RATIO (~100 req/min · 1000 req/mes), no de modelo. `input_type` lo pone Cohere solo.
+  #  Lista ordenada por PRECISIÓN de retrieval (el 1º es el que más rinde; los demás son
+  #  el failover en cascada). Corpus = 341 Service Domains BIAN (texto en inglés);
+  #  las consultas pueden venir en español -> pesan los modelos multilingües.
+  cohere:
+    enabled: true
+    api_key_env: COHERE_API_KEY
+    embedding:
+      models:
+        - embed-v4.0                     # 1 · flagship 2025 · multilingüe 100+ idiomas · 128k ctx · mejor MTEB (dim 1536)
+        - embed-multilingual-v3.0        # 2 · 1024d · multilingüe probado · query ES vs corpus EN
+        - embed-english-v3.0             # 3 · 1024d · top retrieval EN puro (el corpus BIAN es inglés)
+        - embed-multilingual-light-v3.0  # 4 · 384d · multilingüe, rápido y barato · respaldo
+        - embed-english-light-v3.0       # 5 · 384d · EN, mínimo · último recurso
+
+  anthropic:
+    enabled: false
+    api_key_env: ANTHROPIC_API_KEY
+    llm:
+      models:
+        - claude-sonnet-5
+
+  openai:
+    enabled: false
+    api_key_env: OPENAI_API_KEY
+    llm:
+      models:
+        - gpt-4o-mini
+    embedding:
+      models:
+        - text-embedding-3-small
+
+# ── Parámetros LLM comunes ──────────────────────────────────────────────────
+llm:
+  temperature: 0.0
+  seed: 42                       # reproducibilidad del chat (si el SDK lo soporta); null = sin seed
+  esfuerzo: low                  # low | medium | high  (presupuesto de razonamiento)
+  reintentos_transitorios: 4     # reintentos por 503/timeout/overloaded ANTES de pasar al siguiente modelo
+  backoff_inicial_seg: 2.0
+  backoff_max_seg: 30.0
+
+# ── Observabilidad (LangSmith) ─────────────────────────────────────────────
+observabilidad:
+  langsmith_tracing: false
+  langsmith_project: generacion-contrato-ia-v2
+  # langsmith_endpoint: https://api.smith.langchain.com
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  validar-sd   (python -m src --service-domain "<nombre>" --directorio <ruta>)
+# ═══════════════════════════════════════════════════════════════════════════════
+validar_sd:
+  rag_estrategia: lexico         # lexico (rapidfuzz, sin API) | vectorial (embeddings)
+  rag_top_k: 6
+  rag_umbral_alto: 0.90          # similitud_nombre >= alto -> coincide (determinista, 0 API)
+  rag_umbral_bajo: 0.60          # similitud_nombre <  bajo -> no coincide (determinista, 0 API)
+  ruta_sd_json: docs/SD.json
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  mapear-historias   (python -m src mapear-historias --hu <dir> --func <f.json> --dir <out>)
+# ═══════════════════════════════════════════════════════════════════════════════
+mapear_historias:
+  umbral_directo: 0.90           # confianza >= directo  Y  rol=OWNED_CONTRACT -> candidato directo
+  umbral_tentativo: 0.63         # tentativo <= confianza < directo -> tentativo; menos -> descartado
+  # El subgrafo por HU hace fan-out por candidato: 1 llamada LLM aislada por Service Domain a
+  # evaluar (paquete de evidencia oficial cerrado). Llamadas totales por corrida ≈
+  #   HU * (3 + n_candidatos + 2) + 1     (intención+candidatos+completitud + N evaluaciones + adversarial+operaciones + reconciliación)
+  # OJO: concurrencia * concurrencia_candidatos = llamadas LLM simultáneas. Con free tiers
+  # pequeños (p. ej. Gemini 20 req/día) usa --proveedor pinneado o baja max_candidatos_hu.
+  concurrencia: 1               # historias en paralelo (LangGraph max_concurrency, outer)
+  concurrencia_candidatos: 2    # candidatos evaluados en paralelo dentro de una HU (subgrafo)
+  max_candidatos_hu: 14         # tope de Service Domains evaluados por HU (LLM candidatos + missing)
+  paso2_operaciones: true        # paso 6: mapear SD directos -> operaciones oficiales CR/BQ
+  rol_max_chars: 240             # recorte del Service Role al armar el catálogo del prompt
+  top_n_omitidos: 5             # 2º pase léxico: nº de SD "posibles omitidos" a reportar por HU (0 = off)
+  ruta_jerarquia: docs/bian-business-areas.json
+  ruta_operaciones: docs/bian-operation-catalogs.json
+  ruta_cache_bian: docs/bian-cache        # cache-first del OpenAPI oficial (CR + BQ + schemas con cuerpo)
+  ruta_bian_puml: docs/bian-puml          # 272 diagramas BOM UML BIAN R14 (clases/atributos/asociaciones)
+  bom_puml_habilitado: true               # suma el modelo de clases del PUML al paquete de evidencia
+  release_bian: "14.0.0"
+  descargar_faltantes: true

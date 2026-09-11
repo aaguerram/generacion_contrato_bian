@@ -1,0 +1,299 @@
+@startuml
+title Investment Account - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Investment Account
+' Source image: investment-account-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_33027.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Investment Account" as N192980 {
+  + Investment Account Type : InvestmentAccountTypeValues
+  + Ownership Type : OwnershipTypeValues
+  + Designation : Text
+  + Reference Currency : CurrencyCode
+  + Usufruct Percentage : Rate
+  + Ownership Percentage : Rate
+  + Account Usage Type : AccountUsageTypeValues
+  + Category : InvestmentAccountCategoryTypeValues
+}
+
+class "Account" as N193322 {
+}
+
+class "Investment Account Product or Service" as N193051 {
+  + Income Preference : IncomePreferenceTypeValues
+  + Tax Withholding Method : TaxWithholdingMethodTypeValues
+  + Beneficiary Certification Completion : BeneficiaryCertificationCompletionTypeValues
+}
+
+class "Investment Account Agreement" as N193236 {
+}
+
+class "Investment Account Arrangement" as N193054 {
+}
+
+class "Fee Arrangement" as N193208 {
+}
+
+class "Corporate Action Arrangement" as N193250 {
+}
+
+class "Investment Account Agreement Involvement" as N193331 {
+  + Investment Account Agreement Involvement Type : InvestmentAccountAgreementInvolvementTypeValues
+}
+
+enum "InvestmentAccountAgreementInvolvementTypeValues" as N193145 {
+  Investor
+  Corporate Investor
+  Individual Investor
+  Primary Owner
+  Secondary Owner
+}
+
+class "Party" as N193260 {
+}
+
+class "Cash Service Arrangement" as N193247 {
+}
+
+class "Non Cash Service Arrangement" as N192998 {
+}
+
+class "Cash Account" as N193347 {
+}
+
+class "Investment Portfolio" as N193313 {
+}
+
+class "Investment Portfolio Item" as N193006 {
+  + Investment Portfolio Item Amount : Amount
+}
+
+class "Financial Instrument" as N193275 {
+  + Financial Instrument Type : FinancialInstrumentTypeValues
+  + Financial Instrument Identification : FinancialInstrumentIdentification[1..*]
+  + Financial Instrument Date : FinancialInstrumentDateTime
+}
+
+class "Financial Market" as N193242 {
+}
+
+class "Deposit Service Arrangement" as N193013 {
+}
+
+enum "DepositTypeValues" as N193222 {
+  Cash Deposit
+  Security Deposit
+  Pawn Deposit
+  Call/Notice Deposit
+  Fixed Term Deposit
+  Demand Deposit
+  Time Deposit
+  Card Deposit
+}
+
+class "Withdrawal Service Arrangement" as N193004 {
+}
+
+enum "WithdrawalTypeValues" as N193147 {
+  Cash Withdrawal
+  Security Withdrawal
+}
+
+class "Financial Instrument Position" as N193143 {
+  + Position Type : FinancialInstrumentPositionValueType
+}
+
+class "Position" as N193308 {
+}
+
+class "Non Cash Account" as N193321 {
+}
+
+class "Limit Arrangement" as N193350 {
+}
+
+enum "FinancialInstrumentPositionValueType" as N193339 {
+  Market Value
+  Book Value
+  Cap Value
+}
+
+class "Product" as N193158 {
+}
+
+class "Product Feature" as N193272 {
+}
+
+class "Product Agreement" as N193071 {
+}
+
+class "Product Arrangement" as N193190 {
+}
+
+class "Arrangement" as N193122 {
+}
+
+class "Security" as N193025 {
+  + Security Amount : Amount
+  + Security Price : Arrangement
+  + Security Identification : SecurityIdentification
+  + Security Balance : AccountBalance
+  + Security Status : SecurityStatus
+  + Security Fees : Fee Arrangement
+  + Security Date : Date Time
+  + Security Rate : Rate
+  + Security Tax : Tax Arrangement
+  + Security Jurisdiction : Jurisdiction
+}
+
+class "Securities Account" as N193279 {
+  + Securities Account Type : SecuritiesAccountTypeValues
+  + Securities Account Identification : Identifier
+  + Securities Account Name : Name
+  + Securities Account Balance : AccountBalance
+}
+
+class "Investment Account Involvement" as N193251 {
+  + Investment Account Involvement Type : InvestmentAccountInvlvementTypeValues
+}
+
+class "Party" as N193332 {
+}
+
+enum "InvestmentAccountInvlvementTypeValues" as N193366 {
+  Administrator Role
+  Trustee Role
+  Joint Owner
+  Individual Investor
+  Investor
+  Successor on Death
+  Primary Owner
+  Legal Guardian Role
+  Corporate Investor
+  Secondary Owner
+  Nominee
+  Custodian For Minor
+}
+
+enum "InvestmentAccountTypeValues" as N193068 {
+  Cash Account
+  Pension Fund Ordinary
+  Pension Fund Special
+  Retirement Scheme
+  Other
+  Hedge Fund
+  Workplace Pension Schema
+  Private Pension Scheme
+  CSD Participant Account
+  CSD Mirror Account
+  Inter CSD Account
+  Technical Offset Account
+  CSDOmnibus Account
+}
+
+enum "OwnershipTypeValues" as N193095 {
+  Joint Account With Survivorship Rights
+  Joint AccountIn Common
+  Custodial Account
+  Single Owner Account
+  Joint Account
+  Corporation
+  Formal Partnership
+  Formal Trust
+  Nominee
+  Non Profit Organisation
+  Other Non Individual
+  EU Residual Entity
+  Government Organisation
+  Limited Liability Company
+  Registered Investment Company
+  Entrepreneurial
+  Unincorporated
+  Limited Partnership
+  Bare Owner
+  Owner
+  Usufructuary
+}
+
+enum "AccountUsageTypeValues" as N193138 {
+  Investor
+  Settlement Participant
+  Trading Participant
+  Issuing Participant
+}
+
+enum "InvestmentAccountCategoryTypeValues" as N193357 {
+  Retail Account
+  Mandate Account
+}
+
+enum "IncomePreferenceTypeValues" as N193165 {
+  Cash
+  Dividend Reinvestment
+  Securities
+}
+
+enum "TaxWithholdingMethodTypeValues" as N192993 {
+  Withhold Tax
+  Report Tax
+  Tax Certificate
+  Withhold Tax And Report
+  Withholding Corporate Tax
+  Exempt
+  Accountant
+  Investment Company
+  Minority Interest Tax
+}
+
+enum "BeneficiaryCertificationCompletionTypeValues" as N193343 {
+  Certification Not Required
+  Electronic Certification
+  Physical Certification
+}
+
+' Relationships
+N193322 <|-- N192980
+N193051 "0..1" -- "0..*" N193236
+N193236 "0..1" -- "1..*" N193054
+N192980 "0..1" -- "0..1" N193236
+N193054 <|-- N193247
+N193054 <|-- N192998
+N193347 "0..1" -- "0..*" N193247
+N193331 "2..*" -- "0..1" N193236
+N193322 <|-- N193347
+N193313 "0..1" -- "Underlying / Account / 0..1" N192980
+N193313 "0..*" -- "0..*" N193236
+N193313 "0..1" -- "0..*" N193006
+N193006 "0..*" -- "1" N193275
+N193275 "0..*" -- "RelatedMarket / 0..*" N193242
+N193247 <|-- N193208
+N193143 "0..*" -- N192980
+N193143 "0..*" -- "0..1" N193006
+N193321 "0..1" -- "0..1" N192998
+N192980 -- N193347
+N192980 -- N193321
+N193054 <|-- N193350
+N193143 -- N193308
+N193260 "0..1" -- "0..*" N193331
+N192998 <|-- N193004
+N192998 <|-- N193013
+N192998 <|-- N193250
+N193158 -- N193272
+N193158 "1" -- "Sold / Product / 0..*" N193071
+N193272 "1" -- "NegotiatedFeature / 0..*" N193190
+N193071 "1" -- "1..*" N193190
+N193190 <|-- N193236
+N193158 <|-- N193051
+N193122 <|-- N193054
+N193275 <|-- N193025
+N192980 "0..1" -- "0..1" N193279
+N193322 <|-- N193279
+N193322 <|-- N193321
+N192980 "0..1" -- N193251 : 0..*
+N193332 "0..1" -- "0..*" N193251
+N193025 "0..1" -- "0..1" N193279
+@enduml

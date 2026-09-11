@@ -1,0 +1,135 @@
+@startuml
+title Funeral Policy - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Funeral Policy
+' Source image: funeral-policy-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51950.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Product" as N215837 {
+}
+
+class "Payment Arrangement" as N215797 {
+}
+
+class "Arrangement" as N215671 {
+}
+
+enum "InsuranceArrangementTypeValues" as N215729 {
+  Premium Arrangement
+  Coverage Arrangement
+  Exclusion Arrangement
+  Claim Arrangement
+  Termination Arrangement
+  Renewal Arrangement
+  Benefit Arrangement
+  Legal & Regulatory Arrangement
+  Payment Arrangement
+  Service Arrangement
+}
+
+class "Product Agreement" as N215726 {
+}
+
+class "Claim Arrangement" as N215740 {
+  + Claim Arrangement Identification : Identifier
+  + Covered Claim Type : Text
+  + Claim Event Typ : Text
+  + Claim Waiting Period : Duration
+}
+
+class "Funeral Policy Product" as N215819 {
+  + Funeral Policy Product Type : FuneralPolicyProductTypeValues
+}
+
+enum "FuneralPolicyProductTypeValues" as N215788 {
+  Individual Funeral Policy
+  Family Funeral Policy
+  Extended Family Funeral Policy
+  Group Funeral Policy
+  Assistance / Service-Based Policy
+  Cash Benefit (Lump Sum) Policy
+  Employer Funeral Benefit Policy
+  Micro Funeral Policy
+}
+
+class "Funeral Policy Agreement" as N215657 {
+  + Policy Number : Identifier
+  + Coverage Type : Text
+  + Policy Term : Duration
+  + Policy Status : AgreementStatus
+}
+
+class "Party" as N215803 {
+}
+
+enum "InsuranceInvolvementTypeValues" as N215718 {
+  Insurer (Insurance Company)
+  Policyholder
+  Insured Life or Person
+  Beneficiary
+  Intermediary / Broker / Agent
+  Regulator or Authority
+  Claims Assessor or Officer or Adjuster
+  Claimant
+  Claims Processor or Claims Administrator
+  Claim Approver
+  Underwriter
+}
+
+class "Insurance Agreement Involvement" as N215821 {
+  + Insurance Agreement Involvement : InsuranceInvolvementTypeValues
+}
+
+class "Funeral Policy Arrangement" as N215708 {
+  + Funeral Policy Arrangement Type : InsuranceArrangementTypeValues
+}
+
+class "Funeral Policy Instruction" as N215742 {
+}
+
+class "Instruction" as N215697 {
+}
+
+class "Funeral Policy Transaction" as N215760 {
+}
+
+class "Transaction" as N215832 {
+}
+
+class "Account Entry" as N215759 {
+}
+
+class "Account" as N215734 {
+}
+
+class "Service Arrangement" as N215824 {
+}
+
+class "Billing Arrangement" as N215660 {
+}
+
+' Relationships
+N215837 <|-- N215819
+N215726 <|-- N215657
+N215819 "1" -- "Sold / Product / 0..*" N215657
+N215803 "0..1" -- "0..*" N215821
+N215657 "0..1" -- "Involved / PartyRole / 2..*" N215821
+N215657 "1" -- "1..*" N215708
+N215671 <|-- N215708
+N215708 "0..1" -- "0..*" N215742
+N215697 <|-- N215742
+N215742 "1" -- "0..*" N215760
+N215708 <|-- N215797
+N215708 <|-- N215740
+N215832 <|-- N215760
+N215708 "0..*" -- "Arrangement / Account / 0..1" N215734
+N215734 "1" -- "0..*" N215759
+N215760 "0..1" -- "Posting / 0..*" N215759
+N215708 <|-- N215824
+N215708 "0..1" -- "2" N215821
+N215797 <|-- N215660
+@enduml

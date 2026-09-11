@@ -1,0 +1,109 @@
+@startuml
+title Card Transaction Tracking - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Card Transaction Tracking
+' Source image: card-transaction-tracking-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_41288.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Payment Card" as N174955 {
+  + Card Type : PaymentCardTypeValues
+  + Card Number : Number
+  + Card Start Date : DateTime
+  + Card Expiry Date : DateTime
+  + Card Security Code : Number
+  + Card Verification Value : Number
+  + Bank Identification Number : Identifier
+  + Card Sequence Number : Text
+  + Card Brand : Text
+  + Card Currency Code : CurrencyCode
+  + Card Country Code : Country
+  + Card Product Profile : Text
+}
+
+class "Transaction" as N175021 {
+}
+
+class "Device" as N175020 {
+}
+
+class "Payment Transaction" as N174990 {
+}
+
+class "Card Payment Transaction" as N175057 {
+  + Amount : Amount[1..*]
+  + Merchant Location : Location
+  + Debit Credit Direction : DebitCreditIndicatortValues
+  + Card Transaction Channel : TransactionChannelTypeValues
+  + Point Of Interaction : Point Of Service
+  + Card Transaction Date Time : DateTime
+  + Card Transaction Environment Type : TransactionEnvironmentTypeValues
+  + Merchant Country : Country
+  + Card Network : Card Network
+  + Amount Qualifier : AmountQualifierTypeValues
+  + Card Payment Status : Status
+  + Card Transaction Category : CardTransactionCategoryTypeValues
+  + Card Payment Transaction Identification : CardPaymentTransactionIdentification
+  + Card Payment Transaction Service Type : CardPaymentTransactionServiceTypeValues
+}
+
+enum "PaymentCardTypeValues" as N174988 {
+  CreditCard
+  DebitCard
+}
+
+enum "CardPaymentInvolvementTypeValues" as N175009 {
+  Card Holder
+  CardI ssuer
+  Card Acceptor
+  Card Acquirer
+  Merchant
+  Card Network
+}
+
+class "Card Payment Involvement" as N175052 {
+  + Involvement Type : CardPaymentInvolvementTypeValues
+  + Agreement Reference : Card Payment Agreement
+  + Party Reference : Party
+}
+
+class "Party" as N174975 {
+}
+
+class "Log" as N174944 {
+}
+
+class "Payment Card Position Log" as N174941 {
+}
+
+class "Credit Card Position Log Entry" as N174948 {
+}
+
+class "Account Position" as N174984 {
+}
+
+class "Payment Card Position" as N174947 {
+}
+
+class "PaymentCardType" as N175012 <<datatype>> {
+  + Payment Card Type : PartyIdentificationTypeValues
+  + Payment Card Type Name : Name
+}
+
+' Relationships
+N175020 <|-- N174955
+N174955 "1" -- "UsedCard / 0..*" N175057
+N174990 <|-- N175057
+N175021 <|-- N174990
+N175057 "0..1" -- "2..*" N175052
+N174944 <|-- N174941
+N175057 "0..1" -- "0..*" N174948
+N174941 "1" -- "1..*" N174948
+N174941 "0..*" -- "0..1" N174947
+N174984 <|-- N174947
+N174947 "0..*" -- "1" N174955
+N174975 "0..1" -- "0..*" N175052
+@enduml

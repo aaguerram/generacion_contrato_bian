@@ -1,0 +1,1187 @@
+{
+  "service_domain": "Correspondence",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/Correspondence/{correspondenceid}/Request",
+      "tipo": "CR",
+      "grupo": "CorrespondenceOperatingSession",
+      "request_schema": "CorrespondenceOperatingSession",
+      "response_schema": "CorrespondenceOperatingSession",
+      "summary": "RqCR Request manual intervention (e.g. handle lost, wrongly addressed correspondence)",
+      "description": "RqCR Request manual intervention (e.g. handle lost, wrongly addressed correspondence)"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/Correspondence/Initiate",
+      "tipo": "CR",
+      "grupo": "CorrespondenceOperatingSession",
+      "request_schema": "CorrespondenceOperatingSession",
+      "response_schema": "CorrespondenceOperatingSession",
+      "summary": "InCR Initiate the correspondence operational facility",
+      "description": "InCR Initiate the correspondence operational facility"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/Correspondence/{correspondenceid}/Update",
+      "tipo": "CR",
+      "grupo": "CorrespondenceOperatingSession",
+      "request_schema": "CorrespondenceOperatingSession",
+      "response_schema": "CorrespondenceOperatingSession",
+      "summary": "UpCR Update settings and details of the operating session (e.g. change priorities)",
+      "description": "UpCR Update settings and details of the operating session (e.g. change priorities)"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/Correspondence/{correspondenceid}/Control",
+      "tipo": "CR",
+      "grupo": "CorrespondenceOperatingSession",
+      "request_schema": "CorrespondenceOperatingSession",
+      "response_schema": "CorrespondenceOperatingSession",
+      "summary": "CoCR Control the session (e.g. suspend incoming mail)",
+      "description": "CoCR Control the session (e.g. suspend incoming mail)"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/Correspondence/{correspondenceid}/Execute",
+      "tipo": "CR",
+      "grupo": "CorrespondenceOperatingSession",
+      "request_schema": "CorrespondenceOperatingSession",
+      "response_schema": "CorrespondenceOperatingSession",
+      "summary": "ExCR Execute an automated task (e.g. statistical analysis)",
+      "description": "ExCR Execute an automated task (e.g. statistical analysis)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/Correspondence/{correspondenceid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "CorrespondenceOperatingSession",
+      "request_schema": "",
+      "response_schema": "CorrespondenceOperatingSession",
+      "summary": "ReCR Retrieve details about the correspondence session",
+      "description": "ReCR Retrieve details about the correspondence session"
+    },
+    {
+      "operation_id": "RetrieveOutbound",
+      "method": "GET",
+      "path": "/Correspondence/{correspondenceid}/Outbound/{outboundid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Outbound",
+      "request_schema": "",
+      "response_schema": "Outbound",
+      "summary": "ReBQ Retrieve details about an outbound correspondence item",
+      "description": "ReBQ Retrieve details about an outbound correspondence item",
+      "parent_control_record": "CorrespondenceOperatingSession"
+    },
+    {
+      "operation_id": "UpdateOutboundWithResponse",
+      "method": "PUT",
+      "path": "/Correspondence/{correspondenceid}/OutboundWithResponse/{outboundwithresponseid}/Update",
+      "tipo": "BQ",
+      "grupo": "OutboundWithResponse",
+      "request_schema": "OutboundWithResponse",
+      "response_schema": "OutboundWithResponse",
+      "summary": "UpBQ Update details of an outbound correspondence with tracked response",
+      "description": "UpBQ Update details of an outbound correspondence with tracked response",
+      "parent_control_record": "CorrespondenceOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveOutboundWithResponse",
+      "method": "GET",
+      "path": "/Correspondence/{correspondenceid}/OutboundWithResponse/{outboundwithresponseid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "OutboundWithResponse",
+      "request_schema": "",
+      "response_schema": "OutboundWithResponse",
+      "summary": "ReBQ Retrieve details about an outbound correspondence with tracked response",
+      "description": "ReBQ Retrieve details about an outbound correspondence with tracked response",
+      "parent_control_record": "CorrespondenceOperatingSession"
+    },
+    {
+      "operation_id": "UpdateInbound",
+      "method": "PUT",
+      "path": "/Correspondence/{correspondenceid}/Inbound/{inboundid}/Update",
+      "tipo": "BQ",
+      "grupo": "Inbound",
+      "request_schema": "Inbound",
+      "response_schema": "Inbound",
+      "summary": "UpBQ Update details of an inbound correspondence item",
+      "description": "UpBQ Update details of an inbound correspondence item",
+      "parent_control_record": "CorrespondenceOperatingSession"
+    },
+    {
+      "operation_id": "InitiateBlockMailing",
+      "method": "POST",
+      "path": "/Correspondence/{correspondenceid}/BlockMailing/Initiate",
+      "tipo": "BQ",
+      "grupo": "BlockMailing",
+      "request_schema": "BlockMailing",
+      "response_schema": "BlockMailing",
+      "summary": "InBQ Initiate processing an outbound correspondence block",
+      "description": "InBQ Initiate processing an outbound correspondence block",
+      "parent_control_record": "CorrespondenceOperatingSession"
+    },
+    {
+      "operation_id": "InitiateInbound",
+      "method": "POST",
+      "path": "/Correspondence/{correspondenceid}/Inbound/Initiate",
+      "tipo": "BQ",
+      "grupo": "Inbound",
+      "request_schema": "Inbound",
+      "response_schema": "Inbound",
+      "summary": "InBQ Initiate processing of an inbound correspondence item",
+      "description": "InBQ Initiate processing of an inbound correspondence item",
+      "parent_control_record": "CorrespondenceOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveInbound",
+      "method": "GET",
+      "path": "/Correspondence/{correspondenceid}/Inbound/{inboundid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Inbound",
+      "request_schema": "",
+      "response_schema": "Inbound",
+      "summary": "ReBQ Retrieve details about an inbound correspondence item",
+      "description": "ReBQ Retrieve details about an inbound correspondence item",
+      "parent_control_record": "CorrespondenceOperatingSession"
+    },
+    {
+      "operation_id": "InitiateOutboundWithResponse",
+      "method": "POST",
+      "path": "/Correspondence/{correspondenceid}/OutboundWithResponse/Initiate",
+      "tipo": "BQ",
+      "grupo": "OutboundWithResponse",
+      "request_schema": "OutboundWithResponse",
+      "response_schema": "OutboundWithResponse",
+      "summary": "InBQ Initiate processing outbound correspondence with tracked response",
+      "description": "InBQ Initiate processing outbound correspondence with tracked response",
+      "parent_control_record": "CorrespondenceOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveBlockMailing",
+      "method": "GET",
+      "path": "/Correspondence/{correspondenceid}/BlockMailing/{blockmailingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "BlockMailing",
+      "request_schema": "",
+      "response_schema": "BlockMailing",
+      "summary": "ReBQ Retrieve details about an outbound correspondence block",
+      "description": "ReBQ Retrieve details about an outbound correspondence block",
+      "parent_control_record": "CorrespondenceOperatingSession"
+    },
+    {
+      "operation_id": "InitiateOutbound",
+      "method": "POST",
+      "path": "/Correspondence/{correspondenceid}/Outbound/Initiate",
+      "tipo": "BQ",
+      "grupo": "Outbound",
+      "request_schema": "Outbound",
+      "response_schema": "Outbound",
+      "summary": "InBQ Initiate processing an outbound correspondence item",
+      "description": "InBQ Initiate processing an outbound correspondence item",
+      "parent_control_record": "CorrespondenceOperatingSession"
+    },
+    {
+      "operation_id": "UpdateOutbound",
+      "method": "PUT",
+      "path": "/Correspondence/{correspondenceid}/Outbound/{outboundid}/Update",
+      "tipo": "BQ",
+      "grupo": "Outbound",
+      "request_schema": "Outbound",
+      "response_schema": "Outbound",
+      "summary": "UpBQ Update details of an outbound correspondence item",
+      "description": "UpBQ Update details of an outbound correspondence item",
+      "parent_control_record": "CorrespondenceOperatingSession"
+    },
+    {
+      "operation_id": "UpdateBlockMailing",
+      "method": "PUT",
+      "path": "/Correspondence/{correspondenceid}/BlockMailing/{blockmailingid}/Update",
+      "tipo": "BQ",
+      "grupo": "BlockMailing",
+      "request_schema": "BlockMailing",
+      "response_schema": "BlockMailing",
+      "summary": "UpBQ Update details of an outbound correspondence block",
+      "description": "UpBQ Update details of an outbound correspondence block",
+      "parent_control_record": "CorrespondenceOperatingSession"
+    }
+  ],
+  "schemas": [
+    "Address",
+    "Addresstypevalues",
+    "BlockMailing",
+    "BusinessUnit",
+    "Channel",
+    "Channeltypevalues",
+    "CommunicationChannel",
+    "Correspondence",
+    "CorrespondenceOperatingSession",
+    "Correspondencecommunicationmethodtypevalues",
+    "Correspondencemediumtypevalues",
+    "Correspondencetypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Devicetypevalues",
+    "Employee",
+    "HTTPError",
+    "Identifier",
+    "Inbound",
+    "Involvedparty",
+    "Name",
+    "Organisationdatetime",
+    "Organisationdatetimetypevalues",
+    "Organisationidentification",
+    "Organisationidentificationtypevalues",
+    "Organisationlegalstructuretypevalues",
+    "Organisationname",
+    "Organisationnametypevalues",
+    "Organisationtypevalues",
+    "Outbound",
+    "OutboundWithResponse",
+    "Report",
+    "Reporttypevalues",
+    "Schedule",
+    "Status",
+    "Systemidentificationtypevalues",
+    "Systemstatustypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Address",
+      "kind": "object",
+      "description": "The address for message delivery (needs to match channel selection)",
+      "properties": [
+        {
+          "name": "AddressType",
+          "type": "object",
+          "ref": "Addresstypevalues"
+        },
+        {
+          "name": "AddressDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Addresstypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PostalAddress` - \r\n* `GeolocationAddress` - \r\n* `LatitudeAddress` - \r\n* `LongitudeAddress` - \r\n* `ElectronicAddress` - \r\n",
+      "enum_values": [
+        "PostalAddress",
+        "GeolocationAddress",
+        "LatitudeAddress",
+        "LongitudeAddress",
+        "ElectronicAddress"
+      ]
+    },
+    {
+      "name": "BlockMailing",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "BlockmailingRecord",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "BusinessUnit",
+      "kind": "object",
+      "description": "The sending entity within the bank (can be used for responses)",
+      "properties": [
+        {
+          "name": "BusinessFunction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Goal",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationStructureHierarchy",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Organisationidentification"
+        },
+        {
+          "name": "OrganisationSector",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalEntityIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationDate",
+          "type": "object",
+          "ref": "Organisationdatetime"
+        },
+        {
+          "name": "OrganisationType",
+          "type": "object",
+          "ref": "Organisationtypevalues"
+        },
+        {
+          "name": "OrganisationName",
+          "type": "object",
+          "ref": "Organisationname"
+        },
+        {
+          "name": "OrganisationLegalStructure",
+          "type": "object",
+          "ref": "Organisationlegalstructuretypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Channel",
+      "kind": "object",
+      "description": "Identifies the preferred media and channel for delivery of the message",
+      "properties": [
+        {
+          "name": "ChannelType",
+          "type": "object",
+          "ref": "Channeltypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Channeltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommunicationChannel` - \r\n* `AuthenticationChannel` - \r\n",
+      "enum_values": [
+        "CommunicationChannel",
+        "AuthenticationChannel"
+      ]
+    },
+    {
+      "name": "CommunicationChannel",
+      "kind": "object",
+      "description": "???",
+      "properties": [
+        {
+          "name": "ChannelType",
+          "type": "object",
+          "ref": "Channeltypevalues"
+        },
+        {
+          "name": "SystemAccessSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SystemType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SystemIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "SystemIdentificationType",
+          "type": "object",
+          "ref": "Systemidentificationtypevalues"
+        },
+        {
+          "name": "SystemStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SystemStatusType",
+          "type": "object",
+          "ref": "Systemstatustypevalues"
+        },
+        {
+          "name": "SystemDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SystemLanguage",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Correspondence",
+      "kind": "object",
+      "description": "Reference to the inbound correspondence received that has been matched to the outbound message",
+      "properties": [
+        {
+          "name": "CorrespondenceType",
+          "type": "object",
+          "ref": "Correspondencetypevalues"
+        },
+        {
+          "name": "CorrespondenceAddress",
+          "type": "object",
+          "ref": "Address"
+        },
+        {
+          "name": "CorrespondenceDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CorrespondenceContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CorrespondenceTemplate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CorrespondenceCommunicationMethod",
+          "type": "object",
+          "ref": "Correspondencecommunicationmethodtypevalues"
+        },
+        {
+          "name": "CorrespondenceAddressType",
+          "type": "object",
+          "ref": "Addresstypevalues"
+        },
+        {
+          "name": "CorrespondenceMedium",
+          "type": "object",
+          "ref": "Correspondencemediumtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "CorrespondenceOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within Correspondence. ",
+      "properties": [
+        {
+          "name": "CorrespondenceServiceSessionStatistics",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CorrespondenceServiceSessionReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "CorrespondenceServiceSessionReport",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "CorrespondenceServiceSessionDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Correspondencecommunicationmethodtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Fax` - Transmission by fax.\r\n* `Email` - Transmission by e-mail.\r\n* `Proprietary` - Transmission by proprietary method.\r\n* `Online` - Transmission on line, for example, in a web portal.\r\n* `Phone` - Transmission by telephone.\r\n* `Postalservice` - Transmission by postal service.\r\n* `File` - Transmission by file transfer.\r\n",
+      "enum_values": [
+        "Fax",
+        "Email",
+        "Proprietary",
+        "Online",
+        "Phone",
+        "Postalservice",
+        "File"
+      ]
+    },
+    {
+      "name": "Correspondencemediumtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Paper` - Presentation is made on paper.\r\n* `Electronic` - Presentation is made electronically.\r\n* `Paperelectronic` - Presentation is made on paper and/or electronically.\r\n* `Biometric` - Biometric medium.\r\n",
+      "enum_values": [
+        "Paper",
+        "Electronic",
+        "Paperelectronic",
+        "Biometric"
+      ]
+    },
+    {
+      "name": "Correspondencetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `UnsolicitedMessage` - \r\n* `Complaint` - \r\n* `EnumerationLiteral` - \r\n",
+      "enum_values": [
+        "UnsolicitedMessage",
+        "Complaint",
+        "EnumerationLiteral"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "Date when the response expected. This can result in chasing activities and notification to the sending unit",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Devicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Securecardreader` - Secure card reader attached to the customer device\r\n* `Nonsecurecardreader` - Non-secure card reader attached to the customer device.\r\n* `Mobile` - Mobile phone\r\n* `Tablet` - Tablet\r\n* `Personalcomputer` - Personal computer\r\n* `Othernational` - Other device defined at national level\r\n* `Otherprivate` - Other device defined in a private way.\r\n* `Wearable` - Wearable device.\r\n* `Vehicle` - Vehicle.\r\n* `Embedded` - Embedded in a device.\r\n* `Keyfob` - Key Fob\r\n* `Jewellery` - Jewellery\r\n* `Sticker` - Sticker\r\n* `Gamingdevice` - Gaming Device\r\n* `Watch` - Watch\r\n* `Unknown` - Device type unknown\r\n* `BiometricDevice` - A biometric device is a security identification and authentication device. Such devices use automated methods of verifying or recognising the identity of a living person based on a physiological or behavioral characteristic.\nhttps://en.wikipedia.org/wiki/Biometric_device\n\r\n",
+      "enum_values": [
+        "Securecardreader",
+        "Nonsecurecardreader",
+        "Mobile",
+        "Tablet",
+        "Personalcomputer",
+        "Othernational",
+        "Otherprivate",
+        "Wearable",
+        "Vehicle",
+        "Embedded",
+        "Keyfob",
+        "Jewellery",
+        "Sticker",
+        "Gamingdevice",
+        "Watch",
+        "Unknown",
+        "BiometricDevice"
+      ]
+    },
+    {
+      "name": "Employee",
+      "kind": "object",
+      "description": "Identified internal addressee (from reference details extracted from the content where possible)",
+      "properties": [
+        {
+          "name": "Employee",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "Reference to the inbound correspondence item",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Inbound",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "InboundCorrespondenceInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InboundCorrespondenceRecord",
+          "type": "object",
+          "ref": "Correspondence"
+        },
+        {
+          "name": "InboundCorrespondenceType",
+          "type": "object",
+          "ref": "Correspondencetypevalues"
+        },
+        {
+          "name": "InboundCorrespondenceContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InboundCorrespondenceAddressee",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InboundCorrespondenceCustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InboundCorrespondenceEmployeeReference",
+          "type": "object",
+          "ref": "Employee"
+        },
+        {
+          "name": "DateType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        },
+        {
+          "name": "Date",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisatioDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "OrganisatioDateType",
+          "type": "object",
+          "ref": "Organisationdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `RegistrationDate` - Date and time at which a given organisation was officially registered. (ISO20022)\r\n* `EstablishmentDate` - Date when the organisation was established. ISO20022\r\n* `EntityExpirationDate` - The date the Legal Entity ceased operation or was merged. ISO20022\r\n",
+      "enum_values": [
+        "RegistrationDate",
+        "EstablishmentDate",
+        "EntityExpirationDate"
+      ]
+    },
+    {
+      "name": "Organisationidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisationIdentificationType",
+          "type": "object",
+          "ref": "Organisationidentificationtypevalues"
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Organisationidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LEI` - Legal Entity Identifier is a code allocated to a party as described in ISO 17442 \"Financial Services - Legal Entity Identifier (LEI)\".\r\n* `ELF` - Entity Legal Forms is a code allocated to a party as described in ISO 20275 \"Financial services  Entity legal forms (ELF)\". \r\n* `MIC` - Market Identifier Code. Identification of a financial market, as stipulated in the norm ISO 10383 \"Codes for exchanges and market identifications\".\r\n* `BICFI` - Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 \"Banking - Banking telecommunication messages - Business identifier code (BIC)\".\r\n* `Bankpartyidentification` - Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client.\r\n* `Centralbankidentificationnumber` - A unique identification number assigned by a central bank to identify an organisation.\r\n* `Clearingidentificationnumber` - A unique identification number assigned by a clearing house to identify an organisation\r\n* `Certificateofincorporationnumber` - A unique identification number assigned by a designated authority to a certificate of incorporation and used to identify an organisation.\r\n* `Countryidentificationcode` - Country authority given organisation identification (e.g., corporate registration number)\r\n* `Customernumber` - Number assigned by an issuer to identify a customer.\nNumber assigned by a party to identify a creditor or debtor relationship.\r\n* `Datauniversalnumberingsystem` - A unique identification number provided by Dun & Bradstreet to identify an organisation.\r\n* `Employeridentificationnumber` - Number assigned by a registration authority to an employer.\r\n* `Gs1glnidentifier` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to GS1 numbering scheme rules.The number is used to retrieve detailed information that is linked to it.\r\n* `SIREN` - The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France.\r\n* `SIRET` - The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to identify an organisation.\r\n* `EANGLN` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to the European Association for Numbering (EAN) numbering scheme rules. The number is used to retrieve detailed information that is linked to it. (iso20022)\r\n",
+      "enum_values": [
+        "LEI",
+        "ELF",
+        "MIC",
+        "BICFI",
+        "Bankpartyidentification",
+        "Centralbankidentificationnumber",
+        "Clearingidentificationnumber",
+        "Certificateofincorporationnumber",
+        "Countryidentificationcode",
+        "Customernumber",
+        "Datauniversalnumberingsystem",
+        "Employeridentificationnumber",
+        "Gs1glnidentifier",
+        "SIREN",
+        "SIRET",
+        "Taxidentificationnumber",
+        "EANGLN"
+      ]
+    },
+    {
+      "name": "Organisationlegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Corporation` - Legal structure is a corporation.\r\n* `Individual` - Legal structure is an individual.\r\n* `Supranational` - Legal structure is a supranational.\r\n* `Sovereign` - Legal structure is a sovereign.\r\n* `Municipal` - Legal structure is a municipal.\r\n* `Province` - Legal structure is a province.\r\n* `State` - Legal structure is a state.\r\n* `County` - Legal structure is a county.\r\n* `Partnership` - Legal structure is a partnership.\r\n* `Financialinstitution` - Legal structure is a financial institution.\r\n* `National` - Legal structure is a state.\r\n",
+      "enum_values": [
+        "Corporation",
+        "Individual",
+        "Supranational",
+        "Sovereign",
+        "Municipal",
+        "Province",
+        "State",
+        "County",
+        "Partnership",
+        "Financialinstitution",
+        "National"
+      ]
+    },
+    {
+      "name": "Organisationname",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "NameType",
+          "type": "object",
+          "ref": "Organisationnametypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationnametypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ShortName` - \r\n* `TradingName` - \r\n* `LegalName` - \r\n",
+      "enum_values": [
+        "ShortName",
+        "TradingName",
+        "LegalName"
+      ]
+    },
+    {
+      "name": "Organisationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LegalEntity` - \r\n* `Authority` - \r\n* `OrganisationUnit` - \r\n* `FinancialInstitution` - \r\n* `Charity` - \r\n* `GovernmentBody` - \r\n",
+      "enum_values": [
+        "LegalEntity",
+        "Authority",
+        "OrganisationUnit",
+        "FinancialInstitution",
+        "Charity",
+        "GovernmentBody"
+      ]
+    },
+    {
+      "name": "Outbound",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "CorrespondenceSourceReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CorrespondenceRecord",
+          "type": "object",
+          "ref": "Correspondence"
+        },
+        {
+          "name": "CorrespondenceType",
+          "type": "object",
+          "ref": "Correspondencetypevalues"
+        },
+        {
+          "name": "CorrespondenceTemplateReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CorrespondenceTemplateRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CorrespondenceContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CorrespondenceMediaorChannel",
+          "type": "object",
+          "ref": "Channel"
+        },
+        {
+          "name": "CorrespondenceAddressee",
+          "type": "object",
+          "ref": "Address"
+        },
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "ChannelAccessPreferenceReference",
+          "type": "object",
+          "ref": "CommunicationChannel"
+        },
+        {
+          "name": "ChannelAccessPreferenceProfile",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ChannelAccessChannelorDeviceType",
+          "type": "object",
+          "ref": "Devicetypevalues"
+        },
+        {
+          "name": "ChannelAccessChannelorDeviceTypePreference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EmployeeorBusinessUnitReference",
+          "type": "object",
+          "ref": "BusinessUnit"
+        },
+        {
+          "name": "DateType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        },
+        {
+          "name": "Date",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "OutboundWithResponse",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "ResponseDueDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ResponseCorrespondenceReference",
+          "type": "object",
+          "ref": "Correspondence"
+        },
+        {
+          "name": "ResponseCorrespondenceRecord",
+          "type": "object",
+          "ref": "Correspondence"
+        }
+      ]
+    },
+    {
+      "name": "Report",
+      "kind": "object",
+      "description": "The session activity report",
+      "properties": [
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The time schedule that system services are available for use.",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "Status of the system. (ISO20022)",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Systemidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Model` - Identification of a model for a given manufacturer.\r\n* `Serialnumber` - Serial number of a component.\r\n* `Approvalnumber` - Unique approval number for a component, delivered by a certification body.\r\n* `Systemversion` - Version of the system, eg, \"4.0.1\" to indicate version 4.0.1.\r\n* `Systemname` - Name by which a system is known.\r\n* `Identification` - Identification of a system.\r\n",
+      "enum_values": [
+        "Model",
+        "Serialnumber",
+        "Approvalnumber",
+        "Systemversion",
+        "Systemname",
+        "Identification"
+      ]
+    },
+    {
+      "name": "Systemstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Suspended` - System is suspended, that is, not operational.\r\n* `Active` - System is functioning normally, that is, operational.\r\n* `Closed` - System is closed (eg. normal closure of an RTGS).\r\n* `Closing` - System needs to wait for completion of intermediate internal activities before going to a status Closed.\r\n* `Reservemaintenanceperiodstart` - System is starting a new maintenance period.\r\n",
+      "enum_values": [
+        "Suspended",
+        "Active",
+        "Closed",
+        "Closing",
+        "Reservemaintenanceperiodstart"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "CorrespondenceOperatingSession",
+        "operations": [
+          "Request",
+          "Initiate",
+          "Update",
+          "Control",
+          "Execute",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "BlockMailing",
+        "parent_control_record": "CorrespondenceOperatingSession",
+        "operations": [
+          "InitiateBlockMailing",
+          "RetrieveBlockMailing",
+          "UpdateBlockMailing"
+        ]
+      },
+      {
+        "name": "Inbound",
+        "parent_control_record": "CorrespondenceOperatingSession",
+        "operations": [
+          "UpdateInbound",
+          "InitiateInbound",
+          "RetrieveInbound"
+        ]
+      },
+      {
+        "name": "Outbound",
+        "parent_control_record": "CorrespondenceOperatingSession",
+        "operations": [
+          "RetrieveOutbound",
+          "InitiateOutbound",
+          "UpdateOutbound"
+        ]
+      },
+      {
+        "name": "OutboundWithResponse",
+        "parent_control_record": "CorrespondenceOperatingSession",
+        "operations": [
+          "UpdateOutboundWithResponse",
+          "RetrieveOutboundWithResponse",
+          "InitiateOutboundWithResponse"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/Correspondence.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "955b0505dceed7a527c7ebbb1e956e447cbb133aee20c9c92ab6effed369c4f8",
+    "retrieved_at": "2026-09-10T22:23:34.088935+00:00"
+  }
+}

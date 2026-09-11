@@ -1,0 +1,169 @@
+@startuml
+title Customer Offer - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Offer
+' Source image: customer-offer-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_38989.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Customer Offer Procedure" as N66902 {
+}
+
+class "Customer Offer" as N66866 {
+  + Offer Identification : Identifier
+  + Offer Type : OfferTypeValues
+  + Offer Description : Text
+  + Offer Start Date : DateTime
+  + Offer End Date : DateTime
+  + Offer Rate : Rate
+  + Offer Value : Value
+  + Offer Term and Condition : Condition
+  + Offer Amount : Amount
+}
+
+class "Procedure" as N66916 {
+}
+
+class "Workstep" as N67003 {
+}
+
+class "Customer Agreement" as N66886 {
+}
+
+class "Customer Relationship" as N66933 {
+}
+
+class "Agreement" as N66961 {
+}
+
+class "Product" as N67035 {
+}
+
+class "Customer Rating" as N66962 {
+}
+
+class "Underwriting" as N67050 {
+}
+
+class "Audit" as N66957 {
+}
+
+class "Collateral Agreement" as N66928 {
+}
+
+class "Customer Offer Procedure Workstep" as N67075 {
+}
+
+class "Disclosure" as N67061 {
+  + Disclosure Type : Text
+  + Confirmation Indicator : Text
+  + Specified Document : Document
+}
+
+class "Agreement Document" as N67008 {
+}
+
+class "Document" as N67017 {
+}
+
+class "Product Agreement" as N66944 {
+  + Product Agreement Type : ProductAgreementTypeValues
+  + Product Agreement Identification : Identifier
+}
+
+enum "ProductAgreementTypeValues" as N67069 {
+  Current Account Agreement
+  Savings Account Agreement
+  Brokered Product Agreement
+  Consumer Loan Agreement
+  Mortgage Loan Agreement
+  Direct Debit Service Agreement
+  Term Deposit Agreement
+}
+
+class "Statement" as N66950 {
+  + Statement Type : StatementTypeValues
+  + Statement Frequency : Frequency
+  + Statement Identification : Identifier
+}
+
+enum "FinancialStatementTypeValues" as N67001 {
+  Income Statement
+  Balance Sheet
+  Cash flows Statement
+  Debt Statement
+  Asset Statement
+  Asset and Liability Statement
+}
+
+class "Customer Offer Involvement" as N66911 {
+  + Involvement Type : CustomerOfferInvolvementTypeValues
+  + Party Reference : Party
+  + Customer Offer Reference : Customer Offer
+}
+
+class "Party" as N67004 {
+}
+
+enum "CustomerOfferInvolvementTypeValues" as N66904 {
+  Customer
+  Service Provider
+  Sales Team
+  Marketing Team
+  Legal and Compliance Team
+  Analytics and Reporting
+}
+
+enum "OfferTypeValues" as N67096 {
+  Balance Transfer
+  Limit Increase
+  Money Transfer
+  Promotional Rate
+  Other
+}
+
+class "Offer Arrangement" as N67044 {
+  + Arrangement Type : ArrangementTypeValues
+}
+
+class "Fee Arrangement" as N66862 {
+}
+
+class "Product Feature" as N67086 {
+}
+
+class "Arrangement" as N66925 {
+}
+
+' Relationships
+N66902 "0..1" -- "0..*" N66866
+N66916 <|-- N66902
+N66916 -- "0..*" N67003
+N66944 "Offered / Agreement / 0..1" -- "0..*" N66866
+N66933 "1" -- "1" N66886
+N66933 "Target / Customer / 1" -- "0..*" N66866
+N66961 <|-- N66886
+N66933 "1" -- "0..*" N66962
+N66933 "0..1" -- "0..*" N67050
+N66866 "0..*" -- "0..*" N66957
+N66866 "0..*" -- "0..*" N66928
+N67003 <|-- N67075
+N66902 "0..1" -- "0..*" N67075
+N66961 "0..*" -- "0..*" N67061
+N66961 "0..1" -- "0..*" N67008
+N67017 "0..1" -- "0..*" N67008
+N66961 <|-- N66944
+N66933 "1" -- "Customer / Product / 0..*" N66944
+N67035 "1" -- "Sold / Product / 0..*" N66944
+N66933 "0..1" -- "0..*" N66950
+N66866 "0..1" -- "0..*" N66911
+N67004 "0..1" -- "0..*" N66911
+N66866 "1" -- "0..*" N67044
+N67044 <|-- N66862
+N67035 -- N67086
+N67086 "0..1" -- "0..*" N67044
+N66925 <|-- N67044
+@enduml

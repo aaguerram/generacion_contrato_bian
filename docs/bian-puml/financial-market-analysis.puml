@@ -1,0 +1,37 @@
+@startuml
+title Financial Market Analysis - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Financial Market Analysis
+' Source image: financial-market-analysis-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52740.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Financial Market" as N78021 {
+  + Financial Market Type : FinancialMarketTypeValues
+}
+
+class "Financial Market Research" as N78026 {
+}
+
+class "Financial Market Information Service" as N78027 {
+}
+
+class "Analysis" as N78015 {
+}
+
+class "Algorithm" as N78018 {
+}
+
+class "Financial Market Analysis" as N78012 {
+}
+
+' Relationships
+N78021 "0..1" -- "0..*" N78026
+N78021 "0..1" -- "0..*" N78027
+N78015 -- "0..*" N78018
+N78015 <|-- N78012
+N78021 "0..1" -- "0..*" N78012
+@enduml

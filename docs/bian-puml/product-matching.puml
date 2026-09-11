@@ -1,0 +1,87 @@
+@startuml
+title Product Matching - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Product Matching
+' Source image: product-matching-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_40705.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Assessment" as N60205 {
+}
+
+class "Test" as N60171 {
+}
+
+class "Product Matching" as N60254 {
+  + Product Matching Context : String
+  + Product Matching Authorization Code : String
+}
+
+class "Product" as N60326 {
+}
+
+class "Product Feature" as N60263 {
+}
+
+class "Customer Relationship" as N60185 {
+}
+
+class "Customer Insight" as N60271 {
+}
+
+class "Product Matching Condition" as N60334 {
+}
+
+class "Customer Relationship Involvement" as N60264 {
+  + Customer Relationship Involvement Type : CustomerRelationshipInvolvementTypeValues
+  + Party Reference : Party
+  + Relationship Reference : Customer Relationship
+}
+
+class "Party" as N60354 {
+}
+
+class "Condition" as N60245 {
+}
+
+class "Product Matching Instruction" as N60172 {
+}
+
+class "Instruction" as N60204 {
+}
+
+class "Customer Campaign" as N60248 {
+}
+
+class "Customer Product and Service Profile" as N60347 {
+}
+
+class "Customer Product Match" as N60188 {
+}
+
+enum "CustomerRelationshipInvolvementTypeValues" as N60280 {
+  Customer
+  Bank
+  Relationship Manager
+  Contact Person
+}
+
+' Relationships
+N60205 "0..1" -- "0..*" N60171
+N60205 <|-- N60254
+N60326 -- N60263
+N60271 "0..*" -- "1" N60185
+N60185 "0..1" -- "0..*" N60334
+N60185 "0..1" -- "2..*" N60264
+N60334 "0..1" -- "0..*" N60172
+N60245 <|-- N60334
+N60172 "0..1" -- "0..*" N60254
+N60204 <|-- N60172
+N60185 "1" -- "Customer / Profile / 0..*" N60347
+N60254 "0..1" -- "0..1" N60188
+N60354 "0..1" -- "0..*" N60264
+N60188 -- "0..*" N60326 : 0..*
+@enduml

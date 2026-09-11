@@ -1,0 +1,188 @@
+@startuml
+title Market Research - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Market Research
+' Source image: market-research-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_43260.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Market" as N163374 {
+  + Market Type : MarketTypeValues
+  + Market Identification : Identifier
+  + Market Country : Country
+  + Market Jurisdiction : Jurisdiction
+}
+
+class "Market Research" as N163278 {
+  + Market Research Viewpoint : MarketResearchViewpointTypeValues
+  + Market Research Period : DateTimePeriod
+  + Researched Market : Market
+  + Market Research Aspect Type : MarketResearchAspectTypeValues[1..*]
+  + Market Research Description : Text
+  + Market Research Date and Time : DateTime
+}
+
+class "Market Research Report" as N163378 {
+  + Market Research Report Content : Text
+  + Market Research Viewpoint Type : MarketResearchViewpointTypeValues
+  + Market Research Report Period : DateTimePeriod
+  + Market Research Report Version : Text
+  + Market Research Report Type : MarketResearchReportTypeValues
+}
+
+class "Market Research Request" as N163388 {
+}
+
+class "Market Research Request Involvement" as N163458 {
+}
+
+class "Report" as N163416 {
+}
+
+class "Party" as N163507 {
+}
+
+class "Location" as N163452 {
+}
+
+class "Market Research Directory Entry" as N163300 {
+}
+
+class "Market Research Directory" as N163386 {
+}
+
+class "Directory Entry" as N163280 {
+}
+
+class "Directory" as N163419 {
+}
+
+enum "MarketTypeValues" as N163474 {
+  Financial Market
+  General Market
+}
+
+enum "MarketResearchAspectTypeValues" as N163493 {
+  Market Size
+  Markt Trends
+  Target Market
+  Consumer Behavior
+  Competitive Analysis
+  Product or Service Analysis
+  Pricing Strategy
+  Distribution Channels
+  Marketing and Advertising
+  Branding and Positioning
+  Customer Demographics
+  Customer Psychographics
+  Technology and Innovation
+  Regulatory Factors
+  Environmental Factors
+  Customer Journey and Experience
+  Market Entry
+  Market Expansion
+}
+
+enum "MarketResearchViewpointTypeValues" as N163514 {
+  Customer Viewpoint
+  Competitor Viewpoint
+  Market Dynamics Viewpoint
+  Product Service Viewpoint
+  Geographic Viewpoint
+  Economic and Political Viewpoint
+  Technological Viewpoint
+  Environmental and Sustainability Viewpoint
+  Channel and Distribution Viewpoint
+  Financial Viewpoint
+}
+
+enum "MarketResearchReportTypeValues" as N163530 {
+  Industry Report
+  Consumer Insights Report
+  Competitive Analysis Report
+  Trend Analysis Report
+  Product Service Report
+  Brand Analysis Report
+  Customer Satisfaction and Loyalty Report
+  Feasibility Studies
+  Economic Analysis Report
+  Technology and Innovation Report
+  Geographic Market Report
+  Environmental and Sustainability Report
+}
+
+class "Customer Behavior Insight Analysis" as N163361 {
+}
+
+enum "PricingTypeValues" as N163400 {
+  Cost-Based Pricing
+  Value-Based Pricing
+  Competition-Based Pricing
+  Dynamic Pricing
+  Psychological Pricing
+  Segmented Pricing
+  Promotional Pricing
+  Geographical Pricing
+  Bundling and Unbundling
+  Freemium and Subscription Pricing
+}
+
+class "Market Research Involvement" as N163371 {
+  + Market Research Involvement Type : MarketResearchInvolvementTypeValues
+}
+
+enum "MarketResearchInvolvementTypeValues" as N163319 {
+  Market Research Firms
+  Internal Market Research Departments
+  Clients/Businesses
+  Survey Respondents
+  Data Analysts
+  Field Researchers
+  Consultants
+  Marketing Teams
+  Product Development Teams
+  Sales Teams
+  Investors/Stakeholders
+  Regulatory Bodies
+  Competitors
+}
+
+class "Market Research Analysis" as N163346 {
+}
+
+enum "ProductServiceAnalysisTypeValues" as N163284 {
+  By Industry
+  By Customer Segment
+  By Lifecycle Stage
+  By Pricing Strategy
+  By Technology Integration
+  By Distribution Channel
+  By Consumer Need
+  By Usage Frequency
+  By Service Type
+  By Value Proposition
+  By Supplier
+}
+
+' Relationships
+N163278 "0..*" -- "0..*" N163378
+N163278 "0..*" -- "SubjectOf / Research / 1..*" N163374
+N163458 "0..*" -- "1" N163388
+N163388 "0..*" -- "0..*" N163278
+N163416 <|-- N163378
+N163452 "0..1" -- "0..*" N163374
+N163300 "0..*" -- "0..1" N163278
+N163419 <|-- N163386
+N163280 <|-- N163300
+N163507 "0..1" -- "0..*" N163458
+N163386 "1" -- N163300 : 0..*
+N163378 "0..*" -- "0..1" N163361
+N163361 "0..*" -- "ReportUsed / InAnalysis / 0..*" N163378
+N163278 -- "0..*" N163371 : 0..1
+N163507 "0..1" -- "0..*" N163371
+N163346 "0..*" -- "SubjectOf / Analysis / 1..*" N163278
+N163346 "0..*" -- "is used / 0..*" N163378
+@enduml

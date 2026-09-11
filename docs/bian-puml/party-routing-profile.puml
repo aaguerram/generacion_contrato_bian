@@ -1,0 +1,85 @@
+@startuml
+title Party Routing Profile - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Party Routing Profile
+' Source image: party-routing-profile-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36861.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Party State" as N199264 {
+}
+
+class "Party" as N199258 {
+}
+
+class "Customer Relationship" as N199293 {
+}
+
+class "Customer Relationship Involvement" as N199299 {
+}
+
+enum "CustomerRelationshipInvolvementTypeValues" as N199281 {
+  Customer
+  Bank
+  Relationship Manager
+  Contact Person
+}
+
+class "Party Role" as N199303 {
+}
+
+class "Party Routing Profile" as N199282 {
+}
+
+class "Customer Rating" as N199287 {
+}
+
+class "Customer Relationship Alert" as N199289 {
+}
+
+class "Customer Relationship Status" as N199320 {
+  + Customer Relationship Status Type : String
+  + Customer Relationship Status Description : String
+  + Customer Relationship Status Value : String
+  + Customer Relationship Status Validity Period : String
+}
+
+class "Event" as N199288 {
+  + Event Type : Text
+  + Event Date Time : DateTime
+  + Event Description : Text
+  + Event Source : Object
+  + Event Location : Location
+  + Event Action : Action
+  + Event Status : Status
+  + Event Value : Value
+  + Event Validity Period : DateTimePeriod
+  + Event Identification : Identifier
+}
+
+class "State" as N199267 {
+}
+
+class "Measure" as N199261 {
+}
+
+' Relationships
+N199258 "0..1" -- "0..*" N199264
+N199293 "0..1" -- "2..*" N199299
+N199303 <|-- N199299
+N199293 "0..1" -- "0..*" N199282
+N199293 -- "0..*" N199287 : 1
+N199293 "0..1" -- "0..*" N199289
+N199293 "0..1" -- "1..*" N199320
+N199288 <|-- N199289
+N199264 "0..1" -- "0..*" N199287
+N199264 "0..1" -- "0..*" N199289
+N199264 "0..1" -- "0..*" N199320
+N199264 "0..*" -- N199282 : ResultOfMeasurement
+N199267 "0..1" -- "0..*" N199261
+N199267 <|-- N199264
+N199258 "1" -- "0..*" N199303
+@enduml

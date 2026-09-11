@@ -1,0 +1,61 @@
+@startuml
+title Case Root Cause Analysis - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Case Root Cause Analysis
+' Source image: case-root-cause-analysis-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52482.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Customer Case" as N217980 {
+}
+
+class "Customer Case Resolution" as N217968 {
+}
+
+class "Algorithm" as N217973 {
+}
+
+class "Analysis" as N217998 {
+}
+
+class "Root Cause Analysis" as N217986 {
+}
+
+class "Customer Case Root Cause Analysis" as N217993 {
+}
+
+class "Case" as N217985 {
+}
+
+class "Servicing Event" as N218024 {
+  + Servicing Event Type : String
+}
+
+class "Servicing Event Log" as N217982 {
+}
+
+class "Servicing Root Cause Analysis" as N217969 {
+}
+
+class "Fraud Case Root Cause Analysis" as N218009 {
+}
+
+class "Production Transaction" as N217966 {
+}
+
+' Relationships
+N217980 "0..1" -- "0..*" N217968
+N217998 -- "0..*" N217973
+N217998 <|-- N217986
+N217980 "0..*" -- "0..*" N217993
+N217986 <|-- N217993
+N217985 <|-- N217980
+N217982 "0..1" -- "LogEntry / 0..*" N218024
+N217993 "0..1" -- "0..1" N217969
+N217982 "0..1" -- "UsedInAnalysis / 0..*" N217969
+N217993 "0..1" -- "0..1" N218009
+N217966 "0..*" -- "0..*" N217980
+@enduml

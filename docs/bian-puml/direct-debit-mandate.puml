@@ -1,0 +1,211 @@
+@startuml
+title Direct Debit Mandate - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Direct Debit Mandate
+' Source image: direct-debit-mandate-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_48852.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Directory" as N196503 {
+}
+
+class "Directory Entry" as N196248 {
+}
+
+class "Direct Debit Mandate Directory Entry" as N196251 {
+}
+
+class "Direct Debit Service" as N196442 {
+}
+
+class "Arrangement" as N196526 {
+}
+
+class "Direct Debit Mandate" as N196485 {
+  + Direct Debit Mandate Identification : Identifier
+  + Direct Debit Purpose : Text
+  + Direct Debit Source Account : Account
+  + Direct Debit Status : DirectDebitStatusTypeValues
+  + Direct Debit Type : DirectDebitTypeValues
+}
+
+class "Mandate" as N196428 {
+}
+
+class "Feature" as N196275 {
+}
+
+class "Payment Arrangement" as N196301 {
+}
+
+class "Payment Service" as N196421 {
+  + Payment Service Type : PaymentServiceTypeValues
+}
+
+enum "PaymentServiceTypeValues" as N196517 {
+  Credit Transfer Service
+  Standing Order Service
+  Direct Debit Service
+  Card Payment Service
+  Withdraw Service
+  Deposit Service
+  Overdraft Service
+  Money Remittance Service
+  Statement Service
+}
+
+class "Direct Debit Mandate Arrangement" as N196353 {
+  + Final Collection Date : DateTime
+  + First Collection Date : DateTime
+  + Collection Amount : Amount
+  + Maximum Amount : Amount
+  + Point InTime : FrequencyTypeValues
+  + Arrangement Type : ArrangementTypeValues
+  + PreNotification Date : DateTime
+  + Mandate Frequency : DirectDebitFrequencyValues
+  + PreNotification Indicator : YesNoIndicator
+  + PreNotification Threshold : Number
+}
+
+class "Party" as N196388 {
+}
+
+class "Payment Transaction" as N196305 {
+}
+
+class "Account Entry" as N196422 {
+}
+
+class "Transaction" as N196427 {
+}
+
+class "Instruction" as N196441 {
+}
+
+class "Direct Debit Instruction" as N196313 {
+  + Direct Debit Type : DirectDebitTypeValues
+  + PreNotification Date : DateTime
+}
+
+class "Account" as N196325 {
+}
+
+class "Direct Debit Mandate Involvement" as N196501 {
+  + Involvement Type : PaymentInvolvementTypeValues
+  + Mandate Reference : Direct Debit Mandate
+  + Party Reference : Party
+}
+
+enum "PaymentInvolvementTypeValues" as N196409 {
+  Payer or Debtor
+  Payee Bank or Creditor Agent
+  Payee or Creditor
+  Payer Bank or Debtor Agent
+  Initiator
+  PSU
+  PSP
+  Ultimate Debtor
+  Ultimate Creditor
+}
+
+class "Direct Debit Transaction" as N196482 {
+}
+
+enum "DirectDebitTypeValues" as N196523 {
+  Fixed Amount
+  Variable Amount
+  UsageBased Amont
+  Paper
+  eMandate
+}
+
+class "Payment Instruction" as N196479 {
+}
+
+class "Service" as N196324 {
+}
+
+enum "DirectDebitStatusTypeValues" as N196298 {
+  Active
+  Inactive
+  Created
+  Pending Approval
+  Cancelled
+  Expired
+  Rejected
+  Completed
+  Archived
+  Failed
+  Suspended
+}
+
+enum "DirectDebitFrequencyValues" as N196341 {
+  Annual
+  Monthly
+  Quarterly
+  Weekly
+  Daily
+  Adhoc
+  Fortnightly
+  Hourly
+  Half-yearly
+}
+
+class "Agreement" as N196345 {
+}
+
+class "Direct Debit Service Agreement" as N196453 {
+}
+
+class "Product Agreement" as N196499 {
+  + Product Agreement Type : ProductAgreementTypeValues
+  + Product Agreement Identification : Identifier
+}
+
+enum "ProductAgreementTypeValues" as N196318 {
+  Current Account Agreement
+  Savings Account Agreement
+  Brokered Product Agreement
+  Consumer Loan Agreement
+  Mortgage Loan Agreement
+  Direct Debit Service Agreement
+  Term Deposit Agreement
+}
+
+class "Direct Debit Mandate Directory" as N196460 {
+}
+
+' Relationships
+N196248 <|-- N196251
+N196503 "1" -- "0..*" N196248
+N196301 <|-- N196353
+N196442 "0..1" -- "0..*" N196353
+N196485 "1" -- "0..*" N196353
+N196421 <|-- N196442
+N196501 "0..*" -- "0..1" N196485
+N196388 "0..1" -- "0..*" N196501
+N196305 <|-- N196482
+N196441 <|-- N196479
+N196428 <|-- N196485
+N196485 "0..1" -- "Debtor / Account / 0..1" N196325
+N196526 <|-- N196301
+N196427 <|-- N196305
+N196325 "1" -- "0..*" N196422
+N196353 "0..*" -- "Arrangement / Account / 0..1" N196325
+N196313 "0..1" -- "0..*" N196482
+N196482 "0..1" -- "0..*" N196422
+N196353 "0..1" -- "0..*" N196313
+N196485 "0..1" -- "0..*" N196251
+N196275 <|-- N196324
+N196324 <|-- N196421
+N196479 <|-- N196313
+N196453 "0..1" -- "0..*" N196485
+N196345 <|-- N196499
+N196345 <|-- N196453
+N196485 "0..*" -- "CustomerProduct / 0..1" N196499
+N196503 <|-- N196460
+N196460 "1" -- "0..*" N196251
+@enduml

@@ -1,0 +1,86 @@
+"""Puerto driven: el analista BIAN LLM del caso de uso `mapear-historias`.
+
+Un solo puerto con un método por nodo LLM del subgrafo (extracción -> candidatos ->
+completitud -> evaluación por candidato -> revisión adversarial -> reconciliación). El
+adaptador construye cada prompt SOLO con la evidencia que recibe (catálogo local + paquete
+de evidencia oficial por candidato); no puede aportar conocimiento externo. El scoring, los
+umbrales y la decisión final son deterministas (capa de dominio), nunca del LLM.
+"""
+
+from __future__ import annotations
+
+from abc import ABC, abstractmethod
+
+from src.dominio.historias import (
+    CandidatosHistoriaLLM,
+    EvaluacionCandidatoLLM,
+    FuncionalidadMacro,
+    HistoriaUsuario,
+    IntencionHistoriaLLM,
+    PaqueteEvidenciaCandidato,
+    ReconciliacionFuncionalidadLLM,
+    RevisionAdversarialLLM,
+    RevisionCompletitudLLM,
+    ServiceDomainsDeHistoria,
+)
+from src.dominio.modelos import EntradaCatalogo
+
+
+class AnalistaMapeoBianPort(ABC):
+    @abstractmethod
+    def extraer_intencion(
+        self, historia: HistoriaUsuario, funcionalidad: FuncionalidadMacro
+    ) -> IntencionHistoriaLLM:
+        """Nodo 1: interpreta la historia. Sin nombres de Service Domain, sin decisiones BIAN."""
+
+    @abstractmethod
+    def generar_candidatos(
+        self,
+        historia: HistoriaUsuario,
+        funcionalidad: FuncionalidadMacro,
+        intencion: IntencionHistoriaLLM,
+        catalogo: list[EntradaCatalogo],
+    ) -> CandidatosHistoriaLLM:
+        """Nodo 2: propone nombres de Service Domain del catálogo. Es una PISTA, no exhaustiva."""
+
+    @abstractmethod
+    def revisar_completitud(
+        self,
+        historia: HistoriaUsuario,
+        intencion: IntencionHistoriaLLM,
+        candidatos: CandidatosHistoriaLLM,
+        catalogo: list[EntradaCatalogo],
+        disponibilidad_evidencia: dict[str, str],
+    ) -> RevisionCompletitudLLM:
+        """Nodo 3: usa el índice global BIAN como hint para detectar candidatos faltantes /
+        no soportados / conflictos de ownership / responsabilidades duplicadas."""
+
+    @abstractmethod
+    def evaluar_candidato(
+        self,
+        historia: HistoriaUsuario,
+        funcionalidad: FuncionalidadMacro,
+        intencion: IntencionHistoriaLLM,
+        paquete: PaqueteEvidenciaCandidato,
+    ) -> EvaluacionCandidatoLLM:
+        """Nodo 4: evalúa UN candidato contra SU paquete de evidencia oficial cerrado.
+        Devuelve señales ordinales 0-3 + trazabilidad ownership/dependency separada. Sin confianza."""
+
+    @abstractmethod
+    def revisar_adversarial(
+        self,
+        historia: HistoriaUsuario,
+        intencion: IntencionHistoriaLLM,
+        grupos: ServiceDomainsDeHistoria,
+    ) -> RevisionAdversarialLLM:
+        """Nodo 5: prompt DISTINTO que revisa la hipótesis ya clasificada (acción directa como
+        dependencia, objeto sin propietario, dependencia promovida a contrato, candidato omitido...)."""
+
+    @abstractmethod
+    def reconciliar_funcionalidad(
+        self,
+        funcionalidad: FuncionalidadMacro,
+        resumen_por_historia: list[dict],
+    ) -> ReconciliacionFuncionalidadLLM:
+        """Nodo 7 (1 sola vez): ve todas las historias y propone el rol de cada SD a nivel de
+        funcionalidad. Es un ASESOR: el código decide el estado final."""

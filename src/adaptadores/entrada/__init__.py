@@ -1,0 +1,1 @@
+"""Adaptadores driving (inbound)."""

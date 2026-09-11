@@ -1,0 +1,44 @@
+@startuml
+title Order Allocation - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Order Allocation
+' Source image: order-allocation-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52717.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Market Order Agreement" as N163899 {
+}
+
+class "Investment Portfolio" as N163925 {
+}
+
+class "Investment Portfolio Item" as N163897 {
+}
+
+class "Financial Instrument" as N163908 {
+}
+
+class "Securities Allocation" as N163886 {
+  + Securities Allocation Workstep : Workstep[1..*]
+  + Securities Allocation Workstep Type : SecuritiesAllocationWorkstepTypeValues
+}
+
+class "Procedure" as N163883 {
+}
+
+enum "SecuritiesAllocationWorkstepTypeValues" as N163896 {
+  Update Partially or Completed Market Order
+  Apply Order Allocation Rules
+}
+
+' Relationships
+N163925 "0..1" -- "Associated / InvestmentPortfolio / 0..*" N163899
+N163925 "0..1" -- "0..*" N163897
+N163897 "0..*" -- "1" N163908
+N163886 "0..*" -- "1" N163899
+N163908 "1" -- "0..*" N163886
+N163883 <|-- N163886
+@enduml

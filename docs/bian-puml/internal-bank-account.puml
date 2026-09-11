@@ -1,0 +1,80 @@
+@startuml
+title Internal Bank Account - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Internal Bank Account
+' Source image: internal-bank-account-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36602.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Internal Bank Account" as N188537 {
+  + Internal Bank Account Type : InternalBankAccountTypeValues
+}
+
+class "Account" as N188535 {
+}
+
+enum "InternalBankAccountTypeValues" as N188524 {
+  Holding Account
+  Mirror Account
+  Working Account
+}
+
+class "Account Entry" as N188516 {
+}
+
+class "Financial Transaction" as N188450 {
+  + Financial Transaction Type : FinancialTransactionTypeValues
+  + Financial Transaction Currency : CurrencyCode
+  + Financial Transaction Amount : Amount
+  + Financial Transaction From Account : Account
+  + Financial Transaction Target Account : Account
+  + Financial Transaction Date Time : DateTime[1..*]
+}
+
+class "Transaction" as N188515 {
+}
+
+class "Internal Bank Account Entry" as N188485 {
+}
+
+enum "FinancialTransactionTypeValues" as N188460 {
+  Pricing Transaction
+  Fee Transaction
+  Withdrawal Transaction
+  Deposit Transaction
+  Payment Transaction
+  Clearing Transaction
+  Settlement Transaction
+  ReconciliationTransaction
+  UpdateTransaction
+  SecuritiesTransaction
+  Repayment Transaction
+}
+
+class "Internal Bank Account Arrangement" as N188453 {
+}
+
+class "Arrangement" as N188467 {
+}
+
+class "Internal Bank Account Involvement" as N188528 {
+}
+
+class "Party" as N188536 {
+}
+
+' Relationships
+N188535 <|-- N188537
+N188515 <|-- N188450
+N188516 <|-- N188485
+N188537 "0..1" -- "0..*" N188485
+N188450 "0..1" -- "0..*" N188485
+N188467 <|-- N188453
+N188453 "0..*" -- "1" N188537
+N188453 "0..1" -- "0..*" N188450
+N188453 "0..1" -- "0..*" N188528
+N188536 "0..1" -- "0..*" N188528
+@enduml

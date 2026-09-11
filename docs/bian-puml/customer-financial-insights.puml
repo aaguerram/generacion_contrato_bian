@@ -1,0 +1,122 @@
+@startuml
+title Customer Financial Insights - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Financial Insights
+' Source image: customer-financial-insights-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_31553.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Customer Insight" as N223524 {
+  + Customer Insight Type : CustomerInsightTypeValues
+  + Customer Insight Value : Value
+  + Customer Insight Calculation Date : DateTime
+  + Customer Insight Description : Text
+  + Customer Insight Identification : Identifier
+}
+
+class "Customer Relationship" as N223573 {
+}
+
+class "Customer Position" as N223523 {
+  + Position Type : PositionTypeValues
+  + Event Reference
+}
+
+enum "PositionTypeValues" as N223513 {
+  Balance/Cashflow
+  Credit Position
+  Collateral Position
+  Security Position
+}
+
+class "Customer Event Log" as N223535 {
+}
+
+class "Analysis" as N223534 {
+}
+
+class "Algorithm" as N223477 {
+}
+
+class "Customer Financial Insight Analysis" as N223483 {
+}
+
+enum "CustomerInsightTypeValues" as N223572 {
+  Customer Behavioral Insight
+  Customer Demographic Insight
+  Customer Psychographic Insight
+  Customer Transactional Insight
+  Customer Feedback and Sentiment Insight
+  Customer Journey Insight
+  Customer Retention and Churn Insight
+  Customer Financial Insight
+}
+
+class "Customer Behavior Insight" as N223521 {
+}
+
+class "Customer Financial Insight" as N223480 {
+  + Customer Financial Insight Type : CustomerFinancialInsightTypeValues
+}
+
+class "Customer Behavior Model" as N223565 {
+}
+
+class "Model" as N223586 {
+}
+
+class "Customer Behavior" as N223486 {
+}
+
+class "Customer Financial Insight Involvement" as N223567 {
+  + Customer Financial Insight Involvement Type : CustomerFinancialInsightInvolvementTypeValues
+}
+
+class "Party" as N223541 {
+}
+
+enum "CustomerFinancialInsightInvolvementTypeValues" as N223559 {
+  Financial Analysts
+  Data Analysts
+  Business Intelligence Analysts
+  Risk Analysts
+  Accountants
+  Customer Relationship Managers
+  Financial Advisors
+  Data Scientists
+  Product Managers
+  Compliance Officers
+}
+
+enum "CustomerFinancialInsightTypeValues" as N223576 {
+  Customer Transactional Insight
+  Customer Lifetime Value
+  Customer Acquisition Cost
+  Revenue per Customer
+  Churn Cost
+  Retention Cost
+  Discount and Promotion Impact
+  Customer Profitability Analysis
+  Segmented Financial Performance
+}
+
+' Relationships
+N223523 "0..*" -- "1" N223573
+N223534 -- "0..*" N223477
+N223534 <|-- N223483
+N223573 "0..1" -- "0..*" N223524
+N223524 <|-- N223480
+N223524 <|-- N223521
+N223523 "0..1" -- "0..*" N223480
+N223480 "0..1" -- "0..*" N223483
+N223573 "1" -- "0..*" N223486
+N223486 "0..1" -- "0..*" N223565
+N223565 "ModelUsed / InAnalysis / 0..*" -- "0..*" N223483
+N223586 <|-- N223565
+N223480 "0..1" -- "0..*" N223567
+N223541 "0..1" -- "0..*" N223567
+N223535 "LogUsed / InAnalysis / 0..*" -- "0..*" N223483
+@enduml

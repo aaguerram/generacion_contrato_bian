@@ -1,0 +1,28 @@
+@startuml
+title Legal Advisory - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Legal Advisory
+' Source image: legal-advisory-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36542.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Legal Advisory Service" as N116058 {
+}
+
+class "Legal Advisory Agreement" as N116055 {
+}
+
+class "Agreement" as N116073 {
+}
+
+class "Service" as N116057 {
+}
+
+' Relationships
+N116058 "0..1" -- "0..*" N116055
+N116073 <|-- N116055
+N116057 <|-- N116058
+@enduml

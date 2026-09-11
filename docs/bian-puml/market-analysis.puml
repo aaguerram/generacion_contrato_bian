@@ -1,0 +1,101 @@
+@startuml
+title Market Analysis - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Market Analysis
+' Source image: market-analysis-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_28791.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Analysis" as N101885 {
+}
+
+class "Market Analysis" as N101970 {
+}
+
+class "Market Research Analysis Request" as N102005 {
+}
+
+class "Market Research Report" as N101957 {
+}
+
+class "Party" as N101945 {
+}
+
+class "Market" as N101893 {
+  + Market Type : MarketTypeValues
+  + Market Identification : Identifier
+  + Market Country : Country
+  + Market Jurisdiction : Jurisdiction
+}
+
+class "Market Research" as N101982 {
+}
+
+class "Market Research Analysis" as N101888 {
+  + Market Research Analysis : MarketResearchAnalysisTypeValues
+}
+
+class "Report" as N101928 {
+}
+
+class "Location" as N102008 {
+}
+
+class "Instruction" as N101917 {
+}
+
+class "Market Research Analysis Involvement" as N101899 {
+  + Market Research Analysis Involvement Type : MarketResearchAnalysisInvolvementTypeValues
+}
+
+enum "MarketResearchAnalysisInvolvementTypeValues" as N102028 {
+  Market Research Analyst
+  Data Scientist / Data Analyst
+  Survey Designer
+  Field Researcher / Data Collector
+  Focus Group Moderator
+  Market Research Manager
+  Consumer Insights Specialist
+}
+
+enum "MarketTypeValues" as N101941 {
+  Financial Market
+  General Market
+}
+
+class "Competitor Analysis" as N101896 {
+}
+
+class "Customer Insight" as N101975 {
+}
+
+enum "MarketResearchAnalysisTypeValues" as N101882 {
+  Customer Need Analysis
+  Competitive Analysis
+  Channel Distribution Analysis
+  Pricing Behavior Analsysis
+  Market Segmentation Analysis
+  Market Forecasting
+}
+
+' Relationships
+N101885 <|-- N101970
+N101888 "0..*" -- "is used / 0..*" N101957
+N101982 "0..*" -- "0..*" N101957
+N101885 <|-- N101888
+N101888 "0..*" -- "SubjectOf / Analysis / 1..*" N101982
+N101982 "0..*" -- "SubjectOf / Research / 1..*" N101893
+N101928 <|-- N101957
+N102008 "0..1" -- "0..*" N101893
+N102005 "0..1" -- "0..*" N101888
+N101917 <|-- N102005
+N101888 "0..1" -- "0..*" N101899
+N101945 "0..1" -- "0..*" N101899
+N101893 "SubjectOf / Analysis / 1..*" -- "0..*" N101970
+N101885 <|-- N101896
+N101888 "0..*" -- "0..*" N101975
+N101896 -- "0..*" N101888 : 0..*
+@enduml

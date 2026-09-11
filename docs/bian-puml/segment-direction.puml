@@ -1,0 +1,94 @@
+@startuml
+title Segment Direction - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Segment Direction
+' Source image: segment-direction-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_42250.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Strategy" as N190045 {
+}
+
+class "Business Initiative" as N189955 {
+  + Initiative Type : BusinessInitiativeTypeValues
+  + Initiative Description : Text
+  + Initiative Schedule : Schedule
+  + Initiative Date : ProjectDateTime
+}
+
+class "Rule Set" as N189985 {
+}
+
+class "Document" as N190087 {
+}
+
+class "Correspondence" as N190053 {
+}
+
+class "Business Initiative Involvement" as N190076 {
+}
+
+class "Segment" as N189978 {
+}
+
+class "Segment Strategy" as N189971 {
+}
+
+class "Party" as N190016 {
+}
+
+class "Plan" as N189974 {
+}
+
+class "Project" as N190003 {
+}
+
+enum "BusinessInitiativeTypeValues" as N189968 {
+  Market Expansion
+  Diversification
+  Mergers and Acquisitions
+  Process Improvement
+  Cost Reduction
+  Quality Management
+  Revenue Growth
+  Cost Management
+  Capital Optimization
+  Customer Experience Improvement
+  Customer Retention
+  Customer Acquisition
+  Regulatory Compliance
+  Risk Management
+}
+
+class "ProjectDateTime" as N189990 <<datatype>> {
+  + Project Date : DateTime
+  + Project Date Type : ProjectDateTime
+}
+
+enum "ProjectDareTimeTypeValues" as N190080 {
+  Kickoff Date
+  Approval Date
+  Start Date
+  Completion Date
+  Final Review Date
+  Project Closure Date
+  Review Date
+  Audit Date
+  Deliverable Handover Date
+}
+
+' Relationships
+N190045 <|-- N189971
+N189955 "Undertaken / Initiative / 0..*" -- "Supported / Strategy / 0..*" N189971
+N189985 "GovernRule / 0..*" -- "0..*" N189971
+N190087 "Associated / Document / 0..*" -- "0..*" N189955
+N190053 "Generated / Correspondence / 0..*" -- "0..*" N189955
+N190076 "0..*" -- "0..1" N189955
+N189978 "0..1" -- "0..*" N189971
+N190016 "0..*" -- "0..*" N190076
+N189974 <|-- N190045
+N190003 <|-- N189955
+@enduml

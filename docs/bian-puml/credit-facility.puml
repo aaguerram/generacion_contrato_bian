@@ -1,0 +1,109 @@
+@startuml
+title Credit Facility - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Credit Facility
+' Source image: credit-facility-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_35934.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Credit Facility" as N189539 {
+  + Credit Facility Type : CreditFacilityTypeValues
+}
+
+class "Credit Facility Arrangement" as N189542 {
+  + Credit Facility Amount : Amount
+  + Credit Facility Data Time : DateTime
+  + Credit Facility Number : Identifier
+  + Credit Facility Rate Type : CreditFacilityRateTypeValues
+  + Credit Facility Type : CreditFacilityTypeValues
+}
+
+class "Arrangement" as N189651 {
+}
+
+class "Product" as N189713 {
+}
+
+class "Credit Facility Agreement" as N189574 {
+  + Credit Facility Status : AccountStatusTypeValues
+}
+
+class "Agreement" as N189689 {
+}
+
+class "Fee Arrangement" as N189545 {
+}
+
+class "Account" as N189715 {
+}
+
+class "Loan" as N189616 {
+}
+
+class "Collateral Agreement" as N189561 {
+}
+
+class "Customer Agreement" as N189568 {
+}
+
+class "Limit Arrangement" as N189708 {
+}
+
+class "Credit Facility Instruction" as N189640 {
+}
+
+class "Credit Facility Transaction" as N189670 {
+}
+
+class "Transaction" as N189556 {
+}
+
+class "Instruction" as N189699 {
+}
+
+class "Account Entry" as N189611 {
+}
+
+enum "CreditFacilityTypeValues" as N189677 {
+  Revolving
+  Fixed amount
+  Decreasing
+}
+
+enum "CreditFacilityRateTypeValues" as N189617 {
+  Availability Commission
+}
+
+enum "AccountStatusTypeValues" as N189624 {
+  Enabled
+  Disabled
+  Deleted
+  ProForma
+  Pending
+}
+
+' Relationships
+N189539 "0..1" -- "0..*" N189574
+N189689 <|-- N189574
+N189574 "0..1" -- "0..*" N189542
+N189715 "CreditFacility / Arrangement Account / 0..1" -- "0..*" N189542
+N189539 "0..*" -- "UnderlyingLoan / 0..*" N189616
+N189689 <|-- N189561
+N189689 <|-- N189568
+N189568 "0..1 / 0..*" -- N189574
+N189574 "0..*" -- "0..*" N189561
+N189542 <|-- N189708
+N189542 <|-- N189545
+N189542 "0..1" -- "0..*" N189640
+N189640 "0..1" -- "0..*" N189670
+N189699 <|-- N189640
+N189556 <|-- N189670
+N189670 "0..1" -- "0..1" N189611
+N189715 "1" -- "0..*" N189611
+N189651 <|-- N189542
+N189713 <|-- N189539
+N189574 "0..1" -- "0..1" N189715
+@enduml

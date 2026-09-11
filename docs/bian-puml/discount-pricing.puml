@@ -1,0 +1,93 @@
+@startuml
+title Discount Pricing - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Discount Pricing
+' Source image: discount-pricing-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52549.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Product" as N219107 {
+}
+
+class "Product Feature" as N219155 {
+}
+
+class "Product Term And Condition" as N219089 {
+  + Product Term And Condition Type : ProductTermAndConditionType
+  + Condition Reference : Condition
+  + Product Reference : Product
+}
+
+enum "ProductStandardTermAndConditionTypeValues" as N219142 {
+  Product General Term and Condition
+  Product Context Specific Term and Condition
+  Product Combination Term and Condition
+  Product Pricing and Fee Term and Condition
+  Product Matching Term and Condition
+  Product Eligibility Term and Condition
+  Product Repayment Term and Condition
+  Product Documentation Required Term and Condition
+}
+
+class "Fee Product Feature" as N219111 {
+}
+
+class "Fee Arrangement" as N219122 {
+}
+
+class "Exceptional Fee Product Feature" as N219054 {
+  + Applicable Product or Service : Product
+  + Fee Type : FeeTypeValues
+  + Eligibility Criteria : Criterion
+  + Validity Period : DateTimePeriod
+  + Calculation Method : FeeCalculationModalityTypeValues
+  + Priority or Override Rules : Rule Set
+}
+
+class "Exceptional Fee Discount" as N219043 {
+  + Discount Type : DiscountTypeValues
+}
+
+enum "DiscountTypeValues" as N219079 {
+  Percentage Discount
+  Fixed Amount Discount
+  Fee Waiver
+  Tiered/Volume Discount
+  Promotional/Time-bound
+}
+
+enum "FeeCalculationBasisTypeValues" as N219103 {
+  Flat
+  PerUnit
+  Percentage
+  RatePerBrackets
+  RateWithMinimumAmount
+  RateWithMaximumAmount
+  Other
+  GrossAmount
+  NetAmount
+  NetAssetValuePrice
+}
+
+enum "FeeCalculationModalityTypeValues" as N219046 {
+  Fixed Amount
+  Percentage-Based
+  Tiered/Slab-Based
+  Capped Fee
+  Minimum Fee
+}
+
+' Relationships
+N219107 -- N219155
+N219107 "0..1" -- "0..*" N219089
+N219155 <|-- N219089
+N219155 <|-- N219111
+N219111 "Standard / Feature / 0..1" -- "Agreed / Feature / 0..*" N219122
+N219155 <|-- N219054
+N219111 "Standard / Feature / 0..1" -- "Exceptional / Feature / 0..*" N219054
+N219054 "0..1" -- "Agreed / Feature / 0..*" N219122
+N219054 <|-- N219043
+@enduml

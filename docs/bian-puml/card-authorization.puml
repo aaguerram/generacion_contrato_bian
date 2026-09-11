@@ -1,0 +1,312 @@
+@startuml
+title Card Authorization - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Card Authorization
+' Source image: card-authorization-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_48502.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Assessment" as N198238 {
+}
+
+class "Test" as N198156 {
+}
+
+class "Device" as N198426 {
+}
+
+class "Card Payment Transaction" as N198336 {
+  + Amount : Amount[1..*]
+  + Merchant Location : Location
+  + Debit Credit Direction : DebitCreditIndicatortValues
+  + Card Transaction Channel : TransactionChannelTypeValues
+  + Point Of Interaction : Point Of Service
+  + Card Transaction Date Time : DateTime
+  + Card Transaction Environment Type : TransactionEnvironmentTypeValues
+  + Merchant Country : Country
+  + Card Network : Card Network
+  + Amount Qualifier : AmountQualifierTypeValues
+  + Card Payment Status : Status
+  + Card Transaction Category : CardTransactionCategoryTypeValues
+  + Card Payment Transaction Identification : CardPaymentTransactionIdentification
+  + Card Payment Transaction Service Type : CardPaymentTransactionServiceTypeValues
+}
+
+class "Account" as N198419 {
+}
+
+class "Card Payment Involvement" as N198412 {
+  + Involvement Type : CardPaymentInvolvementTypeValues
+  + Agreement Reference : Card Payment Agreement
+  + Party Reference : Party
+}
+
+enum "CardPaymentInvolvementTypeValues" as N198443 {
+  Card Holder
+  CardI ssuer
+  Card Acceptor
+  Card Acquirer
+  Merchant
+  Card Network
+}
+
+class "Payment Transaction" as N198310 {
+}
+
+class "Card Payment Authorization" as N198181 {
+  + Transaction Success : TrueFalseIndicatorValues
+  + Merchant Override : TrueFalseIndicatorValues
+  + Validity Date : Date
+  + Response : Text
+  + Authorization Code : Value
+  + Cardholder Address Verification Result : CardholderAddressVerificationResultTypeValues
+  + CSC Result : CSCResultTypeValues
+  + Electronic Commerce Authentication Result : Text
+  + Failure Reason : FailureReasonTypeValues
+  + Authorization Entity : InvolvedParty
+}
+
+class "Authorization" as N198338 {
+}
+
+class "Payment Card" as N198373 {
+  + Card Type : PaymentCardTypeValues
+  + Card Number : Number
+  + Card Start Date : DateTime
+  + Card Expiry Date : DateTime
+  + Card Security Code : Number
+  + Card Verification Value : Number
+  + Bank Identification Number : Identifier
+  + Card Sequence Number : Text
+  + Card Brand : Text
+  + Card Currency Code : CurrencyCode
+  + Card Country Code : Country
+  + Card Product Profile : Text
+}
+
+class "Card Payment Authentication" as N198466 {
+  + Card Holder : InvolvedParty
+}
+
+class "Authentication" as N198448 {
+  + Authentication Level : AuthenticationLevelTypeValues
+  + Authentication Entity : AuthenticationEntityTypeValues
+  + Authentication Method : AuthenticationMethodTypeValues
+  + Authentication Value : Value
+  + Authentication Result : AuthenticationResultTypeValues
+  + Authentication Type : AuthenticationTypeValues
+}
+
+enum "AuthenticationMethodTypeValues" as N198485 {
+  OnLinePIN
+  OfflinePIN
+  SignatureCapture
+  Password
+  Biometry
+  CSCVerification
+  CryptogramVerification
+  UnknownMethod
+  Bypass
+  PaperSignature
+  ManualVerification
+  MerchantAuthentication
+  SecureCertificate
+  SecureNoCertificate
+  SecuredChannel
+  BillingAddressVerification
+  CardholderIdentificationData
+  PassiveAuthentication
+  SecureElectronicCommerce
+  ShippingAddressVerification
+  TokenAuthentication
+  PaymentToken
+  AuthenticationToken
+  Mobile
+  Other
+  AddressDigits
+  AlienRegistrationNumber
+  ARQCVerification
+  BirthDate
+  CardholderName
+  CityOfBirth
+  CustomerIdentification
+  DriverIdentification
+  DriverLicenseNumber
+  Email
+  EmployeeIdentificationNumber
+  EmployerIdentificationNumber
+  IdentityCardNumber
+  OneTimePassword
+  OtherCardholderIdentification
+  OtherCryptogram
+  PassportNumber
+  PostalCode
+  ShippingAddressFrom
+  ShippingAddressTo
+  CardholderAddress
+  NonVisibleCSC
+  OtherNational
+  OtherPrivate
+  PlaceOfBirth
+  SocialSecurityNumber
+  TaxIdentificationNumber
+  AccountDigitalSignature
+  ARPCVerification
+  ATC
+  OffLineBiographics
+  OffLineBiometrics
+  OffLineDataAuthentication
+  OffLineDigitisedSignatureAnalysis
+  OffLinePINEncrypted
+  OffLinePINInClear
+  OnLineBiographics
+  PhoneHome
+  PhoneWork
+  PKISignature
+  QualifiedCertificate
+  ThreeDS
+  CardholderCertificateSerialNumber
+  AcceptorCertificateSerialNumber
+  NationalIdentifier
+}
+
+class "Card Payment Account" as N198601 {
+}
+
+class "Product" as N198573 {
+}
+
+enum "PaymentCardTypeValues" as N198162 {
+  CreditCard
+  DebitCard
+}
+
+class "PaymentCardType" as N198575 <<datatype>> {
+  + Payment Card Type : PartyIdentificationTypeValues
+  + Payment Card Type Name : Name
+}
+
+class "Account Entry" as N198557 {
+}
+
+enum "AmountQualifierTypeValues" as N198383 {
+  Cashback
+  Gratuity
+  Fees
+  Rebates
+  ValueAddedTax
+  Actual
+  Replacement
+  Maximum
+  Default
+  Estimated
+  Original
+  Surcharge
+  ServiceFee
+  InterchangeFee
+  Discount
+  ATMCommissionFee
+  AuthorisedAmount
+  CardRemainingBalan ce
+  MaximumAllowedAm ount
+  MinimumAllowedAm ount
+  RequestedAmount
+  IssuerFees
+  IssuerCommission
+  InterchangeFees
+  ProcessingFees
+  CurrencyConversion Fees
+  InternationalService AssessmentFees
+  Commission
+  Donation
+  Tax
+  Incremental
+  Decremental
+  Reserved
+  ConfirmedAmount
+  InstructedAmount
+  ATMAccessFee
+  CardholderBillingFee
+  ClearingFee
+  CreditTransactionFe e
+  Cumulative
+  DebitTransactionFee
+  Extra
+  ForeignExchangeFee
+  FundsTransfer
+  InstantPaymentFee
+  InstantTransferFee
+  IssuerCardholderFee
+  Limit
+  OtherNational
+  OtherPrivate
+  ReconciliationFee
+  SettlementFee
+  TransactionFee
+  Anticipated
+  Baggage
+  ChargedToCard
+  ClearingPriorityFee
+  Dental
+  Deposit
+  FundsTransferFee
+  OtherQualifiedMedic al
+  Prescription
+  Proxy
+  RequestedCashback
+  SettlementPriorityFe e
+  TotalHealthcare
+  Transit
+  Vision
+  Connect
+  Data
+  ExchangeTicket
+  ExchangeTicketFee
+  Fare
+  FoodBeverage
+  Insurance
+  LongDistance
+  Miscellaneous
+  Phone
+  Prepayment
+  Total
+  Usage
+  PreDCC
+  Upgrade
+  ClubFee
+  Cargo
+  DutyFree
+  TicketDelivery
+  PetCarrier
+  TourOrder
+  MinimumInterchange Fee
+  MaximumInterchang eFee
+  CashBackInterchang eFee
+}
+
+class "Party" as N198478 {
+}
+
+' Relationships
+N198238 -- "0..*" N198156 : 0..1
+N198426 <|-- N198373
+N198373 "UsedCard / 1" -- "0..*" N198336
+N198336 "AccountAssociated / WithCardTransaction / 0..*" -- "0..1" N198601
+N198336 "0..1" -- "2..*" N198412
+N198310 <|-- N198336
+N198181 "0..*" -- "0..1" N198336
+N198338 <|-- N198181
+N198336 "0..1" -- "0..1" N198466
+N198448 <|-- N198466
+N198238 <|-- N198338
+N198373 "0..*" -- "LinkedAccount / 0..1" N198601
+N198238 <|-- N198448
+N198336 "0..*" -- "PurchasedProduct / 0..*" N198573
+N198419 <|-- N198601
+N198336 "0..1" -- "2..*" N198557
+N198419 "1" -- "0..*" N198557
+N198478 "0..1" -- "0..*" N198412
+@enduml

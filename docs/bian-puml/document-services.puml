@@ -1,0 +1,91 @@
+@startuml
+title Document Services - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Document Services
+' Source image: document-services-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_35561.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Document" as N180183 {
+  + Document Identification : Identifier
+  + Document Version : Number
+  + Document Type : FinancialDocumentTypeValues
+  + Document Status : Status
+  + Document Date Time : DateTime
+  + Document Name : Name
+  + Document Date Time Type : DocumentDateTimeTypeValues
+  + Document Purpose : Text
+  + Document Format : Text
+  + Document Subject : Text
+  + Document Description : Text
+  + Document Validity Period : DateTimePeriod
+}
+
+enum "DocumentServiceTypeValues" as N180220 {
+  Document Provisioning
+  Document Verification
+  Document Amendment
+  Document Archiving
+  Document Imaging and Scanning
+}
+
+class "Document Service" as N180147 {
+  + Document Service Type : DocumentServiceTypeValues
+  + Document Service Schedule : Schedule
+  + Document Service Provider : Party
+  + Document Service Name : Name
+  + Document Service Description : Text
+  + Document Service Outcome : Text
+  + Document Service Request : Instruction
+  + Document Service Function : Function[1..*]
+}
+
+enum "DocumentDateTimeTypeValues" as N180170 {
+  Creation Date
+  Capturing Date
+  Version Date
+  Value Date
+  Issue Date
+}
+
+enum "FinancialDocumentTypeValues" as N180180 {
+  MeteredServiceInvoice
+  CreditNoteRelatedToFinancialAdjustment
+  DebitNoteRelatedToFinancialAdjustment
+  CommercialInvoice
+  CreditNote
+  DebitNote
+  HireInvoice
+  SelfBilledInvoice
+  RemittanceAdviceMessage
+  RelatedPaymentInstruction
+  CommercialContract
+  ForeignExchangeDealReference
+  StatementOfAccount
+  DispatchAdvice
+  PurchaseOrder
+  StructuredCommunicationReference
+  BillOfLading
+  Voucher
+  AccountReceivableOpenItem
+  TradeServicesUtilityTransaction
+  CashierReceipt
+  CustomerReceipt
+  Journal
+  SaleReceipt
+}
+
+class "Procedure" as N180150 {
+}
+
+class "Document Service Procedure" as N180195 {
+}
+
+' Relationships
+N180147 "0..*" -- "0..*" N180183
+N180150 <|-- N180195
+N180147 "0..1" -- "0..*" N180195
+@enduml

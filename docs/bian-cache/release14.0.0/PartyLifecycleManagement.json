@@ -1,0 +1,1966 @@
+{
+  "service_domain": "Party Lifecycle Management",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/PartyLifecycleManagement/Initiate",
+      "tipo": "CR",
+      "grupo": "PartyRelationshipAdministrativePlan",
+      "request_schema": "PartyRelationshipAdministrativePlan",
+      "response_schema": "PartyRelationshipAdministrativePlan",
+      "summary": "InCR Initiate party life-cycle administrative plan",
+      "description": "InCR Initiate party life-cycle administrative plan"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Update",
+      "tipo": "CR",
+      "grupo": "PartyRelationshipAdministrativePlan",
+      "request_schema": "PartyRelationshipAdministrativePlan",
+      "response_schema": "PartyRelationshipAdministrativePlan",
+      "summary": "UpCR Update details about a party life-cycle administrative plan",
+      "description": "UpCR Update details about a party life-cycle administrative plan"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Control",
+      "tipo": "CR",
+      "grupo": "PartyRelationshipAdministrativePlan",
+      "request_schema": "PartyRelationshipAdministrativePlan",
+      "response_schema": "PartyRelationshipAdministrativePlan",
+      "summary": "CoCR Control the processing of a party-life-cycle administrative plan (e.g. terminate)",
+      "description": "CoCR Control the processing of a party-life-cycle administrative plan (e.g. terminate)"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Exchange",
+      "tipo": "CR",
+      "grupo": "PartyRelationshipAdministrativePlan",
+      "request_schema": "PartyRelationshipAdministrativePlan",
+      "response_schema": "PartyRelationshipAdministrativePlan",
+      "summary": "EcCR Accept, verify, etc. of the party life-cycle administrative plan",
+      "description": "EcCR Accept, verify, etc. of the party life-cycle administrative plan"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Execute",
+      "tipo": "CR",
+      "grupo": "PartyRelationshipAdministrativePlan",
+      "request_schema": "PartyRelationshipAdministrativePlan",
+      "response_schema": "PartyRelationshipAdministrativePlan",
+      "summary": "ExCR Execute an automated action (e.g. input data)",
+      "description": "ExCR Execute an automated action (e.g. input data)"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Request",
+      "tipo": "CR",
+      "grupo": "PartyRelationshipAdministrativePlan",
+      "request_schema": "PartyRelationshipAdministrativePlan",
+      "response_schema": "PartyRelationshipAdministrativePlan",
+      "summary": "RqCR Request manual intervention (e.g. negotiate resolution)",
+      "description": "RqCR Request manual intervention (e.g. negotiate resolution)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "PartyRelationshipAdministrativePlan",
+      "request_schema": "",
+      "response_schema": "PartyRelationshipAdministrativePlan",
+      "summary": "ReCR Retrieve details about a party life-cycle administrative plan",
+      "description": "ReCR Retrieve details about a party life-cycle administrative plan"
+    },
+    {
+      "operation_id": "RetrieveQualification",
+      "method": "GET",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Qualification/{qualificationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Qualification",
+      "request_schema": "",
+      "response_schema": "Qualification",
+      "summary": "ReBQ Retrieve details about a party qualification routine",
+      "description": "ReBQ Retrieve details about a party qualification routine",
+      "parent_control_record": "PartyRelationshipAdministrativePlan"
+    },
+    {
+      "operation_id": "UpdateDocumentation",
+      "method": "PUT",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Documentation/{documentationid}/Update",
+      "tipo": "BQ",
+      "grupo": "Documentation",
+      "request_schema": "Documentation",
+      "response_schema": "Documentation",
+      "summary": "UpBQ Update details about document handling",
+      "description": "UpBQ Update details about document handling",
+      "parent_control_record": "PartyRelationshipAdministrativePlan"
+    },
+    {
+      "operation_id": "ExecuteDocumentation",
+      "method": "PUT",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Documentation/{documentationid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Documentation",
+      "request_schema": "Documentation",
+      "response_schema": "Documentation",
+      "summary": "ExBQ Execute an automated action (e.g. input data about a document)",
+      "description": "ExBQ Execute an automated action (e.g. input data about a document)",
+      "parent_control_record": "PartyRelationshipAdministrativePlan"
+    },
+    {
+      "operation_id": "RequestDocumentation",
+      "method": "PUT",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Documentation/{documentationid}/Request",
+      "tipo": "BQ",
+      "grupo": "Documentation",
+      "request_schema": "Documentation",
+      "response_schema": "Documentation",
+      "summary": "RqBQ Request manual intervention (e.g. handle a document exchange)",
+      "description": "RqBQ Request manual intervention (e.g. handle a document exchange)",
+      "parent_control_record": "PartyRelationshipAdministrativePlan"
+    },
+    {
+      "operation_id": "RetrieveDocumentation",
+      "method": "GET",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Documentation/{documentationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Documentation",
+      "request_schema": "",
+      "response_schema": "Documentation",
+      "summary": "ReBQ Retrieve details about document processing for a party life-cycle administration",
+      "description": "ReBQ Retrieve details about document processing for a party life-cycle administration",
+      "parent_control_record": "PartyRelationshipAdministrativePlan"
+    },
+    {
+      "operation_id": "UpdatePrecedents",
+      "method": "PUT",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Precedents/{precedentsid}/Update",
+      "tipo": "BQ",
+      "grupo": "Precedents",
+      "request_schema": "Precedents",
+      "response_schema": "Precedents",
+      "summary": "UpBQ Update details about customer precedents",
+      "description": "UpBQ Update details about customer precedents",
+      "parent_control_record": "PartyRelationshipAdministrativePlan"
+    },
+    {
+      "operation_id": "RetrievePrecedents",
+      "method": "GET",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/Precedents/{precedentsid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Precedents",
+      "request_schema": "",
+      "response_schema": "Precedents",
+      "summary": "ReBQ Retrieve details about customer precedent maintenance",
+      "description": "ReBQ Retrieve details about customer precedent maintenance",
+      "parent_control_record": "PartyRelationshipAdministrativePlan"
+    },
+    {
+      "operation_id": "RetrieveIdentityProofing",
+      "method": "GET",
+      "path": "/PartyLifecycleManagement/{partylifecyclemanagementid}/IdentityProofing/{identityproofingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "IdentityProofing",
+      "request_schema": "",
+      "response_schema": "IdentityProofing",
+      "summary": "ReBQ Retrieve details about a party identity proofing routine",
+      "description": "ReBQ Retrieve details about a party identity proofing routine",
+      "parent_control_record": "PartyRelationshipAdministrativePlan"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Assessment",
+    "Assessmenttypevalues",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Directory",
+    "Directoryentrydatetypevalues",
+    "Document",
+    "DocumentDirectoryEntry",
+    "Documentation",
+    "Documentdatetimetypevalues",
+    "Feature",
+    "Featuretypevalues",
+    "Financialdocumenttypevalues",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "IdentityProofing",
+    "Industrycode",
+    "Instruction",
+    "Instructiondatetime",
+    "Instructiondatetimetypevalues",
+    "Instructionidentification",
+    "Instructionidentificationtypevalues",
+    "Instructionstatus",
+    "Instructionstatustypevalues",
+    "Instructiontypevalues",
+    "Involvedparty",
+    "Location",
+    "Log",
+    "Model",
+    "Name",
+    "Party",
+    "PartyPrecedent",
+    "PartyRelationshipAdministrativePlan",
+    "PartyRelationshipLifecyclePhase",
+    "Party_Partyrelationshiptypevalues",
+    "Partyidentification",
+    "Partyidentificationtypevalues",
+    "Partylegalstructuretypevalues",
+    "Partytypevalues",
+    "Precedents",
+    "Qualification",
+    "Requirement",
+    "Schedule",
+    "Service",
+    "Servicetypevalues",
+    "Status",
+    "Task",
+    "Time",
+    "Verification",
+    "Verificationentitytypevalues",
+    "Verificationresulttypevalues",
+    "Verificationtypevalues",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Assessment",
+      "kind": "object",
+      "description": "The outcome of the qualification workstep",
+      "properties": [
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Assessmenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Valuation` - \r\n* `Matching` - \r\n* `Authorization` - An evaluation whether a party or system is allowed to do something.\n\nThe consent given by a participant (or a third party acting on behalf of that participant) in order to transfer funds or securities. (ECB)\n\nAuthorization is a mechanism by which a computer system determines whether to allow or deny specific action to a user. Authorization is often controlled by rather complex rules and algorithms, usually specified as part of an access control model. Authorization often follows (and required) authentication, however, authentication and authorization are two separate mechanisms. In rare cases, \"authorization\" is understood as a process of allowing access, granting permissions or giving approval. Such as \"authorization\" of a request to join a group. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `Authentication` - An evaluation whether a party or system is what it claims to be.\n\nA security mechanism for verifying: 1) the identity of an individual or other entity (including verification by means of a computer or computer application); and 2) the level of authority of that person or entity (i.e. the ability of that person or entity to perform specific tasks or activities). (ECB)\n\nAuthentication is a mechanism by which a computer system checks that the user is really the one she or he claims to be. Authentication can be implemented by a broad variety of mechanisms broadly divided into three categories: something you know, something you have, something you are. Traditionally, authentication is done by the means of by username and password. Authentication is often followed by authorization, however, authentication and authorization are two separate mechanisms. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `QualityAssurance` - \r\n* `Audit` - \r\n* `ComplianceCheck` - \r\n* `FundingCheck` - \r\n* `SuitabilityCheck` - \r\n* `PerformanceCheck` - \r\n* `ImpactAssessment` - \r\n* `RiskAssessment` - \r\n* `Rating` - \r\n* `UnderwritingAssessment` - \r\n* `Qualification` - \r\n* `Verification` - A process establishing that a particular information is correct, while the meaning of \"information\" and \"correct\" varies from context to context. When dealing with identity information, this usually means formal verification of identity attributes, checking the schema, identifier uniqueness and referential integrity. However, verification may mean deeper verification, such as checking that the information is true and up-to-date.  (ISO/IEC 24760-1:2019 - IT Security and Privacy)\n\r\n* `KYCAssessment` - An assessment conducted by businesses and financial institutions to verify and confirm the identity of their customers or clients. The primary purpose of a KYC check is to prevent illegal activities, such as money laundering, terrorist financing, and fraud, by ensuring that customers are who they claim to be.\r\n* `PEPAssessment` - A PEP check, or \"Politically Exposed Person\" check, is an assessment conducted by used by businesses, financial institutions, and government agencies to identify individuals who hold prominent public positions or have significant political influence. The purpose of a PEP check is to assess and manage the potential risks associated with doing business with these individuals, as they may be more susceptible to corruption, money laundering, or other illicit activities.\r\n* `AMLAssessment` - An AML (Anti-Money Laundering) check is an assessment conducted by businesses, financial institutions, and other organizations to prevent and detect money laundering and the financing of criminal activities. The main purpose of an AML check is to ensure that financial transactions and business relationships are not being used to disguise the illegal origins of funds.\r\n* `EligibilityCheck` - Determines whether a person or case meets the criteria or preconditions to qualify for a benefit, service, or action.\r\n* `ExternalAgencyCheck` - \r\n* `EntitlementCheck` - Determines what benefit, amount, or service the person is actually entitled to receive once eligibility is confirmed.\r\n",
+      "enum_values": [
+        "Valuation",
+        "Matching",
+        "Authorization",
+        "Authentication",
+        "QualityAssurance",
+        "Audit",
+        "ComplianceCheck",
+        "FundingCheck",
+        "SuitabilityCheck",
+        "PerformanceCheck",
+        "ImpactAssessment",
+        "RiskAssessment",
+        "Rating",
+        "UnderwritingAssessment",
+        "Qualification",
+        "Verification",
+        "KYCAssessment",
+        "PEPAssessment",
+        "AMLAssessment",
+        "EligibilityCheck",
+        "ExternalAgencyCheck",
+        "EntitlementCheck"
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "Date and time at which the range starts. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Directory",
+      "kind": "object",
+      "description": "Reference to an external verification source (e.g. for registered address/location verification)",
+      "properties": [
+        {
+          "name": "DirectoryVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryConfiguration",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryValidPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "DirectoryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Directoryentrydatetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpenDate` - \r\n* `RefreshDate` - \r\n",
+      "enum_values": [
+        "OpenDate",
+        "RefreshDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Document that provides background or corroborating information regarding an assessment(s).",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "DocumentDirectoryEntry",
+      "kind": "object",
+      "description": "Reference to documents used for verification",
+      "properties": [
+        {
+          "name": "DocumentDirectoryEntryIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Directoryentrydatetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "DirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Documentation",
+      "kind": "object",
+      "description": "A course of action for doing Identity Proofing in the context of executing the Service Domain\n\nA course of action conducted for confirming that an individual's claimed identity is accurate and valid.\n",
+      "properties": [
+        {
+          "name": "PartyLife-cycleRequiredDocumentation",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "PartyLife-cycleDocumentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "The identifier of service.",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "IdentityProofing",
+      "kind": "object",
+      "description": "A course of action for doing Identity Proofing in the context of executing the Service Domain\n\nA course of action conducted for confirming that an individual's claimed identity is accurate and valid.\n",
+      "properties": [
+        {
+          "name": "IdentityProofingType",
+          "type": "object",
+          "ref": "Verificationtypevalues"
+        },
+        {
+          "name": "PublicDirectoryReference",
+          "type": "object",
+          "ref": "Directory"
+        },
+        {
+          "name": "SpecialistAgencyServiceReference",
+          "type": "object",
+          "ref": "Service"
+        },
+        {
+          "name": "IdentityProofingTaskRecord",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "IdentityProofingTaskDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SpecialistAgencyServiceRequestResult",
+          "type": "object",
+          "ref": "Instruction"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "IdentityProofingTaskWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "IdentityProofingTaskResult",
+          "type": "object",
+          "ref": "Verification"
+        },
+        {
+          "name": "IdentityProofingReference",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Industrycode",
+      "kind": "object",
+      "description": "Economical activity of Party (ISO20022)",
+      "properties": [
+        {
+          "name": "Industrycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Instruction",
+      "kind": "object",
+      "description": "Result from the verification service request",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Instructiondatetime"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Instructionstatus"
+        },
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Instructionidentification"
+        },
+        {
+          "name": "InstructionType",
+          "type": "object",
+          "ref": "Instructiontypevalues"
+        },
+        {
+          "name": "InstructionResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InstructionPurpose",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "InstructionDateType",
+          "type": "object",
+          "ref": "Instructiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DueDate` - \r\n* `ExecutionDate` - \r\n* `FulfillmentDate` - \r\n",
+      "enum_values": [
+        "DueDate",
+        "ExecutionDate",
+        "FulfillmentDate"
+      ]
+    },
+    {
+      "name": "Instructionidentification",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of an Instruction.\n",
+      "properties": [
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InstructionIdentificationType",
+          "type": "object",
+          "ref": "Instructionidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructionidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OrderNumber` - \r\n* `InstructionNumber` - \r\n",
+      "enum_values": [
+        "OrderNumber",
+        "InstructionNumber"
+      ]
+    },
+    {
+      "name": "Instructionstatus",
+      "kind": "object",
+      "description": "A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); ",
+      "properties": [
+        {
+          "name": "InstructionStatusType",
+          "type": "object",
+          "ref": "Instructionstatustypevalues"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Instructionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Pendingprocessing` - Processing of the instruction is pending.\r\n* `Acknowledgedaccepted` - Instruction has been acknowledged and accepted and is validated for further processing.\r\n* `Rejected` - Instruction has been rejected.\r\n* `Accepted` - Instruction has been accepted and is validated for further processing.\r\n* `Completed` - Processing has been completed.\r\n* `Notreceived` - No instruction has been received (to be used in a reminder).\r\n* `Cancelled` - Instruction has been cancelled.\r\n* `Beingcancelled` - Cancel request is being processed.\r\n* `Receivedbyissuerorregistrar` - Instruction has been received by Issuer.\r\n* `Pending` - Instruction is pending.\r\n* `Standinginstruction` - Standing instruction is applied.\r\n* `Queued` - Instruction is queued.\r\n* `Cancelledbysubcustodian` - Instruction has been cancelled by the agent, for example, due to an event deadline extension.\r\n* `Forwarded` - Accepted and sent along the chain.\r\n",
+      "enum_values": [
+        "Pendingprocessing",
+        "Acknowledgedaccepted",
+        "Rejected",
+        "Accepted",
+        "Completed",
+        "Notreceived",
+        "Cancelled",
+        "Beingcancelled",
+        "Receivedbyissuerorregistrar",
+        "Pending",
+        "Standinginstruction",
+        "Queued",
+        "Cancelledbysubcustodian",
+        "Forwarded"
+      ]
+    },
+    {
+      "name": "Instructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PaymentInstruction` - \r\n* `DeliveryOrder` - \r\n* `InformationRequest` - \r\n* `ExchangeInstruction` - \r\n* `AllocationInstruction` - \r\n* `MaintenanceInstruction` - \r\n",
+      "enum_values": [
+        "PaymentInstruction",
+        "DeliveryOrder",
+        "InformationRequest",
+        "ExchangeInstruction",
+        "AllocationInstruction",
+        "MaintenanceInstruction"
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of service. ",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Party",
+      "kind": "object",
+      "description": "Reference to the legal entity (typically the customer)",
+      "properties": [
+        {
+          "name": "PartyName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PartyType",
+          "type": "object",
+          "ref": "Partytypevalues"
+        },
+        {
+          "name": "PartyDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Partyidentification"
+        },
+        {
+          "name": "PartyLegalStructureType",
+          "type": "object",
+          "ref": "Partylegalstructuretypevalues"
+        },
+        {
+          "name": "PartyActivityIndicator",
+          "type": "object",
+          "ref": "Industrycode"
+        }
+      ]
+    },
+    {
+      "name": "PartyPrecedent",
+      "kind": "object",
+      "description": "Reference to the tracked value",
+      "properties": [
+        {
+          "name": "PrecedentType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PrecedentValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PrecedentValueDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "PartyRelationshipAdministrativePlan",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "PartyReference",
+          "type": "object",
+          "ref": "Party"
+        },
+        {
+          "name": "PartyRelationshipType",
+          "type": "object",
+          "ref": "Party_Partyrelationshiptypevalues"
+        },
+        {
+          "name": "PartyLife-cycleMaintenanceSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "PartyLife-cycleMaintenanceTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "PartyLife-cycleMaintenanceTaskType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartyLife-cycleMaintenanceWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "PartyLife-cycleMaintenanceTaskResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerPrecedentProfileUpdateLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "PartyRelationshipLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "PartyRelationshipLifecyclePhase",
+          "type": "object",
+          "ref": "PartyRelationshipLifecyclePhase"
+        }
+      ]
+    },
+    {
+      "name": "PartyRelationshipLifecyclePhase",
+      "kind": "object",
+      "description": "Phase that characterizes the course of existence of a party relationship in a specific context.\n",
+      "properties": [
+        {
+          "name": "Description",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IsCurrentPhase",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PhaseName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PhaseStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "PhasePeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Party_Partyrelationshiptypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PartyIsParentOfParty` - \r\n* `PartyIsSubsidiaryOfParty` - \r\n* `PartyIsCertifiedByParty` - \r\n* `PartyIsMarriedToParty` - \r\n* `PartyActsOnBehalfOfParty` - \r\n* `PartyIsContactPointForParty` - \r\n* `PartyIsTrustedByParty` - \r\n* `PartyIsThePowerOfAttorneyForParty` - \r\n* `PartyReceivesBenefitsFromAParty` - \r\n",
+      "enum_values": [
+        "PartyIsParentOfParty",
+        "PartyIsSubsidiaryOfParty",
+        "PartyIsCertifiedByParty",
+        "PartyIsMarriedToParty",
+        "PartyActsOnBehalfOfParty",
+        "PartyIsContactPointForParty",
+        "PartyIsTrustedByParty",
+        "PartyIsThePowerOfAttorneyForParty",
+        "PartyReceivesBenefitsFromAParty"
+      ]
+    },
+    {
+      "name": "Partyidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyIdentificationType",
+          "type": "object",
+          "ref": "Partyidentificationtypevalues"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to an entity.\r\n* `Nationalregistrationnumber` - Number assigned by a national registration authority to an entity. In Singapore this is known as the NRIC. (ISO20022)\r\n* `Registrationauthorityidentification` - An identifier for the Legal Entity in a business registry in the jurisdiction of legal registration, or in the appropriate registration authority. (ISO20022)\r\n* `LEI(LegalEntityIdentifier)` - \r\n* `Alienregistrationnumber` - Number assigned by a government agency to identify foreign nationals.\r\n* `Passportnumber` - Number assigned by a passport authority.\r\n* `Taxexemptidentificationnumber` - Number assigned to a tax exempt entity.\r\n* `Corporateidentification` - Number assigned to a corporate entity.\r\n* `Driverlicensenumber` - Number assigned to a driver's license.\r\n* `Foreigninvestmentidentitynumber` - Number assigned to a foreign investor (other than the alien number).\r\n* `Socialsecuritynumber` - Number assigned by a social security agency.\r\n* `Identitycardnumber` - Number assigned by a national authority to an identity card.\r\n* `Concat` - Number assigned by an issuer to identify a customer via the concatenation of the birthdate and characters of the first name and surname.\r\n* `Nationalregistrationidentificationnumber` - National registration identification number. In Singapore this is known as the NRIC.\r\n",
+      "enum_values": [
+        "Taxidentificationnumber",
+        "Nationalregistrationnumber",
+        "Registrationauthorityidentification",
+        "LEI(LegalEntityIdentifier)",
+        "Alienregistrationnumber",
+        "Passportnumber",
+        "Taxexemptidentificationnumber",
+        "Corporateidentification",
+        "Driverlicensenumber",
+        "Foreigninvestmentidentitynumber",
+        "Socialsecuritynumber",
+        "Identitycardnumber",
+        "Concat",
+        "Nationalregistrationidentificationnumber"
+      ]
+    },
+    {
+      "name": "Partylegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Individual` - \r\n* `CommunityInterestCompany` - \r\n* `CharitableIncorporatedOrganisation` - \r\n* `Co-Operative` - \r\n* `Charity` - \r\n* `GeneralPartnership` - \r\n* `LimitedLiabilityPartnership` - \r\n* `ScottishLimitedPartnership` - \r\n* `LimitedPartnership` - \r\n* `PrivateLimitedCompany` - \r\n* `PublicLimitedCompany` - \r\n* `Sole(SoleTrader)` - \r\n",
+      "enum_values": [
+        "Individual",
+        "CommunityInterestCompany",
+        "CharitableIncorporatedOrganisation",
+        "Co-Operative",
+        "Charity",
+        "GeneralPartnership",
+        "LimitedLiabilityPartnership",
+        "ScottishLimitedPartnership",
+        "LimitedPartnership",
+        "PrivateLimitedCompany",
+        "PublicLimitedCompany",
+        "Sole(SoleTrader)"
+      ]
+    },
+    {
+      "name": "Partytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\r\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\r\n",
+      "enum_values": [
+        "Person",
+        "Organisation"
+      ]
+    },
+    {
+      "name": "Precedents",
+      "kind": "object",
+      "description": "A course of action for doing Identity Proofing in the context of executing the Service Domain\n\nA course of action conducted for confirming that an individual's claimed identity is accurate and valid.\n",
+      "properties": [
+        {
+          "name": "PrecedentType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerPrecedentReference",
+          "type": "object",
+          "ref": "PartyPrecedent"
+        },
+        {
+          "name": "CustomerPrecedentValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerPrecedentValueDate",
+          "type": "object",
+          "ref": "Date"
+        }
+      ]
+    },
+    {
+      "name": "Qualification",
+      "kind": "object",
+      "description": "A course of action for doing Identity Proofing in the context of executing the Service Domain\n\nA course of action conducted for confirming that an individual's claimed identity is accurate and valid.\n",
+      "properties": [
+        {
+          "name": "QualificationType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "PublicDirectoryReference",
+          "type": "object",
+          "ref": "Directory"
+        },
+        {
+          "name": "SpecialistAgencyServiceReference",
+          "type": "object",
+          "ref": "Service"
+        },
+        {
+          "name": "QualificationTaskRecord",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "QualificationTaskDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SpecialistAgencyRegulatorServiceRequestResult",
+          "type": "object",
+          "ref": "Instruction"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "QualificationTaskWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "QualificationTaskResult",
+          "type": "object",
+          "ref": "Assessment"
+        }
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Service",
+      "kind": "object",
+      "description": "Reference to an external verification service (e.g. to perform background verification checks)",
+      "properties": [
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "The record of a specific verification task",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Time",
+      "kind": "object",
+      "description": "Contains end time of the verification that has been performed. ",
+      "properties": [
+        {
+          "name": "Time",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Verification",
+      "kind": "object",
+      "description": "The outcome of the verification routine",
+      "properties": [
+        {
+          "name": "VerificationType",
+          "type": "object",
+          "ref": "Verificationtypevalues"
+        },
+        {
+          "name": "VerificationEtity",
+          "type": "object",
+          "ref": "Verificationentitytypevalues"
+        },
+        {
+          "name": "VerificationResult",
+          "type": "object",
+          "ref": "Verificationresulttypevalues"
+        },
+        {
+          "name": "VerificationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "VerificationReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "VerificationValidityEndDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "VerificationValidityEndTime",
+          "type": "object",
+          "ref": "Time"
+        },
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Verificationentitytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Acquirer` - Acquirer of the transaction.\r\n* `Agent` - Entity providing card payment processing services acting as an intermediary between (or on behalf of) an acquirer and an issuer.\r\n* `Issuer` - Card issuer.\r\n* `Acceptor` - Acceptor (for example signature verification by the attendant).\r\n* `Othernational` - Other type of authentication entity defined at national level.\r\n* `Otherprivate` - Other type of authentication entity defined at private level.\r\n* `Terminal` - Secure application in the terminal.\r\n* `Cardapplication` - Application in the smart card.\r\n* `Acceptancedevice` - Type of Device to accept payment\r\n",
+      "enum_values": [
+        "Acquirer",
+        "Agent",
+        "Issuer",
+        "Acceptor",
+        "Othernational",
+        "Otherprivate",
+        "Terminal",
+        "Cardapplication",
+        "Acceptancedevice"
+      ]
+    },
+    {
+      "name": "Verificationresulttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Technicalerror` - Device or entity to perform the verification was unavailable.\r\n* `Successful` - Verification was successful.\r\n* `Partialmatch` - Verification was partially successful.\r\n* `Notperformed` - Verification has not been performed.\r\n* `Missing` - Information required to perform the verification was missing.\r\n* `Failed` - Verification failed.\r\n* `Furtheraction` - Further action required.\r\n* `Othernational` - Other result of verification defined at national level.\r\n* `Otherprivate` - Other result of verification defined at private level.\r\n* `Notsupported` - Not support the verification type\r\n",
+      "enum_values": [
+        "Technicalerror",
+        "Successful",
+        "Partialmatch",
+        "Notperformed",
+        "Missing",
+        "Failed",
+        "Furtheraction",
+        "Othernational",
+        "Otherprivate",
+        "Notsupported"
+      ]
+    },
+    {
+      "name": "Verificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `IdentityVerification/Proofing` - Identity proofing, also known as identity verification or identity authentication, is the process of confirming that an individual's claimed identity is accurate and valid.\r\n* `DocumentVerification` - Document verification is a process of verifying the authenticity and validity of documents presented by individuals or entities.\r\n",
+      "enum_values": [
+        "IdentityVerification/Proofing",
+        "DocumentVerification"
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "Work documentation, forms and schedules produced and referenced during the analysis",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "PartyRelationshipAdministrativePlan",
+        "operations": [
+          "Initiate",
+          "Update",
+          "Control",
+          "Exchange",
+          "Execute",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Documentation",
+        "parent_control_record": "PartyRelationshipAdministrativePlan",
+        "operations": [
+          "UpdateDocumentation",
+          "ExecuteDocumentation",
+          "RequestDocumentation",
+          "RetrieveDocumentation"
+        ]
+      },
+      {
+        "name": "IdentityProofing",
+        "parent_control_record": "PartyRelationshipAdministrativePlan",
+        "operations": [
+          "RetrieveIdentityProofing"
+        ]
+      },
+      {
+        "name": "Precedents",
+        "parent_control_record": "PartyRelationshipAdministrativePlan",
+        "operations": [
+          "UpdatePrecedents",
+          "RetrievePrecedents"
+        ]
+      },
+      {
+        "name": "Qualification",
+        "parent_control_record": "PartyRelationshipAdministrativePlan",
+        "operations": [
+          "RetrieveQualification"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyLifecycleManagement.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "7f4c9b36e0702f3e5f85a3da713ea6d9add55dac591e2d9a691d07224a8a8f3e",
+    "retrieved_at": "2026-09-10T22:24:00.233918+00:00"
+  }
+}

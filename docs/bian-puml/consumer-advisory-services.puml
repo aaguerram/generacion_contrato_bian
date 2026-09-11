@@ -1,0 +1,132 @@
+@startuml
+title Consumer Advisory Services - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Consumer Advisory Services
+' Source image: consumer-advisory-services-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_31118.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Agreement" as N193758 {
+}
+
+class "Financial Advisory Service" as N193671 {
+  + Financial Advisory Service Type : FinancialAdvisoryService TypeValues
+}
+
+class "Financial Advisory Service Agreement" as N193652 {
+}
+
+class "Financial Advisory Service Arrangement" as N193687 {
+  + Financial Advisory Service Arrangement Type : FinancialAdvisoryServiceArrangementType
+}
+
+class "Arrangement" as N193702 {
+}
+
+class "System" as N193784 {
+}
+
+class "Financial Advisory Service Session" as N193629 {
+}
+
+class "Session" as N193719 {
+}
+
+class "Financial Advisory Service Arrangement Fulfillment Event" as N193639 {
+}
+
+class "Arrangement Fulfillment Event" as N193772 {
+}
+
+class "Financial Advisory Service Involvement" as N193743 {
+  + Financial Advisory Service Involvement Type : FinancialAdvisoryServiceInvolvementTypeValues
+}
+
+class "Fee Arrangement" as N193624 {
+}
+
+class "Taxation Arrangement" as N193741 {
+  + Applicable Service Charge : String
+}
+
+class "Financial Planning Advisory Service" as N193628 {
+}
+
+class "Taxation Advisory Service" as N193665 {
+}
+
+class "Product Guidance Advisory Service" as N193691 {
+}
+
+class "Fee Product Feature" as N193622 {
+  + Fee Type : FeeTypeValues
+  + Fee Definition : Text
+  + Fee Plan : FeePlan
+  + Fee Date Time : DateTime
+  + Fee Name : Name
+  + Fee Rate : Rate
+  + Fee Amount : Amount[1..*]
+}
+
+class "Financial Planning Arrangement" as N193695 {
+}
+
+class "Product Guidance Arrangement" as N193618 {
+  + Applicable Service Charge : String
+}
+
+class "Customer Position State" as N193735 {
+}
+
+class "Party" as N193766 {
+}
+
+enum "FinancialAdvisoryServiceTypeValues" as N193630 {
+  Consumer Financial Advisory Service
+  Corporate Financial Advisory Service
+}
+
+enum "FinancialAdvisoryServiceArrangementType" as N193682 {
+  Fee Arrangement
+  Financial Planning Arrangement
+  Tax Optimization Arrangement
+  Strategic Funding Arrangement
+  Tactical Funding Arrangement
+  Capital Structuring Arrangement
+  Product Guidance Arrangement
+}
+
+enum "FinancialAdvisoryServiceInvolvementTypeValues" as N193781 {
+  Financial Advisor
+  Consumer Customer
+  Corporate Customer
+  Bank
+}
+
+' Relationships
+N193758 <|-- N193652
+N193652 "0..*" -- "0..1" N193671
+N193652 "0..1" -- "1..*" N193687
+N193702 <|-- N193687
+N193784 <|-- N193671
+N193719 <|-- N193629
+N193671 "SystemInSession / 0..1" -- "OperatingSession / 0..*" N193629
+N193687 "0..1" -- "0..*" N193639
+N193629 "0..1" -- "SessionEvent / 0..1" N193639
+N193772 <|-- N193639
+N193687 "0..1" -- "2" N193743
+N193652 "0..1" -- "2..*" N193743
+N193671 "0..1" -- "0..1" N193628
+N193671 "0..1" -- "0..1" N193665
+N193671 "0..1" -- "0..1" N193691
+N193671 "0..1" -- "0..1" N193622
+N193671 "0..*" -- "Used / AnalyticalMeasure / 0..*" N193735
+N193687 <|-- N193618
+N193687 <|-- N193741
+N193687 <|-- N193695
+N193687 <|-- N193624
+N193766 "0..1" -- "0..*" N193743
+@enduml

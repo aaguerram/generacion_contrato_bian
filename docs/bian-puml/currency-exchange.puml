@@ -1,0 +1,82 @@
+@startuml
+title Currency Exchange - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Currency Exchange
+' Source image: currency-exchange-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52696.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Currency Exchange Transaction" as N217349 {
+  + Buy Amount And Currency : Amount
+  + Sell Amount And Currency : Amount
+  + Resulting Amount : Amount
+}
+
+class "Currency Exchange Instruction" as N217437 {
+}
+
+class "Currency Exchange Arrangement" as N217361 {
+  + Exchange Rate Type : ExchangeRateTypeValues
+  + Exchange Rate : Rate
+  + Original Amount : Amount
+  + Unit Currency : CurrencyCode
+  + Quoted Currency : CurrencyCode
+  + Source Currency : CurrencyCode
+  + Target Currency : CurrencyCode
+}
+
+class "Currency Exchange Service" as N217413 {
+}
+
+class "Currency Exchange Agreement" as N217346 {
+  + Agreed Exchange Rate : Rate
+}
+
+enum "ExchangeRateTypeValues" as N217311 {
+  Spot
+  Sale
+  Agreed
+}
+
+class "Transaction" as N217313 {
+}
+
+class "Account" as N217337 {
+}
+
+class "Account Entry" as N217427 {
+}
+
+class "Agreement" as N217358 {
+}
+
+class "Service Arrangement" as N217319 {
+}
+
+class "Arrangement" as N217354 {
+}
+
+class "Instruction" as N217383 {
+}
+
+class "Service" as N217392 {
+}
+
+' Relationships
+N217437 "0..1" -- "0..*" N217349
+N217361 -- "0..*" N217437 : 0..1
+N217413 "0..1" -- "0..*" N217361
+N217346 "0..1" -- "0..1" N217361
+N217313 <|-- N217349
+N217337 "1" -- "0..*" N217427
+N217349 "0..1" -- "0..*" N217427
+N217361 "0..*" -- "0..1" N217337
+N217358 <|-- N217346
+N217319 <|-- N217361
+N217358 -- "1..*" N217354 : 1
+N217383 <|-- N217437
+N217392 <|-- N217413
+@enduml

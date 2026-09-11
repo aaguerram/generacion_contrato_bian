@@ -1,0 +1,4 @@
+{
+  "funcionalidad_macro": "Gestión y actualización de datos personales de contacto en la APP Produbanco",
+  "detalle": "El usuario autenticado accede a una pantalla de datos personales donde visualiza su información básica (nombre, identificación) y sus datos de contacto (número celular y correo electrónico). Desde ahí puede editar el número celular y el correo electrónico. Toda actualización exige confirmación mediante Smart Token (segundo factor ya implementado), aplica las validaciones de formato existentes, genera marcas/eventos de seguimiento para el modelo comportamental y antifraude (SRR), guarda un log de cambios (valor anterior y nuevo, fecha/hora y forma de autorización) y dispara notificaciones tanto al canal anterior como al nuevo. Las cuentas de menores solo permiten visualización (no edición) de los datos de contacto. No se solicita aceptación de términos y condiciones para estas actualizaciones."
+}

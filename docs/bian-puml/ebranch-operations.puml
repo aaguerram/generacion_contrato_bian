@@ -1,0 +1,125 @@
+@startuml
+title eBranch Operations - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: eBranch Operations
+' Source image: ebranch-operations-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_32019.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Session" as N165224 {
+}
+
+class "Session Dialogue Log" as N165269 {
+}
+
+class "Session Dialogue Log Entry" as N165249 {
+}
+
+class "Dialogue Session" as N165263 {
+}
+
+class "Customer Contact" as N165243 {
+}
+
+class "Contact Involvement" as N165281 {
+}
+
+class "eBranch Channel Session Report" as N165260 {
+}
+
+class "eBranch Channel Session Issue" as N165309 {
+}
+
+class "Session Issue" as N165315 {
+}
+
+class "Session Report" as N165321 {
+}
+
+class "Production Issue Involvement" as N165230 {
+}
+
+class "Party Role" as N165278 {
+}
+
+class "eBranch Channel Session" as N165218 {
+  + eBranch Session Service Menu : String
+  + eBranch Channel Session Direction : String
+  + eBranch Channel Session Device Reference : Object
+  + eBranch Session Device Role : String
+}
+
+class "Production Issue" as N165303 {
+  + Production Issue Type : String
+  + Production Issue Description : String
+  + Production Issue Diagnosis : String
+  + Production Issue Resolution Task : String
+  + Production Issue Status : String
+}
+
+class "Device" as N165320 {
+  + Device Identification : DeviceIdentification
+  + Device Type : DeviceTypeValues
+  + Device Property : Text
+  + Device Element : Text
+  + Device Status : Status
+  + Device Version : Number
+  + Device Date Time : DateTime
+  + Device Description : Text
+  + Device Name : Name
+  + Device Language : Text
+  + Device Phone Number : Text
+  + Device Location Reference : Text
+  + Device Manufacturer : Text
+  + Device Country Reference : Text
+  + Device Address Reference : Text
+  + Device Operating System : DeviceOperatingSystemTypeValues
+}
+
+class "Session Event" as N165331 {
+  + Session Eventy Type : String
+  + Session Event Date Time : String
+}
+
+class "eBranch Channel" as N165221 {
+}
+
+class "System" as N165245 {
+}
+
+class "eBranch Channel Service Menu" as N165293 {
+}
+
+class "Session Event Log" as N165355 {
+}
+
+' Relationships
+N165269 "0..1" -- "LogEntry / 0..*" N165249
+N165224 <|-- N165263
+N165263 "1" -- "0..*" N165249
+N165263 "DialogueSession / WithinContact / 0..*" -- "Structured / Interaction / 1" N165243
+N165243 "0..1" -- "0..*" N165281
+N165315 <|-- N165309
+N165224 "1" -- "0..*" N165321
+N165321 <|-- N165260
+N165278 <|-- N165281
+N165278 <|-- N165230
+N165218 "1" -- "0..*" N165309
+N165218 "1" -- "0..*" N165260
+N165303 "1" -- "0..*" N165230
+N165331 <|-- N165315
+N165224 -- "1..*" N165331 : 1
+N165218 "0..*" -- "0..*" N165320
+N165245 "SystemIn / Session / 1" -- "Operating / Session / 0..*" N165224
+N165221 "1" -- "0..*" N165218
+N165224 <|-- N165218
+N165218 "0..1" -- "0..1" N165263
+N165218 "0..*" -- "1" N165293
+N165221 "0..* / 1" -- N165293
+N165245 <|-- N165221
+N165355 "0..1" -- "1..*" N165331
+N165315 "0..*" -- "0..*" N165303
+@enduml

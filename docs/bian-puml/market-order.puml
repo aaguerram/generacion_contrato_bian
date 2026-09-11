@@ -1,0 +1,182 @@
+@startuml
+title Market Order - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Market Order
+' Source image: market-order-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_46948.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Market Order Instruction" as N182218 {
+  + Market Order Type : String
+  + Market Order Date : Date
+  + Market Order Date Type : String
+}
+
+class "Market Order Transaction" as N182114 {
+}
+
+class "Cash Account" as N182313 {
+}
+
+class "Transaction" as N182209 {
+}
+
+class "Instruction" as N182147 {
+}
+
+class "Market Order Involvement" as N182202 {
+}
+
+class "Investment Portfolio" as N182124 {
+}
+
+class "Party" as N182308 {
+}
+
+class "Assessment" as N182260 {
+}
+
+class "Security" as N182115 {
+  + Security Amount : Amount
+  + Security Price : Arrangement
+  + Security Identification : SecurityIdentification
+  + Security Balance : AccountBalance
+  + Security Status : SecurityStatus
+  + Security Fees : Fee Arrangement
+  + Security Date : Date Time
+  + Security Rate : Rate
+  + Security Tax : Tax Arrangement
+  + Security Jurisdiction : Jurisdiction
+}
+
+class "Financial Instrument" as N182133 {
+}
+
+class "Market Order Arrangement" as N182146 {
+}
+
+class "Market Order Agreement" as N182213 {
+}
+
+class "Limit Arrangement" as N182253 {
+}
+
+class "Security Order Arrangement" as N182217 {
+  + Trade Market : Market
+  + Trade Security : Security
+  + Trade Price : String
+  + Trade Amount : Amount
+}
+
+class "Market" as N182231 {
+}
+
+class "Investment Account" as N182129 {
+}
+
+class "Clearing Arrangement" as N182187 {
+}
+
+class "Settlement Arrangement" as N182120 {
+}
+
+class "Location" as N182229 {
+}
+
+class "Agreement" as N182259 {
+}
+
+class "Funding Check" as N182249 {
+}
+
+class "Market Trade" as N182169 {
+  + Trade Execute Date : DateTime
+  + Trade Value Date : DateTime
+  + Trade End Date : DateTime
+  + Trade Identification : TradeIdentification
+  + Trade Start Date : DateTime
+  + Trade Asset : Asset
+  + Trade Market : Market
+  + Market Order : Market Order Agreement
+  + Trade Commission : Fee Arrangement
+}
+
+class "SecurityIdentification" as N182151 <<datatype>> {
+  + Security Identification : Identifier
+  + Security Identification Type : SecurityIdentificationTypeValues
+}
+
+class "SecurityStatus" as N182282 <<datatype>> {
+  + Security Status : Status
+  + Security Status Type : SecurityStatusTypeValues
+}
+
+enum "SecurityIdentificationTypeValues" as N182199 {
+  RIC
+  TickerSymbol
+  Bloomberg
+  CTA
+  Common
+  Name
+  SEDOL
+  CUSIP
+  QUICK
+  Wertpapier
+  Dutch
+  Valoren
+  Sicovam
+  Belgian
+  IdentificationSuffix
+  GenericIdentification
+  ValidityPeriod
+  ApplicableTradingMarket
+  PrimeIdentification
+  RelatedOtherIdentification
+  TradingIdentification
+}
+
+enum "SecurityStatusTypeValues" as N182160 {
+  Inactive
+  WhenIssued
+  WhenDistributed
+  Issued
+  Suspended
+  InDefault
+  Worthless
+}
+
+class "Account" as N182242 {
+}
+
+' Relationships
+N182218 "0..1" -- "0..*" N182114
+N182209 <|-- N182114
+N182147 <|-- N182218
+N182202 "0..*" -- "0..1" N182218
+N182124 "Associated / InvestmentPortfolio / 0..1" -- "0..*" N182213
+N182114 "0..*" -- "0..*" N182260
+N182217 "0..*" -- "Traded / Security / 0..1" N182115
+N182133 <|-- N182115
+N182213 "0..1" -- "0..1" N182146
+N182146 <|-- N182253
+N182146 <|-- N182217
+N182217 "0..1" -- "0..*" N182218
+N182124 "0..1" -- "Underlying / Account / 0..1" N182129
+N182146 <|-- N182187
+N182146 <|-- N182120
+N182120 "0..*" -- "0..1" N182313
+N182260 "0..*" -- "0..1" N182213
+N182217 "0..*" -- "0..1" N182231
+N182229 "0..1" -- "0..*" N182231
+N182259 <|-- N182213
+N182260 <|-- N182249
+N182169 "1..*" -- "0..*" N182218
+N182209 <|-- N182169
+N182313 "Underlying / CashAccount / 0..1" -- "0..*" N182187
+N182308 "0..1" -- "0..1" N182202
+N182242 <|-- N182313
+N182242 <|-- N182129
+@enduml

@@ -1,0 +1,82 @@
+@startuml
+title Customer Product And Service Eligibility - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Product And Service Eligibility
+' Source image: customer-product-and-service-eligibility-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_42808.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Assessment" as N183527 {
+}
+
+class "Test" as N183530 {
+}
+
+class "Customer Product and Service Profile" as N183524 {
+  + Profile Type : CustomerProductServiceProfileTypeValues
+  + Customer Reference : Customer Relationship
+  + Product Reference : Product[0..*]
+  + Service Reference : Service[0..*]
+}
+
+class "Customer Relationship" as N183621 {
+}
+
+class "Product" as N183603 {
+}
+
+class "Product Term And Condition" as N183555 {
+}
+
+class "Customer Product Profile Assessment" as N183560 {
+}
+
+enum "CustomerProductServiceProfileTypeValues" as N183595 {
+  CustomerProductServiceEligibilityProfile
+  CustomerProductServiceUsageProfile
+  CustomerProductServiceCoverageProfile
+  CustomerProductServiceSaleProfile
+  CustomerProductServiceConsentProfile
+}
+
+class "Product Feature" as N183613 {
+}
+
+class "Product Usage" as N183564 {
+  + Product Usage Date Time : DateTime
+  + Product Usage Volume : Text
+  + Product Usage Indicator : YesNoIndicator
+}
+
+class "Product Service" as N183582 {
+}
+
+class "Profile" as N183540 {
+}
+
+class "Service" as N183623 {
+}
+
+class "Product Agreement" as N183552 {
+}
+
+' Relationships
+N183527 "0..1" -- "0..*" N183530
+N183560 "0..*" -- "0..1" N183524
+N183527 <|-- N183560
+N183603 -- N183613
+N183524 "0..1" -- "0..*" N183564
+N183621 "1" -- "Customer / Profile / 0..*" N183524
+N183613 <|-- N183555
+N183613 <|-- N183582
+N183540 <|-- N183524
+N183524 "0..*" -- "0..*" N183603
+N183623 "1" -- "0..*" N183582
+N183524 "0..*" -- "0..*" N183623
+N183621 "1" -- "Customer / Product / 0..*" N183552
+N183552 "0..1" -- "0..*" N183564
+N183603 "1" -- "Sold / Product / 0..*" N183552
+@enduml

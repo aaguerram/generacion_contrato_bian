@@ -1,0 +1,1058 @@
+{
+  "service_domain": "Customer Workbench",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "CustomerWorkbenchOperatingSession",
+      "request_schema": "",
+      "response_schema": "CustomerWorkbenchOperatingSession",
+      "summary": "ReCR Retrieve details about the workbench session",
+      "description": "ReCR Retrieve details about the workbench session"
+    },
+    {
+      "operation_id": "InitiateSWUpdate",
+      "method": "POST",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/SWUpdate/Initiate",
+      "tipo": "BQ",
+      "grupo": "SWUpdate",
+      "request_schema": "SWUpdate",
+      "response_schema": "SWUpdate",
+      "summary": "InBQ Initiate a SW update",
+      "description": "InBQ Initiate a SW update",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/CustomerWorkbench/Initiate",
+      "tipo": "CR",
+      "grupo": "CustomerWorkbenchOperatingSession",
+      "request_schema": "CustomerWorkbenchOperatingSession",
+      "response_schema": "CustomerWorkbenchOperatingSession",
+      "summary": "InCR Initiate a customer workbench operating session",
+      "description": "InCR Initiate a customer workbench operating session"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Update",
+      "tipo": "CR",
+      "grupo": "CustomerWorkbenchOperatingSession",
+      "request_schema": "CustomerWorkbenchOperatingSession",
+      "response_schema": "CustomerWorkbenchOperatingSession",
+      "summary": "UpCR Update details of a workbench session",
+      "description": "UpCR Update details of a workbench session"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Control",
+      "tipo": "CR",
+      "grupo": "CustomerWorkbenchOperatingSession",
+      "request_schema": "CustomerWorkbenchOperatingSession",
+      "response_schema": "CustomerWorkbenchOperatingSession",
+      "summary": "CoCR Control a workbench session (e.g. terminate)",
+      "description": "CoCR Control a workbench session (e.g. terminate)"
+    },
+    {
+      "operation_id": "RetrieveSWUpdate",
+      "method": "GET",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/SWUpdate/{swupdateid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "SWUpdate",
+      "request_schema": "",
+      "response_schema": "SWUpdate",
+      "summary": "ReBQ Retrieve details about a SW update",
+      "description": "ReBQ Retrieve details about a SW update",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "InitiateBroadcast",
+      "method": "POST",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Broadcast/Initiate",
+      "tipo": "BQ",
+      "grupo": "Broadcast",
+      "request_schema": "Broadcast",
+      "response_schema": "Broadcast",
+      "summary": "InBQ Initiate a workstation broadcast",
+      "description": "InBQ Initiate a workstation broadcast",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "InitiateBrowsing",
+      "method": "POST",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Browsing/Initiate",
+      "tipo": "BQ",
+      "grupo": "Browsing",
+      "request_schema": "Browsing",
+      "response_schema": "Browsing",
+      "summary": "InBQ Initiate a browsing session",
+      "description": "InBQ Initiate a browsing session",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "InitiateContact",
+      "method": "POST",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Contact/Initiate",
+      "tipo": "BQ",
+      "grupo": "Contact",
+      "request_schema": "Contact",
+      "response_schema": "Contact",
+      "summary": "InBQ Initiate a contact with the bank",
+      "description": "InBQ Initiate a contact with the bank",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveContact",
+      "method": "GET",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Contact/{contactid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Contact",
+      "request_schema": "",
+      "response_schema": "Contact",
+      "summary": "ReBQ Retrieve details about a contact",
+      "description": "ReBQ Retrieve details about a contact",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteBrowsing",
+      "method": "PUT",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Browsing/{browsingid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Browsing",
+      "request_schema": "Browsing",
+      "response_schema": "Browsing",
+      "summary": "ExBQ Execute tasks within a browsing session",
+      "description": "ExBQ Execute tasks within a browsing session",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveBrowsing",
+      "method": "GET",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Browsing/{browsingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Browsing",
+      "request_schema": "",
+      "response_schema": "Browsing",
+      "summary": "ReBQ Retrieve details about a browsing session",
+      "description": "ReBQ Retrieve details about a browsing session",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "ExchangeSWUpdate",
+      "method": "PUT",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/SWUpdate/{swupdateid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "SWUpdate",
+      "request_schema": "SWUpdate",
+      "response_schema": "SWUpdate",
+      "summary": "EcBQ Accept, reject etc a SW update",
+      "description": "EcBQ Accept, reject etc a SW update",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "UpdateContact",
+      "method": "PUT",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Contact/{contactid}/Update",
+      "tipo": "BQ",
+      "grupo": "Contact",
+      "request_schema": "Contact",
+      "response_schema": "Contact",
+      "summary": "UpBQ Update details for the contact",
+      "description": "UpBQ Update details for the contact",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteContact",
+      "method": "PUT",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Contact/{contactid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Contact",
+      "request_schema": "Contact",
+      "response_schema": "Contact",
+      "summary": "ExBQ Execute an automated action within the contact (e.g. self serve)",
+      "description": "ExBQ Execute an automated action within the contact (e.g. self serve)",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RequestBroadcast",
+      "method": "PUT",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Broadcast/{broadcastid}/Request",
+      "tipo": "BQ",
+      "grupo": "Broadcast",
+      "request_schema": "Broadcast",
+      "response_schema": "Broadcast",
+      "summary": "ReBQ Retrieve details about a workstation broadcast",
+      "description": "ReBQ Retrieve details about a workstation broadcast",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RequestContact",
+      "method": "PUT",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Contact/{contactid}/Request",
+      "tipo": "BQ",
+      "grupo": "Contact",
+      "request_schema": "Contact",
+      "response_schema": "Contact",
+      "summary": "RqBQ Request manual intervention in a contact (e.g. request service)",
+      "description": "RqBQ Request manual intervention in a contact (e.g. request service)",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "UpdateProductandServiceAccess",
+      "method": "PUT",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/ProductandServiceAccess/{productandserviceaccessid}/Update",
+      "tipo": "BQ",
+      "grupo": "ProductandServiceAccess",
+      "request_schema": "ProductandServiceAccess",
+      "response_schema": "ProductandServiceAccess",
+      "summary": "UpBQ Update details for the product/service access",
+      "description": "UpBQ Update details for the product/service access",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "InitiateProductandServiceAccess",
+      "method": "POST",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/ProductandServiceAccess/Initiate",
+      "tipo": "BQ",
+      "grupo": "ProductandServiceAccess",
+      "request_schema": "ProductandServiceAccess",
+      "response_schema": "ProductandServiceAccess",
+      "summary": "InBQ Initiate product/service access within the contact",
+      "description": "InBQ Initiate product/service access within the contact",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteProductandServiceAccess",
+      "method": "PUT",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/ProductandServiceAccess/{productandserviceaccessid}/Execute",
+      "tipo": "BQ",
+      "grupo": "ProductandServiceAccess",
+      "request_schema": "ProductandServiceAccess",
+      "response_schema": "ProductandServiceAccess",
+      "summary": "ExBQ Execute an automated action with the product/service access (e.g. self serve)",
+      "description": "ExBQ Execute an automated action with the product/service access (e.g. self serve)",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RequestProductandServiceAccess",
+      "method": "PUT",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/ProductandServiceAccess/{productandserviceaccessid}/Request",
+      "tipo": "BQ",
+      "grupo": "ProductandServiceAccess",
+      "request_schema": "ProductandServiceAccess",
+      "response_schema": "ProductandServiceAccess",
+      "summary": "RqBQ Request manual intervention in a product/service access (e.g. request service)",
+      "description": "RqBQ Request manual intervention in a product/service access (e.g. request service)",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveProductandServiceAccess",
+      "method": "GET",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/ProductandServiceAccess/{productandserviceaccessid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "ProductandServiceAccess",
+      "request_schema": "",
+      "response_schema": "ProductandServiceAccess",
+      "summary": "ReBQ Retrieve details about product/service access",
+      "description": "ReBQ Retrieve details about product/service access",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "EvaluateContact",
+      "method": "POST",
+      "path": "/CustomerWorkbench/{customerworkbenchid}/Contact/Evaluate",
+      "tipo": "BQ",
+      "grupo": "Contact",
+      "request_schema": "Contact",
+      "response_schema": "Contact",
+      "summary": "Capture information to pass through the session",
+      "description": "Capture information to pass through the session",
+      "parent_control_record": "CustomerWorkbenchOperatingSession"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Arrangement",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "Broadcast",
+    "Browsing",
+    "Contact",
+    "CustomerWorkbenchOperatingSession",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Devicetypevalues",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Location",
+    "Log",
+    "Name",
+    "ProductandServiceAccess",
+    "SWUpdate",
+    "Status",
+    "Subject"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Arrangement",
+      "kind": "object",
+      "description": "The bank's access permissions (e.g. local storage access, administrator permissions, system download permission)",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "Broadcast",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "CustomerWorkbenchBroadcastRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerWorkbenchBroadcastRecordDateandTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Browsing",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "CustomerURL",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BankWebsiteURL",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "ContactStartEndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ContactActivityLog",
+          "type": "object",
+          "ref": "Log"
+        }
+      ]
+    },
+    {
+      "name": "CustomerWorkbenchOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within Customer Workbench. ",
+      "properties": [
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerWorkbenchDeviceType",
+          "type": "object",
+          "ref": "Devicetypevalues"
+        },
+        {
+          "name": "CustomerWorkbenchDeviceRegistration",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerWorkbenchDeviceManufacturer",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerWorkbenchDeviceOperatingSystemVersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerWorkbenchDeviceAccessPermissions",
+          "type": "object",
+          "ref": "Arrangement"
+        },
+        {
+          "name": "InstalledBankApplicationType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstalledBankApplicationVersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LastUpdateDateandTime",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "Date and time at which the range starts. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Devicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Securecardreader` - Secure card reader attached to the customer device\r\n* `Nonsecurecardreader` - Non-secure card reader attached to the customer device.\r\n* `Mobile` - Mobile phone\r\n* `Tablet` - Tablet\r\n* `Personalcomputer` - Personal computer\r\n* `Othernational` - Other device defined at national level\r\n* `Otherprivate` - Other device defined in a private way.\r\n* `Wearable` - Wearable device.\r\n* `Vehicle` - Vehicle.\r\n* `Embedded` - Embedded in a device.\r\n* `Keyfob` - Key Fob\r\n* `Jewellery` - Jewellery\r\n* `Sticker` - Sticker\r\n* `Gamingdevice` - Gaming Device\r\n* `Watch` - Watch\r\n* `Unknown` - Device type unknown\r\n* `BiometricDevice` - A biometric device is a security identification and authentication device. Such devices use automated methods of verifying or recognising the identity of a living person based on a physiological or behavioral characteristic.\nhttps://en.wikipedia.org/wiki/Biometric_device\n\r\n",
+      "enum_values": [
+        "Securecardreader",
+        "Nonsecurecardreader",
+        "Mobile",
+        "Tablet",
+        "Personalcomputer",
+        "Othernational",
+        "Otherprivate",
+        "Wearable",
+        "Vehicle",
+        "Embedded",
+        "Keyfob",
+        "Jewellery",
+        "Sticker",
+        "Gamingdevice",
+        "Watch",
+        "Unknown",
+        "BiometricDevice"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Locally record of product/service screen access",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "Name (label) of the location. (ISO20022)",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductandServiceAccess",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "CustomerDetailsPreferences",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceMenu",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceMenuAccessLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "AccessStartEndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CustomerResidentFiles",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "SWUpdate",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "SWUpdateApplication",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SWUpdateVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SWUpdateImage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Date",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "The tracked status (e.g. under construction or repair, inhabited, vacant).",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "CustomerWorkbenchOperatingSession",
+        "operations": [
+          "Retrieve",
+          "Initiate",
+          "Update",
+          "Control"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Broadcast",
+        "parent_control_record": "CustomerWorkbenchOperatingSession",
+        "operations": [
+          "InitiateBroadcast",
+          "RequestBroadcast"
+        ]
+      },
+      {
+        "name": "Browsing",
+        "parent_control_record": "CustomerWorkbenchOperatingSession",
+        "operations": [
+          "InitiateBrowsing",
+          "ExecuteBrowsing",
+          "RetrieveBrowsing"
+        ]
+      },
+      {
+        "name": "Contact",
+        "parent_control_record": "CustomerWorkbenchOperatingSession",
+        "operations": [
+          "InitiateContact",
+          "RetrieveContact",
+          "UpdateContact",
+          "ExecuteContact",
+          "RequestContact",
+          "EvaluateContact"
+        ]
+      },
+      {
+        "name": "ProductandServiceAccess",
+        "parent_control_record": "CustomerWorkbenchOperatingSession",
+        "operations": [
+          "UpdateProductandServiceAccess",
+          "InitiateProductandServiceAccess",
+          "ExecuteProductandServiceAccess",
+          "RequestProductandServiceAccess",
+          "RetrieveProductandServiceAccess"
+        ]
+      },
+      {
+        "name": "SWUpdate",
+        "parent_control_record": "CustomerWorkbenchOperatingSession",
+        "operations": [
+          "InitiateSWUpdate",
+          "RetrieveSWUpdate",
+          "ExchangeSWUpdate"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerWorkbench.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "e491dfd95f6f142bd27a42d041b02a5bcc8e79bdacdb4c2ea27945aba638cb61",
+    "retrieved_at": "2026-09-10T22:23:47.880336+00:00"
+  }
+}

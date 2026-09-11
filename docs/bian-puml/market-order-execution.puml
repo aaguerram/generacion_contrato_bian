@@ -1,0 +1,173 @@
+@startuml
+title Market Order Execution - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Market Order Execution
+' Source image: market-order-execution-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_49237.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Securities Position" as N83190 {
+}
+
+class "Market Order Instruction" as N83132 {
+  + Market Order Type : String
+  + Market Order Date : Date
+  + Market Order Date Type : String
+}
+
+class "Market Order Transaction" as N83158 {
+}
+
+class "Transaction" as N83032 {
+}
+
+class "Instruction" as N83139 {
+}
+
+class "Party" as N83124 {
+}
+
+class "Market Order Involvement" as N83116 {
+}
+
+class "Market Trade" as N83029 {
+  + Trade Execute Date : DateTime
+  + Trade Value Date : DateTime
+  + Trade End Date : DateTime
+  + Trade Identification : TradeIdentification
+  + Trade Start Date : DateTime
+  + Trade Asset : Asset
+  + Trade Market : Market
+  + Market Order : Market Order Agreement
+  + Trade Commission : Fee Arrangement
+}
+
+class "Investment Portfolio" as N83137 {
+}
+
+class "Financial Instrument" as N83096 {
+}
+
+class "Security" as N83193 {
+  + Security Amount : Amount
+  + Security Price : Arrangement
+  + Security Identification : SecurityIdentification
+  + Security Balance : AccountBalance
+  + Security Status : SecurityStatus
+  + Security Fees : Fee Arrangement
+  + Security Date : Date Time
+  + Security Rate : Rate
+  + Security Tax : Tax Arrangement
+  + Security Jurisdiction : Jurisdiction
+}
+
+class "Cash Account" as N83212 {
+}
+
+class "Investment Account" as N83170 {
+}
+
+class "Security Order Arrangement" as N83125 {
+  + Trade Market : Market
+  + Trade Security : Security
+  + Trade Price : String
+  + Trade Amount : Amount
+}
+
+class "Market Order Arrangement" as N83238 {
+}
+
+class "Market Order Agreement" as N83232 {
+}
+
+class "Limit Arrangement" as N83112 {
+}
+
+class "Clearing Arrangement" as N83091 {
+}
+
+class "Market" as N83263 {
+}
+
+class "Settlement Arrangement" as N83071 {
+}
+
+class "Agreement" as N83122 {
+}
+
+class "Location" as N83088 {
+}
+
+enum "SecurityIdentificationTypeValues" as N83067 {
+  RIC
+  TickerSymbol
+  Bloomberg
+  CTA
+  Common
+  Name
+  SEDOL
+  CUSIP
+  QUICK
+  Wertpapier
+  Dutch
+  Valoren
+  Sicovam
+  Belgian
+  IdentificationSuffix
+  GenericIdentification
+  ValidityPeriod
+  ApplicableTradingMarket
+  PrimeIdentification
+  RelatedOtherIdentification
+  TradingIdentification
+}
+
+class "SecurityIdentification" as N83072 <<datatype>> {
+  + Security Identification : Identifier
+  + Security Identification Type : SecurityIdentificationTypeValues
+}
+
+enum "SecurityStatusTypeValues" as N83040 {
+  Inactive
+  WhenIssued
+  WhenDistributed
+  Issued
+  Suspended
+  InDefault
+  Worthless
+}
+
+class "SecurityStatus" as N83184 <<datatype>> {
+  + Security Status : Status
+  + Security Status Type : SecurityStatusTypeValues
+}
+
+' Relationships
+N83139 <|-- N83132
+N83132 "0..1" -- "0..*" N83158
+N83032 <|-- N83158
+N83116 "0..*" -- "0..1" N83132
+N83029 "1..*" -- "0..*" N83132
+N83032 <|-- N83029
+N83137 "Associated / InvestmentPortfolio / 0..1" -- "0..*" N83232
+N83096 <|-- N83193
+N83125 "0..*" -- "Security / 0..1" N83193 : Traded
+N83212 "Underlying / CashAccount / 0..1" -- "0..*" N83091
+N83238 <|-- N83112
+N83238 <|-- N83125
+N83232 "0..1" -- "0..1" N83238
+N83122 <|-- N83232
+N83238 <|-- N83071
+N83137 "0..1" -- "Underlying / Account / 0..1" N83170
+N83088 "0..1" -- "0..*" N83263
+N83238 <|-- N83091
+N83071 "0..*" -- "0..1" N83212
+N83125 "0..*" -- "0..1" N83263
+N83170 "0..1" -- "0..*" N83190
+N83190 "0..*" -- "0..1" N83193
+N83125 "0..1" -- "0..*" N83132
+N83124 "0..1" -- "0..1" N83116
+@enduml

@@ -1,0 +1,138 @@
+@startuml
+title Quote Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Quote Management
+' Source image: quote-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51704.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Quote" as N148641 {
+  + Price[1..*]
+  + Price Type : PriceTypeValues
+  + Quoted Rate : Rate
+  + Quote Status : QuoteStatusValue
+}
+
+class "Security" as N148798 {
+}
+
+class "Financial Instrument" as N148647 {
+}
+
+class "Quotation Involvement" as N148780 {
+  + Quotation Involvement Type : QuotationInvolvementType
+}
+
+enum "QuotationInvolvementType" as N148820 {
+  Quote Originator
+  Quote Requestor
+  Quoting Institution
+}
+
+enum "PriceTypeValues" as N148759 {
+  Average
+  AverageOverride
+  Combined
+  GrossOfAll
+  Limit
+  Net
+  NetDisclosed
+  NetOfAll
+  NetUndisclosed
+  NotionalGross
+  ParValue
+  RoundedAverage
+  Stop
+  Bid
+  Offer
+  NetAssetValue
+  Creation
+  Cancellation
+  Interim
+  Swing
+  Other
+  Mid
+  Reinvestment
+  Switch
+  DailyDividendRate
+  Market
+  Indicative
+  Actual
+  NonAdjustedUnpublished
+  Guaranteed
+  EstimatedNAV
+  GrossAssetValue
+  EstimatedGAV
+  SidePocketNAV
+  Ask
+  Auction
+  Calculated
+  Clean
+  Dirty
+  Draw
+  FairValue
+  IndicativePaid
+  Kassa
+  Paid
+  RedemptionNAV
+  Settlement
+  Spread
+  SubscriptionNAV
+  Tax
+  TaxableIncomePerShareCalculated
+}
+
+enum "QuoteStatusValue" as N148827 {
+  Accepted
+  CancelSymbol
+  CancelSecurity
+  CancelUnderlying
+  CancelAll
+  Rejected
+  RemovedFromMarket
+  Expired
+  Query
+  QuoteNotFound
+  Pending
+  Pass
+  LockedMarketWarning
+  CrossMarketWarning
+  CanceledDueToLockMarket
+  CanceledDueToCrossMarket
+}
+
+class "Quote Management" as N148638 {
+  + Quote Management Workstep : Workstep[1..*]
+  + Quote Management Workstep Type : QuoteManagementWorkstepTypeValues
+}
+
+class "Workstep" as N148818 {
+}
+
+class "Procedure" as N148632 {
+}
+
+enum "QuoteManagementWorkstepTypeValues" as N148635 {
+  Market Quote Selection
+  Market Quote Request
+}
+
+class "Party" as N148808 {
+}
+
+class "Party Role" as N148761 {
+}
+
+' Relationships
+N148798 "Quoted / Security / 0..1" -- "0..*" N148641
+N148647 <|-- N148798
+N148641 "0..1" -- "0..*" N148780
+N148641 "0..*" -- "0..*" N148638
+N148632 -- "0..*" N148818
+N148632 <|-- N148638
+N148808 "1" -- "0..*" N148761
+N148761 <|-- N148780
+@enduml

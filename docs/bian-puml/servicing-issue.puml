@@ -1,0 +1,44 @@
+@startuml
+title Servicing Issue - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Servicing Issue
+' Source image: servicing-issue-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52126.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Servicing Event" as N221634 {
+}
+
+class "Point Of Service" as N221667 {
+}
+
+class "Point Of Service Session" as N221662 {
+}
+
+class "Servicing Issue Handling" as N221631 {
+  + Servicing Issue Handling Workstep : Workstep[1..*]
+  + Servicing Issue Handling Workstep Type : ServicingIssueHandlingWorkstepTypeValues
+}
+
+class "Workstep" as N221653 {
+}
+
+class "Procedure" as N221656 {
+}
+
+enum "ServicingIssueHandlingWorkstepTypeValues" as N221647 {
+  Production Issue Resolution
+  Production Issue Determination
+  Production Issue Analysis
+}
+
+' Relationships
+N221667 "0..1" -- "SystemInSession / Operating / Session / 0..*" N221662
+N221662 "0..1" -- "Session / Event / 0..*" N221634
+N221631 "HandlingIssue / 0..1" -- "ArisedIssue / 0..*" N221634
+N221656 -- "0..*" N221653
+N221656 <|-- N221631
+@enduml

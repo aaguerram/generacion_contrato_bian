@@ -1,0 +1,832 @@
+{
+  "service_domain": "Product Portfolio",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Evaluate",
+      "method": "POST",
+      "path": "/ProductPortfolio/Evaluate",
+      "tipo": "CR",
+      "grupo": "ProductPortfolioAnalysis",
+      "request_schema": "ProductPortfolioAnalysis",
+      "response_schema": "ProductPortfolioAnalysis",
+      "summary": "EvCR Evaluate product portfolio performance",
+      "description": "EvCR Evaluate product portfolio performance"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/ProductPortfolio/{productportfolioid}/Update",
+      "tipo": "CR",
+      "grupo": "ProductPortfolioAnalysis",
+      "request_schema": "ProductPortfolioAnalysis",
+      "response_schema": "ProductPortfolioAnalysis",
+      "summary": "UpCR Update settings or content for product portfolio analysis activity",
+      "description": "UpCR Update settings or content for product portfolio analysis activity"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/ProductPortfolio/{productportfolioid}/Request",
+      "tipo": "CR",
+      "grupo": "ProductPortfolioAnalysis",
+      "request_schema": "ProductPortfolioAnalysis",
+      "response_schema": "ProductPortfolioAnalysis",
+      "summary": "RqCR Request manual intervention in the product portfolio analysis activity",
+      "description": "RqCR Request manual intervention in the product portfolio analysis activity"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/ProductPortfolio/{productportfolioid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "ProductPortfolioAnalysis",
+      "request_schema": "",
+      "response_schema": "ProductPortfolioAnalysis",
+      "summary": "ReCR Retrieve details about product portfolio analysis activity",
+      "description": "ReCR Retrieve details about product portfolio analysis activity"
+    },
+    {
+      "operation_id": "EvaluatePerformanceAnalysis",
+      "method": "POST",
+      "path": "/ProductPortfolio/{productportfolioid}/PerformanceAnalysis/Evaluate",
+      "tipo": "BQ",
+      "grupo": "PerformanceAnalysis",
+      "request_schema": "PerformanceAnalysis",
+      "response_schema": "PerformanceAnalysis",
+      "summary": "EvBQ Evaluate product performance using a specific type of analysis",
+      "description": "EvBQ Evaluate product performance using a specific type of analysis",
+      "parent_control_record": "ProductPortfolioAnalysis"
+    },
+    {
+      "operation_id": "UpdatePerformanceAnalysis",
+      "method": "PUT",
+      "path": "/ProductPortfolio/{productportfolioid}/PerformanceAnalysis/{performanceanalysisid}/Update",
+      "tipo": "BQ",
+      "grupo": "PerformanceAnalysis",
+      "request_schema": "PerformanceAnalysis",
+      "response_schema": "PerformanceAnalysis",
+      "summary": "UpBQ Update details of a specific product performance analysis",
+      "description": "UpBQ Update details of a specific product performance analysis",
+      "parent_control_record": "ProductPortfolioAnalysis"
+    },
+    {
+      "operation_id": "ExchangePerformanceAnalysis",
+      "method": "PUT",
+      "path": "/ProductPortfolio/{productportfolioid}/PerformanceAnalysis/{performanceanalysisid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "PerformanceAnalysis",
+      "request_schema": "PerformanceAnalysis",
+      "response_schema": "PerformanceAnalysis",
+      "summary": "EcBQ Accept, reject, verify, etc. product performance analysis",
+      "description": "EcBQ Accept, reject, verify, etc. product performance analysis",
+      "parent_control_record": "ProductPortfolioAnalysis"
+    },
+    {
+      "operation_id": "ExecutePerformanceAnalysis",
+      "method": "PUT",
+      "path": "/ProductPortfolio/{productportfolioid}/PerformanceAnalysis/{performanceanalysisid}/Execute",
+      "tipo": "BQ",
+      "grupo": "PerformanceAnalysis",
+      "request_schema": "PerformanceAnalysis",
+      "response_schema": "PerformanceAnalysis",
+      "summary": "ExBQ Execute an automated action against on-going analysis",
+      "description": "ExBQ Execute an automated action against on-going analysis",
+      "parent_control_record": "ProductPortfolioAnalysis"
+    },
+    {
+      "operation_id": "RequestPerformanceAnalysis",
+      "method": "PUT",
+      "path": "/ProductPortfolio/{productportfolioid}/PerformanceAnalysis/{performanceanalysisid}/Request",
+      "tipo": "BQ",
+      "grupo": "PerformanceAnalysis",
+      "request_schema": "PerformanceAnalysis",
+      "response_schema": "PerformanceAnalysis",
+      "summary": "RqBQ Request manual intervention to on-going analysis",
+      "description": "RqBQ Request manual intervention to on-going analysis",
+      "parent_control_record": "ProductPortfolioAnalysis"
+    },
+    {
+      "operation_id": "RetrievePerformanceAnalysis",
+      "method": "GET",
+      "path": "/ProductPortfolio/{productportfolioid}/PerformanceAnalysis/{performanceanalysisid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "PerformanceAnalysis",
+      "request_schema": "",
+      "response_schema": "PerformanceAnalysis",
+      "summary": "ReBQ Retrieve details about a specific product performance analysis",
+      "description": "ReBQ Retrieve details about a specific product performance analysis",
+      "parent_control_record": "ProductPortfolioAnalysis"
+    }
+  ],
+  "schemas": [
+    "Analysis",
+    "Analysistypevalues",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Directoryentrydatetypevalues",
+    "DocumentDirectoryEntry",
+    "Goal",
+    "Goaldatetime",
+    "Goaldatetimetypevalues",
+    "Goalstatus",
+    "Goalstatustypevalues",
+    "Goaltypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Model",
+    "Name",
+    "PerformanceAnalysis",
+    "ProductPortfolioAnalysis",
+    "Producttypevalues",
+    "Report",
+    "Reporttypevalues",
+    "Schedule",
+    "Status",
+    "Task",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Analysis",
+      "kind": "object",
+      "description": "The consolidated report of the performance evaluation and comparisons from the analysis",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Directoryentrydatetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpenDate` - \r\n* `RefreshDate` - \r\n",
+      "enum_values": [
+        "OpenDate",
+        "RefreshDate"
+      ]
+    },
+    {
+      "name": "DocumentDirectoryEntry",
+      "kind": "object",
+      "description": "Reference to associated performance analysis reporting documents",
+      "properties": [
+        {
+          "name": "DocumentDirectoryEntryIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Directoryentrydatetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "DirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Goal",
+      "kind": "object",
+      "description": "Definition of the performance goals for products as defined by senior management functions (target/anticipated and actual as assessed).",
+      "properties": [
+        {
+          "name": "GoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "GoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "GoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetime",
+      "kind": "object",
+      "description": "The key dates and times of Goal like Setting Data, Planning Date, Start Date, Review Date, Completion Date.",
+      "properties": [
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "GoalDateAndTimeType",
+          "type": "object",
+          "ref": "Goaldatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SettingDate` - \r\n* `PlanningDate` - \r\n* `StartDate` - \r\n* `ReviewDate` - \r\n* `CompletionDate` - \r\n",
+      "enum_values": [
+        "SettingDate",
+        "PlanningDate",
+        "StartDate",
+        "ReviewDate",
+        "CompletionDate"
+      ]
+    },
+    {
+      "name": "Goalstatus",
+      "kind": "object",
+      "description": "The lifecycle status of Goal like Goal Setting, Planning, Execution, Monitoring and Evaluation, Completion or Achievement, Maintenance or Sustainment, Closure or Renewal",
+      "properties": [
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "GoalStatusType",
+          "type": "object",
+          "ref": "Goalstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goalstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Setting` - \r\n* `Planning` - \r\n* `Execution` - \r\n* `MonitoringAndEvaluation` - \r\n* `CompletionOrAchievement` - \r\n* `MaintenanceOrSustainment` - \r\n* `ClosureOrRenewal` - \r\n",
+      "enum_values": [
+        "Setting",
+        "Planning",
+        "Execution",
+        "MonitoringAndEvaluation",
+        "CompletionOrAchievement",
+        "MaintenanceOrSustainment",
+        "ClosureOrRenewal"
+      ]
+    },
+    {
+      "name": "Goaltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Short-TermGoal` - \r\n* `Long-TermGoal` - \r\n* `BusinessGoal` - \r\n* `PerformanceGoal` - \r\n* `FinancialGoal` - \r\n* `OutcomeGoal` - \r\n* `SMARTGoal` - \r\n",
+      "enum_values": [
+        "Short-TermGoal",
+        "Long-TermGoal",
+        "BusinessGoal",
+        "PerformanceGoal",
+        "FinancialGoal",
+        "OutcomeGoal",
+        "SMARTGoal"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "Reference to the performance analysis model used",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PerformanceAnalysis",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\nExamples: Average balance calculation, Propensity to buy",
+      "properties": [
+        {
+          "name": "ProductPerformanceAnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "ProductPerformanceAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ProductPerformanceRequestSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductPerformanceModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "ProductPerformanceProductandServiceActivityReport",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "ProductPerformanceFinancialMarketResearchReport",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "ProductPerformanceWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "ProductPerformanceRequestResult",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductPortfolioAnalysis",
+      "kind": "object",
+      "description": "Analyze the performance or behavior of some on-going activity or entity  within Product Portfolio. \nExamples: Provide behavioral insights and analysis into customer behavior and analyze financial market activity in order to identify opportunities, define pricing and evaluate risks.\n\nAnalyze the performance or behavior of some on-going activity or entity. Examples: Provide behavioral insights and analysis into customer behavior and analyze financial market activity in order to identify opportunities, define pricing and evaluate risks.",
+      "properties": [
+        {
+          "name": "ProductPortfolioMake-up",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductType",
+          "type": "object",
+          "ref": "Producttypevalues"
+        },
+        {
+          "name": "ProductTypeDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductPortfolioPerformanceGoals",
+          "type": "object",
+          "ref": "Goal"
+        },
+        {
+          "name": "ProductPortfolioAnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "ProductPortfolioAnalysisReport",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "ProductAnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "ProductAnalysisResult",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "ProductAnalysisReportingDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        }
+      ]
+    },
+    {
+      "name": "Producttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `BankingProduct` - \r\n* `InsuranceProduct` - \r\n",
+      "enum_values": [
+        "BankingProduct",
+        "InsuranceProduct"
+      ]
+    },
+    {
+      "name": "Report",
+      "kind": "object",
+      "description": "The data file, report of product related transaction details used in the analysis",
+      "properties": [
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule for performing product portfolio analysis for the enterprise or division",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "Record of a task to perform a selected type of performance analysis on a product within the portfolio",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "Work documentation, forms and schedules produced and referenced during the analysis",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "ProductPortfolioAnalysis",
+        "operations": [
+          "Evaluate",
+          "Update",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "PerformanceAnalysis",
+        "parent_control_record": "ProductPortfolioAnalysis",
+        "operations": [
+          "EvaluatePerformanceAnalysis",
+          "UpdatePerformanceAnalysis",
+          "ExchangePerformanceAnalysis",
+          "ExecutePerformanceAnalysis",
+          "RequestPerformanceAnalysis",
+          "RetrievePerformanceAnalysis"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ProductPortfolio.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "48ff5449ea1b1f1060fb68955a7526711e0355db5f2479c537036059b2903f69",
+    "retrieved_at": "2026-09-10T22:24:02.958955+00:00"
+  }
+}

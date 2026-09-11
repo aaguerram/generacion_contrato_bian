@@ -1,0 +1,169 @@
+@startuml
+title Claim Administration - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Claim Administration
+' Source image: claim-administration-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52778.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+enum "InsuranceProductTypeValues" as N158998 {
+  Life Insurance
+  Funeral Policy
+  Health Insurance
+  Car/Vehicle Insurance
+  Homeowners Insurance
+  Travel Insurance
+  Disability Insurance
+  Critical Illness Insurance
+}
+
+class "Product Agreement" as N158969 {
+}
+
+class "Party" as N158971 {
+}
+
+class "Insurance Agreement" as N158824 {
+  + Insurance Agreement Type : InsuranceProductTypeValues
+}
+
+class "Claim Arrangement Involvement" as N158920 {
+  + Involvement Type : InsuranceInvolvementTypeValues
+}
+
+class "Assessment" as N158883 {
+}
+
+class "Claim Instruction" as N158946 {
+}
+
+class "Claim Arrangement" as N158980 {
+  + Claim Arrangement Identification : Identifier
+  + Covered Claim Type : Text
+  + Claim Event Typ : Text
+  + Claim Waiting Period : Duration
+}
+
+class "Arrangement" as N158865 {
+}
+
+class "Instruction" as N158901 {
+}
+
+class "Claim Transaction" as N158871 {
+  + Claim Transaction Type : ClaimTransactionTypeValues
+}
+
+class "Transaction" as N158877 {
+}
+
+enum "InsuranceInvolvementTypeValues" as N158966 {
+  Insurer (Insurance Company)
+  Policyholder
+  Insured Life or Person
+  Beneficiary
+  Intermediary / Broker / Agent
+  Regulator or Authority
+  Claims Assessor or Officer or Adjuster
+  Claimant
+  Claims Processor or Claims Administrator
+  Claim Approver
+  Underwriter
+}
+
+class "Claim Assessment" as N158919 {
+}
+
+class "Funeral Policy Agreement" as N158984 {
+  + Policy Number : Identifier
+  + Coverage Type : Text
+  + Policy Term : Duration
+  + Policy Status : AgreementStatus
+}
+
+class "Plan" as N158896 {
+}
+
+class "Routine" as N158793 {
+}
+
+class "Administrative Plan" as N158937 {
+}
+
+class "Claim Fulfillment Processing" as N158949 {
+}
+
+enum "FinancialClaimTransactionValueTypes" as N158926 {
+  Disbursement Transaction
+  Third-Party Payment Transaction
+  Reversal or Adjustment Transaction
+}
+
+class "Payment Transaction" as N158906 {
+}
+
+class "Document" as N158841 {
+}
+
+class "Correspondence" as N158878 {
+}
+
+class "Disbursement Transaction" as N158853 {
+}
+
+enum "ClaimTransactionTypeValues" as N159005 {
+  Financial Claim Transaction
+  Service Claim Transaction
+  Administrative Claim Transaction
+  Claim Document Transaction
+  Claim Communication Transaction
+}
+
+enum "AdministrativeClaimTransactionTypeValues" as N158833 {
+  Claim Status Update Transaction
+  Case Initiation Transaction
+  Claim Adjustment Transaction
+  Claim Escalation Transaction
+  Claim Referral Transaction
+  Claim Closure Transaction
+  Claim Reopen Transaction
+  SLA Management Transaction
+}
+
+enum "FuneralPolicyProductTypeValues" as N158816 {
+  Individual Funeral Policy
+  Family Funeral Policy
+  Extended Family Funeral Policy
+  Group Funeral Policy
+  Assistance / Service-Based Policy
+  Cash Benefit (Lump Sum) Policy
+  Employer Funeral Benefit Policy
+  Micro Funeral Policy
+}
+
+' Relationships
+N158969 <|-- N158824
+N158865 <|-- N158980
+N158824 "Insured / Agreement / 0..1" -- "0..*" N158980
+N158946 "0..1" -- "0..*" N158871
+N158980 "0..1" -- "0..*" N158946
+N158883 <|-- N158919
+N158980 "0..1" -- "0..*" N158920
+N158877 <|-- N158871
+N158946 "0..1" -- "0..*" N158919
+N158901 <|-- N158946
+N158971 "0..1" -- "0..*" N158920
+N158824 <|-- N158984
+N158896 <|-- N158937
+N158937 "0..1" -- "0..*" N158793
+N158937 <|-- N158949
+N158871 "0..*" -- "0..1" N158949
+N158871 "0..1" -- "Executed / Payment / 0..*" N158853
+N158871 "0..1" -- "Managed / Document / 0..*" N158841
+N158871 "0..1" -- "Delivered/Notified / Correspondence / 0..*" N158878
+N158871 "0..1" -- "Adjusted / Claim / 0..*" N158919
+N158906 <|-- N158853
+@enduml

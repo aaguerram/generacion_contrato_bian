@@ -1,0 +1,79 @@
+@startuml
+title Trading Book Oversight - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Trading Book Oversight
+' Source image: trading-book-oversight-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52562.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Securities Position" as N183151 {
+  + Securities Position Type : SecuritiesPositionTypeValues
+}
+
+class "Security" as N183161 {
+  + Security Amount : Amount
+  + Security Price : Arrangement
+  + Security Identification : SecurityIdentification
+  + Security Balance : AccountBalance
+  + Security Status : SecurityStatus
+  + Security Fees : Fee Arrangement
+  + Security Date : Date Time
+  + Security Rate : Rate
+  + Security Tax : Tax Arrangement
+  + Security Jurisdiction : Jurisdiction
+}
+
+class "Financial Instrument" as N183183 {
+}
+
+class "Financial Transaction" as N183172 {
+  + Financial Transaction Type : FinancialTransactionTypeValues
+  + Financial Transaction Currency : CurrencyCode
+  + Financial Transaction Amount : Amount
+  + Financial Transaction From Account : Account
+  + Financial Transaction Target Account : Account
+  + Financial Transaction Date Time : DateTime[1..*]
+}
+
+class "Account Position" as N183214 {
+}
+
+class "Securities Transaction" as N183166 {
+  + Replaced Amount : Amount
+}
+
+class "Investment Account" as N183155 {
+}
+
+enum "SecuritiesPositionTypeValues" as N183146 {
+  Trading Position
+}
+
+class "Trading Position Management Plan" as N183164 {
+}
+
+class "Management Plan" as N183149 {
+}
+
+class "Duty" as N183182 {
+}
+
+class "Plan" as N183192 {
+}
+
+' Relationships
+N183172 <|-- N183166
+N183183 <|-- N183161
+N183155 "0..1" -- "0..*" N183151
+N183151 "0..*" -- "0..1" N183161
+N183155 "Underlying / InvestmentAccount / 0..1" -- "0..*" N183166
+N183214 <|-- N183151
+N183161 "Exchanged / Security / 0..1" -- "0..*" N183166
+N183151 "Trading / Position / 0..1" -- "0..*" N183164
+N183149 "0..1" -- "0..*" N183182
+N183192 <|-- N183149
+N183149 <|-- N183164
+@enduml

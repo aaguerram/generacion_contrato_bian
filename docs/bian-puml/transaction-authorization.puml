@@ -1,0 +1,68 @@
+@startuml
+title Transaction Authorization - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Transaction Authorization
+' Source image: transaction-authorization-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_49234.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Transaction" as N112581 {
+  + Transaction Identification : Identifier
+  + Transaction Date : TransactionDateTime[0..*]
+  + Transaction Type : TransactionTypeValues
+  + Transaction Description : Text
+  + Transaction Status : TransactionStatus
+  + Transaction Name : Name
+}
+
+class "Assessment" as N112584 {
+}
+
+class "Test" as N112578 {
+}
+
+class "Transaction Assessment" as N112586 {
+}
+
+class "Transaction Authorization" as N112623 {
+}
+
+class "Interactive Transaction Assessment" as N112640 {
+}
+
+class "Customer Relationship" as N112650 {
+}
+
+class "Customer Contact" as N112614 {
+  + Customer Contact Type : Text
+  + Customer Contact Date and Time : DateTime
+  + Customer Contact Location : Location
+  + Customer Contact Schedule : Schedule
+  + Customer Contact Result : Text
+  + Customer Contact Purpose : Text
+  + Customer Contact Device : Device
+  + Customer Contact Indicator : Text
+  + Customer Contact Content : Text
+  + Customer Contact Identification : Identifier
+}
+
+class "Dialogue Session" as N112635 {
+}
+
+class "Product" as N112593 {
+}
+
+' Relationships
+N112584 "0..1" -- "0..*" N112578
+N112584 <|-- N112586
+N112586 <|-- N112640
+N112581 "0..1" -- "0..*" N112586
+N112586 "0..1" -- "0..1" N112623
+N112650 "Customer / Transaction / 0..1" -- "0..*" N112581
+N112614 "0..*" -- "1" N112650
+N112635 "0..*" -- "DialogueSession / WithinContact / Structured / Interaction / 1" N112614
+N112581 "AccessedBy / Transaction / 0..*" -- "0..1" N112593
+@enduml

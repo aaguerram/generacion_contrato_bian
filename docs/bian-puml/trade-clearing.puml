@@ -1,0 +1,155 @@
+@startuml
+title Trade Clearing - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Trade Clearing
+' Source image: trade-clearing-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52708.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Market Trade" as N218130 {
+  + Trade Execute Date : DateTime
+  + Trade Value Date : DateTime
+  + Trade End Date : DateTime
+  + Trade Identification : TradeIdentification
+  + Trade Start Date : DateTime
+  + Trade Asset : Asset
+  + Trade Market : Market
+  + Market Order : Market Order Agreement
+  + Trade Commission : Fee Arrangement
+}
+
+class "Market Trade Clearing" as N218124 {
+  + Market Trade Clearing Workstep Type : MarketTradeClearingWorkstepTypeValues
+  + Market Trade Clearing Workstep : Workstep
+}
+
+class "TradeIdentification" as N218201 <<datatype>> {
+  + Trade Identification : Identifier
+  + Trade Identification Type : TradeIdentificationTypeValues
+}
+
+enum "TradeIdentificationTypeValues" as N218219 {
+  Counterparty Reference
+  Common Identification
+  Matching Reference
+  Unique Trade Identifier
+  Clearing Broker Identification
+  Trade Identification
+}
+
+class "Security" as N218203 {
+  + Security Amount : Amount
+  + Security Price : Arrangement
+  + Security Identification : SecurityIdentification
+  + Security Balance : AccountBalance
+  + Security Status : SecurityStatus
+  + Security Fees : Fee Arrangement
+  + Security Date : Date Time
+  + Security Rate : Rate
+  + Security Tax : Tax Arrangement
+  + Security Jurisdiction : Jurisdiction
+}
+
+class "Financial Instrument" as N218133 {
+}
+
+enum "MarketTradeClearingWorkstepTypeValues" as N218118 {
+  Market Trade Settlement Initiation
+  Market Trade Out Trade Resolution
+  Market Trade Funds and Security Availability Assurance
+  Market Trade Confirmation
+  Market Trade Matching
+}
+
+class "Workstep" as N218112 {
+}
+
+class "Procedure" as N218115 {
+}
+
+enum "SecurityIdentificationTypeValues" as N218239 {
+  RIC
+  TickerSymbol
+  Bloomberg
+  CTA
+  Common
+  Name
+  SEDOL
+  CUSIP
+  QUICK
+  Wertpapier
+  Dutch
+  Valoren
+  Sicovam
+  Belgian
+  IdentificationSuffix
+  GenericIdentification
+  ValidityPeriod
+  ApplicableTradingMarket
+  PrimeIdentification
+  RelatedOtherIdentification
+  TradingIdentification
+}
+
+class "SecurityIdentification" as N218216 <<datatype>> {
+  + Security Identification : Identifier
+  + Security Identification Type : SecurityIdentificationTypeValues
+}
+
+enum "SecuritiesAccountTypeValues" as N218128 {
+  Margin
+  Short Sale
+  Abroad
+  Centralised
+  Cash DVP
+  Physical
+  Fungible
+  Non Fungible
+}
+
+class "SecurityStatus" as N218234 <<datatype>> {
+  + Security Status : Status
+  + Security Status Type : SecurityStatusTypeValues
+}
+
+enum "SecurityStatusTypeValues" as N218213 {
+  Inactive
+  WhenIssued
+  WhenDistributed
+  Issued
+  Suspended
+  InDefault
+  Worthless
+}
+
+class "Account" as N218190 {
+}
+
+class "Securities Account" as N218191 {
+  + Securities Account Type : SecuritiesAccountTypeValues
+  + Securities Account Identification : Identifier
+  + Securities Account Name : Name
+  + Securities Account Balance : AccountBalance
+}
+
+class "Securities Clearing" as N218134 {
+  + Netting : Procedure
+}
+
+class "Clearing" as N218183 {
+}
+
+' Relationships
+N218130 "0..1" -- "0..*" N218124
+N218133 <|-- N218203
+N218130 "0..*" -- "Traded / Security / 0..1" N218203
+N218115 -- "0..*" N218112
+N218115 <|-- N218124
+N218190 <|-- N218191
+N218203 "0..1" -- "0..1" N218191
+N218183 <|-- N218134
+N218203 "0..1" -- "0..1" N218134
+@enduml

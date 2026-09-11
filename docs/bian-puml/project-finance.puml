@@ -1,0 +1,63 @@
+@startuml
+title Project Finance - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Project Finance
+' Source image: project-finance-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52693.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Project Finance" as N207539 {
+}
+
+class "Project Finance Arrangement" as N207537 {
+  + Project Finance Arrangement Type : ProjectFinanceArrangementTypeValues
+}
+
+class "Project Finance Instruction" as N207588 {
+}
+
+class "Project Finance Transaction" as N207582 {
+}
+
+class "Financial Facility" as N207591 {
+}
+
+class "Service Arrangement" as N207602 {
+}
+
+enum "ProjectFinanceArrangementTypeValues" as N207571 {
+  Repayment Arrangement
+  Placement Arrangement
+  Special Purpose Vehicle (SPV) Arrangement
+}
+
+class "Arrangement" as N207594 {
+}
+
+class "Account Entry" as N207608 {
+}
+
+class "Instruction" as N207579 {
+}
+
+class "Account" as N207551 {
+}
+
+class "Transaction" as N207615 {
+}
+
+' Relationships
+N207539 "0..1" -- "0..*" N207537
+N207591 <|-- N207539
+N207537 "0..1" -- "0..*" N207588
+N207588 "0..1" -- "0..*" N207582
+N207602 <|-- N207537
+N207615 <|-- N207582
+N207579 <|-- N207588
+N207537 "0..*" -- "Arrangement / Account / 0..1" N207551
+N207551 "1" -- "0..*" N207608
+N207582 "0..1" -- "0..*" N207608
+@enduml

@@ -1,0 +1,88 @@
+@startuml
+title Intellectual Property Portfolio - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Intellectual Property Portfolio
+' Source image: intellectual-property-portfolio-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_35672.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Intellectual Property" as N193940 {
+  + Intellectual Property Type : String
+  + Intellectual Property Description : String
+  + Intellectual Property Title : String
+  + Intellectual Property Valuation : String
+  + Intellectual Property Date : String
+}
+
+class "Asset" as N193962 {
+  + Asset Title : Text
+  + Asset Identification : Identifier
+  + Asset Type : AssetTypeValues
+  + Asset Description : Text
+  + Asset Status : Status
+  + Asset Date : DateTime
+  + Asset Classification : Text
+  + Asset Classification Type : AssetClassificationTypeValues
+  + Asset Sub Classification Type : AssetSubClassificationTypeValues
+  + Asset Sub Classification : Text
+}
+
+class "Jurisdiction" as N194009 {
+}
+
+class "Administrative Plan" as N193994 {
+}
+
+class "Routine" as N193943 {
+}
+
+class "Intellectual Property Administrative Plan" as N193937 {
+}
+
+class "Intellectual Property Maintenance" as N193971 {
+  + Intellectual Property Maintenance Task Type : String
+  + Intellectual Property Maintenance Task Description : String
+  + Intellectual Property Maintenance Task Date Time : String
+  + Intellectual Property Maintenance Task Document : String
+}
+
+class "Intellectual Property Assignment" as N193946 {
+  + Intellectual Property Assignment Type : String
+  + Intellectual Property Assignment Description : String
+  + Intellectual Property Assignment Date Time : String
+  + Intellectual Property Assignment Document : String
+}
+
+class "intellectual Property Protection Mechanism" as N193952 {
+}
+
+class "Intellectual Property Involvement" as N193989 {
+}
+
+class "Party Role" as N194005 {
+}
+
+class "Party" as N194046 {
+}
+
+class "Document" as N194040 {
+}
+
+' Relationships
+N193940 "0..1" -- "Intangible / Asset / 0..*" N193962
+N193962 <|-- N193940
+N194009 "0..1" -- "0..*" N193940
+N193994 "0..1" -- "0..*" N193943
+N193937 "0..*" -- "0..*" N193940
+N193994 <|-- N193937
+N193937 -- N193946
+N193937 -- N193971
+N193952 "0..*" -- "0..*" N193940
+N193940 "0..1" -- "0..*" N193989
+N194005 <|-- N193989
+N193940 "0..*" -- "0..*" N194040
+N194046 "1 / 0..*" -- N194005
+@enduml

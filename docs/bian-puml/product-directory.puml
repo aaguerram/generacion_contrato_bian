@@ -1,0 +1,189 @@
+@startuml
+title Product Directory - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Product Directory
+' Source image: product-directory-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_38325.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Directory" as N141913 {
+}
+
+class "Directory Entry" as N141935 {
+}
+
+class "Product Directory" as N142021 {
+}
+
+class "Product" as N141961 {
+  + Product Identification : ProductIdentification[1..*]
+  + Product Type : BankingProductTypeValues[1..*]
+  + Product Lifecycle Status : ProductStatus
+  + Product Priority : Text
+  + Product Description : Text
+  + Product Version : Text
+  + Product Name : Name
+}
+
+class "Product Directory Entry" as N141837 {
+  + Product Version : String
+}
+
+class "Property" as N141831 {
+}
+
+class "Product Feature" as N141993 {
+  + Product Feature Type : ProductFeatureTypeValues
+  + Product Feature Specification : Text
+  + Product Feature Identification : Identifier
+  + Product Feature Name : Name
+  + Product Feature Lifecycle Status : Status
+}
+
+class "Product Feature Modality" as N141898 {
+}
+
+class "Fee Product Feature" as N142005 {
+  + Fee Type : FeeTypeValues
+  + Fee Definition : Text
+  + Fee Plan : FeePlan
+  + Fee Date Time : DateTime
+  + Fee Name : Name
+  + Fee Rate : Rate
+  + Fee Amount : Amount[1..*]
+}
+
+class "Fee Product Feature Modality" as N141858 {
+  + Fee Modality Type : FeeModalityTypeValues
+}
+
+class "Product Requirement" as N141975 {
+  + Product Requirement Type : RequirementTypeValues
+  + Product Requirement Specification : String
+}
+
+enum "RequirementTypeValues" as N142017 {
+  Functional Requirement
+  Technical Requirement
+  Operational Requirement
+  Legal Requirement
+  Testing Requirement
+  Sales and Marketing Requirement
+  Servicing Requirement
+  Production Requirement
+  Suitability Requirement
+  Eligibility Requirement
+  Processing Requirement
+}
+
+class "Interest Product Feature" as N141878 {
+  + Interest Type : InterestTypeValues
+  + Interest Definition : Text
+  + Interest Rate Type : InterestRateTypeValues
+  + Interest Period : DateTimePeriod
+  + Interest Rate Plan : RatePlan
+  + Interest Rate : Rate
+}
+
+class "Interest Product Feature Modality" as N141874 {
+  + Interest Calculation Method : Text
+  + Interest Calculation Parameter : Text[1..*]
+  + Interest Calculation Frequency : Frequency
+  + Interest Calculation Date : DateTime
+  + Interest Calculation Method Type : InterestCalculationMethodTypeValues
+  + Interest Modality Type : ModalityTypeValues
+}
+
+enum "ProductFeatureTypeValues" as N141845 {
+  BankingService
+  AdministrationService
+  AccessService
+  PriceFeature
+}
+
+enum "BankingServiceTypeValues" as N141956 {
+  Selling Service
+  Financial Instrument Exchange Service
+  Financial Stock Management Service
+  Financial Transfer Service
+  Financial Risk Transfer Service
+  Business Operating Service
+  Information Service
+  Payment Service
+}
+
+enum "PriceFeatureTypeValues" as N141929 {
+  CompensationTimingsFeature
+  PricingFeature
+  FeeFeature
+  DiscountFeature
+}
+
+enum "BankingProductTypeValues" as N141868 {
+  Loan Product
+  Current Account Product
+  Saving Account Product
+  Brokered Product
+  Term Deposit Product
+}
+
+class "Product Category" as N141982 {
+  + Product Category Name : Name
+  + Product Category Identification : Identifier
+  + Product Category Type : ProductCategoryTypeValues
+  + Product Category Descriptiion : Text
+}
+
+enum "ProductCategoryTypeValues" as N142009 {
+  Harmonized Tariff Code Name
+  Quota Category
+  Product Group
+  Line Of Business
+  Gender
+}
+
+class "Product Term And Condition" as N141977 {
+  + Product Term And Condition Type : ProductTermAndConditionType
+  + Condition Reference : Condition
+  + Product Reference : Product
+}
+
+class "Condition" as N141978 {
+}
+
+enum "ProductStandardTermAndConditionTypeValues" as N141946 {
+  Product General Term and Condition
+  Product Context Specific Term and Condition
+  Product Combination Term and Condition
+  Product Pricing and Fee Term and Condition
+  Product Matching Term and Condition
+  Product Eligibility Term and Condition
+  Product Repayment Term and Condition
+  Product Documentation Required Term and Condition
+}
+
+' Relationships
+N141913 <|-- N142021
+N141935 <|-- N141837
+N141961 "0..1" -- "0..*" N141837
+N142021 "0..1" -- "0..*" N141837
+N141935 "0..1" -- "0..*" N141831
+N141961 -- N141993
+N141993 -- N141898
+N141993 <|-- N142005
+N142005 "0..1" -- "0..*" N141858
+N141898 <|-- N141858
+N141961 "0..1" -- "0..*" N141975
+N141993 "0..1" -- "0..*" N141975
+N141878 "1" -- "0..*" N141874
+N141898 <|-- N141874
+N141993 <|-- N141878
+N141982 "0..1" -- N141961 : 0..1
+N141982 "0..1" -- "SubCategory / 0..*" N141982
+N141978 "0..1" -- "0..*" N141977
+N141961 "0..1" -- "0..*" N141977
+N141993 <|-- N141977
+@enduml

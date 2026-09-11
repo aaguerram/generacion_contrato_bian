@@ -1,0 +1,68 @@
+Como           usuario de la APP Produbanco,
+Quiero         modificar  mi número celular registrado,
+Para             mantener actualizado mi numero de contacto y para recepción de notificaciones.
+
+
+Escenario 1. Acceso a la pantalla de actualización del celular
+
+Dado       que el usuario está en la pantalla de datos personales
+Cuando   selecciona la flecha de la opción de “Número celular”
+Entonces el sistema muestra la pantalla para ingresar un nuevo número de celular con los siguientes elementos:
+
+Encabezado:
+Título en la parte superior: “Nuevo número celular”.
+Botón de retroceso (flecha) para volver a la pantalla anterior.
+Botón de cierre (X) para salir del flujo de actualización.
+Mensaje informativo:
+Texto que indica: “Las notificaciones y códigos de seguridad se enviarán al nuevo número que registres.”
+Campo de entrada:
+Etiqueta: “Ingresar nuevo número”.
+Campo de texto para que el usuario escriba el nuevo número de celular.
+Botón de acción:
+Botón en la parte inferior con la leyenda “Continuar”, que permite avanzar al siguiente paso una vez ingresado un número válido. (Diseño)
+
+Image
+**Revisado 30/06/26**
+Escenario 2. Habilitación de botón Continuar
+
+Dado         que el usuario modificó el número celular y cumple las validaciones requeridas,
+Cuando     el sistema detecta el cambio
+Entonces   se habilita el botón “Continuar”.
+
+Escenario 3. Botón deshabilitado sin cambios
+
+Dado      que el usuario no ha modificado el número celular,
+Cuando   permanece el mismo valor registrado,
+Entonces el botón “Continuar” esta  deshabilitado.
+
+Escenario 4.campos obligatorios
+
+Dado       que el usuario deja vacío el campo número celular
+Cuando   intenta continuar,
+Entonces  el sigue deshabilitado el botón “Continuar”.
+
+Escenario 5. Número celular con longitud menor
+
+Dado       que soy un usuario que quiere actualizar su número celular
+Cuando estoy ingresando el número celular            
+Y el número tiene la longitud menor a 10
+Entonces la app muestra debajo del campo "Ingresar nuevo número" , el mensaje "Ingresa al menos " + (número de caracteres esperados) + "dígitos", en letra roja.
+Y el borde del campo aparece en color rojo
+Y deshabilita el botón "Continuar"
+
+
+Notas:
+
+Cuando se actualiza el número de celular no se debe pedir al usuario que acepte los terminos y condiciones.
+El campo del número del celular es requerido con una longitud máxima de (10).
+El botón “Continuar” se habilita solo cuando detecta cambios válidos.
+Las actualizacion del número de celular genera marcas /eventos de seguimiento.​(SRR)
+Se debe enviar notificación del cambio al numero celular antiguo y al nuevo número de celular. (Ver HU  795144 Notificar actualización de datos)
+Se deben guardar los cambios en un log de cambios. ​(Número celular nuevo y el anterior, fecha y hora y como se autorizo la transacción)
+​Cuando el usuario seleccione el botón "Continuar" se debe realizar la validación "Smart Token" (Ver HU 794680  Confirmar actualización con Smart Token)
+
+Manejo de errores:
+
+La aplicación dispone de mensajes de error genéricos que se activan ante problemas de conexión, fallas de internet u otras situaciones similares. Estos mensajes únicamente se mostrarán cuando ocurra alguna de estas circunstancias. Considerar los requerimientos generales que figuran en el documento
+
+

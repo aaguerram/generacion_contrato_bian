@@ -1,0 +1,53 @@
+@startuml
+title Channel Activity History - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Channel Activity History
+' Source image: channel-activity-history-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_43591.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Event" as N151074 {
+}
+
+class "Action" as N151057 {
+}
+
+class "Log" as N151031 {
+}
+
+class "Channel Activity Log" as N151037 {
+}
+
+class "Channel Activity" as N151034 {
+}
+
+class "Channel Activity Log Involvement" as N151059 {
+}
+
+class "Party Role" as N151096 {
+}
+
+class "Customer Contact" as N151066 {
+}
+
+class "Communication Channel" as N151080 {
+}
+
+class "Party" as N151083 {
+}
+
+' Relationships
+N151074 <|-- N151057
+N151031 <|-- N151037
+N151057 <|-- N151034
+N151037 "0..1" -- "LogEntry / 1..*" N151034
+N151037 "0..1" -- "0..*" N151059
+N151096 <|-- N151059
+N151066 "ActiveContact / UsingChannel / 0..1" -- "0..*" N151034 : ExecutedAction
+N151080 "0..1" -- "0..*" N151034
+N151066 "0..*" -- "ExecutedAction / 0..*" N151057
+N151083 -- "0..*" N151096 : 1
+@enduml

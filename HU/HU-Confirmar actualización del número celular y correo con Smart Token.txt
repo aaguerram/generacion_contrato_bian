@@ -1,0 +1,47 @@
+Como      usuario de la APP Produbanco,
+Quiero     confirmar la actualización de mis datos personales mediante Smart Token,
+Para        garantizar que el cambio sea autorizado de forma segura.
+
+
+Escenario 1. Solicitud de Smart Token
+
+Dado         que el usuario modificó su celular o correo electrónico,
+Cuando     selecciona “Continuar”,
+Entonces   el sistema solicite validación mediante Smart Token.
+
+
+Escenario 2. Validación exitosa
+
+Dado        que el usuario ingresa correctamente el Smart Token,
+cuando     el sistema valida la autentcación,
+entonces  se actualicen los datos modificados.
+
+Escenario 3. Confirmación exitosa
+
+Dado        que la actualización fue procesada correctamente,
+Cuando     finaliza el flujo,
+Entonces   el sistema muestre una pantalla de éxito con los siguientes elementos: (Ver diseño)
+
+Icono de éxito:
+Un ícono visual (check verde) en la parte superior que refuerza el mensaje de operación exitosa.
+Mensaje principal (cuando se actualiza un celular)
+Texto destacado: “Actualizaste tu número celular con éxito”.
+Mensaje secundario:
+Texto informativo: “Las notificaciones y códigos de seguridad se enviarán a tu nuevo número [número actualizado]”, donde el número actualizado se muestra en negrita para mayor claridad.
+Mensaje principal (cuando se actualiza un correo eléctronico)
+Texto destacado: “Actualizaste tu correo eléctronico con éxito”.
+Mensaje secundario:
+Texto informativo: “Las notificaciones y códigos de seguridad se enviarán a tu nuevo cirreo [correo actualuizado]”, donde el correo  actualizado se muestra en negrita para mayor claridad.
+Botones de acción:
+Volver al inicio: Botón principal que permite al usuario regresar a la pantalla principal de la aplicación.
+Administrar datos personales: Botón secundario que permite al usuario volver a la sección de administración de datos personales para realizar otras gestiones si lo desea.
+
+Image
+​**Revisado el 30/06/2026
+ 
+
+Nota: 
+
+La funcionalidad de Smart Token ya se encuentra implementada (Ver epica 730649 Smart Token).
+El usuario deberá tener configurado la funcionalidad de Smart Token.
+El proceso exitoso de actualización de número de celular y correo debe generar marca en el modelo comportamental.

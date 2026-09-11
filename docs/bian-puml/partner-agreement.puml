@@ -1,0 +1,89 @@
+@startuml
+title Partner Agreement - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Partner Agreement
+' Source image: partner-agreement-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_34802.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Agreement" as N198824 {
+}
+
+class "Party Relationship" as N198911 {
+}
+
+class "Arrangement" as N198827 {
+}
+
+class "Partner Agreement" as N198833 {
+  + Partner Agreement Type : PartnerAgreementTypeValues
+}
+
+class "Partner Arrangement" as N198830 {
+  + Partner Arrangement Type : PartnerArrangementTypeValues
+}
+
+class "Partner Agreement Involvement" as N198852 {
+  + Involvement Type : PartnerAgreementInvolvementTypeValues
+  + Party Reference : Party
+  + Partner Agreement Reference : Partner Agreement
+}
+
+class "Partner Relationship" as N198880 {
+}
+
+enum "PartnerArrangementTypeValues" as N198847 {
+  Financial Arrangement
+  Resourcing Commitment Arrangement
+  Servicing Commitment Arrangement
+  Party Access Arrangement
+  Brand License Arrangement
+  Security (Confidentiality, Integrity, Availability) Arrangement
+  Dispute Arrangement
+  Termination Arrangement
+  Legal Arrangement
+  Policy Arrangement
+  Regulatory Arrangement
+  Compliance and Risk-Sharing Arrangement
+  Strategic Alliance or Joint Venture Arrangement
+  Revenue Sharing Arrangement
+  Outsourcing Arrangement
+  Co-Branding Arrangement
+}
+
+enum "PartnerAgreementInvolvementTypeValues" as N198926 {
+  Principal
+  Service Provider
+  Third-Party Provider
+  Partner
+  Partner Manager
+}
+
+class "Party" as N198878 {
+}
+
+enum "PartnerAgreementTypeValues" as N198863 {
+  Referral Agreement
+  Distribution Agreement
+  Co-Branding or Co-Marketing Agreement
+  Outsourcing Agreement
+  Technology or Service Provider Agreement
+  Joint Venture or Strategic Alliance Agreement
+  Revenue Sharing Agreement
+  Licensing Agreement
+  Data Sharing or Data Access Agreement
+  Aggregator or Platform Partnership Agreement
+}
+
+' Relationships
+N198824 <|-- N198833
+N198911 <|-- N198880
+N198880 "1" -- "1" N198833
+N198833 "1" -- "1..*" N198830
+N198833 "0..1" -- "0..*" N198852
+N198827 <|-- N198830
+N198878 "0..1" -- "0..*" N198852
+@enduml

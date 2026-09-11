@@ -1,0 +1,132 @@
+@startuml
+title Private Placement - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Private Placement
+' Source image: private-placement-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51806.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Private Placement Service" as N108681 {
+}
+
+class "Private Placement Arrangement" as N108712 {
+  + Private Placement Arrangement Type : PrivatePlacementArrangementTypeValues
+}
+
+class "Service Arrangement" as N108794 {
+}
+
+class "Arrangement" as N108761 {
+}
+
+enum "PrivatePlacementArrangementTypeValues" as N108677 {
+  Instrument Maintenance Arrangement
+  Instrument Specification Arrangement
+  Instrument Placement Arrangement
+}
+
+class "Security" as N108746 {
+}
+
+class "Financial Instrument" as N108800 {
+}
+
+class "Private Placement Arrangement Involvement" as N108828 {
+  + Private Placement Arrangement Involvement Type : PrivatePlacementArrangementInvolvementTypeVal ues
+}
+
+class "Party" as N108722 {
+}
+
+enum "PrivatePlacementArrangementInvolvementTypeValues" as N108707 {
+  Placement Agent
+}
+
+class "Private Placement Instruction" as N108702 {
+}
+
+class "Private Placement Transaction" as N108700 {
+  + Private Placement Transaction Type : PrivatePlacementTransactionTypeValues
+}
+
+class "Instruction" as N108811 {
+}
+
+class "Account Entry" as N108801 {
+}
+
+class "Transaction" as N108764 {
+}
+
+class "Account" as N108822 {
+}
+
+enum "PrivatePlacementTransactionTypeValues" as N108683 {
+  Instrument Maintenance Transaction
+  Instrument Specification Transaction
+  Instrument Placement Transaction
+}
+
+class "SecurityIdentification" as N108718 <<datatype>> {
+  + Security Identification : Identifier
+  + Security Identification Type : SecurityIdentificationTypeValues
+}
+
+enum "SecurityIdentificationTypeValues" as N108821 {
+  RIC
+  TickerSymbol
+  Bloomberg
+  CTA
+  Common
+  Name
+  SEDOL
+  CUSIP
+  QUICK
+  Wertpapier
+  Dutch
+  Valoren
+  Sicovam
+  Belgian
+  IdentificationSuffix
+  GenericIdentification
+  ValidityPeriod
+  ApplicableTradingMarket
+  PrimeIdentification
+  RelatedOtherIdentification
+  TradingIdentification
+}
+
+enum "SecurityStatusTypeValues" as N108706 {
+  Inactive
+  WhenIssued
+  WhenDistributed
+  Issued
+  Suspended
+  InDefault
+  Worthless
+}
+
+class "SecurityStatus" as N108691 <<datatype>> {
+  + Security Status : Status
+  + Security Status Type : SecurityStatusTypeValues
+}
+
+' Relationships
+N108681 "0..1" -- "0..*" N108712
+N108794 <|-- N108712
+N108746 "Subject / 0..1" -- "0..*" N108712
+N108800 <|-- N108746
+N108712 "0..1" -- "2..*" N108828
+N108712 "0..1" -- "0..*" N108702
+N108702 "0..1" -- "0..*" N108700
+N108822 "1" -- "0..*" N108801
+N108811 <|-- N108702
+N108764 <|-- N108700
+N108700 "0..1" -- "0..*" N108801
+N108822 "Arrangement / Account / 0..1" -- "0..*" N108712
+N108761 <|-- N108794
+N108722 "0..1" -- "0..1" N108828
+@enduml

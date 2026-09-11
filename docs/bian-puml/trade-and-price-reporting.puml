@@ -1,0 +1,67 @@
+@startuml
+title Trade and Price Reporting - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Trade and Price Reporting
+' Source image: trade-and-price-reporting-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51942.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Market Trade" as N199821 {
+  + Trade Execute Date : DateTime
+  + Trade Value Date : DateTime
+  + Trade End Date : DateTime
+  + Trade Identification : TradeIdentification
+  + Trade Start Date : DateTime
+  + Trade Asset : Asset
+  + Trade Market : Market
+  + Market Order : Market Order Agreement
+  + Trade Commission : Fee Arrangement
+}
+
+class "Market Trade Reporting" as N199773 {
+}
+
+class "Market Trade Reporting Operating Session" as N199771 {
+}
+
+class "Session" as N199790 {
+}
+
+class "System" as N199791 {
+}
+
+class "Security" as N199810 {
+}
+
+class "Financial Instrument" as N199776 {
+}
+
+class "Transaction" as N199833 {
+}
+
+class "TradeIdentification" as N199820 <<datatype>> {
+  + Trade Identification : Identifier
+  + Trade Identification Type : TradeIdentificationTypeValues
+}
+
+enum "TradeIdentificationTypeValues" as N199847 {
+  Counterparty Reference
+  Common Identification
+  Matching Reference
+  Unique Trade Identifier
+  Clearing Broker Identification
+  Trade Identification
+}
+
+' Relationships
+N199773 "0..1" -- "0..1" N199771
+N199821 "1..*" -- "1" N199771
+N199791 <|-- N199773
+N199790 <|-- N199771
+N199776 <|-- N199810
+N199833 <|-- N199821
+N199821 "0..*" -- "Traded / Security / 0..1" N199810
+@enduml

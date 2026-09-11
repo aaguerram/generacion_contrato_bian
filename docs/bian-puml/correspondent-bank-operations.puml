@@ -1,0 +1,136 @@
+@startuml
+title Correspondent Bank Operations - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Correspondent Bank Operations
+' Source image: correspondent-bank-operations-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_42328.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Correspondent Banking Agreement" as N109757 {
+}
+
+class "Correspondent Banking Involvement" as N109769 {
+  + Correspondent Banking Involvement Type : CorrespondentBankingInvolvementTypeValues
+}
+
+class "Payment Transaction" as N109789 {
+}
+
+class "Payment Instruction" as N109882 {
+}
+
+class "Account Entry" as N109792 {
+}
+
+class "Account" as N109787 {
+}
+
+class "Settlement Service" as N109869 {
+}
+
+class "Clearing Service" as N109775 {
+}
+
+class "Settlement Instruction" as N109899 {
+}
+
+class "Agreement" as N109803 {
+}
+
+class "Settlement Arrangement" as N109862 {
+}
+
+class "Correspondent Bank Product" as N109885 {
+}
+
+class "Product" as N109830 {
+}
+
+class "Clearing Agreement" as N109887 {
+}
+
+class "Clearing Involvement" as N109718 {
+  + Clearing Involvement Type : ClearingInvolvementTypeValues
+}
+
+class "Clearing Arrangement" as N109843 {
+}
+
+class "Clearing Instruction" as N109751 {
+}
+
+class "Payment Service" as N109735 {
+}
+
+enum "ClearingInvolvementTypeValues" as N109871 {
+  Clearing House
+  Correspondent Bank
+}
+
+enum "CorrespondentBankingInvolvementTypeValues" as N109779 {
+  Correspondent Bank
+  Respondent Bank
+}
+
+class "Correspondent Banking Arrangement" as N109715 {
+}
+
+enum "AccountTypeValues" as N109860 {
+  Debit Account
+  Credit Account
+  Vostro Acount
+  Nostro Account
+  Payment Account
+  Settlement Account
+  Saving Account
+  Current Account
+  Cash Account
+  Loan Account
+  Individual Account
+  Joint Account
+  Liquidation Account
+  Provision Account
+  Partnership Account
+  Investment Account
+}
+
+class "Party" as N109747 {
+}
+
+class "Arrangement" as N109795 {
+}
+
+class "Payment Arrangement" as N109800 {
+}
+
+' Relationships
+N109882 "1" -- "Causes / 0..*" N109789
+N109787 "1" -- N109792 : 0..*
+N109757 "0..1" -- "0..*" N109769
+N109899 "0..1" -- "Related / PaymentInstruction / 0..*" N109882
+N109899 "0..1" -- "SettlementAccount/ / NostroAccount/ / VostroAccount / 2..*" N109787
+N109803 <|-- N109757
+N109862 "0..1" -- "0..*" N109899
+N109885 "0..1" -- "0..*" N109757
+N109830 <|-- N109885
+N109757 "0..1" -- "0..*" N109887
+N109803 <|-- N109887
+N109887 "0..1" -- "0..*" N109718
+N109843 "0..1" -- "0..1" N109751
+N109751 "0..1" -- "Related / PaymentInstruction / 0..*" N109882
+N109885 -- N109869
+N109885 -- N109775
+N109885 -- N109735
+N109757 -- "0..*" N109715 : 0..1
+N109715 <|-- N109862
+N109715 <|-- N109843
+N109795 <|-- N109715
+N109789 "0..1" -- "0..*" N109792
+N109715 <|-- N109800
+N109800 "0..1" -- "0..*" N109882
+N109747 -- "0..*" N109769 : 0..1
+N109747 "0..1" -- "0..*" N109718
+@enduml

@@ -1,0 +1,98 @@
+@startuml
+title Mutual Fund Administration - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Mutual Fund Administration
+' Source image: mutual-fund-administration-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52345.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Mutual Fund" as N199695 {
+}
+
+class "Mutual Fund Administrative Plan" as N199671 {
+  + Mutual Fund Administrative Planned Action : Planned Action
+  + Mutual Fund Administrative Planned Action Type : MutualFundAdministrativePlannedActionTypeValues
+}
+
+class "Administrative Plan" as N199677 {
+}
+
+enum "MutualFundAdministrativePlannedActionTypeValues" as N199680 {
+  Fund Management Fee
+  Fund Investor, Middle and Back Office Service
+  Fund Inflows and Outflow
+  Fund Financial Reporting
+  Fund Enrolment
+  Fund Tax Administration
+  Fund Accounting
+}
+
+class "Financial Instrument" as N199759 {
+}
+
+enum "InvestmentFundTypeValues" as N199683 {
+  Exchange-Traded Fund
+  Mutual Fund
+  Money Market Fund
+  Hedge Fund
+  Unit Trust
+}
+
+class "Investment Fund Involvement" as N199723 {
+  + Investment Fund Involvement Type : InvestmentFundInvolvementTypeValues
+}
+
+enum "InvestmentFundLegalFormTypeValues" as N199739 {
+  Contractual
+  Trust
+  Corporate
+}
+
+enum "InvestmentFundInvolvementTypeValues" as N199699 {
+  Fund Manager
+  Fund Accountant
+  Fund Administator
+  Fund Order Desk
+  Placement Agent
+  Transfer Agent
+  Auditor
+  Grantor
+  Settlor
+}
+
+class "Investment Fund" as N199720 {
+  + Investment Fund Type : InvestmentFundTypeValues
+  + Investment Fund Legal Form Type : InvestmentFundLegalFormTypeValues
+  + Domicile Country : Country
+  + Authorised Country : Country
+  + Order Desk : Contact Point
+  + Investment Fund Class : Text
+  + Treasury Trading Party : InvolvedParty
+  + Identification : Identifier
+  + Custodian : InvolvedParty
+  + Family : Text
+  + Structure : Text
+  + Sub Fund Indicator : Text
+  + End Of Fiscal Year : DateTime
+  + Accounting Year End Date : DateTime
+  + First Accounting Year End Date : DateTime
+}
+
+class "Party" as N199709 {
+}
+
+class "Party Role" as N199697 {
+}
+
+' Relationships
+N199695 "0..1" -- "0..*" N199671
+N199677 <|-- N199671
+N199720 "0..1" -- "0..*" N199723
+N199720 <|-- N199695
+N199720 "PoolOf / FinancialInstrument" -- "0..*" N199759
+N199709 "1" -- "0..*" N199697
+N199697 <|-- N199723
+@enduml

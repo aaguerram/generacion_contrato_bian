@@ -1,0 +1,85 @@
+@startuml
+title Counterparty Administration - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Counterparty Administration
+' Source image: counterparty-administration-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52177.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Counterparty Relationship" as N104334 {
+}
+
+class "Party Relationship" as N104316 {
+}
+
+class "Counterparty Relationship Involvement" as N104280 {
+  + Counterparty Relationship Involvement Type
+}
+
+class "Party" as N104245 {
+}
+
+enum "Counterparty Relationship Involvement Type Values" as N104296 {
+  Counterparty
+}
+
+class "Directory Entry" as N104250 {
+}
+
+class "Directory" as N104322 {
+}
+
+class "Counterparty Directory Entry" as N104256 {
+}
+
+class "Counterparty Directory" as N104264 {
+}
+
+class "Agreement" as N104239 {
+}
+
+class "Financial Transaction" as N104257 {
+  + Financial Transaction Type : FinancialTransactionTypeValues
+  + Financial Transaction Currency : CurrencyCode
+  + Financial Transaction Amount : Amount
+  + Financial Transaction From Account : Account
+  + Financial Transaction Target Account : Account
+  + Financial Transaction Date Time : DateTime[1..*]
+}
+
+class "Party Relationship Agreement" as N104252 {
+}
+
+class "Transaction" as N104337 {
+}
+
+enum "FinancialTransactionTypeValues" as N104291 {
+  Pricing Transaction
+  Fee Transaction
+  Withdrawal Transaction
+  Deposit Transaction
+  Payment Transaction
+  Clearing Transaction
+  Settlement Transaction
+  ReconciliationTransaction
+  UpdateTransaction
+  SecuritiesTransaction
+  Repayment Transaction
+}
+
+' Relationships
+N104316 <|-- N104334
+N104334 "0..1" -- "0..*" N104280
+N104256 "0..*" -- "Registered / Counterparty / 0..1" N104334
+N104250 <|-- N104256
+N104322 <|-- N104264
+N104334 "0..*" -- "Related / Trade / 0..*" N104257
+N104252 "Relationship / Agreement / 0..*" -- "1..*" N104316
+N104239 <|-- N104252
+N104337 <|-- N104257
+N104264 "1" -- "0..*" N104256
+N104245 "0..1" -- "0..*" N104280
+@enduml

@@ -1,0 +1,190 @@
+@startuml
+title Securities Position Keeping - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Securities Position Keeping
+' Source image: securities-position-keeping-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_39849.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Security" as N194169 {
+  + Security Amount : Amount
+  + Security Price : Arrangement
+  + Security Identification : SecurityIdentification
+  + Security Balance : AccountBalance
+  + Security Status : SecurityStatus
+  + Security Fees : Fee Arrangement
+  + Security Date : Date Time
+  + Security Rate : Rate
+  + Security Tax : Tax Arrangement
+  + Security Jurisdiction : Jurisdiction
+}
+
+class "Financial Instrument" as N194109 {
+}
+
+class "Securities Position" as N194097 {
+  + Securities Position Type : SecuritiesPositionTypeValues
+}
+
+class "Securities Position Log" as N194050 {
+  + Securities Position Log Amount : Amount
+}
+
+class "Securities Position Log Entry" as N194226 {
+}
+
+class "Log" as N194053 {
+}
+
+class "Log Entry" as N194137 {
+}
+
+class "Financial Transaction" as N194125 {
+  + Financial Transaction Type : FinancialTransactionTypeValues
+  + Financial Transaction Currency : CurrencyCode
+  + Financial Transaction Amount : Amount
+  + Financial Transaction From Account : Account
+  + Financial Transaction Target Account : Account
+  + Financial Transaction Date Time : DateTime[1..*]
+}
+
+class "Securities Transaction" as N194068 {
+  + Replaced Amount : Amount
+}
+
+class "Event" as N194088 {
+}
+
+class "Investment Account" as N194230 {
+}
+
+class "Account Position" as N194188 {
+}
+
+class "SecurityStatus" as N194090 <<datatype>> {
+  + Security Status : Status
+  + Security Status Type : SecurityStatusTypeValues
+}
+
+class "SecurityIdentification" as N194115 <<datatype>> {
+  + Security Identification : Identifier
+  + Security Identification Type : SecurityIdentificationTypeValues
+}
+
+enum "SecurityIdentificationTypeValues" as N194080 {
+  RIC
+  TickerSymbol
+  Bloomberg
+  CTA
+  Common
+  Name
+  SEDOL
+  CUSIP
+  QUICK
+  Wertpapier
+  Dutch
+  Valoren
+  Sicovam
+  Belgian
+  IdentificationSuffix
+  GenericIdentification
+  ValidityPeriod
+  ApplicableTradingMarket
+  PrimeIdentification
+  RelatedOtherIdentification
+  TradingIdentification
+}
+
+enum "SecuritiesPositionTypeValues" as N194134 {
+  Trading Position
+}
+
+class "Securities Account Entry" as N194160 {
+  + Securities Entry Type : SecuritiesEntryTypeValues
+  + Acquisition Date : Date
+  + Securities Quantity : Text
+}
+
+class "Account" as N194239 {
+}
+
+class "Account Entry" as N194119 {
+}
+
+enum "SecuritiesEntryTypeValues" as N194234 {
+  Blocked
+  Borrowed
+  CollateralIn
+  CollateralOut
+  OnLoan
+  Pending Delivery
+  Pending Receipt
+  Pledged
+  Out For Registration
+  Unclassified
+  InTransshipment
+  Eligible
+  Registered
+  Street Position
+  Unregistered
+  Waiting Documentation
+  Settlement Position
+  Being Transferred
+  Settled
+  Traded
+  Uninstructed Balance
+  Instructed Balance
+}
+
+enum "SecuritiesAccountTypeValues" as N194059 {
+  Margin
+  Short Sale
+  Abroad
+  Centralised
+  Cash DVP
+  Physical
+  Fungible
+  Non Fungible
+}
+
+class "Securities Account" as N194108 {
+  + Securities Account Type : SecuritiesAccountTypeValues
+  + Securities Account Identification : Identifier
+  + Securities Account Name : Name
+  + Securities Account Balance : AccountBalance
+}
+
+enum "SecurityStatusTypeValues" as N194140 {
+  Inactive
+  WhenIssued
+  WhenDistributed
+  Issued
+  Suspended
+  InDefault
+  Worthless
+}
+
+' Relationships
+N194109 <|-- N194169
+N194097 "0..*" -- "0..1" N194169
+N194050 "0..1" -- "LogEntry / 0..*" N194226
+N194097 "0..1" -- "0..*" N194050
+N194053 <|-- N194050
+N194053 "1" -- "LogEntry / 1..*" N194137
+N194137 <|-- N194226
+N194125 <|-- N194068
+N194068 "0..1" -- "Posting / 0..*" N194226
+N194169 "Exchanged / Security / 0..1" -- "0..*" N194068
+N194137 "PostingEntry / PostedEvent / 1..*" -- "0..1" N194088
+N194088 <|-- N194125
+N194230 "Underlying / InvestmentAccount / 0..1" -- "0..*" N194068
+N194230 "0..1" -- "0..*" N194097
+N194188 <|-- N194097
+N194160 "0..*" -- "0..1" N194068
+N194119 <|-- N194160
+N194239 <|-- N194108
+N194160 "0..*" -- "0..1" N194108
+@enduml

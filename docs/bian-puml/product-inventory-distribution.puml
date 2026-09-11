@@ -1,0 +1,94 @@
+@startuml
+title Product Inventory Distribution - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Product Inventory Distribution
+' Source image: product-inventory-distribution-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51881.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Product Inventory" as N221255 {
+}
+
+class "Product Inventory Item" as N221204 {
+}
+
+class "Product" as N221187 {
+}
+
+class "Product Inventory Distribution Arrangement" as N221165 {
+  + Product Inventory Distribution Arrangement Type : String
+}
+
+class "Product Inventory Distribution Instruction" as N221286 {
+}
+
+class "Arrangement" as N221193 {
+}
+
+class "Agreement" as N221224 {
+}
+
+class "Product Inventory Distribution Transaction" as N221180 {
+}
+
+enum "ProductInventoryDistributionArrangementTypeValues" as N221169 {
+  Mailing Distribution Arrangement
+  Provisioning Arrangement
+  Distribution Arrangement
+  Administrative Oversight Arrangement
+}
+
+class "Product Inventory Distribution Involvement" as N221216 {
+}
+
+class "Routine" as N221197 {
+}
+
+class "Administrative Plan" as N221202 {
+}
+
+class "Product Inventory Distribution Administrative Plan" as N221252 {
+}
+
+class "Party Role" as N221208 {
+}
+
+class "Party" as N221211 {
+}
+
+class "Account" as N221258 {
+}
+
+class "Account Entry" as N221267 {
+}
+
+class "Instruction" as N221257 {
+}
+
+class "Transaction" as N221279 {
+}
+
+' Relationships
+N221255 -- N221204 : 0..*
+N221187 -- "0..*" N221204 : 0..1
+N221255 "0..1" -- "0..*" N221165
+N221193 <|-- N221165
+N221165 "0..1" -- "0..*" N221286
+N221224 "1" -- "1..*" N221193
+N221187 "0..1" -- "0..*" N221224
+N221286 "0..1" -- "0..*" N221180
+N221165 "0..1" -- "0..*" N221216
+N221202 "0..1" -- "0..*" N221197
+N221255 "0..1" -- "0..*" N221252
+N221202 <|-- N221252
+N221208 <|-- N221216
+N221258 "1" -- "0..*" N221267
+N221165 "0..*" -- "Arrangement / Account / 0..1" N221258
+N221180 "0..1" -- "0..*" N221267
+N221257 <|-- N221286
+N221279 <|-- N221180
+N221211 -- "0..*" N221208 : 1
+@enduml

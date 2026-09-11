@@ -1,0 +1,192 @@
+@startuml
+title Customer Campaign Design - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Campaign Design
+' Source image: customer-campaign-design-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_48736.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Design Specification" as N197959 {
+}
+
+class "Customer Campaign Design Specification" as N198030 {
+  + Customer Campaign Design Specification Aspect Type : CampaignDesignSpecificationAspectTypeValues[1..*]
+  + Customer Campaign Design Specification Aspect : Design Specification Aspect[1..*]
+}
+
+class "Customer Campaign Arrangement" as N198061 {
+}
+
+class "Customer Campaign Requirement" as N198041 {
+}
+
+class "Customer Campaign Rule Set" as N198125 {
+}
+
+class "Rule Set" as N198049 {
+}
+
+class "Arrangement" as N198136 {
+}
+
+class "Item" as N198120 {
+}
+
+class "Item Inventory" as N198045 {
+}
+
+enum "CampaignTypeValues" as N198013 {
+  Marketing Campaign
+  Social Campaign
+  Political Campaign
+}
+
+enum "CustomerCampaignTypeValues" as N198122 {
+  Product Launch Campaign
+  Brand Awareness Campaign
+  Customer Retention Campaign
+  Referral Campaign
+  Reactivation Campaign
+  Cross-Selling and Upselling Campaign
+}
+
+class "Customer Campaign Metric" as N198008 {
+  + Customer Campaign Metric Type : CustomerCampaignMetricTypeValues
+}
+
+class "Customer Campaign" as N198084 {
+  + Customer Campaign Type : CustomerCampaignTypeValues
+}
+
+class "Campaign" as N198032 {
+  + Campaign Type : CampaignTypeValues
+  + Campaign Version : Text
+  + Campaign Description : Text
+  + Campaign Period : DateTimePeriod
+}
+
+class "Customer Campaign Involvement" as N198140 {
+  + Customer Campaign Involvement Type : CustomerCampaignInvolvementTypeValues
+}
+
+class "Customer Campaign Assessment" as N198108 {
+}
+
+class "Customer Relationship" as N198042 {
+}
+
+class "Product" as N198028 {
+}
+
+class "Product Portfolio" as N198022 {
+}
+
+class "Customer Portfolio" as N198011 {
+}
+
+class "Sales Lead" as N198002 {
+}
+
+enum "CustomerCampaignInvolvementTypeValues" as N198000 {
+  Marketing Team
+  Sales Team
+  Product Development Team
+  Customer Support Team
+  Data Analyst
+  Compliance and Legal Team
+  Finance Team
+  External Partner and Vendor
+}
+
+class "Party" as N198019 {
+}
+
+class "Metric" as N198079 {
+}
+
+class "Assessment" as N198141 {
+}
+
+enum "CustomerCampaignMetricTypeValues" as N198057 {
+  Click-Through Rates (CTR)
+  Conversion Rate
+  Customer Acquisition Cost (CAC)
+  Return On Investment (ROI)
+  Customer Lifetime Value (CLV)
+  Engagement Rate
+  Bounce Rate
+  Repeat Purchase Rate
+  Churn Rate
+}
+
+class "Customer Campaign Goal" as N198016 {
+  + Customer Campaign Goal Type : CustomerCampaignGoalTypeValues
+}
+
+class "Goal" as N198089 {
+}
+
+enum "CustomerCampaignGoalTypeValues" as N197981 {
+  Brand Awareness
+  Lead Generation
+  Customer Acquisition
+  Customer Retention
+  Sales Growth
+  Product Launch
+  Engagement
+  Market Expansion
+  Customer Loyalty
+  Reputation Management
+}
+
+class "Requirement" as N198106 {
+}
+
+enum "CustomerCampaignRuleSetTypeValues" as N197970 {
+  Segmentation Criteria
+  Key Performance Indicators (KPIs)
+  Optimization Criteria
+  Compliance Rules
+  Interaction Guidelines
+  Budget and Resource Rules
+  Engagement Rules
+}
+
+enum "CampaignDesignSpecificationAspectTypeValues" as N197953 {
+  Requirements Definition
+  Execution Approach
+  Support Capabilities
+  Engagement Model
+}
+
+' Relationships
+N197959 <|-- N198030
+N198045 "0..1" -- "0..*" N198120
+N198084 "0..*" -- "InventoryOf / ConsumableItems / 0..*" N198045
+N198141 <|-- N198108
+N198140 "0..*" -- "0..1" N198084
+N198032 <|-- N198084
+N198084 "0..1" -- "0..*" N198108
+N198108 "0..*" -- "0..*" N198008
+N198022 "1" -- "1..*" N198028
+N198011 "1" -- "1..*" N198042
+N198011 "Customers / InCampaign / 0..*" -- "0..*" N198084
+N198022 "Products / InCampaign / 0..*" -- "0..*" N198084
+N198002 "Generated / Opportunity / 0..*" -- "0..*" N198084
+N198002 "0..*" -- "ProductToSell / 1..*" N198028
+N198019 "0..1" -- "0..1" N198140
+N198084 "0..1" -- "0..*" N198125
+N198084 "0..1" -- "0..*" N198041
+N198084 "0..1" -- "0..*" N198061
+N198136 <|-- N198061
+N198049 <|-- N198125
+N198084 "0..1" -- "0..*" N198030
+N198084 "1..*" -- "0..*" N198008
+N198084 "0..1" -- "0..*" N198016
+N198089 <|-- N198016
+N198106 <|-- N198041
+N198079 <|-- N198008
+@enduml

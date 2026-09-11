@@ -1,0 +1,66 @@
+@startuml
+title Advertising - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Advertising
+' Source image: advertising-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_33527.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Advertising Campaign" as N110379 {
+}
+
+class "Management Plan" as N110396 {
+}
+
+class "Duty" as N110395 {
+  + Duty Type : Text
+  + Duty Description : Text
+  + Duty Date Time : DateTime
+}
+
+class "Campaign" as N110425 {
+  + Campaign Type : CampaignTypeValues
+  + Campaign Version : Text
+  + Campaign Description : Text
+  + Campaign Period : DateTimePeriod
+}
+
+class "Advertising Campaign Management Plan" as N110413 {
+}
+
+class "Advertising Campaign Execution Plan" as N110398 {
+  + Advertising Campaign Execution Schedule : String
+}
+
+class "Advertising Campaign Development Plan" as N110412 {
+  + Advertising Campaign Development Schedule : String
+}
+
+class "Advertising Campaign Performance Assessment" as N110383 {
+}
+
+class "Market Research" as N110382 {
+  + Market Research Source : Object
+  + Market Research Viewpoint : MarketResearchViewpointTypeValues
+  + Market Research Approach : Text
+  + Market Research Period : DateTimePeriod
+  + Researched Market : Market
+  + Market Research Aspect Type : MarketResearchAspectTypeValues[1..*]
+  + Market Research Description : Text
+  + Market Research Date and Time : DateTime
+}
+
+' Relationships
+N110396 "0..1" -- "0..*" N110395
+N110425 <|-- N110379
+N110396 <|-- N110413
+N110379 "0..*" -- "0..*" N110413
+N110413 "0..1" -- "0..1" N110398
+N110413 "0..1" -- "0..1" N110412
+N110413 "0..1" -- "0..1" N110383
+N110395 <|-- N110383
+N110382 "Used / ToAssess / 0..*" -- "0..*" N110383
+@enduml

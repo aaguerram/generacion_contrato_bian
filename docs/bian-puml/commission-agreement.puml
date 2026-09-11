@@ -1,0 +1,57 @@
+@startuml
+title Commission Agreement - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Commission Agreement
+' Source image: commission-agreement-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51965.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Commission Arrangement" as N184965 {
+}
+
+class "Agreement" as N184931 {
+}
+
+class "Arrangement" as N184914 {
+}
+
+class "Sales Commission Agreement" as N184921 {
+}
+
+class "Fee Product Feature" as N184915 {
+  + Fee Type : FeeTypeValues
+  + Fee Definition : Text
+  + Fee Plan : FeePlan
+  + Fee Date Time : DateTime
+  + Fee Name : Name
+  + Fee Rate : Rate
+  + Fee Amount : Amount[1..*]
+}
+
+class "Fee Product Feature Modality" as N184950 {
+}
+
+class "Commission Arrangement Modality" as N184963 {
+}
+
+class "Service Arrangement" as N184964 {
+}
+
+class "Service Arrangement Modality" as N184934 {
+}
+
+' Relationships
+N184931 <|-- N184921
+N184921 "0..1" -- "0..1" N184965
+N184931 "1" -- "1..*" N184914
+N184915 "0..1" -- "0..*" N184965
+N184915 "0..1" -- "0..*" N184950
+N184965 "0..1" -- "0..*" N184963
+N184950 "0..1" -- "0..*" N184963
+N184964 <|-- N184965
+N184934 <|-- N184963
+N184964 -- N184934
+@enduml

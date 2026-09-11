@@ -1,0 +1,155 @@
+@startuml
+title Customer Campaign Execution - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Campaign Execution
+' Source image: customer-campaign-execution-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_48973.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Procedure" as N140738 {
+}
+
+class "Customer Campaign Procedure" as N140720 {
+  + Customer Campaign Procedure Workstep : Workstep[1..*]
+  + Customer Campaign Procedure Workstep Type : CampaignProcedureWorkstepTypeValues[1..*]
+}
+
+enum "CampaignProcedureWorkstepTypeValues" as N140756 {
+  Candidate Selection
+  Execution
+  Analysis Feedback
+}
+
+class "Customer Campaign" as N140723 {
+  + Customer Campaign Type : CustomerCampaignTypeValues
+}
+
+class "Customer Campaign Involvement" as N140780 {
+  + Customer Campaign Involvement Type : CustomerCampaignInvolvementTypeValues
+}
+
+class "Campaign" as N140779 {
+  + Campaign Type : CampaignTypeValues
+  + Campaign Version : Text
+  + Campaign Description : Text
+  + Campaign Period : DateTimePeriod
+}
+
+class "Customer Relationship" as N140803 {
+}
+
+class "Product" as N140791 {
+}
+
+class "Sales Lead" as N140772 {
+}
+
+class "Item Inventory" as N140769 {
+  + Item Inventory Type : Text
+}
+
+class "Item" as N140788 {
+}
+
+class "Party" as N140805 {
+}
+
+class "Customer Portfolio" as N140797 {
+}
+
+class "Product Portfolio" as N140865 {
+}
+
+enum "CampaignTypeValues" as N140789 {
+  Marketing Campaign
+  Social Campaign
+  Political Campaign
+}
+
+class "Customer Product and Service Directory Entry" as N140882 {
+}
+
+class "Product Agreement" as N140847 {
+}
+
+enum "CustomerCampaignInvolvementTypeValues" as N140869 {
+  Marketing Team
+  Sales Team
+  Product Development Team
+  Customer Support Team
+  Data Analyst
+  Compliance and Legal Team
+  Finance Team
+  External Partner and Vendor
+}
+
+enum "CustomerCampaignTypeValues" as N140742 {
+  Product Launch Campaign
+  Brand Awareness Campaign
+  Customer Retention Campaign
+  Referral Campaign
+  Reactivation Campaign
+  Cross-Selling and Upselling Campaign
+}
+
+class "Channel" as N140822 {
+}
+
+class "Customer Product and Service Profile" as N140730 {
+}
+
+class "Party Relationship" as N140784 {
+}
+
+class "Party Relationship Lifecycle Phase" as N140888 {
+}
+
+class "Rule Set" as N140852 {
+}
+
+class "Customer Relationship Lifecycle Phase" as N140885 {
+  + Customer Relationship Lifecycle Phase Type : CustomerRelationshipLifecyclePhaseValues
+}
+
+enum "CustomerRelationshipLifecyclePhaseValues" as N140889 {
+  Lead
+  Prospect
+  Customer
+  Loyal Customer
+}
+
+class "Campaign Design Specification" as N140827 {
+}
+
+' Relationships
+N140738 <|-- N140720
+N140723 "0..1" -- "0..*" N140720
+N140780 "0..*" -- "0..1" N140723
+N140779 <|-- N140723
+N140797 "Customers / InCampaign / 0..*" -- "0..*" N140723
+N140865 "Products / InCampaign / 0..*" -- "0..*" N140723
+N140772 "0..*" -- "ProductToSell / 1..*" N140791
+N140772 "Opportunity / 0..*" -- "0..*" N140723 : Generated
+N140769 "0..1" -- "0..*" N140788
+N140723 "0..*" -- "0..*" N140769 : InventoryOf / ConsumableItems
+N140805 "0..1" -- "0..1" N140780
+N140797 "1" -- "1..*" N140803
+N140865 "1" -- "1..*" N140791
+N140723 "0..*" -- "CustomerProductsServices / InCampaign / 0..*" N140882
+N140882 "0..*" -- "0..1" N140847
+N140803 "1" -- "Customer / Product / 0..*" N140847
+N140791 "1" -- "Sold / Product / 0..*" N140847
+N140723 "0..*" -- "Campaign / Channel / 0..*" N140822
+N140803 "1" -- "Customer / Profile / 0..*" N140730
+N140730 "EligibilityOfCustomer / InCampaign / 0..*" -- "0..*" N140723
+N140784 <|-- N140803
+N140885 "LifesycleStatusOfCustomer / InCampaign / 0..*" -- "0..*" N140723
+N140784 "1" -- "1..*" N140888
+N140723 "0..*" -- "Selection / Criteria / 0..*" N140852
+N140888 <|-- N140885
+N140803 "1" -- "1..*" N140885
+N140723 "0..1" -- "0..*" N140827
+@enduml

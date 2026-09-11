@@ -1,0 +1,70 @@
+@startuml
+title Interbank Relationship Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Interbank Relationship Management
+' Source image: interbank-relationship-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_39991.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Management Plan" as N108002 {
+}
+
+class "Duty" as N108045 {
+}
+
+class "Bank Relationship Management Plan" as N107996 {
+}
+
+class "Bank Relationship" as N108019 {
+  + Bank Relationship Type : BankRelationshipTypeValues
+  + Bank Relationship Description : String
+}
+
+class "Party Relationship" as N108036 {
+}
+
+enum "BankRelationshipTypeValues" as N108053 {
+  JointVenture
+  TradingPartner
+}
+
+class "Bank Relationship Involvement" as N108007 {
+  + Bank Relationship Involvement Type : BankRelationshipInvolvementType Values
+}
+
+enum "BankRelationshipInvolvementTypeValues" as N108074 {
+  RelationshipManager
+}
+
+class "Customer Contact" as N107999 {
+  + Customer Contact Type : Text
+  + Customer Contact Date and Time : DateTime
+  + Customer Contact Location : Location
+  + Customer Contact Schedule : Schedule
+  + Customer Contact Result : Text
+  + Customer Contact Purpose : Text
+  + Customer Contact Device : Device
+  + Customer Contact Indicator : Text
+  + Customer Contact Content : Text
+  + Customer Contact Identification : Identifier
+}
+
+class "Party" as N108018 {
+}
+
+class "Party Role" as N108070 {
+}
+
+' Relationships
+N108002 "0..1" -- "0..*" N108045
+N108002 <|-- N107996
+N108019 "0..1" -- "0..*" N107996
+N108036 <|-- N108019
+N108007 "0..*" -- "0..1" N108019
+N107999 "BankInteraction / 0..*" -- "0..1" N108019
+N108070 <|-- N108007
+N108018 "1" -- "0..*" N108070
+@enduml

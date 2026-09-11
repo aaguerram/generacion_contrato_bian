@@ -1,0 +1,71 @@
+@startuml
+title Product Service Agency - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Product Service Agency
+' Source image: product-service-agency-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52489.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Service Provider Agreement" as N163564 {
+}
+
+class "Service Provider Arrangement" as N163651 {
+  + Service Provider Arrangement Type : ServiceProviderArrangementTypeValues
+}
+
+class "Service Provider Agreement Involvement" as N163597 {
+  + Service Provider Agreement Involvement Type
+}
+
+enum "ServiceProviderArrangementTypeValues" as N163657 {
+  Product and Service Specific Arrangement
+  Product and Service Delivery Arrangement
+  Policy Term
+  Regulatory Term
+  Legal Term
+}
+
+enum "ServiceProviderAgreementInvolvementTypeValues" as N163599 {
+  Service Provider
+}
+
+class "Arrangement" as N163653 {
+}
+
+class "Party" as N163620 {
+}
+
+class "Party Role" as N163565 {
+}
+
+class "Agreement" as N163632 {
+}
+
+class "Product" as N163584 {
+}
+
+class "Account" as N163556 {
+}
+
+class "Instruction" as N163607 {
+}
+
+class "Transaction" as N163633 {
+}
+
+' Relationships
+N163564 "0..1" -- "0..*" N163651
+N163564 -- "0..1 / 2..*" N163597
+N163651 "0..1" -- "2" N163597
+N163620 "1" -- "0..*" N163565
+N163565 <|-- N163597
+N163653 <|-- N163651
+N163632 <|-- N163564
+N163584 "0..*" -- "0..*" N163564
+N163651 "0..*" -- "0..1" N163556
+N163651 "0..1" -- "Fulfillment / Instruction / 0..*" N163607
+N163607 "0..1" -- "0..*" N163633
+@enduml

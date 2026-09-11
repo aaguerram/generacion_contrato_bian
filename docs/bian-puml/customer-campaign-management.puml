@@ -1,0 +1,194 @@
+@startuml
+title Customer Campaign Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Campaign Management
+' Source image: customer-campaign-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_37458.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Customer Campaign" as N190270 {
+  + Customer Campaign Type : CustomerCampaignTypeValues
+}
+
+class "Campaign" as N190226 {
+  + Campaign Type : CampaignTypeValues
+  + Campaign Version : Text
+  + Campaign Description : Text
+  + Campaign Period : DateTimePeriod
+}
+
+class "Customer Campaign Portfolio Management Plan" as N190192 {
+  + Customer Campaign Portfolio Management Duty : Duty[1..*]
+  + Customer Campaign Portfolio Management Duty Type : CampaignPortfolioManagementDutyTypeValues[1..*]
+}
+
+class "Management Plan" as N190105 {
+}
+
+class "Customer Campaign Metric" as N190219 {
+  + Customer Campaign Metric Type : CustomerCampaignMetricTypeValues
+}
+
+class "Customer Campaign Involvement" as N190304 {
+  + Customer Campaign Involvement Type : CustomerCampaignInvolvementTypeValues
+}
+
+class "Market Research" as N190274 {
+}
+
+class "Customer Survey" as N190240 {
+}
+
+class "Competitor Analysis" as N190253 {
+}
+
+enum "CampaignPortfolioManagementDutyTypeValues" as N190272 {
+  Market Tracking
+  Performance Assessment
+  Campaign Direction
+  Competitive Assessment
+  Coverage Planning
+  Impact Assessment
+  Capability Oversight
+}
+
+class "Customer Campaign Assessment" as N190303 {
+  + Assessment Type : CustomerCampaignAssessmentTypeV alues
+}
+
+class "Sales Lead" as N190314 {
+}
+
+class "Customer Relationship" as N190208 {
+}
+
+class "Product" as N190293 {
+}
+
+class "Product Portfolio" as N190131 {
+}
+
+class "Customer Portfolio" as N190152 {
+}
+
+class "Party" as N190127 {
+}
+
+enum "CustomerCampaignInvolvementTypeValues" as N190281 {
+  Marketing Team
+  Sales Team
+  Product Development Team
+  Customer Support Team
+  Data Analyst
+  Compliance and Legal Team
+  Finance Team
+  External Partner and Vendor
+}
+
+class "Metric" as N190275 {
+}
+
+class "Assessment" as N190148 {
+}
+
+enum "CampaignTypeValues" as N190250 {
+  Marketing Campaign
+  Social Campaign
+  Political Campaign
+}
+
+enum "CustomerCampaignTypeValues" as N190300 {
+  Product Launch Campaign
+  Brand Awareness Campaign
+  Customer Retention Campaign
+  Referral Campaign
+  Reactivation Campaign
+  Cross-Selling and Upselling Campaign
+}
+
+class "Analysis" as N190179 {
+}
+
+enum "CustomerCampaignAssessmentTypeValues" as N190120 {
+  Competitive Assessment
+  Impact Assessment
+  Market Analysis
+  Performance Assessment
+}
+
+class "Customer Campaign Portfolio" as N190108 {
+}
+
+class "Portfolio" as N190298 {
+}
+
+class "Customer Campaign Design Specification" as N190140 {
+}
+
+class "Customer Campaign Procedure" as N190259 {
+}
+
+enum "CustomerCampaignMetricTypeValues" as N190181 {
+  Click-Through Rates (CTR)
+  Conversion Rate
+  Customer Acquisition Cost (CAC)
+  Return On Investment (ROI)
+  Customer Lifetime Value (CLV)
+  Engagement Rate
+  Bounce Rate
+  Repeat Purchase Rate
+  Churn Rate
+}
+
+class "Goal" as N190299 {
+}
+
+class "Customer Campaign Goal" as N190174 {
+  + Customer Campaign Goal Type : CustomerCampaignGoalTypeValues
+}
+
+enum "CustomerCampaignGoalTypeValues" as N190322 {
+  Brand Awareness
+  Lead Generation
+  Customer Acquisition
+  Customer Retention
+  Sales Growth
+  Product Launch
+  Engagement
+  Market Expansion
+  Customer Loyalty
+  Reputation Management
+}
+
+' Relationships
+N190226 <|-- N190270
+N190192 "0..*" -- "0..1" N190108
+N190105 <|-- N190192
+N190304 "0..*" -- "0..1" N190270
+N190303 "0..*" -- "UsedToAssess / 0..*" N190274
+N190240 "UsedToAssess / 0..*" -- "0..*" N190303
+N190253 "UsedToAssess / 0..*" -- "0..*" N190303
+N190303 "0..*" -- "0..*" N190219
+N190270 "0..1" -- "0..*" N190303
+N190131 "1" -- "1..*" N190293
+N190152 "1" -- "1..*" N190208
+N190152 "Customers / InCampaign / 0..*" -- "0..*" N190270
+N190131 "Products / InCampaign / 0..*" -- "0..*" N190270
+N190314 "Generated / Opportunity / 0..*" -- "0..*" N190270
+N190314 "0..*" -- "ProductToSell / 1..*" N190293
+N190127 "0..1" -- "0..1" N190304
+N190275 <|-- N190219
+N190148 <|-- N190303
+N190179 <|-- N190253
+N190108 "0..*" -- "0..*" N190219
+N190108 "1" -- "1..*" N190270
+N190298 <|-- N190108
+N190270 "0..1" -- "0..*" N190140
+N190270 "0..1" -- "0..*" N190259
+N190299 <|-- N190174
+N190270 "0..1" -- "0..*" N190174
+N190108 "0..1" -- "CampaignPortfolio / Assessment / 0..*" N190303
+@enduml

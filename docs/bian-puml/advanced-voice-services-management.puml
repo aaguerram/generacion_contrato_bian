@@ -1,0 +1,78 @@
+@startuml
+title Advanced Voice Services Management - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Advanced Voice Services Management
+' Source image: advanced-voice-services-management-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36793.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Voice Channel" as N234129 {
+}
+
+class "Management Plan" as N234131 {
+}
+
+class "Duty" as N234117 {
+  + Duty Type : Text
+  + Duty Description : Text
+  + Duty Date Time : DateTime
+}
+
+class "Voice Channel Management Plan" as N234099 {
+}
+
+class "Rule Set" as N234159 {
+}
+
+class "Voice Channel Session" as N234175 {
+}
+
+class "Voice Channel Session Issue" as N234103 {
+}
+
+class "System" as N234180 {
+}
+
+class "Session" as N234141 {
+}
+
+class "Session Event" as N234106 {
+}
+
+class "Analysis" as N234119 {
+}
+
+class "Root Cause Analysis" as N234108 {
+}
+
+class "Voice Channel Management Plan Duty" as N234153 {
+  + Voice Channel Management Plan Duty Type : String
+}
+
+enum "VoiceChannelManagementPlanDutyTypeValues" as N234150 {
+  VoiceChannelCapacityPlanning
+  VoiceChannelMaintenanceAndUpgrades
+  VoiceChannelTroubleshooting
+}
+
+' Relationships
+N234131 "0..1" -- "0..*" N234117
+N234131 <|-- N234099
+N234099 "0..*" -- "0..*" N234129
+N234129 "0..*" -- "UsagePolicy/Guideline / 0..*" N234159
+N234129 "1" -- "Operating / Session / 0..*" N234175
+N234175 "1" -- "Session / Event / 0..*" N234103
+N234180 <|-- N234129
+N234180 "SystemIn / Session / 1" -- "Operating / Session / 0..*" N234141
+N234141 <|-- N234175
+N234141 "0..1" -- "FailureEvent / 0..*" N234106
+N234141 "0..1" -- "NormalEvent / 0..1" N234106
+N234106 <|-- N234103
+N234108 "0..*" -- "0..*" N234103
+N234119 <|-- N234108
+N234117 <|-- N234153
+N234099 "0..1" -- "0..*" N234153
+@enduml

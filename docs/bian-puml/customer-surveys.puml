@@ -1,0 +1,184 @@
+@startuml
+title Customer Surveys - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Surveys
+' Source image: customer-surveys-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_38070.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Customer Survey Procedure" as N149312 {
+  + Customer Survey Procedure Result : Text
+  + Customer Survey Procedure Setup : Arrangement
+  + Customer Survey Procedure Schedule : Schedule
+}
+
+class "Customer Survey" as N149379 {
+  + Customer Survey Type : CustomerSurveyTypeValues
+  + Customer Survey Description : Text
+  + Customer Survey Version : Text
+  + Customer Survey Date Time : DateTime[1..*]
+  + Customer Survey Aspect Type : SurveyAspectTypeValues[1..*]
+  + Selection Criteria : Rule Set[1..*]
+  + Customer Survey Objective : Goal[1..*]
+}
+
+class "Customer Survey Document" as N149430 {
+  + Customer Survey Document Type : CustomerSurveyDocumentTypeValues
+}
+
+class "Customer Survey Analysis" as N149370 {
+  + Customer Survey Analysis Type : SurveyAspectTypeValues
+}
+
+class "Document" as N149378 {
+}
+
+class "Customer Relationship" as N149545 {
+}
+
+class "Procedure" as N149318 {
+}
+
+class "Workstep" as N149321 {
+}
+
+class "Customer Survey Procedure Workstep" as N149542 {
+  + Customer Survey Procedure Workstep Type : CustomerSurveyProcedureWorkstepTypeValues
+}
+
+enum "CustomerSurveyProcedureWorkstepTypeValues" as N149315 {
+  Customer Survey Design
+  Customer Survey Execution
+  Customer Survey Review
+  Customer Survey Analysis
+}
+
+enum "CustomerSurveyTypeValues" as N149463 {
+  FocusGroup
+  Questionnaire
+  Customer Satisfaction Survey
+  Product or Service Feedback Survey
+  Market Research Survey
+  Customer Effort Score
+}
+
+class "Customer Survey Involvement" as N149548 {
+  + Customer Survey Involvement Type : SurveyInvolvementTypeValues
+}
+
+class "Rule Set" as N149447 {
+}
+
+class "Analysis" as N149361 {
+}
+
+class "Item Inventory" as N149443 {
+  + Item Inventory Type : Text
+}
+
+class "Item" as N149551 {
+}
+
+enum "SurveyInvolvementTypeValues" as N149466 {
+  Survey Participant
+  Survey Designer
+  Survey Administrator
+  Survey Executor
+}
+
+class "Product" as N149417 {
+}
+
+class "Party" as N149345 {
+}
+
+enum "SurveyAspectTypeValues" as N149367 {
+  Demographics
+  Product or Service Usage
+  Satisfaction
+  Experience
+  Product or Service Quality
+  Brand Perception
+  Price
+  Competitor
+  Communication Preferences
+  Accessibility
+  Loyalty
+  Environmental and Social Responsibility
+}
+
+enum "CustomerSurveyDocumentTypeValues" as N149391 {
+  Survey Plan
+  Questionnaire
+  Data Analysis Document
+  Analysis Report
+}
+
+class "Survey" as N149329 {
+  + Survey Type : SurveyTypeValues
+  + Survey Description : Text
+  + Survey Date and Time : DateTime
+  + Survey Version : Text
+  + Survey Aspect Type : SurveyAspectTypeValues
+  + Servey Criteria : Rule Set[1..*]
+}
+
+enum "SurveyTypeValues" as N149415 {
+  Customer Survey
+  Employee Survey
+  Market Research Survey
+  Academic Survey
+}
+
+class "DateTime" as N149341 <<datatype>> {
+  + Date Time Content : Text
+  + Time Zone Code : Text
+  + Daylight Saving Indicator : Text
+  + Date Time Type : DateTimeTypeValues
+}
+
+enum "DateTimeTypeValues" as N149530 {
+  Maturity Date
+  Initiated Date
+  Requested Date
+  Executed Date
+  Open Date
+  Close Date
+  Expiry Date
+  Effective Date
+  Creating Date
+  Activation Date
+  Deactivation Date
+  Blocking Date
+  Sending Date
+  Valid From Date
+  Valid To Date
+  Receiving Date
+  Signing Date
+  Due Date
+  Value Date
+  Fulfillment Date
+  Entry Date
+}
+
+' Relationships
+N149379 "0..1" -- "0..*" N149312
+N149379 "0..1" -- "0..*" N149430
+N149370 "0..*" -- "0..1" N149379
+N149545 "Targeted / Customer / 0..*" -- "0..*" N149379
+N149318 <|-- N149312
+N149321 <|-- N149542
+N149312 "0..1" -- "0..*" N149542
+N149379 "0..1" -- "0..*" N149548
+N149447 "Selected / Criteria / 0..*" -- "0..*" N149379
+N149361 <|-- N149370
+N149443 "0..1" -- "0..*" N149551
+N149443 "InventoryOfConsumableItems / 0..*" -- "0..*" N149312
+N149417 "0..*" -- "0..*" N149379
+N149345 "0..1" -- "0..*" N149548
+N149378 <|-- N149430
+N149329 <|-- N149379
+@enduml

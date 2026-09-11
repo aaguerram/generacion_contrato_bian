@@ -1,0 +1,150 @@
+@startuml
+title Customer Position - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Customer Position
+' Source image: customer-position-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_33218.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "State" as N143369 {
+}
+
+class "Customer Position State" as N143362 {
+}
+
+class "Customer Position" as N143359 {
+  + Position Type : PositionTypeValues
+  + Event Reference
+}
+
+class "Customer Relationship" as N143393 {
+}
+
+class "Customer Event Log" as N143488 {
+}
+
+class "Customer Rating" as N143356 {
+}
+
+enum "CustomerRatingTypeValues" as N143497 {
+  Customer Profitability Rating
+  Customer Credit Rating
+  Customer Risk Rating
+}
+
+class "Position" as N143492 {
+}
+
+enum "FinancialStatementTypeValues" as N143448 {
+  Income Statement
+  Balance Sheet
+  Cash flows Statement
+  Debt Statement
+  Asset Statement
+  Asset and Liability Statement
+}
+
+class "Statement" as N143536 {
+  + Statement Type : StatementTypeValues
+  + Statement Frequency : Frequency
+  + Statement Identification : Identifier
+}
+
+class "Report" as N143481 {
+}
+
+class "Indicator" as N143458 {
+}
+
+class "Customer Position State Indicator" as N143526 {
+  + Indicator Type : CustomerPositionStateIndicatorTypeValues
+  + Report Reference : Report
+  + Analysis Reference : Analysis
+}
+
+enum "CustomerPositionStateIndicatorTypeValues" as N143522 {
+  Cashflow Indicator
+  Credit Indicator
+  Collateral Indicator
+}
+
+enum "CustomerEventTypeValues" as N143493 {
+  Customer Relationship Event
+  Customer Sale Event
+  Customer Product Event
+  Customer Fraud Event
+  Customer Life Event
+}
+
+enum "PositionTypeValues" as N143535 {
+  Balance/Cashflow
+  Credit Position
+  Collateral Position
+  Security Position
+}
+
+class "Customer Product Agreement Event" as N143489 {
+  + Account Reference : Product Sales Agreement
+  + Product Event Type : CustomerProductAgreementEventTypeValues
+}
+
+enum "CustomerProductAgreementEventTypeValues" as N143403 {
+  New Product Agreement Event
+  Update Product Agreement Event
+}
+
+class "Collateral Agreement" as N143445 {
+}
+
+class "Agreement" as N143460 {
+}
+
+class "Event" as N143502 {
+}
+
+class "Product Agreement" as N143484 {
+  + Product Agreement Type : ProductAgreementTypeValues
+  + Product Agreement Identification : Identifier
+}
+
+class "Arrangement" as N143447 {
+}
+
+class "Information Arrangement" as N143464 {
+}
+
+enum "ProductAgreementTypeValues" as N143442 {
+  Current Account Agreement
+  Savings Account Agreement
+  Brokered Product Agreement
+  Consumer Loan Agreement
+  Mortgage Loan Agreement
+  Direct Debit Service Agreement
+  Term Deposit Agreement
+}
+
+class "Account" as N143372 {
+}
+
+' Relationships
+N143369 <|-- N143362
+N143362 "0..*" -- "0..1" N143359
+N143359 "0..*" -- "1" N143393
+N143393 "1" -- "0..*" N143356
+N143359 "0..1" -- "0..*" N143536
+N143481 <|-- N143536
+N143458 <|-- N143526
+N143362 "0..1" -- "0..1" N143526
+N143393 "0..1" -- "0..*" N143445
+N143460 <|-- N143484
+N143460 -- "0..*" N143484
+N143484 "0..1" -- "0..*" N143489
+N143393 "1" -- "Customer / Product / 0..*" N143484
+N143484 "0..1" -- "0..*" N143447
+N143447 <|-- N143464
+N143359 "0..1" -- "0..1" N143492
+N143484 "1" -- "1" N143372
+@enduml

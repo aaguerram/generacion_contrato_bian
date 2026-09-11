@@ -1,0 +1,144 @@
+@startuml
+title Collections - BIAN BOM UML
+' Generated from BIAN diagram for machine-readable context
+' Service Domain: Collections
+' Source image: collections-bom-uml.svg
+' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52147.html
+' Extraction: SVG semantic extraction
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Procedure" as N215221 {
+  + Procedure Type : ProcedureTypeValues
+  + Procedure Date Time : DateTime
+  + Procedure Request : Instruction
+  + Procedure Schedule : Schedule
+  + Procedure Status : Status
+}
+
+class "Workstep" as N215210 {
+  + Workstep Result : Text
+  + Workstep Type : WorkstepTypeValues
+  + Workstep Description : Text
+  + Workstep Date Time : DateTime
+  + Workstep Status : Status
+  + Workstep WorkProduct : WorkProduct
+}
+
+class "Collateral Asset" as N215233 {
+  + Collateral Asset Identification : Identifier
+  + Collateral Asset Type : CollateralTypeValues
+  + Collateral Asset Status : CollateralAssetStatusTypeValues
+}
+
+class "Collateral Asset Liquidation" as N215216 {
+  + Collateral Asset Liquidation Assessment : String
+  + Collateral Asset Liquidation Schedule : String
+}
+
+class "Collateral Asset Liquidation Procedure" as N215312 {
+}
+
+class "Collateral Asset Liquidation Procedure Workstep" as N215213 {
+  + Collateral Asset Liquidation Procedure Workstep Type : String
+}
+
+enum "CollateralAssetLiquidationProcedureWorkstepTypeValues" as N215218 {
+  Collections Assessment
+  Collateral Valuation
+  Collateral Liquidation
+  Collections Account Update
+  Debt Factoring
+}
+
+class "Asset" as N215295 {
+}
+
+class "Object" as N215369 {
+}
+
+class "Collateral Agreement" as N215311 {
+  + Collateral Agreement Identifier : Identifier
+  + Collateral Agreement Registration Reference : Text
+}
+
+class "Collateral Asset Arrangement" as N215283 {
+  + Collateral Pledged Date : Date
+  + Collateral Type : CollateralTypeValues
+  + Collateral Value Pledged : Amount
+  + Collateral Amount : Amount
+  + Collateral Balance : AccountBalance
+  + Collateral Purpose : CollateralPurposeTypeValues
+}
+
+class "Party Role" as N215359 {
+}
+
+class "Collateral Asset Liquidation Request" as N215343 {
+}
+
+class "Party" as N215306 {
+}
+
+class "Asset Type" as N215307 {
+}
+
+class "Account" as N215392 {
+}
+
+class "Factoring Agreement" as N215382 {
+}
+
+class "Collection Agency Agreement" as N215371 {
+}
+
+class "Customer Agreement" as N215262 {
+}
+
+class "Customer Relationship" as N215289 {
+}
+
+class "Loan Agreement" as N215234 {
+}
+
+class "Agreement" as N215345 {
+}
+
+class "Arrangement" as N215294 {
+}
+
+class "Transaction" as N215282 {
+}
+
+class "Instruction" as N215227 {
+}
+
+' Relationships
+N215221 -- "0..*" N215210
+N215283 "0..1" -- "0..*" N215343
+N215221 <|-- N215312
+N215216 "0..*" -- "0..1" N215312
+N215312 "0..1" -- "0..*" N215213
+N215295 "0..*" -- "0..1" N215369
+N215369 "0..1" -- "0..*" N215233
+N215311 "1" -- "0..*" N215283
+N215210 <|-- N215213
+N215216 "0..1" -- "0..*" N215359
+N215343 "0..1" -- "0..*" N215216
+N215343 "0..1" -- "0..*" N215359
+N215233 -- "0..* / 1" N215283
+N215307 "0..1" -- "0..*" N215295
+N215216 "0..*" -- "Collection / Account / 0..1" N215392
+N215262 "0..1" -- "0..*" N215311
+N215289 "1" -- "1" N215262
+N215289 "0..1" -- "2..*" N215359
+N215234 "0..*" -- "0..*" N215311
+N215262 "0..1" -- "0..*" N215234
+N215234 "0..1" -- "0..*" N215283
+N215345 <|-- N215311
+N215294 <|-- N215283
+N215227 <|-- N215343
+N215282 <|-- N215216
+N215306 "1" -- N215359 : 0..*
+@enduml
