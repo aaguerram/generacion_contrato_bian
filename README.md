@@ -1,11 +1,16 @@
 # generacion_contrato_ia_v2
 
-## Pipeline BIAN verificable (8 etapas)
+## Pipeline BIAN verificable
 
-`mapear-historias` ejecuta: extracción de acción/objeto/outcome/dependencias; generación de
-candidatos sobre los 341 SD; resolución de evidencia oficial; evaluación estructurada; scoring
-determinista; revisión adversarial de ownership; consolidación por funcionalidad; y publicación
-auditable de seleccionados, no resueltos, rechazados e incidencias.
+`mapear-historias` ejecuta, **por Historia de Usuario**, un subgrafo de 10 pasos (6 nodos LLM +
+4 deterministas) con **fan-out interno por candidato** — cada Service Domain a evaluar recibe su
+propia llamada LLM aislada contra un paquete de evidencia cerrado (anti-contaminación cruzada
+entre candidatos): extracción de intención/acción/objeto → generación de candidatos → revisión de
+completitud → preparación determinista del conjunto a evaluar → evaluación aislada por candidato →
+scoring y clasificación deterministas → revisión adversarial de ownership → aplicación determinista
+de hallazgos → selección de operaciones oficiales (+ propuesta de BQ no oficiales anclados a BOM) →
+ensamblado. Un grafo externo hace map-reduce sobre las HU y cierra con una reconciliación global y
+la publicación auditable de seleccionados, no resueltos, rechazados, omitidos e incidencias.
 
 La evidencia queda autocontenida en `docs/bian-cache/release14.0.0/`. Por defecto una entrada
 existente nunca se descarga otra vez; únicamente se consultan candidatos ausentes. Para forzar
@@ -22,9 +27,10 @@ cache-first y acceso oficial bajo demanda únicamente para candidatos ausentes:
 
 1. **`validar-sd`** — ¿un nombre de Service Domain existe en SD.json? (`python -m src --service-domain …`)
 2. **`mapear-historias`** — mapea un lote de Historias de Usuario a sus Service Domains, con
-   **rol contractual** (OWNED / CONSUMED_DEPENDENCY / RELATED), justificación, confianza y
-   operaciones oficiales, en 3 grupos (directo / tentativo / descartado). Evidencia BIAN
-   íntegra en `docs/`, sin Internet.
+   **rol contractual** (OWNED / CONSUMED_DEPENDENCY / RELATED), justificación, confianza,
+   operaciones oficiales y — cuando ningún CR/BQ oficial cubre un campo real de la historia —
+   propuestas de **BQ no oficiales** ancladas a evidencia BOM, en 3 grupos (directo / tentativo /
+   descartado). Evidencia BIAN íntegra en `docs/`, sin Internet.
    (`python -m src mapear-historias …`) · ver [sección dedicada](#mapear-historias--historias-de-usuario--service-domains).
 
 - **LangGraph** orquesta el grafo · **LangSmith** para observabilidad (opcional).
@@ -182,11 +188,16 @@ Segundo caso de uso (subcomando). Dado **un directorio de Historias de Usuario**
 y **un JSON de funcionalidad macro**, mapea cada HU a los BIAN Service Domains que la implementan.
 **Toda la evidencia BIAN vive en `docs/`** — sin Internet, sin conocimiento externo del modelo:
 
-| Archivo en `docs/` | Qué aporta |
+| Archivo/carpeta en `docs/` | Qué aporta |
 |---|---|
 | `SD.json` | 341 Service Domains R14: Service Role, Examples of Use, Functional Pattern, Asset Type |
 | `bian-business-areas.json` | jerarquía **Business Area → Business Domain → Service Domain** (mismos 341) |
-| `bian-operation-catalogs.json` | operaciones oficiales (Control Record / Behavior Qualifier) de **9 Service Domains** materializados |
+| `bian-operation-catalogs.json` | operaciones oficiales (Control Record / Behavior Qualifier) de los Service Domains materializados |
+| `bian-cache/release14.0.0/` | caché **cache-first** del OpenAPI oficial por SD (CR + BQ + `schemas_detalle`, `cache_version: 2`) — solo se descarga lo ausente |
+| `bian-puml/` | **272 diagramas PlantUML** del modelo de clases BOM BIAN R14 (clases/atributos/enums/asociaciones), uno por Service Domain; complementa los schemas de la Semantic API y respalda la anti-alucinación de los **BQ personalizados** (`mapear_historias.bom_puml_habilitado`) |
+
+Cada corrida escribe en `<--directorio>/<AAAA-MM-DD_HH-MM-SS>/` (para no pisar corridas previas);
+`--sin-timestamp` escribe directo en `<--directorio>`.
 
 ```powershell
 .\.venv\Scripts\python.exe -m src mapear-historias `
@@ -195,12 +206,34 @@ y **un JSON de funcionalidad macro**, mapea cada HU a los BIAN Service Domains q
   --directorio .\salida\mapeo
 # sin API (verificación de cableado; selección estable pero no semántica):
 .\.venv\Scripts\python.exe -m src mapear-historias --hu .\HU --func .\ejemplos\funcionalidad-actualizacion-datos-personales.json --dir .\salida\mapeo --proveedor fake
-# sin el paso 2 (no mapea operaciones) · forzar un proveedor:
+# sin el paso de operaciones (no mapea operaciones ni BQ personalizados) · forzar un proveedor:
 .\.venv\Scripts\python.exe -m src mapear-historias --hu .\HU --func <f.json> --dir .\salida\mapeo --sin-operaciones --proveedor gemini
+# escribir directo en --directorio (sin subcarpeta de fecha-hora):
+.\.venv\Scripts\python.exe -m src mapear-historias --hu .\HU --func <f.json> --dir .\salida\mapeo --sin-timestamp
 ```
 
-> **Cuota / failover:** `mapear-historias` hace **~2 llamadas por HU** (paso 1 + paso 2). El chat es
-> un **failover** definido en `config.yaml`: recorre `routing.llm_priority` (por defecto
+| Flag | |
+|---|---|
+| `--directorio-hu` / `--hu` | directorio con las HU (`.txt`/`.md`), obligatorio |
+| `--funcionalidad` / `--func` | JSON `{ "funcionalidad_macro": "...", "detalle": "..." }`, obligatorio |
+| `--directorio` / `--dir` | directorio base de salida, obligatorio (ver subcarpeta con fecha-hora arriba) |
+| `--sin-timestamp` | escribe directo en `--directorio`, sin subcarpeta `<fecha-hora>` |
+| `--proveedor` | fuerza un único proveedor; por defecto usa el failover completo de `config.yaml` |
+| `--config` | ruta a `config.yaml` alterno |
+| `--esfuerzo` | `low` \| `medium` \| `high` (pisa `llm.esfuerzo`) |
+| `--umbral-directo` / `--umbral-tentativo` | pisan `mapear_historias.umbral_directo` / `umbral_tentativo` |
+| `--concurrencia` | pisa `mapear_historias.concurrencia` (HU en paralelo, outer graph) |
+| `--sin-operaciones` | desactiva el paso de operaciones oficiales (y de BQ personalizados) |
+| `--actualizar-cache-bian` | refresca desde la fuente oficial aunque el candidato ya esté en caché |
+| `-v` | log DEBUG |
+
+> **Cuota / failover:** `mapear-historias` hace **≈ HU × (3 + n_candidatos + 2) + 1** llamadas por
+> corrida — 3 por HU (intención + candidatos + completitud) + 1 evaluación aislada por cada
+> candidato a evaluar (tope `mapear_historias.max_candidatos_hu`, 14 por defecto) + 2 por HU
+> (adversarial + operaciones) + 1 reconciliación global al final. `concurrencia_candidatos`
+> controla cuántas evaluaciones de candidato corren en paralelo dentro de una HU (subgrafo);
+> `concurrencia`, cuántas HU corren en paralelo (outer graph). El chat es un **failover** definido
+> en `config.yaml`: recorre `routing.llm_priority` (por defecto
 > `groq → gemini → huggingface → openrouter`) y, dentro de cada proveedor, sus `llm.models` en orden. Si un modelo
 > da 429 / sin créditos / no disponible / prompt-demasiado-grande, salta al siguiente; si el
 > proveedor se agota, al siguiente proveedor. `validar-sd` usa la misma cadena.
@@ -210,22 +243,40 @@ y **un JSON de funcionalidad macro**, mapea cada HU a los BIAN Service Domains q
 > `validar-sd` (prompts pequeños) pero da **413** en `mapear-historias` (catálogo BIAN ~26k tokens),
 > así que ahí el failover pasa a Gemini automáticamente.
 
-### El grafo (map-reduce con LangGraph)
+### El grafo — outer map-reduce + subgrafo por HU con fan-out por candidato
 
 ```
-START
-  → cargar            HU + funcionalidad macro + evidencia BIAN local (docs/ + docs/bian-cache/)
-  → (Send por HU) →   procesar_historia
-                        paso 1 (LLM): propone Service Domains + ROL contractual + escenarios_hu +
-                                      rúbricas 0-3 (match_service_role / match_objeto_negocio) + confianza
-                        evidencia    : para cada SD que resuelve, asegura su catálogo oficial
-                                       (cache-first en docs/bian-cache/; descarga solo los ausentes)
-                        dominio      : score determinista (scoring_bian) + TOPE por rol + 2 ejes de decisión
-                        2º pase      : detecta léxicamente SD que el LLM pudo omitir (service_domains_omitidos)
-                        paso 2 (LLM) : SD directos con catálogo local → operaciones oficiales (CR/BQ)
-  → publicar          consolida por funcionalidad (reconcilia el mismo SD entre HU) y escribe el JSON
-  → END
+outer graph (map-reduce sobre las HU):
+
+    START -> cargar -> (Send por HU) -> procesar_historia --+--> reconciliar -> publicar -> END
+
+`procesar_historia` invoca, por cada HU, un SUBGRAFO con su propio fan-out por candidato:
+
+    extraer_intencion       (LLM)  interpretación funcional: acciones/objetos/outcomes/dependencias,
+                                   sin nombrar todavía ningún Service Domain
+      -> generar_candidatos (LLM)  nombres de SD candidatos sobre los 341 SD (pista, no exhaustiva)
+      -> revisar_completitud(LLM)  detecta candidatos faltantes / sin evidencia / conflictos de ownership
+      -> preparar_candidatos [det] une candidatos LLM ∪ missing de completitud, resuelve cada nombre
+                                   contra SD.json, arma UN paquete de evidencia cerrado por candidato
+                                   (Service Role, CR/BQ oficiales, schemas + modelo BOM PUML)
+      -> (Send por candidato) evaluar_candidato (LLM)   1 LLAMADA AISLADA por Service Domain: solo ve
+                                   SU paquete de evidencia (nunca el de otros candidatos) → rol
+                                   contractual + rúbricas ordinales 0-3 + trazabilidad citada
+      -> clasificar         [det] scoring_bian (determinista) + clasificacion_historias
+                                   (dos ejes de decisión + tope de confianza por rol)
+      -> revisar_adversarial(LLM)  prompt independiente: contrasta la hipótesis ya clasificada
+                                   (ownership mal asignado, exceso de contratos, candidato omitido…)
+      -> aplicar_adversarial[det] aplica los hallazgos — SOLO puede degradar, nunca promover un SD
+      -> seleccionar_operaciones (LLM)  SD directos con catálogo local -> operationId oficiales
+                                   (+ propone BQ NO oficiales si el BOM respalda un campo sin cubrir)
+      -> ensamblar          [det] arma el resultado de la HU
 ```
+
+El LLM **nunca** decide el estado final (`SELECTED`/`UNRESOLVED`/`REJECTED`): cada nodo LLM
+devuelve señales ordinales, trazabilidad citada, supuestos y gaps; `scoring_bian` +
+`clasificacion_historias` + `_consolidar` (código) son el árbitro. `reconciliar` (1 sola llamada,
+ve todas las HU ya clasificadas) es un asesor a nivel de funcionalidad — no revierte decisiones,
+solo aporta `functionality_role`, historias de apoyo/contra y `reason_codes` a `_consolidar`.
 
 **Rol contractual** (taxonomía BIAN business-alignment) — clasifica *por qué* aplica el SD:
 
@@ -235,11 +286,15 @@ START
 | `CONSUMED_DEPENDENCY` | solo **consulta/valida/consume** (guard de auth, permisos, auditoría, notificación, riesgo, proveedor externo); lleva `dependency_kind` | **nunca `directo`** (confianza topada `< umbral_directo`) |
 | `RELATED_NOT_OWNED` | relación temática, no necesaria para implementar la historia | **nunca `directo`** |
 
-**Dos ejes de decisión** — el `score` es determinista (`scoring_bian`): 30% correspondencia con la
-acción oficial (Service Role + operationId/summary/grupo CR-BQ, con tokenización camelCase) · 25%
-objeto/schema BOM · 20% ownership · 15% trazabilidad a escenarios · 10% coherencia Business
-Area/Domain · ±0.05 según haya o no evidencia BOM verificable. **La confianza libre del LLM no
-entra al score** (solo se guarda en `confianza_llm`); el LLM aporta rúbricas enteras 0-3.
+**Dos ejes de decisión** — el `score` es determinista (`scoring_bian`), calculado sobre la
+**evaluación aislada** de `evaluar_candidato` (1 candidato ve solo su propio paquete de evidencia):
+30% correspondencia con la acción oficial (Service Role + operationId/summary/grupo CR-BQ, con
+tokenización camelCase) · 25% objeto/schema BOM · 20% ownership · 15% trazabilidad a escenarios ·
+10% coherencia Business Area/Domain; con bonificación/penalización adicional según la rúbrica
+`evidence_quality` (0-3) y el `ambiguity` (NONE/LOW/HIGH) que reporta esa evaluación, y ±0.05 según
+haya o no evidencia BOM verificable (`CACHED_VERIFIED`/`VERIFIED`). **La confianza libre del LLM no
+entra al score** (solo se guarda en `confianza_llm`); el LLM aporta rúbricas enteras 0-3 y señales
+ordinales, nunca el veredicto final.
 
 | eje | valores |
 |---|---|
@@ -262,6 +317,24 @@ En el paso 2, los `operation_id` que no estén en el catálogo local se descarta
 elegir el mínimo de SD `OWNED_CONTRACT`, y contrastar el verbo+objeto de la historia contra el
 Service Role antes de fijar el rol.
 
+### BQ personalizados (no oficiales) — cuando el BOM respalda un campo sin cubrir
+
+Un Control Record no se puede editar. Si una historia necesita un campo que **ningún** CR ni BQ
+oficial del SD expone, `seleccionar_operaciones` puede proponer un **Behavior Qualifier no oficial**
+— pero solo citando una clase/atributo real del BOM del Service Domain (`schemas_detalle` de la
+Semantic API, o el modelo de clases de `docs/bian-puml/`). El código (`_anclar_bq_personalizados`,
+determinista) ancla la propuesta solo si:
+
+1. el campo **no** está ya cubierto por una operación oficial,
+2. el nombre del BQ **no** colisiona con un CR/BQ oficial existente del SD, y
+3. la clase/atributo BOM citados **existen de verdad** (se verifica contra la evidencia, nunca se
+   "arregla" una cita floja).
+
+El resultado vive separado de `operaciones_bian` en un campo propio
+(`bq_personalizados_propuestos` / `custom_bq_candidates`), con `estado: "CUSTOM_BQ_CANDIDATE"`, para
+que nunca se confunda con una operación oficial BIAN — queda marcado como pendiente de revisión de
+gobierno antes de tratarse como endpoint real.
+
 ### JSON de entrada (`--funcionalidad`)
 
 ```json
@@ -279,13 +352,16 @@ Alias tolerados: `funcionalidad` / `nombre` / `macro` para el nombre; `descripci
 ```json
 {
   "funcionalidad_macro": "…", "detalle": "…", "total_historias": 6,
-  "parametros": { "cadena_llm": "gemini:…", "umbral_directo": 0.9, "umbral_tentativo": 0.63, "paso2_operaciones": true, "top_n_omitidos": 5 },
+  "parametros": { "cadena_llm": "gemini:…", "umbral_directo": 0.9, "umbral_tentativo": 0.63,
+                  "concurrencia": 1, "concurrencia_candidatos": 2, "max_candidatos_hu": 14,
+                  "paso2_operaciones": true, "top_n_omitidos": 5 },
   "historias": [
     {
       "archivo": "HU-Actualizar correo electrónico.txt",
       "titulo": "Actualizar correo electrónico",
       "razonamiento": "capacidades / conjunto mínimo suficiente / dependencias consumidas",
       "business_actions": ["update"], "business_objects": ["email address"],
+      "assumptions": [], "gaps": [], "unresolved_questions": [], "blocking_codes": [],
       "total_directos": 1, "total_tentativos": 4, "total_descartados": 2,
       "service_domains": {
         "candidatos_directos": [
@@ -301,7 +377,13 @@ Alias tolerados: `funcionalidad` / `nombre` / `macro` para el nombre; `descripci
             "desglose_score": { "accion_oficial": 0.8, "objeto_bom": 0.75, "ownership_outcome": 1.0,
                                 "trazabilidad_escenarios": 1.0, "coherencia_jerarquia": 0.3, "penalizacion": -0.05, "total": 0.95 },
             "evidencia_bian": { "estado": "CACHED_VERIFIED", "source_commit_sha": "b58bf4c…", "content_sha256": "…", "source_url": "https://raw.githubusercontent.com/bian-official/public/…" },
-            "operaciones_bian": []
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [
+              { "nombre_bq": "PreferredContactChannel", "operation_id": "UpdatePreferredContactChannel",
+                "verbo": "Update", "path_propuesto": "/PartyReferenceDataDirectory/{id}/PreferredContactChannel/Update",
+                "campo_no_cubierto": "canal de contacto preferido", "clase_bom": "ContactPreference",
+                "atributo_bom": "preferredChannel", "estado": "CUSTOM_BQ_CANDIDATE" }
+            ]
           }
         ],
         "candidatos_tentativos": [ … ],
@@ -315,17 +397,22 @@ Alias tolerados: `funcionalidad` / `nombre` / `macro` para el nombre; `descripci
   "service_domains_consolidados": [
     { "service_domain": "Party Reference Data Directory", "decision": "SELECTED", "motivo": "OWNED_SELECTED",
       "contract_role": "OWNED_CONTRACT", "score": 0.95, "historias": ["HU-…txt"], "traceability": ["Escenario 2…"],
-      "selected_operations": ["Update"], "evidence": { "…": "…" } }
+      "selected_operations": ["Update"], "custom_bq_candidates": [], "evidence": { "…": "…" } }
   ],
   "service_domains_omitidos": [ { "service_domain": "Contact/Correspondence Dialogue", "score_lexico": 0.42, "…": "…" } ],
+  "reconciliacion": { "service_domains": [], "gaps": [], "blocking_codes": [] },
+  "huellas_prompts": [ { "prompt_id": "…", "nodo": "evaluar_candidato", "historia": "HU-…txt", "model": "gemini:…", "prompt_sha256": "…" } ],
   "incidencias": [],
   "generado_en": "2026-09-10T…Z"
 }
 ```
 
 `operaciones_bian` (solo SD directos con catálogo local): `{operation_id, method, path, tipo (CR/BQ), grupo, escenarios_hu, justificacion}`.
+`bq_personalizados_propuestos` / `custom_bq_candidates`: BQ **no oficiales** anclados a evidencia BOM real (ver [sección dedicada](#bq-personalizados-no-oficiales--cuando-el-bom-respalda-un-campo-sin-cubrir)); nunca cuentan como `selected_operations`.
 `service_domains_consolidados` reconcilia el mismo SD entre HU (una lo consume, otra lo posee).
 `service_domains_omitidos` = 2º pase léxico sobre los 341 SD (candidatos que el LLM no propuso; no deciden nada, marcan revisión).
+`reconciliacion` = salida cruda del asesor de funcionalidad (1 llamada LLM, ve todas las HU ya clasificadas).
+`huellas_prompts` = huella reproducible (`prompt_id`/`prompt_sha256`/`model`/`catalog_sha256`/`evidence_snapshot_id`) de cada llamada LLM del run — nunca participa en la decisión, solo auditoría.
 
 Exit code: `0` si al menos una HU obtuvo ≥1 SD (directo/tentativo) · `1` si ninguna · `2` error.
 
@@ -377,7 +464,8 @@ src/
 │   │                   entrada_mapeo · lector_historias · clasificador_historias · publicador_mapeo
 │   │                   catalogo_operaciones_bian · mapeador_operaciones
 │   └── servicios/      validar_service_domain.py            (grafo lineal)
-│                       mapear_historias_service_domain.py   (grafo map-reduce, Send por HU, 2 pasos)
+│                       mapear_historias_service_domain.py   (outer map-reduce Send-por-HU +
+│                                                             subgrafo por HU con Send-por-candidato)
 ├── adaptadores/
 │   │                   embeddings_failover (cadena de embeddings por precisión) · embeddings_resiliente
 │   ├── entrada/        cli.py (validar-sd) · cli_mapeo.py (mapear-historias)
@@ -385,6 +473,7 @@ src/
 │                       · adjudicador_langchain · publicador_json · embeddings_resiliente
 │                       · lector_historias_fs · clasificador_historias_langchain · publicador_mapeo_json
 │                       · catalogo_operaciones_bian_json · mapeador_operaciones_langchain
+│                       · catalogo_bom_puml (modelo de clases BOM desde docs/bian-puml/)
 │                       · prompts · prompts_mapeo
 │                       · llm/  gemini · openrouter · anthropic · openai · fake (Strategy)
 │                       ·       failover.py  (ChatConFailover: multi-proveedor / multi-modelo)
@@ -393,7 +482,9 @@ src/
 
 config.yaml             proveedores · modelos · orden de failover · umbrales · rutas   (versionado)
 .env                    SOLO API keys                                                 (NO versionado)
-docs/                   SD.json · bian-business-areas.json · bian-operation-catalogs.json  (evidencia BIAN local)
+docs/                   SD.json · bian-business-areas.json · bian-operation-catalogs.json
+                        · bian-cache/release14.0.0/ (OpenAPI oficial cache-first, CR+BQ+schemas)
+                        · bian-puml/ (272 PlantUML del modelo de clases BOM R14)             (evidencia BIAN local)
 ```
 
 El subcomando se enruta en `src/__main__.py`: `python -m src mapear-historias …` va a
