@@ -245,31 +245,43 @@ Cada corrida escribe en `<--directorio>/<AAAA-MM-DD_HH-MM-SS>/` (para no pisar c
 
 ### El grafo — outer map-reduce + subgrafo por HU con fan-out por candidato
 
-```
-outer graph (map-reduce sobre las HU):
+`procesar_historia` invoca, por cada HU, un SUBGRAFO con su propio fan-out por candidato. Nodos
+en azul = LLM (failover multi-proveedor); nodos en verde = deterministas (código, 0 API).
 
-    START -> cargar -> (Send por HU) -> procesar_historia --+--> reconciliar -> publicar -> END
+#### Modelo de nodos (LangGraph)
 
-`procesar_historia` invoca, por cada HU, un SUBGRAFO con su propio fan-out por candidato:
+```mermaid
+flowchart TD
+    START(["START"]) --> cargar["cargar · det<br/>lee HU + funcionalidad + catálogo 341 SD"]
+    cargar -->|"Send × HU"| procesar["procesar_historia<br/>invoca el subgrafo, una vez por HU"]
 
-    extraer_intencion       (LLM)  interpretación funcional: acciones/objetos/outcomes/dependencias,
-                                   sin nombrar todavía ningún Service Domain
-      -> generar_candidatos (LLM)  nombres de SD candidatos sobre los 341 SD (pista, no exhaustiva)
-      -> revisar_completitud(LLM)  detecta candidatos faltantes / sin evidencia / conflictos de ownership
-      -> preparar_candidatos [det] une candidatos LLM ∪ missing de completitud, resuelve cada nombre
-                                   contra SD.json, arma UN paquete de evidencia cerrado por candidato
-                                   (Service Role, CR/BQ oficiales, schemas + modelo BOM PUML)
-      -> (Send por candidato) evaluar_candidato (LLM)   1 LLAMADA AISLADA por Service Domain: solo ve
-                                   SU paquete de evidencia (nunca el de otros candidatos) → rol
-                                   contractual + rúbricas ordinales 0-3 + trazabilidad citada
-      -> clasificar         [det] scoring_bian (determinista) + clasificacion_historias
-                                   (dos ejes de decisión + tope de confianza por rol)
-      -> revisar_adversarial(LLM)  prompt independiente: contrasta la hipótesis ya clasificada
-                                   (ownership mal asignado, exceso de contratos, candidato omitido…)
-      -> aplicar_adversarial[det] aplica los hallazgos — SOLO puede degradar, nunca promover un SD
-      -> seleccionar_operaciones (LLM)  SD directos con catálogo local -> operationId oficiales
-                                   (+ propone BQ NO oficiales si el BOM respalda un campo sin cubrir)
-      -> ensamblar          [det] arma el resultado de la HU
+    subgraph SUB["subgrafo por HU — fan-out interno por candidato"]
+        direction TB
+        n1["extraer_intencion · LLM<br/>intención de negocio (acciones/objetos/outcomes),<br/>sin nombrar BIAN todavía"]
+        n2["generar_candidatos · LLM<br/>propone nombres de SD candidatos<br/>sobre los 341 SD (pista, no exhaustiva)"]
+        n3["revisar_completitud · LLM<br/>detecta candidatos faltantes,<br/>sin evidencia o en conflicto de ownership"]
+        n4["preparar_candidatos · det<br/>resuelve nombres contra SD.json,<br/>arma UN paquete de evidencia cerrado por candidato"]
+        n5["evaluar_candidato ×N · LLM<br/>1 llamada AISLADA por candidato:<br/>solo ve SU paquete de evidencia"]
+        n6["clasificar · det<br/>scoring_bian determinista +<br/>tope de confianza por rol contractual"]
+        n7["revisar_adversarial · LLM<br/>prompt independiente: contrasta<br/>la hipótesis ya clasificada"]
+        n8["aplicar_adversarial · det<br/>aplica hallazgos — SOLO degrada,<br/>nunca promueve un SD"]
+        n9["seleccionar_operaciones · LLM<br/>operationId oficiales +<br/>propone BQ no oficiales anclados a BOM"]
+        n10["ensamblar · det<br/>arma el resultado final de la HU"]
+
+        n1 --> n2 --> n3 --> n4
+        n4 -->|"Send × candidato"| n5
+        n5 --> n6 --> n7 --> n8 --> n9 --> n10
+    end
+
+    procesar --> n1
+    n10 --> reconciliar["reconciliar · LLM (1 vez)<br/>asesor global: ve todas las HU ya clasificadas"]
+    reconciliar --> publicar["publicar · det<br/>_consolidar + escribe<br/>mapeo-historias-service-domains.json"]
+    publicar --> END(["END"])
+
+    classDef llm fill:#e8eeff,stroke:#5b6fd8,color:#1c2440;
+    classDef det fill:#eaf7ee,stroke:#3f9a5c,color:#123018;
+    class n1,n2,n3,n5,n7,n9,reconciliar llm;
+    class cargar,n4,n6,n8,n10,publicar det;
 ```
 
 El LLM **nunca** decide el estado final (`SELECTED`/`UNRESOLVED`/`REJECTED`): cada nodo LLM
@@ -277,6 +289,55 @@ devuelve señales ordinales, trazabilidad citada, supuestos y gaps; `scoring_bia
 `clasificacion_historias` + `_consolidar` (código) son el árbitro. `reconciliar` (1 sola llamada,
 ve todas las HU ya clasificadas) es un asesor a nivel de funcionalidad — no revierte decisiones,
 solo aporta `functionality_role`, historias de apoyo/contra y `reason_codes` a `_consolidar`.
+
+#### Flujo temporal (secuencia)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor CLI as consola (mapear-historias)
+    participant Outer as outer graph (map-reduce)
+    participant Sub as subgrafo (por HU)
+    participant LLM as LLM (failover multi-proveedor)
+    participant EV as evidencia BIAN (docs/)
+    participant OUT as mapeo-historias-service-domains.json
+
+    CLI->>Outer: --directorio-hu / --funcionalidad / --directorio
+    Outer->>EV: cargar HU + funcionalidad + catálogo (341 SD)
+    EV-->>Outer: historias + catálogo
+
+    loop Send × HU (concurrencia)
+        Outer->>Sub: procesar_historia(historia, funcionalidad, catalogo)
+        Sub->>LLM: extraer_intencion(historia, funcionalidad)
+        LLM-->>Sub: intención (acciones/objetos/outcomes)
+        Sub->>LLM: generar_candidatos(intención, catálogo)
+        LLM-->>Sub: candidatos SD (pista)
+        Sub->>LLM: revisar_completitud(candidatos, índice global)
+        LLM-->>Sub: missing_candidates / conflictos
+        Sub->>EV: preparar_candidatos (resuelve nombres + arma evidencia)
+        EV-->>Sub: paquete de evidencia cerrado × candidato
+
+        loop Send × candidato (concurrencia_candidatos)
+            Sub->>LLM: evaluar_candidato(paquete)
+            LLM-->>Sub: rol_contractual + rúbricas 0-3
+        end
+
+        Sub->>Sub: clasificar (scoring_bian, determinista)
+        Sub->>LLM: revisar_adversarial(clasificación)
+        LLM-->>Sub: hallazgos (solo degradan)
+        Sub->>Sub: aplicar_adversarial (determinista)
+        Sub->>LLM: seleccionar_operaciones(SD directos)
+        LLM-->>Sub: operationId oficiales + BQ personalizados
+        Sub->>Sub: ensamblar (determinista)
+        Sub-->>Outer: resultado de la HU
+    end
+
+    Outer->>LLM: reconciliar_funcionalidad(todas las HU clasificadas)
+    LLM-->>Outer: functionality_role / reason_codes (asesor)
+    Outer->>Outer: _consolidar (determinista)
+    Outer->>OUT: publicar JSON
+    Outer-->>CLI: exit 0 / 1 / 2
+```
 
 **Rol contractual** (taxonomía BIAN business-alignment) — clasifica *por qué* aplica el SD:
 
