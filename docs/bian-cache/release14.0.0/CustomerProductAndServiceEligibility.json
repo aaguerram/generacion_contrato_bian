@@ -1,0 +1,1774 @@
+{
+  "service_domain": "Customer Product And Service Eligibility",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Evaluate",
+      "method": "POST",
+      "path": "/CustomerProductAndServiceEligibility/Evaluate",
+      "tipo": "CR",
+      "grupo": "CustomerEligibilityAssessment",
+      "request_schema": "CustomerEligibilityAssessment",
+      "response_schema": "CustomerEligibilityAssessment",
+      "summary": "EvCR Evaluate a customer's eligibility for a product/service",
+      "description": "EvCR Evaluate a customer's eligibility for a product/service"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/CustomerProductAndServiceEligibility/{customerproductandserviceeligibilityid}/Update",
+      "tipo": "CR",
+      "grupo": "CustomerEligibilityAssessment",
+      "request_schema": "CustomerEligibilityAssessment",
+      "response_schema": "CustomerEligibilityAssessment",
+      "summary": "UpCR Update the product/service eligibility record (e.g. for newly sold products)",
+      "description": "UpCR Update the product/service eligibility record (e.g. for newly sold products)"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/CustomerProductAndServiceEligibility/{customerproductandserviceeligibilityid}/Exchange",
+      "tipo": "CR",
+      "grupo": "CustomerEligibilityAssessment",
+      "request_schema": "CustomerEligibilityAssessment",
+      "response_schema": "CustomerEligibilityAssessment",
+      "summary": "EcCR Accept, reject, verify etc. an eligibility assessment",
+      "description": "EcCR Accept, reject, verify etc. an eligibility assessment"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/CustomerProductAndServiceEligibility/{customerproductandserviceeligibilityid}/Execute",
+      "tipo": "CR",
+      "grupo": "CustomerEligibilityAssessment",
+      "request_schema": "CustomerEligibilityAssessment",
+      "response_schema": "CustomerEligibilityAssessment",
+      "summary": "ExCR Execute an automated action against an active evaluation (e.g. provide additional data)",
+      "description": "ExCR Execute an automated action against an active evaluation (e.g. provide additional data)"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/CustomerProductAndServiceEligibility/{customerproductandserviceeligibilityid}/Request",
+      "tipo": "CR",
+      "grupo": "CustomerEligibilityAssessment",
+      "request_schema": "CustomerEligibilityAssessment",
+      "response_schema": "CustomerEligibilityAssessment",
+      "summary": "RqCR Request manual intervention in an evaluation (e.g. engage a specialist or negotiator)",
+      "description": "RqCR Request manual intervention in an evaluation (e.g. engage a specialist or negotiator)"
+    },
+    {
+      "operation_id": "Grant",
+      "method": "PUT",
+      "path": "/CustomerProductAndServiceEligibility/{customerproductandserviceeligibilityid}/Grant",
+      "tipo": "CR",
+      "grupo": "CustomerEligibilityAssessment",
+      "request_schema": "CustomerEligibilityAssessment",
+      "response_schema": "CustomerEligibilityAssessment",
+      "summary": "GrCR Obtain a permission grant reflecting eligibility (perhaps defining a term or other considerations)",
+      "description": "GrCR Obtain a permission grant reflecting eligibility (perhaps defining a term or other considerations)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/CustomerProductAndServiceEligibility/{customerproductandserviceeligibilityid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "CustomerEligibilityAssessment",
+      "request_schema": "",
+      "response_schema": "CustomerEligibilityAssessment",
+      "summary": "ReCR Retrieve details about an eligibility request",
+      "description": "ReCR Retrieve details about an eligibility request"
+    },
+    {
+      "operation_id": "RetrieveEligibilityCheck",
+      "method": "GET",
+      "path": "/CustomerProductAndServiceEligibility/{customerproductandserviceeligibilityid}/EligibilityCheck/{eligibilitycheckid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "EligibilityCheck",
+      "request_schema": "",
+      "response_schema": "EligibilityCheck",
+      "summary": "ReBQ Retrieve details about an eligibility assessment",
+      "description": "ReBQ Retrieve details about an eligibility assessment",
+      "parent_control_record": "CustomerEligibilityAssessment"
+    },
+    {
+      "operation_id": "UpdateNextBest",
+      "method": "PUT",
+      "path": "/CustomerProductAndServiceEligibility/{customerproductandserviceeligibilityid}/NextBest/{nextbestid}/Update",
+      "tipo": "BQ",
+      "grupo": "NextBest",
+      "request_schema": "NextBest",
+      "response_schema": "NextBest",
+      "summary": "UpBQ Update details about a next best eligibility test",
+      "description": "UpBQ Update details about a next best eligibility test",
+      "parent_control_record": "CustomerEligibilityAssessment"
+    },
+    {
+      "operation_id": "RetrieveNextBest",
+      "method": "GET",
+      "path": "/CustomerProductAndServiceEligibility/{customerproductandserviceeligibilityid}/NextBest/{nextbestid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "NextBest",
+      "request_schema": "",
+      "response_schema": "NextBest",
+      "summary": "ReBQ Retrieve details about a next best test",
+      "description": "ReBQ Retrieve details about a next best test",
+      "parent_control_record": "CustomerEligibilityAssessment"
+    },
+    {
+      "operation_id": "EvaluateEligibilityCheck",
+      "method": "POST",
+      "path": "/CustomerProductAndServiceEligibility/{customerproductandserviceeligibilityid}/EligibilityCheck/Evaluate",
+      "tipo": "BQ",
+      "grupo": "EligibilityCheck",
+      "request_schema": "EligibilityCheck",
+      "response_schema": "EligibilityCheck",
+      "summary": "Evaluate Eligibility Check",
+      "description": "Evaluate Eligibility Check",
+      "parent_control_record": "CustomerEligibilityAssessment"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Arrangement",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "Assessment",
+    "Assessmenttypevalues",
+    "Assetclassificationtypevalues",
+    "Assetsubclassificationtypevalues",
+    "Assettypevalues",
+    "Bankingproducttype",
+    "Bankingproducttypevalues",
+    "CustomerEligibilityAssessment",
+    "CustomerProductAndServiceProfile",
+    "CustomerProductProfileAssessment",
+    "Customerproductserviceprofiletypevalues",
+    "Customerrelationship",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Document",
+    "Documentdatetimetypevalues",
+    "EligibilityCheck",
+    "Feature",
+    "Featuretypevalues",
+    "Financialdocumenttypevalues",
+    "Financialinstrumentdatetime",
+    "Financialinstrumentdatetimetypevalues",
+    "Financialinstrumentidentification",
+    "Financialinstrumentidentificationtypevalues",
+    "Financialinstrumenttypevalues",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Location",
+    "Model",
+    "Name",
+    "NextBest",
+    "Product",
+    "ProductFeature",
+    "ProductUsage",
+    "Productfeaturetypevalues",
+    "Productidentification",
+    "Productidentificationtypevalues",
+    "Productstatus",
+    "Productstatustypevalues",
+    "Requirement",
+    "Schedule",
+    "Service",
+    "Servicetypevalues",
+    "Status",
+    "Subject",
+    "Yesnoindicator"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Arrangement",
+      "kind": "object",
+      "description": "Defines if and under what terms a product/service is available to this customer - this detail is maintained by the service domain and referenced by this evaluation",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "Assessment",
+      "kind": "object",
+      "description": "The result is a descending list of matched products with the associated eligibility that are available to the customer",
+      "properties": [
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Assessmenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Valuation` - \r\n* `Matching` - \r\n* `Authorization` - An evaluation whether a party or system is allowed to do something.\n\nThe consent given by a participant (or a third party acting on behalf of that participant) in order to transfer funds or securities. (ECB)\n\nAuthorization is a mechanism by which a computer system determines whether to allow or deny specific action to a user. Authorization is often controlled by rather complex rules and algorithms, usually specified as part of an access control model. Authorization often follows (and required) authentication, however, authentication and authorization are two separate mechanisms. In rare cases, \"authorization\" is understood as a process of allowing access, granting permissions or giving approval. Such as \"authorization\" of a request to join a group. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `Authentication` - An evaluation whether a party or system is what it claims to be.\n\nA security mechanism for verifying: 1) the identity of an individual or other entity (including verification by means of a computer or computer application); and 2) the level of authority of that person or entity (i.e. the ability of that person or entity to perform specific tasks or activities). (ECB)\n\nAuthentication is a mechanism by which a computer system checks that the user is really the one she or he claims to be. Authentication can be implemented by a broad variety of mechanisms broadly divided into three categories: something you know, something you have, something you are. Traditionally, authentication is done by the means of by username and password. Authentication is often followed by authorization, however, authentication and authorization are two separate mechanisms. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `QualityAssurance` - \r\n* `Audit` - \r\n* `ComplianceCheck` - \r\n* `FundingCheck` - \r\n* `SuitabilityCheck` - \r\n* `PerformanceCheck` - \r\n* `ImpactAssessment` - \r\n* `RiskAssessment` - \r\n* `Rating` - \r\n* `UnderwritingAssessment` - \r\n* `Qualification` - \r\n* `Verification` - A process establishing that a particular information is correct, while the meaning of \"information\" and \"correct\" varies from context to context. When dealing with identity information, this usually means formal verification of identity attributes, checking the schema, identifier uniqueness and referential integrity. However, verification may mean deeper verification, such as checking that the information is true and up-to-date.  (ISO/IEC 24760-1:2019 - IT Security and Privacy)\n\r\n* `KYCAssessment` - An assessment conducted by businesses and financial institutions to verify and confirm the identity of their customers or clients. The primary purpose of a KYC check is to prevent illegal activities, such as money laundering, terrorist financing, and fraud, by ensuring that customers are who they claim to be.\r\n* `PEPAssessment` - A PEP check, or \"Politically Exposed Person\" check, is an assessment conducted by used by businesses, financial institutions, and government agencies to identify individuals who hold prominent public positions or have significant political influence. The purpose of a PEP check is to assess and manage the potential risks associated with doing business with these individuals, as they may be more susceptible to corruption, money laundering, or other illicit activities.\r\n* `AMLAssessment` - An AML (Anti-Money Laundering) check is an assessment conducted by businesses, financial institutions, and other organizations to prevent and detect money laundering and the financing of criminal activities. The main purpose of an AML check is to ensure that financial transactions and business relationships are not being used to disguise the illegal origins of funds.\r\n* `EligibilityCheck` - Determines whether a person or case meets the criteria or preconditions to qualify for a benefit, service, or action.\r\n* `ExternalAgencyCheck` - \r\n* `EntitlementCheck` - Determines what benefit, amount, or service the person is actually entitled to receive once eligibility is confirmed.\r\n",
+      "enum_values": [
+        "Valuation",
+        "Matching",
+        "Authorization",
+        "Authentication",
+        "QualityAssurance",
+        "Audit",
+        "ComplianceCheck",
+        "FundingCheck",
+        "SuitabilityCheck",
+        "PerformanceCheck",
+        "ImpactAssessment",
+        "RiskAssessment",
+        "Rating",
+        "UnderwritingAssessment",
+        "Qualification",
+        "Verification",
+        "KYCAssessment",
+        "PEPAssessment",
+        "AMLAssessment",
+        "EligibilityCheck",
+        "ExternalAgencyCheck",
+        "EntitlementCheck"
+      ]
+    },
+    {
+      "name": "Assetclassificationtypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Assetclassificationtypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Assetsubclassificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Subassetclass` - Sub-asset class.(ISO20022)\r\n* `Timetomaturitybucket` - Time to maturity bucket.(ISO20022)\r\n* `Optiontimetomaturitybucket` - Time to maturity bucket of the option.(ISO20022)\r\n* `Swaptimetomaturitybucket` - Time to maturity bucket of the swap.(ISO20022)\r\n* `Underlyinginstrumentidentification` - Underlying instrument identification, such as an ISIN code.(ISO20022)\r\n* `Underlyingbondissuer` - Issuer of the underlying bond.(ISO20022)\r\n* `Underlyinginterestrate` - Underlying interest rate.(ISO20022)\r\n* `Underlyingbondterm` - Term of the underlying bond.(ISO20022)\r\n* `Assetclass` - Asset class.(ISO20022)\r\n* `Underlyingindexidentification` - Underlying index identification such as an ISIN or an index name.(ISO20022)\r\n* `Interestratetermofcontract` - Interest rate term of contract.(ISO20022)\r\n* `Underlyingreferenceentity` - Underlying reference entity.(ISO20022)\r\n* `Sovereignandpublictypeissuer` - Issuer of sovereign and public type.(ISO20022)\r\n* `Irdnotionalcurrency1` - Interest rate derivative notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency1` - Foreign exchange derivative notional currency 1.(ISO20022)\r\n* `Cfdnotionalcurrency1` - Contract for difference notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency2` - Foreign exchange derivative notional currency 2.(ISO20022)\r\n* `Irdnotionalcurrency2` - Interest rate derivative notional currency 2.(ISO20022)\r\n* `Cfdnotionalcurrency2` - Contract for difference notional currency 2.(ISO20022)\r\n* `Swaptionnotionalcurrency` - Notional currency of the swaption.(ISO20022)\r\n* `Creditnotionalcurrency` - Credit derivative notional currency.(ISO20022)\r\n* `Commoditynotionalcurrency` - Commodity derivative notional currency.(ISO20022)\r\n* `Contracttype` - Contract type.(ISO20022)\r\n* `Baseproduct` - Base product.(ISO20022)\r\n* `Subproduct` - Sub product.(ISO20022)\r\n* `Furthersubproduct` - Further sub product.(ISO20022)\r\n* `Deliverycashlocation` - Delivery cash settlement location.(ISO20022)\r\n* `Deliverysettlementtype` - Delivery settlement type.(ISO20022)\r\n* `Sizespecificationrelatedtofreightsubtype` - Size specification related to freight subtype.(ISO20022)\r\n* `Specificroutetimecharteraverage` - Specific route time charter average.(ISO20022)\r\n* `Equityunderlyingtype` - Equity derivative underlying type.(ISO20022)\r\n* `Parameter` - Parameter.(ISO20022)\r\n* `Inflationindexcodename` - Inflation index code or name.(ISO20022)\r\n* `ISIN` - Instrument identification.(ISO20022)\r\n* `Underlyingindexcdssubclassidentification` - Sub class of the underlying index credit default swap (CDS).(ISO20022)\r\n* `Underlyingtype` - Underlying type.(ISSO20022)\r\n",
+      "enum_values": [
+        "Subassetclass",
+        "Timetomaturitybucket",
+        "Optiontimetomaturitybucket",
+        "Swaptimetomaturitybucket",
+        "Underlyinginstrumentidentification",
+        "Underlyingbondissuer",
+        "Underlyinginterestrate",
+        "Underlyingbondterm",
+        "Assetclass",
+        "Underlyingindexidentification",
+        "Interestratetermofcontract",
+        "Underlyingreferenceentity",
+        "Sovereignandpublictypeissuer",
+        "Irdnotionalcurrency1",
+        "Fexnotionalcurrency1",
+        "Cfdnotionalcurrency1",
+        "Fexnotionalcurrency2",
+        "Irdnotionalcurrency2",
+        "Cfdnotionalcurrency2",
+        "Swaptionnotionalcurrency",
+        "Creditnotionalcurrency",
+        "Commoditynotionalcurrency",
+        "Contracttype",
+        "Baseproduct",
+        "Subproduct",
+        "Furthersubproduct",
+        "Deliverycashlocation",
+        "Deliverysettlementtype",
+        "Sizespecificationrelatedtofreightsubtype",
+        "Specificroutetimecharteraverage",
+        "Equityunderlyingtype",
+        "Parameter",
+        "Inflationindexcodename",
+        "ISIN",
+        "Underlyingindexcdssubclassidentification",
+        "Underlyingtype"
+      ]
+    },
+    {
+      "name": "Assettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `TangibleAsset` - It has a physical form and can be touched or seen.\r\n* `IntangibleAsset` - It doesn't have a physical form but hold value\r\n* `OperatingAsset` - Used in the day-to-day operations of the business.\r\n* `Non-OperatingAsset` - Not used in core business operations but still provide value\r\n* `CurrentAsset` - Expected to be converted into cash within one year.\r\n* `Non-Current(Fixed)Asset` - Provide value over the long term (more than one year).\r\n* `PersonalAsset` - Owned by individuals and not related to a business.\r\n* `BusinessAsset` - Owned by a business and used to generate revenue.\r\n",
+      "enum_values": [
+        "TangibleAsset",
+        "IntangibleAsset",
+        "OperatingAsset",
+        "Non-OperatingAsset",
+        "CurrentAsset",
+        "Non-Current(Fixed)Asset",
+        "PersonalAsset",
+        "BusinessAsset"
+      ]
+    },
+    {
+      "name": "Bankingproducttype",
+      "kind": "object",
+      "description": "The general type of product/service for which the best eligible product match is requested (e.g. term deposit, loan)",
+      "properties": [
+        {
+          "name": "ProductTypeDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductType",
+          "type": "object",
+          "ref": "Bankingproducttypevalues"
+        },
+        {
+          "name": "ProductClassificationIssuingAuthority",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Bankingproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LoanProduct` - \r\n* `CurrentAccountProduct` - \r\n* `SavingAccountProduct` - \r\n* `BrokeredProduct` - \r\n* `TermDepositProduct` - \r\n",
+      "enum_values": [
+        "LoanProduct",
+        "CurrentAccountProduct",
+        "SavingAccountProduct",
+        "BrokeredProduct",
+        "TermDepositProduct"
+      ]
+    },
+    {
+      "name": "CustomerEligibilityAssessment",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerProductandServiceProfile",
+          "type": "object",
+          "ref": "CustomerProductAndServiceProfile"
+        },
+        {
+          "name": "ProductandServiceType",
+          "type": "object",
+          "ref": "Customerproductserviceprofiletypevalues"
+        },
+        {
+          "name": "CustomerProductandServiceTypeEligibility",
+          "type": "object",
+          "ref": "Arrangement"
+        },
+        {
+          "name": "CustomerProductandServiceTypeUsage",
+          "type": "object",
+          "ref": "ProductUsage"
+        },
+        {
+          "name": "Date",
+          "type": "object",
+          "ref": "Date"
+        }
+      ]
+    },
+    {
+      "name": "CustomerProductAndServiceProfile",
+      "kind": "object",
+      "description": "This is the is the eligibility profile including in-force product terms",
+      "properties": [
+        {
+          "name": "ProfileType",
+          "type": "object",
+          "ref": "Customerproductserviceprofiletypevalues"
+        },
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Customerrelationship"
+        },
+        {
+          "name": "ProductReference",
+          "type": "object",
+          "ref": "Product"
+        },
+        {
+          "name": "ServiceReference",
+          "type": "object",
+          "ref": "Service"
+        }
+      ]
+    },
+    {
+      "name": "CustomerProductProfileAssessment",
+      "kind": "object",
+      "description": "The result of the eligibility assessment for the requested product/service - details any eligibility considerations or requirements and the applicable terms",
+      "properties": [
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Customerproductserviceprofiletypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Customerproductserviceeligibilityprofile` - \r\n* `Customerproductserviceusageprofile` - \r\n* `Customerproductservicecoverageprofile` - \r\n* `Customerproductservicesaleprofile` - \r\n* `Customerproductserviceconsentprofile` - \r\n",
+      "enum_values": [
+        "Customerproductserviceeligibilityprofile",
+        "Customerproductserviceusageprofile",
+        "Customerproductservicecoverageprofile",
+        "Customerproductservicesaleprofile",
+        "Customerproductserviceconsentprofile"
+      ]
+    },
+    {
+      "name": "Customerrelationship",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RelationshipType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RelationshipValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "RelationshipStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "RelationshipEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "RelationshipLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "RelationshipIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date when the assessment expires. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Document that provides background or corroborating information regarding an assessment(s).",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "EligibilityCheck",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "CustomerProductandServiceEligibilityAssessmentResult",
+          "type": "object",
+          "ref": "CustomerProductProfileAssessment"
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetime",
+      "kind": "object",
+      "description": "Key dates of financial instrument",
+      "properties": [
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "FinancialInstrumentDateType",
+          "type": "object",
+          "ref": "Financialinstrumentdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CouponDate` - Next payment date of an interest bearing financial instrument.(ISO20022)\r\n* `ExpiryDate` - Date on which a privilege expires.(ISO20022)\r\n* `FloatingRateFixingDate` - Date at which the interest rate of an interest bearing security will be calculated and reset, according to the terms of the issue.(ISO20022)\r\n* `MaturityDate` - Planned final repayment date at the time of issuance.(ISO20022)\r\n* `IssueDate` - Date at which the security was made available.(ISO20022)\r\n* `NextCallableDate` - Next date at which the issuer has the right to pay the security prior to maturity.(ISO20022)\r\n* `PutableDate` - Date at which the holder has the right to ask for redemption of the security prior to final maturity.(ISO20022)\r\n* `DatedDate` - First date at which a security begins to accrue interest.(ISO20022)\r\n* `FirstPaymentDate` - Date at which the first interest payment is due to holders of the security.(ISO20022)\r\n",
+      "enum_values": [
+        "CouponDate",
+        "ExpiryDate",
+        "FloatingRateFixingDate",
+        "MaturityDate",
+        "IssueDate",
+        "NextCallableDate",
+        "PutableDate",
+        "DatedDate",
+        "FirstPaymentDate"
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FinancialInstrumentIdentificationType",
+          "type": "object",
+          "ref": "Financialinstrumentidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `NASDAQ` - \r\n* `ISIN` - \r\n",
+      "enum_values": [
+        "NASDAQ",
+        "ISIN"
+      ]
+    },
+    {
+      "name": "Financialinstrumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Loan` - \r\n* `Bond` - \r\n* `Deposit` - \r\n* `Stock` - \r\n* `Option` - \r\n* `Share` - \r\n* `Debt` - Financial instruments evidencing moneys owed by the issuer to the holder on terms as specified. (ISO20022)\n\nAny type of instrument primarily classified as debt can be considered a debt instrument. Debt instruments are tools an individual, government entity, or business entity can utilize for the purpose of obtaining capital. Debt instruments provide capital to an entity that promises to repay the capital over time. Credit cards, credit lines, loans, and bonds can all be types of debt instruments. (Investopedia)\r\n* `Letterofcredit` - Instrument issued by a bank substituting its name and credit standing for that of its customer. A letter of credit is a written undertaking of the bank, issued for the account of a customer (the applicant), to honour a demand for payment, upon the beneficiary's compliance with the terms and conditions set forth in the undertaking. (ISO20022)\r\n* `Security` - Financial instruments representing a sum of rights of the investor vis-a-vis the issuer. (ISO20022)\r\n* `Derivative` - \r\n",
+      "enum_values": [
+        "Loan",
+        "Bond",
+        "Deposit",
+        "Stock",
+        "Option",
+        "Share",
+        "Debt",
+        "Letterofcredit",
+        "Security",
+        "Derivative"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "NextBest",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequestedProductandServiceProperties",
+          "type": "object",
+          "ref": "ProductFeature"
+        },
+        {
+          "name": "ProductServiceType",
+          "type": "object",
+          "ref": "Bankingproducttype"
+        },
+        {
+          "name": "CustomerProductandServiceNextBestAssessmentResult",
+          "type": "object",
+          "ref": "Assessment"
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ProductIdentification",
+          "type": "object",
+          "ref": "Productidentification"
+        },
+        {
+          "name": "ProductType",
+          "type": "object",
+          "ref": "Bankingproducttypevalues"
+        },
+        {
+          "name": "ProductLifecycleStatus",
+          "type": "object",
+          "ref": "Productstatus"
+        },
+        {
+          "name": "ProductPriority",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentType",
+          "type": "object",
+          "ref": "Financialinstrumenttypevalues"
+        },
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Financialinstrumentidentification"
+        },
+        {
+          "name": "FinancialInstrumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Financialinstrumentdatetime"
+        },
+        {
+          "name": "AssetTitle",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AssetType",
+          "type": "object",
+          "ref": "Assettypevalues"
+        },
+        {
+          "name": "AssetDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssetDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetClassification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetClassificationType",
+          "type": "object",
+          "ref": "Assetclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassificationType",
+          "type": "object",
+          "ref": "Assetsubclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductFeature",
+      "kind": "object",
+      "description": "Product/service features used to focus the selection",
+      "properties": [
+        {
+          "name": "ProductFeatureType",
+          "type": "object",
+          "ref": "Productfeaturetypevalues"
+        },
+        {
+          "name": "ProductFeatureSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductFeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ProductFeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ProductFeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "ProductUsage",
+      "kind": "object",
+      "description": "Records the sold/in-force status of a product/service with the customer. Again this detail is maintained by the service domain and referenced by this evaluation",
+      "properties": [
+        {
+          "name": "ProductUsageDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ProductUsageVolume",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductUsageIndicator",
+          "type": "object",
+          "ref": "Yesnoindicator"
+        }
+      ]
+    },
+    {
+      "name": "Productfeaturetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Bankingservice` - A classification that distinguishes between instances of product features according to the core banking services, functionality and/or objectives of banking.\n\ne.g. deposit services, exchange services, etc.\n\nThe primary reason for the contract with the client are the banking services. These services can be classified as follows:\n1. Selling services\n2. Financial Instruments Exchange\n3. Financial Stock Management\n4. Financial Transfers\n5. Financial Risk Transfer\n6. Business Operating\n7. Advisory\n8. Reporting\n\n\r\n* `Administrationservice` - A classification that distinguishes between instances of product features according to administrative tasks related to the Banking Product or Service.\r\n* `Accessservice` - A classification that distinguishes between product features according to way of the banking services can be accessed.\n\nThe access to services becomes more and more important in the evolving markets. \nWe need to separate different parts:\n1. The physical access to the infrastructure that allows access to the bank (where)\n2. The authorization of different parties to use the services of the bank (who)\n3. The agreed procedure to have access to different services (how)\n4. The services that are available for the different parties (what)\n\r\n* `Pricefeature` - A classification that distinguishes between instances of product features according to the cost/profit that is related to Banking Products or Services.\n\nIn all commercial offerings, there is an agreed cost for both parties (e.g. the interest arrangements are in both directions). The pricing structure of products or packages is a service that gives the possibility to the client to adapt his costs to his individual situation.\nWe see different generic categories in the pricing structure of the different products.\n1. Compensations\n2. Prices\n3. Fees\n4. Discounts\r\n",
+      "enum_values": [
+        "Bankingservice",
+        "Administrationservice",
+        "Accessservice",
+        "Pricefeature"
+      ]
+    },
+    {
+      "name": "Productidentification",
+      "kind": "object",
+      "description": "The identifier of product e.g. ISIN Code.",
+      "properties": [
+        {
+          "name": "ProductIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ProductIdentificationType",
+          "type": "object",
+          "ref": "Productidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ISINCode` - \r\n* `PackageCode` - \r\n* `Buyersitemnumber` - Product identifier assigned by the buyer.\r\n* `Commercialdescriptioncodename` - A code to identify a product based on applicable commercial conditions.\r\n* `EAN` - The unique EAN (European Article Number) code.\r\n* `Harmonizedtariffcodename` - Classification of goods as developed by the Customs Cooperation council.\r\n* `Manufacturersitemnumber` - Product identifier as assigned by the manufacturer.\r\n* `Modelnumber` - Reference number assigned by the manufacturer to differentiate variations in similar products in a class or group.\r\n* `Partnumber` - Reference assigned by the manufacturer to a product part.\r\n* `Quotacategory` - Product identifier used by the retail industry.\r\n* `Stylenumber` - Identification of the style of a product.\r\n* `Suppliersitemnumber` - Number assigned to an article by the supplier of that article.\r\n* `Universalproductcode` - Number assigned to a manufacturer's product by the Product Code Council.\r\n",
+      "enum_values": [
+        "ISINCode",
+        "PackageCode",
+        "Buyersitemnumber",
+        "Commercialdescriptioncodename",
+        "EAN",
+        "Harmonizedtariffcodename",
+        "Manufacturersitemnumber",
+        "Modelnumber",
+        "Partnumber",
+        "Quotacategory",
+        "Stylenumber",
+        "Suppliersitemnumber",
+        "Universalproductcode"
+      ]
+    },
+    {
+      "name": "Productstatus",
+      "kind": "object",
+      "description": "Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).",
+      "properties": [
+        {
+          "name": "ProductStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ProductStatusType",
+          "type": "object",
+          "ref": "Productstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Announced` - \r\n* `Sold` - \r\n* `Obsolete` - \r\n* `Active` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Announced",
+        "Sold",
+        "Obsolete",
+        "Active"
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Service",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Yesnoindicator",
+      "kind": "object",
+      "description": "An indicator specifying if the whether the customer has bought  the banking product or not. ",
+      "properties": [
+        {
+          "name": "Yesnoindicator",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "CustomerEligibilityAssessment",
+        "operations": [
+          "Evaluate",
+          "Update",
+          "Exchange",
+          "Execute",
+          "Request",
+          "Grant",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "EligibilityCheck",
+        "parent_control_record": "CustomerEligibilityAssessment",
+        "operations": [
+          "RetrieveEligibilityCheck",
+          "EvaluateEligibilityCheck"
+        ]
+      },
+      {
+        "name": "NextBest",
+        "parent_control_record": "CustomerEligibilityAssessment",
+        "operations": [
+          "UpdateNextBest",
+          "RetrieveNextBest"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerProductAndServiceEligibility.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "f7da89ddd79a963dd83e2d16e102250e33491d3ad870503ede0947e00388333e",
+    "retrieved_at": "2026-09-12T22:09:00.723286+00:00"
+  }
+}

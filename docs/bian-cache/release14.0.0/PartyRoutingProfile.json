@@ -1,0 +1,787 @@
+{
+  "service_domain": "Party Routing Profile",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/PartyRoutingProfile/Initiate",
+      "tipo": "CR",
+      "grupo": "PartyState",
+      "request_schema": "PartyState",
+      "response_schema": "PartyState",
+      "summary": "InCR Initiate profile state monitoring for a party",
+      "description": "InCR Initiate profile state monitoring for a party"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Request",
+      "tipo": "CR",
+      "grupo": "PartyState",
+      "request_schema": "PartyState",
+      "response_schema": "PartyState",
+      "summary": "RqCR Request manual intervention for a monitored party (e.g. review settings)",
+      "description": "RqCR Request manual intervention for a monitored party (e.g. review settings)"
+    },
+    {
+      "operation_id": "UpdateStatus",
+      "method": "PUT",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Status/{statusid}/Update",
+      "tipo": "BQ",
+      "grupo": "Status",
+      "request_schema": "Status",
+      "response_schema": "Status",
+      "summary": "UpBQ Update status measures for a monitored party",
+      "description": "UpBQ Update status measures for a monitored party",
+      "parent_control_record": "PartyState"
+    },
+    {
+      "operation_id": "CaptureRating",
+      "method": "PUT",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Rating/{ratingid}/Capture",
+      "tipo": "BQ",
+      "grupo": "Rating",
+      "request_schema": "Rating",
+      "response_schema": "Rating",
+      "summary": "CaBQ Capture rating measures for a monitored party",
+      "description": "CaBQ Capture rating measures for a monitored party",
+      "parent_control_record": "PartyState"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Update",
+      "tipo": "CR",
+      "grupo": "PartyState",
+      "request_schema": "PartyState",
+      "response_schema": "PartyState",
+      "summary": "UpCR Update monitoring for a party",
+      "description": "UpCR Update monitoring for a party"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "PartyState",
+      "request_schema": "",
+      "response_schema": "PartyState",
+      "summary": "ReCR Retrieve details about the monitored party state",
+      "description": "ReCR Retrieve details about the monitored party state"
+    },
+    {
+      "operation_id": "RetrieveStatus",
+      "method": "GET",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Status/{statusid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Status",
+      "request_schema": "",
+      "response_schema": "Status",
+      "summary": "ReBQ Retrieve details about status measures for a party",
+      "description": "ReBQ Retrieve details about status measures for a party",
+      "parent_control_record": "PartyState"
+    },
+    {
+      "operation_id": "RetrieveRating",
+      "method": "GET",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Rating/{ratingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Rating",
+      "request_schema": "",
+      "response_schema": "Rating",
+      "summary": "ReBQ Retrieve details about rating measures for a party",
+      "description": "ReBQ Retrieve details about rating measures for a party",
+      "parent_control_record": "PartyState"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Control",
+      "tipo": "CR",
+      "grupo": "PartyState",
+      "request_schema": "PartyState",
+      "response_schema": "PartyState",
+      "summary": "CoCR Control the party monitoring (e.g. suspend)",
+      "description": "CoCR Control the party monitoring (e.g. suspend)"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Execute",
+      "tipo": "CR",
+      "grupo": "PartyState",
+      "request_schema": "PartyState",
+      "response_schema": "PartyState",
+      "summary": "ExCR Execute an automated action for a monitored party (e.g. refresh)",
+      "description": "ExCR Execute an automated action for a monitored party (e.g. refresh)"
+    },
+    {
+      "operation_id": "CaptureStatus",
+      "method": "PUT",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Status/{statusid}/Capture",
+      "tipo": "BQ",
+      "grupo": "Status",
+      "request_schema": "Status",
+      "response_schema": "Status",
+      "summary": "CaBQ Capture status measures for a monitored party",
+      "description": "CaBQ Capture status measures for a monitored party",
+      "parent_control_record": "PartyState"
+    },
+    {
+      "operation_id": "UpdateRating",
+      "method": "PUT",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Rating/{ratingid}/Update",
+      "tipo": "BQ",
+      "grupo": "Rating",
+      "request_schema": "Rating",
+      "response_schema": "Rating",
+      "summary": "UpBQ Update rating measures for a monitored party",
+      "description": "UpBQ Update rating measures for a monitored party",
+      "parent_control_record": "PartyState"
+    },
+    {
+      "operation_id": "UpdateAlert",
+      "method": "PUT",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Alert/{alertid}/Update",
+      "tipo": "BQ",
+      "grupo": "Alert",
+      "request_schema": "Alert",
+      "response_schema": "Alert",
+      "summary": "UpBQ Update alerts for a monitored party",
+      "description": "UpBQ Update alerts for a monitored party",
+      "parent_control_record": "PartyState"
+    },
+    {
+      "operation_id": "CaptureAlert",
+      "method": "PUT",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Alert/{alertid}/Capture",
+      "tipo": "BQ",
+      "grupo": "Alert",
+      "request_schema": "Alert",
+      "response_schema": "Alert",
+      "summary": "CaBQ Capture alerts for a monitored party",
+      "description": "CaBQ Capture alerts for a monitored party",
+      "parent_control_record": "PartyState"
+    },
+    {
+      "operation_id": "ExchangeAlert",
+      "method": "PUT",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Alert/{alertid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "Alert",
+      "request_schema": "Alert",
+      "response_schema": "Alert",
+      "summary": "EcBQ Accept, verify etc. an alert for a monitored party",
+      "description": "EcBQ Accept, verify etc. an alert for a monitored party",
+      "parent_control_record": "PartyState"
+    },
+    {
+      "operation_id": "RetrieveAlert",
+      "method": "GET",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Alert/{alertid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Alert",
+      "request_schema": "",
+      "response_schema": "Alert",
+      "summary": "ReBQ Retrieve details about alerts for a party",
+      "description": "ReBQ Retrieve details about alerts for a party",
+      "parent_control_record": "PartyState"
+    },
+    {
+      "operation_id": "NotifyStatus",
+      "method": "GET",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Status/{statusid}/Notify",
+      "tipo": "BQ",
+      "grupo": "Status",
+      "request_schema": "",
+      "response_schema": "Status",
+      "summary": "Notify Status",
+      "description": "Notify Status",
+      "parent_control_record": "PartyState"
+    },
+    {
+      "operation_id": "EvaluateStatus",
+      "method": "POST",
+      "path": "/PartyRoutingProfile/{partyroutingprofileid}/Status/Evaluate",
+      "tipo": "BQ",
+      "grupo": "Status",
+      "request_schema": "Status",
+      "response_schema": "Status",
+      "summary": "Evaluate status measures for a monitored party",
+      "description": "Evaluate status measures for a monitored party",
+      "parent_control_record": "PartyState"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Alert",
+    "CustomerRelationshipAlert",
+    "CustomerRelationshipStatus",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Location",
+    "Name",
+    "PartyState",
+    "Rating",
+    "Status"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Alert",
+      "kind": "object",
+      "description": "A collection of information feeds/measures that can be used to track the status of one or more items/entitites\n\nExamples: Composite position, Customer alert",
+      "properties": [
+        {
+          "name": "CustomerRelationshipAlertType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRelationshipAlert",
+          "type": "object",
+          "ref": "CustomerRelationshipAlert"
+        },
+        {
+          "name": "CustomerRelationshipAlertNarrative",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRelationshipAlertValidFromToDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "CustomerRelationshipAlert",
+      "kind": "object",
+      "description": "The maintained alert value (historical values may be retained as appropriate)",
+      "properties": [
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "CustomerRelationshipStatus",
+      "kind": "object",
+      "description": "The maintained state value (historical values may be retained as appropriate)",
+      "properties": [
+        {
+          "name": "CustomerRelationshipStatusType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRelationshipStatusDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRelationshipStatusValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRelationshipStatusValidityPeriod",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "Indication when the rate value is updated and time until given value applies/is relevant as appropriate",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "Name (label) of the location. (ISO20022)",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PartyState",
+      "kind": "object",
+      "description": "Monitor and define the status/rating of some entity within Customer Profile. ",
+      "properties": [
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Rating",
+      "kind": "object",
+      "description": "A collection of information feeds/measures that can be used to track the status of one or more items/entitites\n\nExamples: Composite position, Customer alert",
+      "properties": [
+        {
+          "name": "CustomerRelationshipRatingType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRelationshipRating",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRelationshipRatingNarrative",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRelationshipRatingValidFromToDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "The tracked status (e.g. under construction or repair, inhabited, vacant).",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "PartyState",
+        "operations": [
+          "Initiate",
+          "Request",
+          "Update",
+          "Retrieve",
+          "Control",
+          "Execute"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Alert",
+        "parent_control_record": "PartyState",
+        "operations": [
+          "UpdateAlert",
+          "CaptureAlert",
+          "ExchangeAlert",
+          "RetrieveAlert"
+        ]
+      },
+      {
+        "name": "Rating",
+        "parent_control_record": "PartyState",
+        "operations": [
+          "CaptureRating",
+          "RetrieveRating",
+          "UpdateRating"
+        ]
+      },
+      {
+        "name": "Status",
+        "parent_control_record": "PartyState",
+        "operations": [
+          "UpdateStatus",
+          "RetrieveStatus",
+          "CaptureStatus",
+          "NotifyStatus",
+          "EvaluateStatus"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyRoutingProfile.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "4c3829463abb11e016550cb5500ad63496212adacfd61b9429c29a09ba45054e",
+    "retrieved_at": "2026-09-12T22:03:18.189959+00:00"
+  }
+}

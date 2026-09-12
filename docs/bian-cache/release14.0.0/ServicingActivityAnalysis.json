@@ -1,0 +1,546 @@
+{
+  "service_domain": "Servicing Activity Analysis",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/ServicingActivityAnalysis/{servicingactivityanalysisid}/Request",
+      "tipo": "CR",
+      "grupo": "ServicingRootCauseAnalysis",
+      "request_schema": "ServicingRootCauseAnalysis",
+      "response_schema": "ServicingRootCauseAnalysis",
+      "summary": "RqCR Request manual intervention in servicing root cause analysis",
+      "description": "RqCR Request manual intervention in servicing root cause analysis"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/ServicingActivityAnalysis/{servicingactivityanalysisid}/Execute",
+      "tipo": "CR",
+      "grupo": "ServicingRootCauseAnalysis",
+      "request_schema": "ServicingRootCauseAnalysis",
+      "response_schema": "ServicingRootCauseAnalysis",
+      "summary": "ExCR Execute an automated aspect of root cause analysis",
+      "description": "ExCR Execute an automated aspect of root cause analysis"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/ServicingActivityAnalysis/Initiate",
+      "tipo": "CR",
+      "grupo": "ServicingRootCauseAnalysis",
+      "request_schema": "ServicingRootCauseAnalysis",
+      "response_schema": "ServicingRootCauseAnalysis",
+      "summary": "EvCR Initialize servicing root cause analysis",
+      "description": "EvCR Initialize servicing root cause analysis"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/ServicingActivityAnalysis/{servicingactivityanalysisid}/Update",
+      "tipo": "CR",
+      "grupo": "ServicingRootCauseAnalysis",
+      "request_schema": "ServicingRootCauseAnalysis",
+      "response_schema": "ServicingRootCauseAnalysis",
+      "summary": "UpCR Update aspects of servicing root cause analysis",
+      "description": "UpCR Update aspects of servicing root cause analysis"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/ServicingActivityAnalysis/{servicingactivityanalysisid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "ServicingRootCauseAnalysis",
+      "request_schema": "",
+      "response_schema": "ServicingRootCauseAnalysis",
+      "summary": "ReCR Retrieve details about servicing root cause analysis",
+      "description": "ReCR Retrieve details about servicing root cause analysis"
+    },
+    {
+      "operation_id": "InitiateRootCauseAlgorithm",
+      "method": "POST",
+      "path": "/ServicingActivityAnalysis/{servicingactivityanalysisid}/RootCauseAlgorithm/Initiate",
+      "tipo": "BQ",
+      "grupo": "RootCauseAlgorithm",
+      "request_schema": "RootCauseAlgorithm",
+      "response_schema": "RootCauseAlgorithm",
+      "summary": "EvBQ Initialize application of a specific algorithm for root cause analysis",
+      "description": "EvBQ Initialize application of a specific algorithm for root cause analysis",
+      "parent_control_record": "ServicingRootCauseAnalysis"
+    },
+    {
+      "operation_id": "RequestRootCauseAlgorithm",
+      "method": "PUT",
+      "path": "/ServicingActivityAnalysis/{servicingactivityanalysisid}/RootCauseAlgorithm/{rootcausealgorithmid}/Request",
+      "tipo": "BQ",
+      "grupo": "RootCauseAlgorithm",
+      "request_schema": "RootCauseAlgorithm",
+      "response_schema": "RootCauseAlgorithm",
+      "summary": "RqBQ Request manual intervention to the application of a root cause algorithm",
+      "description": "RqBQ Request manual intervention to the application of a root cause algorithm",
+      "parent_control_record": "ServicingRootCauseAnalysis"
+    },
+    {
+      "operation_id": "RetrieveRootCauseAlgorithm",
+      "method": "GET",
+      "path": "/ServicingActivityAnalysis/{servicingactivityanalysisid}/RootCauseAlgorithm/{rootcausealgorithmid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "RootCauseAlgorithm",
+      "request_schema": "",
+      "response_schema": "RootCauseAlgorithm",
+      "summary": "ReBQ Retrieve details about the application of a specific root cause algorithm analysis",
+      "description": "ReBQ Retrieve details about the application of a specific root cause algorithm analysis",
+      "parent_control_record": "ServicingRootCauseAnalysis"
+    }
+  ],
+  "schemas": [
+    "Analysis",
+    "Analysistypevalues",
+    "DateTime",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Report",
+    "Reporttypevalues",
+    "RootCauseAlgorithm",
+    "Schedule",
+    "ServicingRootCauseAnalysis",
+    "Task",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Analysis",
+      "kind": "object",
+      "description": "The result of the servicing activity analysis - typically the consolidated view from applying multiple underlying root cause algorithms to highlight patterns that indicate potential root cause issues",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "DateTime",
+      "kind": "object",
+      "description": "The date-time the specific work task is performed",
+      "properties": [
+        {
+          "name": "TimeIndication",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeIndicationType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The period covered by the analysis (from to date time)",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Report",
+      "kind": "object",
+      "description": "The raw data used in the analysis (retrieved from Servicing Activity History)",
+      "properties": [
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "RootCauseAlgorithm",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\nExamples: Average balance calculation, Propensity to buy",
+      "properties": [
+        {
+          "name": "ServicingActivityRootCauseAlgorithmSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServicingActivityRootCauseAnalysisWorkTaskType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServicingActivityRootCauseAnalysisWorkTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ServicingActivityRootCauseAnalysisWorkTaskWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "ServicingActivityRootCauseAnalysisWorkTaskResult",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ServicingActivityRootCauseAnalysisWorkTaskDateandTime",
+          "type": "object",
+          "ref": "DateTime"
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the analysis performed using the algorithm",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ServicingRootCauseAnalysis",
+      "kind": "object",
+      "description": "Analyze the performance or behavior of some on-going activity or entity  within Servicing Activity Analysis. \nExamples: Provide behavioral insights and analysis into customer behavior and analyze financial market activity in order to identify opportunities, define pricing and evaluate risks.\n\nAnalyze the performance or behavior of some on-going activity or entity. Examples: Provide behavioral insights and analysis into customer behavior and analyze financial market activity in order to identify opportunities, define pricing and evaluate risks.",
+      "properties": [
+        {
+          "name": "ServicingActivityType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServicingActivityAnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ServicingActivityAnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "ServicingActivityAnalysisResult",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "ServicingActivityAnalysisDetermination",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServicingActivityAnalysisRecommendation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServicingActivityHistoryReport",
+          "type": "object",
+          "ref": "Report"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "The make-up/schedule of the work task performed",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "File of consolidated notes, evaluations and findings for the work task",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "ServicingRootCauseAnalysis",
+        "operations": [
+          "Request",
+          "Execute",
+          "Initiate",
+          "Update",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "RootCauseAlgorithm",
+        "parent_control_record": "ServicingRootCauseAnalysis",
+        "operations": [
+          "InitiateRootCauseAlgorithm",
+          "RequestRootCauseAlgorithm",
+          "RetrieveRootCauseAlgorithm"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ServicingActivityAnalysis.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "754d21a7078ea34be1555cfc745feab86cc0a2a08c1948e4071ab475cf24d1ca",
+    "retrieved_at": "2026-09-12T22:37:38.778965+00:00"
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "service_domain": "Rewards Delivery",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [],
+  "schemas": [
+    "HTTPError",
+    "RewardsDeliveryProcedure"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "RewardsDeliveryProcedure",
+      "kind": "object",
+      "description": "Complete work tasks following a defined procedure in support of general office activities and product and service delivery within Rewards Delivery. ",
+      "properties": [
+        {
+          "name": "RewardsDeliveryProcedureParameterType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureSelectedOption",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureRequest",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureSchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureAssociatedPartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureBusinessUnitReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureServiceProviderReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureFinancialFacilityReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureEmployeeReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureCustomerReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureServiceProviderSchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureServiceType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureProductandServiceType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureProductandServiceInstance",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureTransactionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureTransaction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureFinancialTransactionArrangement",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureCustomerAgreementReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsDeliveryProcedureReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/RewardsDelivery.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "6af0c70a2eb2bb91f942596583277c7a726febf0107c2c52d64c39afb7db908b",
+    "retrieved_at": "2026-09-12T22:33:00.426976+00:00"
+  }
+}

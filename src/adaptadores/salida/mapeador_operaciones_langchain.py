@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import time
 
 from src.adaptadores.salida.formato_bom import formatear_bom_puml, formatear_schemas_bom
 from src.adaptadores.salida.llm.failover import SoportaStructured
@@ -135,16 +136,20 @@ class MapeadorOperacionesLangChain(MapeadorOperacionesBianPort):
         if not operaciones_por_sd:
             return MapeoOperacionesLLM(operaciones=[], metadatos=self._huella(historia.archivo))
 
-        resultado: MapeoOperacionesLLM = self._cadena.invoke(
-            {
-                "funcionalidad_macro": funcionalidad.funcionalidad_macro,
-                "historia_archivo": historia.archivo,
-                "historia_titulo": historia.titulo,
-                "historia_contenido": historia.contenido,
-                "operaciones": _formatear(operaciones_por_sd, paquetes_por_sd),
-                "bom_por_sd": _formatear_bom(operaciones_por_sd, paquetes_por_sd),
-            }
-        )
+        inicio = time.monotonic()
+        try:
+            resultado: MapeoOperacionesLLM = self._cadena.invoke(
+                {
+                    "funcionalidad_macro": funcionalidad.funcionalidad_macro,
+                    "historia_archivo": historia.archivo,
+                    "historia_titulo": historia.titulo,
+                    "historia_contenido": historia.contenido,
+                    "operaciones": _formatear(operaciones_por_sd, paquetes_por_sd),
+                    "bom_por_sd": _formatear_bom(operaciones_por_sd, paquetes_por_sd),
+                }
+            )
+        finally:
+            logger.info("TIEMPO_LLM nodo=%s tardo=%.1fs", SPEC_OPERACIONES.id, time.monotonic() - inicio)
 
         catalogo_por_sd = {normalizar(sd): operaciones for sd, operaciones in operaciones_por_sd.items()}
         limpias = []

@@ -1,0 +1,1188 @@
+{
+  "service_domain": "Guideline Compliance",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Evaluate",
+      "method": "POST",
+      "path": "/GuidelineCompliance/Evaluate",
+      "tipo": "CR",
+      "grupo": "GuidelineComplianceAssessment",
+      "request_schema": "GuidelineComplianceAssessment",
+      "response_schema": "GuidelineComplianceAssessment",
+      "summary": "EvCR Start a guideline compliance evaluation assessment",
+      "description": "EvCR Start a guideline compliance evaluation assessment"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/GuidelineCompliance/{guidelinecomplianceid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "GuidelineComplianceAssessment",
+      "request_schema": "",
+      "response_schema": "GuidelineComplianceAssessment",
+      "summary": "ReCR Retrieve details and content from an active guideline compliance assessment",
+      "description": "ReCR Retrieve details and content from an active guideline compliance assessment"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/GuidelineCompliance/{guidelinecomplianceid}/Update",
+      "tipo": "CR",
+      "grupo": "GuidelineComplianceAssessment",
+      "request_schema": "GuidelineComplianceAssessment",
+      "response_schema": "GuidelineComplianceAssessment",
+      "summary": "UpCR Update submitted details or content for an on-going guideline compliance assessment",
+      "description": "UpCR Update submitted details or content for an on-going guideline compliance assessment"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/GuidelineCompliance/{guidelinecomplianceid}/Exchange",
+      "tipo": "CR",
+      "grupo": "GuidelineComplianceAssessment",
+      "request_schema": "GuidelineComplianceAssessment",
+      "response_schema": "GuidelineComplianceAssessment",
+      "summary": "EcCR Accept or reject a guideline compliance determination",
+      "description": "EcCR Accept or reject a guideline compliance determination"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/GuidelineCompliance/{guidelinecomplianceid}/Request",
+      "tipo": "CR",
+      "grupo": "GuidelineComplianceAssessment",
+      "request_schema": "GuidelineComplianceAssessment",
+      "response_schema": "GuidelineComplianceAssessment",
+      "summary": "RqCR Request a review or adjudication for a guideline assessment",
+      "description": "RqCR Request a review or adjudication for a guideline assessment"
+    }
+  ],
+  "schemas": [
+    "Assessment",
+    "Assessmenttypevalues",
+    "Assetclassificationtypevalues",
+    "Assetsubclassificationtypevalues",
+    "Assettypevalues",
+    "Bankingproducttypevalues",
+    "BusinessUnit",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Document",
+    "Documentdatetimetypevalues",
+    "Financialdocumenttypevalues",
+    "Financialinstrumentdatetime",
+    "Financialinstrumentdatetimetypevalues",
+    "Financialinstrumentidentification",
+    "Financialinstrumentidentificationtypevalues",
+    "Financialinstrumenttypevalues",
+    "GuidelineComplianceAssessment",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Model",
+    "Name",
+    "Organisationdatetime",
+    "Organisationdatetimetypevalues",
+    "Organisationidentification",
+    "Organisationidentificationtypevalues",
+    "Organisationlegalstructuretypevalues",
+    "Organisationname",
+    "Organisationnametypevalues",
+    "Organisationtypevalues",
+    "Product",
+    "Productidentification",
+    "Productidentificationtypevalues",
+    "Productstatus",
+    "Productstatustypevalues",
+    "Requirement",
+    "Schedule",
+    "Status",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Assessment",
+      "kind": "object",
+      "description": "Outcome/result of the assessment, can include remedial actions",
+      "properties": [
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Assessmenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Valuation` - \r\n* `Matching` - \r\n* `Authorization` - An evaluation whether a party or system is allowed to do something.\n\nThe consent given by a participant (or a third party acting on behalf of that participant) in order to transfer funds or securities. (ECB)\n\nAuthorization is a mechanism by which a computer system determines whether to allow or deny specific action to a user. Authorization is often controlled by rather complex rules and algorithms, usually specified as part of an access control model. Authorization often follows (and required) authentication, however, authentication and authorization are two separate mechanisms. In rare cases, \"authorization\" is understood as a process of allowing access, granting permissions or giving approval. Such as \"authorization\" of a request to join a group. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `Authentication` - An evaluation whether a party or system is what it claims to be.\n\nA security mechanism for verifying: 1) the identity of an individual or other entity (including verification by means of a computer or computer application); and 2) the level of authority of that person or entity (i.e. the ability of that person or entity to perform specific tasks or activities). (ECB)\n\nAuthentication is a mechanism by which a computer system checks that the user is really the one she or he claims to be. Authentication can be implemented by a broad variety of mechanisms broadly divided into three categories: something you know, something you have, something you are. Traditionally, authentication is done by the means of by username and password. Authentication is often followed by authorization, however, authentication and authorization are two separate mechanisms. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `QualityAssurance` - \r\n* `Audit` - \r\n* `ComplianceCheck` - \r\n* `FundingCheck` - \r\n* `SuitabilityCheck` - \r\n* `PerformanceCheck` - \r\n* `ImpactAssessment` - \r\n* `RiskAssessment` - \r\n* `Rating` - \r\n* `UnderwritingAssessment` - \r\n* `Qualification` - \r\n* `Verification` - A process establishing that a particular information is correct, while the meaning of \"information\" and \"correct\" varies from context to context. When dealing with identity information, this usually means formal verification of identity attributes, checking the schema, identifier uniqueness and referential integrity. However, verification may mean deeper verification, such as checking that the information is true and up-to-date.  (ISO/IEC 24760-1:2019 - IT Security and Privacy)\n\r\n* `KYCAssessment` - An assessment conducted by businesses and financial institutions to verify and confirm the identity of their customers or clients. The primary purpose of a KYC check is to prevent illegal activities, such as money laundering, terrorist financing, and fraud, by ensuring that customers are who they claim to be.\r\n* `PEPAssessment` - A PEP check, or \"Politically Exposed Person\" check, is an assessment conducted by used by businesses, financial institutions, and government agencies to identify individuals who hold prominent public positions or have significant political influence. The purpose of a PEP check is to assess and manage the potential risks associated with doing business with these individuals, as they may be more susceptible to corruption, money laundering, or other illicit activities.\r\n* `AMLAssessment` - An AML (Anti-Money Laundering) check is an assessment conducted by businesses, financial institutions, and other organizations to prevent and detect money laundering and the financing of criminal activities. The main purpose of an AML check is to ensure that financial transactions and business relationships are not being used to disguise the illegal origins of funds.\r\n* `EligibilityCheck` - Determines whether a person or case meets the criteria or preconditions to qualify for a benefit, service, or action.\r\n* `ExternalAgencyCheck` - \r\n* `EntitlementCheck` - Determines what benefit, amount, or service the person is actually entitled to receive once eligibility is confirmed.\r\n",
+      "enum_values": [
+        "Valuation",
+        "Matching",
+        "Authorization",
+        "Authentication",
+        "QualityAssurance",
+        "Audit",
+        "ComplianceCheck",
+        "FundingCheck",
+        "SuitabilityCheck",
+        "PerformanceCheck",
+        "ImpactAssessment",
+        "RiskAssessment",
+        "Rating",
+        "UnderwritingAssessment",
+        "Qualification",
+        "Verification",
+        "KYCAssessment",
+        "PEPAssessment",
+        "AMLAssessment",
+        "EligibilityCheck",
+        "ExternalAgencyCheck",
+        "EntitlementCheck"
+      ]
+    },
+    {
+      "name": "Assetclassificationtypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Assetclassificationtypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Assetsubclassificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Subassetclass` - Sub-asset class.(ISO20022)\r\n* `Timetomaturitybucket` - Time to maturity bucket.(ISO20022)\r\n* `Optiontimetomaturitybucket` - Time to maturity bucket of the option.(ISO20022)\r\n* `Swaptimetomaturitybucket` - Time to maturity bucket of the swap.(ISO20022)\r\n* `Underlyinginstrumentidentification` - Underlying instrument identification, such as an ISIN code.(ISO20022)\r\n* `Underlyingbondissuer` - Issuer of the underlying bond.(ISO20022)\r\n* `Underlyinginterestrate` - Underlying interest rate.(ISO20022)\r\n* `Underlyingbondterm` - Term of the underlying bond.(ISO20022)\r\n* `Assetclass` - Asset class.(ISO20022)\r\n* `Underlyingindexidentification` - Underlying index identification such as an ISIN or an index name.(ISO20022)\r\n* `Interestratetermofcontract` - Interest rate term of contract.(ISO20022)\r\n* `Underlyingreferenceentity` - Underlying reference entity.(ISO20022)\r\n* `Sovereignandpublictypeissuer` - Issuer of sovereign and public type.(ISO20022)\r\n* `Irdnotionalcurrency1` - Interest rate derivative notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency1` - Foreign exchange derivative notional currency 1.(ISO20022)\r\n* `Cfdnotionalcurrency1` - Contract for difference notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency2` - Foreign exchange derivative notional currency 2.(ISO20022)\r\n* `Irdnotionalcurrency2` - Interest rate derivative notional currency 2.(ISO20022)\r\n* `Cfdnotionalcurrency2` - Contract for difference notional currency 2.(ISO20022)\r\n* `Swaptionnotionalcurrency` - Notional currency of the swaption.(ISO20022)\r\n* `Creditnotionalcurrency` - Credit derivative notional currency.(ISO20022)\r\n* `Commoditynotionalcurrency` - Commodity derivative notional currency.(ISO20022)\r\n* `Contracttype` - Contract type.(ISO20022)\r\n* `Baseproduct` - Base product.(ISO20022)\r\n* `Subproduct` - Sub product.(ISO20022)\r\n* `Furthersubproduct` - Further sub product.(ISO20022)\r\n* `Deliverycashlocation` - Delivery cash settlement location.(ISO20022)\r\n* `Deliverysettlementtype` - Delivery settlement type.(ISO20022)\r\n* `Sizespecificationrelatedtofreightsubtype` - Size specification related to freight subtype.(ISO20022)\r\n* `Specificroutetimecharteraverage` - Specific route time charter average.(ISO20022)\r\n* `Equityunderlyingtype` - Equity derivative underlying type.(ISO20022)\r\n* `Parameter` - Parameter.(ISO20022)\r\n* `Inflationindexcodename` - Inflation index code or name.(ISO20022)\r\n* `ISIN` - Instrument identification.(ISO20022)\r\n* `Underlyingindexcdssubclassidentification` - Sub class of the underlying index credit default swap (CDS).(ISO20022)\r\n* `Underlyingtype` - Underlying type.(ISSO20022)\r\n",
+      "enum_values": [
+        "Subassetclass",
+        "Timetomaturitybucket",
+        "Optiontimetomaturitybucket",
+        "Swaptimetomaturitybucket",
+        "Underlyinginstrumentidentification",
+        "Underlyingbondissuer",
+        "Underlyinginterestrate",
+        "Underlyingbondterm",
+        "Assetclass",
+        "Underlyingindexidentification",
+        "Interestratetermofcontract",
+        "Underlyingreferenceentity",
+        "Sovereignandpublictypeissuer",
+        "Irdnotionalcurrency1",
+        "Fexnotionalcurrency1",
+        "Cfdnotionalcurrency1",
+        "Fexnotionalcurrency2",
+        "Irdnotionalcurrency2",
+        "Cfdnotionalcurrency2",
+        "Swaptionnotionalcurrency",
+        "Creditnotionalcurrency",
+        "Commoditynotionalcurrency",
+        "Contracttype",
+        "Baseproduct",
+        "Subproduct",
+        "Furthersubproduct",
+        "Deliverycashlocation",
+        "Deliverysettlementtype",
+        "Sizespecificationrelatedtofreightsubtype",
+        "Specificroutetimecharteraverage",
+        "Equityunderlyingtype",
+        "Parameter",
+        "Inflationindexcodename",
+        "ISIN",
+        "Underlyingindexcdssubclassidentification",
+        "Underlyingtype"
+      ]
+    },
+    {
+      "name": "Assettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `TangibleAsset` - It has a physical form and can be touched or seen.\r\n* `IntangibleAsset` - It doesn't have a physical form but hold value\r\n* `OperatingAsset` - Used in the day-to-day operations of the business.\r\n* `Non-OperatingAsset` - Not used in core business operations but still provide value\r\n* `CurrentAsset` - Expected to be converted into cash within one year.\r\n* `Non-Current(Fixed)Asset` - Provide value over the long term (more than one year).\r\n* `PersonalAsset` - Owned by individuals and not related to a business.\r\n* `BusinessAsset` - Owned by a business and used to generate revenue.\r\n",
+      "enum_values": [
+        "TangibleAsset",
+        "IntangibleAsset",
+        "OperatingAsset",
+        "Non-OperatingAsset",
+        "CurrentAsset",
+        "Non-Current(Fixed)Asset",
+        "PersonalAsset",
+        "BusinessAsset"
+      ]
+    },
+    {
+      "name": "Bankingproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LoanProduct` - \r\n* `CurrentAccountProduct` - \r\n* `SavingAccountProduct` - \r\n* `BrokeredProduct` - \r\n* `TermDepositProduct` - \r\n",
+      "enum_values": [
+        "LoanProduct",
+        "CurrentAccountProduct",
+        "SavingAccountProduct",
+        "BrokeredProduct",
+        "TermDepositProduct"
+      ]
+    },
+    {
+      "name": "BusinessUnit",
+      "kind": "object",
+      "description": "The business function or unit assessed for compliance if appropriate",
+      "properties": [
+        {
+          "name": "BusinessFunction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Goal",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationStructureHierarchy",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Organisationidentification"
+        },
+        {
+          "name": "OrganisationSector",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalEntityIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationDate",
+          "type": "object",
+          "ref": "Organisationdatetime"
+        },
+        {
+          "name": "OrganisationType",
+          "type": "object",
+          "ref": "Organisationtypevalues"
+        },
+        {
+          "name": "OrganisationName",
+          "type": "object",
+          "ref": "Organisationname"
+        },
+        {
+          "name": "OrganisationLegalStructure",
+          "type": "object",
+          "ref": "Organisationlegalstructuretypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date when the assessment expires. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Reference to any documentation classified/archived as appropriate",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetime",
+      "kind": "object",
+      "description": "Key dates of financial instrument",
+      "properties": [
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "FinancialInstrumentDateType",
+          "type": "object",
+          "ref": "Financialinstrumentdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CouponDate` - Next payment date of an interest bearing financial instrument.(ISO20022)\r\n* `ExpiryDate` - Date on which a privilege expires.(ISO20022)\r\n* `FloatingRateFixingDate` - Date at which the interest rate of an interest bearing security will be calculated and reset, according to the terms of the issue.(ISO20022)\r\n* `MaturityDate` - Planned final repayment date at the time of issuance.(ISO20022)\r\n* `IssueDate` - Date at which the security was made available.(ISO20022)\r\n* `NextCallableDate` - Next date at which the issuer has the right to pay the security prior to maturity.(ISO20022)\r\n* `PutableDate` - Date at which the holder has the right to ask for redemption of the security prior to final maturity.(ISO20022)\r\n* `DatedDate` - First date at which a security begins to accrue interest.(ISO20022)\r\n* `FirstPaymentDate` - Date at which the first interest payment is due to holders of the security.(ISO20022)\r\n",
+      "enum_values": [
+        "CouponDate",
+        "ExpiryDate",
+        "FloatingRateFixingDate",
+        "MaturityDate",
+        "IssueDate",
+        "NextCallableDate",
+        "PutableDate",
+        "DatedDate",
+        "FirstPaymentDate"
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FinancialInstrumentIdentificationType",
+          "type": "object",
+          "ref": "Financialinstrumentidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `NASDAQ` - \r\n* `ISIN` - \r\n",
+      "enum_values": [
+        "NASDAQ",
+        "ISIN"
+      ]
+    },
+    {
+      "name": "Financialinstrumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Loan` - \r\n* `Bond` - \r\n* `Deposit` - \r\n* `Stock` - \r\n* `Option` - \r\n* `Share` - \r\n* `Debt` - Financial instruments evidencing moneys owed by the issuer to the holder on terms as specified. (ISO20022)\n\nAny type of instrument primarily classified as debt can be considered a debt instrument. Debt instruments are tools an individual, government entity, or business entity can utilize for the purpose of obtaining capital. Debt instruments provide capital to an entity that promises to repay the capital over time. Credit cards, credit lines, loans, and bonds can all be types of debt instruments. (Investopedia)\r\n* `Letterofcredit` - Instrument issued by a bank substituting its name and credit standing for that of its customer. A letter of credit is a written undertaking of the bank, issued for the account of a customer (the applicant), to honour a demand for payment, upon the beneficiary's compliance with the terms and conditions set forth in the undertaking. (ISO20022)\r\n* `Security` - Financial instruments representing a sum of rights of the investor vis-a-vis the issuer. (ISO20022)\r\n* `Derivative` - \r\n",
+      "enum_values": [
+        "Loan",
+        "Bond",
+        "Deposit",
+        "Stock",
+        "Option",
+        "Share",
+        "Debt",
+        "Letterofcredit",
+        "Security",
+        "Derivative"
+      ]
+    },
+    {
+      "name": "GuidelineComplianceAssessment",
+      "kind": "object",
+      "description": "To test or assess an entity, possibly against some formal qualification or certification requirement within Guideline Compliance. ",
+      "properties": [
+        {
+          "name": "GuidelineComplianceAssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "BusinessUnitReference",
+          "type": "object",
+          "ref": "BusinessUnit"
+        },
+        {
+          "name": "ProductandServiceReference",
+          "type": "object",
+          "ref": "Product"
+        },
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "DocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "GuidelineComplianceAssessmentWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "GuidelineComplianceAssessmentResult",
+          "type": "object",
+          "ref": "Assessment"
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisatioDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "OrganisatioDateType",
+          "type": "object",
+          "ref": "Organisationdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `RegistrationDate` - Date and time at which a given organisation was officially registered. (ISO20022)\r\n* `EstablishmentDate` - Date when the organisation was established. ISO20022\r\n* `EntityExpirationDate` - The date the Legal Entity ceased operation or was merged. ISO20022\r\n",
+      "enum_values": [
+        "RegistrationDate",
+        "EstablishmentDate",
+        "EntityExpirationDate"
+      ]
+    },
+    {
+      "name": "Organisationidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisationIdentificationType",
+          "type": "object",
+          "ref": "Organisationidentificationtypevalues"
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Organisationidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LEI` - Legal Entity Identifier is a code allocated to a party as described in ISO 17442 \"Financial Services - Legal Entity Identifier (LEI)\".\r\n* `ELF` - Entity Legal Forms is a code allocated to a party as described in ISO 20275 \"Financial services  Entity legal forms (ELF)\". \r\n* `MIC` - Market Identifier Code. Identification of a financial market, as stipulated in the norm ISO 10383 \"Codes for exchanges and market identifications\".\r\n* `BICFI` - Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 \"Banking - Banking telecommunication messages - Business identifier code (BIC)\".\r\n* `Bankpartyidentification` - Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client.\r\n* `Centralbankidentificationnumber` - A unique identification number assigned by a central bank to identify an organisation.\r\n* `Clearingidentificationnumber` - A unique identification number assigned by a clearing house to identify an organisation\r\n* `Certificateofincorporationnumber` - A unique identification number assigned by a designated authority to a certificate of incorporation and used to identify an organisation.\r\n* `Countryidentificationcode` - Country authority given organisation identification (e.g., corporate registration number)\r\n* `Customernumber` - Number assigned by an issuer to identify a customer.\nNumber assigned by a party to identify a creditor or debtor relationship.\r\n* `Datauniversalnumberingsystem` - A unique identification number provided by Dun & Bradstreet to identify an organisation.\r\n* `Employeridentificationnumber` - Number assigned by a registration authority to an employer.\r\n* `Gs1glnidentifier` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to GS1 numbering scheme rules.The number is used to retrieve detailed information that is linked to it.\r\n* `SIREN` - The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France.\r\n* `SIRET` - The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to identify an organisation.\r\n* `EANGLN` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to the European Association for Numbering (EAN) numbering scheme rules. The number is used to retrieve detailed information that is linked to it. (iso20022)\r\n",
+      "enum_values": [
+        "LEI",
+        "ELF",
+        "MIC",
+        "BICFI",
+        "Bankpartyidentification",
+        "Centralbankidentificationnumber",
+        "Clearingidentificationnumber",
+        "Certificateofincorporationnumber",
+        "Countryidentificationcode",
+        "Customernumber",
+        "Datauniversalnumberingsystem",
+        "Employeridentificationnumber",
+        "Gs1glnidentifier",
+        "SIREN",
+        "SIRET",
+        "Taxidentificationnumber",
+        "EANGLN"
+      ]
+    },
+    {
+      "name": "Organisationlegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Corporation` - Legal structure is a corporation.\r\n* `Individual` - Legal structure is an individual.\r\n* `Supranational` - Legal structure is a supranational.\r\n* `Sovereign` - Legal structure is a sovereign.\r\n* `Municipal` - Legal structure is a municipal.\r\n* `Province` - Legal structure is a province.\r\n* `State` - Legal structure is a state.\r\n* `County` - Legal structure is a county.\r\n* `Partnership` - Legal structure is a partnership.\r\n* `Financialinstitution` - Legal structure is a financial institution.\r\n* `National` - Legal structure is a state.\r\n",
+      "enum_values": [
+        "Corporation",
+        "Individual",
+        "Supranational",
+        "Sovereign",
+        "Municipal",
+        "Province",
+        "State",
+        "County",
+        "Partnership",
+        "Financialinstitution",
+        "National"
+      ]
+    },
+    {
+      "name": "Organisationname",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "NameType",
+          "type": "object",
+          "ref": "Organisationnametypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationnametypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ShortName` - \r\n* `TradingName` - \r\n* `LegalName` - \r\n",
+      "enum_values": [
+        "ShortName",
+        "TradingName",
+        "LegalName"
+      ]
+    },
+    {
+      "name": "Organisationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LegalEntity` - \r\n* `Authority` - \r\n* `OrganisationUnit` - \r\n* `FinancialInstitution` - \r\n* `Charity` - \r\n* `GovernmentBody` - \r\n",
+      "enum_values": [
+        "LegalEntity",
+        "Authority",
+        "OrganisationUnit",
+        "FinancialInstitution",
+        "Charity",
+        "GovernmentBody"
+      ]
+    },
+    {
+      "name": "Product",
+      "kind": "object",
+      "description": "The associated product/service being assessed if appropriate",
+      "properties": [
+        {
+          "name": "ProductIdentification",
+          "type": "object",
+          "ref": "Productidentification"
+        },
+        {
+          "name": "ProductType",
+          "type": "object",
+          "ref": "Bankingproducttypevalues"
+        },
+        {
+          "name": "ProductLifecycleStatus",
+          "type": "object",
+          "ref": "Productstatus"
+        },
+        {
+          "name": "ProductPriority",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentType",
+          "type": "object",
+          "ref": "Financialinstrumenttypevalues"
+        },
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Financialinstrumentidentification"
+        },
+        {
+          "name": "FinancialInstrumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Financialinstrumentdatetime"
+        },
+        {
+          "name": "AssetTitle",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AssetType",
+          "type": "object",
+          "ref": "Assettypevalues"
+        },
+        {
+          "name": "AssetDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssetDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetClassification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetClassificationType",
+          "type": "object",
+          "ref": "Assetclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassificationType",
+          "type": "object",
+          "ref": "Assetsubclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Productidentification",
+      "kind": "object",
+      "description": "The identifier of product e.g. ISIN Code.",
+      "properties": [
+        {
+          "name": "ProductIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ProductIdentificationType",
+          "type": "object",
+          "ref": "Productidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ISINCode` - \r\n* `PackageCode` - \r\n* `Buyersitemnumber` - Product identifier assigned by the buyer.\r\n* `Commercialdescriptioncodename` - A code to identify a product based on applicable commercial conditions.\r\n* `EAN` - The unique EAN (European Article Number) code.\r\n* `Harmonizedtariffcodename` - Classification of goods as developed by the Customs Cooperation council.\r\n* `Manufacturersitemnumber` - Product identifier as assigned by the manufacturer.\r\n* `Modelnumber` - Reference number assigned by the manufacturer to differentiate variations in similar products in a class or group.\r\n* `Partnumber` - Reference assigned by the manufacturer to a product part.\r\n* `Quotacategory` - Product identifier used by the retail industry.\r\n* `Stylenumber` - Identification of the style of a product.\r\n* `Suppliersitemnumber` - Number assigned to an article by the supplier of that article.\r\n* `Universalproductcode` - Number assigned to a manufacturer's product by the Product Code Council.\r\n",
+      "enum_values": [
+        "ISINCode",
+        "PackageCode",
+        "Buyersitemnumber",
+        "Commercialdescriptioncodename",
+        "EAN",
+        "Harmonizedtariffcodename",
+        "Manufacturersitemnumber",
+        "Modelnumber",
+        "Partnumber",
+        "Quotacategory",
+        "Stylenumber",
+        "Suppliersitemnumber",
+        "Universalproductcode"
+      ]
+    },
+    {
+      "name": "Productstatus",
+      "kind": "object",
+      "description": "Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).",
+      "properties": [
+        {
+          "name": "ProductStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ProductStatusType",
+          "type": "object",
+          "ref": "Productstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Announced` - \r\n* `Sold` - \r\n* `Obsolete` - \r\n* `Active` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Announced",
+        "Sold",
+        "Obsolete",
+        "Active"
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "Work documentation, forms and schedules produced and referenced during the assessment",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "GuidelineComplianceAssessment",
+        "operations": [
+          "Evaluate",
+          "Retrieve",
+          "Update",
+          "Exchange",
+          "Request"
+        ]
+      }
+    ],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/GuidelineCompliance.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "e62794088da9bf0d84750a05b272189dab0ace486fe71157e9676a15544fd6fb",
+    "retrieved_at": "2026-09-12T22:06:39.966094+00:00"
+  }
+}

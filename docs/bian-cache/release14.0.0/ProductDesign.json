@@ -1,0 +1,1175 @@
+{
+  "service_domain": "Product Design",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Create",
+      "method": "POST",
+      "path": "/ProductDesign/Create",
+      "tipo": "CR",
+      "grupo": "ProductorServiceSpecification",
+      "request_schema": "ProductorServiceSpecification",
+      "response_schema": "ProductorServiceSpecification",
+      "summary": "CrCR Create or register an imported product or service specification",
+      "description": "CrCR Create or register an imported product or service specification"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/ProductDesign/{productdesignid}/Execute",
+      "tipo": "CR",
+      "grupo": "ProductorServiceSpecification",
+      "request_schema": "ProductorServiceSpecification",
+      "response_schema": "ProductorServiceSpecification",
+      "summary": "ExCR Execute an automated action against a product or service specification",
+      "description": "ExCR Execute an automated action against a product or service specification"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/ProductDesign/{productdesignid}/Request",
+      "tipo": "CR",
+      "grupo": "ProductorServiceSpecification",
+      "request_schema": "ProductorServiceSpecification",
+      "response_schema": "ProductorServiceSpecification",
+      "summary": "RqCR Request manual intervention to a specification",
+      "description": "RqCR Request manual intervention to a specification"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/ProductDesign/{productdesignid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "ProductorServiceSpecification",
+      "request_schema": "",
+      "response_schema": "ProductorServiceSpecification",
+      "summary": "ReCR Retrieve details about a product or service specification",
+      "description": "ReCR Retrieve details about a product or service specification"
+    },
+    {
+      "operation_id": "UpdateFunctionalRequirements",
+      "method": "PUT",
+      "path": "/ProductDesign/{productdesignid}/FunctionalRequirements/{functionalrequirementsid}/Update",
+      "tipo": "BQ",
+      "grupo": "FunctionalRequirements",
+      "request_schema": "FunctionalRequirements",
+      "response_schema": "FunctionalRequirements",
+      "summary": "UpBQ Update the functional requirements or other properties of a the specification",
+      "description": "UpBQ Update the functional requirements or other properties of a the specification",
+      "parent_control_record": "ProductorServiceSpecification"
+    },
+    {
+      "operation_id": "ExchangeFunctionalRequirements",
+      "method": "PUT",
+      "path": "/ProductDesign/{productdesignid}/FunctionalRequirements/{functionalrequirementsid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "FunctionalRequirements",
+      "request_schema": "FunctionalRequirements",
+      "response_schema": "FunctionalRequirements",
+      "summary": "EcBQ accept or reject requirements detailed in the specification",
+      "description": "EcBQ accept or reject requirements detailed in the specification",
+      "parent_control_record": "ProductorServiceSpecification"
+    },
+    {
+      "operation_id": "CaptureFunctionalRequirements",
+      "method": "PUT",
+      "path": "/ProductDesign/{productdesignid}/FunctionalRequirements/{functionalrequirementsid}/Capture",
+      "tipo": "BQ",
+      "grupo": "FunctionalRequirements",
+      "request_schema": "FunctionalRequirements",
+      "response_schema": "FunctionalRequirements",
+      "summary": "CaBQ Capture usage reports for the product or service specification",
+      "description": "CaBQ Capture usage reports for the product or service specification",
+      "parent_control_record": "ProductorServiceSpecification"
+    },
+    {
+      "operation_id": "RetrieveFunctionalRequirements",
+      "method": "GET",
+      "path": "/ProductDesign/{productdesignid}/FunctionalRequirements/{functionalrequirementsid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "FunctionalRequirements",
+      "request_schema": "",
+      "response_schema": "FunctionalRequirements",
+      "summary": "ReBQ Retrieve details about the product or service specification and any associated properties",
+      "description": "ReBQ Retrieve details about the product or service specification and any associated properties",
+      "parent_control_record": "ProductorServiceSpecification"
+    },
+    {
+      "operation_id": "RequestFunctionalRequirements",
+      "method": "PUT",
+      "path": "/ProductDesign/{productdesignid}/FunctionalRequirements/{functionalrequirementsid}/Request",
+      "tipo": "BQ",
+      "grupo": "FunctionalRequirements",
+      "request_schema": "FunctionalRequirements",
+      "response_schema": "FunctionalRequirements",
+      "summary": "RqBQ Request changes or improvements to the specification",
+      "description": "RqBQ Request changes or improvements to the specification",
+      "parent_control_record": "ProductorServiceSpecification"
+    },
+    {
+      "operation_id": "UpdateTesting",
+      "method": "PUT",
+      "path": "/ProductDesign/{productdesignid}/Testing/{testingid}/Update",
+      "tipo": "BQ",
+      "grupo": "Testing",
+      "request_schema": "Testing",
+      "response_schema": "Testing",
+      "summary": "UpBQ Update user specification testing content",
+      "description": "UpBQ Update user specification testing content",
+      "parent_control_record": "ProductorServiceSpecification"
+    },
+    {
+      "operation_id": "RetrieveTesting",
+      "method": "GET",
+      "path": "/ProductDesign/{productdesignid}/Testing/{testingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Testing",
+      "request_schema": "",
+      "response_schema": "Testing",
+      "summary": "ReBQ Retrieve details of the specification testing results",
+      "description": "ReBQ Retrieve details of the specification testing results",
+      "parent_control_record": "ProductorServiceSpecification"
+    },
+    {
+      "operation_id": "ExchangeTesting",
+      "method": "PUT",
+      "path": "/ProductDesign/{productdesignid}/Testing/{testingid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "Testing",
+      "request_schema": "Testing",
+      "response_schema": "Testing",
+      "summary": "EcBQ Accept or reject specification testing results",
+      "description": "EcBQ Accept or reject specification testing results",
+      "parent_control_record": "ProductorServiceSpecification"
+    },
+    {
+      "operation_id": "ExecuteProduction",
+      "method": "PUT",
+      "path": "/ProductDesign/{productdesignid}/Production/{productionid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Production",
+      "request_schema": "Production",
+      "response_schema": "Production",
+      "summary": "ExBQ Get automated support for product or service specification deployment",
+      "description": "ExBQ Get automated support for product or service specification deployment",
+      "parent_control_record": "ProductorServiceSpecification"
+    },
+    {
+      "operation_id": "RequestProduction",
+      "method": "PUT",
+      "path": "/ProductDesign/{productdesignid}/Production/{productionid}/Request",
+      "tipo": "BQ",
+      "grupo": "Production",
+      "request_schema": "Production",
+      "response_schema": "Production",
+      "summary": "RqBQ Request production support for a product or service specification",
+      "description": "RqBQ Request production support for a product or service specification",
+      "parent_control_record": "ProductorServiceSpecification"
+    },
+    {
+      "operation_id": "RetrieveProduction",
+      "method": "GET",
+      "path": "/ProductDesign/{productdesignid}/Production/{productionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Production",
+      "request_schema": "",
+      "response_schema": "Production",
+      "summary": "ReBQ Retrieve details and documentation covering product or service production deployment",
+      "description": "ReBQ Retrieve details and documentation covering product or service production deployment",
+      "parent_control_record": "ProductorServiceSpecification"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Arrangement",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Feature",
+    "Featuretypevalues",
+    "FunctionalRequirements",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Location",
+    "Name",
+    "Production",
+    "ProductorServiceSpecification",
+    "Requirement",
+    "RuleSet",
+    "Rulesettypevalues",
+    "Service",
+    "Servicetypevalues",
+    "Status",
+    "Subject",
+    "Task",
+    "Test",
+    "Testing",
+    "Testtypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Arrangement",
+      "kind": "object",
+      "description": "Details of the product or service specification deployment for reference",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "FunctionalRequirements",
+      "kind": "object",
+      "description": "The main design elements/views making up the overall specification\n\nExamples: Business Requirements",
+      "properties": [
+        {
+          "name": "ProductandServiceSpecificationDesignTaskReference",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ProductandServiceSpecificationDesignTaskRecord",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "MarketResearchDataServiceReference",
+          "type": "object",
+          "ref": "Service"
+        },
+        {
+          "name": "MarketResearchDataRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceFeedbackRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceRequirementsSpecification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "The identifier of service.",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of service. ",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Production",
+      "kind": "object",
+      "description": "The main design elements/views making up the overall specification\n\nExamples: Business Requirements",
+      "properties": [
+        {
+          "name": "ProductandServiceSpecificationOperationalRequirements",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "ProductandServiceSpecificationAllowedUsage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceSpecificationUsageGuidelines",
+          "type": "object",
+          "ref": "RuleSet"
+        }
+      ]
+    },
+    {
+      "name": "ProductorServiceSpecification",
+      "kind": "object",
+      "description": "Create and maintain a design for a procedure, product/service model or other such entity  within Product Design. \nExample: Create and maintain product designs and analytical models.",
+      "properties": [
+        {
+          "name": "ProductandServiceType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceSpecificationDeployment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EmployeeorBusinessUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "ProductandServiceSpecificationDeploymentConfiguration",
+          "type": "object",
+          "ref": "Arrangement"
+        },
+        {
+          "name": "ProductandServiceSpecificationDeploymentTaskReference",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ProductandServiceSpecificationDeploymentTaskRecord",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ProductandServiceSpecificationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ProductandServiceSpecificationUsage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceSpecificationImpact",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceSpecificationVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceSpecification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "Specification of the operational and technical requirements",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "RuleSet",
+      "kind": "object",
+      "description": "Provides guidance on the use of the product or service",
+      "properties": [
+        {
+          "name": "RuleSetDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetInterpretation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetType",
+          "type": "object",
+          "ref": "Rulesettypevalues"
+        },
+        {
+          "name": "RuleSetName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "RuleSetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "RuleSetLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Rulesettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Policy` - Rule that governs business execution.\n\nThe set of basic principles and associated guidelines, formulated and enforced by the governing body of an organization, to direct and limit its actions in pursuit of long-term goals. (Business Dictionary)\n\r\n* `Regulation` - A rule used to carry out a law (FIBO)\n\nBusiness Dictionary: a rule (with or without the coercive power of law) employed in controlling, directing, or managing an activity, organization, or system. \n\nThe set of rules and legislation governing certain actions. \nhttps://financial-dictionary.thefreedictionary.com/Regulatory\r\n* `Law` - A binding rule that the courts will enforce.\nA system of rules and guidelines which are enforced through social institutions to govern behavior. (FIBO)\n\r\n* `Guideline` - A recommended practice (adapted from Business Dictionary)\nA general rule, principle, or piece of advice.\r\n* `Criterion` - A principle or standard by which something may be judged or decided.\n\nRead more: http://www.businessdictionary.com/definition/criterion.html\r\n* `Standard` - A rule considered by an authority or by general consent as a basis of comparison\r\n",
+      "enum_values": [
+        "Policy",
+        "Regulation",
+        "Law",
+        "Guideline",
+        "Criterion",
+        "Standard"
+      ]
+    },
+    {
+      "name": "Service",
+      "kind": "object",
+      "description": "Reference to external service information provider used to obtain product or service related market research as input to the design",
+      "properties": [
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "A characteristic of service which refers to the lifecycle of service (e.g., initiated, active, de-active, etc.) ",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "Reference to a type of functional requirements specification activity",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Test",
+      "kind": "object",
+      "description": "Reference to a type of product or service specification test",
+      "properties": [
+        {
+          "name": "TestResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TestGuidance",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TestType",
+          "type": "object",
+          "ref": "Testtypevalues"
+        },
+        {
+          "name": "TestDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Testing",
+      "kind": "object",
+      "description": "The main design elements/views making up the overall specification\n\nExamples: Business Requirements",
+      "properties": [
+        {
+          "name": "ProductandServiceSpecificationTestReference",
+          "type": "object",
+          "ref": "Test"
+        },
+        {
+          "name": "ProductandServiceSpecificationTestType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceSpecificationTestHarnessReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceSpecificationTestResult",
+          "type": "object",
+          "ref": "Test"
+        },
+        {
+          "name": "ProductandServiceSpecificationTestingTaskReference",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ProductandServiceSpecificationTestingTaskRecord",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ProductandServiceSpecificationComplianceTaskReference",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ProductandServiceSpecificationComplianceTaskRecord",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ProductandServiceSpecificationComplianceTestReference",
+          "type": "object",
+          "ref": "Test"
+        },
+        {
+          "name": "ProductandServiceSpecificationComplianceTestType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Testtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ProductEligibilityTest` - \r\n* `NextBestProductTest` - \r\n* `IssuedDeviceTest` - \r\n* `CardHolderAuthenticationTest` - \r\n* `CardFundsAvailableTest` - \r\n* `CardTransactionFraudTest` - \r\n* `CardStand-InAuthorizationTest` - \r\n* `ExternalAccessRequestTest` - \r\n* `SuitabilityTest` - \r\n* `LegalComplianceTest` - \r\n* `RegulatoryComplianceTest` - \r\n* `SystemFunctionalTest` - \r\n* `SystemProductionTest` - \r\n* `SystemBusinessRiskTest` - \r\n* `SystemOperationsTest` - \r\n* `CreditPolicyComplianceTest` - \r\n* `RuleSetAndDecisionTreeTest` - \r\n* `ModelBasedTests` - \r\n* `AssetAndLiabilityValuationTest` - \r\n* `LiquidityAndCashFlowTest` - \r\n* `RiskTest` - \r\n* `SensitivityTest` - \r\n",
+      "enum_values": [
+        "ProductEligibilityTest",
+        "NextBestProductTest",
+        "IssuedDeviceTest",
+        "CardHolderAuthenticationTest",
+        "CardFundsAvailableTest",
+        "CardTransactionFraudTest",
+        "CardStand-InAuthorizationTest",
+        "ExternalAccessRequestTest",
+        "SuitabilityTest",
+        "LegalComplianceTest",
+        "RegulatoryComplianceTest",
+        "SystemFunctionalTest",
+        "SystemProductionTest",
+        "SystemBusinessRiskTest",
+        "SystemOperationsTest",
+        "CreditPolicyComplianceTest",
+        "RuleSetAndDecisionTreeTest",
+        "ModelBasedTests",
+        "AssetAndLiabilityValuationTest",
+        "LiquidityAndCashFlowTest",
+        "RiskTest",
+        "SensitivityTest"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "ProductorServiceSpecification",
+        "operations": [
+          "Create",
+          "Execute",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "FunctionalRequirements",
+        "parent_control_record": "ProductorServiceSpecification",
+        "operations": [
+          "UpdateFunctionalRequirements",
+          "ExchangeFunctionalRequirements",
+          "CaptureFunctionalRequirements",
+          "RetrieveFunctionalRequirements",
+          "RequestFunctionalRequirements"
+        ]
+      },
+      {
+        "name": "Production",
+        "parent_control_record": "ProductorServiceSpecification",
+        "operations": [
+          "ExecuteProduction",
+          "RequestProduction",
+          "RetrieveProduction"
+        ]
+      },
+      {
+        "name": "Testing",
+        "parent_control_record": "ProductorServiceSpecification",
+        "operations": [
+          "UpdateTesting",
+          "RetrieveTesting",
+          "ExchangeTesting"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ProductDesign.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "feafdb1c21edeed2a075a68cd1596737242bafbfa65039b3c2e4504152f88318",
+    "retrieved_at": "2026-09-12T22:36:13.757142+00:00"
+  }
+}

@@ -1,0 +1,1255 @@
+{
+  "service_domain": "Contact Center Operations",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Create",
+      "method": "POST",
+      "path": "/ContactCenterOperations/Create",
+      "tipo": "CR",
+      "grupo": "ContactCenterAdministrativePlan",
+      "request_schema": "ContactCenterAdministrativePlan",
+      "response_schema": "ContactCenterAdministrativePlan",
+      "summary": "CrCR Create the administrative plan for the contact center",
+      "description": "CrCR Create the administrative plan for the contact center"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Update",
+      "tipo": "CR",
+      "grupo": "ContactCenterAdministrativePlan",
+      "request_schema": "ContactCenterAdministrativePlan",
+      "response_schema": "ContactCenterAdministrativePlan",
+      "summary": "UpCR Update aspects of the administrative plan",
+      "description": "UpCR Update aspects of the administrative plan"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Control",
+      "tipo": "CR",
+      "grupo": "ContactCenterAdministrativePlan",
+      "request_schema": "ContactCenterAdministrativePlan",
+      "response_schema": "ContactCenterAdministrativePlan",
+      "summary": "CoCR Control the execution of the contact center administrative plan",
+      "description": "CoCR Control the execution of the contact center administrative plan"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Execute",
+      "tipo": "CR",
+      "grupo": "ContactCenterAdministrativePlan",
+      "request_schema": "ContactCenterAdministrativePlan",
+      "response_schema": "ContactCenterAdministrativePlan",
+      "summary": "ExCR Execute an automated action against the plan",
+      "description": "ExCR Execute an automated action against the plan"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Request",
+      "tipo": "CR",
+      "grupo": "ContactCenterAdministrativePlan",
+      "request_schema": "ContactCenterAdministrativePlan",
+      "response_schema": "ContactCenterAdministrativePlan",
+      "summary": "RqCR Request manual intervention to the plan",
+      "description": "RqCR Request manual intervention to the plan"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "ContactCenterAdministrativePlan",
+      "request_schema": "",
+      "response_schema": "ContactCenterAdministrativePlan",
+      "summary": "ReCR Retrieve details about the execution of the administrative plan",
+      "description": "ReCR Retrieve details about the execution of the administrative plan"
+    },
+    {
+      "operation_id": "CreateAssignment",
+      "method": "POST",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Assignment/Create",
+      "tipo": "BQ",
+      "grupo": "Assignment",
+      "request_schema": "Assignment",
+      "response_schema": "Assignment",
+      "summary": "CrBQ Create an assignment request",
+      "description": "CrBQ Create an assignment request",
+      "parent_control_record": "ContactCenterAdministrativePlan"
+    },
+    {
+      "operation_id": "UpdateAssignment",
+      "method": "PUT",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Assignment/{assignmentid}/Update",
+      "tipo": "BQ",
+      "grupo": "Assignment",
+      "request_schema": "Assignment",
+      "response_schema": "Assignment",
+      "summary": "UpBQ Update details of a servicing representatives assignment",
+      "description": "UpBQ Update details of a servicing representatives assignment",
+      "parent_control_record": "ContactCenterAdministrativePlan"
+    },
+    {
+      "operation_id": "ControlAssignment",
+      "method": "PUT",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Assignment/{assignmentid}/Control",
+      "tipo": "BQ",
+      "grupo": "Assignment",
+      "request_schema": "Assignment",
+      "response_schema": "Assignment",
+      "summary": "CoBQ Control the servicing representatives assignment",
+      "description": "CoBQ Control the servicing representatives assignment",
+      "parent_control_record": "ContactCenterAdministrativePlan"
+    },
+    {
+      "operation_id": "RequestAssignment",
+      "method": "PUT",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Assignment/{assignmentid}/Request",
+      "tipo": "BQ",
+      "grupo": "Assignment",
+      "request_schema": "Assignment",
+      "response_schema": "Assignment",
+      "summary": "RqBQ Request changes to the servicing representative's assignment",
+      "description": "RqBQ Request changes to the servicing representative's assignment",
+      "parent_control_record": "ContactCenterAdministrativePlan"
+    },
+    {
+      "operation_id": "RetrieveAssignment",
+      "method": "GET",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Assignment/{assignmentid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Assignment",
+      "request_schema": "",
+      "response_schema": "Assignment",
+      "summary": "ReBQ Retrieve details about a contact center assignment",
+      "description": "ReBQ Retrieve details about a contact center assignment",
+      "parent_control_record": "ContactCenterAdministrativePlan"
+    },
+    {
+      "operation_id": "UpdatePeakLoad",
+      "method": "PUT",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/PeakLoad/{peakloadid}/Update",
+      "tipo": "BQ",
+      "grupo": "PeakLoad",
+      "request_schema": "PeakLoad",
+      "response_schema": "PeakLoad",
+      "summary": "UpBQ Update details or the response to a peak load situation",
+      "description": "UpBQ Update details or the response to a peak load situation",
+      "parent_control_record": "ContactCenterAdministrativePlan"
+    },
+    {
+      "operation_id": "RequestPeakLoad",
+      "method": "PUT",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/PeakLoad/{peakloadid}/Request",
+      "tipo": "BQ",
+      "grupo": "PeakLoad",
+      "request_schema": "PeakLoad",
+      "response_schema": "PeakLoad",
+      "summary": "RqBQ Request manual intervention due to peak loading",
+      "description": "RqBQ Request manual intervention due to peak loading",
+      "parent_control_record": "ContactCenterAdministrativePlan"
+    },
+    {
+      "operation_id": "RetrievePeakLoad",
+      "method": "GET",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/PeakLoad/{peakloadid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "PeakLoad",
+      "request_schema": "",
+      "response_schema": "PeakLoad",
+      "summary": "ReBQ Retrieve details about peak load response activity",
+      "description": "ReBQ Retrieve details about peak load response activity",
+      "parent_control_record": "ContactCenterAdministrativePlan"
+    },
+    {
+      "operation_id": "CreateTroubleshooting",
+      "method": "POST",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Troubleshooting/Create",
+      "tipo": "BQ",
+      "grupo": "Troubleshooting",
+      "request_schema": "Troubleshooting",
+      "response_schema": "Troubleshooting",
+      "summary": "CrBQ Create a troubleshooting response task",
+      "description": "CrBQ Create a troubleshooting response task",
+      "parent_control_record": "ContactCenterAdministrativePlan"
+    },
+    {
+      "operation_id": "UpdateTroubleshooting",
+      "method": "PUT",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Troubleshooting/{troubleshootingid}/Update",
+      "tipo": "BQ",
+      "grupo": "Troubleshooting",
+      "request_schema": "Troubleshooting",
+      "response_schema": "Troubleshooting",
+      "summary": "UpBQ Update aspects of a troubleshooting task",
+      "description": "UpBQ Update aspects of a troubleshooting task",
+      "parent_control_record": "ContactCenterAdministrativePlan"
+    },
+    {
+      "operation_id": "RequestTroubleshooting",
+      "method": "PUT",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Troubleshooting/{troubleshootingid}/Request",
+      "tipo": "BQ",
+      "grupo": "Troubleshooting",
+      "request_schema": "Troubleshooting",
+      "response_schema": "Troubleshooting",
+      "summary": "RqBQ request manual intervention in troubleshooting activity",
+      "description": "RqBQ request manual intervention in troubleshooting activity",
+      "parent_control_record": "ContactCenterAdministrativePlan"
+    },
+    {
+      "operation_id": "RetrieveTroubleshooting",
+      "method": "GET",
+      "path": "/ContactCenterOperations/{contactcenteroperationsid}/Troubleshooting/{troubleshootingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Troubleshooting",
+      "request_schema": "",
+      "response_schema": "Troubleshooting",
+      "summary": "ReBQ Retrieve details about troubleshooting activity",
+      "description": "ReBQ Retrieve details about troubleshooting activity",
+      "parent_control_record": "ContactCenterAdministrativePlan"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Address",
+    "Addresstypevalues",
+    "Amount",
+    "Amounttypevalues",
+    "Arrangement",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "Assignment",
+    "ContactCenterAdministrativePlan",
+    "Currencycode",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Industrycode",
+    "Involvedparty",
+    "Location",
+    "Name",
+    "Party",
+    "Partyidentification",
+    "Partyidentificationtypevalues",
+    "Partyinvolvementtypevalues",
+    "Partylegalstructuretypevalues",
+    "Partyrole",
+    "Partytypevalues",
+    "PeakLoad",
+    "Position",
+    "ProductionIssue",
+    "Profile",
+    "Schedule",
+    "Status",
+    "Subject",
+    "Task",
+    "Troubleshooting"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Address",
+      "kind": "object",
+      "description": "Reference to the locations the customer servicing representative can work from (can include remote working arrangements and time zone availability)",
+      "properties": [
+        {
+          "name": "AddressType",
+          "type": "object",
+          "ref": "Addresstypevalues"
+        },
+        {
+          "name": "AddressDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Addresstypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PostalAddress` - \r\n* `GeolocationAddress` - \r\n* `LatitudeAddress` - \r\n* `LongitudeAddress` - \r\n* `ElectronicAddress` - \r\n",
+      "enum_values": [
+        "PostalAddress",
+        "GeolocationAddress",
+        "LatitudeAddress",
+        "LongitudeAddress",
+        "ElectronicAddress"
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Arrangement",
+      "kind": "object",
+      "description": "The default contact center operational configuration as defined by Contact Center Management (Note this can include some latitude for position assignment changes to be made during day to day operations by this service domain)",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "Assignment",
+      "kind": "object",
+      "description": "A collection of one or more clerical routines that are to be followed to administer the operational unit/function\n\nExamples: Time-sheet recording",
+      "properties": [
+        {
+          "name": "AssignmentCustomerServicingRepresentative",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "AssignmentCustomerServicingPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "AssignmentCustomerServicingPositionProfile",
+          "type": "object",
+          "ref": "Profile"
+        },
+        {
+          "name": "AssignmentCustomerServicingPositionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CustomerContactSessionProcedureInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "ContactCenterAdministrativePlan",
+      "kind": "object",
+      "description": "Handle and assign the day to day activities, capture time, costs and income for an operational unit within Contact Center Operations. \n",
+      "properties": [
+        {
+          "name": "ContactCenterServiceOperatingConfiguration",
+          "type": "object",
+          "ref": "Arrangement"
+        },
+        {
+          "name": "CustomerServicingRepresentativeAllocationSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CustomerServicingRepresentativeReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerServicingRepresentativeRecord",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerServicingRepresentativeQualificationProfile",
+          "type": "object",
+          "ref": "Profile"
+        },
+        {
+          "name": "CustomerServicingRepresentativeLocation",
+          "type": "object",
+          "ref": "Address"
+        },
+        {
+          "name": "CustomerServicingRepresentativeAvailabilitySchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CustomerServicingRepresentativeStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "CustomerServicingRepresentativeAssignmentRecord",
+          "type": "object",
+          "ref": "Assignment"
+        }
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date on which the state of something is calculated",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "Reference to the customer contact record for customer interactions during the servicing session",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Industrycode",
+      "kind": "object",
+      "description": "Economical activity of Party (ISO20022)",
+      "properties": [
+        {
+          "name": "Industrycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to the servicing representative",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "Name (label) of the location. (ISO20022)",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Party",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PartyType",
+          "type": "object",
+          "ref": "Partytypevalues"
+        },
+        {
+          "name": "PartyDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Partyidentification"
+        },
+        {
+          "name": "PartyLegalStructureType",
+          "type": "object",
+          "ref": "Partylegalstructuretypevalues"
+        },
+        {
+          "name": "PartyActivityIndicator",
+          "type": "object",
+          "ref": "Industrycode"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyIdentificationType",
+          "type": "object",
+          "ref": "Partyidentificationtypevalues"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to an entity.\r\n* `Nationalregistrationnumber` - Number assigned by a national registration authority to an entity. In Singapore this is known as the NRIC. (ISO20022)\r\n* `Registrationauthorityidentification` - An identifier for the Legal Entity in a business registry in the jurisdiction of legal registration, or in the appropriate registration authority. (ISO20022)\r\n* `LEI(LegalEntityIdentifier)` - \r\n* `Alienregistrationnumber` - Number assigned by a government agency to identify foreign nationals.\r\n* `Passportnumber` - Number assigned by a passport authority.\r\n* `Taxexemptidentificationnumber` - Number assigned to a tax exempt entity.\r\n* `Corporateidentification` - Number assigned to a corporate entity.\r\n* `Driverlicensenumber` - Number assigned to a driver's license.\r\n* `Foreigninvestmentidentitynumber` - Number assigned to a foreign investor (other than the alien number).\r\n* `Socialsecuritynumber` - Number assigned by a social security agency.\r\n* `Identitycardnumber` - Number assigned by a national authority to an identity card.\r\n* `Concat` - Number assigned by an issuer to identify a customer via the concatenation of the birthdate and characters of the first name and surname.\r\n* `Nationalregistrationidentificationnumber` - National registration identification number. In Singapore this is known as the NRIC.\r\n",
+      "enum_values": [
+        "Taxidentificationnumber",
+        "Nationalregistrationnumber",
+        "Registrationauthorityidentification",
+        "LEI(LegalEntityIdentifier)",
+        "Alienregistrationnumber",
+        "Passportnumber",
+        "Taxexemptidentificationnumber",
+        "Corporateidentification",
+        "Driverlicensenumber",
+        "Foreigninvestmentidentitynumber",
+        "Socialsecuritynumber",
+        "Identitycardnumber",
+        "Concat",
+        "Nationalregistrationidentificationnumber"
+      ]
+    },
+    {
+      "name": "Partyinvolvementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `AgreementInvolvement` - \r\n* `PartyInvolvement` - \r\n* `ArrangementInvolvement` - \r\n* `DesignSpecificationInvolvement` - \r\n* `RelationshipInvolvement` - \r\n* `LocationInvolvement` - \r\n* `BankGuaranteeInvolvement` - \r\n",
+      "enum_values": [
+        "AgreementInvolvement",
+        "PartyInvolvement",
+        "ArrangementInvolvement",
+        "DesignSpecificationInvolvement",
+        "RelationshipInvolvement",
+        "LocationInvolvement",
+        "BankGuaranteeInvolvement"
+      ]
+    },
+    {
+      "name": "Partylegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Individual` - \r\n* `CommunityInterestCompany` - \r\n* `CharitableIncorporatedOrganisation` - \r\n* `Co-Operative` - \r\n* `Charity` - \r\n* `GeneralPartnership` - \r\n* `LimitedLiabilityPartnership` - \r\n* `ScottishLimitedPartnership` - \r\n* `LimitedPartnership` - \r\n* `PrivateLimitedCompany` - \r\n* `PublicLimitedCompany` - \r\n* `Sole(SoleTrader)` - \r\n",
+      "enum_values": [
+        "Individual",
+        "CommunityInterestCompany",
+        "CharitableIncorporatedOrganisation",
+        "Co-Operative",
+        "Charity",
+        "GeneralPartnership",
+        "LimitedLiabilityPartnership",
+        "ScottishLimitedPartnership",
+        "LimitedPartnership",
+        "PrivateLimitedCompany",
+        "PublicLimitedCompany",
+        "Sole(SoleTrader)"
+      ]
+    },
+    {
+      "name": "Partyrole",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyRoleType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartyRoleName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PartyRoleValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "PartyInvolvementType",
+          "type": "object",
+          "ref": "Partyinvolvementtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Partytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\r\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\r\n",
+      "enum_values": [
+        "Person",
+        "Organisation"
+      ]
+    },
+    {
+      "name": "PeakLoad",
+      "kind": "object",
+      "description": "A collection of one or more clerical routines that are to be followed to administer the operational unit/function\n\nExamples: Time-sheet recording",
+      "properties": [
+        {
+          "name": "ContactCenterServiceStatistics",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ContactCenterServiceStatisticType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PeakLoadResponseTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "PeakLoadResponseTaskType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PeakLoadResponseDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Position",
+      "kind": "object",
+      "description": "Reference to the assigned servicing position/desk within the contact center",
+      "properties": [
+        {
+          "name": "PositionValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PositionQuantity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PositionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PositionAmount",
+          "type": "object",
+          "ref": "Amount"
+        }
+      ]
+    },
+    {
+      "name": "ProductionIssue",
+      "kind": "object",
+      "description": "A record of any production issues arising during the session (see Advanced Voice Channel Operations for detailed content)",
+      "properties": [
+        {
+          "name": "ProductionIssueType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueDiagnosis",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueResolutionTask",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueStatus",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "kind": "object",
+      "description": "Details any specific properties for the assigned servicing position (e.g. type of product/service covered, required qualifications/certifications/experience)",
+      "properties": [
+        {
+          "name": "Profile",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "Planned and actual servicing activity at the position during the session (records inbound contact details and allows for pre-assigned servicing actions e.g. outbound customer contacts for issue resolution/sales)",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "The tracked status (e.g. under construction or repair, inhabited, vacant).",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "The task undertaken to address a detected peak load condition",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Troubleshooting",
+      "kind": "object",
+      "description": "A collection of one or more clerical routines that are to be followed to administer the operational unit/function\n\nExamples: Time-sheet recording",
+      "properties": [
+        {
+          "name": "ContactCenterProductionIssueRecord",
+          "type": "object",
+          "ref": "ProductionIssue"
+        },
+        {
+          "name": "ContactCenterIssueAnalysisAndRecommendedResponse",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "ContactCenterAdministrativePlan",
+        "operations": [
+          "Create",
+          "Update",
+          "Control",
+          "Execute",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Assignment",
+        "parent_control_record": "ContactCenterAdministrativePlan",
+        "operations": [
+          "CreateAssignment",
+          "UpdateAssignment",
+          "ControlAssignment",
+          "RequestAssignment",
+          "RetrieveAssignment"
+        ]
+      },
+      {
+        "name": "PeakLoad",
+        "parent_control_record": "ContactCenterAdministrativePlan",
+        "operations": [
+          "UpdatePeakLoad",
+          "RequestPeakLoad",
+          "RetrievePeakLoad"
+        ]
+      },
+      {
+        "name": "Troubleshooting",
+        "parent_control_record": "ContactCenterAdministrativePlan",
+        "operations": [
+          "CreateTroubleshooting",
+          "UpdateTroubleshooting",
+          "RequestTroubleshooting",
+          "RetrieveTroubleshooting"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ContactCenterOperations.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "83ffa4b72bebe3b8163e51d9b94f9f5cb2d062a1db1729a6bc70655ab533af1d",
+    "retrieved_at": "2026-09-12T22:37:21.800748+00:00"
+  }
+}

@@ -1,0 +1,936 @@
+{
+  "service_domain": "Financial Gateway",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/FinancialGateway/Initiate",
+      "tipo": "CR",
+      "grupo": "FinancialGatewayOperatingSession",
+      "request_schema": "FinancialGatewayOperatingSession",
+      "response_schema": "FinancialGatewayOperatingSession",
+      "summary": "InCR Initiate the financial gateway service session",
+      "description": "InCR Initiate the financial gateway service session"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/FinancialGateway/{financialgatewayid}/Update",
+      "tipo": "CR",
+      "grupo": "FinancialGatewayOperatingSession",
+      "request_schema": "FinancialGatewayOperatingSession",
+      "response_schema": "FinancialGatewayOperatingSession",
+      "summary": "UpCR Update the gateway service details",
+      "description": "UpCR Update the gateway service details"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/FinancialGateway/{financialgatewayid}/Control",
+      "tipo": "CR",
+      "grupo": "FinancialGatewayOperatingSession",
+      "request_schema": "FinancialGatewayOperatingSession",
+      "response_schema": "FinancialGatewayOperatingSession",
+      "summary": "CoCR Control the service session",
+      "description": "CoCR Control the service session"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/FinancialGateway/{financialgatewayid}/Request",
+      "tipo": "CR",
+      "grupo": "FinancialGatewayOperatingSession",
+      "request_schema": "FinancialGatewayOperatingSession",
+      "response_schema": "FinancialGatewayOperatingSession",
+      "summary": "RqCR Report an issue with the production service",
+      "description": "RqCR Report an issue with the production service"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/FinancialGateway/{financialgatewayid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "FinancialGatewayOperatingSession",
+      "request_schema": "",
+      "response_schema": "FinancialGatewayOperatingSession",
+      "summary": "ReCR Retrieve details and statistics relating to a session",
+      "description": "ReCR Retrieve details and statistics relating to a session"
+    },
+    {
+      "operation_id": "InitiateInbound",
+      "method": "POST",
+      "path": "/FinancialGateway/{financialgatewayid}/Inbound/Initiate",
+      "tipo": "BQ",
+      "grupo": "Inbound",
+      "request_schema": "Inbound",
+      "response_schema": "Inbound",
+      "summary": "InBQ Initiate inbound financial message handling",
+      "description": "InBQ Initiate inbound financial message handling",
+      "parent_control_record": "FinancialGatewayOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveInbound",
+      "method": "GET",
+      "path": "/FinancialGateway/{financialgatewayid}/Inbound/{inboundid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Inbound",
+      "request_schema": "",
+      "response_schema": "Inbound",
+      "summary": "ReBQ Retrieve details about an inbound financial message",
+      "description": "ReBQ Retrieve details about an inbound financial message",
+      "parent_control_record": "FinancialGatewayOperatingSession"
+    },
+    {
+      "operation_id": "InitiateOutbound",
+      "method": "POST",
+      "path": "/FinancialGateway/{financialgatewayid}/Outbound/Initiate",
+      "tipo": "BQ",
+      "grupo": "Outbound",
+      "request_schema": "Outbound",
+      "response_schema": "Outbound",
+      "summary": "InBQ Initiate outbound financial message handling",
+      "description": "InBQ Initiate outbound financial message handling",
+      "parent_control_record": "FinancialGatewayOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveOutbound",
+      "method": "GET",
+      "path": "/FinancialGateway/{financialgatewayid}/Outbound/{outboundid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Outbound",
+      "request_schema": "",
+      "response_schema": "Outbound",
+      "summary": "ReBQ Retrieve details about an outbound financial message",
+      "description": "ReBQ Retrieve details about an outbound financial message",
+      "parent_control_record": "FinancialGatewayOperatingSession"
+    }
+  ],
+  "schemas": [
+    "Assessment",
+    "Assessmenttypevalues",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Document",
+    "Documentdatetimetypevalues",
+    "FinancialGatewayOperatingSession",
+    "Financialdocumenttypevalues",
+    "HTTPError",
+    "Identifier",
+    "Inbound",
+    "Involvedparty",
+    "Message",
+    "Messagetypevalues",
+    "Model",
+    "Name",
+    "Outbound",
+    "ProductionIssue",
+    "Report",
+    "Reporttypevalues",
+    "Requirement",
+    "Schedule",
+    "Servicetypevalues",
+    "SessionIssue",
+    "Status",
+    "Task"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Assessment",
+      "kind": "object",
+      "description": "Evaluation of the event cause and impact assessment",
+      "properties": [
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Assessmenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Valuation` - \r\n* `Matching` - \r\n* `Authorization` - An evaluation whether a party or system is allowed to do something.\n\nThe consent given by a participant (or a third party acting on behalf of that participant) in order to transfer funds or securities. (ECB)\n\nAuthorization is a mechanism by which a computer system determines whether to allow or deny specific action to a user. Authorization is often controlled by rather complex rules and algorithms, usually specified as part of an access control model. Authorization often follows (and required) authentication, however, authentication and authorization are two separate mechanisms. In rare cases, \"authorization\" is understood as a process of allowing access, granting permissions or giving approval. Such as \"authorization\" of a request to join a group. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `Authentication` - An evaluation whether a party or system is what it claims to be.\n\nA security mechanism for verifying: 1) the identity of an individual or other entity (including verification by means of a computer or computer application); and 2) the level of authority of that person or entity (i.e. the ability of that person or entity to perform specific tasks or activities). (ECB)\n\nAuthentication is a mechanism by which a computer system checks that the user is really the one she or he claims to be. Authentication can be implemented by a broad variety of mechanisms broadly divided into three categories: something you know, something you have, something you are. Traditionally, authentication is done by the means of by username and password. Authentication is often followed by authorization, however, authentication and authorization are two separate mechanisms. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `QualityAssurance` - \r\n* `Audit` - \r\n* `ComplianceCheck` - \r\n* `FundingCheck` - \r\n* `SuitabilityCheck` - \r\n* `PerformanceCheck` - \r\n* `ImpactAssessment` - \r\n* `RiskAssessment` - \r\n* `Rating` - \r\n* `UnderwritingAssessment` - \r\n* `Qualification` - \r\n* `Verification` - A process establishing that a particular information is correct, while the meaning of \"information\" and \"correct\" varies from context to context. When dealing with identity information, this usually means formal verification of identity attributes, checking the schema, identifier uniqueness and referential integrity. However, verification may mean deeper verification, such as checking that the information is true and up-to-date.  (ISO/IEC 24760-1:2019 - IT Security and Privacy)\n\r\n* `KYCAssessment` - An assessment conducted by businesses and financial institutions to verify and confirm the identity of their customers or clients. The primary purpose of a KYC check is to prevent illegal activities, such as money laundering, terrorist financing, and fraud, by ensuring that customers are who they claim to be.\r\n* `PEPAssessment` - A PEP check, or \"Politically Exposed Person\" check, is an assessment conducted by used by businesses, financial institutions, and government agencies to identify individuals who hold prominent public positions or have significant political influence. The purpose of a PEP check is to assess and manage the potential risks associated with doing business with these individuals, as they may be more susceptible to corruption, money laundering, or other illicit activities.\r\n* `AMLAssessment` - An AML (Anti-Money Laundering) check is an assessment conducted by businesses, financial institutions, and other organizations to prevent and detect money laundering and the financing of criminal activities. The main purpose of an AML check is to ensure that financial transactions and business relationships are not being used to disguise the illegal origins of funds.\r\n* `EligibilityCheck` - Determines whether a person or case meets the criteria or preconditions to qualify for a benefit, service, or action.\r\n* `ExternalAgencyCheck` - \r\n* `EntitlementCheck` - Determines what benefit, amount, or service the person is actually entitled to receive once eligibility is confirmed.\r\n",
+      "enum_values": [
+        "Valuation",
+        "Matching",
+        "Authorization",
+        "Authentication",
+        "QualityAssurance",
+        "Audit",
+        "ComplianceCheck",
+        "FundingCheck",
+        "SuitabilityCheck",
+        "PerformanceCheck",
+        "ImpactAssessment",
+        "RiskAssessment",
+        "Rating",
+        "UnderwritingAssessment",
+        "Qualification",
+        "Verification",
+        "KYCAssessment",
+        "PEPAssessment",
+        "AMLAssessment",
+        "EligibilityCheck",
+        "ExternalAgencyCheck",
+        "EntitlementCheck"
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date when the assessment expires. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "Date and time at which the status was assigned.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Document that provides background or corroborating information regarding an assessment(s).",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "FinancialGatewayOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within Financial Gateway. ",
+      "properties": [
+        {
+          "name": "FinancialGatewayServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "FinancialGatewayServiceSessionStatistics",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FinancialGatewayServiceSessionReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "FinancialGatewayServiceSessionReport",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "FinancialGatewayServiceSessionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "FinancialGatewayServiceSessionIssueRecord",
+          "type": "object",
+          "ref": "SessionIssue"
+        },
+        {
+          "name": "EmployeeorBusinessUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "MessageReference",
+          "type": "object",
+          "ref": "Message"
+        },
+        {
+          "name": "ProductionIssueType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueDiagnosis",
+          "type": "object",
+          "ref": "Assessment"
+        },
+        {
+          "name": "ProductionIssueResolutionTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ProductionIssueRecord",
+          "type": "object",
+          "ref": "ProductionIssue"
+        },
+        {
+          "name": "ProductionIssueStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of a Document.",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Inbound",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "FinancialGatewayInboundMessageType",
+          "type": "object",
+          "ref": "Messagetypevalues"
+        },
+        {
+          "name": "FinancialGatewayInboundMessageRecord",
+          "type": "object",
+          "ref": "Message"
+        },
+        {
+          "name": "FinancialGatewayInboundMessageReceiver",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "FinancialGatewayInboundMessageStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Message",
+      "kind": "object",
+      "description": "The message content in any suitable format",
+      "properties": [
+        {
+          "name": "MessageType",
+          "type": "object",
+          "ref": "Messagetypevalues"
+        },
+        {
+          "name": "MessageContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MessageDeliveryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Messagetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialMessage` - \r\n* `NonFinancialMessage` - \r\n* `InboundMessage` - \r\n* `OutboundMessage` - \r\n",
+      "enum_values": [
+        "FinancialMessage",
+        "NonFinancialMessage",
+        "InboundMessage",
+        "OutboundMessage"
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Outbound",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "FinancialGatewayOutboundMessageType",
+          "type": "object",
+          "ref": "Messagetypevalues"
+        },
+        {
+          "name": "FinancialGatewayOutboundMessageRecord",
+          "type": "object",
+          "ref": "Message"
+        },
+        {
+          "name": "FinancialGatewayOutboundMessageSender",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "FinancialGatewayOutboundMessageReceiver",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "FinancialGatewayOutboundMessageStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "ProductionIssue",
+      "kind": "object",
+      "description": "Details of the issue, response and interested parties logged for reference",
+      "properties": [
+        {
+          "name": "ProductionIssueType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueDiagnosis",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueResolutionTask",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueStatus",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Report",
+      "kind": "object",
+      "description": "The session activity report",
+      "properties": [
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "SessionIssue",
+      "kind": "object",
+      "description": "A record of any production issues arising during the gateway session",
+      "properties": [
+        {
+          "name": "SessionEventyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SessionEventDateTime",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "Description of corrective action proposed and taken",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "FinancialGatewayOperatingSession",
+        "operations": [
+          "Initiate",
+          "Update",
+          "Control",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Inbound",
+        "parent_control_record": "FinancialGatewayOperatingSession",
+        "operations": [
+          "InitiateInbound",
+          "RetrieveInbound"
+        ]
+      },
+      {
+        "name": "Outbound",
+        "parent_control_record": "FinancialGatewayOperatingSession",
+        "operations": [
+          "InitiateOutbound",
+          "RetrieveOutbound"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/FinancialGateway.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "ec1a419c01828d302454842173f205f7cf8604d5c327904bf5439c3881496420",
+    "retrieved_at": "2026-09-12T21:54:51.985401+00:00"
+  }
+}

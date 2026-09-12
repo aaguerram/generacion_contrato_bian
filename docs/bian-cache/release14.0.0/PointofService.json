@@ -1,0 +1,1889 @@
+{
+  "service_domain": "Point of Service",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/Update",
+      "tipo": "CR",
+      "grupo": "PointofServiceOperatingSession",
+      "request_schema": "PointofServiceOperatingSession",
+      "response_schema": "PointofServiceOperatingSession",
+      "summary": "UpCR Update details for a point of service session",
+      "description": "UpCR Update details for a point of service session"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/PointofService/Initiate",
+      "tipo": "CR",
+      "grupo": "PointofServiceOperatingSession",
+      "request_schema": "PointofServiceOperatingSession",
+      "response_schema": "PointofServiceOperatingSession",
+      "summary": "InCR Initiate a point of service session",
+      "description": "InCR Initiate a point of service session"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/Control",
+      "tipo": "CR",
+      "grupo": "PointofServiceOperatingSession",
+      "request_schema": "PointofServiceOperatingSession",
+      "response_schema": "PointofServiceOperatingSession",
+      "summary": "CoCR Control a point of service session (e.g. suspend)",
+      "description": "CoCR Control a point of service session (e.g. suspend)"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/Execute",
+      "tipo": "CR",
+      "grupo": "PointofServiceOperatingSession",
+      "request_schema": "PointofServiceOperatingSession",
+      "response_schema": "PointofServiceOperatingSession",
+      "summary": "ExCR Execute an automated task (e.g. assign a contact)",
+      "description": "ExCR Execute an automated task (e.g. assign a contact)"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/Request",
+      "tipo": "CR",
+      "grupo": "PointofServiceOperatingSession",
+      "request_schema": "PointofServiceOperatingSession",
+      "response_schema": "PointofServiceOperatingSession",
+      "summary": "RqCR Request manual intervention (e.g. book future time)",
+      "description": "RqCR Request manual intervention (e.g. book future time)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/PointofService/{pointofserviceid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "PointofServiceOperatingSession",
+      "request_schema": "",
+      "response_schema": "PointofServiceOperatingSession",
+      "summary": "ReCR Retrieve details about a servicing position session",
+      "description": "ReCR Retrieve details about a servicing position session"
+    },
+    {
+      "operation_id": "UpdateAssisted",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/Assisted/{assistedid}/Update",
+      "tipo": "BQ",
+      "grupo": "Assisted",
+      "request_schema": "Assisted",
+      "response_schema": "Assisted",
+      "summary": "UpBQ Update details about an assisted contact",
+      "description": "UpBQ Update details about an assisted contact",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "ControlAssisted",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/Assisted/{assistedid}/Control",
+      "tipo": "BQ",
+      "grupo": "Assisted",
+      "request_schema": "Assisted",
+      "response_schema": "Assisted",
+      "summary": "CoBQ Control an assisted contact (e.g. terminate)",
+      "description": "CoBQ Control an assisted contact (e.g. terminate)",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "InitiateAutomated",
+      "method": "POST",
+      "path": "/PointofService/{pointofserviceid}/Automated/Initiate",
+      "tipo": "BQ",
+      "grupo": "Automated",
+      "request_schema": "Automated",
+      "response_schema": "Automated",
+      "summary": "InBQ Initiate an automated contact",
+      "description": "InBQ Initiate an automated contact",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveAssisted",
+      "method": "GET",
+      "path": "/PointofService/{pointofserviceid}/Assisted/{assistedid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Assisted",
+      "request_schema": "",
+      "response_schema": "Assisted",
+      "summary": "ReBQ Retrieve details about an assisted contact",
+      "description": "ReBQ Retrieve details about an assisted contact",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "InitiateAssisted",
+      "method": "POST",
+      "path": "/PointofService/{pointofserviceid}/Assisted/Initiate",
+      "tipo": "BQ",
+      "grupo": "Assisted",
+      "request_schema": "Assisted",
+      "response_schema": "Assisted",
+      "summary": "InBQ Initiate an assisted contact",
+      "description": "InBQ Initiate an assisted contact",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "UpdateAutomated",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/Automated/{automatedid}/Update",
+      "tipo": "BQ",
+      "grupo": "Automated",
+      "request_schema": "Automated",
+      "response_schema": "Automated",
+      "summary": "UpBQ Update details about an automated contact",
+      "description": "UpBQ Update details about an automated contact",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "ControlAutomated",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/Automated/{automatedid}/Control",
+      "tipo": "BQ",
+      "grupo": "Automated",
+      "request_schema": "Automated",
+      "response_schema": "Automated",
+      "summary": "CoBQ Control an automated contact (e.g. terminate)",
+      "description": "CoBQ Control an automated contact (e.g. terminate)",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveAutomated",
+      "method": "GET",
+      "path": "/PointofService/{pointofserviceid}/Automated/{automatedid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Automated",
+      "request_schema": "",
+      "response_schema": "Automated",
+      "summary": "ReBQ Retrieve details about an automated contact",
+      "description": "ReBQ Retrieve details about an automated contact",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "UpdateInteraction",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/Interaction/{interactionid}/Update",
+      "tipo": "BQ",
+      "grupo": "Interaction",
+      "request_schema": "Interaction",
+      "response_schema": "Interaction",
+      "summary": "UpBQ Update details for a customer interaction session",
+      "description": "UpBQ Update details for a customer interaction session",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "ControlInteraction",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/Interaction/{interactionid}/Control",
+      "tipo": "BQ",
+      "grupo": "Interaction",
+      "request_schema": "Interaction",
+      "response_schema": "Interaction",
+      "summary": "CoBQ Control a customer interaction (e.g. suspend)",
+      "description": "CoBQ Control a customer interaction (e.g. suspend)",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveInteraction",
+      "method": "GET",
+      "path": "/PointofService/{pointofserviceid}/Interaction/{interactionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Interaction",
+      "request_schema": "",
+      "response_schema": "Interaction",
+      "summary": "ReBQ Retrieve details about a customer interaction session",
+      "description": "ReBQ Retrieve details about a customer interaction session",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveInventory",
+      "method": "GET",
+      "path": "/PointofService/{pointofserviceid}/Inventory/{inventoryid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Inventory",
+      "request_schema": "",
+      "response_schema": "Inventory",
+      "summary": "ReBQ Retrieve details about inventory holdings and usage",
+      "description": "ReBQ Retrieve details about inventory holdings and usage",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteInventory",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/Inventory/{inventoryid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Inventory",
+      "request_schema": "Inventory",
+      "response_schema": "Inventory",
+      "summary": "ExBQ Execute transactions against the inventory position",
+      "description": "ExBQ Execute transactions against the inventory position",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "UpdateCashPosition",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/CashPosition/{cashpositionid}/Update",
+      "tipo": "BQ",
+      "grupo": "CashPosition",
+      "request_schema": "CashPosition",
+      "response_schema": "CashPosition",
+      "summary": "UpBQ Update the cash position",
+      "description": "UpBQ Update the cash position",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "UpdateInventory",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/Inventory/{inventoryid}/Update",
+      "tipo": "BQ",
+      "grupo": "Inventory",
+      "request_schema": "Inventory",
+      "response_schema": "Inventory",
+      "summary": "UpBQ Update inventory details",
+      "description": "UpBQ Update inventory details",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteCashPosition",
+      "method": "PUT",
+      "path": "/PointofService/{pointofserviceid}/CashPosition/{cashpositionid}/Execute",
+      "tipo": "BQ",
+      "grupo": "CashPosition",
+      "request_schema": "CashPosition",
+      "response_schema": "CashPosition",
+      "summary": "ExBQ Execute transactions against the cash position",
+      "description": "ExBQ Execute transactions against the cash position",
+      "parent_control_record": "PointofServiceOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveCashPosition",
+      "method": "GET",
+      "path": "/PointofService/{pointofserviceid}/CashPosition/{cashpositionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "CashPosition",
+      "request_schema": "",
+      "response_schema": "CashPosition",
+      "summary": "ReBQ Retrieve details about the cash inventory",
+      "description": "ReBQ Retrieve details about the cash inventory",
+      "parent_control_record": "PointofServiceOperatingSession"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Address",
+    "Addresstypevalues",
+    "Agreementstatus",
+    "Agreementstatustypevalues",
+    "Agreementtypevalues",
+    "Amount",
+    "Amounttypevalues",
+    "Arrangement",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "Assisted",
+    "Automated",
+    "BusinessUnit",
+    "CashPosition",
+    "Currencycode",
+    "CustomerContact",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Device",
+    "Deviceidentification",
+    "Deviceidentificationtypevalues",
+    "Deviceoperatingsystemtypevalues",
+    "Devicetypevalues",
+    "FinancialFacility",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Interaction",
+    "Inventory",
+    "Involvedparty",
+    "Location",
+    "Name",
+    "Organisationdatetime",
+    "Organisationdatetimetypevalues",
+    "Organisationidentification",
+    "Organisationidentificationtypevalues",
+    "Organisationlegalstructuretypevalues",
+    "Organisationname",
+    "Organisationnametypevalues",
+    "Organisationtypevalues",
+    "PointofServiceOperatingSession",
+    "Position",
+    "Positiontypevalues",
+    "ProductAgreement",
+    "Productagreementtypevalues",
+    "Report",
+    "Reporttypevalues",
+    "Schedule",
+    "Status",
+    "Subject",
+    "Transaction",
+    "Transactiondatetime",
+    "Transactiondatetimetypevalues",
+    "Transactionstatus",
+    "Transactionstatustypevalues",
+    "Transactiontypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Action",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Address",
+      "kind": "object",
+      "description": "The physical address/location of the position, branch reference etc.",
+      "properties": [
+        {
+          "name": "AddressType",
+          "type": "object",
+          "ref": "Addresstypevalues"
+        },
+        {
+          "name": "AddressDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Addresstypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PostalAddress` - \r\n* `GeolocationAddress` - \r\n* `LatitudeAddress` - \r\n* `LongitudeAddress` - \r\n* `ElectronicAddress` - \r\n",
+      "enum_values": [
+        "PostalAddress",
+        "GeolocationAddress",
+        "LatitudeAddress",
+        "LongitudeAddress",
+        "ElectronicAddress"
+      ]
+    },
+    {
+      "name": "Agreementstatus",
+      "kind": "object",
+      "description": "A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).",
+      "properties": [
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AgreementStatusType",
+          "type": "object",
+          "ref": "Agreementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Agreementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Offered` - \r\n* `Confirmed` - \r\n* `Completed` - \r\n* `Signed` - \r\n* `Terminated` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Offered",
+        "Confirmed",
+        "Completed",
+        "Signed",
+        "Terminated",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Agreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerAgreement` - \r\n* `SupplierAgreement` - \r\n* `BrokerAgreement` - \r\n* `SalesAgreement` - \r\n* `PurchaseAgreement` - \r\n* `MaintenanceAgreement` - \r\n* `ProductAgreement` - \r\n* `ResourceAgreement` - \r\n* `PartnerAgreement` - \r\n* `MasterAgreement` - \r\n* `BilateralAgreement` - \r\n* `RepurchaseAgreement` - \r\n",
+      "enum_values": [
+        "CustomerAgreement",
+        "SupplierAgreement",
+        "BrokerAgreement",
+        "SalesAgreement",
+        "PurchaseAgreement",
+        "MaintenanceAgreement",
+        "ProductAgreement",
+        "ResourceAgreement",
+        "PartnerAgreement",
+        "MasterAgreement",
+        "BilateralAgreement",
+        "RepurchaseAgreement"
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Arrangement",
+      "kind": "object",
+      "description": "Defines how the servicing position is set-up in terms of supporting functions and application connections",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "Assisted",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "EmployeeorBusinessUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerContactReference",
+          "type": "object",
+          "ref": "CustomerContact"
+        }
+      ]
+    },
+    {
+      "name": "Automated",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "BusinessUnitReference",
+          "type": "object",
+          "ref": "BusinessUnit"
+        }
+      ]
+    },
+    {
+      "name": "BusinessUnit",
+      "kind": "object",
+      "description": "The business unit responsible for the automated service",
+      "properties": [
+        {
+          "name": "BusinessFunction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Goal",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationStructureHierarchy",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Organisationidentification"
+        },
+        {
+          "name": "OrganisationSector",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalEntityIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationDate",
+          "type": "object",
+          "ref": "Organisationdatetime"
+        },
+        {
+          "name": "OrganisationType",
+          "type": "object",
+          "ref": "Organisationtypevalues"
+        },
+        {
+          "name": "OrganisationName",
+          "type": "object",
+          "ref": "Organisationname"
+        },
+        {
+          "name": "OrganisationLegalStructure",
+          "type": "object",
+          "ref": "Organisationlegalstructuretypevalues"
+        }
+      ]
+    },
+    {
+      "name": "CashPosition",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "ServicingCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "ServicingCashHoldingRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServicingCashTransactionReference",
+          "type": "object",
+          "ref": "Transaction"
+        },
+        {
+          "name": "ServicingCashTransactionRecord",
+          "type": "object",
+          "ref": "Transaction"
+        },
+        {
+          "name": "ProductInstanceReference",
+          "type": "object",
+          "ref": "ProductAgreement"
+        }
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "The currency being tracked",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CustomerContact",
+      "kind": "object",
+      "description": "Reference to the contact record reference for the serviced customer",
+      "properties": [
+        {
+          "name": "CustomerContactType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CustomerContactLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "CustomerContactSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CustomerContactResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactDevice",
+          "type": "object",
+          "ref": "Device"
+        },
+        {
+          "name": "CustomerContactIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date on which the agreement was signed by all parties. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Device",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Deviceidentification"
+        },
+        {
+          "name": "DeviceType",
+          "type": "object",
+          "ref": "Devicetypevalues"
+        },
+        {
+          "name": "DeviceProperty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceElement",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DeviceVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DeviceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DeviceLanguage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DevicePhoneNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceLocationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceManufacturer",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceCountryReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceAddressReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceOperatingSystem",
+          "type": "object",
+          "ref": "Deviceoperatingsystemtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Deviceidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DeviceIdentificationType",
+          "type": "object",
+          "ref": "Deviceidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Deviceidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `IMEI` - International Mobile Equipment Identity.\r\n* `Serialnumber` - Device serial number.\r\n* `Secureelementidentification` - Secure element ID.\r\n* `Othernational` - Other nationally assigned code.\r\n* `Otherprivate` - Other privately assigned code.\r\n",
+      "enum_values": [
+        "IMEI",
+        "Serialnumber",
+        "Secureelementidentification",
+        "Othernational",
+        "Otherprivate"
+      ]
+    },
+    {
+      "name": "Deviceoperatingsystemtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Android` - Android operating system.\r\n* `Ios` - iOS operating system.\r\n* `Windows` - Windows operating system.\r\n* `Blackberry` - Blackberry operating system.\r\n* `Tizen` - Tizen operating system.\r\n* `Othernational` - Other nationally defined code.\r\n* `Otherprivate` - Other privately defined code.\r\n",
+      "enum_values": [
+        "Android",
+        "Ios",
+        "Windows",
+        "Blackberry",
+        "Tizen",
+        "Othernational",
+        "Otherprivate"
+      ]
+    },
+    {
+      "name": "Devicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Securecardreader` - Secure card reader attached to the customer device\r\n* `Nonsecurecardreader` - Non-secure card reader attached to the customer device.\r\n* `Mobile` - Mobile phone\r\n* `Tablet` - Tablet\r\n* `Personalcomputer` - Personal computer\r\n* `Othernational` - Other device defined at national level\r\n* `Otherprivate` - Other device defined in a private way.\r\n* `Wearable` - Wearable device.\r\n* `Vehicle` - Vehicle.\r\n* `Embedded` - Embedded in a device.\r\n* `Keyfob` - Key Fob\r\n* `Jewellery` - Jewellery\r\n* `Sticker` - Sticker\r\n* `Gamingdevice` - Gaming Device\r\n* `Watch` - Watch\r\n* `Unknown` - Device type unknown\r\n* `BiometricDevice` - A biometric device is a security identification and authentication device. Such devices use automated methods of verifying or recognising the identity of a living person based on a physiological or behavioral characteristic.\nhttps://en.wikipedia.org/wiki/Biometric_device\n\r\n",
+      "enum_values": [
+        "Securecardreader",
+        "Nonsecurecardreader",
+        "Mobile",
+        "Tablet",
+        "Personalcomputer",
+        "Othernational",
+        "Otherprivate",
+        "Wearable",
+        "Vehicle",
+        "Embedded",
+        "Keyfob",
+        "Jewellery",
+        "Sticker",
+        "Gamingdevice",
+        "Watch",
+        "Unknown",
+        "BiometricDevice"
+      ]
+    },
+    {
+      "name": "FinancialFacility",
+      "kind": "object",
+      "description": "Reference to the facilities and applications available/supporting the POS  (e.g. customer servicing, FX, teller services, commissions)",
+      "properties": [
+        {
+          "name": "FinancialFacility",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of a transaction.",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Interaction",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "CustomerSessionDialogueReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Inventory",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "ServicingInventoryType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServicingPositionInventoryRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServicingInventoryTransactionRecord",
+          "type": "object",
+          "ref": "Transaction"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of transaction.",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisatioDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "OrganisatioDateType",
+          "type": "object",
+          "ref": "Organisationdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `RegistrationDate` - Date and time at which a given organisation was officially registered. (ISO20022)\r\n* `EstablishmentDate` - Date when the organisation was established. ISO20022\r\n* `EntityExpirationDate` - The date the Legal Entity ceased operation or was merged. ISO20022\r\n",
+      "enum_values": [
+        "RegistrationDate",
+        "EstablishmentDate",
+        "EntityExpirationDate"
+      ]
+    },
+    {
+      "name": "Organisationidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisationIdentificationType",
+          "type": "object",
+          "ref": "Organisationidentificationtypevalues"
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Organisationidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LEI` - Legal Entity Identifier is a code allocated to a party as described in ISO 17442 \"Financial Services - Legal Entity Identifier (LEI)\".\r\n* `ELF` - Entity Legal Forms is a code allocated to a party as described in ISO 20275 \"Financial services  Entity legal forms (ELF)\". \r\n* `MIC` - Market Identifier Code. Identification of a financial market, as stipulated in the norm ISO 10383 \"Codes for exchanges and market identifications\".\r\n* `BICFI` - Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 \"Banking - Banking telecommunication messages - Business identifier code (BIC)\".\r\n* `Bankpartyidentification` - Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client.\r\n* `Centralbankidentificationnumber` - A unique identification number assigned by a central bank to identify an organisation.\r\n* `Clearingidentificationnumber` - A unique identification number assigned by a clearing house to identify an organisation\r\n* `Certificateofincorporationnumber` - A unique identification number assigned by a designated authority to a certificate of incorporation and used to identify an organisation.\r\n* `Countryidentificationcode` - Country authority given organisation identification (e.g., corporate registration number)\r\n* `Customernumber` - Number assigned by an issuer to identify a customer.\nNumber assigned by a party to identify a creditor or debtor relationship.\r\n* `Datauniversalnumberingsystem` - A unique identification number provided by Dun & Bradstreet to identify an organisation.\r\n* `Employeridentificationnumber` - Number assigned by a registration authority to an employer.\r\n* `Gs1glnidentifier` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to GS1 numbering scheme rules.The number is used to retrieve detailed information that is linked to it.\r\n* `SIREN` - The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France.\r\n* `SIRET` - The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to identify an organisation.\r\n* `EANGLN` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to the European Association for Numbering (EAN) numbering scheme rules. The number is used to retrieve detailed information that is linked to it. (iso20022)\r\n",
+      "enum_values": [
+        "LEI",
+        "ELF",
+        "MIC",
+        "BICFI",
+        "Bankpartyidentification",
+        "Centralbankidentificationnumber",
+        "Clearingidentificationnumber",
+        "Certificateofincorporationnumber",
+        "Countryidentificationcode",
+        "Customernumber",
+        "Datauniversalnumberingsystem",
+        "Employeridentificationnumber",
+        "Gs1glnidentifier",
+        "SIREN",
+        "SIRET",
+        "Taxidentificationnumber",
+        "EANGLN"
+      ]
+    },
+    {
+      "name": "Organisationlegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Corporation` - Legal structure is a corporation.\r\n* `Individual` - Legal structure is an individual.\r\n* `Supranational` - Legal structure is a supranational.\r\n* `Sovereign` - Legal structure is a sovereign.\r\n* `Municipal` - Legal structure is a municipal.\r\n* `Province` - Legal structure is a province.\r\n* `State` - Legal structure is a state.\r\n* `County` - Legal structure is a county.\r\n* `Partnership` - Legal structure is a partnership.\r\n* `Financialinstitution` - Legal structure is a financial institution.\r\n* `National` - Legal structure is a state.\r\n",
+      "enum_values": [
+        "Corporation",
+        "Individual",
+        "Supranational",
+        "Sovereign",
+        "Municipal",
+        "Province",
+        "State",
+        "County",
+        "Partnership",
+        "Financialinstitution",
+        "National"
+      ]
+    },
+    {
+      "name": "Organisationname",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "NameType",
+          "type": "object",
+          "ref": "Organisationnametypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationnametypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ShortName` - \r\n* `TradingName` - \r\n* `LegalName` - \r\n",
+      "enum_values": [
+        "ShortName",
+        "TradingName",
+        "LegalName"
+      ]
+    },
+    {
+      "name": "Organisationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LegalEntity` - \r\n* `Authority` - \r\n* `OrganisationUnit` - \r\n* `FinancialInstitution` - \r\n* `Charity` - \r\n* `GovernmentBody` - \r\n",
+      "enum_values": [
+        "LegalEntity",
+        "Authority",
+        "OrganisationUnit",
+        "FinancialInstitution",
+        "Charity",
+        "GovernmentBody"
+      ]
+    },
+    {
+      "name": "PointofServiceOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within Point of Service. ",
+      "properties": [
+        {
+          "name": "ServicingPositionConfigurationSet-up",
+          "type": "object",
+          "ref": "Arrangement"
+        },
+        {
+          "name": "ServicingPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "ServicingPositionType",
+          "type": "object",
+          "ref": "Positiontypevalues"
+        },
+        {
+          "name": "ServicingPositionLocation",
+          "type": "object",
+          "ref": "Address"
+        },
+        {
+          "name": "ServicingPositionFacilityType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServicingPositionFacilityReference",
+          "type": "object",
+          "ref": "FinancialFacility"
+        },
+        {
+          "name": "ServicingPositionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "ServicingPositionActivityReport",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "ServicingPositionOperatingSessionStatistics",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServicingPositionOperatingSessionReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ServicingPositionOperatingSessionReport",
+          "type": "object",
+          "ref": "Report"
+        }
+      ]
+    },
+    {
+      "name": "Position",
+      "kind": "object",
+      "description": "Reference to the servicing position, used to route customer contacts",
+      "properties": [
+        {
+          "name": "PositionValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PositionQuantity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PositionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PositionAmount",
+          "type": "object",
+          "ref": "Amount"
+        }
+      ]
+    },
+    {
+      "name": "Positiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Balance/Cashflow` - \r\n* `CreditPosition` - \r\n* `CollateralPosition` - \r\n* `SecurityPosition` - \r\n",
+      "enum_values": [
+        "Balance/Cashflow",
+        "CreditPosition",
+        "CollateralPosition",
+        "SecurityPosition"
+      ]
+    },
+    {
+      "name": "ProductAgreement",
+      "kind": "object",
+      "description": "The link to the account product instance used to effect payments from the position",
+      "properties": [
+        {
+          "name": "ProductAgreementType",
+          "type": "object",
+          "ref": "Productagreementtypevalues"
+        },
+        {
+          "name": "ProductAgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementSignedDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AgreementType",
+          "type": "object",
+          "ref": "Agreementtypevalues"
+        },
+        {
+          "name": "AgreementValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AgreementVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Agreementstatus"
+        },
+        {
+          "name": "AgreementSubjectMatter",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AgreementDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Productagreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CurrentAccountAgreement` - \r\n* `SavingsAccountAgreement` - \r\n* `BrokeredProductAgreement` - \r\n* `ConsumerLoanAgreement` - \r\n* `MortgageLoanAgreement` - \r\n* `DirectDebitServiceAgreement` - \r\n* `TermDepositAgreement` - \r\n",
+      "enum_values": [
+        "CurrentAccountAgreement",
+        "SavingsAccountAgreement",
+        "BrokeredProductAgreement",
+        "ConsumerLoanAgreement",
+        "MortgageLoanAgreement",
+        "DirectDebitServiceAgreement",
+        "TermDepositAgreement"
+      ]
+    },
+    {
+      "name": "Report",
+      "kind": "object",
+      "description": "Log of the activities during the session",
+      "properties": [
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule of past and planned customer contacts",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Transaction",
+      "kind": "object",
+      "description": "Details of the transfer of inventory (e.g. documents issued)",
+      "properties": [
+        {
+          "name": "TransactionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Transactiondatetime"
+        },
+        {
+          "name": "TransactionType",
+          "type": "object",
+          "ref": "Transactiontypevalues"
+        },
+        {
+          "name": "TransactionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Transactionstatus"
+        },
+        {
+          "name": "TransactionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetime",
+      "kind": "object",
+      "description": "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). ",
+      "properties": [
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "TransactionDateType",
+          "type": "object",
+          "ref": "Transactiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ExecutedDate` - \r\n* `FulfillmentDate` - \r\n* `InitiatedDate` - \r\n* `CancelledDate` - \r\n* `ApprovedDate` - \r\n* `ValueDate` - \r\n* `BookingDate` - \r\n",
+      "enum_values": [
+        "ExecutedDate",
+        "FulfillmentDate",
+        "InitiatedDate",
+        "CancelledDate",
+        "ApprovedDate",
+        "ValueDate",
+        "BookingDate"
+      ]
+    },
+    {
+      "name": "Transactionstatus",
+      "kind": "object",
+      "description": "A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) ",
+      "properties": [
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "TransactionStatusType",
+          "type": "object",
+          "ref": "Transactionstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Executed` - \r\n* `Cancelled` - \r\n* `Confirmed` - \r\n* `Suspended` - \r\n* `Pending` - \r\n* `Completed` - \r\n* `Notified` - \r\n* `Booked` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Executed",
+        "Cancelled",
+        "Confirmed",
+        "Suspended",
+        "Pending",
+        "Completed",
+        "Notified",
+        "Booked",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Transactiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialTransaction` - \r\n* `BusinessTransaction` - \r\n* `BankingTransaction` - \r\n* `AccountingTransaction` - \r\n* `BookingTransaction` - \r\n* `AllocationTransaction` - \r\n* `DeliveryTransaction` - \r\n* `ProductionTransaction` - \r\n",
+      "enum_values": [
+        "FinancialTransaction",
+        "BusinessTransaction",
+        "BankingTransaction",
+        "AccountingTransaction",
+        "BookingTransaction",
+        "AllocationTransaction",
+        "DeliveryTransaction",
+        "ProductionTransaction"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "PointofServiceOperatingSession",
+        "operations": [
+          "Update",
+          "Initiate",
+          "Control",
+          "Execute",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Assisted",
+        "parent_control_record": "PointofServiceOperatingSession",
+        "operations": [
+          "UpdateAssisted",
+          "ControlAssisted",
+          "RetrieveAssisted",
+          "InitiateAssisted"
+        ]
+      },
+      {
+        "name": "Automated",
+        "parent_control_record": "PointofServiceOperatingSession",
+        "operations": [
+          "InitiateAutomated",
+          "UpdateAutomated",
+          "ControlAutomated",
+          "RetrieveAutomated"
+        ]
+      },
+      {
+        "name": "CashPosition",
+        "parent_control_record": "PointofServiceOperatingSession",
+        "operations": [
+          "UpdateCashPosition",
+          "ExecuteCashPosition",
+          "RetrieveCashPosition"
+        ]
+      },
+      {
+        "name": "Interaction",
+        "parent_control_record": "PointofServiceOperatingSession",
+        "operations": [
+          "UpdateInteraction",
+          "ControlInteraction",
+          "RetrieveInteraction"
+        ]
+      },
+      {
+        "name": "Inventory",
+        "parent_control_record": "PointofServiceOperatingSession",
+        "operations": [
+          "RetrieveInventory",
+          "ExecuteInventory",
+          "UpdateInventory"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PointofService.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "fc5535950e9afdfbab7714dbcc99d4505495dbe143316245d5060f45d984401d",
+    "retrieved_at": "2026-09-12T21:25:25.394025+00:00"
+  }
+}

@@ -1,0 +1,793 @@
+{
+  "service_domain": "Investment Portfolio Management",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/Control",
+      "tipo": "CR",
+      "grupo": "ManagedInvestmentPortfolioFacility",
+      "request_schema": "ManagedInvestmentPortfolioFacility",
+      "response_schema": "ManagedInvestmentPortfolioFacility",
+      "summary": "CoCR Control the handling of an investment portfolio",
+      "description": "CoCR Control the handling of an investment portfolio"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/InvestmentPortfolioManagement/Initiate",
+      "tipo": "CR",
+      "grupo": "ManagedInvestmentPortfolioFacility",
+      "request_schema": "ManagedInvestmentPortfolioFacility",
+      "response_schema": "ManagedInvestmentPortfolioFacility",
+      "summary": "InCR Initiate investment portfolio management activity for a customer",
+      "description": "InCR Initiate investment portfolio management activity for a customer"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/Update",
+      "tipo": "CR",
+      "grupo": "ManagedInvestmentPortfolioFacility",
+      "request_schema": "ManagedInvestmentPortfolioFacility",
+      "response_schema": "ManagedInvestmentPortfolioFacility",
+      "summary": "UpCR Update details of an active investment portfolio management arrangement",
+      "description": "UpCR Update details of an active investment portfolio management arrangement"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/Exchange",
+      "tipo": "CR",
+      "grupo": "ManagedInvestmentPortfolioFacility",
+      "request_schema": "ManagedInvestmentPortfolioFacility",
+      "response_schema": "ManagedInvestmentPortfolioFacility",
+      "summary": "EcCR Approve, reject etc. actions performed for investment portfolio management",
+      "description": "EcCR Approve, reject etc. actions performed for investment portfolio management"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/Execute",
+      "tipo": "CR",
+      "grupo": "ManagedInvestmentPortfolioFacility",
+      "request_schema": "ManagedInvestmentPortfolioFacility",
+      "response_schema": "ManagedInvestmentPortfolioFacility",
+      "summary": "ExCR Execute an automated service",
+      "description": "ExCR Execute an automated service"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/Request",
+      "tipo": "CR",
+      "grupo": "ManagedInvestmentPortfolioFacility",
+      "request_schema": "ManagedInvestmentPortfolioFacility",
+      "response_schema": "ManagedInvestmentPortfolioFacility",
+      "summary": "RqCR Request manual intervention",
+      "description": "RqCR Request manual intervention"
+    },
+    {
+      "operation_id": "RetrieveOpportunity",
+      "method": "GET",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/Opportunity/{opportunityid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Opportunity",
+      "request_schema": "",
+      "response_schema": "Opportunity",
+      "summary": "ReBQ Retrieve details about a related market opportunity",
+      "description": "ReBQ Retrieve details about a related market opportunity",
+      "parent_control_record": "ManagedInvestmentPortfolioFacility"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "ManagedInvestmentPortfolioFacility",
+      "request_schema": "",
+      "response_schema": "ManagedInvestmentPortfolioFacility",
+      "summary": "ReCR Retrieve details about a managed investment portfolio",
+      "description": "ReCR Retrieve details about a managed investment portfolio"
+    },
+    {
+      "operation_id": "RetrieveFinancialStatusTracking",
+      "method": "GET",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/FinancialStatusTracking/{financialstatustrackingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "FinancialStatusTracking",
+      "request_schema": "",
+      "response_schema": "FinancialStatusTracking",
+      "summary": "ReBQ Retrieve details about tracking insights for the portfolio",
+      "description": "ReBQ Retrieve details about tracking insights for the portfolio",
+      "parent_control_record": "ManagedInvestmentPortfolioFacility"
+    },
+    {
+      "operation_id": "UpdateTrade",
+      "method": "PUT",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/Trade/{tradeid}/Update",
+      "tipo": "BQ",
+      "grupo": "Trade",
+      "request_schema": "Trade",
+      "response_schema": "Trade",
+      "summary": "UpBQ Update a market trade request",
+      "description": "UpBQ Update a market trade request",
+      "parent_control_record": "ManagedInvestmentPortfolioFacility"
+    },
+    {
+      "operation_id": "RequestTrade",
+      "method": "PUT",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/Trade/{tradeid}/Request",
+      "tipo": "BQ",
+      "grupo": "Trade",
+      "request_schema": "Trade",
+      "response_schema": "Trade",
+      "summary": "ReBQ Request manual intervention to a related market trade",
+      "description": "ReBQ Request manual intervention to a related market trade",
+      "parent_control_record": "ManagedInvestmentPortfolioFacility"
+    },
+    {
+      "operation_id": "RetrieveTrade",
+      "method": "GET",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/Trade/{tradeid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Trade",
+      "request_schema": "",
+      "response_schema": "Trade",
+      "summary": "ReBQ Retrieve details about a related market trade request",
+      "description": "ReBQ Retrieve details about a related market trade request",
+      "parent_control_record": "ManagedInvestmentPortfolioFacility"
+    },
+    {
+      "operation_id": "ExchangeTrade",
+      "method": "PUT",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/Trade/{tradeid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "Trade",
+      "request_schema": "Trade",
+      "response_schema": "Trade",
+      "summary": "EcBQ Accept, reject etc. a market trade proposed for the portfolio",
+      "description": "EcBQ Accept, reject etc. a market trade proposed for the portfolio",
+      "parent_control_record": "ManagedInvestmentPortfolioFacility"
+    },
+    {
+      "operation_id": "InitiateTrade",
+      "method": "POST",
+      "path": "/InvestmentPortfolioManagement/{investmentportfoliomanagementid}/Trade/Initiate",
+      "tipo": "BQ",
+      "grupo": "Trade",
+      "request_schema": "Trade",
+      "response_schema": "Trade",
+      "summary": "InBQ Initiate a trade against the investment portfolio holdings",
+      "description": "InBQ Initiate a trade against the investment portfolio holdings",
+      "parent_control_record": "ManagedInvestmentPortfolioFacility"
+    }
+  ],
+  "schemas": [
+    "AssetHolding",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "FinancialStatusTracking",
+    "HTTPError",
+    "Identifier",
+    "Instruction",
+    "Instructiondatetime",
+    "Instructiondatetimetypevalues",
+    "Instructionidentification",
+    "Instructionidentificationtypevalues",
+    "Instructionstatus",
+    "Instructionstatustypevalues",
+    "Instructiontypevalues",
+    "Involvedparty",
+    "Log",
+    "ManagedInvestmentPortfolioFacility",
+    "Name",
+    "Opportunity",
+    "Policytypevalues",
+    "RuleSet",
+    "Rulesettypevalues",
+    "Securitytypevalues",
+    "Status",
+    "Trade"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "AssetHolding",
+      "kind": "object",
+      "description": "Maintains the current security holdings",
+      "properties": [
+        {
+          "name": "AssetHolding",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "FinancialStatusTracking",
+      "kind": "object",
+      "description": "The product features/services available with a financical facility",
+      "properties": [
+        {
+          "name": "InvestmentPortfolioSecuritySensitivity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProjectedValuation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProjectedPortfolioImpact",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Instruction",
+      "kind": "object",
+      "description": "The trading request record used to initiate and track the trade",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Instructiondatetime"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Instructionstatus"
+        },
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Instructionidentification"
+        },
+        {
+          "name": "InstructionType",
+          "type": "object",
+          "ref": "Instructiontypevalues"
+        },
+        {
+          "name": "InstructionResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InstructionPurpose",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "InstructionDateType",
+          "type": "object",
+          "ref": "Instructiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DueDate` - \r\n* `ExecutionDate` - \r\n* `FulfillmentDate` - \r\n",
+      "enum_values": [
+        "DueDate",
+        "ExecutionDate",
+        "FulfillmentDate"
+      ]
+    },
+    {
+      "name": "Instructionidentification",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of an Instruction.\n",
+      "properties": [
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InstructionIdentificationType",
+          "type": "object",
+          "ref": "Instructionidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructionidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OrderNumber` - \r\n* `InstructionNumber` - \r\n",
+      "enum_values": [
+        "OrderNumber",
+        "InstructionNumber"
+      ]
+    },
+    {
+      "name": "Instructionstatus",
+      "kind": "object",
+      "description": "A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); ",
+      "properties": [
+        {
+          "name": "InstructionStatusType",
+          "type": "object",
+          "ref": "Instructionstatustypevalues"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Instructionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Pendingprocessing` - Processing of the instruction is pending.\r\n* `Acknowledgedaccepted` - Instruction has been acknowledged and accepted and is validated for further processing.\r\n* `Rejected` - Instruction has been rejected.\r\n* `Accepted` - Instruction has been accepted and is validated for further processing.\r\n* `Completed` - Processing has been completed.\r\n* `Notreceived` - No instruction has been received (to be used in a reminder).\r\n* `Cancelled` - Instruction has been cancelled.\r\n* `Beingcancelled` - Cancel request is being processed.\r\n* `Receivedbyissuerorregistrar` - Instruction has been received by Issuer.\r\n* `Pending` - Instruction is pending.\r\n* `Standinginstruction` - Standing instruction is applied.\r\n* `Queued` - Instruction is queued.\r\n* `Cancelledbysubcustodian` - Instruction has been cancelled by the agent, for example, due to an event deadline extension.\r\n* `Forwarded` - Accepted and sent along the chain.\r\n",
+      "enum_values": [
+        "Pendingprocessing",
+        "Acknowledgedaccepted",
+        "Rejected",
+        "Accepted",
+        "Completed",
+        "Notreceived",
+        "Cancelled",
+        "Beingcancelled",
+        "Receivedbyissuerorregistrar",
+        "Pending",
+        "Standinginstruction",
+        "Queued",
+        "Cancelledbysubcustodian",
+        "Forwarded"
+      ]
+    },
+    {
+      "name": "Instructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PaymentInstruction` - \r\n* `DeliveryOrder` - \r\n* `InformationRequest` - \r\n* `ExchangeInstruction` - \r\n* `AllocationInstruction` - \r\n* `MaintenanceInstruction` - \r\n",
+      "enum_values": [
+        "PaymentInstruction",
+        "DeliveryOrder",
+        "InformationRequest",
+        "ExchangeInstruction",
+        "AllocationInstruction",
+        "MaintenanceInstruction"
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "ManagedInvestmentPortfolioFacility",
+      "kind": "object",
+      "description": "Fulfill any scheduled and ad-hoc obligations under a service arrangement, most typically for a financial product or facility within Investment Portfolio Management. ",
+      "properties": [
+        {
+          "name": "InvestmentPortfolioTradingPolicies",
+          "type": "object",
+          "ref": "RuleSet"
+        },
+        {
+          "name": "InvestmentPortfolioPolicyType",
+          "type": "object",
+          "ref": "Policytypevalues"
+        },
+        {
+          "name": "InvestmentPortfolioPolicyDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvestmentPortfolioPolicyLimitsandConstraints",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvestmentPortfolioInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InvestmentPortfolioHoldings",
+          "type": "object",
+          "ref": "AssetHolding"
+        },
+        {
+          "name": "InvestmentPortfolioSecurityType",
+          "type": "object",
+          "ref": "Securitytypevalues"
+        },
+        {
+          "name": "InvestmentPortfolioSecurityHolding",
+          "type": "object",
+          "ref": "AssetHolding"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Opportunity",
+      "kind": "object",
+      "description": "The product features/services available with a financical facility",
+      "properties": [
+        {
+          "name": "MarketOpportunityDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SecuritiesComparison",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Policytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SecurityPolicy` - \r\n* `AdministrativePolicy` - \r\n* `SocialPolicy` - \r\n* `RegulatoryPolicy` - \r\n",
+      "enum_values": [
+        "SecurityPolicy",
+        "AdministrativePolicy",
+        "SocialPolicy",
+        "RegulatoryPolicy"
+      ]
+    },
+    {
+      "name": "RuleSet",
+      "kind": "object",
+      "description": "Interpretation of the investment portfolio policies as they impact securities selection and investment decisioning",
+      "properties": [
+        {
+          "name": "RuleSetDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetInterpretation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetType",
+          "type": "object",
+          "ref": "Rulesettypevalues"
+        },
+        {
+          "name": "RuleSetName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "RuleSetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "RuleSetLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Rulesettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Policy` - Rule that governs business execution.\n\nThe set of basic principles and associated guidelines, formulated and enforced by the governing body of an organization, to direct and limit its actions in pursuit of long-term goals. (Business Dictionary)\n\r\n* `Regulation` - A rule used to carry out a law (FIBO)\n\nBusiness Dictionary: a rule (with or without the coercive power of law) employed in controlling, directing, or managing an activity, organization, or system. \n\nThe set of rules and legislation governing certain actions. \nhttps://financial-dictionary.thefreedictionary.com/Regulatory\r\n* `Law` - A binding rule that the courts will enforce.\nA system of rules and guidelines which are enforced through social institutions to govern behavior. (FIBO)\n\r\n* `Guideline` - A recommended practice (adapted from Business Dictionary)\nA general rule, principle, or piece of advice.\r\n* `Criterion` - A principle or standard by which something may be judged or decided.\n\nRead more: http://www.businessdictionary.com/definition/criterion.html\r\n* `Standard` - A rule considered by an authority or by general consent as a basis of comparison\r\n",
+      "enum_values": [
+        "Policy",
+        "Regulation",
+        "Law",
+        "Guideline",
+        "Criterion",
+        "Standard"
+      ]
+    },
+    {
+      "name": "Securitytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Equity` - Financial instrument that represents a title of ownership in a company. That is, the shareholder is entitled to a part of the company's profit - usually by payment of a dividend - and to voting rights, if any. Each company issues generally different classes of shares, for example, ordinary or common shares, which have no guaranteed amount of dividend but carry voting rights, or preferred shares, which receive dividends before ordinary shares but have no voting right. (ISO20022)\r\n* `Warrant` - Financial instrument that gives the holder the right to purchase shares or bonds at a given price within a specified time. (ISO20022)\r\n* `Entitlement` - Financial instrument providing the holder the privilege to subscribe to or to receive specific assets on terms specified. (ISO20022)\r\n",
+      "enum_values": [
+        "Equity",
+        "Warrant",
+        "Entitlement"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Trade",
+      "kind": "object",
+      "description": "The product features/services available with a financical facility",
+      "properties": [
+        {
+          "name": "InvestmentPortfolioTradeRequest",
+          "type": "object",
+          "ref": "Instruction"
+        },
+        {
+          "name": "InvestmentPortfolioTradeSecurityType",
+          "type": "object",
+          "ref": "Securitytypevalues"
+        },
+        {
+          "name": "InvestmentPortfolioTradeSecurityTradeDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "ManagedInvestmentPortfolioFacility",
+        "operations": [
+          "Control",
+          "Initiate",
+          "Update",
+          "Exchange",
+          "Execute",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "FinancialStatusTracking",
+        "parent_control_record": "ManagedInvestmentPortfolioFacility",
+        "operations": [
+          "RetrieveFinancialStatusTracking"
+        ]
+      },
+      {
+        "name": "Opportunity",
+        "parent_control_record": "ManagedInvestmentPortfolioFacility",
+        "operations": [
+          "RetrieveOpportunity"
+        ]
+      },
+      {
+        "name": "Trade",
+        "parent_control_record": "ManagedInvestmentPortfolioFacility",
+        "operations": [
+          "UpdateTrade",
+          "RequestTrade",
+          "RetrieveTrade",
+          "ExchangeTrade",
+          "InitiateTrade"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/InvestmentPortfolioManagement.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "6ee855d9f64a1b52a82e86fe272f43a513a486401f546bd8ac020bb941e09c5c",
+    "retrieved_at": "2026-09-12T22:34:09.927380+00:00"
+  }
+}

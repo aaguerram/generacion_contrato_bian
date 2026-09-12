@@ -1,0 +1,1089 @@
+{
+  "service_domain": "Market Data Switch Operation",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/Update",
+      "tipo": "CR",
+      "grupo": "InformationFeedSwitchOperatingSession",
+      "request_schema": "InformationFeedSwitchOperatingSession",
+      "response_schema": "InformationFeedSwitchOperatingSession",
+      "summary": "UpCR Update details for the market data switch operating session",
+      "description": "UpCR Update details for the market data switch operating session"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/MarketDataSwitchOperation/Initiate",
+      "tipo": "CR",
+      "grupo": "InformationFeedSwitchOperatingSession",
+      "request_schema": "InformationFeedSwitchOperatingSession",
+      "response_schema": "InformationFeedSwitchOperatingSession",
+      "summary": "InCR Initiate a market data switch operating session",
+      "description": "InCR Initiate a market data switch operating session"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/Control",
+      "tipo": "CR",
+      "grupo": "InformationFeedSwitchOperatingSession",
+      "request_schema": "InformationFeedSwitchOperatingSession",
+      "response_schema": "InformationFeedSwitchOperatingSession",
+      "summary": "CoCR Control the operating session (e.g. suspend)",
+      "description": "CoCR Control the operating session (e.g. suspend)"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/Execute",
+      "tipo": "CR",
+      "grupo": "InformationFeedSwitchOperatingSession",
+      "request_schema": "InformationFeedSwitchOperatingSession",
+      "response_schema": "InformationFeedSwitchOperatingSession",
+      "summary": "ExCR Execute an automated task in the session (e.g. refresh data)",
+      "description": "ExCR Execute an automated task in the session (e.g. refresh data)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "InformationFeedSwitchOperatingSession",
+      "request_schema": "",
+      "response_schema": "InformationFeedSwitchOperatingSession",
+      "summary": "ReCR Retrieve details about the market data switch operating session",
+      "description": "ReCR Retrieve details about the market data switch operating session"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/Request",
+      "tipo": "CR",
+      "grupo": "InformationFeedSwitchOperatingSession",
+      "request_schema": "InformationFeedSwitchOperatingSession",
+      "response_schema": "InformationFeedSwitchOperatingSession",
+      "summary": "RqCR Request manual intervention in the session (e.g. change the service make-up)",
+      "description": "RqCR Request manual intervention in the session (e.g. change the service make-up)"
+    },
+    {
+      "operation_id": "UpdateFeedUpload",
+      "method": "PUT",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/FeedUpload/{feeduploadid}/Update",
+      "tipo": "BQ",
+      "grupo": "FeedUpload",
+      "request_schema": "FeedUpload",
+      "response_schema": "FeedUpload",
+      "summary": "UpBQ Update details for the feed upload",
+      "description": "UpBQ Update details for the feed upload",
+      "parent_control_record": "InformationFeedSwitchOperatingSession"
+    },
+    {
+      "operation_id": "ExchangeFeedUpload",
+      "method": "PUT",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/FeedUpload/{feeduploadid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "FeedUpload",
+      "request_schema": "FeedUpload",
+      "response_schema": "FeedUpload",
+      "summary": "EcBQ Accept, reject, etc. the feed upload",
+      "description": "EcBQ Accept, reject, etc. the feed upload",
+      "parent_control_record": "InformationFeedSwitchOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveFeedUpload",
+      "method": "GET",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/FeedUpload/{feeduploadid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "FeedUpload",
+      "request_schema": "",
+      "response_schema": "FeedUpload",
+      "summary": "ReBQ Retrieve details about the feed upload activity",
+      "description": "ReBQ Retrieve details about the feed upload activity",
+      "parent_control_record": "InformationFeedSwitchOperatingSession"
+    },
+    {
+      "operation_id": "UpdateInternalPublication",
+      "method": "PUT",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/InternalPublication/{internalpublicationid}/Update",
+      "tipo": "BQ",
+      "grupo": "InternalPublication",
+      "request_schema": "InternalPublication",
+      "response_schema": "InternalPublication",
+      "summary": "UpBQ Update details of internal publication",
+      "description": "UpBQ Update details of internal publication",
+      "parent_control_record": "InformationFeedSwitchOperatingSession"
+    },
+    {
+      "operation_id": "InitiateInternalPublication",
+      "method": "POST",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/InternalPublication/Initiate",
+      "tipo": "BQ",
+      "grupo": "InternalPublication",
+      "request_schema": "InternalPublication",
+      "response_schema": "InternalPublication",
+      "summary": "InBQ Initiate internal publication of information",
+      "description": "InBQ Initiate internal publication of information",
+      "parent_control_record": "InformationFeedSwitchOperatingSession"
+    },
+    {
+      "operation_id": "ExchangeInternalPublication",
+      "method": "PUT",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/InternalPublication/{internalpublicationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "InternalPublication",
+      "request_schema": "InternalPublication",
+      "response_schema": "InternalPublication",
+      "summary": "EcBQ Accept, reject, etc. the internal upload",
+      "description": "EcBQ Accept, reject, etc. the internal upload",
+      "parent_control_record": "InformationFeedSwitchOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveInternalPublication",
+      "method": "GET",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/InternalPublication/{internalpublicationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "InternalPublication",
+      "request_schema": "",
+      "response_schema": "InternalPublication",
+      "summary": "ReBQ Retrieve details about the internal publication task",
+      "description": "ReBQ Retrieve details about the internal publication task",
+      "parent_control_record": "InformationFeedSwitchOperatingSession"
+    },
+    {
+      "operation_id": "InitiateDistribution",
+      "method": "POST",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/Distribution/Initiate",
+      "tipo": "BQ",
+      "grupo": "Distribution",
+      "request_schema": "Distribution",
+      "response_schema": "Distribution",
+      "summary": "InBQ User subscription to the switch",
+      "description": "InBQ User subscription to the switch",
+      "parent_control_record": "InformationFeedSwitchOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveDistribution",
+      "method": "GET",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/Distribution/{distributionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Distribution",
+      "request_schema": "",
+      "response_schema": "Distribution",
+      "summary": "ReBQ Retrieve details about the user switch session",
+      "description": "ReBQ Retrieve details about the user switch session",
+      "parent_control_record": "InformationFeedSwitchOperatingSession"
+    },
+    {
+      "operation_id": "RequestDistribution",
+      "method": "PUT",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/Distribution/{distributionid}/Request",
+      "tipo": "BQ",
+      "grupo": "Distribution",
+      "request_schema": "Distribution",
+      "response_schema": "Distribution",
+      "summary": "RqBQ Request manual intervention for  the service (e.g. request a usage profile change)",
+      "description": "RqBQ Request manual intervention for  the service (e.g. request a usage profile change)",
+      "parent_control_record": "InformationFeedSwitchOperatingSession"
+    },
+    {
+      "operation_id": "UpdateDistribution",
+      "method": "PUT",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/Distribution/{distributionid}/Update",
+      "tipo": "BQ",
+      "grupo": "Distribution",
+      "request_schema": "Distribution",
+      "response_schema": "Distribution",
+      "summary": "UpBQ User subscription details",
+      "description": "UpBQ User subscription details",
+      "parent_control_record": "InformationFeedSwitchOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteDistribution",
+      "method": "PUT",
+      "path": "/MarketDataSwitchOperation/{marketdataswitchoperationid}/Distribution/{distributionid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Distribution",
+      "request_schema": "Distribution",
+      "response_schema": "Distribution",
+      "summary": "ExBQ Execute an automated action to the service (e.g. select content)",
+      "description": "ExBQ Execute an automated action to the service (e.g. select content)",
+      "parent_control_record": "InformationFeedSwitchOperatingSession"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Arrangement",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Distribution",
+    "Duration",
+    "Feature",
+    "Featuretypevalues",
+    "FeedUpload",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "InformationFeedSwitchOperatingSession",
+    "InternalPublication",
+    "Involvedparty",
+    "Location",
+    "Name",
+    "Profile",
+    "Schedule",
+    "Service",
+    "Servicetypevalues",
+    "Session",
+    "Sessiontype",
+    "Sessiontypevalues",
+    "Status",
+    "Subject"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Arrangement",
+      "kind": "object",
+      "description": "The users are registered to access different services/information made available through the switch - it is used to control information distribution",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Distribution",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "MarketDataSwitchUserAccessRightsRecordReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketDataSwitchUserAccessRightsRecord",
+          "type": "object",
+          "ref": "Arrangement"
+        },
+        {
+          "name": "MarketDataSwitchServiceUserSessionRecord",
+          "type": "object",
+          "ref": "Session"
+        }
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "The time the session was active",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "FeedUpload",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "MarketInformationFeedServiceRecordReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketInformationFeedServiceRecord",
+          "type": "object",
+          "ref": "Service"
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "InformationFeedSwitchOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within Market Data Switch Operation. ",
+      "properties": [
+        {
+          "name": "MarketInformationFeedServiceReference",
+          "type": "object",
+          "ref": "Service"
+        },
+        {
+          "name": "MarketInformationFeedServiceProfile",
+          "type": "object",
+          "ref": "Profile"
+        }
+      ]
+    },
+    {
+      "name": "InternalPublication",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "InternalInformationFeedServiceReference",
+          "type": "object",
+          "ref": "Service"
+        },
+        {
+          "name": "InternalInformationFeedServiceProfile",
+          "type": "object",
+          "ref": "Profile"
+        },
+        {
+          "name": "InternalInformationFeedServiceRecordReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InternalInformationFeedServiceRecord",
+          "type": "object",
+          "ref": "Service"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "Name (label) of the location. (ISO20022)",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "kind": "object",
+      "description": "Defines the range of internally published information services/pages",
+      "properties": [
+        {
+          "name": "Profile",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Service",
+      "kind": "object",
+      "description": "This is the uploaded market information that is distributed over the switch - its content is updated dynamically during the operating session",
+      "properties": [
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Session",
+      "kind": "object",
+      "description": "This tracks the switch service content that the user will receive for this session - reflecting their user access rights",
+      "properties": [
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontype",
+      "kind": "object",
+      "description": "Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.",
+      "properties": [
+        {
+          "name": "SessionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ContactHandlingSession` - \r\n* `CustomerDialogueSession` - \r\n* `ChannelOperatingSession` - \r\n* `GatewayOperatingSession` - \r\n* `SwitchOperatingSession` - \r\n* `DeviceOperatingSession` - \r\n* `InterbankTransactionOperatingSession` - \r\n* `CorrespondenceOperatingSession` - \r\n* `InteractiveHelpOperatingSession` - \r\n* `ACHOperatingSession` - \r\n",
+      "enum_values": [
+        "ContactHandlingSession",
+        "CustomerDialogueSession",
+        "ChannelOperatingSession",
+        "GatewayOperatingSession",
+        "SwitchOperatingSession",
+        "DeviceOperatingSession",
+        "InterbankTransactionOperatingSession",
+        "CorrespondenceOperatingSession",
+        "InteractiveHelpOperatingSession",
+        "ACHOperatingSession"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "The tracked status (e.g. under construction or repair, inhabited, vacant).",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "InformationFeedSwitchOperatingSession",
+        "operations": [
+          "Update",
+          "Initiate",
+          "Control",
+          "Execute",
+          "Retrieve",
+          "Request"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Distribution",
+        "parent_control_record": "InformationFeedSwitchOperatingSession",
+        "operations": [
+          "InitiateDistribution",
+          "RetrieveDistribution",
+          "RequestDistribution",
+          "UpdateDistribution",
+          "ExecuteDistribution"
+        ]
+      },
+      {
+        "name": "FeedUpload",
+        "parent_control_record": "InformationFeedSwitchOperatingSession",
+        "operations": [
+          "UpdateFeedUpload",
+          "ExchangeFeedUpload",
+          "RetrieveFeedUpload"
+        ]
+      },
+      {
+        "name": "InternalPublication",
+        "parent_control_record": "InformationFeedSwitchOperatingSession",
+        "operations": [
+          "UpdateInternalPublication",
+          "InitiateInternalPublication",
+          "ExchangeInternalPublication",
+          "RetrieveInternalPublication"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/MarketDataSwitchOperation.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "3a76133d50d68237cd1bcca3d67d560527faaa0615e320b23fdc329de07d1e13",
+    "retrieved_at": "2026-09-12T22:36:07.017634+00:00"
+  }
+}

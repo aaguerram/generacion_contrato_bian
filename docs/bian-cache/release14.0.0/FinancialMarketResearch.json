@@ -1,0 +1,900 @@
+{
+  "service_domain": "Financial Market Research",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Register",
+      "method": "POST",
+      "path": "/FinancialMarketResearch/Register",
+      "tipo": "CR",
+      "grupo": "FinancialMarketResearchDirectoryEntry",
+      "request_schema": "FinancialMarketResearchDirectoryEntry",
+      "response_schema": "FinancialMarketResearchDirectoryEntry",
+      "summary": "InCR Register or establish a financial market research viewpoint",
+      "description": "InCR Register or establish a financial market research viewpoint"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/FinancialMarketResearch/{financialmarketresearchid}/Update",
+      "tipo": "CR",
+      "grupo": "FinancialMarketResearchDirectoryEntry",
+      "request_schema": "FinancialMarketResearchDirectoryEntry",
+      "response_schema": "FinancialMarketResearchDirectoryEntry",
+      "summary": "UpCR Update the details or make-up of a financial market research viewpoint",
+      "description": "UpCR Update the details or make-up of a financial market research viewpoint"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/FinancialMarketResearch/{financialmarketresearchid}/Execute",
+      "tipo": "CR",
+      "grupo": "FinancialMarketResearchDirectoryEntry",
+      "request_schema": "FinancialMarketResearchDirectoryEntry",
+      "response_schema": "FinancialMarketResearchDirectoryEntry",
+      "summary": "ExCR Automatically extract details of a maintained financial market research viewpoint",
+      "description": "ExCR Automatically extract details of a maintained financial market research viewpoint"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/FinancialMarketResearch/{financialmarketresearchid}/Request",
+      "tipo": "CR",
+      "grupo": "FinancialMarketResearchDirectoryEntry",
+      "request_schema": "FinancialMarketResearchDirectoryEntry",
+      "response_schema": "FinancialMarketResearchDirectoryEntry",
+      "summary": "RqCR Request a viewpoint is refreshed or adjusted in some manner",
+      "description": "RqCR Request a viewpoint is refreshed or adjusted in some manner"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/FinancialMarketResearch/{financialmarketresearchid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "FinancialMarketResearchDirectoryEntry",
+      "request_schema": "",
+      "response_schema": "FinancialMarketResearchDirectoryEntry",
+      "summary": "ReCR Retrieve details about and the content of a maintained financial market research viewpoint",
+      "description": "ReCR Retrieve details about and the content of a maintained financial market research viewpoint"
+    }
+  ],
+  "schemas": [
+    "Assessmenttypevalues",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Document",
+    "Documentdatetimetypevalues",
+    "FinancialMarketResearch",
+    "FinancialMarketResearchDirectoryEntry",
+    "FinancialMarketResearchReport",
+    "Financialdocumenttypevalues",
+    "HTTPError",
+    "Identifier",
+    "Instruction",
+    "Instructiondatetime",
+    "Instructiondatetimetypevalues",
+    "Instructionidentification",
+    "Instructionidentificationtypevalues",
+    "Instructionstatus",
+    "Instructionstatustypevalues",
+    "Instructiontypevalues",
+    "Involvedparty",
+    "Log",
+    "MarketResearchReportType",
+    "Marketresearchviewpointtypevalues",
+    "Model",
+    "Name",
+    "Reporttypevalues",
+    "Requirement",
+    "Schedule",
+    "Status"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Assessmenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Valuation` - \r\n* `Matching` - \r\n* `Authorization` - An evaluation whether a party or system is allowed to do something.\n\nThe consent given by a participant (or a third party acting on behalf of that participant) in order to transfer funds or securities. (ECB)\n\nAuthorization is a mechanism by which a computer system determines whether to allow or deny specific action to a user. Authorization is often controlled by rather complex rules and algorithms, usually specified as part of an access control model. Authorization often follows (and required) authentication, however, authentication and authorization are two separate mechanisms. In rare cases, \"authorization\" is understood as a process of allowing access, granting permissions or giving approval. Such as \"authorization\" of a request to join a group. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `Authentication` - An evaluation whether a party or system is what it claims to be.\n\nA security mechanism for verifying: 1) the identity of an individual or other entity (including verification by means of a computer or computer application); and 2) the level of authority of that person or entity (i.e. the ability of that person or entity to perform specific tasks or activities). (ECB)\n\nAuthentication is a mechanism by which a computer system checks that the user is really the one she or he claims to be. Authentication can be implemented by a broad variety of mechanisms broadly divided into three categories: something you know, something you have, something you are. Traditionally, authentication is done by the means of by username and password. Authentication is often followed by authorization, however, authentication and authorization are two separate mechanisms. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `QualityAssurance` - \r\n* `Audit` - \r\n* `ComplianceCheck` - \r\n* `FundingCheck` - \r\n* `SuitabilityCheck` - \r\n* `PerformanceCheck` - \r\n* `ImpactAssessment` - \r\n* `RiskAssessment` - \r\n* `Rating` - \r\n* `UnderwritingAssessment` - \r\n* `Qualification` - \r\n* `Verification` - A process establishing that a particular information is correct, while the meaning of \"information\" and \"correct\" varies from context to context. When dealing with identity information, this usually means formal verification of identity attributes, checking the schema, identifier uniqueness and referential integrity. However, verification may mean deeper verification, such as checking that the information is true and up-to-date.  (ISO/IEC 24760-1:2019 - IT Security and Privacy)\n\r\n* `KYCAssessment` - An assessment conducted by businesses and financial institutions to verify and confirm the identity of their customers or clients. The primary purpose of a KYC check is to prevent illegal activities, such as money laundering, terrorist financing, and fraud, by ensuring that customers are who they claim to be.\r\n* `PEPAssessment` - A PEP check, or \"Politically Exposed Person\" check, is an assessment conducted by used by businesses, financial institutions, and government agencies to identify individuals who hold prominent public positions or have significant political influence. The purpose of a PEP check is to assess and manage the potential risks associated with doing business with these individuals, as they may be more susceptible to corruption, money laundering, or other illicit activities.\r\n* `AMLAssessment` - An AML (Anti-Money Laundering) check is an assessment conducted by businesses, financial institutions, and other organizations to prevent and detect money laundering and the financing of criminal activities. The main purpose of an AML check is to ensure that financial transactions and business relationships are not being used to disguise the illegal origins of funds.\r\n* `EligibilityCheck` - Determines whether a person or case meets the criteria or preconditions to qualify for a benefit, service, or action.\r\n* `ExternalAgencyCheck` - \r\n* `EntitlementCheck` - Determines what benefit, amount, or service the person is actually entitled to receive once eligibility is confirmed.\r\n",
+      "enum_values": [
+        "Valuation",
+        "Matching",
+        "Authorization",
+        "Authentication",
+        "QualityAssurance",
+        "Audit",
+        "ComplianceCheck",
+        "FundingCheck",
+        "SuitabilityCheck",
+        "PerformanceCheck",
+        "ImpactAssessment",
+        "RiskAssessment",
+        "Rating",
+        "UnderwritingAssessment",
+        "Qualification",
+        "Verification",
+        "KYCAssessment",
+        "PEPAssessment",
+        "AMLAssessment",
+        "EligibilityCheck",
+        "ExternalAgencyCheck",
+        "EntitlementCheck"
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date when the assessment expires. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Document that provides background or corroborating information regarding an assessment(s).",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "FinancialMarketResearch",
+      "kind": "object",
+      "description": "The externally sourced reports that are used to assemble the research viewpoint",
+      "properties": [
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "FinancialMarketResearchDirectoryEntry",
+      "kind": "object",
+      "description": "Capture and maintain reference information about some type of entitity within Financial Market Research.",
+      "properties": [
+        {
+          "name": "FinancialMarketResearchViewpointType",
+          "type": "object",
+          "ref": "Marketresearchviewpointtypevalues"
+        },
+        {
+          "name": "FinancialMarketResearchViewpointDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReferencedFinancialMarketResearchRecord",
+          "type": "object",
+          "ref": "FinancialMarketResearch"
+        },
+        {
+          "name": "FinancialMarketResearchReportTypeReference",
+          "type": "object",
+          "ref": "MarketResearchReportType"
+        },
+        {
+          "name": "FinancialMarketResearchReportTypeDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FinancialMarketResearchReportVersionPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "FinancialMarketResearchReport",
+          "type": "object",
+          "ref": "FinancialMarketResearchReport"
+        },
+        {
+          "name": "FinancialMarketResearchViewpointUsage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FinancialMarketResearchReportRequest",
+          "type": "object",
+          "ref": "Instruction"
+        },
+        {
+          "name": "EmployeeorBusinessUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "FinancialMarketResearchReport",
+      "kind": "object",
+      "description": "Is the content of the report or database in any suitable form",
+      "properties": [
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of a Document.",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Instruction",
+      "kind": "object",
+      "description": "Details of the research request",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Instructiondatetime"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Instructionstatus"
+        },
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Instructionidentification"
+        },
+        {
+          "name": "InstructionType",
+          "type": "object",
+          "ref": "Instructiontypevalues"
+        },
+        {
+          "name": "InstructionResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InstructionPurpose",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "InstructionDateType",
+          "type": "object",
+          "ref": "Instructiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DueDate` - \r\n* `ExecutionDate` - \r\n* `FulfillmentDate` - \r\n",
+      "enum_values": [
+        "DueDate",
+        "ExecutionDate",
+        "FulfillmentDate"
+      ]
+    },
+    {
+      "name": "Instructionidentification",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of an Instruction.\n",
+      "properties": [
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InstructionIdentificationType",
+          "type": "object",
+          "ref": "Instructionidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructionidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OrderNumber` - \r\n* `InstructionNumber` - \r\n",
+      "enum_values": [
+        "OrderNumber",
+        "InstructionNumber"
+      ]
+    },
+    {
+      "name": "Instructionstatus",
+      "kind": "object",
+      "description": "A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); ",
+      "properties": [
+        {
+          "name": "InstructionStatusType",
+          "type": "object",
+          "ref": "Instructionstatustypevalues"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Instructionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Pendingprocessing` - Processing of the instruction is pending.\r\n* `Acknowledgedaccepted` - Instruction has been acknowledged and accepted and is validated for further processing.\r\n* `Rejected` - Instruction has been rejected.\r\n* `Accepted` - Instruction has been accepted and is validated for further processing.\r\n* `Completed` - Processing has been completed.\r\n* `Notreceived` - No instruction has been received (to be used in a reminder).\r\n* `Cancelled` - Instruction has been cancelled.\r\n* `Beingcancelled` - Cancel request is being processed.\r\n* `Receivedbyissuerorregistrar` - Instruction has been received by Issuer.\r\n* `Pending` - Instruction is pending.\r\n* `Standinginstruction` - Standing instruction is applied.\r\n* `Queued` - Instruction is queued.\r\n* `Cancelledbysubcustodian` - Instruction has been cancelled by the agent, for example, due to an event deadline extension.\r\n* `Forwarded` - Accepted and sent along the chain.\r\n",
+      "enum_values": [
+        "Pendingprocessing",
+        "Acknowledgedaccepted",
+        "Rejected",
+        "Accepted",
+        "Completed",
+        "Notreceived",
+        "Cancelled",
+        "Beingcancelled",
+        "Receivedbyissuerorregistrar",
+        "Pending",
+        "Standinginstruction",
+        "Queued",
+        "Cancelledbysubcustodian",
+        "Forwarded"
+      ]
+    },
+    {
+      "name": "Instructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PaymentInstruction` - \r\n* `DeliveryOrder` - \r\n* `InformationRequest` - \r\n* `ExchangeInstruction` - \r\n* `AllocationInstruction` - \r\n* `MaintenanceInstruction` - \r\n",
+      "enum_values": [
+        "PaymentInstruction",
+        "DeliveryOrder",
+        "InformationRequest",
+        "ExchangeInstruction",
+        "AllocationInstruction",
+        "MaintenanceInstruction"
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "MarketResearchReportType",
+      "kind": "object",
+      "description": "Reference to a specific type of predefined market research report or database",
+      "properties": [
+        {
+          "name": "MarketResearchReportType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MrketResearchReportTypeDefinition",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Marketresearchviewpointtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerViewpoint` - \r\n* `CompetitorViewpoint` - \r\n* `MarketDynamicsViewpoint` - \r\n* `ProductServiceViewpoint` - \r\n* `GeographicViewpoint` - \r\n* `EconomicAndPoliticalViewpoint` - \r\n* `TechnologicalViewpoint` - \r\n* `EnvironmentalAndSustainabilityViewpoint` - \r\n* `ChannelAndDistributionViewpoint` - \r\n* `FinancialViewpoint` - \r\n",
+      "enum_values": [
+        "CustomerViewpoint",
+        "CompetitorViewpoint",
+        "MarketDynamicsViewpoint",
+        "ProductServiceViewpoint",
+        "GeographicViewpoint",
+        "EconomicAndPoliticalViewpoint",
+        "TechnologicalViewpoint",
+        "EnvironmentalAndSustainabilityViewpoint",
+        "ChannelAndDistributionViewpoint",
+        "FinancialViewpoint"
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "FinancialMarketResearchDirectoryEntry",
+        "operations": [
+          "Register",
+          "Update",
+          "Execute",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/FinancialMarketResearch.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "4ed43c79637fd8e7748546e2a0cca406b00cf312f322bb85a5a0bee47e6b141f",
+    "retrieved_at": "2026-09-12T22:02:37.452634+00:00"
+  }
+}

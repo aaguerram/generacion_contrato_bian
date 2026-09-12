@@ -1,0 +1,788 @@
+{
+  "service_domain": "Information Provider Operation",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/InformationProviderOperation/Initiate",
+      "tipo": "CR",
+      "grupo": "InformationFeedOperatingSession",
+      "request_schema": "InformationFeedOperatingSession",
+      "response_schema": "InformationFeedOperatingSession",
+      "summary": "InCR Start the IP service feed",
+      "description": "InCR Start the IP service feed"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/InformationProviderOperation/{informationprovideroperationid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "InformationFeedOperatingSession",
+      "request_schema": "",
+      "response_schema": "InformationFeedOperatingSession",
+      "summary": "ReCR Read details/reports about the IP service feed",
+      "description": "ReCR Read details/reports about the IP service feed"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/InformationProviderOperation/{informationprovideroperationid}/Execute",
+      "tipo": "CR",
+      "grupo": "InformationFeedOperatingSession",
+      "request_schema": "InformationFeedOperatingSession",
+      "response_schema": "InformationFeedOperatingSession",
+      "summary": "ExCR Execute an information service instruction",
+      "description": "ExCR Execute an information service instruction"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/InformationProviderOperation/{informationprovideroperationid}/Update",
+      "tipo": "CR",
+      "grupo": "InformationFeedOperatingSession",
+      "request_schema": "InformationFeedOperatingSession",
+      "response_schema": "InformationFeedOperatingSession",
+      "summary": "UpCR Update/correct an information service exported message",
+      "description": "UpCR Update/correct an information service exported message"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/InformationProviderOperation/{informationprovideroperationid}/Control",
+      "tipo": "CR",
+      "grupo": "InformationFeedOperatingSession",
+      "request_schema": "InformationFeedOperatingSession",
+      "response_schema": "InformationFeedOperatingSession",
+      "summary": "CoCR Reconfigure the existing feed make-up",
+      "description": "CoCR Reconfigure the existing feed make-up"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/InformationProviderOperation/{informationprovideroperationid}/Request",
+      "tipo": "CR",
+      "grupo": "InformationFeedOperatingSession",
+      "request_schema": "InformationFeedOperatingSession",
+      "response_schema": "InformationFeedOperatingSession",
+      "summary": "RqCR Request/change delivery of an allowed service feed (note service agreement/pricing handled elsewhere)",
+      "description": "RqCR Request/change delivery of an allowed service feed (note service agreement/pricing handled elsewhere)"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/InformationProviderOperation/{informationprovideroperationid}/Exchange",
+      "tipo": "CR",
+      "grupo": "InformationFeedOperatingSession",
+      "request_schema": "InformationFeedOperatingSession",
+      "response_schema": "InformationFeedOperatingSession",
+      "summary": "Exchange Information Feed Operating Session",
+      "description": "Exchange Information Feed Operating Session"
+    },
+    {
+      "operation_id": "Notify",
+      "method": "GET",
+      "path": "/InformationProviderOperation/{informationprovideroperationid}/Notify",
+      "tipo": "CR",
+      "grupo": "InformationFeedOperatingSession",
+      "request_schema": "",
+      "response_schema": "InformationFeedOperatingSession",
+      "summary": "Notify Information Feed Operating Session",
+      "description": "Notify Information Feed Operating Session"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Duration",
+    "Event",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "InformationFeedOperatingSession",
+    "InformationProviderOperationOutcome",
+    "Involvedparty",
+    "Location",
+    "Log",
+    "Name",
+    "Schedule",
+    "Servicetype",
+    "Servicetypevalues",
+    "Session",
+    "Sessiontype",
+    "Sessiontypevalues",
+    "Status",
+    "SystemConfigurationOption"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "The time the session was active",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Event",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "InformationFeedOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within Information Provider Operation. ",
+      "properties": [
+        {
+          "name": "InformationFeedOperatingSessionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "InformationFeedOperatingSessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "InformationFeedOperatingSessionUsageLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InformationFeedOperatingSessionAssociatedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InformationFeedOperatingSessionServiceProviderReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InformationFeedOperatingSessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "InformationFeedOperatingSessionServiceProviderSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "InformationFeedOperatingSessionServiceType",
+          "type": "object",
+          "ref": "Servicetype"
+        },
+        {
+          "name": "InformationFeedOperatingSessionServiceConfiguration",
+          "type": "object",
+          "ref": "SystemConfigurationOption"
+        },
+        {
+          "name": "InformationFeedOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        }
+      ]
+    },
+    {
+      "name": "InformationProviderOperationOutcome",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "InformationProviderOperationIncident",
+          "type": "object",
+          "ref": "Event"
+        },
+        {
+          "name": "InformationProviderOperationProvision",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Reference to the log of (usage) ativities/events  of Information Feed Operating Session",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "Name (label) of the location. (ISO20022)",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "Timetable to operate Information Feed Operating Session",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetype",
+      "kind": "object",
+      "description": "A Classification value that distinguishes between the type of services within Information Feed Operating Session",
+      "properties": [
+        {
+          "name": "ServiceTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Session",
+      "kind": "object",
+      "description": "An unique reference to an item or an occurrence of Information Feed Operating Session",
+      "properties": [
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontype",
+      "kind": "object",
+      "description": "A Classification value that distinguishes between the type of operations within Information Feed Operating Session",
+      "properties": [
+        {
+          "name": "SessionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ContactHandlingSession` - \r\n* `CustomerDialogueSession` - \r\n* `ChannelOperatingSession` - \r\n* `GatewayOperatingSession` - \r\n* `SwitchOperatingSession` - \r\n* `DeviceOperatingSession` - \r\n* `InterbankTransactionOperatingSession` - \r\n* `CorrespondenceOperatingSession` - \r\n* `InteractiveHelpOperatingSession` - \r\n* `ACHOperatingSession` - \r\n",
+      "enum_values": [
+        "ContactHandlingSession",
+        "CustomerDialogueSession",
+        "ChannelOperatingSession",
+        "GatewayOperatingSession",
+        "SwitchOperatingSession",
+        "DeviceOperatingSession",
+        "InterbankTransactionOperatingSession",
+        "CorrespondenceOperatingSession",
+        "InteractiveHelpOperatingSession",
+        "ACHOperatingSession"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "The tracked status (e.g. under construction or repair, inhabited, vacant).",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "SystemConfigurationOption",
+      "kind": "object",
+      "description": "The configuration of Information Feed Operating Session",
+      "properties": [
+        {
+          "name": "SystemConfigurationOption",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "InformationFeedOperatingSession",
+        "operations": [
+          "Initiate",
+          "Retrieve",
+          "Execute",
+          "Update",
+          "Control",
+          "Request",
+          "Exchange",
+          "Notify"
+        ]
+      }
+    ],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/InformationProviderOperation.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "4d1e3f29e67466d9c6603210b694de8e83b5caf5cc0c2d7e5e33f626f2cc74f1",
+    "retrieved_at": "2026-09-12T22:02:40.611833+00:00"
+  }
+}

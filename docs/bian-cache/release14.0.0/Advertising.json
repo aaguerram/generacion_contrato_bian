@@ -1,0 +1,1855 @@
+{
+  "service_domain": "Advertising",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "RequestMarketTracking",
+      "method": "PUT",
+      "path": "/Advertising/{advertisingid}/MarketTracking/{markettrackingid}/Request",
+      "tipo": "BQ",
+      "grupo": "MarketTracking",
+      "request_schema": "MarketTracking",
+      "response_schema": "MarketTracking",
+      "summary": "RqBQ Request manual intervention in the market tracking (e.g. request reworking of the analysis)",
+      "description": "RqBQ Request manual intervention in the market tracking (e.g. request reworking of the analysis)",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    },
+    {
+      "operation_id": "Create",
+      "method": "POST",
+      "path": "/Advertising/Create",
+      "tipo": "CR",
+      "grupo": "AdvertisingCampaignManagementPlan",
+      "request_schema": "AdvertisingCampaignManagementPlan",
+      "response_schema": "AdvertisingCampaignManagementPlan",
+      "summary": "CrCR Create and invoke the advertising campaign management plan",
+      "description": "CrCR Create and invoke the advertising campaign management plan"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/Advertising/{advertisingid}/Update",
+      "tipo": "CR",
+      "grupo": "AdvertisingCampaignManagementPlan",
+      "request_schema": "AdvertisingCampaignManagementPlan",
+      "response_schema": "AdvertisingCampaignManagementPlan",
+      "summary": "UpCR Update details of the advertising campaign management plan",
+      "description": "UpCR Update details of the advertising campaign management plan"
+    },
+    {
+      "operation_id": "ExecuteMarketTracking",
+      "method": "PUT",
+      "path": "/Advertising/{advertisingid}/MarketTracking/{markettrackingid}/Execute",
+      "tipo": "BQ",
+      "grupo": "MarketTracking",
+      "request_schema": "MarketTracking",
+      "response_schema": "MarketTracking",
+      "summary": "ExBQ Execute an automated task for the tracking activity (e.g. upload new data)",
+      "description": "ExBQ Execute an automated task for the tracking activity (e.g. upload new data)",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    },
+    {
+      "operation_id": "CreatePerformanceAssessment",
+      "method": "POST",
+      "path": "/Advertising/{advertisingid}/PerformanceAssessment/Create",
+      "tipo": "BQ",
+      "grupo": "PerformanceAssessment",
+      "request_schema": "PerformanceAssessment",
+      "response_schema": "PerformanceAssessment",
+      "summary": "CrBQ Create a performance assessment of the advertising campaign portfolio",
+      "description": "CrBQ Create a performance assessment of the advertising campaign portfolio",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    },
+    {
+      "operation_id": "UpdateCampaignDirection",
+      "method": "PUT",
+      "path": "/Advertising/{advertisingid}/CampaignDirection/{campaigndirectionid}/Update",
+      "tipo": "BQ",
+      "grupo": "CampaignDirection",
+      "request_schema": "CampaignDirection",
+      "response_schema": "CampaignDirection",
+      "summary": "UpBQ Update the advertising campaign design and execution schedules",
+      "description": "UpBQ Update the advertising campaign design and execution schedules",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    },
+    {
+      "operation_id": "RetrieveMarketTracking",
+      "method": "GET",
+      "path": "/Advertising/{advertisingid}/MarketTracking/{markettrackingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "MarketTracking",
+      "request_schema": "",
+      "response_schema": "MarketTracking",
+      "summary": "ReBQ Retrieve details about the market tracking activity",
+      "description": "ReBQ Retrieve details about the market tracking activity",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    },
+    {
+      "operation_id": "ExecutePerformanceAssessment",
+      "method": "PUT",
+      "path": "/Advertising/{advertisingid}/PerformanceAssessment/{performanceassessmentid}/Execute",
+      "tipo": "BQ",
+      "grupo": "PerformanceAssessment",
+      "request_schema": "PerformanceAssessment",
+      "response_schema": "PerformanceAssessment",
+      "summary": "ExBQ Execute an automated action for a performance assessment (e.g. trigger assessment report)",
+      "description": "ExBQ Execute an automated action for a performance assessment (e.g. trigger assessment report)",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    },
+    {
+      "operation_id": "CreateCampaignDirection",
+      "method": "POST",
+      "path": "/Advertising/{advertisingid}/CampaignDirection/Create",
+      "tipo": "BQ",
+      "grupo": "CampaignDirection",
+      "request_schema": "CampaignDirection",
+      "response_schema": "CampaignDirection",
+      "summary": "CrBQ Create advertising campaign direction schedules (e.g. create the schedules for design or execution activity)",
+      "description": "CrBQ Create advertising campaign direction schedules (e.g. create the schedules for design or execution activity)",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    },
+    {
+      "operation_id": "RetrieveCampaignDirection",
+      "method": "GET",
+      "path": "/Advertising/{advertisingid}/CampaignDirection/{campaigndirectionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "CampaignDirection",
+      "request_schema": "",
+      "response_schema": "CampaignDirection",
+      "summary": "ReBQ Retrieve details about advertising campaign design and execution direction and scheduling activities",
+      "description": "ReBQ Retrieve details about advertising campaign design and execution direction and scheduling activities",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    },
+    {
+      "operation_id": "Grant",
+      "method": "PUT",
+      "path": "/Advertising/{advertisingid}/Grant",
+      "tipo": "CR",
+      "grupo": "AdvertisingCampaignManagementPlan",
+      "request_schema": "AdvertisingCampaignManagementPlan",
+      "response_schema": "AdvertisingCampaignManagementPlan",
+      "summary": "GrCR Obtain a permission grant against the plan (e.g. obtain authority to develop materials)",
+      "description": "GrCR Obtain a permission grant against the plan (e.g. obtain authority to develop materials)"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/Advertising/{advertisingid}/Request",
+      "tipo": "CR",
+      "grupo": "AdvertisingCampaignManagementPlan",
+      "request_schema": "AdvertisingCampaignManagementPlan",
+      "response_schema": "AdvertisingCampaignManagementPlan",
+      "summary": "RqCR Request manual intervention in the campaign plan (e.g. rework campaign priorities)",
+      "description": "RqCR Request manual intervention in the campaign plan (e.g. rework campaign priorities)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/Advertising/{advertisingid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "AdvertisingCampaignManagementPlan",
+      "request_schema": "",
+      "response_schema": "AdvertisingCampaignManagementPlan",
+      "summary": "ReCR Retrieve details about the advertising campaign management plan",
+      "description": "ReCR Retrieve details about the advertising campaign management plan"
+    },
+    {
+      "operation_id": "UpdateMarketTracking",
+      "method": "PUT",
+      "path": "/Advertising/{advertisingid}/MarketTracking/{markettrackingid}/Update",
+      "tipo": "BQ",
+      "grupo": "MarketTracking",
+      "request_schema": "MarketTracking",
+      "response_schema": "MarketTracking",
+      "summary": "UpBQ Update details of the market tracking activity (e.g. change source)",
+      "description": "UpBQ Update details of the market tracking activity (e.g. change source)",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    },
+    {
+      "operation_id": "UpdatePerformanceAssessment",
+      "method": "PUT",
+      "path": "/Advertising/{advertisingid}/PerformanceAssessment/{performanceassessmentid}/Update",
+      "tipo": "BQ",
+      "grupo": "PerformanceAssessment",
+      "request_schema": "PerformanceAssessment",
+      "response_schema": "PerformanceAssessment",
+      "summary": "UpBQ Update details of a advertising campaign portfolio assessment",
+      "description": "UpBQ Update details of a advertising campaign portfolio assessment",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    },
+    {
+      "operation_id": "RequestPerformanceAssessment",
+      "method": "PUT",
+      "path": "/Advertising/{advertisingid}/PerformanceAssessment/{performanceassessmentid}/Request",
+      "tipo": "BQ",
+      "grupo": "PerformanceAssessment",
+      "request_schema": "PerformanceAssessment",
+      "response_schema": "PerformanceAssessment",
+      "summary": "RqBQ Request manual intervention to a performance assessment (e.g. request specific analysis)",
+      "description": "RqBQ Request manual intervention to a performance assessment (e.g. request specific analysis)",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    },
+    {
+      "operation_id": "RetrievePerformanceAssessment",
+      "method": "GET",
+      "path": "/Advertising/{advertisingid}/PerformanceAssessment/{performanceassessmentid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "PerformanceAssessment",
+      "request_schema": "",
+      "response_schema": "PerformanceAssessment",
+      "summary": "ReBQ Retrieve details about advertising campaign performance assessment activity",
+      "description": "ReBQ Retrieve details about advertising campaign performance assessment activity",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    },
+    {
+      "operation_id": "RequestCampaignDirection",
+      "method": "PUT",
+      "path": "/Advertising/{advertisingid}/CampaignDirection/{campaigndirectionid}/Request",
+      "tipo": "BQ",
+      "grupo": "CampaignDirection",
+      "request_schema": "CampaignDirection",
+      "response_schema": "CampaignDirection",
+      "summary": "RqBQ Request manual intervention to the schedules (e.g. rework priorities)",
+      "description": "RqBQ Request manual intervention to the schedules (e.g. rework priorities)",
+      "parent_control_record": "AdvertisingCampaignManagementPlan"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "AdvertisingCampaignExecutionPlan",
+    "AdvertisingCampaignManagementPlan",
+    "AdvertisingOutcome",
+    "Agreementstatus",
+    "Agreementstatustypevalues",
+    "Agreementtypevalues",
+    "Amount",
+    "Amounttypevalues",
+    "Analysis",
+    "Analysistypevalues",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "Budgetarrangement",
+    "Budgettype",
+    "Budgettypevalues",
+    "CampaignDirection",
+    "Campaigntypevalues",
+    "Currencycode",
+    "Date",
+    "DateTime",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Duration",
+    "Geographicalareatypevalues",
+    "Goal",
+    "Goaldatetime",
+    "Goaldatetimetypevalues",
+    "Goalstatus",
+    "Goalstatustypevalues",
+    "Goaltypevalues",
+    "HTTPError",
+    "Identifier",
+    "Instruction",
+    "Instructiondatetime",
+    "Instructiondatetimetypevalues",
+    "Instructionidentification",
+    "Instructionidentificationtypevalues",
+    "Instructionstatus",
+    "Instructionstatustypevalues",
+    "Instructiontypevalues",
+    "Involvedparty",
+    "Location",
+    "Log",
+    "MarketTracking",
+    "Metric",
+    "Name",
+    "PerformanceAssessment",
+    "Plan",
+    "Plannedaction",
+    "Plantypevalues",
+    "Procedure",
+    "Proceduretypevalues",
+    "Profile",
+    "Project",
+    "Projectdatetime",
+    "Schedule",
+    "Status",
+    "Subject",
+    "Task",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "AdvertisingCampaignExecutionPlan",
+      "kind": "object",
+      "description": "The execution plan for the advertising campaign, including external agencies employed, content development and execution tasks",
+      "properties": [
+        {
+          "name": "AdvertisingCampaignExecutionSchedule",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "AdvertisingCampaignManagementPlan",
+      "kind": "object",
+      "description": "Oversee the working of a business unit, assign work, manage against a plan and troubleshoot issues within Advertising.",
+      "properties": [
+        {
+          "name": "AdvertisingCampaignPortfolio",
+          "type": "object",
+          "ref": "Profile"
+        },
+        {
+          "name": "AdvertisingCampaignType",
+          "type": "object",
+          "ref": "Campaigntypevalues"
+        },
+        {
+          "name": "AdvertisingCampaignDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdvertisingCampaignMetrics",
+          "type": "object",
+          "ref": "Metric"
+        },
+        {
+          "name": "AdvertisingCampaignMetricDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdvertisingCampaignMetricGoal",
+          "type": "object",
+          "ref": "Goal"
+        },
+        {
+          "name": "AdvertisingCampaignPerformanceRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdvertisingCampaignProcedureInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AdvertisingCampaignExecutionPlan",
+          "type": "object",
+          "ref": "AdvertisingCampaignExecutionPlan"
+        },
+        {
+          "name": "EmployeeorBusinessUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "AdvertisingCampaignDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "AdvertisingCampaignProcedureResult",
+          "type": "object",
+          "ref": "Procedure"
+        }
+      ]
+    },
+    {
+      "name": "AdvertisingOutcome",
+      "kind": "object",
+      "description": "A collection of one or more responsibilities or tasks under management\n\nExamples: Relationship development, Troubleshooting",
+      "properties": [
+        {
+          "name": "AdvertisingPerformanceAnalysis",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "AdvertisingActivityAnalysis",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "AdvertisingCharter",
+          "type": "object",
+          "ref": "Plan"
+        },
+        {
+          "name": "AdvertisingTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "AdvertisingProject",
+          "type": "object",
+          "ref": "Project"
+        }
+      ]
+    },
+    {
+      "name": "Agreementstatus",
+      "kind": "object",
+      "description": "A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).",
+      "properties": [
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AgreementStatusType",
+          "type": "object",
+          "ref": "Agreementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Agreementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Offered` - \r\n* `Confirmed` - \r\n* `Completed` - \r\n* `Signed` - \r\n* `Terminated` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Offered",
+        "Confirmed",
+        "Completed",
+        "Signed",
+        "Terminated",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Agreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerAgreement` - \r\n* `SupplierAgreement` - \r\n* `BrokerAgreement` - \r\n* `SalesAgreement` - \r\n* `PurchaseAgreement` - \r\n* `MaintenanceAgreement` - \r\n* `ProductAgreement` - \r\n* `ResourceAgreement` - \r\n* `PartnerAgreement` - \r\n* `MasterAgreement` - \r\n* `BilateralAgreement` - \r\n* `RepurchaseAgreement` - \r\n",
+      "enum_values": [
+        "CustomerAgreement",
+        "SupplierAgreement",
+        "BrokerAgreement",
+        "SalesAgreement",
+        "PurchaseAgreement",
+        "MaintenanceAgreement",
+        "ProductAgreement",
+        "ResourceAgreement",
+        "PartnerAgreement",
+        "MasterAgreement",
+        "BilateralAgreement",
+        "RepurchaseAgreement"
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Analysis",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "Budgetarrangement",
+      "kind": "object",
+      "description": "An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)",
+      "properties": [
+        {
+          "name": "BudgetType",
+          "type": "object",
+          "ref": "Budgettype"
+        },
+        {
+          "name": "BudgetAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Budgettype",
+      "kind": "object",
+      "description": "A Classification value that specifies the type of Budget",
+      "properties": [
+        {
+          "name": "BudgetTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "BudgetType",
+          "type": "object",
+          "ref": "Budgettypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Budgettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OperatingBudget` - \r\n* `FinancialBudget` - \r\n* `ResourceBudget` - \r\n",
+      "enum_values": [
+        "OperatingBudget",
+        "FinancialBudget",
+        "ResourceBudget"
+      ]
+    },
+    {
+      "name": "CampaignDirection",
+      "kind": "object",
+      "description": "A collection of one or more responsibilities or tasks under management\n\nExamples: Relationship development, Troubleshooting",
+      "properties": [
+        {
+          "name": "AdvertisingCampaignDevelopmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AdvertisingCampaignExecutionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Campaigntypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MarketingCampaign` - \r\n* `SocialCampaign` - \r\n* `PoliticalCampaign` - \r\n",
+      "enum_values": [
+        "MarketingCampaign",
+        "SocialCampaign",
+        "PoliticalCampaign"
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date on which the agreement was signed by all parties. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "DateTime",
+      "kind": "object",
+      "description": "The date-time the performance assessment task is performed",
+      "properties": [
+        {
+          "name": "TimeIndication",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeIndicationType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "Date and time at which the range starts. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The period covered by the analysis (from to date time)",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "The period over which the advertising is executed",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "Goal",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "GoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "GoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "GoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetime",
+      "kind": "object",
+      "description": "The key dates and times of Goal like Setting Data, Planning Date, Start Date, Review Date, Completion Date.",
+      "properties": [
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "GoalDateAndTimeType",
+          "type": "object",
+          "ref": "Goaldatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SettingDate` - \r\n* `PlanningDate` - \r\n* `StartDate` - \r\n* `ReviewDate` - \r\n* `CompletionDate` - \r\n",
+      "enum_values": [
+        "SettingDate",
+        "PlanningDate",
+        "StartDate",
+        "ReviewDate",
+        "CompletionDate"
+      ]
+    },
+    {
+      "name": "Goalstatus",
+      "kind": "object",
+      "description": "The lifecycle status of Goal like Goal Setting, Planning, Execution, Monitoring and Evaluation, Completion or Achievement, Maintenance or Sustainment, Closure or Renewal",
+      "properties": [
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "GoalStatusType",
+          "type": "object",
+          "ref": "Goalstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goalstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Setting` - \r\n* `Planning` - \r\n* `Execution` - \r\n* `MonitoringAndEvaluation` - \r\n* `CompletionOrAchievement` - \r\n* `MaintenanceOrSustainment` - \r\n* `ClosureOrRenewal` - \r\n",
+      "enum_values": [
+        "Setting",
+        "Planning",
+        "Execution",
+        "MonitoringAndEvaluation",
+        "CompletionOrAchievement",
+        "MaintenanceOrSustainment",
+        "ClosureOrRenewal"
+      ]
+    },
+    {
+      "name": "Goaltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Short-TermGoal` - \r\n* `Long-TermGoal` - \r\n* `BusinessGoal` - \r\n* `PerformanceGoal` - \r\n* `FinancialGoal` - \r\n* `OutcomeGoal` - \r\n* `SMARTGoal` - \r\n",
+      "enum_values": [
+        "Short-TermGoal",
+        "Long-TermGoal",
+        "BusinessGoal",
+        "PerformanceGoal",
+        "FinancialGoal",
+        "OutcomeGoal",
+        "SMARTGoal"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Instruction",
+      "kind": "object",
+      "description": "Request to process something (most refers to Asset Type)",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Instructiondatetime"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Instructionstatus"
+        },
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Instructionidentification"
+        },
+        {
+          "name": "InstructionType",
+          "type": "object",
+          "ref": "Instructiontypevalues"
+        },
+        {
+          "name": "InstructionResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InstructionPurpose",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "InstructionDateType",
+          "type": "object",
+          "ref": "Instructiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DueDate` - \r\n* `ExecutionDate` - \r\n* `FulfillmentDate` - \r\n",
+      "enum_values": [
+        "DueDate",
+        "ExecutionDate",
+        "FulfillmentDate"
+      ]
+    },
+    {
+      "name": "Instructionidentification",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of an Instruction.\n",
+      "properties": [
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InstructionIdentificationType",
+          "type": "object",
+          "ref": "Instructionidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructionidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OrderNumber` - \r\n* `InstructionNumber` - \r\n",
+      "enum_values": [
+        "OrderNumber",
+        "InstructionNumber"
+      ]
+    },
+    {
+      "name": "Instructionstatus",
+      "kind": "object",
+      "description": "A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); ",
+      "properties": [
+        {
+          "name": "InstructionStatusType",
+          "type": "object",
+          "ref": "Instructionstatustypevalues"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Instructionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Pendingprocessing` - Processing of the instruction is pending.\r\n* `Acknowledgedaccepted` - Instruction has been acknowledged and accepted and is validated for further processing.\r\n* `Rejected` - Instruction has been rejected.\r\n* `Accepted` - Instruction has been accepted and is validated for further processing.\r\n* `Completed` - Processing has been completed.\r\n* `Notreceived` - No instruction has been received (to be used in a reminder).\r\n* `Cancelled` - Instruction has been cancelled.\r\n* `Beingcancelled` - Cancel request is being processed.\r\n* `Receivedbyissuerorregistrar` - Instruction has been received by Issuer.\r\n* `Pending` - Instruction is pending.\r\n* `Standinginstruction` - Standing instruction is applied.\r\n* `Queued` - Instruction is queued.\r\n* `Cancelledbysubcustodian` - Instruction has been cancelled by the agent, for example, due to an event deadline extension.\r\n* `Forwarded` - Accepted and sent along the chain.\r\n",
+      "enum_values": [
+        "Pendingprocessing",
+        "Acknowledgedaccepted",
+        "Rejected",
+        "Accepted",
+        "Completed",
+        "Notreceived",
+        "Cancelled",
+        "Beingcancelled",
+        "Receivedbyissuerorregistrar",
+        "Pending",
+        "Standinginstruction",
+        "Queued",
+        "Cancelledbysubcustodian",
+        "Forwarded"
+      ]
+    },
+    {
+      "name": "Instructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PaymentInstruction` - \r\n* `DeliveryOrder` - \r\n* `InformationRequest` - \r\n* `ExchangeInstruction` - \r\n* `AllocationInstruction` - \r\n* `MaintenanceInstruction` - \r\n",
+      "enum_values": [
+        "PaymentInstruction",
+        "DeliveryOrder",
+        "InformationRequest",
+        "ExchangeInstruction",
+        "AllocationInstruction",
+        "MaintenanceInstruction"
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "MarketTracking",
+      "kind": "object",
+      "description": "A collection of one or more responsibilities or tasks under management\n\nExamples: Relationship development, Troubleshooting",
+      "properties": [
+        {
+          "name": "MarketTrackingWorkTaskType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketTrackingWorkTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "GeneralMarketResearchDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "MarketTrackingWorkTaskWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "MarketTrackingWorkTaskResult",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "MarketTrackingWorkTaskDateandTime",
+          "type": "object",
+          "ref": "DateTime"
+        }
+      ]
+    },
+    {
+      "name": "Metric",
+      "kind": "object",
+      "description": "Metrics that are defined to assess the target and actual impact of the campaign",
+      "properties": [
+        {
+          "name": "Metric",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of Goal",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PerformanceAssessment",
+      "kind": "object",
+      "description": "A collection of one or more responsibilities or tasks under management\n\nExamples: Relationship development, Troubleshooting",
+      "properties": [
+        {
+          "name": "PerformanceAssessmentWorkTaskType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PerformanceAssessmentWorkTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "PerformanceAssessmentWorkTaskWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "PerformanceAssessmentWorkTaskResult",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "PerformanceAssessmentWorkTaskDateandTime",
+          "type": "object",
+          "ref": "DateTime"
+        }
+      ]
+    },
+    {
+      "name": "Plan",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PlanGoal",
+          "type": "object",
+          "ref": "Goal"
+        },
+        {
+          "name": "PlanBudget",
+          "type": "object",
+          "ref": "Budgetarrangement"
+        },
+        {
+          "name": "PlannedAction",
+          "type": "object",
+          "ref": "Plannedaction"
+        },
+        {
+          "name": "PlanType",
+          "type": "object",
+          "ref": "Plantypevalues"
+        },
+        {
+          "name": "PlanValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "PlanDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementSignedDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AgreementType",
+          "type": "object",
+          "ref": "Agreementtypevalues"
+        },
+        {
+          "name": "AgreementValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AgreementVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Agreementstatus"
+        },
+        {
+          "name": "AgreementSubjectMatter",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AgreementDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Plannedaction",
+      "kind": "object",
+      "description": "An action that is arranged in a plan for doing or achieving something ",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Plantypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `AdministrativePlan` - \r\n* `ManagementPlan` - \r\n* `StratgyPlan` - \r\n* `FinancialPlan` - \r\n* `DevelopmentPlan` - \r\n",
+      "enum_values": [
+        "AdministrativePlan",
+        "ManagementPlan",
+        "StratgyPlan",
+        "FinancialPlan",
+        "DevelopmentPlan"
+      ]
+    },
+    {
+      "name": "Procedure",
+      "kind": "object",
+      "description": "The result/impact of the overall advertising campaign event (can refer to any detected up-tick in sales or servicing activity)",
+      "properties": [
+        {
+          "name": "ProcedureType",
+          "type": "object",
+          "ref": "Proceduretypevalues"
+        },
+        {
+          "name": "ProcedureDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ProcedureRequest",
+          "type": "object",
+          "ref": "Instruction"
+        },
+        {
+          "name": "ProcedureSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "ProcedureStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Proceduretypevalues",
+      "kind": "object",
+      "description": "A Classification value that distinguishes between the type of process undertaken within Procedure",
+      "properties": [
+        {
+          "name": "Proceduretypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "kind": "object",
+      "description": "The collection of advertising campaigns that is used to assess performance and coverage and direct development and execution activity",
+      "properties": [
+        {
+          "name": "Profile",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Project",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ProjectName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ProjectType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProjectDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProjectSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "ProjectDateTime",
+          "type": "object",
+          "ref": "Projectdatetime"
+        }
+      ]
+    },
+    {
+      "name": "Projectdatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ProjectDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ProjectDateType",
+          "type": "object",
+          "ref": "Projectdatetime"
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the analysis performed using the algorithm",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "File of consolidated notes, evaluations and findings for the work task",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "AdvertisingCampaignManagementPlan",
+        "operations": [
+          "Create",
+          "Update",
+          "Grant",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "CampaignDirection",
+        "parent_control_record": "AdvertisingCampaignManagementPlan",
+        "operations": [
+          "UpdateCampaignDirection",
+          "CreateCampaignDirection",
+          "RetrieveCampaignDirection",
+          "RequestCampaignDirection"
+        ]
+      },
+      {
+        "name": "MarketTracking",
+        "parent_control_record": "AdvertisingCampaignManagementPlan",
+        "operations": [
+          "RequestMarketTracking",
+          "ExecuteMarketTracking",
+          "RetrieveMarketTracking",
+          "UpdateMarketTracking"
+        ]
+      },
+      {
+        "name": "PerformanceAssessment",
+        "parent_control_record": "AdvertisingCampaignManagementPlan",
+        "operations": [
+          "CreatePerformanceAssessment",
+          "ExecutePerformanceAssessment",
+          "UpdatePerformanceAssessment",
+          "RequestPerformanceAssessment",
+          "RetrievePerformanceAssessment"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/Advertising.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "6f8c4cfacd4619284c8abdfcca95a22fbe9d8661bbcd1c47072759836ca8d499",
+    "retrieved_at": "2026-09-12T22:37:49.103476+00:00"
+  }
+}

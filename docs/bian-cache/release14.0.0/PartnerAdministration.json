@@ -1,0 +1,101 @@
+{
+  "service_domain": "Partner Administration",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [],
+  "schemas": [
+    "HTTPError",
+    "PartnerAdministrativePlan"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PartnerAdministrativePlan",
+      "kind": "object",
+      "description": "Handle and assign the day to day activities, capture time, costs and income for an operational unit within Partner Administration. ",
+      "properties": [
+        {
+          "name": "PartnerAdministrativePlanBudgetType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerAdministrativePlanBudget",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerAdministrativePlanAssignment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerAdministrativePlanDuty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerAdministrativePlanAssociatedParty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerAdministrativePlanBudgetBalance",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerAdministrativePlanSubjectMatter",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerAdministrativePlanType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerAdministrativePlanReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerAdministrativePlanDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartnerAdministration.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "ddfd1221f6f07c9be5fe277c9fcb5ddf17c2d14645ebf0d2f73f6e66f4adac91",
+    "retrieved_at": "2026-09-12T22:35:50.134856+00:00"
+  }
+}

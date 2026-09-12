@@ -1,0 +1,676 @@
+{
+  "service_domain": "Channel Activity Analysis",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/Exchange",
+      "tipo": "CR",
+      "grupo": "ChannelActivityAnalysis",
+      "request_schema": "ChannelActivityAnalysis",
+      "response_schema": "ChannelActivityAnalysis",
+      "summary": "ExCR Obtain an automated refresh of channel activity analysis",
+      "description": "ExCR Obtain an automated refresh of channel activity analysis"
+    },
+    {
+      "operation_id": "Evaluate",
+      "method": "POST",
+      "path": "/ChannelActivityAnalysis/Evaluate",
+      "tipo": "CR",
+      "grupo": "ChannelActivityAnalysis",
+      "request_schema": "ChannelActivityAnalysis",
+      "response_schema": "ChannelActivityAnalysis",
+      "summary": "EvCR Initialize channel activity analysis",
+      "description": "EvCR Initialize channel activity analysis"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/Request",
+      "tipo": "CR",
+      "grupo": "ChannelActivityAnalysis",
+      "request_schema": "ChannelActivityAnalysis",
+      "response_schema": "ChannelActivityAnalysis",
+      "summary": "RqCR Request a manual refresh of channel activity analysis",
+      "description": "RqCR Request a manual refresh of channel activity analysis"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "ChannelActivityAnalysis",
+      "request_schema": "",
+      "response_schema": "ChannelActivityAnalysis",
+      "summary": "ReCR Retrieve details about channel activity analysis, including recent results",
+      "description": "ReCR Retrieve details about channel activity analysis, including recent results"
+    },
+    {
+      "operation_id": "ExecuteCustomerFraud",
+      "method": "PUT",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/CustomerFraud/{customerfraudid}/Execute",
+      "tipo": "BQ",
+      "grupo": "CustomerFraud",
+      "request_schema": "CustomerFraud",
+      "response_schema": "CustomerFraud",
+      "summary": "ExBQ Obtain an automated refresh of customer fraud analysis",
+      "description": "ExBQ Obtain an automated refresh of customer fraud analysis",
+      "parent_control_record": "ChannelActivityAnalysis"
+    },
+    {
+      "operation_id": "RetrieveCustomerFraud",
+      "method": "GET",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/CustomerFraud/{customerfraudid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "CustomerFraud",
+      "request_schema": "",
+      "response_schema": "CustomerFraud",
+      "summary": "ReBQ Retrieve details about customer fraud analysis, including recent results",
+      "description": "ReBQ Retrieve details about customer fraud analysis, including recent results",
+      "parent_control_record": "ChannelActivityAnalysis"
+    },
+    {
+      "operation_id": "ExecuteMerchantFraud",
+      "method": "PUT",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/MerchantFraud/{merchantfraudid}/Execute",
+      "tipo": "BQ",
+      "grupo": "MerchantFraud",
+      "request_schema": "MerchantFraud",
+      "response_schema": "MerchantFraud",
+      "summary": "ExBQ Obtain an automated refresh of merchant fraud analysis",
+      "description": "ExBQ Obtain an automated refresh of merchant fraud analysis",
+      "parent_control_record": "ChannelActivityAnalysis"
+    },
+    {
+      "operation_id": "RetrieveMerchantFraud",
+      "method": "GET",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/MerchantFraud/{merchantfraudid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "MerchantFraud",
+      "request_schema": "",
+      "response_schema": "MerchantFraud",
+      "summary": "ReBQ Retrieve details about merchant fraud analysis, including recent results",
+      "description": "ReBQ Retrieve details about merchant fraud analysis, including recent results",
+      "parent_control_record": "ChannelActivityAnalysis"
+    },
+    {
+      "operation_id": "RetrieveMerchantBehavior",
+      "method": "GET",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/MerchantBehavior/{merchantbehaviorid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "MerchantBehavior",
+      "request_schema": "",
+      "response_schema": "MerchantBehavior",
+      "summary": "ReBQ Retrieve details about merchant out of pattern behavior analysis, including recent results",
+      "description": "ReBQ Retrieve details about merchant out of pattern behavior analysis, including recent results",
+      "parent_control_record": "ChannelActivityAnalysis"
+    },
+    {
+      "operation_id": "ExecuteCustomerBehavior",
+      "method": "PUT",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/CustomerBehavior/{customerbehaviorid}/Execute",
+      "tipo": "BQ",
+      "grupo": "CustomerBehavior",
+      "request_schema": "CustomerBehavior",
+      "response_schema": "CustomerBehavior",
+      "summary": "ExBQ Obtain an automated refresh of customer out of pattern behavior analysis",
+      "description": "ExBQ Obtain an automated refresh of customer out of pattern behavior analysis",
+      "parent_control_record": "ChannelActivityAnalysis"
+    },
+    {
+      "operation_id": "ExecuteMerchantBehavior",
+      "method": "PUT",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/MerchantBehavior/{merchantbehaviorid}/Execute",
+      "tipo": "BQ",
+      "grupo": "MerchantBehavior",
+      "request_schema": "MerchantBehavior",
+      "response_schema": "MerchantBehavior",
+      "summary": "ExBQ Obtain an automated refresh of merchant out of pattern behavior analysis",
+      "description": "ExBQ Obtain an automated refresh of merchant out of pattern behavior analysis",
+      "parent_control_record": "ChannelActivityAnalysis"
+    },
+    {
+      "operation_id": "ExecuteBot",
+      "method": "PUT",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/Bot/{botid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Bot",
+      "request_schema": "Bot",
+      "response_schema": "Bot",
+      "summary": "ExBQ Obtain an automated refresh of bot detection analysis",
+      "description": "ExBQ Obtain an automated refresh of bot detection analysis",
+      "parent_control_record": "ChannelActivityAnalysis"
+    },
+    {
+      "operation_id": "RetrieveBot",
+      "method": "GET",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/Bot/{botid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Bot",
+      "request_schema": "",
+      "response_schema": "Bot",
+      "summary": "ReBQ Retrieve details about bot detection analysis, including recent results",
+      "description": "ReBQ Retrieve details about bot detection analysis, including recent results",
+      "parent_control_record": "ChannelActivityAnalysis"
+    },
+    {
+      "operation_id": "ExecuteDeviceError",
+      "method": "PUT",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/DeviceError/{deviceerrorid}/Execute",
+      "tipo": "BQ",
+      "grupo": "DeviceError",
+      "request_schema": "DeviceError",
+      "response_schema": "DeviceError",
+      "summary": "ExBQ Obtain an automated refresh of device error detection analysis",
+      "description": "ExBQ Obtain an automated refresh of device error detection analysis",
+      "parent_control_record": "ChannelActivityAnalysis"
+    },
+    {
+      "operation_id": "RetrieveCustomerBehavior",
+      "method": "GET",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/CustomerBehavior/{customerbehaviorid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "CustomerBehavior",
+      "request_schema": "",
+      "response_schema": "CustomerBehavior",
+      "summary": "ReBQ Retrieve details about customer out of pattern behavior analysis, including recent results",
+      "description": "ReBQ Retrieve details about customer out of pattern behavior analysis, including recent results",
+      "parent_control_record": "ChannelActivityAnalysis"
+    },
+    {
+      "operation_id": "RetrieveDeviceError",
+      "method": "GET",
+      "path": "/ChannelActivityAnalysis/{channelactivityanalysisid}/DeviceError/{deviceerrorid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "DeviceError",
+      "request_schema": "",
+      "response_schema": "DeviceError",
+      "summary": "ReBQ Retrieve details about device error detection analysis, including recent results",
+      "description": "ReBQ Retrieve details about device error detection analysis, including recent results",
+      "parent_control_record": "ChannelActivityAnalysis"
+    }
+  ],
+  "schemas": [
+    "Analysis",
+    "Analysistypevalues",
+    "Bot",
+    "ChannelActivityAnalysis",
+    "Channeltypevalues",
+    "CustomerBehavior",
+    "CustomerFraud",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "DeviceError",
+    "HTTPError",
+    "MerchantBehavior",
+    "MerchantFraud",
+    "Report",
+    "Reporttypevalues",
+    "Schedule"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Analysis",
+      "kind": "object",
+      "description": "Reference to output from the applied algorithm",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "Bot",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\nExamples: Average balance calculation, Propensity to buy",
+      "properties": [
+        {
+          "name": "ChannelActivityBotDetectionAnalysisAlgorithmSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ChannelActivityBotDetectionAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "ChannelActivityBotDetectionAnalysisResult",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "ChannelActivityAnalysis",
+      "kind": "object",
+      "description": "The result of the analysis",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Channeltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommunicationChannel` - \r\n* `AuthenticationChannel` - \r\n",
+      "enum_values": [
+        "CommunicationChannel",
+        "AuthenticationChannel"
+      ]
+    },
+    {
+      "name": "CustomerBehavior",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\nExamples: Average balance calculation, Propensity to buy",
+      "properties": [
+        {
+          "name": "ChannelActivityCustomerBehaviorAnalysisAlgorithmSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ChannelActivityCustomerBehaviorAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "ChannelActivityCustomerBehaviorAnalysisResult",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "CustomerFraud",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\nExamples: Average balance calculation, Propensity to buy",
+      "properties": [
+        {
+          "name": "ChannelActivityCustomerFraudAnalysisAlgorithmSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ChannelActivityCustomerFraudAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "ChannelActivityCustomerFraudAnalysisResult",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "Date and time at which the range starts. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The period covered by the analysis (from to date time)",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "DeviceError",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\nExamples: Average balance calculation, Propensity to buy",
+      "properties": [
+        {
+          "name": "ChannelActivityDeviceErrorDetectionAnalysisAlgorithmSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ChannelActivityDeviceErrorDetectionAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "ChannelActivityDeviceErrorDetectionAnalysisResult",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "MerchantBehavior",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\nExamples: Average balance calculation, Propensity to buy",
+      "properties": [
+        {
+          "name": "ChannelActivityMerchantBehaviorAnalysisAlgorithmSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ChannelActivityMerchantBehaviorAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "ChannelActivityMerchantBehaviorAnalysisResult",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "MerchantFraud",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\nExamples: Average balance calculation, Propensity to buy",
+      "properties": [
+        {
+          "name": "ChannelActivityMerchantFraudAnalysisAlgorithmSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ChannelActivityMerchantFraudAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "ChannelActivityMerchantFraudAnalysisResult",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Report",
+      "kind": "object",
+      "description": "The raw data used in the analysis (retrieved from Channel Activity History)",
+      "properties": [
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the analysis performed using the algorithm",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "ChannelActivityAnalysis",
+        "operations": [
+          "Exchange",
+          "Evaluate",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Bot",
+        "parent_control_record": "ChannelActivityAnalysis",
+        "operations": [
+          "ExecuteBot",
+          "RetrieveBot"
+        ]
+      },
+      {
+        "name": "CustomerBehavior",
+        "parent_control_record": "ChannelActivityAnalysis",
+        "operations": [
+          "ExecuteCustomerBehavior",
+          "RetrieveCustomerBehavior"
+        ]
+      },
+      {
+        "name": "CustomerFraud",
+        "parent_control_record": "ChannelActivityAnalysis",
+        "operations": [
+          "ExecuteCustomerFraud",
+          "RetrieveCustomerFraud"
+        ]
+      },
+      {
+        "name": "DeviceError",
+        "parent_control_record": "ChannelActivityAnalysis",
+        "operations": [
+          "ExecuteDeviceError",
+          "RetrieveDeviceError"
+        ]
+      },
+      {
+        "name": "MerchantBehavior",
+        "parent_control_record": "ChannelActivityAnalysis",
+        "operations": [
+          "RetrieveMerchantBehavior",
+          "ExecuteMerchantBehavior"
+        ]
+      },
+      {
+        "name": "MerchantFraud",
+        "parent_control_record": "ChannelActivityAnalysis",
+        "operations": [
+          "ExecuteMerchantFraud",
+          "RetrieveMerchantFraud"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ChannelActivityAnalysis.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "a65a09976d8321c938a151f1f091f8df9e6455a66343a27be6b8743befa74b40",
+    "retrieved_at": "2026-09-12T22:32:22.442171+00:00"
+  }
+}

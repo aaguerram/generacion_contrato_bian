@@ -1,0 +1,1292 @@
+{
+  "service_domain": "ATM Network Operations",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/Control",
+      "tipo": "CR",
+      "grupo": "ATMNetworkOperatingSession",
+      "request_schema": "ATMNetworkOperatingSession",
+      "response_schema": "ATMNetworkOperatingSession",
+      "summary": "CoCR Control the processing of ATM Network Operating Session",
+      "description": "CoCR Control the processing of ATM Network Operating Session"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/Exchange",
+      "tipo": "CR",
+      "grupo": "ATMNetworkOperatingSession",
+      "request_schema": "ATMNetworkOperatingSession",
+      "response_schema": "ATMNetworkOperatingSession",
+      "summary": "EcCR Accept, verify, etc. aspects of ATM Network Operating Session processing",
+      "description": "EcCR Accept, verify, etc. aspects of ATM Network Operating Session processing"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/Execute",
+      "tipo": "CR",
+      "grupo": "ATMNetworkOperatingSession",
+      "request_schema": "ATMNetworkOperatingSession",
+      "response_schema": "ATMNetworkOperatingSession",
+      "summary": "ExCR Execute an available automated action for ATM Network Operating Session",
+      "description": "ExCR Execute an available automated action for ATM Network Operating Session"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/Request",
+      "tipo": "CR",
+      "grupo": "ATMNetworkOperatingSession",
+      "request_schema": "ATMNetworkOperatingSession",
+      "response_schema": "ATMNetworkOperatingSession",
+      "summary": "RqCR Request manual intervention or a decision with respect to ATM Network Operating Session",
+      "description": "RqCR Request manual intervention or a decision with respect to ATM Network Operating Session"
+    },
+    {
+      "operation_id": "ExchangeCashDistribution",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/CashDistribution/{cashdistributionid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "CashDistribution",
+      "request_schema": "CashDistribution",
+      "response_schema": "CashDistribution",
+      "summary": "EcBQ Accept, verify, etc. aspects of Cash Distribution processing",
+      "description": "EcBQ Accept, verify, etc. aspects of Cash Distribution processing",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "ATMNetworkOperatingSession",
+      "request_schema": "",
+      "response_schema": "ATMNetworkOperatingSession",
+      "summary": "ReCR Retrieve details about any aspect of ATM Network Operating Session",
+      "description": "ReCR Retrieve details about any aspect of ATM Network Operating Session"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/Update",
+      "tipo": "CR",
+      "grupo": "ATMNetworkOperatingSession",
+      "request_schema": "ATMNetworkOperatingSession",
+      "response_schema": "ATMNetworkOperatingSession",
+      "summary": "UpCR Update details relating to ATM Network Operating Session",
+      "description": "UpCR Update details relating to ATM Network Operating Session"
+    },
+    {
+      "operation_id": "ControlNetworkOperation",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/NetworkOperation/{networkoperationid}/Control",
+      "tipo": "BQ",
+      "grupo": "NetworkOperation",
+      "request_schema": "NetworkOperation",
+      "response_schema": "NetworkOperation",
+      "summary": "CoBQ Control the processing of Network Operation",
+      "description": "CoBQ Control the processing of Network Operation",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/ATMNetworkOperations/Initiate",
+      "tipo": "CR",
+      "grupo": "ATMNetworkOperatingSession",
+      "request_schema": "ATMNetworkOperatingSession",
+      "response_schema": "ATMNetworkOperatingSession",
+      "summary": "InCR Instantiate a new ATM Network Operating Session",
+      "description": "InCR Instantiate a new ATM Network Operating Session"
+    },
+    {
+      "operation_id": "ExchangeDeviceTracking",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/DeviceTracking/{devicetrackingid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "DeviceTracking",
+      "request_schema": "DeviceTracking",
+      "response_schema": "DeviceTracking",
+      "summary": "EcBQ Accept, verify, etc. aspects of Device Tracking processing",
+      "description": "EcBQ Accept, verify, etc. aspects of Device Tracking processing",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "ExchangeFinancialDocumentHandling",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialDocumentHandling/{financialdocumenthandlingid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "FinancialDocumentHandling",
+      "request_schema": "FinancialDocumentHandling",
+      "response_schema": "FinancialDocumentHandling",
+      "summary": "EcBQ Accept, verify, etc. aspects of Financial Document Handling processing",
+      "description": "EcBQ Accept, verify, etc. aspects of Financial Document Handling processing",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "ExchangeFinancialTransactionCapture",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialTransactionCapture/{financialtransactioncaptureid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "FinancialTransactionCapture",
+      "request_schema": "FinancialTransactionCapture",
+      "response_schema": "FinancialTransactionCapture",
+      "summary": "EcBQ Accept, verify, etc. aspects of Financial Transaction Capture processing",
+      "description": "EcBQ Accept, verify, etc. aspects of Financial Transaction Capture processing",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "InitiateFinancialTransactionCapture",
+      "method": "POST",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialTransactionCapture/Initiate",
+      "tipo": "BQ",
+      "grupo": "FinancialTransactionCapture",
+      "request_schema": "FinancialTransactionCapture",
+      "response_schema": "FinancialTransactionCapture",
+      "summary": "InBQ Instantiate a new Financial Transaction Capture",
+      "description": "InBQ Instantiate a new Financial Transaction Capture",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteDeviceTracking",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/DeviceTracking/{devicetrackingid}/Execute",
+      "tipo": "BQ",
+      "grupo": "DeviceTracking",
+      "request_schema": "DeviceTracking",
+      "response_schema": "DeviceTracking",
+      "summary": "ExBQ Execute an available automated action for Device Tracking",
+      "description": "ExBQ Execute an available automated action for Device Tracking",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteFinancialTransactionCapture",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialTransactionCapture/{financialtransactioncaptureid}/Execute",
+      "tipo": "BQ",
+      "grupo": "FinancialTransactionCapture",
+      "request_schema": "FinancialTransactionCapture",
+      "response_schema": "FinancialTransactionCapture",
+      "summary": "ExBQ Execute an available automated action for Financial Transaction Capture",
+      "description": "ExBQ Execute an available automated action for Financial Transaction Capture",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteFinancialDocumentHandling",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialDocumentHandling/{financialdocumenthandlingid}/Execute",
+      "tipo": "BQ",
+      "grupo": "FinancialDocumentHandling",
+      "request_schema": "FinancialDocumentHandling",
+      "response_schema": "FinancialDocumentHandling",
+      "summary": "ExBQ Execute an available automated action for Financial Document Handling",
+      "description": "ExBQ Execute an available automated action for Financial Document Handling",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "InitiateFinancialDocumentHandling",
+      "method": "POST",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialDocumentHandling/Initiate",
+      "tipo": "BQ",
+      "grupo": "FinancialDocumentHandling",
+      "request_schema": "FinancialDocumentHandling",
+      "response_schema": "FinancialDocumentHandling",
+      "summary": "InBQ Instantiate a new Financial Document Handling",
+      "description": "InBQ Instantiate a new Financial Document Handling",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "InitiateNetworkOperation",
+      "method": "POST",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/NetworkOperation/Initiate",
+      "tipo": "BQ",
+      "grupo": "NetworkOperation",
+      "request_schema": "NetworkOperation",
+      "response_schema": "NetworkOperation",
+      "summary": "InBQ Instantiate a new Network Operation",
+      "description": "InBQ Instantiate a new Network Operation",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveCashDistribution",
+      "method": "GET",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/CashDistribution/{cashdistributionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "CashDistribution",
+      "request_schema": "",
+      "response_schema": "CashDistribution",
+      "summary": "ReBQ Retrieve details about any aspect of Cash Distribution",
+      "description": "ReBQ Retrieve details about any aspect of Cash Distribution",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveDeviceTracking",
+      "method": "GET",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/DeviceTracking/{devicetrackingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "DeviceTracking",
+      "request_schema": "",
+      "response_schema": "DeviceTracking",
+      "summary": "ReBQ Retrieve details about any aspect of Device Tracking",
+      "description": "ReBQ Retrieve details about any aspect of Device Tracking",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveFinancialDocumentHandling",
+      "method": "GET",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialDocumentHandling/{financialdocumenthandlingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "FinancialDocumentHandling",
+      "request_schema": "",
+      "response_schema": "FinancialDocumentHandling",
+      "summary": "ReBQ Retrieve details about any aspect of Financial Document Handling",
+      "description": "ReBQ Retrieve details about any aspect of Financial Document Handling",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "UpdateFinancialDocumentHandling",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialDocumentHandling/{financialdocumenthandlingid}/Update",
+      "tipo": "BQ",
+      "grupo": "FinancialDocumentHandling",
+      "request_schema": "FinancialDocumentHandling",
+      "response_schema": "FinancialDocumentHandling",
+      "summary": "UpBQ Update details relating to Financial Document Handling",
+      "description": "UpBQ Update details relating to Financial Document Handling",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveFinancialTransactionCapture",
+      "method": "GET",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialTransactionCapture/{financialtransactioncaptureid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "FinancialTransactionCapture",
+      "request_schema": "",
+      "response_schema": "FinancialTransactionCapture",
+      "summary": "ReBQ Retrieve details about any aspect of Financial Transaction Capture",
+      "description": "ReBQ Retrieve details about any aspect of Financial Transaction Capture",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "UpdateFinancialTransactionCapture",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialTransactionCapture/{financialtransactioncaptureid}/Update",
+      "tipo": "BQ",
+      "grupo": "FinancialTransactionCapture",
+      "request_schema": "FinancialTransactionCapture",
+      "response_schema": "FinancialTransactionCapture",
+      "summary": "UpBQ Update details relating to Financial Transaction Capture",
+      "description": "UpBQ Update details relating to Financial Transaction Capture",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "RequestCashDistribution",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/CashDistribution/{cashdistributionid}/Request",
+      "tipo": "BQ",
+      "grupo": "CashDistribution",
+      "request_schema": "CashDistribution",
+      "response_schema": "CashDistribution",
+      "summary": "RqBQ Request manual intervention or a decision with respect to Cash Distribution",
+      "description": "RqBQ Request manual intervention or a decision with respect to Cash Distribution",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "UpdateDeviceTracking",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/DeviceTracking/{devicetrackingid}/Update",
+      "tipo": "BQ",
+      "grupo": "DeviceTracking",
+      "request_schema": "DeviceTracking",
+      "response_schema": "DeviceTracking",
+      "summary": "UpBQ Update details relating to Device Tracking",
+      "description": "UpBQ Update details relating to Device Tracking",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveNetworkOperation",
+      "method": "GET",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/NetworkOperation/{networkoperationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "NetworkOperation",
+      "request_schema": "",
+      "response_schema": "NetworkOperation",
+      "summary": "ReBQ Retrieve details about any aspect of Network Operation",
+      "description": "ReBQ Retrieve details about any aspect of Network Operation",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    },
+    {
+      "operation_id": "UpdateNetworkOperation",
+      "method": "PUT",
+      "path": "/ATMNetworkOperations/{atmnetworkoperationsid}/NetworkOperation/{networkoperationid}/Update",
+      "tipo": "BQ",
+      "grupo": "NetworkOperation",
+      "request_schema": "NetworkOperation",
+      "response_schema": "NetworkOperation",
+      "summary": "UpBQ Update details relating to Network Operation",
+      "description": "UpBQ Update details relating to Network Operation",
+      "parent_control_record": "ATMNetworkOperatingSession"
+    }
+  ],
+  "schemas": [
+    "ATMNetworkOperatingSession",
+    "ATMNetworkOperationsOutcome",
+    "BusinessService",
+    "Businessservicetypevalues",
+    "CashDistribution",
+    "Condition",
+    "Conditionstatustypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "DeviceTracking",
+    "Duration",
+    "Feature",
+    "Featuretypevalues",
+    "FinancialDocumentHandling",
+    "FinancialTransactionCapture",
+    "Function",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Log",
+    "Name",
+    "NetworkOperation",
+    "Schedule",
+    "Servicetype",
+    "Servicetypevalues",
+    "Session",
+    "Sessiontype",
+    "Sessiontypevalues",
+    "Status",
+    "SystemConfigurationOption",
+    "Termandconditiontypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "ATMNetworkOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within ATM Network Operations. ",
+      "properties": [
+        {
+          "name": "ATMNetworkOperatingSessionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionUsageLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionAssociatedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionServiceProviderReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionServiceProviderSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionServiceType",
+          "type": "object",
+          "ref": "Servicetype"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionServiceConfiguration",
+          "type": "object",
+          "ref": "SystemConfigurationOption"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        }
+      ]
+    },
+    {
+      "name": "ATMNetworkOperationsOutcome",
+      "kind": "object",
+      "description": "An operational service or function supported within the Cash Distribution for doing Cash Distribution",
+      "properties": [
+        {
+          "name": "ATMNetworkOperationsIncident",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ATMNetworkOperationsProvision",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "BusinessService",
+      "kind": "object",
+      "description": "The Cash Distribution specific Business Service",
+      "properties": [
+        {
+          "name": "BusinessServiceType",
+          "type": "object",
+          "ref": "Businessservicetypevalues"
+        },
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Businessservicetypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Businessservicetypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CashDistribution",
+      "kind": "object",
+      "description": "An operational service or function supported within the Cash Distribution for doing Cash Distribution",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "CashDistributionReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "CashDistributionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Condition",
+      "kind": "object",
+      "description": "The required status/situation and or tasks that need to be completed prior to the invocation of the feature",
+      "properties": [
+        {
+          "name": "ConditionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ConditionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ConditionValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ConditionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ConditionStatus",
+          "type": "object",
+          "ref": "Conditionstatustypevalues"
+        },
+        {
+          "name": "ConditionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ConditionType",
+          "type": "object",
+          "ref": "Termandconditiontypevalues"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Conditionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Defined` - Condition is authored or configured\r\n* `Pending` - Awaiting approval or validation\r\n* `Activated` - Live and ready for evaluation\r\n* `Evaluated` - Assessed in context of process or event\r\n* `Fulfilled` - Condition criteria met\r\n* `Violated` - Condition criteria not met\r\n* `Expired` - No longer valid due to time/version limits\r\n* `Archived` - Retired from use, retained for audit/history\r\n",
+      "enum_values": [
+        "Defined",
+        "Pending",
+        "Activated",
+        "Evaluated",
+        "Fulfilled",
+        "Violated",
+        "Expired",
+        "Archived"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The validity period of Condition",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "DeviceTracking",
+      "kind": "object",
+      "description": "An operational service or function supported within the Cash Distribution for doing Cash Distribution",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "DeviceTrackingReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "DeviceTrackingType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "The time the session was active",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "FinancialDocumentHandling",
+      "kind": "object",
+      "description": "An operational service or function supported within the Cash Distribution for doing Cash Distribution",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "FinancialDocumentHandlingReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "FinancialDocumentHandlingType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "FinancialTransactionCapture",
+      "kind": "object",
+      "description": "An operational service or function supported within the Cash Distribution for doing Cash Distribution",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "FinancialTransactionCaptureReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "FinancialTransactionCaptureType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Function",
+      "kind": "object",
+      "description": "Reference to Cash Distribution",
+      "properties": [
+        {
+          "name": "Function",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "The identifier of Condition",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Reference to the log of (usage) ativities/events  of ATM Network Operating Session",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of Condition",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "NetworkOperation",
+      "kind": "object",
+      "description": "An operational service or function supported within the Cash Distribution for doing Cash Distribution",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "ATMNetworkOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "NetworkOperationReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "NetworkOperationType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the function",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetype",
+      "kind": "object",
+      "description": "A Classification value that distinguishes between the type of services within ATM Network Operating Session",
+      "properties": [
+        {
+          "name": "ServiceTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Session",
+      "kind": "object",
+      "description": "Reference to Cash Distribution",
+      "properties": [
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontype",
+      "kind": "object",
+      "description": "Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.",
+      "properties": [
+        {
+          "name": "SessionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ContactHandlingSession` - \r\n* `CustomerDialogueSession` - \r\n* `ChannelOperatingSession` - \r\n* `GatewayOperatingSession` - \r\n* `SwitchOperatingSession` - \r\n* `DeviceOperatingSession` - \r\n* `InterbankTransactionOperatingSession` - \r\n* `CorrespondenceOperatingSession` - \r\n* `InteractiveHelpOperatingSession` - \r\n* `ACHOperatingSession` - \r\n",
+      "enum_values": [
+        "ContactHandlingSession",
+        "CustomerDialogueSession",
+        "ChannelOperatingSession",
+        "GatewayOperatingSession",
+        "SwitchOperatingSession",
+        "DeviceOperatingSession",
+        "InterbankTransactionOperatingSession",
+        "CorrespondenceOperatingSession",
+        "InteractiveHelpOperatingSession",
+        "ACHOperatingSession"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "SystemConfigurationOption",
+      "kind": "object",
+      "description": "The configuration of ATM Network Operating Session",
+      "properties": [
+        {
+          "name": "SystemConfigurationOption",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Termandconditiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommissionTermAndCondition` - Commission terms for workforce/employee commission processing\r\n* `LegalTermAndCondition` - Covers the legal considerations of the agreement\r\n* `RegulatoryTermAndCondition` - Covers the regulatory considerations of the agreement\r\n* `PolicyTermAndCondition` - Covers the corporate policies and requirements considerations of the agreement\r\n* `RestrictionTermAndCondition` - Details channel access restrictions for products and services\r\n* `PreferenceTermAndCondition` - Customer channel/device usage preferences\r\n* `InvestmentTermAndCondition` - Terms making up the agreement that govern the management of the investment portfolio. Note that there may be many different types of terms and clauses making up the overall policy\r\n* `MandateTermAndCondition` - Reference to the terms in force for a specific customer for this service provider\r\n* `OperationalTermAndCondition` - \r\n* `ProductTermAndCondition` - \r\n* `AgreementTermAndCondition` - \r\n* `RelationshipTermAndCondition` - \r\n* `ConfidentialTermAndCondition` - \r\n",
+      "enum_values": [
+        "CommissionTermAndCondition",
+        "LegalTermAndCondition",
+        "RegulatoryTermAndCondition",
+        "PolicyTermAndCondition",
+        "RestrictionTermAndCondition",
+        "PreferenceTermAndCondition",
+        "InvestmentTermAndCondition",
+        "MandateTermAndCondition",
+        "OperationalTermAndCondition",
+        "ProductTermAndCondition",
+        "AgreementTermAndCondition",
+        "RelationshipTermAndCondition",
+        "ConfidentialTermAndCondition"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "ATMNetworkOperatingSession",
+        "operations": [
+          "Control",
+          "Exchange",
+          "Execute",
+          "Request",
+          "Retrieve",
+          "Update",
+          "Initiate"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "CashDistribution",
+        "parent_control_record": "ATMNetworkOperatingSession",
+        "operations": [
+          "ExchangeCashDistribution",
+          "RetrieveCashDistribution",
+          "RequestCashDistribution"
+        ]
+      },
+      {
+        "name": "DeviceTracking",
+        "parent_control_record": "ATMNetworkOperatingSession",
+        "operations": [
+          "ExchangeDeviceTracking",
+          "ExecuteDeviceTracking",
+          "RetrieveDeviceTracking",
+          "UpdateDeviceTracking"
+        ]
+      },
+      {
+        "name": "FinancialDocumentHandling",
+        "parent_control_record": "ATMNetworkOperatingSession",
+        "operations": [
+          "ExchangeFinancialDocumentHandling",
+          "ExecuteFinancialDocumentHandling",
+          "InitiateFinancialDocumentHandling",
+          "RetrieveFinancialDocumentHandling",
+          "UpdateFinancialDocumentHandling"
+        ]
+      },
+      {
+        "name": "FinancialTransactionCapture",
+        "parent_control_record": "ATMNetworkOperatingSession",
+        "operations": [
+          "ExchangeFinancialTransactionCapture",
+          "InitiateFinancialTransactionCapture",
+          "ExecuteFinancialTransactionCapture",
+          "RetrieveFinancialTransactionCapture",
+          "UpdateFinancialTransactionCapture"
+        ]
+      },
+      {
+        "name": "NetworkOperation",
+        "parent_control_record": "ATMNetworkOperatingSession",
+        "operations": [
+          "ControlNetworkOperation",
+          "InitiateNetworkOperation",
+          "RetrieveNetworkOperation",
+          "UpdateNetworkOperation"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ATMNetworkOperations.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "8f7d6a4794797daba57cd09e5b20cac09dc660f7de94f62bc9ef5e0a34706e18",
+    "retrieved_at": "2026-09-12T22:37:01.120724+00:00"
+  }
+}

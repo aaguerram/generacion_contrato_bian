@@ -1,0 +1,101 @@
+{
+  "service_domain": "Partner Management",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [],
+  "schemas": [
+    "HTTPError",
+    "PartnerReleationshipManagementPlan"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PartnerReleationshipManagementPlan",
+      "kind": "object",
+      "description": "Oversee the working of a business unit, assign work, manage against a plan and troubleshoot issues within Partner Management.",
+      "properties": [
+        {
+          "name": "PartnerReleationshipManagementPlanType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerReleationshipManagementPlanReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerReleationshipManagementPlanBudgetType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerReleationshipManagementPlanBudget",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerReleationshipManagementPlanAssignment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerReleationshipManagementPlanDuty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerReleationshipManagementPlanDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerReleationshipManagementPlanBudgetBalance",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerReleationshipManagementPlanAssociatedParty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartnerReleationshipManagementPlanSubjectMatter",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartnerManagement.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "489b4d3c298199a4205c273f115b314455b4e8bd0286f71f90c6522c4a23f7ce",
+    "retrieved_at": "2026-09-12T22:01:55.775989+00:00"
+  }
+}

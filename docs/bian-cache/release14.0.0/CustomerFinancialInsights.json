@@ -1,0 +1,1439 @@
+{
+  "service_domain": "Customer Financial Insights",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/CustomerFinancialInsights/{customerfinancialinsightsid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "CustomerFinancialPositionAnalysis",
+      "request_schema": "",
+      "response_schema": "CustomerFinancialPositionAnalysis",
+      "summary": "Retrieve Customer Financial Position Analysis",
+      "description": "Retrieve Customer Financial Position Analysis"
+    }
+  ],
+  "schemas": [
+    "Amount",
+    "Amounttypevalues",
+    "Analysis",
+    "Analysistypevalues",
+    "ChurnCost",
+    "Currencycode",
+    "CustomerAcquisitionCost",
+    "CustomerFinancialInsight",
+    "CustomerFinancialInsightAnalysis",
+    "CustomerFinancialPositionAnalysis",
+    "CustomerInsight",
+    "CustomerLifetimeValue",
+    "CustomerRelationship",
+    "CustomerTransactionalInsight",
+    "Customerinsighttypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "DiscountandPromotionImpact",
+    "Document",
+    "Documentdatetimetypevalues",
+    "Financialdocumenttypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Log",
+    "Model",
+    "Name",
+    "Position",
+    "ProfitabilityAnalysis",
+    "Report",
+    "Reporttypevalues",
+    "RetentionCost",
+    "RevenueperCustomer",
+    "Schedule",
+    "SegmentedFinancialPerformance",
+    "Status",
+    "Task",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Analysis",
+      "kind": "object",
+      "description": "Refers to the insight analysis",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "ChurnCost",
+      "kind": "object",
+      "description": "Examining purchase history, order frequency, average transaction value, and payment methods.",
+      "properties": [
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CustomerAcquisitionCost",
+      "kind": "object",
+      "description": "Examining purchase history, order frequency, average transaction value, and payment methods.",
+      "properties": [
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "CustomerFinancialInsight",
+      "kind": "object",
+      "description": "Examining purchase history, order frequency, average transaction value, and payment methods.",
+      "properties": [
+        {
+          "name": "InsightAnalysisPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InsightAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "CustomerFinancialInsightAnalysis",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "CustomerFinancialPositionAnalysis",
+      "kind": "object",
+      "description": "Maintain information about an analysis on the customer's financial position",
+      "properties": [
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "CustomerRelationship"
+        },
+        {
+          "name": "CustomerFinancialInsightsAnalysisRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerFinancialInsightAnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CustomerInsightCalculationDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CustomerInsight",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "CustomerInsightType",
+          "type": "object",
+          "ref": "Customerinsighttypevalues"
+        },
+        {
+          "name": "CustomerFinancialInsightsAnalysis",
+          "type": "object",
+          "ref": "CustomerFinancialInsightAnalysis"
+        },
+        {
+          "name": "CustomerFinancialInsightsAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "CustomerFinancialInsightsAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "CustomerFinancialInsightsAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "CustomerFinancialInsightsAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "CustomerFinancialInsightsAnalysisPositionReference",
+          "type": "object",
+          "ref": "Position"
+        }
+      ]
+    },
+    {
+      "name": "CustomerInsight",
+      "kind": "object",
+      "description": "Refers to the insight",
+      "properties": [
+        {
+          "name": "CustomerInsightType",
+          "type": "object",
+          "ref": "Customerinsighttypevalues"
+        },
+        {
+          "name": "CustomerInsightValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerInsightCalculationDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CustomerInsightDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerInsightIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "CustomerLifetimeValue",
+      "kind": "object",
+      "description": "Examining purchase history, order frequency, average transaction value, and payment methods.",
+      "properties": [
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "CustomerRelationship",
+      "kind": "object",
+      "description": "Reference to the associated customer (can currently be a person or a company)",
+      "properties": [
+        {
+          "name": "RelationshipType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RelationshipValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "RelationshipStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "RelationshipEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "RelationshipLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "RelationshipIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "CustomerTransactionalInsight",
+      "kind": "object",
+      "description": "Examining purchase history, order frequency, average transaction value, and payment methods.",
+      "properties": [
+        {
+          "name": "InsightAnalysisPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InsightAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Customerinsighttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerBehavioralInsight` - Understanding how customers interact with products, services, and brands.\r\n* `CustomerDemographicInsight` - Analyzing customer characteristics such as age, gender, income, education, and location.\r\n* `CustomerPsychographicInsight` - Exploring customers' lifestyles, values, interests, and attitudes.\r\n* `CustomerTransactionalInsight` - Examining purchase history, order frequency, average transaction value, and payment methods\r\n* `CustomerFeedbackAndSentimentInsight` - Gathering and analyzing customer feedback through surveys, reviews, social media, and customer support interactions\r\n* `CustomerJourneyInsight` - Mapping the entire customer journey from awareness to purchase and beyond\r\n* `CustomerRetentionAndChurnInsight` - Understanding the factors that influence customer retention and attrition\r\n* `CustomerFinancialInsight` - Customer financial insights refer to the analysis and understanding of the financial aspects related to customer interactions and behaviors. \r\n",
+      "enum_values": [
+        "CustomerBehavioralInsight",
+        "CustomerDemographicInsight",
+        "CustomerPsychographicInsight",
+        "CustomerTransactionalInsight",
+        "CustomerFeedbackAndSentimentInsight",
+        "CustomerJourneyInsight",
+        "CustomerRetentionAndChurnInsight",
+        "CustomerFinancialInsight"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date on which the state of something is calculated",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "DiscountandPromotionImpact",
+      "kind": "object",
+      "description": "Examining purchase history, order frequency, average transaction value, and payment methods.",
+      "properties": [
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Refers to a document used in the insight analysis",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Refers to a log used in the insight analysis like Customer Event Log, Servicing Even Log, etc.",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "Refers to a model used in the insight analysis like Customer Behavior Model",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Position",
+      "kind": "object",
+      "description": "Refers to a position used in the insight analysis like Customer Financial Position",
+      "properties": [
+        {
+          "name": "PositionValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PositionQuantity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PositionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PositionAmount",
+          "type": "object",
+          "ref": "Amount"
+        }
+      ]
+    },
+    {
+      "name": "ProfitabilityAnalysis",
+      "kind": "object",
+      "description": "Examining purchase history, order frequency, average transaction value, and payment methods.",
+      "properties": [
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Report",
+      "kind": "object",
+      "description": "Refers to a report used in the insight analysis like Market Research Report",
+      "properties": [
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "RetentionCost",
+      "kind": "object",
+      "description": "Examining purchase history, order frequency, average transaction value, and payment methods.",
+      "properties": [
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "RevenueperCustomer",
+      "kind": "object",
+      "description": "Examining purchase history, order frequency, average transaction value, and payment methods.",
+      "properties": [
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the analysis performed using the algorithm",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "SegmentedFinancialPerformance",
+      "kind": "object",
+      "description": "Examining purchase history, order frequency, average transaction value, and payment methods.",
+      "properties": [
+        {
+          "name": "InsightAnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "InsightAnalysisReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "InsightAnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "InsightAnalysisPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "InsightAnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InsightReference",
+          "type": "object",
+          "ref": "CustomerInsight"
+        },
+        {
+          "name": "InsightAnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "InsightAnalysisModelReference",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "InsightAnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "InsightAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "Refers to a task for doing the insight analysis",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "Refers to work documentation, forms and schedules produced and referenced during the insight analysis",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "CustomerFinancialPositionAnalysis",
+        "operations": [
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerFinancialInsights.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "70805f72dc17e9d223d387e73fb6f9fab6edbaa9c1fa406e3c868a1e383a189c",
+    "retrieved_at": "2026-09-12T22:08:56.648270+00:00"
+  }
+}

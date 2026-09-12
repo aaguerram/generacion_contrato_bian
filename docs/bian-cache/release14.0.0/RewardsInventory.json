@@ -1,0 +1,136 @@
+{
+  "service_domain": "Rewards Inventory",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [],
+  "schemas": [
+    "HTTPError",
+    "RewardsInventoryAllocation"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "RewardsInventoryAllocation",
+      "kind": "object",
+      "description": "Maintain an inventory or holding of some resource and make assignments/allocations as requested  within Rewards Inventory. \nExample: Track the inventory and administer the distribution of central cash holdings throughout the branch & ATM network.",
+      "properties": [
+        {
+          "name": "RewardsInventoryAllocationParameterType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationSelectedOption",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationRequest",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationSchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationCustomerReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationCurrency",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationRegulationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationRegulationType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationJurisdiction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationBookingLocation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationAccountType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationAccountReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsInventoryAllocationInstance",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/RewardsInventory.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "a13f626f28a6ac53b271aaf2657c76144b4056be8465f8186797cffd88d7b9f7",
+    "retrieved_at": "2026-09-12T22:33:03.658041+00:00"
+  }
+}

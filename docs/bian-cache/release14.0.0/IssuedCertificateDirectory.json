@@ -1,0 +1,91 @@
+{
+  "service_domain": "Issued Certificate Directory",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [],
+  "schemas": [
+    "HTTPError",
+    "IssuedCertificateDirectoryEntry"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "IssuedCertificateDirectoryEntry",
+      "kind": "object",
+      "description": "Capture and maintain reference information about some type of entitity within Issued Certificate Directory.",
+      "properties": [
+        {
+          "name": "IssuedCertificateDirectoryEntryDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IssuedCertificateDirectoryEntrySchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IssuedCertificateDirectoryEntryVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IssuedCertificateDirectoryEntryStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IssuedCertificateDirectoryEntryUsageLog",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IssuedCertificateDirectoryEntryUpdateLog",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IssuedCertificateDirectoryEntryServiceConfiguration",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IssuedCertificateDirectoryEntryReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/IssuedCertificateDirectory.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "824afa90c2ca55133e5803a57e76053334702a878503449848bdaf55e423dd27",
+    "retrieved_at": "2026-09-12T22:32:39.867558+00:00"
+  }
+}

@@ -1,0 +1,1409 @@
+{
+  "service_domain": "Asset And Liability Management",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "CreateTransactionAlignment",
+      "method": "POST",
+      "path": "/AssetAndLiabilityManagement/{assetandliabilitymanagementid}/TransactionAlignment/Create",
+      "tipo": "BQ",
+      "grupo": "TransactionAlignment",
+      "request_schema": "TransactionAlignment",
+      "response_schema": "TransactionAlignment",
+      "summary": "CrBQ Create a proposed transaction submission under the policy",
+      "description": "CrBQ Create a proposed transaction submission under the policy",
+      "parent_control_record": "AssetAndLiabilityPortfolioStrategy"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/AssetAndLiabilityManagement/{assetandliabilitymanagementid}/Update",
+      "tipo": "CR",
+      "grupo": "AssetAndLiabilityPortfolioStrategy",
+      "request_schema": "AssetAndLiabilityPortfolioStrategy",
+      "response_schema": "AssetAndLiabilityPortfolioStrategy",
+      "summary": "UpCR Update aspects of the bank's asset and liability policies",
+      "description": "UpCR Update aspects of the bank's asset and liability policies"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/AssetAndLiabilityManagement/{assetandliabilitymanagementid}/Request",
+      "tipo": "CR",
+      "grupo": "AssetAndLiabilityPortfolioStrategy",
+      "request_schema": "AssetAndLiabilityPortfolioStrategy",
+      "response_schema": "AssetAndLiabilityPortfolioStrategy",
+      "summary": "RqCR Request manual intervention in the policies",
+      "description": "RqCR Request manual intervention in the policies"
+    },
+    {
+      "operation_id": "Grant",
+      "method": "PUT",
+      "path": "/AssetAndLiabilityManagement/{assetandliabilitymanagementid}/Grant",
+      "tipo": "CR",
+      "grupo": "AssetAndLiabilityPortfolioStrategy",
+      "request_schema": "AssetAndLiabilityPortfolioStrategy",
+      "response_schema": "AssetAndLiabilityPortfolioStrategy",
+      "summary": "GrCR Obtain a permission grant in line with asset and liability policy",
+      "description": "GrCR Obtain a permission grant in line with asset and liability policy"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/AssetAndLiabilityManagement/{assetandliabilitymanagementid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "AssetAndLiabilityPortfolioStrategy",
+      "request_schema": "",
+      "response_schema": "AssetAndLiabilityPortfolioStrategy",
+      "summary": "ReCR Retrieve details about the bank's asset and liability policies",
+      "description": "ReCR Retrieve details about the bank's asset and liability policies"
+    },
+    {
+      "operation_id": "ExchangeTransactionAlignment",
+      "method": "PUT",
+      "path": "/AssetAndLiabilityManagement/{assetandliabilitymanagementid}/TransactionAlignment/{transactionalignmentid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "TransactionAlignment",
+      "request_schema": "TransactionAlignment",
+      "response_schema": "TransactionAlignment",
+      "summary": "EcBQ Verify, accept, etc. aspects of a transaction alignment assessment",
+      "description": "EcBQ Verify, accept, etc. aspects of a transaction alignment assessment",
+      "parent_control_record": "AssetAndLiabilityPortfolioStrategy"
+    },
+    {
+      "operation_id": "RetrieveTransactionAlignment",
+      "method": "GET",
+      "path": "/AssetAndLiabilityManagement/{assetandliabilitymanagementid}/TransactionAlignment/{transactionalignmentid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "TransactionAlignment",
+      "request_schema": "",
+      "response_schema": "TransactionAlignment",
+      "summary": "ReBQ Retrieve details about a transaction alignment assessment",
+      "description": "ReBQ Retrieve details about a transaction alignment assessment",
+      "parent_control_record": "AssetAndLiabilityPortfolioStrategy"
+    },
+    {
+      "operation_id": "RequestTransactionAlignment",
+      "method": "PUT",
+      "path": "/AssetAndLiabilityManagement/{assetandliabilitymanagementid}/TransactionAlignment/{transactionalignmentid}/Request",
+      "tipo": "BQ",
+      "grupo": "TransactionAlignment",
+      "request_schema": "TransactionAlignment",
+      "response_schema": "TransactionAlignment",
+      "summary": "RqBQ Request manual intervention during an assessment",
+      "description": "RqBQ Request manual intervention during an assessment",
+      "parent_control_record": "AssetAndLiabilityPortfolioStrategy"
+    }
+  ],
+  "schemas": [
+    "Allocation",
+    "Amount",
+    "Amounttypevalues",
+    "Assessment",
+    "Assessmenttypevalues",
+    "AssetAndLiabilityPortfolioStrategy",
+    "BusinessUnit",
+    "Currencycode",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Directoryentrydatetypevalues",
+    "Document",
+    "DocumentDirectoryEntry",
+    "Documentdatetimetypevalues",
+    "Duration",
+    "FinancialStatement",
+    "Financialdocumenttypevalues",
+    "Financialstatementtypevalues",
+    "Goal",
+    "Goaldatetime",
+    "Goaldatetimetypevalues",
+    "Goalstatus",
+    "Goalstatustypevalues",
+    "Goaltypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Model",
+    "Name",
+    "Organisationdatetime",
+    "Organisationdatetimetypevalues",
+    "Organisationidentification",
+    "Organisationidentificationtypevalues",
+    "Organisationlegalstructuretypevalues",
+    "Organisationname",
+    "Organisationnametypevalues",
+    "Organisationtypevalues",
+    "Policytypevalues",
+    "Position",
+    "Reporttypevalues",
+    "Requirement",
+    "Schedule",
+    "Status",
+    "TransactionAlignment",
+    "Transactiondatetime",
+    "Transactiondatetimetypevalues",
+    "Transactionstatus",
+    "Transactionstatustypevalues",
+    "Transactiontypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Allocation",
+      "kind": "object",
+      "description": "An analysis of available bank capital covering the required allocations",
+      "properties": [
+        {
+          "name": "AllocationAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "AllocationDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "AllocationDirection",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AllocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AllocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TransactionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Transactiondatetime"
+        },
+        {
+          "name": "TransactionType",
+          "type": "object",
+          "ref": "Transactiontypevalues"
+        },
+        {
+          "name": "TransactionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Transactionstatus"
+        },
+        {
+          "name": "TransactionName",
+          "type": "object",
+          "ref": "Name"
+        }
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "The overall volume or value of the transaction included projected cash flows over the intended duration",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Assessment",
+      "kind": "object",
+      "description": "An analysis of the financial risks associated with the transaction (e.g. market scenario based impact on P&L)",
+      "properties": [
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Assessmenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Valuation` - \r\n* `Matching` - \r\n* `Authorization` - An evaluation whether a party or system is allowed to do something.\n\nThe consent given by a participant (or a third party acting on behalf of that participant) in order to transfer funds or securities. (ECB)\n\nAuthorization is a mechanism by which a computer system determines whether to allow or deny specific action to a user. Authorization is often controlled by rather complex rules and algorithms, usually specified as part of an access control model. Authorization often follows (and required) authentication, however, authentication and authorization are two separate mechanisms. In rare cases, \"authorization\" is understood as a process of allowing access, granting permissions or giving approval. Such as \"authorization\" of a request to join a group. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `Authentication` - An evaluation whether a party or system is what it claims to be.\n\nA security mechanism for verifying: 1) the identity of an individual or other entity (including verification by means of a computer or computer application); and 2) the level of authority of that person or entity (i.e. the ability of that person or entity to perform specific tasks or activities). (ECB)\n\nAuthentication is a mechanism by which a computer system checks that the user is really the one she or he claims to be. Authentication can be implemented by a broad variety of mechanisms broadly divided into three categories: something you know, something you have, something you are. Traditionally, authentication is done by the means of by username and password. Authentication is often followed by authorization, however, authentication and authorization are two separate mechanisms. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `QualityAssurance` - \r\n* `Audit` - \r\n* `ComplianceCheck` - \r\n* `FundingCheck` - \r\n* `SuitabilityCheck` - \r\n* `PerformanceCheck` - \r\n* `ImpactAssessment` - \r\n* `RiskAssessment` - \r\n* `Rating` - \r\n* `UnderwritingAssessment` - \r\n* `Qualification` - \r\n* `Verification` - A process establishing that a particular information is correct, while the meaning of \"information\" and \"correct\" varies from context to context. When dealing with identity information, this usually means formal verification of identity attributes, checking the schema, identifier uniqueness and referential integrity. However, verification may mean deeper verification, such as checking that the information is true and up-to-date.  (ISO/IEC 24760-1:2019 - IT Security and Privacy)\n\r\n* `KYCAssessment` - An assessment conducted by businesses and financial institutions to verify and confirm the identity of their customers or clients. The primary purpose of a KYC check is to prevent illegal activities, such as money laundering, terrorist financing, and fraud, by ensuring that customers are who they claim to be.\r\n* `PEPAssessment` - A PEP check, or \"Politically Exposed Person\" check, is an assessment conducted by used by businesses, financial institutions, and government agencies to identify individuals who hold prominent public positions or have significant political influence. The purpose of a PEP check is to assess and manage the potential risks associated with doing business with these individuals, as they may be more susceptible to corruption, money laundering, or other illicit activities.\r\n* `AMLAssessment` - An AML (Anti-Money Laundering) check is an assessment conducted by businesses, financial institutions, and other organizations to prevent and detect money laundering and the financing of criminal activities. The main purpose of an AML check is to ensure that financial transactions and business relationships are not being used to disguise the illegal origins of funds.\r\n* `EligibilityCheck` - Determines whether a person or case meets the criteria or preconditions to qualify for a benefit, service, or action.\r\n* `ExternalAgencyCheck` - \r\n* `EntitlementCheck` - Determines what benefit, amount, or service the person is actually entitled to receive once eligibility is confirmed.\r\n",
+      "enum_values": [
+        "Valuation",
+        "Matching",
+        "Authorization",
+        "Authentication",
+        "QualityAssurance",
+        "Audit",
+        "ComplianceCheck",
+        "FundingCheck",
+        "SuitabilityCheck",
+        "PerformanceCheck",
+        "ImpactAssessment",
+        "RiskAssessment",
+        "Rating",
+        "UnderwritingAssessment",
+        "Qualification",
+        "Verification",
+        "KYCAssessment",
+        "PEPAssessment",
+        "AMLAssessment",
+        "EligibilityCheck",
+        "ExternalAgencyCheck",
+        "EntitlementCheck"
+      ]
+    },
+    {
+      "name": "AssetAndLiabilityPortfolioStrategy",
+      "kind": "object",
+      "description": "Define the policies, goals & objectives and strategies for an organizational entity or unit  within Asset And Liability Management. \nExample: Direct a division of the enterprise.",
+      "properties": [
+        {
+          "name": "AssetAndLiabilityBalanceSheet",
+          "type": "object",
+          "ref": "FinancialStatement"
+        },
+        {
+          "name": "AssetAndLiabilityMaturityLadder",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetAndLiabilityCapitalAllocation",
+          "type": "object",
+          "ref": "Allocation"
+        },
+        {
+          "name": "AssetAndLiabilityPolicyGoalRecord",
+          "type": "object",
+          "ref": "Goal"
+        },
+        {
+          "name": "AssetAndLiabilityPolicyType",
+          "type": "object",
+          "ref": "Policytypevalues"
+        },
+        {
+          "name": "AssetAndLiabilityPolicyTypeDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetAndLiabilityPolicyTypeGoals",
+          "type": "object",
+          "ref": "Goal"
+        },
+        {
+          "name": "AssetAndLiabilityPolicyTypePosition",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "AssetAndLiabilityPolicyTypeSensitivityAssessment",
+          "type": "object",
+          "ref": "Assessment"
+        }
+      ]
+    },
+    {
+      "name": "BusinessUnit",
+      "kind": "object",
+      "description": "Business unit responsible for proposing the major transaction",
+      "properties": [
+        {
+          "name": "BusinessFunction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Goal",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationStructureHierarchy",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Organisationidentification"
+        },
+        {
+          "name": "OrganisationSector",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalEntityIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationDate",
+          "type": "object",
+          "ref": "Organisationdatetime"
+        },
+        {
+          "name": "OrganisationType",
+          "type": "object",
+          "ref": "Organisationtypevalues"
+        },
+        {
+          "name": "OrganisationName",
+          "type": "object",
+          "ref": "Organisationname"
+        },
+        {
+          "name": "OrganisationLegalStructure",
+          "type": "object",
+          "ref": "Organisationlegalstructuretypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date when the assessment expires. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Directoryentrydatetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpenDate` - \r\n* `RefreshDate` - \r\n",
+      "enum_values": [
+        "OpenDate",
+        "RefreshDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Document that provides background or corroborating information regarding an assessment(s).",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "DocumentDirectoryEntry",
+      "kind": "object",
+      "description": "Reference to associated documents",
+      "properties": [
+        {
+          "name": "DocumentDirectoryEntryIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Directoryentrydatetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "DirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "duration for which the allocation is enforced",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "FinancialStatement",
+      "kind": "object",
+      "description": "The consolidated book of the bank's loans and deposits",
+      "properties": [
+        {
+          "name": "FinancialStatementType",
+          "type": "object",
+          "ref": "Financialstatementtypevalues"
+        },
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "Financialstatementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `IncomeStatement` - \r\n* `BalanceSheet` - \r\n* `CashFlowsStatement` - A cash flow statement is a financial statement that shows how cash entered and exited a company during an accounting period.\r\n* `DebtStatement` - \r\n* `AssetStatement` - \r\n* `AssetAndLiabilityStatement` - \r\n",
+      "enum_values": [
+        "IncomeStatement",
+        "BalanceSheet",
+        "CashFlowsStatement",
+        "DebtStatement",
+        "AssetStatement",
+        "AssetAndLiabilityStatement"
+      ]
+    },
+    {
+      "name": "Goal",
+      "kind": "object",
+      "description": "The policy formulation and assessment of the bank's book of business for a specific perspective/policy type",
+      "properties": [
+        {
+          "name": "GoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "GoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "GoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetime",
+      "kind": "object",
+      "description": "The key dates and times of Goal like Setting Data, Planning Date, Start Date, Review Date, Completion Date.",
+      "properties": [
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "GoalDateAndTimeType",
+          "type": "object",
+          "ref": "Goaldatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SettingDate` - \r\n* `PlanningDate` - \r\n* `StartDate` - \r\n* `ReviewDate` - \r\n* `CompletionDate` - \r\n",
+      "enum_values": [
+        "SettingDate",
+        "PlanningDate",
+        "StartDate",
+        "ReviewDate",
+        "CompletionDate"
+      ]
+    },
+    {
+      "name": "Goalstatus",
+      "kind": "object",
+      "description": "The lifecycle status of Goal like Goal Setting, Planning, Execution, Monitoring and Evaluation, Completion or Achievement, Maintenance or Sustainment, Closure or Renewal",
+      "properties": [
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "GoalStatusType",
+          "type": "object",
+          "ref": "Goalstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goalstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Setting` - \r\n* `Planning` - \r\n* `Execution` - \r\n* `MonitoringAndEvaluation` - \r\n* `CompletionOrAchievement` - \r\n* `MaintenanceOrSustainment` - \r\n* `ClosureOrRenewal` - \r\n",
+      "enum_values": [
+        "Setting",
+        "Planning",
+        "Execution",
+        "MonitoringAndEvaluation",
+        "CompletionOrAchievement",
+        "MaintenanceOrSustainment",
+        "ClosureOrRenewal"
+      ]
+    },
+    {
+      "name": "Goaltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Short-TermGoal` - \r\n* `Long-TermGoal` - \r\n* `BusinessGoal` - \r\n* `PerformanceGoal` - \r\n* `FinancialGoal` - \r\n* `OutcomeGoal` - \r\n* `SMARTGoal` - \r\n",
+      "enum_values": [
+        "Short-TermGoal",
+        "Long-TermGoal",
+        "BusinessGoal",
+        "PerformanceGoal",
+        "FinancialGoal",
+        "OutcomeGoal",
+        "SMARTGoal"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisatioDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "OrganisatioDateType",
+          "type": "object",
+          "ref": "Organisationdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `RegistrationDate` - Date and time at which a given organisation was officially registered. (ISO20022)\r\n* `EstablishmentDate` - Date when the organisation was established. ISO20022\r\n* `EntityExpirationDate` - The date the Legal Entity ceased operation or was merged. ISO20022\r\n",
+      "enum_values": [
+        "RegistrationDate",
+        "EstablishmentDate",
+        "EntityExpirationDate"
+      ]
+    },
+    {
+      "name": "Organisationidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisationIdentificationType",
+          "type": "object",
+          "ref": "Organisationidentificationtypevalues"
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Organisationidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LEI` - Legal Entity Identifier is a code allocated to a party as described in ISO 17442 \"Financial Services - Legal Entity Identifier (LEI)\".\r\n* `ELF` - Entity Legal Forms is a code allocated to a party as described in ISO 20275 \"Financial services  Entity legal forms (ELF)\". \r\n* `MIC` - Market Identifier Code. Identification of a financial market, as stipulated in the norm ISO 10383 \"Codes for exchanges and market identifications\".\r\n* `BICFI` - Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 \"Banking - Banking telecommunication messages - Business identifier code (BIC)\".\r\n* `Bankpartyidentification` - Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client.\r\n* `Centralbankidentificationnumber` - A unique identification number assigned by a central bank to identify an organisation.\r\n* `Clearingidentificationnumber` - A unique identification number assigned by a clearing house to identify an organisation\r\n* `Certificateofincorporationnumber` - A unique identification number assigned by a designated authority to a certificate of incorporation and used to identify an organisation.\r\n* `Countryidentificationcode` - Country authority given organisation identification (e.g., corporate registration number)\r\n* `Customernumber` - Number assigned by an issuer to identify a customer.\nNumber assigned by a party to identify a creditor or debtor relationship.\r\n* `Datauniversalnumberingsystem` - A unique identification number provided by Dun & Bradstreet to identify an organisation.\r\n* `Employeridentificationnumber` - Number assigned by a registration authority to an employer.\r\n* `Gs1glnidentifier` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to GS1 numbering scheme rules.The number is used to retrieve detailed information that is linked to it.\r\n* `SIREN` - The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France.\r\n* `SIRET` - The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to identify an organisation.\r\n* `EANGLN` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to the European Association for Numbering (EAN) numbering scheme rules. The number is used to retrieve detailed information that is linked to it. (iso20022)\r\n",
+      "enum_values": [
+        "LEI",
+        "ELF",
+        "MIC",
+        "BICFI",
+        "Bankpartyidentification",
+        "Centralbankidentificationnumber",
+        "Clearingidentificationnumber",
+        "Certificateofincorporationnumber",
+        "Countryidentificationcode",
+        "Customernumber",
+        "Datauniversalnumberingsystem",
+        "Employeridentificationnumber",
+        "Gs1glnidentifier",
+        "SIREN",
+        "SIRET",
+        "Taxidentificationnumber",
+        "EANGLN"
+      ]
+    },
+    {
+      "name": "Organisationlegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Corporation` - Legal structure is a corporation.\r\n* `Individual` - Legal structure is an individual.\r\n* `Supranational` - Legal structure is a supranational.\r\n* `Sovereign` - Legal structure is a sovereign.\r\n* `Municipal` - Legal structure is a municipal.\r\n* `Province` - Legal structure is a province.\r\n* `State` - Legal structure is a state.\r\n* `County` - Legal structure is a county.\r\n* `Partnership` - Legal structure is a partnership.\r\n* `Financialinstitution` - Legal structure is a financial institution.\r\n* `National` - Legal structure is a state.\r\n",
+      "enum_values": [
+        "Corporation",
+        "Individual",
+        "Supranational",
+        "Sovereign",
+        "Municipal",
+        "Province",
+        "State",
+        "County",
+        "Partnership",
+        "Financialinstitution",
+        "National"
+      ]
+    },
+    {
+      "name": "Organisationname",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "NameType",
+          "type": "object",
+          "ref": "Organisationnametypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationnametypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ShortName` - \r\n* `TradingName` - \r\n* `LegalName` - \r\n",
+      "enum_values": [
+        "ShortName",
+        "TradingName",
+        "LegalName"
+      ]
+    },
+    {
+      "name": "Organisationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LegalEntity` - \r\n* `Authority` - \r\n* `OrganisationUnit` - \r\n* `FinancialInstitution` - \r\n* `Charity` - \r\n* `GovernmentBody` - \r\n",
+      "enum_values": [
+        "LegalEntity",
+        "Authority",
+        "OrganisationUnit",
+        "FinancialInstitution",
+        "Charity",
+        "GovernmentBody"
+      ]
+    },
+    {
+      "name": "Policytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SecurityPolicy` - \r\n* `AdministrativePolicy` - \r\n* `SocialPolicy` - \r\n* `RegulatoryPolicy` - \r\n",
+      "enum_values": [
+        "SecurityPolicy",
+        "AdministrativePolicy",
+        "SocialPolicy",
+        "RegulatoryPolicy"
+      ]
+    },
+    {
+      "name": "Position",
+      "kind": "object",
+      "description": "A consolidated assessment of the bank's current and projected position for the policy type dimension",
+      "properties": [
+        {
+          "name": "PositionValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PositionQuantity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PositionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PositionAmount",
+          "type": "object",
+          "ref": "Amount"
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "TransactionAlignment",
+      "kind": "object",
+      "description": "A collection of goals and objectives for the enterprise and its main divisions\n\nExample: Increase marketshare",
+      "properties": [
+        {
+          "name": "BusinessUnitReference",
+          "type": "object",
+          "ref": "BusinessUnit"
+        },
+        {
+          "name": "ProposedTransactionOriginatorReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProposedTransactionType",
+          "type": "object",
+          "ref": "Transactiontypevalues"
+        },
+        {
+          "name": "ProposedTransactionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProposedTransactionAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "ProposedTransactionRiskAssessment",
+          "type": "object",
+          "ref": "Assessment"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "CorrespondenceInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DateType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        },
+        {
+          "name": "Date",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetAndLiabilityAlignmentAssessment",
+          "type": "object",
+          "ref": "Assessment"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetime",
+      "kind": "object",
+      "description": "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). ",
+      "properties": [
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "TransactionDateType",
+          "type": "object",
+          "ref": "Transactiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ExecutedDate` - \r\n* `FulfillmentDate` - \r\n* `InitiatedDate` - \r\n* `CancelledDate` - \r\n* `ApprovedDate` - \r\n* `ValueDate` - \r\n* `BookingDate` - \r\n",
+      "enum_values": [
+        "ExecutedDate",
+        "FulfillmentDate",
+        "InitiatedDate",
+        "CancelledDate",
+        "ApprovedDate",
+        "ValueDate",
+        "BookingDate"
+      ]
+    },
+    {
+      "name": "Transactionstatus",
+      "kind": "object",
+      "description": "A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) ",
+      "properties": [
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "TransactionStatusType",
+          "type": "object",
+          "ref": "Transactionstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Executed` - \r\n* `Cancelled` - \r\n* `Confirmed` - \r\n* `Suspended` - \r\n* `Pending` - \r\n* `Completed` - \r\n* `Notified` - \r\n* `Booked` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Executed",
+        "Cancelled",
+        "Confirmed",
+        "Suspended",
+        "Pending",
+        "Completed",
+        "Notified",
+        "Booked",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Transactiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialTransaction` - \r\n* `BusinessTransaction` - \r\n* `BankingTransaction` - \r\n* `AccountingTransaction` - \r\n* `BookingTransaction` - \r\n* `AllocationTransaction` - \r\n* `DeliveryTransaction` - \r\n* `ProductionTransaction` - \r\n",
+      "enum_values": [
+        "FinancialTransaction",
+        "BusinessTransaction",
+        "BankingTransaction",
+        "AccountingTransaction",
+        "BookingTransaction",
+        "AllocationTransaction",
+        "DeliveryTransaction",
+        "ProductionTransaction"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "AssetAndLiabilityPortfolioStrategy",
+        "operations": [
+          "Update",
+          "Request",
+          "Grant",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "TransactionAlignment",
+        "parent_control_record": "AssetAndLiabilityPortfolioStrategy",
+        "operations": [
+          "CreateTransactionAlignment",
+          "ExchangeTransactionAlignment",
+          "RetrieveTransactionAlignment",
+          "RequestTransactionAlignment"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/AssetAndLiabilityManagement.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "47d78bb8fb0f635373233c30681a15988e3efae260ed2ce3d1b2b4c8bf23b3c6",
+    "retrieved_at": "2026-09-12T22:36:20.635527+00:00"
+  }
+}

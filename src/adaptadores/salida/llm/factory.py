@@ -9,10 +9,12 @@ from .fake import FakeStrategy
 from .gemini import GeminiStrategy
 from .groq import GroqStrategy
 from .huggingface import HuggingFaceStrategy
+from .ollama import OllamaStrategy
 from .openai import OpenAIStrategy
 from .openrouter import OpenRouterStrategy
 
 _REGISTRO: dict[str, type[ProveedorLLMStrategy]] = {
+    OllamaStrategy.nombre: OllamaStrategy,
     GroqStrategy.nombre: GroqStrategy,
     GeminiStrategy.nombre: GeminiStrategy,
     HuggingFaceStrategy.nombre: HuggingFaceStrategy,

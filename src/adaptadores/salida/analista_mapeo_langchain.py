@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import time
 
 from src.adaptadores.salida.formato_bom import formatear_bom_puml, formatear_schemas_bom
 from src.adaptadores.salida.llm.failover import SoportaStructured
@@ -44,6 +45,23 @@ from src.dominio.normalizacion import normalizar
 logger = logging.getLogger(__name__)
 
 _ROL_MAX_CHARS = 240
+
+
+class _CadenaMedida:
+    """Envoltorio de diagnóstico: mide cuánto tarda cada llamada LLM real y lo deja en el log
+    (nodo = `spec.id`, p.ej. "mapeo.evaluacion") -- para poder auditar latencia por paso sin
+    tener que inferirla de los timestamps de httpx."""
+
+    def __init__(self, runnable, nodo: str) -> None:
+        self._runnable = runnable
+        self._nodo = nodo
+
+    def invoke(self, *args, **kwargs):
+        inicio = time.monotonic()
+        try:
+            return self._runnable.invoke(*args, **kwargs)
+        finally:
+            logger.info("TIEMPO_LLM nodo=%s tardo=%.1fs", self._nodo, time.monotonic() - inicio)
 
 
 def _recortar(texto: str, limite: int) -> str:
@@ -132,7 +150,7 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
 
     # ── infra ────────────────────────────────────────────────────────────────
     def _cadena(self, spec: PromptSpec, schema):
-        return spec.template | self._chat.with_structured_output(schema)
+        return _CadenaMedida(spec.template | self._chat.with_structured_output(schema), spec.id)
 
     def _huella(
         self, spec: PromptSpec, nodo: str, historia: str = "", evidence_snapshot_id: str = ""

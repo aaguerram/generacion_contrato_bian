@@ -1,0 +1,2239 @@
+{
+  "service_domain": "Customer Campaign Execution",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/CustomerCampaignExecution/Initiate",
+      "tipo": "CR",
+      "grupo": "CustomerCampaignProcedure",
+      "request_schema": "CustomerCampaignProcedure",
+      "response_schema": "CustomerCampaignProcedure",
+      "summary": "InCR Initiate customer campaign processing",
+      "description": "InCR Initiate customer campaign processing"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/Update",
+      "tipo": "CR",
+      "grupo": "CustomerCampaignProcedure",
+      "request_schema": "CustomerCampaignProcedure",
+      "response_schema": "CustomerCampaignProcedure",
+      "summary": "UpCR Update details of an active customer campaign",
+      "description": "UpCR Update details of an active customer campaign"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/Control",
+      "tipo": "CR",
+      "grupo": "CustomerCampaignProcedure",
+      "request_schema": "CustomerCampaignProcedure",
+      "response_schema": "CustomerCampaignProcedure",
+      "summary": "CoCR Control the execution of a customer campaign",
+      "description": "CoCR Control the execution of a customer campaign"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/Exchange",
+      "tipo": "CR",
+      "grupo": "CustomerCampaignProcedure",
+      "request_schema": "CustomerCampaignProcedure",
+      "response_schema": "CustomerCampaignProcedure",
+      "summary": "EcCR Accept, reject, etc. a customer campaign procedure",
+      "description": "EcCR Accept, reject, etc. a customer campaign procedure"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/Execute",
+      "tipo": "CR",
+      "grupo": "CustomerCampaignProcedure",
+      "request_schema": "CustomerCampaignProcedure",
+      "response_schema": "CustomerCampaignProcedure",
+      "summary": "ExCR Execute an automated action against an active customer campaign",
+      "description": "ExCR Execute an automated action against an active customer campaign"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/Request",
+      "tipo": "CR",
+      "grupo": "CustomerCampaignProcedure",
+      "request_schema": "CustomerCampaignProcedure",
+      "response_schema": "CustomerCampaignProcedure",
+      "summary": "RqCR Request manual intervention in a campaign",
+      "description": "RqCR Request manual intervention in a campaign"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "CustomerCampaignProcedure",
+      "request_schema": "",
+      "response_schema": "CustomerCampaignProcedure",
+      "summary": "ReCR Retrieve details about an active customer campaign",
+      "description": "ReCR Retrieve details about an active customer campaign"
+    },
+    {
+      "operation_id": "UpdateCandidateSelection",
+      "method": "PUT",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/CandidateSelection/{candidateselectionid}/Update",
+      "tipo": "BQ",
+      "grupo": "CandidateSelection",
+      "request_schema": "CandidateSelection",
+      "response_schema": "CandidateSelection",
+      "summary": "UpBQ Update a campaign candidate list",
+      "description": "UpBQ Update a campaign candidate list",
+      "parent_control_record": "CustomerCampaignProcedure"
+    },
+    {
+      "operation_id": "ExchangeCandidateSelection",
+      "method": "PUT",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/CandidateSelection/{candidateselectionid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "CandidateSelection",
+      "request_schema": "CandidateSelection",
+      "response_schema": "CandidateSelection",
+      "summary": "EcBQ Accept, reject, etc a candidate list entry",
+      "description": "EcBQ Accept, reject, etc a candidate list entry",
+      "parent_control_record": "CustomerCampaignProcedure"
+    },
+    {
+      "operation_id": "RetrieveCandidateSelection",
+      "method": "GET",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/CandidateSelection/{candidateselectionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "CandidateSelection",
+      "request_schema": "",
+      "response_schema": "CandidateSelection",
+      "summary": "ReBQ Retrieve details about a campaign candidate list",
+      "description": "ReBQ Retrieve details about a campaign candidate list",
+      "parent_control_record": "CustomerCampaignProcedure"
+    },
+    {
+      "operation_id": "InitiateExecution",
+      "method": "POST",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/Execution/Initiate",
+      "tipo": "BQ",
+      "grupo": "Execution",
+      "request_schema": "Execution",
+      "response_schema": "Execution",
+      "summary": "InBQ Initiate a campaign execution task",
+      "description": "InBQ Initiate a campaign execution task",
+      "parent_control_record": "CustomerCampaignProcedure"
+    },
+    {
+      "operation_id": "UpdateExecution",
+      "method": "PUT",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/Execution/{executionid}/Update",
+      "tipo": "BQ",
+      "grupo": "Execution",
+      "request_schema": "Execution",
+      "response_schema": "Execution",
+      "summary": "UpBQ Update details of a campaign execution task",
+      "description": "UpBQ Update details of a campaign execution task",
+      "parent_control_record": "CustomerCampaignProcedure"
+    },
+    {
+      "operation_id": "RequestExecution",
+      "method": "PUT",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/Execution/{executionid}/Request",
+      "tipo": "BQ",
+      "grupo": "Execution",
+      "request_schema": "Execution",
+      "response_schema": "Execution",
+      "summary": "RqBQ Request manual intervention in a campaign execution task",
+      "description": "RqBQ Request manual intervention in a campaign execution task",
+      "parent_control_record": "CustomerCampaignProcedure"
+    },
+    {
+      "operation_id": "RetrieveExecution",
+      "method": "GET",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/Execution/{executionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Execution",
+      "request_schema": "",
+      "response_schema": "Execution",
+      "summary": "ReBQ Retrieve details about a campaign execution task",
+      "description": "ReBQ Retrieve details about a campaign execution task",
+      "parent_control_record": "CustomerCampaignProcedure"
+    },
+    {
+      "operation_id": "InitiateAnalysisFeedback",
+      "method": "POST",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/AnalysisFeedback/Initiate",
+      "tipo": "BQ",
+      "grupo": "AnalysisFeedback",
+      "request_schema": "AnalysisFeedback",
+      "response_schema": "AnalysisFeedback",
+      "summary": "InBQ Initiate campaign execution analysis",
+      "description": "InBQ Initiate campaign execution analysis",
+      "parent_control_record": "CustomerCampaignProcedure"
+    },
+    {
+      "operation_id": "UpdateAnalysisFeedback",
+      "method": "PUT",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/AnalysisFeedback/{analysisfeedbackid}/Update",
+      "tipo": "BQ",
+      "grupo": "AnalysisFeedback",
+      "request_schema": "AnalysisFeedback",
+      "response_schema": "AnalysisFeedback",
+      "summary": "UpBQ Update details of campaign execution activity/performance analysis",
+      "description": "UpBQ Update details of campaign execution activity/performance analysis",
+      "parent_control_record": "CustomerCampaignProcedure"
+    },
+    {
+      "operation_id": "RequestAnalysisFeedback",
+      "method": "PUT",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/AnalysisFeedback/{analysisfeedbackid}/Request",
+      "tipo": "BQ",
+      "grupo": "AnalysisFeedback",
+      "request_schema": "AnalysisFeedback",
+      "response_schema": "AnalysisFeedback",
+      "summary": "ReBQ Request manual intervention in campaign analysis",
+      "description": "ReBQ Request manual intervention in campaign analysis",
+      "parent_control_record": "CustomerCampaignProcedure"
+    },
+    {
+      "operation_id": "RetrieveAnalysisFeedback",
+      "method": "GET",
+      "path": "/CustomerCampaignExecution/{customercampaignexecutionid}/AnalysisFeedback/{analysisfeedbackid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "AnalysisFeedback",
+      "request_schema": "",
+      "response_schema": "AnalysisFeedback",
+      "summary": "ReBQ Retrieve details about customer campaign analysis activity",
+      "description": "ReBQ Retrieve details about customer campaign analysis activity",
+      "parent_control_record": "CustomerCampaignProcedure"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Amount",
+    "Amounttypevalues",
+    "Analysis",
+    "AnalysisFeedback",
+    "Analysistypevalues",
+    "Arrangement",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "Assetclassificationtypevalues",
+    "Assetsubclassificationtypevalues",
+    "Assettypevalues",
+    "Bankingproducttypevalues",
+    "Budgetarrangement",
+    "Budgettype",
+    "Budgettypevalues",
+    "CandidateSelection",
+    "Currencycode",
+    "CustomerCampaignProcedure",
+    "CustomerPortfolio",
+    "CustomerProductAndServiceDirectoryEntry",
+    "CustomerProductAndServiceProfile",
+    "Customercampaigntypevalues",
+    "Customerproductserviceprofiletypevalues",
+    "Customerrelationship",
+    "Customerrelationshiplifecyclephasevalues",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Directoryentrydatetypevalues",
+    "DocumentDirectoryEntry",
+    "Execution",
+    "Feature",
+    "Featuretypevalues",
+    "Financialinstrumentdatetime",
+    "Financialinstrumentdatetimetypevalues",
+    "Financialinstrumentidentification",
+    "Financialinstrumentidentificationtypevalues",
+    "Financialinstrumenttypevalues",
+    "Geographicalareatypevalues",
+    "Goal",
+    "Goaldatetime",
+    "Goaldatetimetypevalues",
+    "Goalstatus",
+    "Goalstatustypevalues",
+    "Goaltypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "ItemInventory",
+    "Iteminventorytypevalues",
+    "Location",
+    "Name",
+    "PartyRelationshipLifecyclePhase",
+    "Plannedaction",
+    "Plantypevalues",
+    "Product",
+    "Productidentification",
+    "Productidentificationtypevalues",
+    "Productstatus",
+    "Productstatustypevalues",
+    "RuleSet",
+    "Rulesettypevalues",
+    "SalesLead",
+    "Schedule",
+    "Service",
+    "Servicetypevalues",
+    "Status",
+    "Strategy",
+    "Subject",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Analysis",
+      "kind": "object",
+      "description": "The result of the analysis of the performance of the campaign for the current cycle",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "AnalysisFeedback",
+      "kind": "object",
+      "description": "The main workteps to be followed in th execution of the Customer Campaign Procedure, like: The initial selection and confirmation of active customers that are to be included in the campaign",
+      "properties": [
+        {
+          "name": "CustomerCampaignProcedureAnalysisResult",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "CustomerCampaignProcedureAnalysisFeedbackResult",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "Arrangement",
+      "kind": "object",
+      "description": "Details of the deployment set-up/configuration of the campaign for reference",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "Assetclassificationtypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Assetclassificationtypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Assetsubclassificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Subassetclass` - Sub-asset class.(ISO20022)\r\n* `Timetomaturitybucket` - Time to maturity bucket.(ISO20022)\r\n* `Optiontimetomaturitybucket` - Time to maturity bucket of the option.(ISO20022)\r\n* `Swaptimetomaturitybucket` - Time to maturity bucket of the swap.(ISO20022)\r\n* `Underlyinginstrumentidentification` - Underlying instrument identification, such as an ISIN code.(ISO20022)\r\n* `Underlyingbondissuer` - Issuer of the underlying bond.(ISO20022)\r\n* `Underlyinginterestrate` - Underlying interest rate.(ISO20022)\r\n* `Underlyingbondterm` - Term of the underlying bond.(ISO20022)\r\n* `Assetclass` - Asset class.(ISO20022)\r\n* `Underlyingindexidentification` - Underlying index identification such as an ISIN or an index name.(ISO20022)\r\n* `Interestratetermofcontract` - Interest rate term of contract.(ISO20022)\r\n* `Underlyingreferenceentity` - Underlying reference entity.(ISO20022)\r\n* `Sovereignandpublictypeissuer` - Issuer of sovereign and public type.(ISO20022)\r\n* `Irdnotionalcurrency1` - Interest rate derivative notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency1` - Foreign exchange derivative notional currency 1.(ISO20022)\r\n* `Cfdnotionalcurrency1` - Contract for difference notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency2` - Foreign exchange derivative notional currency 2.(ISO20022)\r\n* `Irdnotionalcurrency2` - Interest rate derivative notional currency 2.(ISO20022)\r\n* `Cfdnotionalcurrency2` - Contract for difference notional currency 2.(ISO20022)\r\n* `Swaptionnotionalcurrency` - Notional currency of the swaption.(ISO20022)\r\n* `Creditnotionalcurrency` - Credit derivative notional currency.(ISO20022)\r\n* `Commoditynotionalcurrency` - Commodity derivative notional currency.(ISO20022)\r\n* `Contracttype` - Contract type.(ISO20022)\r\n* `Baseproduct` - Base product.(ISO20022)\r\n* `Subproduct` - Sub product.(ISO20022)\r\n* `Furthersubproduct` - Further sub product.(ISO20022)\r\n* `Deliverycashlocation` - Delivery cash settlement location.(ISO20022)\r\n* `Deliverysettlementtype` - Delivery settlement type.(ISO20022)\r\n* `Sizespecificationrelatedtofreightsubtype` - Size specification related to freight subtype.(ISO20022)\r\n* `Specificroutetimecharteraverage` - Specific route time charter average.(ISO20022)\r\n* `Equityunderlyingtype` - Equity derivative underlying type.(ISO20022)\r\n* `Parameter` - Parameter.(ISO20022)\r\n* `Inflationindexcodename` - Inflation index code or name.(ISO20022)\r\n* `ISIN` - Instrument identification.(ISO20022)\r\n* `Underlyingindexcdssubclassidentification` - Sub class of the underlying index credit default swap (CDS).(ISO20022)\r\n* `Underlyingtype` - Underlying type.(ISSO20022)\r\n",
+      "enum_values": [
+        "Subassetclass",
+        "Timetomaturitybucket",
+        "Optiontimetomaturitybucket",
+        "Swaptimetomaturitybucket",
+        "Underlyinginstrumentidentification",
+        "Underlyingbondissuer",
+        "Underlyinginterestrate",
+        "Underlyingbondterm",
+        "Assetclass",
+        "Underlyingindexidentification",
+        "Interestratetermofcontract",
+        "Underlyingreferenceentity",
+        "Sovereignandpublictypeissuer",
+        "Irdnotionalcurrency1",
+        "Fexnotionalcurrency1",
+        "Cfdnotionalcurrency1",
+        "Fexnotionalcurrency2",
+        "Irdnotionalcurrency2",
+        "Cfdnotionalcurrency2",
+        "Swaptionnotionalcurrency",
+        "Creditnotionalcurrency",
+        "Commoditynotionalcurrency",
+        "Contracttype",
+        "Baseproduct",
+        "Subproduct",
+        "Furthersubproduct",
+        "Deliverycashlocation",
+        "Deliverysettlementtype",
+        "Sizespecificationrelatedtofreightsubtype",
+        "Specificroutetimecharteraverage",
+        "Equityunderlyingtype",
+        "Parameter",
+        "Inflationindexcodename",
+        "ISIN",
+        "Underlyingindexcdssubclassidentification",
+        "Underlyingtype"
+      ]
+    },
+    {
+      "name": "Assettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `TangibleAsset` - It has a physical form and can be touched or seen.\r\n* `IntangibleAsset` - It doesn't have a physical form but hold value\r\n* `OperatingAsset` - Used in the day-to-day operations of the business.\r\n* `Non-OperatingAsset` - Not used in core business operations but still provide value\r\n* `CurrentAsset` - Expected to be converted into cash within one year.\r\n* `Non-Current(Fixed)Asset` - Provide value over the long term (more than one year).\r\n* `PersonalAsset` - Owned by individuals and not related to a business.\r\n* `BusinessAsset` - Owned by a business and used to generate revenue.\r\n",
+      "enum_values": [
+        "TangibleAsset",
+        "IntangibleAsset",
+        "OperatingAsset",
+        "Non-OperatingAsset",
+        "CurrentAsset",
+        "Non-Current(Fixed)Asset",
+        "PersonalAsset",
+        "BusinessAsset"
+      ]
+    },
+    {
+      "name": "Bankingproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LoanProduct` - \r\n* `CurrentAccountProduct` - \r\n* `SavingAccountProduct` - \r\n* `BrokeredProduct` - \r\n* `TermDepositProduct` - \r\n",
+      "enum_values": [
+        "LoanProduct",
+        "CurrentAccountProduct",
+        "SavingAccountProduct",
+        "BrokeredProduct",
+        "TermDepositProduct"
+      ]
+    },
+    {
+      "name": "Budgetarrangement",
+      "kind": "object",
+      "description": "An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)",
+      "properties": [
+        {
+          "name": "BudgetType",
+          "type": "object",
+          "ref": "Budgettype"
+        },
+        {
+          "name": "BudgetAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Budgettype",
+      "kind": "object",
+      "description": "A Classification value that specifies the type of Budget",
+      "properties": [
+        {
+          "name": "BudgetTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "BudgetType",
+          "type": "object",
+          "ref": "Budgettypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Budgettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OperatingBudget` - \r\n* `FinancialBudget` - \r\n* `ResourceBudget` - \r\n",
+      "enum_values": [
+        "OperatingBudget",
+        "FinancialBudget",
+        "ResourceBudget"
+      ]
+    },
+    {
+      "name": "CandidateSelection",
+      "kind": "object",
+      "description": "The main workteps to be followed in th execution of the Customer Campaign Procedure, like: The initial selection and confirmation of active customers that are to be included in the campaign",
+      "properties": [
+        {
+          "name": "CustomerCampaignSelectionCriteria",
+          "type": "object",
+          "ref": "RuleSet"
+        },
+        {
+          "name": "CustomerCampaignCandidateEmployeeorBusinessUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerCampaignCandidateReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerProductandServiceDirectoryEntryReference",
+          "type": "object",
+          "ref": "CustomerProductAndServiceDirectoryEntry"
+        },
+        {
+          "name": "CustomerProductandServiceEligibilityProfileReference",
+          "type": "object",
+          "ref": "CustomerProductAndServiceProfile"
+        },
+        {
+          "name": "CustomerRelationshipLifecyclePhaseReference",
+          "type": "object",
+          "ref": "PartyRelationshipLifecyclePhase"
+        }
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CustomerCampaignProcedure",
+      "kind": "object",
+      "description": "Complete work tasks following a defined procedure in support of general office activities and product and service delivery within Customer Campaign Execution. ",
+      "properties": [
+        {
+          "name": "CustomerCampaignType",
+          "type": "object",
+          "ref": "Customercampaigntypevalues"
+        },
+        {
+          "name": "CustomerCampaignDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EmployeeorBusinessUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerCampaignProcedureSet-up",
+          "type": "object",
+          "ref": "Arrangement"
+        },
+        {
+          "name": "CustomerCampaignProcedureVersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerCampaignSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CustomerCampaignConsumablesInventory",
+          "type": "object",
+          "ref": "ItemInventory"
+        },
+        {
+          "name": "CustomerCampaignConsumableType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerCampaignConsumableHolding",
+          "type": "object",
+          "ref": "Iteminventorytypevalues"
+        },
+        {
+          "name": "CustomerCampaignDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CustomerCampaignProcedureResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LeadandOpportunityDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LeadandOpportunityReference",
+          "type": "object",
+          "ref": "SalesLead"
+        },
+        {
+          "name": "CustomerPortfolioReference",
+          "type": "object",
+          "ref": "CustomerPortfolio"
+        }
+      ]
+    },
+    {
+      "name": "CustomerPortfolio",
+      "kind": "object",
+      "description": "Reference to the collection or set of customers in a Campaign",
+      "properties": [
+        {
+          "name": "PortfolioIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "PortfolioName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PortfolioStrategy",
+          "type": "object",
+          "ref": "Strategy"
+        },
+        {
+          "name": "PortfolioDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CustomerProductAndServiceDirectoryEntry",
+      "kind": "object",
+      "description": " Reference to a directory of all the products and services that a customer (in campaign) has acquired from the bank.",
+      "properties": [
+        {
+          "name": "CustomerProductAndServiceDirectoryEntryIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Directoryentrydatetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "DirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "CustomerProductAndServiceProfile",
+      "kind": "object",
+      "description": "Reference to a list of products and services for which a customer (in Campaign) is eligible.",
+      "properties": [
+        {
+          "name": "ProfileType",
+          "type": "object",
+          "ref": "Customerproductserviceprofiletypevalues"
+        },
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Customerrelationship"
+        },
+        {
+          "name": "ProductReference",
+          "type": "object",
+          "ref": "Product"
+        },
+        {
+          "name": "ServiceReference",
+          "type": "object",
+          "ref": "Service"
+        }
+      ]
+    },
+    {
+      "name": "Customercampaigntypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ProductLaunchCampaign` - Introducing a new product or service to the market.\nIncludes teasers, pre-launch promotions, and launch events.\r\n* `BrandAwarenessCampaign` - Aimed at increasing visibility and recognition of the brand.\nUses a mix of media, including online ads, social media, and PR\r\n* `CustomerRetentionCampaign` - Focused on keeping existing customers engaged and loyal.\nIncludes loyalty programs, personalized offers, and exclusive events.\r\n* `ReferralCampaign` - Encouraging existing customers to refer new customers.\nOften incentivized with discounts or rewards for both the referrer and the new customer.\r\n* `ReactivationCampaign` - Targeting inactive or lapsed customers to re-engage them.\nIncludes special offers, updates, and personalized messages.\r\n* `Cross-SellingAndUpsellingCampaign` - Encouraging customers to purchase related or higher-end products.\nUses personalized recommendations and special offers.\r\n",
+      "enum_values": [
+        "ProductLaunchCampaign",
+        "BrandAwarenessCampaign",
+        "CustomerRetentionCampaign",
+        "ReferralCampaign",
+        "ReactivationCampaign",
+        "Cross-SellingAndUpsellingCampaign"
+      ]
+    },
+    {
+      "name": "Customerproductserviceprofiletypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Customerproductserviceeligibilityprofile` - \r\n* `Customerproductserviceusageprofile` - \r\n* `Customerproductservicecoverageprofile` - \r\n* `Customerproductservicesaleprofile` - \r\n* `Customerproductserviceconsentprofile` - \r\n",
+      "enum_values": [
+        "Customerproductserviceeligibilityprofile",
+        "Customerproductserviceusageprofile",
+        "Customerproductservicecoverageprofile",
+        "Customerproductservicesaleprofile",
+        "Customerproductserviceconsentprofile"
+      ]
+    },
+    {
+      "name": "Customerrelationship",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RelationshipType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RelationshipValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "RelationshipStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "RelationshipEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "RelationshipLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "RelationshipIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Customerrelationshiplifecyclephasevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Lead` - A lead is an individual or organization that has shown interest in a companys products or services. This could be through filling out a form, subscribing to a newsletter, or any other initial engagement. Leads are typically the starting point in the sales funnel and require further qualification to determine their potential as a customer.\n\r\n* `Prospect` - A prospect is a lead that has been qualified, meaning that the lead has been assessed and determined to have a higher likelihood of becoming a customer. This qualification often involves verifying that the prospect meets certain criteria, such as having the budget, authority, need, and timeline to make a purchase (often referred to as BANT criteria).\n\r\n* `Customer` - A customer is a prospect who has completed a purchase or has entered into a formal business relationship with the company. Customers are individuals or organizations that have decided to buy the company's products or services, and the focus now shifts to maintaining and enhancing the relationship to encourage repeat business.\n\r\n* `LoyalCustomer` - A loyal customer is one who not only makes repeated purchases but also demonstrates a strong, positive relationship with the company. Loyal customers often advocate for the brand, provide valuable feedback, and have a higher lifetime value. They are the result of successful customer relationship management, where the company consistently meets or exceeds their expectations.\n\n\n\nA loyal customer is someone who consistently chooses your brand's products or services over competitors, often due to positive past experiences, emotional connections, and trust built over time. Loyal customers are valuable to businesses as they typically contribute to a significant portion of revenue, are more likely to make repeat purchases, and can act as brand advocates, promoting the brand to others.\r\n",
+      "enum_values": [
+        "Lead",
+        "Prospect",
+        "Customer",
+        "LoyalCustomer"
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Directoryentrydatetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpenDate` - \r\n* `RefreshDate` - \r\n",
+      "enum_values": [
+        "OpenDate",
+        "RefreshDate"
+      ]
+    },
+    {
+      "name": "DocumentDirectoryEntry",
+      "kind": "object",
+      "description": "Reference to associated documents",
+      "properties": [
+        {
+          "name": "DocumentDirectoryEntryIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Directoryentrydatetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "DirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Execution",
+      "kind": "object",
+      "description": "The main workteps to be followed in th execution of the Customer Campaign Procedure, like: The initial selection and confirmation of active customers that are to be included in the campaign",
+      "properties": [
+        {
+          "name": "CustomerCampaignProcedureWorkTaskType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerCampaignProcedureWorkTaskDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerCampaignProcedureWorkTaskWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "CustomerCampaignProcedureWorkTaskResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerCampaignProcedureWorkTaskDateandTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetime",
+      "kind": "object",
+      "description": "Key dates of financial instrument",
+      "properties": [
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "FinancialInstrumentDateType",
+          "type": "object",
+          "ref": "Financialinstrumentdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CouponDate` - Next payment date of an interest bearing financial instrument.(ISO20022)\r\n* `ExpiryDate` - Date on which a privilege expires.(ISO20022)\r\n* `FloatingRateFixingDate` - Date at which the interest rate of an interest bearing security will be calculated and reset, according to the terms of the issue.(ISO20022)\r\n* `MaturityDate` - Planned final repayment date at the time of issuance.(ISO20022)\r\n* `IssueDate` - Date at which the security was made available.(ISO20022)\r\n* `NextCallableDate` - Next date at which the issuer has the right to pay the security prior to maturity.(ISO20022)\r\n* `PutableDate` - Date at which the holder has the right to ask for redemption of the security prior to final maturity.(ISO20022)\r\n* `DatedDate` - First date at which a security begins to accrue interest.(ISO20022)\r\n* `FirstPaymentDate` - Date at which the first interest payment is due to holders of the security.(ISO20022)\r\n",
+      "enum_values": [
+        "CouponDate",
+        "ExpiryDate",
+        "FloatingRateFixingDate",
+        "MaturityDate",
+        "IssueDate",
+        "NextCallableDate",
+        "PutableDate",
+        "DatedDate",
+        "FirstPaymentDate"
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FinancialInstrumentIdentificationType",
+          "type": "object",
+          "ref": "Financialinstrumentidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `NASDAQ` - \r\n* `ISIN` - \r\n",
+      "enum_values": [
+        "NASDAQ",
+        "ISIN"
+      ]
+    },
+    {
+      "name": "Financialinstrumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Loan` - \r\n* `Bond` - \r\n* `Deposit` - \r\n* `Stock` - \r\n* `Option` - \r\n* `Share` - \r\n* `Debt` - Financial instruments evidencing moneys owed by the issuer to the holder on terms as specified. (ISO20022)\n\nAny type of instrument primarily classified as debt can be considered a debt instrument. Debt instruments are tools an individual, government entity, or business entity can utilize for the purpose of obtaining capital. Debt instruments provide capital to an entity that promises to repay the capital over time. Credit cards, credit lines, loans, and bonds can all be types of debt instruments. (Investopedia)\r\n* `Letterofcredit` - Instrument issued by a bank substituting its name and credit standing for that of its customer. A letter of credit is a written undertaking of the bank, issued for the account of a customer (the applicant), to honour a demand for payment, upon the beneficiary's compliance with the terms and conditions set forth in the undertaking. (ISO20022)\r\n* `Security` - Financial instruments representing a sum of rights of the investor vis-a-vis the issuer. (ISO20022)\r\n* `Derivative` - \r\n",
+      "enum_values": [
+        "Loan",
+        "Bond",
+        "Deposit",
+        "Stock",
+        "Option",
+        "Share",
+        "Debt",
+        "Letterofcredit",
+        "Security",
+        "Derivative"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "Goal",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "GoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "GoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "GoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetime",
+      "kind": "object",
+      "description": "The key dates and times of Goal like Setting Data, Planning Date, Start Date, Review Date, Completion Date.",
+      "properties": [
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "GoalDateAndTimeType",
+          "type": "object",
+          "ref": "Goaldatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SettingDate` - \r\n* `PlanningDate` - \r\n* `StartDate` - \r\n* `ReviewDate` - \r\n* `CompletionDate` - \r\n",
+      "enum_values": [
+        "SettingDate",
+        "PlanningDate",
+        "StartDate",
+        "ReviewDate",
+        "CompletionDate"
+      ]
+    },
+    {
+      "name": "Goalstatus",
+      "kind": "object",
+      "description": "The lifecycle status of Goal like Goal Setting, Planning, Execution, Monitoring and Evaluation, Completion or Achievement, Maintenance or Sustainment, Closure or Renewal",
+      "properties": [
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "GoalStatusType",
+          "type": "object",
+          "ref": "Goalstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goalstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Setting` - \r\n* `Planning` - \r\n* `Execution` - \r\n* `MonitoringAndEvaluation` - \r\n* `CompletionOrAchievement` - \r\n* `MaintenanceOrSustainment` - \r\n* `ClosureOrRenewal` - \r\n",
+      "enum_values": [
+        "Setting",
+        "Planning",
+        "Execution",
+        "MonitoringAndEvaluation",
+        "CompletionOrAchievement",
+        "MaintenanceOrSustainment",
+        "ClosureOrRenewal"
+      ]
+    },
+    {
+      "name": "Goaltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Short-TermGoal` - \r\n* `Long-TermGoal` - \r\n* `BusinessGoal` - \r\n* `PerformanceGoal` - \r\n* `FinancialGoal` - \r\n* `OutcomeGoal` - \r\n* `SMARTGoal` - \r\n",
+      "enum_values": [
+        "Short-TermGoal",
+        "Long-TermGoal",
+        "BusinessGoal",
+        "PerformanceGoal",
+        "FinancialGoal",
+        "OutcomeGoal",
+        "SMARTGoal"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ItemInventory",
+      "kind": "object",
+      "description": "Inventory record of any consumables that are to be used in the execution of the campaign (e.g. brochures)",
+      "properties": [
+        {
+          "name": "ItemInventoryType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Iteminventorytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Non-CashInventory` - \r\n* `CashInventory` - \r\n",
+      "enum_values": [
+        "Non-CashInventory",
+        "CashInventory"
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PartyRelationshipLifecyclePhase",
+      "kind": "object",
+      "description": "Reference to the lifecycle status of customer relationship (in Campaign)",
+      "properties": [
+        {
+          "name": "Description",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IsCurrentPhase",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PhaseName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PhaseStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "PhasePeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Plannedaction",
+      "kind": "object",
+      "description": "An action that is arranged in a plan for doing or achieving something ",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Plantypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `AdministrativePlan` - \r\n* `ManagementPlan` - \r\n* `StratgyPlan` - \r\n* `FinancialPlan` - \r\n* `DevelopmentPlan` - \r\n",
+      "enum_values": [
+        "AdministrativePlan",
+        "ManagementPlan",
+        "StratgyPlan",
+        "FinancialPlan",
+        "DevelopmentPlan"
+      ]
+    },
+    {
+      "name": "Product",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ProductIdentification",
+          "type": "object",
+          "ref": "Productidentification"
+        },
+        {
+          "name": "ProductType",
+          "type": "object",
+          "ref": "Bankingproducttypevalues"
+        },
+        {
+          "name": "ProductLifecycleStatus",
+          "type": "object",
+          "ref": "Productstatus"
+        },
+        {
+          "name": "ProductPriority",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentType",
+          "type": "object",
+          "ref": "Financialinstrumenttypevalues"
+        },
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Financialinstrumentidentification"
+        },
+        {
+          "name": "FinancialInstrumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Financialinstrumentdatetime"
+        },
+        {
+          "name": "AssetTitle",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AssetType",
+          "type": "object",
+          "ref": "Assettypevalues"
+        },
+        {
+          "name": "AssetDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssetDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetClassification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetClassificationType",
+          "type": "object",
+          "ref": "Assetclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassificationType",
+          "type": "object",
+          "ref": "Assetsubclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Productidentification",
+      "kind": "object",
+      "description": "The identifier of product e.g. ISIN Code.",
+      "properties": [
+        {
+          "name": "ProductIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ProductIdentificationType",
+          "type": "object",
+          "ref": "Productidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ISINCode` - \r\n* `PackageCode` - \r\n* `Buyersitemnumber` - Product identifier assigned by the buyer.\r\n* `Commercialdescriptioncodename` - A code to identify a product based on applicable commercial conditions.\r\n* `EAN` - The unique EAN (European Article Number) code.\r\n* `Harmonizedtariffcodename` - Classification of goods as developed by the Customs Cooperation council.\r\n* `Manufacturersitemnumber` - Product identifier as assigned by the manufacturer.\r\n* `Modelnumber` - Reference number assigned by the manufacturer to differentiate variations in similar products in a class or group.\r\n* `Partnumber` - Reference assigned by the manufacturer to a product part.\r\n* `Quotacategory` - Product identifier used by the retail industry.\r\n* `Stylenumber` - Identification of the style of a product.\r\n* `Suppliersitemnumber` - Number assigned to an article by the supplier of that article.\r\n* `Universalproductcode` - Number assigned to a manufacturer's product by the Product Code Council.\r\n",
+      "enum_values": [
+        "ISINCode",
+        "PackageCode",
+        "Buyersitemnumber",
+        "Commercialdescriptioncodename",
+        "EAN",
+        "Harmonizedtariffcodename",
+        "Manufacturersitemnumber",
+        "Modelnumber",
+        "Partnumber",
+        "Quotacategory",
+        "Stylenumber",
+        "Suppliersitemnumber",
+        "Universalproductcode"
+      ]
+    },
+    {
+      "name": "Productstatus",
+      "kind": "object",
+      "description": "Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).",
+      "properties": [
+        {
+          "name": "ProductStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ProductStatusType",
+          "type": "object",
+          "ref": "Productstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Announced` - \r\n* `Sold` - \r\n* `Obsolete` - \r\n* `Active` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Announced",
+        "Sold",
+        "Obsolete",
+        "Active"
+      ]
+    },
+    {
+      "name": "RuleSet",
+      "kind": "object",
+      "description": "Details the selection criteria used to identify candidate customers",
+      "properties": [
+        {
+          "name": "RuleSetDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetInterpretation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetType",
+          "type": "object",
+          "ref": "Rulesettypevalues"
+        },
+        {
+          "name": "RuleSetName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "RuleSetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "RuleSetLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Rulesettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Policy` - Rule that governs business execution.\n\nThe set of basic principles and associated guidelines, formulated and enforced by the governing body of an organization, to direct and limit its actions in pursuit of long-term goals. (Business Dictionary)\n\r\n* `Regulation` - A rule used to carry out a law (FIBO)\n\nBusiness Dictionary: a rule (with or without the coercive power of law) employed in controlling, directing, or managing an activity, organization, or system. \n\nThe set of rules and legislation governing certain actions. \nhttps://financial-dictionary.thefreedictionary.com/Regulatory\r\n* `Law` - A binding rule that the courts will enforce.\nA system of rules and guidelines which are enforced through social institutions to govern behavior. (FIBO)\n\r\n* `Guideline` - A recommended practice (adapted from Business Dictionary)\nA general rule, principle, or piece of advice.\r\n* `Criterion` - A principle or standard by which something may be judged or decided.\n\nRead more: http://www.businessdictionary.com/definition/criterion.html\r\n* `Standard` - A rule considered by an authority or by general consent as a basis of comparison\r\n",
+      "enum_values": [
+        "Policy",
+        "Regulation",
+        "Law",
+        "Guideline",
+        "Criterion",
+        "Standard"
+      ]
+    },
+    {
+      "name": "SalesLead",
+      "kind": "object",
+      "description": "Reference to the lead/opportunity as handled by the Lead/Opportunity Management Service Domain",
+      "properties": [
+        {
+          "name": "LeadOrigin",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LeadDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRelationshipLifecyclePhaseType",
+          "type": "object",
+          "ref": "Customerrelationshiplifecyclephasevalues"
+        },
+        {
+          "name": "Description",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IsCurrentPhase",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PhaseName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PhaseStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "PhasePeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the analysis performed using the algorithm",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Service",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Strategy",
+      "kind": "object",
+      "description": "Strategy set for the portfolio.(ISO20022)",
+      "properties": [
+        {
+          "name": "PlanGoal",
+          "type": "object",
+          "ref": "Goal"
+        },
+        {
+          "name": "PlanBudget",
+          "type": "object",
+          "ref": "Budgetarrangement"
+        },
+        {
+          "name": "PlannedAction",
+          "type": "object",
+          "ref": "Plannedaction"
+        },
+        {
+          "name": "PlanType",
+          "type": "object",
+          "ref": "Plantypevalues"
+        },
+        {
+          "name": "PlanValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "PlanDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "File of consolidated notes, forms and documents for the work task",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "CustomerCampaignProcedure",
+        "operations": [
+          "Initiate",
+          "Update",
+          "Control",
+          "Exchange",
+          "Execute",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "AnalysisFeedback",
+        "parent_control_record": "CustomerCampaignProcedure",
+        "operations": [
+          "InitiateAnalysisFeedback",
+          "UpdateAnalysisFeedback",
+          "RequestAnalysisFeedback",
+          "RetrieveAnalysisFeedback"
+        ]
+      },
+      {
+        "name": "CandidateSelection",
+        "parent_control_record": "CustomerCampaignProcedure",
+        "operations": [
+          "UpdateCandidateSelection",
+          "ExchangeCandidateSelection",
+          "RetrieveCandidateSelection"
+        ]
+      },
+      {
+        "name": "Execution",
+        "parent_control_record": "CustomerCampaignProcedure",
+        "operations": [
+          "InitiateExecution",
+          "UpdateExecution",
+          "RequestExecution",
+          "RetrieveExecution"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerCampaignExecution.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "d330c182161bb81ea5c60922d06be22520e43660df8018e15411deb551c15023",
+    "retrieved_at": "2026-09-12T22:09:38.161014+00:00"
+  }
+}

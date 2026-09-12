@@ -1,0 +1,1490 @@
+{
+  "service_domain": "Knowledge Exchange",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/Execute",
+      "tipo": "CR",
+      "grupo": "IntellectualPropertyExchangeOperatingSession",
+      "request_schema": "IntellectualPropertyExchangeOperatingSession",
+      "response_schema": "IntellectualPropertyExchangeOperatingSession",
+      "summary": "ExCR Execute an available automated action for Intellectual Property Exchange Operating Session",
+      "description": "ExCR Execute an available automated action for Intellectual Property Exchange Operating Session"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/KnowledgeExchange/Initiate",
+      "tipo": "CR",
+      "grupo": "IntellectualPropertyExchangeOperatingSession",
+      "request_schema": "IntellectualPropertyExchangeOperatingSession",
+      "response_schema": "IntellectualPropertyExchangeOperatingSession",
+      "summary": "InCR Instantiate a new Intellectual Property Exchange Operating Session",
+      "description": "InCR Instantiate a new Intellectual Property Exchange Operating Session"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/Control",
+      "tipo": "CR",
+      "grupo": "IntellectualPropertyExchangeOperatingSession",
+      "request_schema": "IntellectualPropertyExchangeOperatingSession",
+      "response_schema": "IntellectualPropertyExchangeOperatingSession",
+      "summary": "CoCR Control the processing of Intellectual Property Exchange Operating Session",
+      "description": "CoCR Control the processing of Intellectual Property Exchange Operating Session"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "IntellectualPropertyExchangeOperatingSession",
+      "request_schema": "",
+      "response_schema": "IntellectualPropertyExchangeOperatingSession",
+      "summary": "ReCR Retrieve details about any aspect of Intellectual Property Exchange Operating Session",
+      "description": "ReCR Retrieve details about any aspect of Intellectual Property Exchange Operating Session"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/Exchange",
+      "tipo": "CR",
+      "grupo": "IntellectualPropertyExchangeOperatingSession",
+      "request_schema": "IntellectualPropertyExchangeOperatingSession",
+      "response_schema": "IntellectualPropertyExchangeOperatingSession",
+      "summary": "EcCR Accept, verify, etc. aspects of Intellectual Property Exchange Operating Session processing",
+      "description": "EcCR Accept, verify, etc. aspects of Intellectual Property Exchange Operating Session processing"
+    },
+    {
+      "operation_id": "ExchangeIndexingandPublication",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/IndexingandPublication/{indexingandpublicationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "IndexingandPublication",
+      "request_schema": "IndexingandPublication",
+      "response_schema": "IndexingandPublication",
+      "summary": "EcBQ Accept, verify, etc. aspects of Indexing and Publication processing",
+      "description": "EcBQ Accept, verify, etc. aspects of Indexing and Publication processing",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "ExchangeCaptureandClassification",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/CaptureandClassification/{captureandclassificationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "CaptureandClassification",
+      "request_schema": "CaptureandClassification",
+      "response_schema": "CaptureandClassification",
+      "summary": "EcBQ Accept, verify, etc. aspects of Capture and Classification processing",
+      "description": "EcBQ Accept, verify, etc. aspects of Capture and Classification processing",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "InitiateCaptureandClassification",
+      "method": "POST",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/CaptureandClassification/Initiate",
+      "tipo": "BQ",
+      "grupo": "CaptureandClassification",
+      "request_schema": "CaptureandClassification",
+      "response_schema": "CaptureandClassification",
+      "summary": "InBQ Instantiate a new Capture and Classification",
+      "description": "InBQ Instantiate a new Capture and Classification",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/Request",
+      "tipo": "CR",
+      "grupo": "IntellectualPropertyExchangeOperatingSession",
+      "request_schema": "IntellectualPropertyExchangeOperatingSession",
+      "response_schema": "IntellectualPropertyExchangeOperatingSession",
+      "summary": "RqCR Request manual intervention or a decision with respect to Intellectual Property Exchange Operating Session",
+      "description": "RqCR Request manual intervention or a decision with respect to Intellectual Property Exchange Operating Session"
+    },
+    {
+      "operation_id": "ExecuteCaptureandClassification",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/CaptureandClassification/{captureandclassificationid}/Execute",
+      "tipo": "BQ",
+      "grupo": "CaptureandClassification",
+      "request_schema": "CaptureandClassification",
+      "response_schema": "CaptureandClassification",
+      "summary": "ExBQ Execute an available automated action for Capture and Classification",
+      "description": "ExBQ Execute an available automated action for Capture and Classification",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/Update",
+      "tipo": "CR",
+      "grupo": "IntellectualPropertyExchangeOperatingSession",
+      "request_schema": "IntellectualPropertyExchangeOperatingSession",
+      "response_schema": "IntellectualPropertyExchangeOperatingSession",
+      "summary": "UpCR Update details relating to Intellectual Property Exchange Operating Session",
+      "description": "UpCR Update details relating to Intellectual Property Exchange Operating Session"
+    },
+    {
+      "operation_id": "ExchangeReview_RefinementandEditing",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/Review_RefinementandEditing/{review_refinementandeditingid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "Review_RefinementandEditing",
+      "request_schema": "Review_RefinementandEditing",
+      "response_schema": "Review_RefinementandEditing",
+      "summary": "EcBQ Accept, verify, etc. aspects of Review, Refinement and Editing processing",
+      "description": "EcBQ Accept, verify, etc. aspects of Review, Refinement and Editing processing",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveCaptureandClassification",
+      "method": "GET",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/CaptureandClassification/{captureandclassificationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "CaptureandClassification",
+      "request_schema": "",
+      "response_schema": "CaptureandClassification",
+      "summary": "ReBQ Retrieve details about any aspect of Capture and Classification",
+      "description": "ReBQ Retrieve details about any aspect of Capture and Classification",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveIndexingandPublication",
+      "method": "GET",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/IndexingandPublication/{indexingandpublicationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "IndexingandPublication",
+      "request_schema": "",
+      "response_schema": "IndexingandPublication",
+      "summary": "ReBQ Retrieve details about any aspect of Indexing and Publication",
+      "description": "ReBQ Retrieve details about any aspect of Indexing and Publication",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "RequestCaptureandClassification",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/CaptureandClassification/{captureandclassificationid}/Request",
+      "tipo": "BQ",
+      "grupo": "CaptureandClassification",
+      "request_schema": "CaptureandClassification",
+      "response_schema": "CaptureandClassification",
+      "summary": "RqBQ Request manual intervention or a decision with respect to Capture and Classification",
+      "description": "RqBQ Request manual intervention or a decision with respect to Capture and Classification",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveArchiving",
+      "method": "GET",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/Archiving/{archivingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Archiving",
+      "request_schema": "",
+      "response_schema": "Archiving",
+      "summary": "ReBQ Retrieve details about any aspect of Archiving",
+      "description": "ReBQ Retrieve details about any aspect of Archiving",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveMaintenanceandAccessAdministration",
+      "method": "GET",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/MaintenanceandAccessAdministration/{maintenanceandaccessadministrationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "MaintenanceandAccessAdministration",
+      "request_schema": "",
+      "response_schema": "MaintenanceandAccessAdministration",
+      "summary": "ReBQ Retrieve details about any aspect of Maintenance and Access Administration",
+      "description": "ReBQ Retrieve details about any aspect of Maintenance and Access Administration",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveReview_RefinementandEditing",
+      "method": "GET",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/Review_RefinementandEditing/{review_refinementandeditingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Review_RefinementandEditing",
+      "request_schema": "",
+      "response_schema": "Review_RefinementandEditing",
+      "summary": "ReBQ Retrieve details about any aspect of Review, Refinement and Editing",
+      "description": "ReBQ Retrieve details about any aspect of Review, Refinement and Editing",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "RequestMaintenanceandAccessAdministration",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/MaintenanceandAccessAdministration/{maintenanceandaccessadministrationid}/Request",
+      "tipo": "BQ",
+      "grupo": "MaintenanceandAccessAdministration",
+      "request_schema": "MaintenanceandAccessAdministration",
+      "response_schema": "MaintenanceandAccessAdministration",
+      "summary": "RqBQ Request manual intervention or a decision with respect to Maintenance and Access Administration",
+      "description": "RqBQ Request manual intervention or a decision with respect to Maintenance and Access Administration",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "UpdateReview_RefinementandEditing",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/Review_RefinementandEditing/{review_refinementandeditingid}/Update",
+      "tipo": "BQ",
+      "grupo": "Review_RefinementandEditing",
+      "request_schema": "Review_RefinementandEditing",
+      "response_schema": "Review_RefinementandEditing",
+      "summary": "UpBQ Update details relating to Review, Refinement and Editing",
+      "description": "UpBQ Update details relating to Review, Refinement and Editing",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "UpdateCaptureandClassification",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/CaptureandClassification/{captureandclassificationid}/Update",
+      "tipo": "BQ",
+      "grupo": "CaptureandClassification",
+      "request_schema": "CaptureandClassification",
+      "response_schema": "CaptureandClassification",
+      "summary": "UpBQ Update details relating to Capture and Classification",
+      "description": "UpBQ Update details relating to Capture and Classification",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "UpdateIndexingandPublication",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/IndexingandPublication/{indexingandpublicationid}/Update",
+      "tipo": "BQ",
+      "grupo": "IndexingandPublication",
+      "request_schema": "IndexingandPublication",
+      "response_schema": "IndexingandPublication",
+      "summary": "UpBQ Update details relating to Indexing and Publication",
+      "description": "UpBQ Update details relating to Indexing and Publication",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    },
+    {
+      "operation_id": "UpdateMaintenanceandAccessAdministration",
+      "method": "PUT",
+      "path": "/KnowledgeExchange/{knowledgeexchangeid}/MaintenanceandAccessAdministration/{maintenanceandaccessadministrationid}/Update",
+      "tipo": "BQ",
+      "grupo": "MaintenanceandAccessAdministration",
+      "request_schema": "MaintenanceandAccessAdministration",
+      "response_schema": "MaintenanceandAccessAdministration",
+      "summary": "UpBQ Update details relating to Maintenance and Access Administration",
+      "description": "UpBQ Update details relating to Maintenance and Access Administration",
+      "parent_control_record": "IntellectualPropertyExchangeOperatingSession"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Archiving",
+    "Arrangement",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "BusinessService",
+    "Businessservicetypevalues",
+    "CaptureandClassification",
+    "Condition",
+    "Conditionstatustypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Duration",
+    "Feature",
+    "Featuretypevalues",
+    "Function",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "IndexingandPublication",
+    "IntellectualPropertyExchangeOperatingSession",
+    "Involvedparty",
+    "KnowledgeExchangeOutcome",
+    "Location",
+    "Log",
+    "MaintenanceandAccessAdministration",
+    "Name",
+    "Review_RefinementandEditing",
+    "Schedule",
+    "Servicetypevalues",
+    "Session",
+    "Sessiontype",
+    "Sessiontypevalues",
+    "Status",
+    "Subject",
+    "Termandconditiontypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Archiving",
+      "kind": "object",
+      "description": "An operational service or function supported within the Archiving for doing Archiving",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "ArchivingReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "ArchivingType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Arrangement",
+      "kind": "object",
+      "description": "The configuration of Intellectual Property Exchange Operating Session",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "BusinessService",
+      "kind": "object",
+      "description": "The Archiving specific Business Service",
+      "properties": [
+        {
+          "name": "BusinessServiceType",
+          "type": "object",
+          "ref": "Businessservicetypevalues"
+        },
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Businessservicetypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Businessservicetypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CaptureandClassification",
+      "kind": "object",
+      "description": "An operational service or function supported within the Archiving for doing Archiving",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "CaptureandClassificationReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "CaptureandClassificationType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Condition",
+      "kind": "object",
+      "description": "The required status/situation and or tasks that need to be completed prior to the invocation of the feature",
+      "properties": [
+        {
+          "name": "ConditionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ConditionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ConditionValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ConditionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ConditionStatus",
+          "type": "object",
+          "ref": "Conditionstatustypevalues"
+        },
+        {
+          "name": "ConditionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ConditionType",
+          "type": "object",
+          "ref": "Termandconditiontypevalues"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Conditionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Defined` - Condition is authored or configured\r\n* `Pending` - Awaiting approval or validation\r\n* `Activated` - Live and ready for evaluation\r\n* `Evaluated` - Assessed in context of process or event\r\n* `Fulfilled` - Condition criteria met\r\n* `Violated` - Condition criteria not met\r\n* `Expired` - No longer valid due to time/version limits\r\n* `Archived` - Retired from use, retained for audit/history\r\n",
+      "enum_values": [
+        "Defined",
+        "Pending",
+        "Activated",
+        "Evaluated",
+        "Fulfilled",
+        "Violated",
+        "Expired",
+        "Archived"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The validity period of Condition",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "The time the session was active",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "Function",
+      "kind": "object",
+      "description": "Reference to Archiving",
+      "properties": [
+        {
+          "name": "Function",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "The identifier of Condition",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "IndexingandPublication",
+      "kind": "object",
+      "description": "An operational service or function supported within the Archiving for doing Archiving",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "IndexingandPublicationReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "IndexingandPublicationType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "IntellectualPropertyExchangeOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility  within Knowledge Exchange. \nExample: Operate the bank's internal intranet facility.",
+      "properties": [
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionUsageLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionServiceProviderReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionServiceProviderSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionServiceConfiguration",
+          "type": "object",
+          "ref": "Arrangement"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "KnowledgeExchangeOutcome",
+      "kind": "object",
+      "description": "An operational service or function supported within the Archiving for doing Archiving",
+      "properties": [
+        {
+          "name": "KnowledgeExchangeIncident",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "KnowledgeExchangeProvision",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Reference to the log of (usage) ativities/events  of Intellectual Property Exchange Operating Session",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "MaintenanceandAccessAdministration",
+      "kind": "object",
+      "description": "An operational service or function supported within the Archiving for doing Archiving",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "MaintenanceandAccessAdministrationReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "MaintenanceandAccessAdministrationType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of Condition",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Review_RefinementandEditing",
+      "kind": "object",
+      "description": "An operational service or function supported within the Archiving for doing Archiving",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "IntellectualPropertyExchangeOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "Review_RefinementandEditingReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "Review_RefinementandEditingType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the function",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Session",
+      "kind": "object",
+      "description": "Reference to Archiving",
+      "properties": [
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontype",
+      "kind": "object",
+      "description": "Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.",
+      "properties": [
+        {
+          "name": "SessionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ContactHandlingSession` - \r\n* `CustomerDialogueSession` - \r\n* `ChannelOperatingSession` - \r\n* `GatewayOperatingSession` - \r\n* `SwitchOperatingSession` - \r\n* `DeviceOperatingSession` - \r\n* `InterbankTransactionOperatingSession` - \r\n* `CorrespondenceOperatingSession` - \r\n* `InteractiveHelpOperatingSession` - \r\n* `ACHOperatingSession` - \r\n",
+      "enum_values": [
+        "ContactHandlingSession",
+        "CustomerDialogueSession",
+        "ChannelOperatingSession",
+        "GatewayOperatingSession",
+        "SwitchOperatingSession",
+        "DeviceOperatingSession",
+        "InterbankTransactionOperatingSession",
+        "CorrespondenceOperatingSession",
+        "InteractiveHelpOperatingSession",
+        "ACHOperatingSession"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Termandconditiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommissionTermAndCondition` - Commission terms for workforce/employee commission processing\r\n* `LegalTermAndCondition` - Covers the legal considerations of the agreement\r\n* `RegulatoryTermAndCondition` - Covers the regulatory considerations of the agreement\r\n* `PolicyTermAndCondition` - Covers the corporate policies and requirements considerations of the agreement\r\n* `RestrictionTermAndCondition` - Details channel access restrictions for products and services\r\n* `PreferenceTermAndCondition` - Customer channel/device usage preferences\r\n* `InvestmentTermAndCondition` - Terms making up the agreement that govern the management of the investment portfolio. Note that there may be many different types of terms and clauses making up the overall policy\r\n* `MandateTermAndCondition` - Reference to the terms in force for a specific customer for this service provider\r\n* `OperationalTermAndCondition` - \r\n* `ProductTermAndCondition` - \r\n* `AgreementTermAndCondition` - \r\n* `RelationshipTermAndCondition` - \r\n* `ConfidentialTermAndCondition` - \r\n",
+      "enum_values": [
+        "CommissionTermAndCondition",
+        "LegalTermAndCondition",
+        "RegulatoryTermAndCondition",
+        "PolicyTermAndCondition",
+        "RestrictionTermAndCondition",
+        "PreferenceTermAndCondition",
+        "InvestmentTermAndCondition",
+        "MandateTermAndCondition",
+        "OperationalTermAndCondition",
+        "ProductTermAndCondition",
+        "AgreementTermAndCondition",
+        "RelationshipTermAndCondition",
+        "ConfidentialTermAndCondition"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "IntellectualPropertyExchangeOperatingSession",
+        "operations": [
+          "Execute",
+          "Initiate",
+          "Control",
+          "Retrieve",
+          "Exchange",
+          "Request",
+          "Update"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Archiving",
+        "parent_control_record": "IntellectualPropertyExchangeOperatingSession",
+        "operations": [
+          "RetrieveArchiving"
+        ]
+      },
+      {
+        "name": "CaptureandClassification",
+        "parent_control_record": "IntellectualPropertyExchangeOperatingSession",
+        "operations": [
+          "ExchangeCaptureandClassification",
+          "InitiateCaptureandClassification",
+          "ExecuteCaptureandClassification",
+          "RetrieveCaptureandClassification",
+          "RequestCaptureandClassification",
+          "UpdateCaptureandClassification"
+        ]
+      },
+      {
+        "name": "IndexingandPublication",
+        "parent_control_record": "IntellectualPropertyExchangeOperatingSession",
+        "operations": [
+          "ExchangeIndexingandPublication",
+          "RetrieveIndexingandPublication",
+          "UpdateIndexingandPublication"
+        ]
+      },
+      {
+        "name": "MaintenanceandAccessAdministration",
+        "parent_control_record": "IntellectualPropertyExchangeOperatingSession",
+        "operations": [
+          "RetrieveMaintenanceandAccessAdministration",
+          "RequestMaintenanceandAccessAdministration",
+          "UpdateMaintenanceandAccessAdministration"
+        ]
+      },
+      {
+        "name": "Review_RefinementandEditing",
+        "parent_control_record": "IntellectualPropertyExchangeOperatingSession",
+        "operations": [
+          "ExchangeReview_RefinementandEditing",
+          "RetrieveReview_RefinementandEditing",
+          "UpdateReview_RefinementandEditing"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/KnowledgeExchange.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "c7f769e01d39038ffabc90f348c4cc576ff2c244edda6a50226e893010739207",
+    "retrieved_at": "2026-09-12T22:31:54.335044+00:00"
+  }
+}

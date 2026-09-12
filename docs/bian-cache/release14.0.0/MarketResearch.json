@@ -1,0 +1,2070 @@
+{
+  "service_domain": "Market Research",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Register",
+      "method": "POST",
+      "path": "/MarketResearch/Register",
+      "tipo": "CR",
+      "grupo": "GeneralMarketResearchDirectoryEntry",
+      "request_schema": "GeneralMarketResearchDirectoryEntry",
+      "response_schema": "GeneralMarketResearchDirectoryEntry",
+      "summary": "InCR Register or establish a market research viewpoint",
+      "description": "InCR Register or establish a market research viewpoint"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/MarketResearch/{marketresearchid}/Update",
+      "tipo": "CR",
+      "grupo": "GeneralMarketResearchDirectoryEntry",
+      "request_schema": "GeneralMarketResearchDirectoryEntry",
+      "response_schema": "GeneralMarketResearchDirectoryEntry",
+      "summary": "UpCR Update the details or make-up of a market research viewpoint",
+      "description": "UpCR Update the details or make-up of a market research viewpoint"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/MarketResearch/{marketresearchid}/Execute",
+      "tipo": "CR",
+      "grupo": "GeneralMarketResearchDirectoryEntry",
+      "request_schema": "GeneralMarketResearchDirectoryEntry",
+      "response_schema": "GeneralMarketResearchDirectoryEntry",
+      "summary": "ExCR Automatically extract details of a maintained market research viewpoint",
+      "description": "ExCR Automatically extract details of a maintained market research viewpoint"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/MarketResearch/{marketresearchid}/Request",
+      "tipo": "CR",
+      "grupo": "GeneralMarketResearchDirectoryEntry",
+      "request_schema": "GeneralMarketResearchDirectoryEntry",
+      "response_schema": "GeneralMarketResearchDirectoryEntry",
+      "summary": "RqCR Request a viewpoint is refreshed or adjusted in some manner",
+      "description": "RqCR Request a viewpoint is refreshed or adjusted in some manner"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/MarketResearch/{marketresearchid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "GeneralMarketResearchDirectoryEntry",
+      "request_schema": "",
+      "response_schema": "GeneralMarketResearchDirectoryEntry",
+      "summary": "ReCR Retrieve details about and the content of a maintained market research viewpoint",
+      "description": "ReCR Retrieve details about and the content of a maintained market research viewpoint"
+    }
+  ],
+  "schemas": [
+    "Analysis",
+    "Analysistypevalues",
+    "Assessmenttypevalues",
+    "BrandingandPositioning",
+    "BusinessService",
+    "Businessservicetypevalues",
+    "CompetitiveAnalysis",
+    "Condition",
+    "Conditionstatustypevalues",
+    "ConsumerBehavior",
+    "Country",
+    "Countrycode",
+    "CustomerBehaviorInsightAnalysis",
+    "CustomerDemographicsandPsychographics",
+    "CustomerJourneyandExperience",
+    "Customerbehaviortypevalues",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "DistributionChannels",
+    "Document",
+    "Documentdatetimetypevalues",
+    "Feature",
+    "Featuretypevalues",
+    "Financialdocumenttypevalues",
+    "ForecastingandFutureOutlook",
+    "GeneralMarketResearchDirectoryEntry",
+    "HTTPError",
+    "Identifier",
+    "Instructiondatetime",
+    "Instructiondatetimetypevalues",
+    "Instructionidentification",
+    "Instructionidentificationtypevalues",
+    "Instructionstatus",
+    "Instructionstatustypevalues",
+    "Instructiontypevalues",
+    "Involvedparty",
+    "Jurisdiction",
+    "Log",
+    "Market",
+    "MarketEntryandExpansion",
+    "MarketResearch",
+    "MarketResearchReport",
+    "MarketSizeandTrends",
+    "MarketingandAdvertising",
+    "Marketresearchaspecttypevalues",
+    "Marketresearchreporttypevalues",
+    "Marketresearchviewpointtypevalues",
+    "Markettypevalues",
+    "Model",
+    "Name",
+    "PricingAnalysis",
+    "Pricingtypevalues",
+    "ProductorServiceAnalysis",
+    "Productserviceanalysistypevalues",
+    "RegulatoryandEnvironmentalFactors",
+    "ReportRequest",
+    "Reporttypevalues",
+    "Requirement",
+    "Schedule",
+    "Servicetypevalues",
+    "Status",
+    "TargetMarketandSegmentation",
+    "TechnologyandInnovation",
+    "Termandconditiontypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Analysis",
+      "kind": "object",
+      "description": "Reference to Competitive Analysis",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "Assessmenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Valuation` - \r\n* `Matching` - \r\n* `Authorization` - An evaluation whether a party or system is allowed to do something.\n\nThe consent given by a participant (or a third party acting on behalf of that participant) in order to transfer funds or securities. (ECB)\n\nAuthorization is a mechanism by which a computer system determines whether to allow or deny specific action to a user. Authorization is often controlled by rather complex rules and algorithms, usually specified as part of an access control model. Authorization often follows (and required) authentication, however, authentication and authorization are two separate mechanisms. In rare cases, \"authorization\" is understood as a process of allowing access, granting permissions or giving approval. Such as \"authorization\" of a request to join a group. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `Authentication` - An evaluation whether a party or system is what it claims to be.\n\nA security mechanism for verifying: 1) the identity of an individual or other entity (including verification by means of a computer or computer application); and 2) the level of authority of that person or entity (i.e. the ability of that person or entity to perform specific tasks or activities). (ECB)\n\nAuthentication is a mechanism by which a computer system checks that the user is really the one she or he claims to be. Authentication can be implemented by a broad variety of mechanisms broadly divided into three categories: something you know, something you have, something you are. Traditionally, authentication is done by the means of by username and password. Authentication is often followed by authorization, however, authentication and authorization are two separate mechanisms. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `QualityAssurance` - \r\n* `Audit` - \r\n* `ComplianceCheck` - \r\n* `FundingCheck` - \r\n* `SuitabilityCheck` - \r\n* `PerformanceCheck` - \r\n* `ImpactAssessment` - \r\n* `RiskAssessment` - \r\n* `Rating` - \r\n* `UnderwritingAssessment` - \r\n* `Qualification` - \r\n* `Verification` - A process establishing that a particular information is correct, while the meaning of \"information\" and \"correct\" varies from context to context. When dealing with identity information, this usually means formal verification of identity attributes, checking the schema, identifier uniqueness and referential integrity. However, verification may mean deeper verification, such as checking that the information is true and up-to-date.  (ISO/IEC 24760-1:2019 - IT Security and Privacy)\n\r\n* `KYCAssessment` - An assessment conducted by businesses and financial institutions to verify and confirm the identity of their customers or clients. The primary purpose of a KYC check is to prevent illegal activities, such as money laundering, terrorist financing, and fraud, by ensuring that customers are who they claim to be.\r\n* `PEPAssessment` - A PEP check, or \"Politically Exposed Person\" check, is an assessment conducted by used by businesses, financial institutions, and government agencies to identify individuals who hold prominent public positions or have significant political influence. The purpose of a PEP check is to assess and manage the potential risks associated with doing business with these individuals, as they may be more susceptible to corruption, money laundering, or other illicit activities.\r\n* `AMLAssessment` - An AML (Anti-Money Laundering) check is an assessment conducted by businesses, financial institutions, and other organizations to prevent and detect money laundering and the financing of criminal activities. The main purpose of an AML check is to ensure that financial transactions and business relationships are not being used to disguise the illegal origins of funds.\r\n* `EligibilityCheck` - Determines whether a person or case meets the criteria or preconditions to qualify for a benefit, service, or action.\r\n* `ExternalAgencyCheck` - \r\n* `EntitlementCheck` - Determines what benefit, amount, or service the person is actually entitled to receive once eligibility is confirmed.\r\n",
+      "enum_values": [
+        "Valuation",
+        "Matching",
+        "Authorization",
+        "Authentication",
+        "QualityAssurance",
+        "Audit",
+        "ComplianceCheck",
+        "FundingCheck",
+        "SuitabilityCheck",
+        "PerformanceCheck",
+        "ImpactAssessment",
+        "RiskAssessment",
+        "Rating",
+        "UnderwritingAssessment",
+        "Qualification",
+        "Verification",
+        "KYCAssessment",
+        "PEPAssessment",
+        "AMLAssessment",
+        "EligibilityCheck",
+        "ExternalAgencyCheck",
+        "EntitlementCheck"
+      ]
+    },
+    {
+      "name": "BrandingandPositioning",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "BrandingandPositioningReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BrandingandPositioningType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "BusinessService",
+      "kind": "object",
+      "description": "The Competitive Analysis specific  Business Service",
+      "properties": [
+        {
+          "name": "BusinessServiceType",
+          "type": "object",
+          "ref": "Businessservicetypevalues"
+        },
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Businessservicetypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Businessservicetypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CompetitiveAnalysis",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "CompetitiveAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "CompetitiveAnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Condition",
+      "kind": "object",
+      "description": "The required status/situation before the property is valid/meaningful",
+      "properties": [
+        {
+          "name": "ConditionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ConditionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ConditionValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ConditionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ConditionStatus",
+          "type": "object",
+          "ref": "Conditionstatustypevalues"
+        },
+        {
+          "name": "ConditionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ConditionType",
+          "type": "object",
+          "ref": "Termandconditiontypevalues"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Conditionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Defined` - Condition is authored or configured\r\n* `Pending` - Awaiting approval or validation\r\n* `Activated` - Live and ready for evaluation\r\n* `Evaluated` - Assessed in context of process or event\r\n* `Fulfilled` - Condition criteria met\r\n* `Violated` - Condition criteria not met\r\n* `Expired` - No longer valid due to time/version limits\r\n* `Archived` - Retired from use, retained for audit/history\r\n",
+      "enum_values": [
+        "Defined",
+        "Pending",
+        "Activated",
+        "Evaluated",
+        "Fulfilled",
+        "Violated",
+        "Expired",
+        "Archived"
+      ]
+    },
+    {
+      "name": "ConsumerBehavior",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "ConsumerBehaviorReference",
+          "type": "object",
+          "ref": "CustomerBehaviorInsightAnalysis"
+        },
+        {
+          "name": "ConsumerBehaviorType",
+          "type": "object",
+          "ref": "Customerbehaviortypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Country",
+      "kind": "object",
+      "description": "Country in which a market operates. (ISO20022)",
+      "properties": [
+        {
+          "name": "NationalRegulatoryAuthority",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CountryName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "CountryCode",
+          "type": "object",
+          "ref": "Countrycode"
+        }
+      ]
+    },
+    {
+      "name": "Countrycode",
+      "kind": "object",
+      "description": "Identifies a nation with its own government (ISO 3166).",
+      "properties": [
+        {
+          "name": "Countrycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CustomerBehaviorInsightAnalysis",
+      "kind": "object",
+      "description": "Reference to Consumer Behavior",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "CustomerDemographicsandPsychographics",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "CustomerDemographicsandPsychographicsReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerDemographicsandPsychographicsType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CustomerJourneyandExperience",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "CustomerJourneyandExperienceReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerJourneyandExperienceType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Customerbehaviortypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ComplexBuyingBehavior` - \r\n* `HabitualBuyingBehavior` - \r\n* `Variety-SeekingBuyingBehavior` - \r\n* `LoyalConsumers` - \r\n* `DiscountConsumers` - \r\n* `ImpulseConsumers` - \r\n* `Need-BasedConsumers` - \r\n* `WanderingConsumers` - \r\n* `RationalDecision-Making` - \r\n* `EmotionalDecision-Making` - \r\n* `CompulsiveDecision-Making` - \r\n* `Socially-DrivenDecision-Making` - \r\n* `Occasion-BasedBehavior` - \r\n* `Benefit-BasedBehavior` - \r\n* `UsageRateBehavior` - \r\n* `LoyaltyStatusBehavior` - \r\n* `CulturalFactorBehavior` - \r\n* `SocialFactorBehavior` - \r\n* `PersonalFactorBehavior` - \r\n* `PsychologicalFactorBehavior` - \r\n",
+      "enum_values": [
+        "ComplexBuyingBehavior",
+        "HabitualBuyingBehavior",
+        "Variety-SeekingBuyingBehavior",
+        "LoyalConsumers",
+        "DiscountConsumers",
+        "ImpulseConsumers",
+        "Need-BasedConsumers",
+        "WanderingConsumers",
+        "RationalDecision-Making",
+        "EmotionalDecision-Making",
+        "CompulsiveDecision-Making",
+        "Socially-DrivenDecision-Making",
+        "Occasion-BasedBehavior",
+        "Benefit-BasedBehavior",
+        "UsageRateBehavior",
+        "LoyaltyStatusBehavior",
+        "CulturalFactorBehavior",
+        "SocialFactorBehavior",
+        "PersonalFactorBehavior",
+        "PsychologicalFactorBehavior"
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date when the assessment expires. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The validity period of Condition",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "DistributionChannels",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "DistributionChannelsReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DistributionChannelsType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Document that provides background or corroborating information regarding an assessment(s).",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "ForecastingandFutureOutlook",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "ForecastingandFutureOutlookReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ForecastingandFutureOutlookType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "GeneralMarketResearchDirectoryEntry",
+      "kind": "object",
+      "description": "Capture and maintain reference information about some type of entitity within Market Research.",
+      "properties": [
+        {
+          "name": "GeneralMarketResearchViewpointType",
+          "type": "object",
+          "ref": "Marketresearchviewpointtypevalues"
+        },
+        {
+          "name": "GeneralMarketResearchViewpointDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReferencedMarketResearchRecord",
+          "type": "object",
+          "ref": "MarketResearch"
+        },
+        {
+          "name": "MarketResearchReportType",
+          "type": "object",
+          "ref": "Marketresearchreporttypevalues"
+        },
+        {
+          "name": "MarketResearchReportTypeDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketResearchReportVersionPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "MarketResearchReportReference",
+          "type": "object",
+          "ref": "MarketResearchReport"
+        },
+        {
+          "name": "GeneralMarketResearchViewpointUsage",
+          "type": "object",
+          "ref": "Marketresearchviewpointtypevalues"
+        },
+        {
+          "name": "MarketResearchReportRequest",
+          "type": "object",
+          "ref": "ReportRequest"
+        },
+        {
+          "name": "EmployeeorBusinessUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "The identifier of Condition",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "InstructionDateType",
+          "type": "object",
+          "ref": "Instructiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DueDate` - \r\n* `ExecutionDate` - \r\n* `FulfillmentDate` - \r\n",
+      "enum_values": [
+        "DueDate",
+        "ExecutionDate",
+        "FulfillmentDate"
+      ]
+    },
+    {
+      "name": "Instructionidentification",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of an Instruction.\n",
+      "properties": [
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InstructionIdentificationType",
+          "type": "object",
+          "ref": "Instructionidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructionidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OrderNumber` - \r\n* `InstructionNumber` - \r\n",
+      "enum_values": [
+        "OrderNumber",
+        "InstructionNumber"
+      ]
+    },
+    {
+      "name": "Instructionstatus",
+      "kind": "object",
+      "description": "A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); ",
+      "properties": [
+        {
+          "name": "InstructionStatusType",
+          "type": "object",
+          "ref": "Instructionstatustypevalues"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Instructionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Pendingprocessing` - Processing of the instruction is pending.\r\n* `Acknowledgedaccepted` - Instruction has been acknowledged and accepted and is validated for further processing.\r\n* `Rejected` - Instruction has been rejected.\r\n* `Accepted` - Instruction has been accepted and is validated for further processing.\r\n* `Completed` - Processing has been completed.\r\n* `Notreceived` - No instruction has been received (to be used in a reminder).\r\n* `Cancelled` - Instruction has been cancelled.\r\n* `Beingcancelled` - Cancel request is being processed.\r\n* `Receivedbyissuerorregistrar` - Instruction has been received by Issuer.\r\n* `Pending` - Instruction is pending.\r\n* `Standinginstruction` - Standing instruction is applied.\r\n* `Queued` - Instruction is queued.\r\n* `Cancelledbysubcustodian` - Instruction has been cancelled by the agent, for example, due to an event deadline extension.\r\n* `Forwarded` - Accepted and sent along the chain.\r\n",
+      "enum_values": [
+        "Pendingprocessing",
+        "Acknowledgedaccepted",
+        "Rejected",
+        "Accepted",
+        "Completed",
+        "Notreceived",
+        "Cancelled",
+        "Beingcancelled",
+        "Receivedbyissuerorregistrar",
+        "Pending",
+        "Standinginstruction",
+        "Queued",
+        "Cancelledbysubcustodian",
+        "Forwarded"
+      ]
+    },
+    {
+      "name": "Instructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PaymentInstruction` - \r\n* `DeliveryOrder` - \r\n* `InformationRequest` - \r\n* `ExchangeInstruction` - \r\n* `AllocationInstruction` - \r\n* `MaintenanceInstruction` - \r\n",
+      "enum_values": [
+        "PaymentInstruction",
+        "DeliveryOrder",
+        "InformationRequest",
+        "ExchangeInstruction",
+        "AllocationInstruction",
+        "MaintenanceInstruction"
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Jurisdiction",
+      "kind": "object",
+      "description": "    \nJurisdiction of the governing law for the trades on this market, for example, City of NY, County of NY, State of NY, regulatory SEC.(ISO20022)",
+      "properties": [
+        {
+          "name": "Jurisdiction",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Market",
+      "kind": "object",
+      "description": "Market that is subject of the market research\n\n",
+      "properties": [
+        {
+          "name": "MarketType",
+          "type": "object",
+          "ref": "Markettypevalues"
+        },
+        {
+          "name": "MarketIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "MarketCountry",
+          "type": "object",
+          "ref": "Country"
+        },
+        {
+          "name": "MarketJurisdiction",
+          "type": "object",
+          "ref": "Jurisdiction"
+        }
+      ]
+    },
+    {
+      "name": "MarketEntryandExpansion",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "MarketEntryandExpansionReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketEntryandExpansionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "MarketResearch",
+      "kind": "object",
+      "description": "The externally sourced reports that are used to assemble the research viewpoint",
+      "properties": [
+        {
+          "name": "MarketResearchSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketResearchViewpoint",
+          "type": "object",
+          "ref": "Marketresearchviewpointtypevalues"
+        },
+        {
+          "name": "MarketResearchApproach",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketResearchPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ResearchedMarket",
+          "type": "object",
+          "ref": "Market"
+        },
+        {
+          "name": "MarketResearchAspectType",
+          "type": "object",
+          "ref": "Marketresearchaspecttypevalues"
+        },
+        {
+          "name": "MarketResearchDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketResearchDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "MarketResearchReport",
+      "kind": "object",
+      "description": "Reference to Product or Service Analysis",
+      "properties": [
+        {
+          "name": "MarketResearchReportContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketResearchViewpointType",
+          "type": "object",
+          "ref": "Marketresearchviewpointtypevalues"
+        },
+        {
+          "name": "MarketResearchReportPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "MarketResearchReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketResearchReportType",
+          "type": "object",
+          "ref": "Marketresearchreporttypevalues"
+        },
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "MarketSizeandTrends",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "MarketSizeandTrendsReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketSizeandTrendsType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "MarketingandAdvertising",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "MarketingandAdvertisingReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketingandAdvertisingType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Marketresearchaspecttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MarketSize` - \r\n* `MarktTrends` - \r\n* `TargetMarket` - \r\n* `ConsumerBehavior` - \r\n* `CompetitiveAnalysis` - \r\n* `ProductOrServiceAnalysis` - \r\n* `PricingStrategy` - \r\n* `DistributionChannels` - \r\n* `MarketingAndAdvertising` - \r\n* `BrandingAndPositioning` - \r\n* `CustomerDemographics` - \r\n* `CustomerPsychographics` - \r\n* `TechnologyAndInnovation` - \r\n* `RegulatoryFactors` - \r\n* `EnvironmentalFactors` - \r\n* `CustomerJourneyAndExperience` - \r\n* `MarketEntry` - \r\n* `MarketExpansion` - \r\n",
+      "enum_values": [
+        "MarketSize",
+        "MarktTrends",
+        "TargetMarket",
+        "ConsumerBehavior",
+        "CompetitiveAnalysis",
+        "ProductOrServiceAnalysis",
+        "PricingStrategy",
+        "DistributionChannels",
+        "MarketingAndAdvertising",
+        "BrandingAndPositioning",
+        "CustomerDemographics",
+        "CustomerPsychographics",
+        "TechnologyAndInnovation",
+        "RegulatoryFactors",
+        "EnvironmentalFactors",
+        "CustomerJourneyAndExperience",
+        "MarketEntry",
+        "MarketExpansion"
+      ]
+    },
+    {
+      "name": "Marketresearchreporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `IndustryReport` - \r\n* `MarketResearchReport` - \r\n* `ConsumerInsightsReport` - \r\n* `CompetitiveAnalysisReport` - \r\n* `TrendAnalysisReport` - \r\n* `ProductServiceReport` - \r\n* `BrandAnalysisReport` - \r\n* `CustomerSatisfactionAndLoyaltyReport` - \r\n* `FeasibilityStudies` - \r\n* `EconomicAnalysisReport` - \r\n* `TechnologyAndInnovationReport` - \r\n* `GeographicMarketReport` - \r\n* `EnvironmentalAndSustainabilityReport` - \r\n",
+      "enum_values": [
+        "IndustryReport",
+        "MarketResearchReport",
+        "ConsumerInsightsReport",
+        "CompetitiveAnalysisReport",
+        "TrendAnalysisReport",
+        "ProductServiceReport",
+        "BrandAnalysisReport",
+        "CustomerSatisfactionAndLoyaltyReport",
+        "FeasibilityStudies",
+        "EconomicAnalysisReport",
+        "TechnologyAndInnovationReport",
+        "GeographicMarketReport",
+        "EnvironmentalAndSustainabilityReport"
+      ]
+    },
+    {
+      "name": "Marketresearchviewpointtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerViewpoint` - \r\n* `CompetitorViewpoint` - \r\n* `MarketDynamicsViewpoint` - \r\n* `ProductServiceViewpoint` - \r\n* `GeographicViewpoint` - \r\n* `EconomicAndPoliticalViewpoint` - \r\n* `TechnologicalViewpoint` - \r\n* `EnvironmentalAndSustainabilityViewpoint` - \r\n* `ChannelAndDistributionViewpoint` - \r\n* `FinancialViewpoint` - \r\n",
+      "enum_values": [
+        "CustomerViewpoint",
+        "CompetitorViewpoint",
+        "MarketDynamicsViewpoint",
+        "ProductServiceViewpoint",
+        "GeographicViewpoint",
+        "EconomicAndPoliticalViewpoint",
+        "TechnologicalViewpoint",
+        "EnvironmentalAndSustainabilityViewpoint",
+        "ChannelAndDistributionViewpoint",
+        "FinancialViewpoint"
+      ]
+    },
+    {
+      "name": "Markettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialMarket` - \r\n* `GeneralMarket` - \r\n",
+      "enum_values": [
+        "FinancialMarket",
+        "GeneralMarket"
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of Condition",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PricingAnalysis",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "PricingAnalysisReference",
+          "type": "object",
+          "ref": "MarketResearchReport"
+        },
+        {
+          "name": "PricingAnalysisType",
+          "type": "object",
+          "ref": "Pricingtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Pricingtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Cost-BasedPricing` - \r\n* `Value-BasedPricing` - \r\n* `Competition-BasedPricing` - \r\n* `DynamicPricing` - \r\n* `PsychologicalPricing` - \r\n* `SegmentedPricing` - \r\n* `PromotionalPricing` - \r\n* `GeographicalPricing` - \r\n* `BundlingAndUnbundling` - \r\n* `FreemiumAndSubscriptionPricing` - \r\n",
+      "enum_values": [
+        "Cost-BasedPricing",
+        "Value-BasedPricing",
+        "Competition-BasedPricing",
+        "DynamicPricing",
+        "PsychologicalPricing",
+        "SegmentedPricing",
+        "PromotionalPricing",
+        "GeographicalPricing",
+        "BundlingAndUnbundling",
+        "FreemiumAndSubscriptionPricing"
+      ]
+    },
+    {
+      "name": "ProductorServiceAnalysis",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "ProductorServiceAnalysisReference",
+          "type": "object",
+          "ref": "MarketResearchReport"
+        },
+        {
+          "name": "ProductorServiceAnalysisType",
+          "type": "object",
+          "ref": "Productserviceanalysistypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productserviceanalysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ByIndustry` - \r\n* `ByCustomerSegment` - \r\n* `ByLifecycleStage` - \r\n* `ByPricingStrategy` - \r\n* `ByTechnologyIntegration` - \r\n* `ByDistributionChannel` - \r\n* `ByConsumerNeed` - \r\n* `ByUsageFrequency` - \r\n* `ByServiceType` - \r\n* `ByValueProposition` - \r\n* `BySupplier` - \r\n",
+      "enum_values": [
+        "ByIndustry",
+        "ByCustomerSegment",
+        "ByLifecycleStage",
+        "ByPricingStrategy",
+        "ByTechnologyIntegration",
+        "ByDistributionChannel",
+        "ByConsumerNeed",
+        "ByUsageFrequency",
+        "ByServiceType",
+        "ByValueProposition",
+        "BySupplier"
+      ]
+    },
+    {
+      "name": "RegulatoryandEnvironmentalFactors",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "RegulatoryandEnvironmentalFactorsReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RegulatoryandEnvironmentalFactorsType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ReportRequest",
+      "kind": "object",
+      "description": "Details of the research request",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Instructiondatetime"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Instructionstatus"
+        },
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Instructionidentification"
+        },
+        {
+          "name": "InstructionType",
+          "type": "object",
+          "ref": "Instructiontypevalues"
+        },
+        {
+          "name": "InstructionResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InstructionPurpose",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing for which the property value is valid",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "TargetMarketandSegmentation",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "TargetMarketandSegmentationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TargetMarketandSegmentationType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "TechnologyandInnovation",
+      "kind": "object",
+      "description": "The Competitive Analysis properties that represent a discrete aspect of the Competitive Analysis",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "TechnologyandInnovationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TechnologyandInnovationType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Termandconditiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommissionTermAndCondition` - Commission terms for workforce/employee commission processing\r\n* `LegalTermAndCondition` - Covers the legal considerations of the agreement\r\n* `RegulatoryTermAndCondition` - Covers the regulatory considerations of the agreement\r\n* `PolicyTermAndCondition` - Covers the corporate policies and requirements considerations of the agreement\r\n* `RestrictionTermAndCondition` - Details channel access restrictions for products and services\r\n* `PreferenceTermAndCondition` - Customer channel/device usage preferences\r\n* `InvestmentTermAndCondition` - Terms making up the agreement that govern the management of the investment portfolio. Note that there may be many different types of terms and clauses making up the overall policy\r\n* `MandateTermAndCondition` - Reference to the terms in force for a specific customer for this service provider\r\n* `OperationalTermAndCondition` - \r\n* `ProductTermAndCondition` - \r\n* `AgreementTermAndCondition` - \r\n* `RelationshipTermAndCondition` - \r\n* `ConfidentialTermAndCondition` - \r\n",
+      "enum_values": [
+        "CommissionTermAndCondition",
+        "LegalTermAndCondition",
+        "RegulatoryTermAndCondition",
+        "PolicyTermAndCondition",
+        "RestrictionTermAndCondition",
+        "PreferenceTermAndCondition",
+        "InvestmentTermAndCondition",
+        "MandateTermAndCondition",
+        "OperationalTermAndCondition",
+        "ProductTermAndCondition",
+        "AgreementTermAndCondition",
+        "RelationshipTermAndCondition",
+        "ConfidentialTermAndCondition"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "GeneralMarketResearchDirectoryEntry",
+        "operations": [
+          "Register",
+          "Update",
+          "Execute",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/MarketResearch.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "a9aeb91c71fb5a42a303ac034577fa6d789d0177232bb36c9f2a134260e8232a",
+    "retrieved_at": "2026-09-12T22:36:37.565113+00:00"
+  }
+}

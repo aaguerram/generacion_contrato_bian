@@ -11,17 +11,35 @@ version: "1.0"
 #  cuota (429 / sin créditos / no disponible), se pasa al siguiente proveedor y
 #  se recorren sus modelos. Es un reintento hasta agotar todo.
 #
-#  Groq va primero: inferencia LPU muy rápida (0.7-2.5s), free tier generoso y modelos
-#  fuertes (gpt-oss). Luego Gemini, luego Hugging Face (modelos fuertes pero crédito
+#  Ollama va primero: servidor propio (docker en la red local), sin cuota ni free-tier ni
+#  rate limit -- tanto para chat como para embeddings. Si no está accesible (VPN caída, docker
+#  detenido), el failover cae a Groq: inferencia LPU muy rápida (0.7-2.5s), free tier generoso
+#  y modelos fuertes (gpt-oss). Luego Gemini, luego Hugging Face (modelos fuertes pero crédito
 #  mensual free muy pequeño) y OpenRouter (free lento) como último recurso.
 routing:
-  llm_priority: [groq, gemini, huggingface, openrouter]
+  llm_priority: [ollama, groq, gemini, huggingface, openrouter]
   # Embeddings SOLO para validar_sd.rag_estrategia: vectorial. Orden = precisión de retrieval.
-  # Cohere primero (mejores modelos multilingües free-tier); Gemini y OpenRouter de respaldo.
-  embedding_priority: [cohere, gemini, openrouter]
+  # Ollama primero (propio, sin cuota); Cohere, Gemini y OpenRouter de respaldo.
+  embedding_priority: [ollama, cohere, gemini, openrouter]
 
 # ── Proveedores ─────────────────────────────────────────────────────────────
 providers:
+  # ── Ollama: servidor propio (docker, qwen3.8 27B para chat + qwen3-embedding 8B para
+  #  embeddings). API compatible OpenAI vía `/v1`, sin autenticación real -- ver OLLAMA_API_KEY
+  #  en `.env` (placeholder exigido por el cliente, no un secreto). Ajusta `base_url` si el
+  #  docker corre en otro host/puerto.
+  ollama:
+    enabled: true
+    api_key_env: OLLAMA_API_KEY
+    base_url: http://100.102.221.79:11434/v1
+    structured_method: json_schema
+    llm:
+      models:
+        - qwen3.8:27b-q8_0
+    embedding:
+      models:
+        - qwen3-embedding:8b
+
   groq:
     enabled: true
     api_key_env: GROQ_API_KEY
@@ -146,7 +164,7 @@ mapear_historias:
   # OJO: concurrencia * concurrencia_candidatos = llamadas LLM simultáneas. Con free tiers
   # pequeños (p. ej. Gemini 20 req/día) usa --proveedor pinneado o baja max_candidatos_hu.
   concurrencia: 1               # historias en paralelo (LangGraph max_concurrency, outer)
-  concurrencia_candidatos: 2    # candidatos evaluados en paralelo dentro de una HU (subgrafo)
+  concurrencia_candidatos: 1    # candidatos evaluados en paralelo dentro de una HU (subgrafo)
   max_candidatos_hu: 14         # tope de Service Domains evaluados por HU (LLM candidatos + missing)
   paso2_operaciones: true        # paso 6: mapear SD directos -> operaciones oficiales CR/BQ
   rol_max_chars: 240             # recorte del Service Role al armar el catálogo del prompt

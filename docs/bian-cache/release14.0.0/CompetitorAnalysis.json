@@ -1,0 +1,1290 @@
+{
+  "service_domain": "Competitor Analysis",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "EvaluateProductCompetitiveAnalysis",
+      "method": "POST",
+      "path": "/CompetitorAnalysis/{competitoranalysisid}/ProductCompetitiveAnalysis/Evaluate",
+      "tipo": "BQ",
+      "grupo": "ProductCompetitiveAnalysis",
+      "request_schema": "ProductCompetitiveAnalysis",
+      "response_schema": "ProductCompetitiveAnalysis",
+      "summary": "Evaluate Product Competitive Analysis",
+      "description": "Evaluate Product Competitive Analysis",
+      "parent_control_record": "CompetitorAnalysis"
+    },
+    {
+      "operation_id": "Evaluate",
+      "method": "POST",
+      "path": "/CompetitorAnalysis/Evaluate",
+      "tipo": "CR",
+      "grupo": "CompetitorAnalysis",
+      "request_schema": "CompetitorAnalysis",
+      "response_schema": "CompetitorAnalysis",
+      "summary": "EvCR Initialize competitor analysis",
+      "description": "EvCR Initialize competitor analysis"
+    },
+    {
+      "operation_id": "RetrieveProductCompetitiveAnalysis",
+      "method": "GET",
+      "path": "/CompetitorAnalysis/{competitoranalysisid}/ProductCompetitiveAnalysis/{productcompetitiveanalysisid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "ProductCompetitiveAnalysis",
+      "request_schema": "",
+      "response_schema": "ProductCompetitiveAnalysis",
+      "summary": "Retrieve Product Competitive Analysis",
+      "description": "Retrieve Product Competitive Analysis",
+      "parent_control_record": "CompetitorAnalysis"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/CompetitorAnalysis/{competitoranalysisid}/Execute",
+      "tipo": "CR",
+      "grupo": "CompetitorAnalysis",
+      "request_schema": "CompetitorAnalysis",
+      "response_schema": "CompetitorAnalysis",
+      "summary": "ExCR Obtain an automated refresh of maintained competitor analysis",
+      "description": "ExCR Obtain an automated refresh of maintained competitor analysis"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/CompetitorAnalysis/{competitoranalysisid}/Request",
+      "tipo": "CR",
+      "grupo": "CompetitorAnalysis",
+      "request_schema": "CompetitorAnalysis",
+      "response_schema": "CompetitorAnalysis",
+      "summary": "RqCR Request a manual intervention in the development of competitor analysis",
+      "description": "RqCR Request a manual intervention in the development of competitor analysis"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/CompetitorAnalysis/{competitoranalysisid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "CompetitorAnalysis",
+      "request_schema": "",
+      "response_schema": "CompetitorAnalysis",
+      "summary": "ReCR Retrieve details about competitor analysis activity",
+      "description": "ReCR Retrieve details about competitor analysis activity"
+    }
+  ],
+  "schemas": [
+    "Algorithm",
+    "Analysis",
+    "AnalysisModel",
+    "AnalysisReport",
+    "Analysistypevalues",
+    "CompetitiveBenchmarking",
+    "CompetitorAnalysis",
+    "CompetitorAnalysisOutcome",
+    "CompetitorClusteringorGrouping",
+    "CompetitorSWOTAnalysis",
+    "Competitoranalysistypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Document",
+    "Documentdatetimetypevalues",
+    "Financialdocumenttypevalues",
+    "HTTPError",
+    "Identifier",
+    "Instruction",
+    "Instructiondatetime",
+    "Instructiondatetimetypevalues",
+    "Instructionidentification",
+    "Instructionidentificationtypevalues",
+    "Instructionstatus",
+    "Instructionstatustypevalues",
+    "Instructiontypevalues",
+    "Involvedparty",
+    "Log",
+    "Name",
+    "PeerCompetitorAnalysis",
+    "ProductCompetitiveAnalysis",
+    "Reporttypevalues",
+    "RuleSet",
+    "Rulesettypevalues",
+    "Schedule",
+    "Status",
+    "Task",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Algorithm",
+      "kind": "object",
+      "description": "Reference to the algorithm/approach used to generate the analysis",
+      "properties": [
+        {
+          "name": "AlgorithmType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AlgorithmUsage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AlgorithmImpact",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AlgorithmFeedback",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AlgorithmSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AlgorithmUsageGuideline",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Analysis",
+      "kind": "object",
+      "description": "Reference to the (result of) analysis",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "AnalysisModel",
+      "kind": "object",
+      "description": "Refers to a model used in the analysis Like Customer Behavior Model",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "AnalysisReport",
+      "kind": "object",
+      "description": "Refers to a report used in the analysis like Market Research Report",
+      "properties": [
+        {
+          "name": "AnalysisReportDatetime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "CompetitiveBenchmarking",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\n- Evaluates a competitor's Strengths, Weaknesses, Opportunities, and Threats",
+      "properties": [
+        {
+          "name": "AnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "AnalysisModelReference",
+          "type": "object",
+          "ref": "AnalysisModel"
+        },
+        {
+          "name": "AnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "AnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "AnalysisReportReference",
+          "type": "object",
+          "ref": "AnalysisReport"
+        },
+        {
+          "name": "AnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AnalysisCriteriaReference",
+          "type": "object",
+          "ref": "RuleSet"
+        },
+        {
+          "name": "AnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "CompetitorAnalysis",
+      "kind": "object",
+      "description": "Analyze the performance or behavior of some on-going activity or entity  within Competitor Analysis. \nExamples: Provide behavioral insights and analysis into customer behavior and analyze financial market activity in order to identify opportunities, define pricing and evaluate risks.\n\nAnalyze the performance or behavior of some on-going activity or entity. Examples: Provide behavioral insights and analysis into customer behavior and analyze financial market activity in order to identify opportunities, define pricing and evaluate risks.",
+      "properties": [
+        {
+          "name": "CompetitorAnalysisType",
+          "type": "object",
+          "ref": "Competitoranalysistypevalues"
+        },
+        {
+          "name": "CompetitorAnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CompetitorAnalysisGuidance",
+          "type": "object",
+          "ref": "RuleSet"
+        },
+        {
+          "name": "CompetitorAnalysisAlgorithmReference",
+          "type": "object",
+          "ref": "Algorithm"
+        },
+        {
+          "name": "CompetitorAnalysisRequestRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CompetitorAnalysisRequest",
+          "type": "object",
+          "ref": "Instruction"
+        },
+        {
+          "name": "EmployeeBusinessUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CompetitorAnalysisRequestWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "CompetitorAnalysisRequestResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CompetitorAnalysisUsageRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CompetitorAnalysisUsage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CompetitorAnalysisImpact",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CompetitorAnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "CompetitorAnalysisOutcome",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\n- Evaluates a competitor's Strengths, Weaknesses, Opportunities, and Threats",
+      "properties": [
+        {
+          "name": "CompetitorAnalysisWorkProduct",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CompetitorAnalysisAnalysisType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CompetitorClusteringorGrouping",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\n- Evaluates a competitor's Strengths, Weaknesses, Opportunities, and Threats",
+      "properties": [
+        {
+          "name": "AnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "AnalysisModelReference",
+          "type": "object",
+          "ref": "AnalysisModel"
+        },
+        {
+          "name": "AnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "AnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "AnalysisReportReference",
+          "type": "object",
+          "ref": "AnalysisReport"
+        },
+        {
+          "name": "AnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AnalysisCriteriaReference",
+          "type": "object",
+          "ref": "RuleSet"
+        },
+        {
+          "name": "AnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "CompetitorSWOTAnalysis",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\n- Evaluates a competitor's Strengths, Weaknesses, Opportunities, and Threats",
+      "properties": [
+        {
+          "name": "AnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "AnalysisModelReference",
+          "type": "object",
+          "ref": "AnalysisModel"
+        },
+        {
+          "name": "AnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "AnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "AnalysisReportReference",
+          "type": "object",
+          "ref": "AnalysisReport"
+        },
+        {
+          "name": "AnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AnalysisCriteriaReference",
+          "type": "object",
+          "ref": "RuleSet"
+        },
+        {
+          "name": "AnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Competitoranalysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PeerCompetitorAnalysis` - The process of evaluating and comparing a company’s performance, strategies, and market position against those of its direct competitors, often referred to as \"peers.\" These peers typically operate within the same industry, offer similar products or services, and target the same customer segments. Focus: Analyzes businesses offering similar products or services that target the same customer base.\r\n* `ProductCompetitiveAnalysis` - The process of evaluating and comparing a company's product or service against similar offerings from competitors\r\n* `CompetitorClusteringOrGrouping` - Clusters competitors into groups based on similar strategies, market positions, or other characteristics.\r\n* `CompetitorSWOTAnalysis` - Evaluates a competitor's Strengths, Weaknesses, Opportunities, and Threats\r\n* `CompetitiveBenchmarking` - The process of comparing a company's performance, processes, products, or practices against those of its competitors\r\n",
+      "enum_values": [
+        "PeerCompetitorAnalysis",
+        "ProductCompetitiveAnalysis",
+        "CompetitorClusteringOrGrouping",
+        "CompetitorSWOTAnalysis",
+        "CompetitiveBenchmarking"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Refers to a document used in the analysis",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Instruction",
+      "kind": "object",
+      "description": "The specific details of the request",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Instructiondatetime"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Instructionstatus"
+        },
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Instructionidentification"
+        },
+        {
+          "name": "InstructionType",
+          "type": "object",
+          "ref": "Instructiontypevalues"
+        },
+        {
+          "name": "InstructionResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InstructionPurpose",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "InstructionDateType",
+          "type": "object",
+          "ref": "Instructiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DueDate` - \r\n* `ExecutionDate` - \r\n* `FulfillmentDate` - \r\n",
+      "enum_values": [
+        "DueDate",
+        "ExecutionDate",
+        "FulfillmentDate"
+      ]
+    },
+    {
+      "name": "Instructionidentification",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of an Instruction.\n",
+      "properties": [
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InstructionIdentificationType",
+          "type": "object",
+          "ref": "Instructionidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructionidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OrderNumber` - \r\n* `InstructionNumber` - \r\n",
+      "enum_values": [
+        "OrderNumber",
+        "InstructionNumber"
+      ]
+    },
+    {
+      "name": "Instructionstatus",
+      "kind": "object",
+      "description": "A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); ",
+      "properties": [
+        {
+          "name": "InstructionStatusType",
+          "type": "object",
+          "ref": "Instructionstatustypevalues"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Instructionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Pendingprocessing` - Processing of the instruction is pending.\r\n* `Acknowledgedaccepted` - Instruction has been acknowledged and accepted and is validated for further processing.\r\n* `Rejected` - Instruction has been rejected.\r\n* `Accepted` - Instruction has been accepted and is validated for further processing.\r\n* `Completed` - Processing has been completed.\r\n* `Notreceived` - No instruction has been received (to be used in a reminder).\r\n* `Cancelled` - Instruction has been cancelled.\r\n* `Beingcancelled` - Cancel request is being processed.\r\n* `Receivedbyissuerorregistrar` - Instruction has been received by Issuer.\r\n* `Pending` - Instruction is pending.\r\n* `Standinginstruction` - Standing instruction is applied.\r\n* `Queued` - Instruction is queued.\r\n* `Cancelledbysubcustodian` - Instruction has been cancelled by the agent, for example, due to an event deadline extension.\r\n* `Forwarded` - Accepted and sent along the chain.\r\n",
+      "enum_values": [
+        "Pendingprocessing",
+        "Acknowledgedaccepted",
+        "Rejected",
+        "Accepted",
+        "Completed",
+        "Notreceived",
+        "Cancelled",
+        "Beingcancelled",
+        "Receivedbyissuerorregistrar",
+        "Pending",
+        "Standinginstruction",
+        "Queued",
+        "Cancelledbysubcustodian",
+        "Forwarded"
+      ]
+    },
+    {
+      "name": "Instructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PaymentInstruction` - \r\n* `DeliveryOrder` - \r\n* `InformationRequest` - \r\n* `ExchangeInstruction` - \r\n* `AllocationInstruction` - \r\n* `MaintenanceInstruction` - \r\n",
+      "enum_values": [
+        "PaymentInstruction",
+        "DeliveryOrder",
+        "InformationRequest",
+        "ExchangeInstruction",
+        "AllocationInstruction",
+        "MaintenanceInstruction"
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Refers to a log used in the  analysis like Event Log",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PeerCompetitorAnalysis",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\n- Evaluates a competitor's Strengths, Weaknesses, Opportunities, and Threats",
+      "properties": [
+        {
+          "name": "AnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "AnalysisModelReference",
+          "type": "object",
+          "ref": "AnalysisModel"
+        },
+        {
+          "name": "AnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "AnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "AnalysisReportReference",
+          "type": "object",
+          "ref": "AnalysisReport"
+        },
+        {
+          "name": "AnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AnalysisCriteriaReference",
+          "type": "object",
+          "ref": "RuleSet"
+        },
+        {
+          "name": "AnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "ProductCompetitiveAnalysis",
+      "kind": "object",
+      "description": "A collection of models/calculations/algoritms that can be applied to a subject or activity\n\n- Evaluates a competitor's Strengths, Weaknesses, Opportunities, and Threats",
+      "properties": [
+        {
+          "name": "AnalysisTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "AnalysisModelReference",
+          "type": "object",
+          "ref": "AnalysisModel"
+        },
+        {
+          "name": "AnalysisInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisLogReference",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "AnalysisWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "AnalysisReportReference",
+          "type": "object",
+          "ref": "AnalysisReport"
+        },
+        {
+          "name": "AnalysisDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AnalysisCriteriaReference",
+          "type": "object",
+          "ref": "RuleSet"
+        },
+        {
+          "name": "AnalysisReference",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "RuleSet",
+      "kind": "object",
+      "description": "Reference to the creteria applied to the analysis",
+      "properties": [
+        {
+          "name": "RuleSetDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetInterpretation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetType",
+          "type": "object",
+          "ref": "Rulesettypevalues"
+        },
+        {
+          "name": "RuleSetName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "RuleSetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "RuleSetLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Rulesettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Policy` - Rule that governs business execution.\n\nThe set of basic principles and associated guidelines, formulated and enforced by the governing body of an organization, to direct and limit its actions in pursuit of long-term goals. (Business Dictionary)\n\r\n* `Regulation` - A rule used to carry out a law (FIBO)\n\nBusiness Dictionary: a rule (with or without the coercive power of law) employed in controlling, directing, or managing an activity, organization, or system. \n\nThe set of rules and legislation governing certain actions. \nhttps://financial-dictionary.thefreedictionary.com/Regulatory\r\n* `Law` - A binding rule that the courts will enforce.\nA system of rules and guidelines which are enforced through social institutions to govern behavior. (FIBO)\n\r\n* `Guideline` - A recommended practice (adapted from Business Dictionary)\nA general rule, principle, or piece of advice.\r\n* `Criterion` - A principle or standard by which something may be judged or decided.\n\nRead more: http://www.businessdictionary.com/definition/criterion.html\r\n* `Standard` - A rule considered by an authority or by general consent as a basis of comparison\r\n",
+      "enum_values": [
+        "Policy",
+        "Regulation",
+        "Law",
+        "Guideline",
+        "Criterion",
+        "Standard"
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the analysis performed using the algorithm",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "Refers to a task for doing the analysis",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "Refers to work documentation, forms and schedules produced and referenced during the analysis",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "CompetitorAnalysis",
+        "operations": [
+          "Evaluate",
+          "Execute",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "ProductCompetitiveAnalysis",
+        "parent_control_record": "CompetitorAnalysis",
+        "operations": [
+          "EvaluateProductCompetitiveAnalysis",
+          "RetrieveProductCompetitiveAnalysis"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CompetitorAnalysis.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "9004856f78c52ad7e3bd2350cda06737891965dd130daa11fc6f60c6eb73793c",
+    "retrieved_at": "2026-09-12T22:36:30.854845+00:00"
+  }
+}

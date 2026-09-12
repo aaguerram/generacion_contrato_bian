@@ -1,0 +1,358 @@
+{
+  "service_domain": "Claim Assessment",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [],
+  "schemas": [
+    "Authentication",
+    "ClaimValidationAssessment",
+    "EligibilityCheck",
+    "EntitlementCheck",
+    "ExternalAgencyEvaluation",
+    "HTTPError"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Authentication",
+      "kind": "object",
+      "description": "The Eligibility Check test is one aspect that can be intergrated into the overall Claim Validation Assessment",
+      "properties": [
+        {
+          "name": "ClaimValidationAssessmentIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AuthenticationIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AuthenticationType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AuthenticationSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AuthenticationStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AuthenticationSchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AuthenticationComplementedDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AuthenticationResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AuthenticationAssociatedPartyReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ClaimValidationAssessment",
+      "kind": "object",
+      "description": "To test or assess an entity, possibly against some formal qualification or certification requirement within Claim Assessment. ",
+      "properties": [
+        {
+          "name": "ClaimAssessmentType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimValidationAssessmentIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimAssessmentRequest",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimAssessmentSchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimAssessmentStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimAssessmentUsageLogReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimAssessmentRequesterReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimAssessmentAssociatedPartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimAssessmentServiceProviderReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PolicyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PolicyholderReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimAssessmentAssessorReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InsuredEventReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimAssessmentComplementedDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimAssessmentSupportingDocumentReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimAssessmentResult",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "EligibilityCheck",
+      "kind": "object",
+      "description": "The Eligibility Check test is one aspect that can be intergrated into the overall Claim Validation Assessment",
+      "properties": [
+        {
+          "name": "ClaimValidationAssessmentIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EligibilityCheckIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EligibilityCheckType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EligibilityCheckSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EligibilityCheckStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EligibilityCheckSchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EligibilityCheckComplementedDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EligibilityCheckResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EligibilityCheckAssociatedPartyReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "EntitlementCheck",
+      "kind": "object",
+      "description": "The Eligibility Check test is one aspect that can be intergrated into the overall Claim Validation Assessment",
+      "properties": [
+        {
+          "name": "ClaimValidationAssessmentIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EntitlementCheckIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EntitlementCheckType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EntitlementCheckSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EntitlementCheckStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EntitlementCheckSchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EntitlementCheckComplementedDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EntitlementCheckResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EntitlementCheckAssociatedPartyReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ExternalAgencyEvaluation",
+      "kind": "object",
+      "description": "The Eligibility Check test is one aspect that can be intergrated into the overall Claim Validation Assessment",
+      "properties": [
+        {
+          "name": "ClaimValidationAssessmentIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ExternalAgencyEvaluationIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ExternalAgencyEvaluationType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ExternalAgencyEvaluationSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ExternalAgencyEvaluationStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ExternalAgencyEvaluationSchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ExternalAgencyEvaluationComplementedDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ExternalAgencyEvaluationResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ExternalAgencyEvaluationAssociatedPartyReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ClaimAssessment.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "ee6ced1f1485a20659d18f507f85af6fd79b0676cd5e45cb88641ae12be9be65",
+    "retrieved_at": "2026-09-12T21:55:56.755316+00:00"
+  }
+}

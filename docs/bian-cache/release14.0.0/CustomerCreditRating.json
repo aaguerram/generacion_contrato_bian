@@ -1,0 +1,1387 @@
+{
+  "service_domain": "Customer Credit Rating",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/CustomerCreditRating/Initiate",
+      "tipo": "CR",
+      "grupo": "CustomerCreditRatingState",
+      "request_schema": "CustomerCreditRatingState",
+      "response_schema": "CustomerCreditRatingState",
+      "summary": "InCR Initiate credit state monitoring for a customer",
+      "description": "InCR Initiate credit state monitoring for a customer"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/CustomerCreditRating/{customercreditratingid}/Control",
+      "tipo": "CR",
+      "grupo": "CustomerCreditRatingState",
+      "request_schema": "CustomerCreditRatingState",
+      "response_schema": "CustomerCreditRatingState",
+      "summary": "CoCR Control credit state monitoring (e.g. high frequency update)",
+      "description": "CoCR Control credit state monitoring (e.g. high frequency update)"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/CustomerCreditRating/{customercreditratingid}/Exchange",
+      "tipo": "CR",
+      "grupo": "CustomerCreditRatingState",
+      "request_schema": "CustomerCreditRatingState",
+      "response_schema": "CustomerCreditRatingState",
+      "summary": "EcCR Accept, reject, etc credit state monitoring content",
+      "description": "EcCR Accept, reject, etc credit state monitoring content"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/CustomerCreditRating/{customercreditratingid}/Execute",
+      "tipo": "CR",
+      "grupo": "CustomerCreditRatingState",
+      "request_schema": "CustomerCreditRatingState",
+      "response_schema": "CustomerCreditRatingState",
+      "summary": "ExCR Execute an automated task for credit state (e.g. auto refresh)",
+      "description": "ExCR Execute an automated task for credit state (e.g. auto refresh)"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/CustomerCreditRating/{customercreditratingid}/Request",
+      "tipo": "CR",
+      "grupo": "CustomerCreditRatingState",
+      "request_schema": "CustomerCreditRatingState",
+      "response_schema": "CustomerCreditRatingState",
+      "summary": "RqCR Request manual intervention for credit state (e.g. revise underlying assessment)",
+      "description": "RqCR Request manual intervention for credit state (e.g. revise underlying assessment)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/CustomerCreditRating/{customercreditratingid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "CustomerCreditRatingState",
+      "request_schema": "",
+      "response_schema": "CustomerCreditRatingState",
+      "summary": "ReCR Retrieve details about credit state monitoring for a customer",
+      "description": "ReCR Retrieve details about credit state monitoring for a customer"
+    },
+    {
+      "operation_id": "CaptureAlerts",
+      "method": "PUT",
+      "path": "/CustomerCreditRating/{customercreditratingid}/Alerts/{alertsid}/Capture",
+      "tipo": "BQ",
+      "grupo": "Alerts",
+      "request_schema": "Alerts",
+      "response_schema": "Alerts",
+      "summary": "CaBQ Capture notification of a credit alert",
+      "description": "CaBQ Capture notification of a credit alert",
+      "parent_control_record": "CustomerCreditRatingState"
+    },
+    {
+      "operation_id": "RetrieveAlerts",
+      "method": "GET",
+      "path": "/CustomerCreditRating/{customercreditratingid}/Alerts/{alertsid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Alerts",
+      "request_schema": "",
+      "response_schema": "Alerts",
+      "summary": "ReBQ Retrieve details about a credit alert",
+      "description": "ReBQ Retrieve details about a credit alert",
+      "parent_control_record": "CustomerCreditRatingState"
+    },
+    {
+      "operation_id": "CaptureInternalReporting",
+      "method": "PUT",
+      "path": "/CustomerCreditRating/{customercreditratingid}/InternalReporting/{internalreportingid}/Capture",
+      "tipo": "BQ",
+      "grupo": "InternalReporting",
+      "request_schema": "InternalReporting",
+      "response_schema": "InternalReporting",
+      "summary": "CaBQ Capture internal product reports to support credit analysis",
+      "description": "CaBQ Capture internal product reports to support credit analysis",
+      "parent_control_record": "CustomerCreditRatingState"
+    },
+    {
+      "operation_id": "RetrieveInternalReporting",
+      "method": "GET",
+      "path": "/CustomerCreditRating/{customercreditratingid}/InternalReporting/{internalreportingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "InternalReporting",
+      "request_schema": "",
+      "response_schema": "InternalReporting",
+      "summary": "ReBQ Retrieve details about internal reporting to the credit monitoring activity",
+      "description": "ReBQ Retrieve details about internal reporting to the credit monitoring activity",
+      "parent_control_record": "CustomerCreditRatingState"
+    },
+    {
+      "operation_id": "CaptureExternalReporting",
+      "method": "PUT",
+      "path": "/CustomerCreditRating/{customercreditratingid}/ExternalReporting/{externalreportingid}/Capture",
+      "tipo": "BQ",
+      "grupo": "ExternalReporting",
+      "request_schema": "ExternalReporting",
+      "response_schema": "ExternalReporting",
+      "summary": "CaBQ Capture external credit reports to support credit analysis and state",
+      "description": "CaBQ Capture external credit reports to support credit analysis and state",
+      "parent_control_record": "CustomerCreditRatingState"
+    },
+    {
+      "operation_id": "RetrieveExternalReporting",
+      "method": "GET",
+      "path": "/CustomerCreditRating/{customercreditratingid}/ExternalReporting/{externalreportingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "ExternalReporting",
+      "request_schema": "",
+      "response_schema": "ExternalReporting",
+      "summary": "ReBQ Retrieve details about external reporting to the credit monitoring activity",
+      "description": "ReBQ Retrieve details about external reporting to the credit monitoring activity",
+      "parent_control_record": "CustomerCreditRatingState"
+    }
+  ],
+  "schemas": [
+    "Agreementstatus",
+    "Agreementstatustypevalues",
+    "Agreementtypevalues",
+    "Alerts",
+    "Assessment",
+    "Assessmenttypevalues",
+    "BusinessUnit",
+    "Creditpositiontypevalues",
+    "CustomerBehaviorModel",
+    "CustomerCreditRatingAssessment",
+    "CustomerCreditRatingState",
+    "CustomerRating",
+    "Customerbehaviormodeltypevalues",
+    "Customerratingtypevalues",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Document",
+    "Documentdatetimetypevalues",
+    "ExternalReporting",
+    "Financialdocumenttypevalues",
+    "HTTPError",
+    "Identifier",
+    "InternalReporting",
+    "Involvedparty",
+    "Model",
+    "Name",
+    "Organisationdatetime",
+    "Organisationdatetimetypevalues",
+    "Organisationidentification",
+    "Organisationidentificationtypevalues",
+    "Organisationlegalstructuretypevalues",
+    "Organisationname",
+    "Organisationnametypevalues",
+    "Organisationtypevalues",
+    "ProductAgreement",
+    "Productagreementtypevalues",
+    "Report",
+    "Reporttypevalues",
+    "Requirement",
+    "Schedule",
+    "Status",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Agreementstatus",
+      "kind": "object",
+      "description": "A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).",
+      "properties": [
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AgreementStatusType",
+          "type": "object",
+          "ref": "Agreementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Agreementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Offered` - \r\n* `Confirmed` - \r\n* `Completed` - \r\n* `Signed` - \r\n* `Terminated` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Offered",
+        "Confirmed",
+        "Completed",
+        "Signed",
+        "Terminated",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Agreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerAgreement` - \r\n* `SupplierAgreement` - \r\n* `BrokerAgreement` - \r\n* `SalesAgreement` - \r\n* `PurchaseAgreement` - \r\n* `MaintenanceAgreement` - \r\n* `ProductAgreement` - \r\n* `ResourceAgreement` - \r\n* `PartnerAgreement` - \r\n* `MasterAgreement` - \r\n* `BilateralAgreement` - \r\n* `RepurchaseAgreement` - \r\n",
+      "enum_values": [
+        "CustomerAgreement",
+        "SupplierAgreement",
+        "BrokerAgreement",
+        "SalesAgreement",
+        "PurchaseAgreement",
+        "MaintenanceAgreement",
+        "ProductAgreement",
+        "ResourceAgreement",
+        "PartnerAgreement",
+        "MasterAgreement",
+        "BilateralAgreement",
+        "RepurchaseAgreement"
+      ]
+    },
+    {
+      "name": "Alerts",
+      "kind": "object",
+      "description": "A collection of information feeds/measures that can be used to track the status of one or more items/entitites\n\nExamples: Composite position, Customer alert",
+      "properties": [
+        {
+          "name": "ProductInstanceReference",
+          "type": "object",
+          "ref": "ProductAgreement"
+        },
+        {
+          "name": "EmployeeBusinessUnitReference",
+          "type": "object",
+          "ref": "BusinessUnit"
+        },
+        {
+          "name": "CustomerCreditAlertType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerCreditAlertDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Date",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Assessment",
+      "kind": "object",
+      "description": "The resulting report from the credit rating assessment",
+      "properties": [
+        {
+          "name": "Assessment",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Assessmenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Valuation` - \r\n* `Matching` - \r\n* `Authorization` - An evaluation whether a party or system is allowed to do something.\n\nThe consent given by a participant (or a third party acting on behalf of that participant) in order to transfer funds or securities. (ECB)\n\nAuthorization is a mechanism by which a computer system determines whether to allow or deny specific action to a user. Authorization is often controlled by rather complex rules and algorithms, usually specified as part of an access control model. Authorization often follows (and required) authentication, however, authentication and authorization are two separate mechanisms. In rare cases, \"authorization\" is understood as a process of allowing access, granting permissions or giving approval. Such as \"authorization\" of a request to join a group. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `Authentication` - An evaluation whether a party or system is what it claims to be.\n\nA security mechanism for verifying: 1) the identity of an individual or other entity (including verification by means of a computer or computer application); and 2) the level of authority of that person or entity (i.e. the ability of that person or entity to perform specific tasks or activities). (ECB)\n\nAuthentication is a mechanism by which a computer system checks that the user is really the one she or he claims to be. Authentication can be implemented by a broad variety of mechanisms broadly divided into three categories: something you know, something you have, something you are. Traditionally, authentication is done by the means of by username and password. Authentication is often followed by authorization, however, authentication and authorization are two separate mechanisms. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `QualityAssurance` - \r\n* `Audit` - \r\n* `ComplianceCheck` - \r\n* `FundingCheck` - \r\n* `SuitabilityCheck` - \r\n* `PerformanceCheck` - \r\n* `ImpactAssessment` - \r\n* `RiskAssessment` - \r\n* `Rating` - \r\n* `UnderwritingAssessment` - \r\n* `Qualification` - \r\n* `Verification` - A process establishing that a particular information is correct, while the meaning of \"information\" and \"correct\" varies from context to context. When dealing with identity information, this usually means formal verification of identity attributes, checking the schema, identifier uniqueness and referential integrity. However, verification may mean deeper verification, such as checking that the information is true and up-to-date.  (ISO/IEC 24760-1:2019 - IT Security and Privacy)\n\r\n* `KYCAssessment` - An assessment conducted by businesses and financial institutions to verify and confirm the identity of their customers or clients. The primary purpose of a KYC check is to prevent illegal activities, such as money laundering, terrorist financing, and fraud, by ensuring that customers are who they claim to be.\r\n* `PEPAssessment` - A PEP check, or \"Politically Exposed Person\" check, is an assessment conducted by used by businesses, financial institutions, and government agencies to identify individuals who hold prominent public positions or have significant political influence. The purpose of a PEP check is to assess and manage the potential risks associated with doing business with these individuals, as they may be more susceptible to corruption, money laundering, or other illicit activities.\r\n* `AMLAssessment` - An AML (Anti-Money Laundering) check is an assessment conducted by businesses, financial institutions, and other organizations to prevent and detect money laundering and the financing of criminal activities. The main purpose of an AML check is to ensure that financial transactions and business relationships are not being used to disguise the illegal origins of funds.\r\n* `EligibilityCheck` - Determines whether a person or case meets the criteria or preconditions to qualify for a benefit, service, or action.\r\n* `ExternalAgencyCheck` - \r\n* `EntitlementCheck` - Determines what benefit, amount, or service the person is actually entitled to receive once eligibility is confirmed.\r\n",
+      "enum_values": [
+        "Valuation",
+        "Matching",
+        "Authorization",
+        "Authentication",
+        "QualityAssurance",
+        "Audit",
+        "ComplianceCheck",
+        "FundingCheck",
+        "SuitabilityCheck",
+        "PerformanceCheck",
+        "ImpactAssessment",
+        "RiskAssessment",
+        "Rating",
+        "UnderwritingAssessment",
+        "Qualification",
+        "Verification",
+        "KYCAssessment",
+        "PEPAssessment",
+        "AMLAssessment",
+        "EligibilityCheck",
+        "ExternalAgencyCheck",
+        "EntitlementCheck"
+      ]
+    },
+    {
+      "name": "BusinessUnit",
+      "kind": "object",
+      "description": "The individual source of the alert - if not automated by production",
+      "properties": [
+        {
+          "name": "BusinessFunction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Goal",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationStructureHierarchy",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Organisationidentification"
+        },
+        {
+          "name": "OrganisationSector",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalEntityIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationDate",
+          "type": "object",
+          "ref": "Organisationdatetime"
+        },
+        {
+          "name": "OrganisationType",
+          "type": "object",
+          "ref": "Organisationtypevalues"
+        },
+        {
+          "name": "OrganisationName",
+          "type": "object",
+          "ref": "Organisationname"
+        },
+        {
+          "name": "OrganisationLegalStructure",
+          "type": "object",
+          "ref": "Organisationlegalstructuretypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Creditpositiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerCreditPosition` - \r\n* `CounterpartyCreditPosition` - \r\n",
+      "enum_values": [
+        "CustomerCreditPosition",
+        "CounterpartyCreditPosition"
+      ]
+    },
+    {
+      "name": "CustomerBehaviorModel",
+      "kind": "object",
+      "description": "Reference to the customer behavior model(s) used to develop any underlying analysis for determining the credit state",
+      "properties": [
+        {
+          "name": "CustomerBehaviorModelType",
+          "type": "object",
+          "ref": "Customerbehaviormodeltypevalues"
+        },
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "CustomerCreditRatingAssessment",
+      "kind": "object",
+      "description": "The record of the underlying credit assessment performed to support the credit rating state",
+      "properties": [
+        {
+          "name": "CreditRatingAssessmentType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "CustomerCreditRatingState",
+      "kind": "object",
+      "description": "Monitor and define the status/rating of some entity within Customer Credit Rating. ",
+      "properties": [
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerCreditRatingStatusType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerCreditRatingSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CustomerCreditRatingAssessmentRecord",
+          "type": "object",
+          "ref": "CustomerCreditRatingAssessment"
+        },
+        {
+          "name": "AssessmentCustomerBehaviorModelReference",
+          "type": "object",
+          "ref": "CustomerBehaviorModel"
+        },
+        {
+          "name": "CreditRatingAssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "CreditRatingAssessmentDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CreditRatingAssessmentWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "CreditRatingAssessmentResult",
+          "type": "object",
+          "ref": "Assessment"
+        },
+        {
+          "name": "CustomerCreditRatingRecord",
+          "type": "object",
+          "ref": "CustomerRating"
+        },
+        {
+          "name": "CustomerCreditRatingState",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerCreditRatingAssessment",
+          "type": "object",
+          "ref": "CustomerCreditRatingAssessment"
+        },
+        {
+          "name": "CustomerCreditRatingNarrative",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerCreditRatingDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "CustomerRating",
+      "kind": "object",
+      "description": "A record of the customers credit state",
+      "properties": [
+        {
+          "name": "CustomerRatingType",
+          "type": "object",
+          "ref": "Customerratingtypevalues"
+        },
+        {
+          "name": "CustomerRatingValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRatingDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRatingValueDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CustomerRatingValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "CreditPositionType",
+          "type": "object",
+          "ref": "Creditpositiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Customerbehaviormodeltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DemographicModel` - Analyze customer behavior based on demographic factors such as age, gender, income, education, and occupation.\nExample: Segmenting customers by age group to tailor marketing strategies.\r\n* `PsychographicModel` - Focus on psychological attributes, including values, attitudes, interests, and lifestyles.\nExample: Creating buyer personas based on lifestyle choices and interests.\r\n* `GeographicModel` - Look at customer behavior based on geographic location, considering factors like regional preferences and climate.\nExample: Targeting advertisements based on location-specific needs.\r\n* `SocioeconomicModel` - Combine social and economic factors to understand consumer behavior\nExample: Analyzing how economic status influences buying decisions\r\n* `SituationalModel` - Consider the context or situation in which the consumer is making a decision, including time of day, season, and situational needs.\nExample: Promoting holiday-related products during festive seasons.\r\n* `CulturalModel` - Focus on the influence of culture, traditions, and social norms on consumer behavior.\nExample: Adapting marketing messages to align with cultural values and practices.\r\n* `Usage-BasedModel` - Segment customers based on how they use a product or service, including frequency and intensity of use.\nExample: Differentiating between heavy, moderate, and light users of a product.\r\n* `Benefit-SoughtModel` - Classify customers according to the benefits they seek from a product or service.\nExample: Marketing products based on specific benefits like convenience, cost-saving, or luxury.\r\n* `HybridModel` - Combine elements from various models to provide a comprehensive view of customer behavior.\nExample: Using demographic, psychographic, and behavioral data together for more precise targeting\r\n",
+      "enum_values": [
+        "DemographicModel",
+        "PsychographicModel",
+        "GeographicModel",
+        "SocioeconomicModel",
+        "SituationalModel",
+        "CulturalModel",
+        "Usage-BasedModel",
+        "Benefit-SoughtModel",
+        "HybridModel"
+      ]
+    },
+    {
+      "name": "Customerratingtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerProfitabilityRating` - A value of Customer Rating Type whereby customer profitability is measured.\n\nA customer profitability rating (CPR) is an assessment used by businesses to evaluate the profitability of individual customers or customer segments. This rating helps companies understand which customers contribute the most to their bottom line and enables them to tailor their strategies to maximize overall profitability.\r\n* `CustomerCreditRating` - A value of Customer Rating Type whereby customer creditability is measured.\n\nA customer credit rating is a numerical score or rating that represents the creditworthiness of an individual or a business. It indicates the likelihood that the borrower will repay their debt obligations on time\r\n* `CustomerRiskRating` - A customer risk rating is an assessment of the potential risk associated with a customer, often used in the context of anti-money laundering (AML) and know your customer (KYC) regulations. It evaluates the likelihood of a customer engaging in activities that could pose a legal, financial, or reputational risk to the institution.\r\n",
+      "enum_values": [
+        "CustomerProfitabilityRating",
+        "CustomerCreditRating",
+        "CustomerRiskRating"
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date on which the agreement was signed by all parties. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "Date and time at which the range starts. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Document that provides background or corroborating information regarding an assessment(s).",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "ExternalReporting",
+      "kind": "object",
+      "description": "A collection of information feeds/measures that can be used to track the status of one or more items/entitites\n\nExamples: Composite position, Customer alert",
+      "properties": [
+        {
+          "name": "RatingAgencyReportSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "RatingAgencyCreditReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "Referencetotheratingagencycreditreport",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RatingAgencyCreditReport",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "RatingAgencyCreditReportDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "A unique reference to product agreement or instance of product",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "InternalReporting",
+      "kind": "object",
+      "description": "A collection of information feeds/measures that can be used to track the status of one or more items/entitites\n\nExamples: Composite position, Customer alert",
+      "properties": [
+        {
+          "name": "ProductandServiceActivityReportReference",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "ProductandServiceActivityReportSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "ProductandServiceActivityReport",
+          "type": "object",
+          "ref": "Report"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisatioDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "OrganisatioDateType",
+          "type": "object",
+          "ref": "Organisationdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `RegistrationDate` - Date and time at which a given organisation was officially registered. (ISO20022)\r\n* `EstablishmentDate` - Date when the organisation was established. ISO20022\r\n* `EntityExpirationDate` - The date the Legal Entity ceased operation or was merged. ISO20022\r\n",
+      "enum_values": [
+        "RegistrationDate",
+        "EstablishmentDate",
+        "EntityExpirationDate"
+      ]
+    },
+    {
+      "name": "Organisationidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisationIdentificationType",
+          "type": "object",
+          "ref": "Organisationidentificationtypevalues"
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Organisationidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LEI` - Legal Entity Identifier is a code allocated to a party as described in ISO 17442 \"Financial Services - Legal Entity Identifier (LEI)\".\r\n* `ELF` - Entity Legal Forms is a code allocated to a party as described in ISO 20275 \"Financial services  Entity legal forms (ELF)\". \r\n* `MIC` - Market Identifier Code. Identification of a financial market, as stipulated in the norm ISO 10383 \"Codes for exchanges and market identifications\".\r\n* `BICFI` - Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 \"Banking - Banking telecommunication messages - Business identifier code (BIC)\".\r\n* `Bankpartyidentification` - Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client.\r\n* `Centralbankidentificationnumber` - A unique identification number assigned by a central bank to identify an organisation.\r\n* `Clearingidentificationnumber` - A unique identification number assigned by a clearing house to identify an organisation\r\n* `Certificateofincorporationnumber` - A unique identification number assigned by a designated authority to a certificate of incorporation and used to identify an organisation.\r\n* `Countryidentificationcode` - Country authority given organisation identification (e.g., corporate registration number)\r\n* `Customernumber` - Number assigned by an issuer to identify a customer.\nNumber assigned by a party to identify a creditor or debtor relationship.\r\n* `Datauniversalnumberingsystem` - A unique identification number provided by Dun & Bradstreet to identify an organisation.\r\n* `Employeridentificationnumber` - Number assigned by a registration authority to an employer.\r\n* `Gs1glnidentifier` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to GS1 numbering scheme rules.The number is used to retrieve detailed information that is linked to it.\r\n* `SIREN` - The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France.\r\n* `SIRET` - The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to identify an organisation.\r\n* `EANGLN` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to the European Association for Numbering (EAN) numbering scheme rules. The number is used to retrieve detailed information that is linked to it. (iso20022)\r\n",
+      "enum_values": [
+        "LEI",
+        "ELF",
+        "MIC",
+        "BICFI",
+        "Bankpartyidentification",
+        "Centralbankidentificationnumber",
+        "Clearingidentificationnumber",
+        "Certificateofincorporationnumber",
+        "Countryidentificationcode",
+        "Customernumber",
+        "Datauniversalnumberingsystem",
+        "Employeridentificationnumber",
+        "Gs1glnidentifier",
+        "SIREN",
+        "SIRET",
+        "Taxidentificationnumber",
+        "EANGLN"
+      ]
+    },
+    {
+      "name": "Organisationlegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Corporation` - Legal structure is a corporation.\r\n* `Individual` - Legal structure is an individual.\r\n* `Supranational` - Legal structure is a supranational.\r\n* `Sovereign` - Legal structure is a sovereign.\r\n* `Municipal` - Legal structure is a municipal.\r\n* `Province` - Legal structure is a province.\r\n* `State` - Legal structure is a state.\r\n* `County` - Legal structure is a county.\r\n* `Partnership` - Legal structure is a partnership.\r\n* `Financialinstitution` - Legal structure is a financial institution.\r\n* `National` - Legal structure is a state.\r\n",
+      "enum_values": [
+        "Corporation",
+        "Individual",
+        "Supranational",
+        "Sovereign",
+        "Municipal",
+        "Province",
+        "State",
+        "County",
+        "Partnership",
+        "Financialinstitution",
+        "National"
+      ]
+    },
+    {
+      "name": "Organisationname",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "NameType",
+          "type": "object",
+          "ref": "Organisationnametypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationnametypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ShortName` - \r\n* `TradingName` - \r\n* `LegalName` - \r\n",
+      "enum_values": [
+        "ShortName",
+        "TradingName",
+        "LegalName"
+      ]
+    },
+    {
+      "name": "Organisationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LegalEntity` - \r\n* `Authority` - \r\n* `OrganisationUnit` - \r\n* `FinancialInstitution` - \r\n* `Charity` - \r\n* `GovernmentBody` - \r\n",
+      "enum_values": [
+        "LegalEntity",
+        "Authority",
+        "OrganisationUnit",
+        "FinancialInstitution",
+        "Charity",
+        "GovernmentBody"
+      ]
+    },
+    {
+      "name": "ProductAgreement",
+      "kind": "object",
+      "description": "The product/service instance that generated the alert",
+      "properties": [
+        {
+          "name": "ProductAgreementType",
+          "type": "object",
+          "ref": "Productagreementtypevalues"
+        },
+        {
+          "name": "ProductAgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementSignedDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AgreementType",
+          "type": "object",
+          "ref": "Agreementtypevalues"
+        },
+        {
+          "name": "AgreementValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AgreementVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Agreementstatus"
+        },
+        {
+          "name": "AgreementSubjectMatter",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AgreementDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Productagreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CurrentAccountAgreement` - \r\n* `SavingsAccountAgreement` - \r\n* `BrokeredProductAgreement` - \r\n* `ConsumerLoanAgreement` - \r\n* `MortgageLoanAgreement` - \r\n* `DirectDebitServiceAgreement` - \r\n* `TermDepositAgreement` - \r\n",
+      "enum_values": [
+        "CurrentAccountAgreement",
+        "SavingsAccountAgreement",
+        "BrokeredProductAgreement",
+        "ConsumerLoanAgreement",
+        "MortgageLoanAgreement",
+        "DirectDebitServiceAgreement",
+        "TermDepositAgreement"
+      ]
+    },
+    {
+      "name": "Report",
+      "kind": "object",
+      "description": "Reference to the internal bank product and service activity report that is used for the credit assessment",
+      "properties": [
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule for the upload of the data file/report",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "Work documentation, forms and schedules produced and referenced during the analysis",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "CustomerCreditRatingState",
+        "operations": [
+          "Initiate",
+          "Control",
+          "Exchange",
+          "Execute",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Alerts",
+        "parent_control_record": "CustomerCreditRatingState",
+        "operations": [
+          "CaptureAlerts",
+          "RetrieveAlerts"
+        ]
+      },
+      {
+        "name": "ExternalReporting",
+        "parent_control_record": "CustomerCreditRatingState",
+        "operations": [
+          "CaptureExternalReporting",
+          "RetrieveExternalReporting"
+        ]
+      },
+      {
+        "name": "InternalReporting",
+        "parent_control_record": "CustomerCreditRatingState",
+        "operations": [
+          "CaptureInternalReporting",
+          "RetrieveInternalReporting"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerCreditRating.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "c5f21538b233ed13b654a78e43873d400d22bce3d07b5b30848ace3ba87bd1de",
+    "retrieved_at": "2026-09-12T22:08:55.764538+00:00"
+  }
+}

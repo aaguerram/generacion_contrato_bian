@@ -1,0 +1,187 @@
+{
+  "service_domain": "Legal Advisory",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [],
+  "schemas": [
+    "Charge",
+    "HTTPError",
+    "Legal",
+    "LegalAdvice"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Charge",
+      "kind": "object",
+      "description": "The Legal advice is one specific topic that can be included in providing Legal",
+      "properties": [
+        {
+          "name": "LegalAdviceReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceFeeReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceFeeType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessUnitEmployeeReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Postconditions",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Preconditions",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Schedule",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Legal",
+      "kind": "object",
+      "description": "The Legal advice is one specific topic that can be included in providing Legal",
+      "properties": [
+        {
+          "name": "LegalAdviceReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessUnitEmployeeReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Postconditions",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Preconditions",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Schedule",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "LegalAdvice",
+      "kind": "object",
+      "description": "Provide specialist advice and/or support as an ongoing service or for a specific task/event within Legal Advisory",
+      "properties": [
+        {
+          "name": "LegalAdviceSubjectAreaType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalAdviceParameterType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalAdviceSelectedOption",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalAdviceRequest",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalAdviceUsageLog",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalAdviceFeedback",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalAdviceType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalAdviceReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/LegalAdvisory.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "66fb4ba23ff6bb1752355bfd9a3e82c1ed9cb0b37ea9cc7d9196a3cc51867386",
+    "retrieved_at": "2026-09-12T21:51:19.103104+00:00"
+  }
+}

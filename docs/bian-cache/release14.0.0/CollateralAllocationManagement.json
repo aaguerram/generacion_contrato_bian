@@ -1,0 +1,637 @@
+{
+  "service_domain": "Collateral Allocation Management",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/CollateralAllocationManagement/{collateralallocationmanagementid}/Update",
+      "tipo": "CR",
+      "grupo": "CollateralAssetAllocation",
+      "request_schema": "CollateralAssetAllocation",
+      "response_schema": "CollateralAssetAllocation",
+      "summary": "Update Details of a collateral allocation",
+      "description": "Update Details of a collateral allocation"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/CollateralAllocationManagement/{collateralallocationmanagementid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "CollateralAssetAllocation",
+      "request_schema": "",
+      "response_schema": "CollateralAssetAllocation",
+      "summary": "Retrieve details about a collateral allocation",
+      "description": "Retrieve details about a collateral allocation"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/CollateralAllocationManagement/{collateralallocationmanagementid}/Exchange",
+      "tipo": "CR",
+      "grupo": "CollateralAssetAllocation",
+      "request_schema": "CollateralAssetAllocation",
+      "response_schema": "CollateralAssetAllocation",
+      "summary": "Accept or reject a collateral allocation proposal",
+      "description": "Accept or reject a collateral allocation proposal"
+    },
+    {
+      "operation_id": "Capture",
+      "method": "PUT",
+      "path": "/CollateralAllocationManagement/{collateralallocationmanagementid}/Capture",
+      "tipo": "CR",
+      "grupo": "CollateralAssetAllocation",
+      "request_schema": "CollateralAssetAllocation",
+      "response_schema": "CollateralAssetAllocation",
+      "summary": "Capture Allocation of a Party Asset to a Lending Product",
+      "description": "Capture Allocation of a Party Asset to a Lending Product"
+    }
+  ],
+  "schemas": [
+    "Agreementstatus",
+    "Agreementstatustypevalues",
+    "Agreementtypevalues",
+    "Amount",
+    "Amounttypevalues",
+    "CollateralAmount",
+    "CollateralAssetAllocation",
+    "CollateralAssetArrangement",
+    "Collateralassetstatustypevalues",
+    "Currencycode",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Name",
+    "PartyAssetDirectory",
+    "ProductAgreement",
+    "Productagreementtypevalues",
+    "Schedule",
+    "Status"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Agreementstatus",
+      "kind": "object",
+      "description": "A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).",
+      "properties": [
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AgreementStatusType",
+          "type": "object",
+          "ref": "Agreementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Agreementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Offered` - \r\n* `Confirmed` - \r\n* `Completed` - \r\n* `Signed` - \r\n* `Terminated` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Offered",
+        "Confirmed",
+        "Completed",
+        "Signed",
+        "Terminated",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Agreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerAgreement` - \r\n* `SupplierAgreement` - \r\n* `BrokerAgreement` - \r\n* `SalesAgreement` - \r\n* `PurchaseAgreement` - \r\n* `MaintenanceAgreement` - \r\n* `ProductAgreement` - \r\n* `ResourceAgreement` - \r\n* `PartnerAgreement` - \r\n* `MasterAgreement` - \r\n* `BilateralAgreement` - \r\n* `RepurchaseAgreement` - \r\n",
+      "enum_values": [
+        "CustomerAgreement",
+        "SupplierAgreement",
+        "BrokerAgreement",
+        "SalesAgreement",
+        "PurchaseAgreement",
+        "MaintenanceAgreement",
+        "ProductAgreement",
+        "ResourceAgreement",
+        "PartnerAgreement",
+        "MasterAgreement",
+        "BilateralAgreement",
+        "RepurchaseAgreement"
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "The amount for which this party asset serves as collateral for this product instance",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "CollateralAmount",
+      "kind": "object",
+      "description": "The maximum amount for which this party asset can serve as collateral for this product instance",
+      "properties": []
+    },
+    {
+      "name": "CollateralAssetAllocation",
+      "kind": "object",
+      "description": "Maintain an inventory or holding of some resource and make assignments/allocations as requested  within Collateral Allocation Management. \nExample: Track the inventory and administer the distribution of central cash holdings throughout the branch & ATM network.",
+      "properties": [
+        {
+          "name": "CollateralAllocationAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "CollateralAllocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CollateralAllocationEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CollateralAllocationStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CollateralAllocationRecallAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "CollateralAllocationRecallSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CollateralAllocationRecallResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CollateralCurrentValueAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "CollateralEarmarkedAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "CollateralEarmarkedEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CollateralEarmarkedStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CollateralStatus",
+          "type": "object",
+          "ref": "Collateralassetstatustypevalues"
+        },
+        {
+          "name": "PartyAssetDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartyAssetDirectoryReference",
+          "type": "object",
+          "ref": "PartyAssetDirectory"
+        },
+        {
+          "name": "ProductInstanceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ProductInstanceReference",
+          "type": "object",
+          "ref": "ProductAgreement"
+        },
+        {
+          "name": "EvaluateAcceptabilityResultDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CollateralAssetArrangement",
+      "kind": "object",
+      "description": "The maximum amount for which this party asset can serve as collateral for this product instance",
+      "properties": [
+        {
+          "name": "Amount",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Collateralassetstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Offered` - \r\n* `UnderAssessment` - \r\n* `Transferred` - \r\n* `Allocated` - \r\n* `FreeForAllocation` - \r\n* `AllocatedToAnotherLoan` - \r\n* `IssuedForExecution` - \r\n",
+      "enum_values": [
+        "Offered",
+        "UnderAssessment",
+        "Transferred",
+        "Allocated",
+        "FreeForAllocation",
+        "AllocatedToAnotherLoan",
+        "IssuedForExecution"
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date on which the agreement was signed by all parties. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date on which the allocation of this party asset to this lending product for this amount ends",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "A unique reference to product agreement or instance of product",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of the product to which the current party asset is allocated as collateral",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PartyAssetDirectory",
+      "kind": "object",
+      "description": "The reference to a party asset as recorded by Party Asset Directory",
+      "properties": [
+        {
+          "name": "DirectoryVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryConfiguration",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryValidPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "DirectoryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "ProductAgreement",
+      "kind": "object",
+      "description": "The reference to the product to which the current party asset is allocated as collateral",
+      "properties": [
+        {
+          "name": "ProductAgreementType",
+          "type": "object",
+          "ref": "Productagreementtypevalues"
+        },
+        {
+          "name": "ProductAgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementSignedDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AgreementType",
+          "type": "object",
+          "ref": "Agreementtypevalues"
+        },
+        {
+          "name": "AgreementValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AgreementVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Agreementstatus"
+        },
+        {
+          "name": "AgreementSubjectMatter",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AgreementDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Productagreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CurrentAccountAgreement` - \r\n* `SavingsAccountAgreement` - \r\n* `BrokeredProductAgreement` - \r\n* `ConsumerLoanAgreement` - \r\n* `MortgageLoanAgreement` - \r\n* `DirectDebitServiceAgreement` - \r\n* `TermDepositAgreement` - \r\n",
+      "enum_values": [
+        "CurrentAccountAgreement",
+        "SavingsAccountAgreement",
+        "BrokeredProductAgreement",
+        "ConsumerLoanAgreement",
+        "MortgageLoanAgreement",
+        "DirectDebitServiceAgreement",
+        "TermDepositAgreement"
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule according to which the amount of the allocation of this party asset to this product instance as collateral is reduced",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "CollateralAssetAllocation",
+        "operations": [
+          "Update",
+          "Retrieve",
+          "Exchange",
+          "Capture"
+        ]
+      }
+    ],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CollateralAllocationManagement.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "3ae6321c156c43ca982d60b1485a98e011ea4e300c33f706f7d8df96a0bfc2ea",
+    "retrieved_at": "2026-09-12T22:32:08.077069+00:00"
+  }
+}

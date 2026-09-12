@@ -1,0 +1,1369 @@
+{
+  "service_domain": "Mergers and Acquisitions Advisory",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "ExchangeMergerandAcquisition",
+      "method": "PUT",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/MergerandAcquisition/{mergerandacquisitionid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "MergerandAcquisition",
+      "request_schema": "MergerandAcquisition",
+      "response_schema": "MergerandAcquisition",
+      "summary": "Exchange M&A Candidate Selection and Evaluation",
+      "description": "Exchange M&A Candidate Selection and Evaluation",
+      "parent_control_record": "MergersAndAcquisitionAdvice"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/Exchange",
+      "tipo": "CR",
+      "grupo": "MergersAndAcquisitionAdvice",
+      "request_schema": "MergersAndAcquisitionAdvice",
+      "response_schema": "MergersAndAcquisitionAdvice",
+      "summary": "Exchange Mergers And Acquisition Advice",
+      "description": "Exchange Mergers And Acquisition Advice"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/MergersandAcquisitionsAdvisory/Initiate",
+      "tipo": "CR",
+      "grupo": "MergersAndAcquisitionAdvice",
+      "request_schema": "MergersAndAcquisitionAdvice",
+      "response_schema": "MergersAndAcquisitionAdvice",
+      "summary": "Initiate Mergers And Acquisition Advice",
+      "description": "Initiate Mergers And Acquisition Advice"
+    },
+    {
+      "operation_id": "Notify",
+      "method": "GET",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/Notify",
+      "tipo": "CR",
+      "grupo": "MergersAndAcquisitionAdvice",
+      "request_schema": "",
+      "response_schema": "MergersAndAcquisitionAdvice",
+      "summary": "Notify Mergers And Acquisition Advice",
+      "description": "Notify Mergers And Acquisition Advice"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/Request",
+      "tipo": "CR",
+      "grupo": "MergersAndAcquisitionAdvice",
+      "request_schema": "MergersAndAcquisitionAdvice",
+      "response_schema": "MergersAndAcquisitionAdvice",
+      "summary": "Request Mergers And Acquisition Advice",
+      "description": "Request Mergers And Acquisition Advice"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/Update",
+      "tipo": "CR",
+      "grupo": "MergersAndAcquisitionAdvice",
+      "request_schema": "MergersAndAcquisitionAdvice",
+      "response_schema": "MergersAndAcquisitionAdvice",
+      "summary": "Update Mergers And Acquisition Advice",
+      "description": "Update Mergers And Acquisition Advice"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/Control",
+      "tipo": "CR",
+      "grupo": "MergersAndAcquisitionAdvice",
+      "request_schema": "MergersAndAcquisitionAdvice",
+      "response_schema": "MergersAndAcquisitionAdvice",
+      "summary": "Control Mergers And Acquisition Advice",
+      "description": "Control Mergers And Acquisition Advice"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/Execute",
+      "tipo": "CR",
+      "grupo": "MergersAndAcquisitionAdvice",
+      "request_schema": "MergersAndAcquisitionAdvice",
+      "response_schema": "MergersAndAcquisitionAdvice",
+      "summary": "Execute Mergers And Acquisition Advice",
+      "description": "Execute Mergers And Acquisition Advice"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "MergersAndAcquisitionAdvice",
+      "request_schema": "",
+      "response_schema": "MergersAndAcquisitionAdvice",
+      "summary": "Retrieve Mergers And Acquisition Advice",
+      "description": "Retrieve Mergers And Acquisition Advice"
+    },
+    {
+      "operation_id": "ExecuteMergerandAcquisition",
+      "method": "PUT",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/MergerandAcquisition/{mergerandacquisitionid}/Execute",
+      "tipo": "BQ",
+      "grupo": "MergerandAcquisition",
+      "request_schema": "MergerandAcquisition",
+      "response_schema": "MergerandAcquisition",
+      "summary": "Execute M&A Candidate Selection and Evaluation",
+      "description": "Execute M&A Candidate Selection and Evaluation",
+      "parent_control_record": "MergersAndAcquisitionAdvice"
+    },
+    {
+      "operation_id": "InitiateMergerandAcquisition",
+      "method": "POST",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/MergerandAcquisition/Initiate",
+      "tipo": "BQ",
+      "grupo": "MergerandAcquisition",
+      "request_schema": "MergerandAcquisition",
+      "response_schema": "MergerandAcquisition",
+      "summary": "Initiate M&A Candidate Selection and Evaluation",
+      "description": "Initiate M&A Candidate Selection and Evaluation",
+      "parent_control_record": "MergersAndAcquisitionAdvice"
+    },
+    {
+      "operation_id": "RequestMergerandAcquisition",
+      "method": "PUT",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/MergerandAcquisition/{mergerandacquisitionid}/Request",
+      "tipo": "BQ",
+      "grupo": "MergerandAcquisition",
+      "request_schema": "MergerandAcquisition",
+      "response_schema": "MergerandAcquisition",
+      "summary": "Request M&A Candidate Selection and Evaluation",
+      "description": "Request M&A Candidate Selection and Evaluation",
+      "parent_control_record": "MergersAndAcquisitionAdvice"
+    },
+    {
+      "operation_id": "NotifyMergerandAcquisition",
+      "method": "GET",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/MergerandAcquisition/{mergerandacquisitionid}/Notify",
+      "tipo": "BQ",
+      "grupo": "MergerandAcquisition",
+      "request_schema": "",
+      "response_schema": "MergerandAcquisition",
+      "summary": "Notify M&A Candidate Selection and Evaluation",
+      "description": "Notify M&A Candidate Selection and Evaluation",
+      "parent_control_record": "MergersAndAcquisitionAdvice"
+    },
+    {
+      "operation_id": "RetrieveMergerandAcquisition",
+      "method": "GET",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/MergerandAcquisition/{mergerandacquisitionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "MergerandAcquisition",
+      "request_schema": "",
+      "response_schema": "MergerandAcquisition",
+      "summary": "Retrieve M&A Candidate Selection and Evaluation",
+      "description": "Retrieve M&A Candidate Selection and Evaluation",
+      "parent_control_record": "MergersAndAcquisitionAdvice"
+    },
+    {
+      "operation_id": "UpdateMergerandAcquisition",
+      "method": "PUT",
+      "path": "/MergersandAcquisitionsAdvisory/{mergersandacquisitionsadvisoryid}/MergerandAcquisition/{mergerandacquisitionid}/Update",
+      "tipo": "BQ",
+      "grupo": "MergerandAcquisition",
+      "request_schema": "MergerandAcquisition",
+      "response_schema": "MergerandAcquisition",
+      "summary": "Update M&A Candidate Selection and Evaluation",
+      "description": "Update M&A Candidate Selection and Evaluation",
+      "parent_control_record": "MergersAndAcquisitionAdvice"
+    }
+  ],
+  "schemas": [
+    "Actiontype",
+    "Actiontypevalues",
+    "Analysis",
+    "Analysistypevalues",
+    "Assignment",
+    "BusinessService",
+    "Businessservicetypevalues",
+    "Condition",
+    "Conditionstatustypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Feature",
+    "Featuretypevalues",
+    "HTTPError",
+    "Identifier",
+    "Industrycode",
+    "Instruction",
+    "Instructiondatetime",
+    "Instructiondatetimetypevalues",
+    "Instructionidentification",
+    "Instructionidentificationtypevalues",
+    "Instructionstatus",
+    "Instructionstatustypevalues",
+    "Instructiontypevalues",
+    "Involvedparty",
+    "Log",
+    "MergerandAcquisition",
+    "MergersAndAcquisitionAdvice",
+    "MergersandAcquisitionsAdvisoryOutcome",
+    "Name",
+    "Party",
+    "Partyidentification",
+    "Partyidentificationtypevalues",
+    "Partyinvolvementtypevalues",
+    "Partylegalstructuretypevalues",
+    "Partyrole",
+    "Partytypevalues",
+    "Project",
+    "Projectdatetime",
+    "Schedule",
+    "Servicetypevalues",
+    "Status",
+    "Task",
+    "Termandconditiontypevalues",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Actiontype",
+      "kind": "object",
+      "description": "A Classification value that distinguishes between the type of actions undertaken within Mergers And Acquisition Advice",
+      "properties": [
+        {
+          "name": "ActionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Analysis",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "Assignment",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "object",
+          "ref": "Party"
+        },
+        {
+          "name": "PartyInvolvement",
+          "type": "object",
+          "ref": "Partyrole"
+        },
+        {
+          "name": "SubjectMatter",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "BusinessService",
+      "kind": "object",
+      "description": "The M&A Candidate Selection and Evaluation Topic specific Business Service",
+      "properties": [
+        {
+          "name": "BusinessServiceType",
+          "type": "object",
+          "ref": "Businessservicetypevalues"
+        },
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Businessservicetypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Businessservicetypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Condition",
+      "kind": "object",
+      "description": "The completion status once the advice/recommendation has been provided",
+      "properties": [
+        {
+          "name": "ConditionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ConditionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ConditionValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ConditionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ConditionStatus",
+          "type": "object",
+          "ref": "Conditionstatustypevalues"
+        },
+        {
+          "name": "ConditionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ConditionType",
+          "type": "object",
+          "ref": "Termandconditiontypevalues"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Conditionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Defined` - Condition is authored or configured\r\n* `Pending` - Awaiting approval or validation\r\n* `Activated` - Live and ready for evaluation\r\n* `Evaluated` - Assessed in context of process or event\r\n* `Fulfilled` - Condition criteria met\r\n* `Violated` - Condition criteria not met\r\n* `Expired` - No longer valid due to time/version limits\r\n* `Archived` - Retired from use, retained for audit/history\r\n",
+      "enum_values": [
+        "Defined",
+        "Pending",
+        "Activated",
+        "Evaluated",
+        "Fulfilled",
+        "Violated",
+        "Expired",
+        "Archived"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "The identifier of service.",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Industrycode",
+      "kind": "object",
+      "description": "Economical activity of Party (ISO20022)",
+      "properties": [
+        {
+          "name": "Industrycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Instruction",
+      "kind": "object",
+      "description": "Request to advise",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Instructiondatetime"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Instructionstatus"
+        },
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Instructionidentification"
+        },
+        {
+          "name": "InstructionType",
+          "type": "object",
+          "ref": "Instructiontypevalues"
+        },
+        {
+          "name": "InstructionResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InstructionPurpose",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "InstructionDateType",
+          "type": "object",
+          "ref": "Instructiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DueDate` - \r\n* `ExecutionDate` - \r\n* `FulfillmentDate` - \r\n",
+      "enum_values": [
+        "DueDate",
+        "ExecutionDate",
+        "FulfillmentDate"
+      ]
+    },
+    {
+      "name": "Instructionidentification",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of an Instruction.\n",
+      "properties": [
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InstructionIdentificationType",
+          "type": "object",
+          "ref": "Instructionidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructionidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OrderNumber` - \r\n* `InstructionNumber` - \r\n",
+      "enum_values": [
+        "OrderNumber",
+        "InstructionNumber"
+      ]
+    },
+    {
+      "name": "Instructionstatus",
+      "kind": "object",
+      "description": "A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); ",
+      "properties": [
+        {
+          "name": "InstructionStatusType",
+          "type": "object",
+          "ref": "Instructionstatustypevalues"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Instructionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Pendingprocessing` - Processing of the instruction is pending.\r\n* `Acknowledgedaccepted` - Instruction has been acknowledged and accepted and is validated for further processing.\r\n* `Rejected` - Instruction has been rejected.\r\n* `Accepted` - Instruction has been accepted and is validated for further processing.\r\n* `Completed` - Processing has been completed.\r\n* `Notreceived` - No instruction has been received (to be used in a reminder).\r\n* `Cancelled` - Instruction has been cancelled.\r\n* `Beingcancelled` - Cancel request is being processed.\r\n* `Receivedbyissuerorregistrar` - Instruction has been received by Issuer.\r\n* `Pending` - Instruction is pending.\r\n* `Standinginstruction` - Standing instruction is applied.\r\n* `Queued` - Instruction is queued.\r\n* `Cancelledbysubcustodian` - Instruction has been cancelled by the agent, for example, due to an event deadline extension.\r\n* `Forwarded` - Accepted and sent along the chain.\r\n",
+      "enum_values": [
+        "Pendingprocessing",
+        "Acknowledgedaccepted",
+        "Rejected",
+        "Accepted",
+        "Completed",
+        "Notreceived",
+        "Cancelled",
+        "Beingcancelled",
+        "Receivedbyissuerorregistrar",
+        "Pending",
+        "Standinginstruction",
+        "Queued",
+        "Cancelledbysubcustodian",
+        "Forwarded"
+      ]
+    },
+    {
+      "name": "Instructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PaymentInstruction` - \r\n* `DeliveryOrder` - \r\n* `InformationRequest` - \r\n* `ExchangeInstruction` - \r\n* `AllocationInstruction` - \r\n* `MaintenanceInstruction` - \r\n",
+      "enum_values": [
+        "PaymentInstruction",
+        "DeliveryOrder",
+        "InformationRequest",
+        "ExchangeInstruction",
+        "AllocationInstruction",
+        "MaintenanceInstruction"
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "MergerandAcquisition",
+      "kind": "object",
+      "description": "The M&A Candidate Selection and Evaluation Topic advice is one specific topic that can be included in providing M&A Candidate Selection and Evaluation Topic",
+      "properties": [
+        {
+          "name": "MergersAndAcquisitionAdviceReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "M&ACandidateSelectionandEvaluationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "M&ACandidateSelectionandEvaluationType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "BusinessUnitorEmployeeReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "Postconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "MergersAndAcquisitionAdvice",
+      "kind": "object",
+      "description": "Provide specialist advice and/or support as an ongoing service or for a specific task/event within Mergers and Acquisitions Advisory",
+      "properties": [
+        {
+          "name": "MergersAndAcquisitionAdviceSubjectAreaType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MergersAndAcquisitionAdviceParameterType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "MergersAndAcquisitionAdviceSelectedOption",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "MergersAndAcquisitionAdviceRequest",
+          "type": "object",
+          "ref": "Instruction"
+        },
+        {
+          "name": "MergersAndAcquisitionAdviceUsageLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "MergersAndAcquisitionAdviceFeedback",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MergersAndAcquisitionAdviceType",
+          "type": "object",
+          "ref": "Actiontype"
+        },
+        {
+          "name": "MergersAndAcquisitionAdviceReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "MergersandAcquisitionsAdvisoryOutcome",
+      "kind": "object",
+      "description": "The M&A Candidate Selection and Evaluation Topic advice is one specific topic that can be included in providing M&A Candidate Selection and Evaluation Topic",
+      "properties": [
+        {
+          "name": "MergersandAcquisitionsAdvisoryTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "MergersandAcquisitionsAdvisoryProject",
+          "type": "object",
+          "ref": "Project"
+        },
+        {
+          "name": "MergersandAcquisitionsAdvisoryWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "MergersandAcquisitionsAdvisoryWorkforceAnalysis",
+          "type": "object",
+          "ref": "Analysis"
+        },
+        {
+          "name": "MergersandAcquisitionsAdvisoryWorkforceAssignment",
+          "type": "object",
+          "ref": "Assignment"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of service. ",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Party",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PartyType",
+          "type": "object",
+          "ref": "Partytypevalues"
+        },
+        {
+          "name": "PartyDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Partyidentification"
+        },
+        {
+          "name": "PartyLegalStructureType",
+          "type": "object",
+          "ref": "Partylegalstructuretypevalues"
+        },
+        {
+          "name": "PartyActivityIndicator",
+          "type": "object",
+          "ref": "Industrycode"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyIdentificationType",
+          "type": "object",
+          "ref": "Partyidentificationtypevalues"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to an entity.\r\n* `Nationalregistrationnumber` - Number assigned by a national registration authority to an entity. In Singapore this is known as the NRIC. (ISO20022)\r\n* `Registrationauthorityidentification` - An identifier for the Legal Entity in a business registry in the jurisdiction of legal registration, or in the appropriate registration authority. (ISO20022)\r\n* `LEI(LegalEntityIdentifier)` - \r\n* `Alienregistrationnumber` - Number assigned by a government agency to identify foreign nationals.\r\n* `Passportnumber` - Number assigned by a passport authority.\r\n* `Taxexemptidentificationnumber` - Number assigned to a tax exempt entity.\r\n* `Corporateidentification` - Number assigned to a corporate entity.\r\n* `Driverlicensenumber` - Number assigned to a driver's license.\r\n* `Foreigninvestmentidentitynumber` - Number assigned to a foreign investor (other than the alien number).\r\n* `Socialsecuritynumber` - Number assigned by a social security agency.\r\n* `Identitycardnumber` - Number assigned by a national authority to an identity card.\r\n* `Concat` - Number assigned by an issuer to identify a customer via the concatenation of the birthdate and characters of the first name and surname.\r\n* `Nationalregistrationidentificationnumber` - National registration identification number. In Singapore this is known as the NRIC.\r\n",
+      "enum_values": [
+        "Taxidentificationnumber",
+        "Nationalregistrationnumber",
+        "Registrationauthorityidentification",
+        "LEI(LegalEntityIdentifier)",
+        "Alienregistrationnumber",
+        "Passportnumber",
+        "Taxexemptidentificationnumber",
+        "Corporateidentification",
+        "Driverlicensenumber",
+        "Foreigninvestmentidentitynumber",
+        "Socialsecuritynumber",
+        "Identitycardnumber",
+        "Concat",
+        "Nationalregistrationidentificationnumber"
+      ]
+    },
+    {
+      "name": "Partyinvolvementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `AgreementInvolvement` - \r\n* `PartyInvolvement` - \r\n* `ArrangementInvolvement` - \r\n* `DesignSpecificationInvolvement` - \r\n* `RelationshipInvolvement` - \r\n* `LocationInvolvement` - \r\n* `BankGuaranteeInvolvement` - \r\n",
+      "enum_values": [
+        "AgreementInvolvement",
+        "PartyInvolvement",
+        "ArrangementInvolvement",
+        "DesignSpecificationInvolvement",
+        "RelationshipInvolvement",
+        "LocationInvolvement",
+        "BankGuaranteeInvolvement"
+      ]
+    },
+    {
+      "name": "Partylegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Individual` - \r\n* `CommunityInterestCompany` - \r\n* `CharitableIncorporatedOrganisation` - \r\n* `Co-Operative` - \r\n* `Charity` - \r\n* `GeneralPartnership` - \r\n* `LimitedLiabilityPartnership` - \r\n* `ScottishLimitedPartnership` - \r\n* `LimitedPartnership` - \r\n* `PrivateLimitedCompany` - \r\n* `PublicLimitedCompany` - \r\n* `Sole(SoleTrader)` - \r\n",
+      "enum_values": [
+        "Individual",
+        "CommunityInterestCompany",
+        "CharitableIncorporatedOrganisation",
+        "Co-Operative",
+        "Charity",
+        "GeneralPartnership",
+        "LimitedLiabilityPartnership",
+        "ScottishLimitedPartnership",
+        "LimitedPartnership",
+        "PrivateLimitedCompany",
+        "PublicLimitedCompany",
+        "Sole(SoleTrader)"
+      ]
+    },
+    {
+      "name": "Partyrole",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyRoleType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartyRoleName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PartyRoleValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "PartyInvolvementType",
+          "type": "object",
+          "ref": "Partyinvolvementtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Partytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\r\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\r\n",
+      "enum_values": [
+        "Person",
+        "Organisation"
+      ]
+    },
+    {
+      "name": "Project",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ProjectName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ProjectType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProjectDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProjectSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "ProjectDateTime",
+          "type": "object",
+          "ref": "Projectdatetime"
+        }
+      ]
+    },
+    {
+      "name": "Projectdatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ProjectDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ProjectDateType",
+          "type": "object",
+          "ref": "Projectdatetime"
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The timing and key actions/milestones involved in providing the advice/recommendation",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "A characteristic of service which refers to the lifecycle of service (e.g., initiated, active, de-active, etc.) ",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Termandconditiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommissionTermAndCondition` - Commission terms for workforce/employee commission processing\r\n* `LegalTermAndCondition` - Covers the legal considerations of the agreement\r\n* `RegulatoryTermAndCondition` - Covers the regulatory considerations of the agreement\r\n* `PolicyTermAndCondition` - Covers the corporate policies and requirements considerations of the agreement\r\n* `RestrictionTermAndCondition` - Details channel access restrictions for products and services\r\n* `PreferenceTermAndCondition` - Customer channel/device usage preferences\r\n* `InvestmentTermAndCondition` - Terms making up the agreement that govern the management of the investment portfolio. Note that there may be many different types of terms and clauses making up the overall policy\r\n* `MandateTermAndCondition` - Reference to the terms in force for a specific customer for this service provider\r\n* `OperationalTermAndCondition` - \r\n* `ProductTermAndCondition` - \r\n* `AgreementTermAndCondition` - \r\n* `RelationshipTermAndCondition` - \r\n* `ConfidentialTermAndCondition` - \r\n",
+      "enum_values": [
+        "CommissionTermAndCondition",
+        "LegalTermAndCondition",
+        "RegulatoryTermAndCondition",
+        "PolicyTermAndCondition",
+        "RestrictionTermAndCondition",
+        "PreferenceTermAndCondition",
+        "InvestmentTermAndCondition",
+        "MandateTermAndCondition",
+        "OperationalTermAndCondition",
+        "ProductTermAndCondition",
+        "AgreementTermAndCondition",
+        "RelationshipTermAndCondition",
+        "ConfidentialTermAndCondition"
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "MergersAndAcquisitionAdvice",
+        "operations": [
+          "Exchange",
+          "Initiate",
+          "Notify",
+          "Request",
+          "Update",
+          "Control",
+          "Execute",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "MergerandAcquisition",
+        "parent_control_record": "MergersAndAcquisitionAdvice",
+        "operations": [
+          "ExchangeMergerandAcquisition",
+          "ExecuteMergerandAcquisition",
+          "InitiateMergerandAcquisition",
+          "RequestMergerandAcquisition",
+          "NotifyMergerandAcquisition",
+          "RetrieveMergerandAcquisition",
+          "UpdateMergerandAcquisition"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/MergersandAcquisitionsAdvisory.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "b20c0a2001c07c1126236297686353e2301766421a47a0ec3455e9ee16ca6cfb",
+    "retrieved_at": "2026-09-12T22:33:55.704164+00:00"
+  }
+}

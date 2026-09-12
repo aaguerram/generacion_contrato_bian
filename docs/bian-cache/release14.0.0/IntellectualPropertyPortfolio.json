@@ -1,0 +1,1667 @@
+{
+  "service_domain": "Intellectual Property Portfolio",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/IntellectualPropertyPortfolio/Initiate",
+      "tipo": "CR",
+      "grupo": "IntellectualPropertyAdministrativePlan",
+      "request_schema": "IntellectualPropertyAdministrativePlan",
+      "response_schema": "IntellectualPropertyAdministrativePlan",
+      "summary": "InCR Initiate administration for an intellectual property asset",
+      "description": "InCR Initiate administration for an intellectual property asset"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Update",
+      "tipo": "CR",
+      "grupo": "IntellectualPropertyAdministrativePlan",
+      "request_schema": "IntellectualPropertyAdministrativePlan",
+      "response_schema": "IntellectualPropertyAdministrativePlan",
+      "summary": "UpCR Update details of an asset administration plan",
+      "description": "UpCR Update details of an asset administration plan"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "IntellectualPropertyAdministrativePlan",
+      "request_schema": "",
+      "response_schema": "IntellectualPropertyAdministrativePlan",
+      "summary": "ReCR Retrieve details about an intellectual property asset administrative plan",
+      "description": "ReCR Retrieve details about an intellectual property asset administrative plan"
+    },
+    {
+      "operation_id": "InitiateMaintenance",
+      "method": "POST",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Maintenance/Initiate",
+      "tipo": "BQ",
+      "grupo": "Maintenance",
+      "request_schema": "Maintenance",
+      "response_schema": "Maintenance",
+      "summary": "InBQ Initiate maintenance activity for an intellectual property asset",
+      "description": "InBQ Initiate maintenance activity for an intellectual property asset",
+      "parent_control_record": "IntellectualPropertyAdministrativePlan"
+    },
+    {
+      "operation_id": "ExchangeMaintenance",
+      "method": "PUT",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Maintenance/{maintenanceid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "Maintenance",
+      "request_schema": "Maintenance",
+      "response_schema": "Maintenance",
+      "summary": "EcBQ Accept, reject, etc maintenance task processing",
+      "description": "EcBQ Accept, reject, etc maintenance task processing",
+      "parent_control_record": "IntellectualPropertyAdministrativePlan"
+    },
+    {
+      "operation_id": "UpdateMaintenance",
+      "method": "PUT",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Maintenance/{maintenanceid}/Update",
+      "tipo": "BQ",
+      "grupo": "Maintenance",
+      "request_schema": "Maintenance",
+      "response_schema": "Maintenance",
+      "summary": "UpBQ Update maintenance activity details for an intellectual property asset",
+      "description": "UpBQ Update maintenance activity details for an intellectual property asset",
+      "parent_control_record": "IntellectualPropertyAdministrativePlan"
+    },
+    {
+      "operation_id": "RetrieveMaintenance",
+      "method": "GET",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Maintenance/{maintenanceid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Maintenance",
+      "request_schema": "",
+      "response_schema": "Maintenance",
+      "summary": "ReBQ Retrieve details about asset maintenance activity",
+      "description": "ReBQ Retrieve details about asset maintenance activity",
+      "parent_control_record": "IntellectualPropertyAdministrativePlan"
+    },
+    {
+      "operation_id": "RequestAssignment",
+      "method": "PUT",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Assignment/{assignmentid}/Request",
+      "tipo": "BQ",
+      "grupo": "Assignment",
+      "request_schema": "Assignment",
+      "response_schema": "Assignment",
+      "summary": "RqBQ Request manual intervention in an assignment",
+      "description": "RqBQ Request manual intervention in an assignment",
+      "parent_control_record": "IntellectualPropertyAdministrativePlan"
+    },
+    {
+      "operation_id": "UpdateAssignment",
+      "method": "PUT",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Assignment/{assignmentid}/Update",
+      "tipo": "BQ",
+      "grupo": "Assignment",
+      "request_schema": "Assignment",
+      "response_schema": "Assignment",
+      "summary": "UpBQ Update details about an intellectual property asset assignment",
+      "description": "UpBQ Update details about an intellectual property asset assignment",
+      "parent_control_record": "IntellectualPropertyAdministrativePlan"
+    },
+    {
+      "operation_id": "GrantAssignment",
+      "method": "PUT",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Assignment/{assignmentid}/Grant",
+      "tipo": "BQ",
+      "grupo": "Assignment",
+      "request_schema": "Assignment",
+      "response_schema": "Assignment",
+      "summary": "GrBQ Provide a grant of allowed used for an intellectual property asset",
+      "description": "GrBQ Provide a grant of allowed used for an intellectual property asset",
+      "parent_control_record": "IntellectualPropertyAdministrativePlan"
+    },
+    {
+      "operation_id": "RequestMaintenance",
+      "method": "PUT",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Maintenance/{maintenanceid}/Request",
+      "tipo": "BQ",
+      "grupo": "Maintenance",
+      "request_schema": "Maintenance",
+      "response_schema": "Maintenance",
+      "summary": "RqBQ Request a maintenance task is undertaken for an intellectual property asset",
+      "description": "RqBQ Request a maintenance task is undertaken for an intellectual property asset",
+      "parent_control_record": "IntellectualPropertyAdministrativePlan"
+    },
+    {
+      "operation_id": "InitiateAssignment",
+      "method": "POST",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Assignment/Initiate",
+      "tipo": "BQ",
+      "grupo": "Assignment",
+      "request_schema": "Assignment",
+      "response_schema": "Assignment",
+      "summary": "InBQ Initiate the assignment of an intellectual property asset",
+      "description": "InBQ Initiate the assignment of an intellectual property asset",
+      "parent_control_record": "IntellectualPropertyAdministrativePlan"
+    },
+    {
+      "operation_id": "ExchangeAssignment",
+      "method": "PUT",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Assignment/{assignmentid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "Assignment",
+      "request_schema": "Assignment",
+      "response_schema": "Assignment",
+      "summary": "EcBQ Approve, reject an intellectual property asset assignment",
+      "description": "EcBQ Approve, reject an intellectual property asset assignment",
+      "parent_control_record": "IntellectualPropertyAdministrativePlan"
+    },
+    {
+      "operation_id": "RetrieveAssignment",
+      "method": "GET",
+      "path": "/IntellectualPropertyPortfolio/{intellectualpropertyportfolioid}/Assignment/{assignmentid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Assignment",
+      "request_schema": "",
+      "response_schema": "Assignment",
+      "summary": "ReBQ Retrieve details about an intellectual property asset assignment",
+      "description": "ReBQ Retrieve details about an intellectual property asset assignment",
+      "parent_control_record": "IntellectualPropertyAdministrativePlan"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Amount",
+    "Amounttypevalues",
+    "Assessmenttypevalues",
+    "Asset",
+    "AssetValuation",
+    "Assetclassificationtypevalues",
+    "Assetsubclassificationtypevalues",
+    "Assettypevalues",
+    "Assignment",
+    "Currencycode",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Directoryentrydatetypevalues",
+    "Document",
+    "DocumentDirectoryEntry",
+    "Documentdatetimetypevalues",
+    "Financialdocumenttypevalues",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Industrycode",
+    "IntellectualPropertyAdministrativePlan",
+    "Involvedparty",
+    "Jurisdiction",
+    "Location",
+    "Maintenance",
+    "Model",
+    "Name",
+    "Party",
+    "Partyidentification",
+    "Partyidentificationtypevalues",
+    "Partyinvolvementtypevalues",
+    "Partylegalstructuretypevalues",
+    "Partyrole",
+    "Partytypevalues",
+    "Rate",
+    "Requirement",
+    "Schedule",
+    "Status",
+    "Task",
+    "Transaction",
+    "Transactiondatetime",
+    "Transactiondatetimetypevalues",
+    "Transactionstatus",
+    "Transactionstatustypevalues",
+    "Transactiontypevalues",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Action",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "Amount at which the asset has been valued at a particular valuation",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Assessmenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Valuation` - \r\n* `Matching` - \r\n* `Authorization` - An evaluation whether a party or system is allowed to do something.\n\nThe consent given by a participant (or a third party acting on behalf of that participant) in order to transfer funds or securities. (ECB)\n\nAuthorization is a mechanism by which a computer system determines whether to allow or deny specific action to a user. Authorization is often controlled by rather complex rules and algorithms, usually specified as part of an access control model. Authorization often follows (and required) authentication, however, authentication and authorization are two separate mechanisms. In rare cases, \"authorization\" is understood as a process of allowing access, granting permissions or giving approval. Such as \"authorization\" of a request to join a group. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `Authentication` - An evaluation whether a party or system is what it claims to be.\n\nA security mechanism for verifying: 1) the identity of an individual or other entity (including verification by means of a computer or computer application); and 2) the level of authority of that person or entity (i.e. the ability of that person or entity to perform specific tasks or activities). (ECB)\n\nAuthentication is a mechanism by which a computer system checks that the user is really the one she or he claims to be. Authentication can be implemented by a broad variety of mechanisms broadly divided into three categories: something you know, something you have, something you are. Traditionally, authentication is done by the means of by username and password. Authentication is often followed by authorization, however, authentication and authorization are two separate mechanisms. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `QualityAssurance` - \r\n* `Audit` - \r\n* `ComplianceCheck` - \r\n* `FundingCheck` - \r\n* `SuitabilityCheck` - \r\n* `PerformanceCheck` - \r\n* `ImpactAssessment` - \r\n* `RiskAssessment` - \r\n* `Rating` - \r\n* `UnderwritingAssessment` - \r\n* `Qualification` - \r\n* `Verification` - A process establishing that a particular information is correct, while the meaning of \"information\" and \"correct\" varies from context to context. When dealing with identity information, this usually means formal verification of identity attributes, checking the schema, identifier uniqueness and referential integrity. However, verification may mean deeper verification, such as checking that the information is true and up-to-date.  (ISO/IEC 24760-1:2019 - IT Security and Privacy)\n\r\n* `KYCAssessment` - An assessment conducted by businesses and financial institutions to verify and confirm the identity of their customers or clients. The primary purpose of a KYC check is to prevent illegal activities, such as money laundering, terrorist financing, and fraud, by ensuring that customers are who they claim to be.\r\n* `PEPAssessment` - A PEP check, or \"Politically Exposed Person\" check, is an assessment conducted by used by businesses, financial institutions, and government agencies to identify individuals who hold prominent public positions or have significant political influence. The purpose of a PEP check is to assess and manage the potential risks associated with doing business with these individuals, as they may be more susceptible to corruption, money laundering, or other illicit activities.\r\n* `AMLAssessment` - An AML (Anti-Money Laundering) check is an assessment conducted by businesses, financial institutions, and other organizations to prevent and detect money laundering and the financing of criminal activities. The main purpose of an AML check is to ensure that financial transactions and business relationships are not being used to disguise the illegal origins of funds.\r\n* `EligibilityCheck` - Determines whether a person or case meets the criteria or preconditions to qualify for a benefit, service, or action.\r\n* `ExternalAgencyCheck` - \r\n* `EntitlementCheck` - Determines what benefit, amount, or service the person is actually entitled to receive once eligibility is confirmed.\r\n",
+      "enum_values": [
+        "Valuation",
+        "Matching",
+        "Authorization",
+        "Authentication",
+        "QualityAssurance",
+        "Audit",
+        "ComplianceCheck",
+        "FundingCheck",
+        "SuitabilityCheck",
+        "PerformanceCheck",
+        "ImpactAssessment",
+        "RiskAssessment",
+        "Rating",
+        "UnderwritingAssessment",
+        "Qualification",
+        "Verification",
+        "KYCAssessment",
+        "PEPAssessment",
+        "AMLAssessment",
+        "EligibilityCheck",
+        "ExternalAgencyCheck",
+        "EntitlementCheck"
+      ]
+    },
+    {
+      "name": "Asset",
+      "kind": "object",
+      "description": "Reference to the intellectual property asset item",
+      "properties": [
+        {
+          "name": "AssetTitle",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AssetType",
+          "type": "object",
+          "ref": "Assettypevalues"
+        },
+        {
+          "name": "AssetDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssetDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetClassification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetClassificationType",
+          "type": "object",
+          "ref": "Assetclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassificationType",
+          "type": "object",
+          "ref": "Assetsubclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "AssetValuation",
+      "kind": "object",
+      "description": "An indication or description of the commercial value of the intellectual property asset. This can combine a 'replacement' valuation and an licensing/assignment income assessment. The value can be an estimate and include actual realized income",
+      "properties": [
+        {
+          "name": "AssetValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetValueType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetValuationType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetValuationDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetValuationRate",
+          "type": "object",
+          "ref": "Rate"
+        },
+        {
+          "name": "AssetValuationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssetValuationValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AsseValuationAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Assetclassificationtypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Assetclassificationtypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Assetsubclassificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Subassetclass` - Sub-asset class.(ISO20022)\r\n* `Timetomaturitybucket` - Time to maturity bucket.(ISO20022)\r\n* `Optiontimetomaturitybucket` - Time to maturity bucket of the option.(ISO20022)\r\n* `Swaptimetomaturitybucket` - Time to maturity bucket of the swap.(ISO20022)\r\n* `Underlyinginstrumentidentification` - Underlying instrument identification, such as an ISIN code.(ISO20022)\r\n* `Underlyingbondissuer` - Issuer of the underlying bond.(ISO20022)\r\n* `Underlyinginterestrate` - Underlying interest rate.(ISO20022)\r\n* `Underlyingbondterm` - Term of the underlying bond.(ISO20022)\r\n* `Assetclass` - Asset class.(ISO20022)\r\n* `Underlyingindexidentification` - Underlying index identification such as an ISIN or an index name.(ISO20022)\r\n* `Interestratetermofcontract` - Interest rate term of contract.(ISO20022)\r\n* `Underlyingreferenceentity` - Underlying reference entity.(ISO20022)\r\n* `Sovereignandpublictypeissuer` - Issuer of sovereign and public type.(ISO20022)\r\n* `Irdnotionalcurrency1` - Interest rate derivative notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency1` - Foreign exchange derivative notional currency 1.(ISO20022)\r\n* `Cfdnotionalcurrency1` - Contract for difference notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency2` - Foreign exchange derivative notional currency 2.(ISO20022)\r\n* `Irdnotionalcurrency2` - Interest rate derivative notional currency 2.(ISO20022)\r\n* `Cfdnotionalcurrency2` - Contract for difference notional currency 2.(ISO20022)\r\n* `Swaptionnotionalcurrency` - Notional currency of the swaption.(ISO20022)\r\n* `Creditnotionalcurrency` - Credit derivative notional currency.(ISO20022)\r\n* `Commoditynotionalcurrency` - Commodity derivative notional currency.(ISO20022)\r\n* `Contracttype` - Contract type.(ISO20022)\r\n* `Baseproduct` - Base product.(ISO20022)\r\n* `Subproduct` - Sub product.(ISO20022)\r\n* `Furthersubproduct` - Further sub product.(ISO20022)\r\n* `Deliverycashlocation` - Delivery cash settlement location.(ISO20022)\r\n* `Deliverysettlementtype` - Delivery settlement type.(ISO20022)\r\n* `Sizespecificationrelatedtofreightsubtype` - Size specification related to freight subtype.(ISO20022)\r\n* `Specificroutetimecharteraverage` - Specific route time charter average.(ISO20022)\r\n* `Equityunderlyingtype` - Equity derivative underlying type.(ISO20022)\r\n* `Parameter` - Parameter.(ISO20022)\r\n* `Inflationindexcodename` - Inflation index code or name.(ISO20022)\r\n* `ISIN` - Instrument identification.(ISO20022)\r\n* `Underlyingindexcdssubclassidentification` - Sub class of the underlying index credit default swap (CDS).(ISO20022)\r\n* `Underlyingtype` - Underlying type.(ISSO20022)\r\n",
+      "enum_values": [
+        "Subassetclass",
+        "Timetomaturitybucket",
+        "Optiontimetomaturitybucket",
+        "Swaptimetomaturitybucket",
+        "Underlyinginstrumentidentification",
+        "Underlyingbondissuer",
+        "Underlyinginterestrate",
+        "Underlyingbondterm",
+        "Assetclass",
+        "Underlyingindexidentification",
+        "Interestratetermofcontract",
+        "Underlyingreferenceentity",
+        "Sovereignandpublictypeissuer",
+        "Irdnotionalcurrency1",
+        "Fexnotionalcurrency1",
+        "Cfdnotionalcurrency1",
+        "Fexnotionalcurrency2",
+        "Irdnotionalcurrency2",
+        "Cfdnotionalcurrency2",
+        "Swaptionnotionalcurrency",
+        "Creditnotionalcurrency",
+        "Commoditynotionalcurrency",
+        "Contracttype",
+        "Baseproduct",
+        "Subproduct",
+        "Furthersubproduct",
+        "Deliverycashlocation",
+        "Deliverysettlementtype",
+        "Sizespecificationrelatedtofreightsubtype",
+        "Specificroutetimecharteraverage",
+        "Equityunderlyingtype",
+        "Parameter",
+        "Inflationindexcodename",
+        "ISIN",
+        "Underlyingindexcdssubclassidentification",
+        "Underlyingtype"
+      ]
+    },
+    {
+      "name": "Assettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `TangibleAsset` - It has a physical form and can be touched or seen.\r\n* `IntangibleAsset` - It doesn't have a physical form but hold value\r\n* `OperatingAsset` - Used in the day-to-day operations of the business.\r\n* `Non-OperatingAsset` - Not used in core business operations but still provide value\r\n* `CurrentAsset` - Expected to be converted into cash within one year.\r\n* `Non-Current(Fixed)Asset` - Provide value over the long term (more than one year).\r\n* `PersonalAsset` - Owned by individuals and not related to a business.\r\n* `BusinessAsset` - Owned by a business and used to generate revenue.\r\n",
+      "enum_values": [
+        "TangibleAsset",
+        "IntangibleAsset",
+        "OperatingAsset",
+        "Non-OperatingAsset",
+        "CurrentAsset",
+        "Non-Current(Fixed)Asset",
+        "PersonalAsset",
+        "BusinessAsset"
+      ]
+    },
+    {
+      "name": "Assignment",
+      "kind": "object",
+      "description": "A record of assignments of the intellectual property both for internal use and for 3rd party licensing",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "object",
+          "ref": "Party"
+        },
+        {
+          "name": "PartyInvolvement",
+          "type": "object",
+          "ref": "Partyrole"
+        },
+        {
+          "name": "SubjectMatter",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Directoryentrydatetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpenDate` - \r\n* `RefreshDate` - \r\n",
+      "enum_values": [
+        "OpenDate",
+        "RefreshDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Document that provides background or corroborating information regarding an assessment(s).",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "DocumentDirectoryEntry",
+      "kind": "object",
+      "description": "Reference to associated documents",
+      "properties": [
+        {
+          "name": "DocumentDirectoryEntryIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Directoryentrydatetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "DirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Industrycode",
+      "kind": "object",
+      "description": "Economical activity of Party (ISO20022)",
+      "properties": [
+        {
+          "name": "Industrycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "IntellectualPropertyAdministrativePlan",
+      "kind": "object",
+      "description": "Handle and assign the day to day activities, capture time, costs and income for an operational unit within Intellectual Property Portfolio. \n",
+      "properties": [
+        {
+          "name": "IntellectualPropertyAssetReference",
+          "type": "object",
+          "ref": "Asset"
+        },
+        {
+          "name": "IntellectualPropertyAssetRecord",
+          "type": "object",
+          "ref": "Asset"
+        },
+        {
+          "name": "IntellectualPropertyAssetType",
+          "type": "object",
+          "ref": "Assettypevalues"
+        },
+        {
+          "name": "IntellectualPropertyAssetDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IntellectualPropertyAssetTitle",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IntellectualPropertyAssetJurisdiction",
+          "type": "object",
+          "ref": "Jurisdiction"
+        },
+        {
+          "name": "IntellectualPropertyAssetCreator",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IntellectualPropertyAssetValuation",
+          "type": "object",
+          "ref": "AssetValuation"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "DateType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        },
+        {
+          "name": "Date",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Jurisdiction",
+      "kind": "object",
+      "description": "Details of scope of coverage of the intellectual property asset (e.g. geographic coverage, allowed usage type coverage)",
+      "properties": [
+        {
+          "name": "Jurisdiction",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Maintenance",
+      "kind": "object",
+      "description": "A collection of one or more clerical routines that are to be followed to administer the operational unit/function\n\nExamples: Time-sheet recording",
+      "properties": [
+        {
+          "name": "IntellectualPropertyAssetMaintenanceSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "IntellectualPropertyAssetProtectionReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IntellectualPropertyAssetRegistrationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IntellectualPropertyAssetMaintenanceTaskRecord",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "IntellectualPropertyAssetMaintenanceTaskType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IntellectualPropertyAssetMaintenanceTaskDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IntellectualPropertyAssetMaintenanceTaskWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "IntellectualPropertyAssetMaintenanceTransaction",
+          "type": "object",
+          "ref": "Transaction"
+        }
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of transaction.",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Party",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PartyType",
+          "type": "object",
+          "ref": "Partytypevalues"
+        },
+        {
+          "name": "PartyDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Partyidentification"
+        },
+        {
+          "name": "PartyLegalStructureType",
+          "type": "object",
+          "ref": "Partylegalstructuretypevalues"
+        },
+        {
+          "name": "PartyActivityIndicator",
+          "type": "object",
+          "ref": "Industrycode"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyIdentificationType",
+          "type": "object",
+          "ref": "Partyidentificationtypevalues"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to an entity.\r\n* `Nationalregistrationnumber` - Number assigned by a national registration authority to an entity. In Singapore this is known as the NRIC. (ISO20022)\r\n* `Registrationauthorityidentification` - An identifier for the Legal Entity in a business registry in the jurisdiction of legal registration, or in the appropriate registration authority. (ISO20022)\r\n* `LEI(LegalEntityIdentifier)` - \r\n* `Alienregistrationnumber` - Number assigned by a government agency to identify foreign nationals.\r\n* `Passportnumber` - Number assigned by a passport authority.\r\n* `Taxexemptidentificationnumber` - Number assigned to a tax exempt entity.\r\n* `Corporateidentification` - Number assigned to a corporate entity.\r\n* `Driverlicensenumber` - Number assigned to a driver's license.\r\n* `Foreigninvestmentidentitynumber` - Number assigned to a foreign investor (other than the alien number).\r\n* `Socialsecuritynumber` - Number assigned by a social security agency.\r\n* `Identitycardnumber` - Number assigned by a national authority to an identity card.\r\n* `Concat` - Number assigned by an issuer to identify a customer via the concatenation of the birthdate and characters of the first name and surname.\r\n* `Nationalregistrationidentificationnumber` - National registration identification number. In Singapore this is known as the NRIC.\r\n",
+      "enum_values": [
+        "Taxidentificationnumber",
+        "Nationalregistrationnumber",
+        "Registrationauthorityidentification",
+        "LEI(LegalEntityIdentifier)",
+        "Alienregistrationnumber",
+        "Passportnumber",
+        "Taxexemptidentificationnumber",
+        "Corporateidentification",
+        "Driverlicensenumber",
+        "Foreigninvestmentidentitynumber",
+        "Socialsecuritynumber",
+        "Identitycardnumber",
+        "Concat",
+        "Nationalregistrationidentificationnumber"
+      ]
+    },
+    {
+      "name": "Partyinvolvementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `AgreementInvolvement` - \r\n* `PartyInvolvement` - \r\n* `ArrangementInvolvement` - \r\n* `DesignSpecificationInvolvement` - \r\n* `RelationshipInvolvement` - \r\n* `LocationInvolvement` - \r\n* `BankGuaranteeInvolvement` - \r\n",
+      "enum_values": [
+        "AgreementInvolvement",
+        "PartyInvolvement",
+        "ArrangementInvolvement",
+        "DesignSpecificationInvolvement",
+        "RelationshipInvolvement",
+        "LocationInvolvement",
+        "BankGuaranteeInvolvement"
+      ]
+    },
+    {
+      "name": "Partylegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Individual` - \r\n* `CommunityInterestCompany` - \r\n* `CharitableIncorporatedOrganisation` - \r\n* `Co-Operative` - \r\n* `Charity` - \r\n* `GeneralPartnership` - \r\n* `LimitedLiabilityPartnership` - \r\n* `ScottishLimitedPartnership` - \r\n* `LimitedPartnership` - \r\n* `PrivateLimitedCompany` - \r\n* `PublicLimitedCompany` - \r\n* `Sole(SoleTrader)` - \r\n",
+      "enum_values": [
+        "Individual",
+        "CommunityInterestCompany",
+        "CharitableIncorporatedOrganisation",
+        "Co-Operative",
+        "Charity",
+        "GeneralPartnership",
+        "LimitedLiabilityPartnership",
+        "ScottishLimitedPartnership",
+        "LimitedPartnership",
+        "PrivateLimitedCompany",
+        "PublicLimitedCompany",
+        "Sole(SoleTrader)"
+      ]
+    },
+    {
+      "name": "Partyrole",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyRoleType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartyRoleName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PartyRoleValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "PartyInvolvementType",
+          "type": "object",
+          "ref": "Partyinvolvementtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Partytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\r\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\r\n",
+      "enum_values": [
+        "Person",
+        "Organisation"
+      ]
+    },
+    {
+      "name": "Rate",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RateValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RateUnit",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RatePeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "RateCapitalUnit",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule for maintenance tasks performed and to be performed (e.g. patent renewals)",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "A record of payments and other actions taken to maintain the asset",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Transaction",
+      "kind": "object",
+      "description": "Details of any payments made as part of maintenance",
+      "properties": [
+        {
+          "name": "TransactionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Transactiondatetime"
+        },
+        {
+          "name": "TransactionType",
+          "type": "object",
+          "ref": "Transactiontypevalues"
+        },
+        {
+          "name": "TransactionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Transactionstatus"
+        },
+        {
+          "name": "TransactionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetime",
+      "kind": "object",
+      "description": "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). ",
+      "properties": [
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "TransactionDateType",
+          "type": "object",
+          "ref": "Transactiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ExecutedDate` - \r\n* `FulfillmentDate` - \r\n* `InitiatedDate` - \r\n* `CancelledDate` - \r\n* `ApprovedDate` - \r\n* `ValueDate` - \r\n* `BookingDate` - \r\n",
+      "enum_values": [
+        "ExecutedDate",
+        "FulfillmentDate",
+        "InitiatedDate",
+        "CancelledDate",
+        "ApprovedDate",
+        "ValueDate",
+        "BookingDate"
+      ]
+    },
+    {
+      "name": "Transactionstatus",
+      "kind": "object",
+      "description": "A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) ",
+      "properties": [
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "TransactionStatusType",
+          "type": "object",
+          "ref": "Transactionstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Executed` - \r\n* `Cancelled` - \r\n* `Confirmed` - \r\n* `Suspended` - \r\n* `Pending` - \r\n* `Completed` - \r\n* `Notified` - \r\n* `Booked` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Executed",
+        "Cancelled",
+        "Confirmed",
+        "Suspended",
+        "Pending",
+        "Completed",
+        "Notified",
+        "Booked",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Transactiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialTransaction` - \r\n* `BusinessTransaction` - \r\n* `BankingTransaction` - \r\n* `AccountingTransaction` - \r\n* `BookingTransaction` - \r\n* `AllocationTransaction` - \r\n* `DeliveryTransaction` - \r\n* `ProductionTransaction` - \r\n",
+      "enum_values": [
+        "FinancialTransaction",
+        "BusinessTransaction",
+        "BankingTransaction",
+        "AccountingTransaction",
+        "BookingTransaction",
+        "AllocationTransaction",
+        "DeliveryTransaction",
+        "ProductionTransaction"
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "File of consolidated notes, forms and documents for the maintenance task",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "IntellectualPropertyAdministrativePlan",
+        "operations": [
+          "Initiate",
+          "Update",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Assignment",
+        "parent_control_record": "IntellectualPropertyAdministrativePlan",
+        "operations": [
+          "RequestAssignment",
+          "UpdateAssignment",
+          "GrantAssignment",
+          "InitiateAssignment",
+          "ExchangeAssignment",
+          "RetrieveAssignment"
+        ]
+      },
+      {
+        "name": "Maintenance",
+        "parent_control_record": "IntellectualPropertyAdministrativePlan",
+        "operations": [
+          "InitiateMaintenance",
+          "ExchangeMaintenance",
+          "UpdateMaintenance",
+          "RetrieveMaintenance",
+          "RequestMaintenance"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/IntellectualPropertyPortfolio.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "dc37c3d6b16df161ed40b7cae0fccadd30e7ec5e76c2967198b8f488de213a43",
+    "retrieved_at": "2026-09-12T21:50:56.602802+00:00"
+  }
+}

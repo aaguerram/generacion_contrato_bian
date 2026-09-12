@@ -1,0 +1,81 @@
+{
+  "service_domain": "Incentive Account",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [],
+  "schemas": [
+    "HTTPError",
+    "IncentiveAccountFacility"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "IncentiveAccountFacility",
+      "kind": "object",
+      "description": "Fulfill any scheduled and ad-hoc obligations under a service arrangement, most typically for a financial product or facility within Incentive Account. ",
+      "properties": [
+        {
+          "name": "IncentiveAccountFacilityAccountReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IncentiveAccountProductReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IncentiveAccountFacilityReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IncentiveAccountAgreementReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IncentiveAccountArrangementReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IncentiveAccountInvolvement",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/IncentiveAccount.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "7231fb412f6186ba25d7ddfaf2bbe5e7df0e4c8334f706e77c92ec7f46b578ba",
+    "retrieved_at": "2026-09-12T22:32:29.623603+00:00"
+  }
+}

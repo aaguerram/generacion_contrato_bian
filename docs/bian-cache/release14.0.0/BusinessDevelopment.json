@@ -1,0 +1,2483 @@
+{
+  "service_domain": "Business Development",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/BusinessDevelopment/{businessdevelopmentid}/Update",
+      "tipo": "CR",
+      "grupo": "BusinessDevelopmentStrategy",
+      "request_schema": "BusinessDevelopmentStrategy",
+      "response_schema": "BusinessDevelopmentStrategy",
+      "summary": "UpCR Update details of the business development strategy",
+      "description": "UpCR Update details of the business development strategy"
+    },
+    {
+      "operation_id": "Grant",
+      "method": "PUT",
+      "path": "/BusinessDevelopment/{businessdevelopmentid}/Grant",
+      "tipo": "CR",
+      "grupo": "BusinessDevelopmentStrategy",
+      "request_schema": "BusinessDevelopmentStrategy",
+      "response_schema": "BusinessDevelopmentStrategy",
+      "summary": "GrCR Grant permission for some action under the authority of the strategy",
+      "description": "GrCR Grant permission for some action under the authority of the strategy"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/BusinessDevelopment/{businessdevelopmentid}/Exchange",
+      "tipo": "CR",
+      "grupo": "BusinessDevelopmentStrategy",
+      "request_schema": "BusinessDevelopmentStrategy",
+      "response_schema": "BusinessDevelopmentStrategy",
+      "summary": "EcCR Accept, reject, etc. aspects or actions associated with the strategy",
+      "description": "EcCR Accept, reject, etc. aspects or actions associated with the strategy"
+    },
+    {
+      "operation_id": "Create",
+      "method": "POST",
+      "path": "/BusinessDevelopment/Create",
+      "tipo": "CR",
+      "grupo": "BusinessDevelopmentStrategy",
+      "request_schema": "BusinessDevelopmentStrategy",
+      "response_schema": "BusinessDevelopmentStrategy",
+      "summary": "CrCR Create a business development strategy for the enterprise or division",
+      "description": "CrCR Create a business development strategy for the enterprise or division"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/BusinessDevelopment/{businessdevelopmentid}/Request",
+      "tipo": "CR",
+      "grupo": "BusinessDevelopmentStrategy",
+      "request_schema": "BusinessDevelopmentStrategy",
+      "response_schema": "BusinessDevelopmentStrategy",
+      "summary": "RqCR Request manual intervention",
+      "description": "RqCR Request manual intervention"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/BusinessDevelopment/{businessdevelopmentid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "BusinessDevelopmentStrategy",
+      "request_schema": "",
+      "response_schema": "BusinessDevelopmentStrategy",
+      "summary": "ReCR Retrieve details relating to the strategy and any supporting activities",
+      "description": "ReCR Retrieve details relating to the strategy and any supporting activities"
+    },
+    {
+      "operation_id": "Capture",
+      "method": "PUT",
+      "path": "/BusinessDevelopment/{businessdevelopmentid}/Capture",
+      "tipo": "CR",
+      "grupo": "BusinessDevelopmentStrategy",
+      "request_schema": "BusinessDevelopmentStrategy",
+      "response_schema": "BusinessDevelopmentStrategy",
+      "summary": "CaCR Capture activity details related to implementation of the strategy",
+      "description": "CaCR Capture activity details related to implementation of the strategy"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Amount",
+    "Amounttypevalues",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "Assessmenttypevalues",
+    "Assetclassificationtypevalues",
+    "Assetsubclassificationtypevalues",
+    "Assettypevalues",
+    "Bankingproducttypevalues",
+    "BudgetArrangement",
+    "Budgetarrangement",
+    "Budgettype",
+    "Budgettypevalues",
+    "BusinessDevelopmentGoal",
+    "BusinessDevelopmentStrategy",
+    "Businessdevelopmentgoaltypevalues",
+    "Campaigntypevalues",
+    "Country",
+    "Countrycode",
+    "Currencycode",
+    "CustomerCampaign",
+    "CustomerRelationship",
+    "Customercampaigntypevalues",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Document",
+    "Documentdatetimetypevalues",
+    "EmployeeDevelopment",
+    "Financialdocumenttypevalues",
+    "Financialinstrumentdatetime",
+    "Financialinstrumentdatetimetypevalues",
+    "Financialinstrumentidentification",
+    "Financialinstrumentidentificationtypevalues",
+    "Financialinstrumenttypevalues",
+    "Geographicalareatypevalues",
+    "Goal",
+    "Goaldatetime",
+    "Goaldatetimetypevalues",
+    "Goalstatus",
+    "Goalstatustypevalues",
+    "Goaltypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Jurisdiction",
+    "Location",
+    "Market",
+    "MarketResearch",
+    "Marketing",
+    "Marketresearchaspecttypevalues",
+    "Marketresearchviewpointtypevalues",
+    "Markettypevalues",
+    "Model",
+    "Name",
+    "OperationalEfficiency",
+    "Organization",
+    "OrganizationalResponsivenessandFlexibility",
+    "PlannedAction",
+    "Plannedaction",
+    "Plantypevalues",
+    "Product",
+    "ProductDeliveryCapacity",
+    "Productidentification",
+    "Productidentificationtypevalues",
+    "Productstatus",
+    "Productstatustypevalues",
+    "Requirement",
+    "RuleSet",
+    "Ruleset",
+    "Rulesettypevalues",
+    "Schedule",
+    "Status",
+    "Subject",
+    "Survey",
+    "Surveyaspecttypevalues",
+    "Surveytypevalues",
+    "SustainabilityandCorporateSocialResponsibility"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "Assessmenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Valuation` - \r\n* `Matching` - \r\n* `Authorization` - An evaluation whether a party or system is allowed to do something.\n\nThe consent given by a participant (or a third party acting on behalf of that participant) in order to transfer funds or securities. (ECB)\n\nAuthorization is a mechanism by which a computer system determines whether to allow or deny specific action to a user. Authorization is often controlled by rather complex rules and algorithms, usually specified as part of an access control model. Authorization often follows (and required) authentication, however, authentication and authorization are two separate mechanisms. In rare cases, \"authorization\" is understood as a process of allowing access, granting permissions or giving approval. Such as \"authorization\" of a request to join a group. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `Authentication` - An evaluation whether a party or system is what it claims to be.\n\nA security mechanism for verifying: 1) the identity of an individual or other entity (including verification by means of a computer or computer application); and 2) the level of authority of that person or entity (i.e. the ability of that person or entity to perform specific tasks or activities). (ECB)\n\nAuthentication is a mechanism by which a computer system checks that the user is really the one she or he claims to be. Authentication can be implemented by a broad variety of mechanisms broadly divided into three categories: something you know, something you have, something you are. Traditionally, authentication is done by the means of by username and password. Authentication is often followed by authorization, however, authentication and authorization are two separate mechanisms. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `QualityAssurance` - \r\n* `Audit` - \r\n* `ComplianceCheck` - \r\n* `FundingCheck` - \r\n* `SuitabilityCheck` - \r\n* `PerformanceCheck` - \r\n* `ImpactAssessment` - \r\n* `RiskAssessment` - \r\n* `Rating` - \r\n* `UnderwritingAssessment` - \r\n* `Qualification` - \r\n* `Verification` - A process establishing that a particular information is correct, while the meaning of \"information\" and \"correct\" varies from context to context. When dealing with identity information, this usually means formal verification of identity attributes, checking the schema, identifier uniqueness and referential integrity. However, verification may mean deeper verification, such as checking that the information is true and up-to-date.  (ISO/IEC 24760-1:2019 - IT Security and Privacy)\n\r\n* `KYCAssessment` - An assessment conducted by businesses and financial institutions to verify and confirm the identity of their customers or clients. The primary purpose of a KYC check is to prevent illegal activities, such as money laundering, terrorist financing, and fraud, by ensuring that customers are who they claim to be.\r\n* `PEPAssessment` - A PEP check, or \"Politically Exposed Person\" check, is an assessment conducted by used by businesses, financial institutions, and government agencies to identify individuals who hold prominent public positions or have significant political influence. The purpose of a PEP check is to assess and manage the potential risks associated with doing business with these individuals, as they may be more susceptible to corruption, money laundering, or other illicit activities.\r\n* `AMLAssessment` - An AML (Anti-Money Laundering) check is an assessment conducted by businesses, financial institutions, and other organizations to prevent and detect money laundering and the financing of criminal activities. The main purpose of an AML check is to ensure that financial transactions and business relationships are not being used to disguise the illegal origins of funds.\r\n* `EligibilityCheck` - Determines whether a person or case meets the criteria or preconditions to qualify for a benefit, service, or action.\r\n* `ExternalAgencyCheck` - \r\n* `EntitlementCheck` - Determines what benefit, amount, or service the person is actually entitled to receive once eligibility is confirmed.\r\n",
+      "enum_values": [
+        "Valuation",
+        "Matching",
+        "Authorization",
+        "Authentication",
+        "QualityAssurance",
+        "Audit",
+        "ComplianceCheck",
+        "FundingCheck",
+        "SuitabilityCheck",
+        "PerformanceCheck",
+        "ImpactAssessment",
+        "RiskAssessment",
+        "Rating",
+        "UnderwritingAssessment",
+        "Qualification",
+        "Verification",
+        "KYCAssessment",
+        "PEPAssessment",
+        "AMLAssessment",
+        "EligibilityCheck",
+        "ExternalAgencyCheck",
+        "EntitlementCheck"
+      ]
+    },
+    {
+      "name": "Assetclassificationtypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Assetclassificationtypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Assetsubclassificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Subassetclass` - Sub-asset class.(ISO20022)\r\n* `Timetomaturitybucket` - Time to maturity bucket.(ISO20022)\r\n* `Optiontimetomaturitybucket` - Time to maturity bucket of the option.(ISO20022)\r\n* `Swaptimetomaturitybucket` - Time to maturity bucket of the swap.(ISO20022)\r\n* `Underlyinginstrumentidentification` - Underlying instrument identification, such as an ISIN code.(ISO20022)\r\n* `Underlyingbondissuer` - Issuer of the underlying bond.(ISO20022)\r\n* `Underlyinginterestrate` - Underlying interest rate.(ISO20022)\r\n* `Underlyingbondterm` - Term of the underlying bond.(ISO20022)\r\n* `Assetclass` - Asset class.(ISO20022)\r\n* `Underlyingindexidentification` - Underlying index identification such as an ISIN or an index name.(ISO20022)\r\n* `Interestratetermofcontract` - Interest rate term of contract.(ISO20022)\r\n* `Underlyingreferenceentity` - Underlying reference entity.(ISO20022)\r\n* `Sovereignandpublictypeissuer` - Issuer of sovereign and public type.(ISO20022)\r\n* `Irdnotionalcurrency1` - Interest rate derivative notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency1` - Foreign exchange derivative notional currency 1.(ISO20022)\r\n* `Cfdnotionalcurrency1` - Contract for difference notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency2` - Foreign exchange derivative notional currency 2.(ISO20022)\r\n* `Irdnotionalcurrency2` - Interest rate derivative notional currency 2.(ISO20022)\r\n* `Cfdnotionalcurrency2` - Contract for difference notional currency 2.(ISO20022)\r\n* `Swaptionnotionalcurrency` - Notional currency of the swaption.(ISO20022)\r\n* `Creditnotionalcurrency` - Credit derivative notional currency.(ISO20022)\r\n* `Commoditynotionalcurrency` - Commodity derivative notional currency.(ISO20022)\r\n* `Contracttype` - Contract type.(ISO20022)\r\n* `Baseproduct` - Base product.(ISO20022)\r\n* `Subproduct` - Sub product.(ISO20022)\r\n* `Furthersubproduct` - Further sub product.(ISO20022)\r\n* `Deliverycashlocation` - Delivery cash settlement location.(ISO20022)\r\n* `Deliverysettlementtype` - Delivery settlement type.(ISO20022)\r\n* `Sizespecificationrelatedtofreightsubtype` - Size specification related to freight subtype.(ISO20022)\r\n* `Specificroutetimecharteraverage` - Specific route time charter average.(ISO20022)\r\n* `Equityunderlyingtype` - Equity derivative underlying type.(ISO20022)\r\n* `Parameter` - Parameter.(ISO20022)\r\n* `Inflationindexcodename` - Inflation index code or name.(ISO20022)\r\n* `ISIN` - Instrument identification.(ISO20022)\r\n* `Underlyingindexcdssubclassidentification` - Sub class of the underlying index credit default swap (CDS).(ISO20022)\r\n* `Underlyingtype` - Underlying type.(ISSO20022)\r\n",
+      "enum_values": [
+        "Subassetclass",
+        "Timetomaturitybucket",
+        "Optiontimetomaturitybucket",
+        "Swaptimetomaturitybucket",
+        "Underlyinginstrumentidentification",
+        "Underlyingbondissuer",
+        "Underlyinginterestrate",
+        "Underlyingbondterm",
+        "Assetclass",
+        "Underlyingindexidentification",
+        "Interestratetermofcontract",
+        "Underlyingreferenceentity",
+        "Sovereignandpublictypeissuer",
+        "Irdnotionalcurrency1",
+        "Fexnotionalcurrency1",
+        "Cfdnotionalcurrency1",
+        "Fexnotionalcurrency2",
+        "Irdnotionalcurrency2",
+        "Cfdnotionalcurrency2",
+        "Swaptionnotionalcurrency",
+        "Creditnotionalcurrency",
+        "Commoditynotionalcurrency",
+        "Contracttype",
+        "Baseproduct",
+        "Subproduct",
+        "Furthersubproduct",
+        "Deliverycashlocation",
+        "Deliverysettlementtype",
+        "Sizespecificationrelatedtofreightsubtype",
+        "Specificroutetimecharteraverage",
+        "Equityunderlyingtype",
+        "Parameter",
+        "Inflationindexcodename",
+        "ISIN",
+        "Underlyingindexcdssubclassidentification",
+        "Underlyingtype"
+      ]
+    },
+    {
+      "name": "Assettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `TangibleAsset` - It has a physical form and can be touched or seen.\r\n* `IntangibleAsset` - It doesn't have a physical form but hold value\r\n* `OperatingAsset` - Used in the day-to-day operations of the business.\r\n* `Non-OperatingAsset` - Not used in core business operations but still provide value\r\n* `CurrentAsset` - Expected to be converted into cash within one year.\r\n* `Non-Current(Fixed)Asset` - Provide value over the long term (more than one year).\r\n* `PersonalAsset` - Owned by individuals and not related to a business.\r\n* `BusinessAsset` - Owned by a business and used to generate revenue.\r\n",
+      "enum_values": [
+        "TangibleAsset",
+        "IntangibleAsset",
+        "OperatingAsset",
+        "Non-OperatingAsset",
+        "CurrentAsset",
+        "Non-Current(Fixed)Asset",
+        "PersonalAsset",
+        "BusinessAsset"
+      ]
+    },
+    {
+      "name": "Bankingproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LoanProduct` - \r\n* `CurrentAccountProduct` - \r\n* `SavingAccountProduct` - \r\n* `BrokeredProduct` - \r\n* `TermDepositProduct` - \r\n",
+      "enum_values": [
+        "LoanProduct",
+        "CurrentAccountProduct",
+        "SavingAccountProduct",
+        "BrokeredProduct",
+        "TermDepositProduct"
+      ]
+    },
+    {
+      "name": "BudgetArrangement",
+      "kind": "object",
+      "description": "Target and actual financial budget for the strategy",
+      "properties": [
+        {
+          "name": "BudgetType",
+          "type": "object",
+          "ref": "Budgettype"
+        },
+        {
+          "name": "BudgetAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Budgetarrangement",
+      "kind": "object",
+      "description": "An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)",
+      "properties": [
+        {
+          "name": "BudgetArrangement",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Budgettype",
+      "kind": "object",
+      "description": "A Classification value that specifies the type of Budget",
+      "properties": [
+        {
+          "name": "BudgetTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "BudgetType",
+          "type": "object",
+          "ref": "Budgettypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Budgettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OperatingBudget` - \r\n* `FinancialBudget` - \r\n* `ResourceBudget` - \r\n",
+      "enum_values": [
+        "OperatingBudget",
+        "FinancialBudget",
+        "ResourceBudget"
+      ]
+    },
+    {
+      "name": "BusinessDevelopmentGoal",
+      "kind": "object",
+      "description": "Reference to the goals making up the overall business development strategy",
+      "properties": [
+        {
+          "name": "BusinessDevelopmentGoalType",
+          "type": "object",
+          "ref": "Businessdevelopmentgoaltypevalues"
+        },
+        {
+          "name": "GoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "GoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "GoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        }
+      ]
+    },
+    {
+      "name": "BusinessDevelopmentStrategy",
+      "kind": "object",
+      "description": "Reference to the strategy to achieve the goals defined for the business development\n",
+      "properties": [
+        {
+          "name": "PlanGoal",
+          "type": "object",
+          "ref": "Goal"
+        },
+        {
+          "name": "PlanBudget",
+          "type": "object",
+          "ref": "Budgetarrangement"
+        },
+        {
+          "name": "PlannedAction",
+          "type": "object",
+          "ref": "Plannedaction"
+        },
+        {
+          "name": "PlanType",
+          "type": "object",
+          "ref": "Plantypevalues"
+        },
+        {
+          "name": "PlanValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "PlanDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Businessdevelopmentgoaltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `RevenueGrowth` -    - Increase sales and profitability.   \n- Develop new revenue streams.   \n- Improve customer acquisition and retention rates.\n\r\n* `MarketExpansion` - -    Enter new geographic markets.\n-    Target new customer segments.\n-    Diversify product or service offerings.\n\r\n* `PartnershipsAndAlliances` - -    Form strategic partnerships or alliances.\n-    Collaborate with other companies for mutual benefit.\n-    Seek out joint ventures or mergers and acquisitions.\n\r\n* `BrandAwarenessAndReputation` - -    Enhance brand recognition and reputation.\n-    Improve public relations and corporate image.\n-    Engage in effective marketing and advertising campaigns.\n\r\n* `ProductDevelopmentAndInnovation` - -    Invest in research and development.\n-    Launch new products or services.\n-    Improve existing offerings based on customer feedback.\n\r\n* `OperationalEfficiency` - -    Streamline business processes and operations.\n-    Implement cost-saving measures.\n-    Invest in technology and infrastructure.\n\r\n* `CustomerSatisfactionAndLoyalty` - -    Improve customer service and support.\n-    Increase customer satisfaction and loyalty.\n-    Implement customer feedback mechanisms.\n\r\n* `TalentAcquisitionAndDevelopment` - -    Attract and retain top talent.\n-    Invest in employee training and development.\n-    Foster a positive and productive company culture.\n\r\n* `SustainabilityAndCorporateSocialResponsibility` - -    Implement sustainable business practices.\n-    Engage in CSR activities and community involvement.\n-    Promote environmental and social responsibility.\n\r\n* `CompetitiveAdvantage` - -    Analyze and respond to competitive threats.\n-    Differentiate products or services from competitors.\n-    Continuously innovate to stay ahead in the market.\n\r\n",
+      "enum_values": [
+        "RevenueGrowth",
+        "MarketExpansion",
+        "PartnershipsAndAlliances",
+        "BrandAwarenessAndReputation",
+        "ProductDevelopmentAndInnovation",
+        "OperationalEfficiency",
+        "CustomerSatisfactionAndLoyalty",
+        "TalentAcquisitionAndDevelopment",
+        "SustainabilityAndCorporateSocialResponsibility",
+        "CompetitiveAdvantage"
+      ]
+    },
+    {
+      "name": "Campaigntypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MarketingCampaign` - \r\n* `SocialCampaign` - \r\n* `PoliticalCampaign` - \r\n",
+      "enum_values": [
+        "MarketingCampaign",
+        "SocialCampaign",
+        "PoliticalCampaign"
+      ]
+    },
+    {
+      "name": "Country",
+      "kind": "object",
+      "description": "Country in which a market operates. (ISO20022)",
+      "properties": [
+        {
+          "name": "NationalRegulatoryAuthority",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CountryName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "CountryCode",
+          "type": "object",
+          "ref": "Countrycode"
+        }
+      ]
+    },
+    {
+      "name": "Countrycode",
+      "kind": "object",
+      "description": "Identifies a nation with its own government (ISO 3166).",
+      "properties": [
+        {
+          "name": "Countrycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CustomerCampaign",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "CustomerCampaignType",
+          "type": "object",
+          "ref": "Customercampaigntypevalues"
+        },
+        {
+          "name": "CampaignType",
+          "type": "object",
+          "ref": "Campaigntypevalues"
+        },
+        {
+          "name": "CampaignVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CampaignDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CampaignPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "CustomerRelationship",
+      "kind": "object",
+      "description": "This reflects achieving one or more goals related to improving the ability of a company to quickly and effectively react to changes in its internal and external environment (organizational responsiveness) and the ability of a company to adapt to changes, scale operations, and modify processes without significant setbacks (organizational flexibility). ",
+      "properties": [
+        {
+          "name": "BusinessDevelopmentStrategyInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "CustomerRelationshipGoalInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "CustomerRelationshipGoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "CustomerRelationshipGoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerRelationshipGoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "CustomerRelationshipGoalDateandTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "CustomerRelationshipGoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        },
+        {
+          "name": "CustomerRelationshipGoalInvolvedParty",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CustomerRelationshipGoalPlannedAction",
+          "type": "object",
+          "ref": "PlannedAction"
+        },
+        {
+          "name": "CustomerRelationshipGoalPlannedActionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Customercampaigntypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ProductLaunchCampaign` - Introducing a new product or service to the market.\nIncludes teasers, pre-launch promotions, and launch events.\r\n* `BrandAwarenessCampaign` - Aimed at increasing visibility and recognition of the brand.\nUses a mix of media, including online ads, social media, and PR\r\n* `CustomerRetentionCampaign` - Focused on keeping existing customers engaged and loyal.\nIncludes loyalty programs, personalized offers, and exclusive events.\r\n* `ReferralCampaign` - Encouraging existing customers to refer new customers.\nOften incentivized with discounts or rewards for both the referrer and the new customer.\r\n* `ReactivationCampaign` - Targeting inactive or lapsed customers to re-engage them.\nIncludes special offers, updates, and personalized messages.\r\n* `Cross-SellingAndUpsellingCampaign` - Encouraging customers to purchase related or higher-end products.\nUses personalized recommendations and special offers.\r\n",
+      "enum_values": [
+        "ProductLaunchCampaign",
+        "BrandAwarenessCampaign",
+        "CustomerRetentionCampaign",
+        "ReferralCampaign",
+        "ReactivationCampaign",
+        "Cross-SellingAndUpsellingCampaign"
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date when the assessment expires. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Document that provides background or corroborating information regarding an assessment(s).",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "EmployeeDevelopment",
+      "kind": "object",
+      "description": "This reflects achieving one or more goals related to improving the ability of a company to quickly and effectively react to changes in its internal and external environment (organizational responsiveness) and the ability of a company to adapt to changes, scale operations, and modify processes without significant setbacks (organizational flexibility). ",
+      "properties": [
+        {
+          "name": "BusinessDevelopmentStrategyInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "EmployeeDevelopmentGoalInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "EmployeeDevelopmentGoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "EmployeeDevelopmentGoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EmployeeDevelopmentGoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "EmployeeDevelopmentGoalDateandTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "EmployeeDevelopmentGoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        },
+        {
+          "name": "EmployeeDevelopmentGoalInvolvedParty",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "EmployeeDevelopmentGoalPlannedAction",
+          "type": "object",
+          "ref": "PlannedAction"
+        },
+        {
+          "name": "EmployeeDevelopmentGoalPlannedActionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetime",
+      "kind": "object",
+      "description": "Key dates of financial instrument",
+      "properties": [
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "FinancialInstrumentDateType",
+          "type": "object",
+          "ref": "Financialinstrumentdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CouponDate` - Next payment date of an interest bearing financial instrument.(ISO20022)\r\n* `ExpiryDate` - Date on which a privilege expires.(ISO20022)\r\n* `FloatingRateFixingDate` - Date at which the interest rate of an interest bearing security will be calculated and reset, according to the terms of the issue.(ISO20022)\r\n* `MaturityDate` - Planned final repayment date at the time of issuance.(ISO20022)\r\n* `IssueDate` - Date at which the security was made available.(ISO20022)\r\n* `NextCallableDate` - Next date at which the issuer has the right to pay the security prior to maturity.(ISO20022)\r\n* `PutableDate` - Date at which the holder has the right to ask for redemption of the security prior to final maturity.(ISO20022)\r\n* `DatedDate` - First date at which a security begins to accrue interest.(ISO20022)\r\n* `FirstPaymentDate` - Date at which the first interest payment is due to holders of the security.(ISO20022)\r\n",
+      "enum_values": [
+        "CouponDate",
+        "ExpiryDate",
+        "FloatingRateFixingDate",
+        "MaturityDate",
+        "IssueDate",
+        "NextCallableDate",
+        "PutableDate",
+        "DatedDate",
+        "FirstPaymentDate"
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FinancialInstrumentIdentificationType",
+          "type": "object",
+          "ref": "Financialinstrumentidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `NASDAQ` - \r\n* `ISIN` - \r\n",
+      "enum_values": [
+        "NASDAQ",
+        "ISIN"
+      ]
+    },
+    {
+      "name": "Financialinstrumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Loan` - \r\n* `Bond` - \r\n* `Deposit` - \r\n* `Stock` - \r\n* `Option` - \r\n* `Share` - \r\n* `Debt` - Financial instruments evidencing moneys owed by the issuer to the holder on terms as specified. (ISO20022)\n\nAny type of instrument primarily classified as debt can be considered a debt instrument. Debt instruments are tools an individual, government entity, or business entity can utilize for the purpose of obtaining capital. Debt instruments provide capital to an entity that promises to repay the capital over time. Credit cards, credit lines, loans, and bonds can all be types of debt instruments. (Investopedia)\r\n* `Letterofcredit` - Instrument issued by a bank substituting its name and credit standing for that of its customer. A letter of credit is a written undertaking of the bank, issued for the account of a customer (the applicant), to honour a demand for payment, upon the beneficiary's compliance with the terms and conditions set forth in the undertaking. (ISO20022)\r\n* `Security` - Financial instruments representing a sum of rights of the investor vis-a-vis the issuer. (ISO20022)\r\n* `Derivative` - \r\n",
+      "enum_values": [
+        "Loan",
+        "Bond",
+        "Deposit",
+        "Stock",
+        "Option",
+        "Share",
+        "Debt",
+        "Letterofcredit",
+        "Security",
+        "Derivative"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "Goal",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Goal",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetime",
+      "kind": "object",
+      "description": "The key dates and times of Goal like Setting Data, Planning Date, Start Date, Review Date, Completion Date.",
+      "properties": [
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "GoalDateAndTimeType",
+          "type": "object",
+          "ref": "Goaldatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SettingDate` - \r\n* `PlanningDate` - \r\n* `StartDate` - \r\n* `ReviewDate` - \r\n* `CompletionDate` - \r\n",
+      "enum_values": [
+        "SettingDate",
+        "PlanningDate",
+        "StartDate",
+        "ReviewDate",
+        "CompletionDate"
+      ]
+    },
+    {
+      "name": "Goalstatus",
+      "kind": "object",
+      "description": "The lifecycle status of Goal like Goal Setting, Planning, Execution, Monitoring and Evaluation, Completion or Achievement, Maintenance or Sustainment, Closure or Renewal",
+      "properties": [
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "GoalStatusType",
+          "type": "object",
+          "ref": "Goalstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goalstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Setting` - \r\n* `Planning` - \r\n* `Execution` - \r\n* `MonitoringAndEvaluation` - \r\n* `CompletionOrAchievement` - \r\n* `MaintenanceOrSustainment` - \r\n* `ClosureOrRenewal` - \r\n",
+      "enum_values": [
+        "Setting",
+        "Planning",
+        "Execution",
+        "MonitoringAndEvaluation",
+        "CompletionOrAchievement",
+        "MaintenanceOrSustainment",
+        "ClosureOrRenewal"
+      ]
+    },
+    {
+      "name": "Goaltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Short-TermGoal` - \r\n* `Long-TermGoal` - \r\n* `BusinessGoal` - \r\n* `PerformanceGoal` - \r\n* `FinancialGoal` - \r\n* `OutcomeGoal` - \r\n* `SMARTGoal` - \r\n",
+      "enum_values": [
+        "Short-TermGoal",
+        "Long-TermGoal",
+        "BusinessGoal",
+        "PerformanceGoal",
+        "FinancialGoal",
+        "OutcomeGoal",
+        "SMARTGoal"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "A unique reference to an item or an occurrence of CR",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Jurisdiction",
+      "kind": "object",
+      "description": "    \nJurisdiction of the governing law for the trades on this market, for example, City of NY, County of NY, State of NY, regulatory SEC.(ISO20022)",
+      "properties": [
+        {
+          "name": "Jurisdiction",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Market",
+      "kind": "object",
+      "description": "Market that is subject of the market research\n\n",
+      "properties": [
+        {
+          "name": "MarketType",
+          "type": "object",
+          "ref": "Markettypevalues"
+        },
+        {
+          "name": "MarketIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "MarketCountry",
+          "type": "object",
+          "ref": "Country"
+        },
+        {
+          "name": "MarketJurisdiction",
+          "type": "object",
+          "ref": "Jurisdiction"
+        }
+      ]
+    },
+    {
+      "name": "MarketResearch",
+      "kind": "object",
+      "description": "Reference to a market research used to define the business development goal",
+      "properties": [
+        {
+          "name": "MarketResearchSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketResearchViewpoint",
+          "type": "object",
+          "ref": "Marketresearchviewpointtypevalues"
+        },
+        {
+          "name": "MarketResearchApproach",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketResearchPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ResearchedMarket",
+          "type": "object",
+          "ref": "Market"
+        },
+        {
+          "name": "MarketResearchAspectType",
+          "type": "object",
+          "ref": "Marketresearchaspecttypevalues"
+        },
+        {
+          "name": "MarketResearchDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketResearchDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Marketing",
+      "kind": "object",
+      "description": "This reflects achieving one or more goals related to improving the ability of a company to quickly and effectively react to changes in its internal and external environment (organizational responsiveness) and the ability of a company to adapt to changes, scale operations, and modify processes without significant setbacks (organizational flexibility). ",
+      "properties": [
+        {
+          "name": "BusinessDevelopmentStrategyInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "MarketingGoalInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "MarketingGoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "MarketingGoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MarketingGoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "MarketingGoalDateandTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "MarketingGoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        },
+        {
+          "name": "MarketingGoalInvolvedParty",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "MarketingGoalPlannedAction",
+          "type": "object",
+          "ref": "PlannedAction"
+        },
+        {
+          "name": "MarketingGoalPlannedActionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Marketresearchaspecttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MarketSize` - \r\n* `MarktTrends` - \r\n* `TargetMarket` - \r\n* `ConsumerBehavior` - \r\n* `CompetitiveAnalysis` - \r\n* `ProductOrServiceAnalysis` - \r\n* `PricingStrategy` - \r\n* `DistributionChannels` - \r\n* `MarketingAndAdvertising` - \r\n* `BrandingAndPositioning` - \r\n* `CustomerDemographics` - \r\n* `CustomerPsychographics` - \r\n* `TechnologyAndInnovation` - \r\n* `RegulatoryFactors` - \r\n* `EnvironmentalFactors` - \r\n* `CustomerJourneyAndExperience` - \r\n* `MarketEntry` - \r\n* `MarketExpansion` - \r\n",
+      "enum_values": [
+        "MarketSize",
+        "MarktTrends",
+        "TargetMarket",
+        "ConsumerBehavior",
+        "CompetitiveAnalysis",
+        "ProductOrServiceAnalysis",
+        "PricingStrategy",
+        "DistributionChannels",
+        "MarketingAndAdvertising",
+        "BrandingAndPositioning",
+        "CustomerDemographics",
+        "CustomerPsychographics",
+        "TechnologyAndInnovation",
+        "RegulatoryFactors",
+        "EnvironmentalFactors",
+        "CustomerJourneyAndExperience",
+        "MarketEntry",
+        "MarketExpansion"
+      ]
+    },
+    {
+      "name": "Marketresearchviewpointtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerViewpoint` - \r\n* `CompetitorViewpoint` - \r\n* `MarketDynamicsViewpoint` - \r\n* `ProductServiceViewpoint` - \r\n* `GeographicViewpoint` - \r\n* `EconomicAndPoliticalViewpoint` - \r\n* `TechnologicalViewpoint` - \r\n* `EnvironmentalAndSustainabilityViewpoint` - \r\n* `ChannelAndDistributionViewpoint` - \r\n* `FinancialViewpoint` - \r\n",
+      "enum_values": [
+        "CustomerViewpoint",
+        "CompetitorViewpoint",
+        "MarketDynamicsViewpoint",
+        "ProductServiceViewpoint",
+        "GeographicViewpoint",
+        "EconomicAndPoliticalViewpoint",
+        "TechnologicalViewpoint",
+        "EnvironmentalAndSustainabilityViewpoint",
+        "ChannelAndDistributionViewpoint",
+        "FinancialViewpoint"
+      ]
+    },
+    {
+      "name": "Markettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialMarket` - \r\n* `GeneralMarket` - \r\n",
+      "enum_values": [
+        "FinancialMarket",
+        "GeneralMarket"
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of Goal",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "OperationalEfficiency",
+      "kind": "object",
+      "description": "This reflects achieving one or more goals related to improving the ability of a company to quickly and effectively react to changes in its internal and external environment (organizational responsiveness) and the ability of a company to adapt to changes, scale operations, and modify processes without significant setbacks (organizational flexibility). ",
+      "properties": [
+        {
+          "name": "BusinessDevelopmentStrategyInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "OperationalEfficiencyGoalInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "OperationalEfficiencyGoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "OperationalEfficiencyGoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OperationalEfficiencyGoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "OperationalEfficiencyGoalDateandTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "OperationalEfficiencyGoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        },
+        {
+          "name": "OperationalEfficiencyGoalInvolvedParty",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "OperationalEfficiencyGoalPlannedAction",
+          "type": "object",
+          "ref": "PlannedAction"
+        },
+        {
+          "name": "OperationalEfficiencyGoalPlannedActionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Organization",
+      "kind": "object",
+      "description": "This reflects achieving one or more goals related to improving the ability of a company to quickly and effectively react to changes in its internal and external environment (organizational responsiveness) and the ability of a company to adapt to changes, scale operations, and modify processes without significant setbacks (organizational flexibility). ",
+      "properties": [
+        {
+          "name": "BusinessDevelopmentStrategyInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "OrganizationGoalInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "OrganizationGoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "OrganizationGoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganizationGoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "OrganizationGoalDateandTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "OrganizationGoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        },
+        {
+          "name": "OrganizationGoalInvolvedParty",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "OrganizationGoalPlannedAction",
+          "type": "object",
+          "ref": "PlannedAction"
+        },
+        {
+          "name": "OrganizationGoalPlannedActionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "OrganizationalResponsivenessandFlexibility",
+      "kind": "object",
+      "description": "This reflects achieving one or more goals related to improving the ability of a company to quickly and effectively react to changes in its internal and external environment (organizational responsiveness) and the ability of a company to adapt to changes, scale operations, and modify processes without significant setbacks (organizational flexibility). ",
+      "properties": [
+        {
+          "name": "BusinessDevelopmentStrategyInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalDateandTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalInvolvedParty",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalPlannedAction",
+          "type": "object",
+          "ref": "PlannedAction"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalPlannedActionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "PlannedAction",
+      "kind": "object",
+      "description": "Refers to the intended action required to achieve the goal",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Plannedaction",
+      "kind": "object",
+      "description": "An action that is arranged in a plan for doing or achieving something ",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Plantypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `AdministrativePlan` - \r\n* `ManagementPlan` - \r\n* `StratgyPlan` - \r\n* `FinancialPlan` - \r\n* `DevelopmentPlan` - \r\n",
+      "enum_values": [
+        "AdministrativePlan",
+        "ManagementPlan",
+        "StratgyPlan",
+        "FinancialPlan",
+        "DevelopmentPlan"
+      ]
+    },
+    {
+      "name": "Product",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ProductIdentification",
+          "type": "object",
+          "ref": "Productidentification"
+        },
+        {
+          "name": "ProductType",
+          "type": "object",
+          "ref": "Bankingproducttypevalues"
+        },
+        {
+          "name": "ProductLifecycleStatus",
+          "type": "object",
+          "ref": "Productstatus"
+        },
+        {
+          "name": "ProductPriority",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentType",
+          "type": "object",
+          "ref": "Financialinstrumenttypevalues"
+        },
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Financialinstrumentidentification"
+        },
+        {
+          "name": "FinancialInstrumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Financialinstrumentdatetime"
+        },
+        {
+          "name": "AssetTitle",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AssetType",
+          "type": "object",
+          "ref": "Assettypevalues"
+        },
+        {
+          "name": "AssetDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssetDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetClassification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetClassificationType",
+          "type": "object",
+          "ref": "Assetclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassificationType",
+          "type": "object",
+          "ref": "Assetsubclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductDeliveryCapacity",
+      "kind": "object",
+      "description": "This reflects achieving one or more goals related to improving the ability of a company to quickly and effectively react to changes in its internal and external environment (organizational responsiveness) and the ability of a company to adapt to changes, scale operations, and modify processes without significant setbacks (organizational flexibility). ",
+      "properties": [
+        {
+          "name": "ProductDeliveryCapacityStrategyInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ProductDeliveryCapacityGoalInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ProductDeliveryCapacityGoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ProductDeliveryCapacityGoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductDeliveryCapacityGoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "ProductDeliveryCapacityGoalDateandTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "ProductDeliveryCapacityGoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        },
+        {
+          "name": "ProductDeliveryCapacityGoalInvolvedParty",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "ProductDeliveryCapacityGoalPlannedAction",
+          "type": "object",
+          "ref": "PlannedAction"
+        },
+        {
+          "name": "ProductDeliveryCapacityGoalPlannedActionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "ProductReference",
+          "type": "object",
+          "ref": "Product"
+        },
+        {
+          "name": "CustomerCampaignReference",
+          "type": "object",
+          "ref": "CustomerCampaign"
+        }
+      ]
+    },
+    {
+      "name": "Productidentification",
+      "kind": "object",
+      "description": "The identifier of product e.g. ISIN Code.",
+      "properties": [
+        {
+          "name": "ProductIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ProductIdentificationType",
+          "type": "object",
+          "ref": "Productidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ISINCode` - \r\n* `PackageCode` - \r\n* `Buyersitemnumber` - Product identifier assigned by the buyer.\r\n* `Commercialdescriptioncodename` - A code to identify a product based on applicable commercial conditions.\r\n* `EAN` - The unique EAN (European Article Number) code.\r\n* `Harmonizedtariffcodename` - Classification of goods as developed by the Customs Cooperation council.\r\n* `Manufacturersitemnumber` - Product identifier as assigned by the manufacturer.\r\n* `Modelnumber` - Reference number assigned by the manufacturer to differentiate variations in similar products in a class or group.\r\n* `Partnumber` - Reference assigned by the manufacturer to a product part.\r\n* `Quotacategory` - Product identifier used by the retail industry.\r\n* `Stylenumber` - Identification of the style of a product.\r\n* `Suppliersitemnumber` - Number assigned to an article by the supplier of that article.\r\n* `Universalproductcode` - Number assigned to a manufacturer's product by the Product Code Council.\r\n",
+      "enum_values": [
+        "ISINCode",
+        "PackageCode",
+        "Buyersitemnumber",
+        "Commercialdescriptioncodename",
+        "EAN",
+        "Harmonizedtariffcodename",
+        "Manufacturersitemnumber",
+        "Modelnumber",
+        "Partnumber",
+        "Quotacategory",
+        "Stylenumber",
+        "Suppliersitemnumber",
+        "Universalproductcode"
+      ]
+    },
+    {
+      "name": "Productstatus",
+      "kind": "object",
+      "description": "Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).",
+      "properties": [
+        {
+          "name": "ProductStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ProductStatusType",
+          "type": "object",
+          "ref": "Productstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Announced` - \r\n* `Sold` - \r\n* `Obsolete` - \r\n* `Active` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Announced",
+        "Sold",
+        "Obsolete",
+        "Active"
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "RuleSet",
+      "kind": "object",
+      "description": "Specific policies and guidelines that govern the application of the strategy",
+      "properties": [
+        {
+          "name": "RuleSetDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetInterpretation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetType",
+          "type": "object",
+          "ref": "Rulesettypevalues"
+        },
+        {
+          "name": "RuleSetName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "RuleSetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "RuleSetLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Ruleset",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RuleSet",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Rulesettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Policy` - Rule that governs business execution.\n\nThe set of basic principles and associated guidelines, formulated and enforced by the governing body of an organization, to direct and limit its actions in pursuit of long-term goals. (Business Dictionary)\n\r\n* `Regulation` - A rule used to carry out a law (FIBO)\n\nBusiness Dictionary: a rule (with or without the coercive power of law) employed in controlling, directing, or managing an activity, organization, or system. \n\nThe set of rules and legislation governing certain actions. \nhttps://financial-dictionary.thefreedictionary.com/Regulatory\r\n* `Law` - A binding rule that the courts will enforce.\nA system of rules and guidelines which are enforced through social institutions to govern behavior. (FIBO)\n\r\n* `Guideline` - A recommended practice (adapted from Business Dictionary)\nA general rule, principle, or piece of advice.\r\n* `Criterion` - A principle or standard by which something may be judged or decided.\n\nRead more: http://www.businessdictionary.com/definition/criterion.html\r\n* `Standard` - A rule considered by an authority or by general consent as a basis of comparison\r\n",
+      "enum_values": [
+        "Policy",
+        "Regulation",
+        "Law",
+        "Guideline",
+        "Criterion",
+        "Standard"
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule of action planned to achieve the goal",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Survey",
+      "kind": "object",
+      "description": "Reference to a survey that is holding the result of assessment or analysis of Driver/Concern that motivates an organization to define its goals",
+      "properties": [
+        {
+          "name": "SurveyType",
+          "type": "object",
+          "ref": "Surveytypevalues"
+        },
+        {
+          "name": "SurveyDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SurveyDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SurveyVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SurveyAspectType",
+          "type": "object",
+          "ref": "Surveyaspecttypevalues"
+        },
+        {
+          "name": "ServeyCriteria",
+          "type": "object",
+          "ref": "Ruleset"
+        }
+      ]
+    },
+    {
+      "name": "Surveyaspecttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Demographics` - \r\n* `ProductOrServiceUsage` - \r\n* `Satisfaction` - \r\n* `Experience` - \r\n* `ProductOrServiceQuality` - \r\n* `BrandPerception` - \r\n* `Price` - \r\n* `Competitor` - \r\n* `CommunicationPreferences` - \r\n* `Accessibility` - \r\n* `Loyalty` - \r\n* `EnvironmentalAndSocialResponsibility` - \r\n",
+      "enum_values": [
+        "Demographics",
+        "ProductOrServiceUsage",
+        "Satisfaction",
+        "Experience",
+        "ProductOrServiceQuality",
+        "BrandPerception",
+        "Price",
+        "Competitor",
+        "CommunicationPreferences",
+        "Accessibility",
+        "Loyalty",
+        "EnvironmentalAndSocialResponsibility"
+      ]
+    },
+    {
+      "name": "Surveytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerSurvey` - Targeted at customers to gather feedback on products or services.\nExamples: Post-purchase surveys, net promoter score (NPS) surveys.\r\n* `EmployeeSurvey` - Targeted at employees to gauge job satisfaction, engagement, and opinions.\nExamples: Employee engagement surveys, 360-degree feedback surveys.\r\n* `MarketResearchSurvey` - Conducted to understand market trends, preferences, and behaviors.\nExamples: Brand awareness surveys, product concept tests\r\n* `AcademicSurvey` - Used in research studies to gather data for academic purposes.\nExamples: Surveys for theses, dissertations, or scholarly research.\r\n",
+      "enum_values": [
+        "CustomerSurvey",
+        "EmployeeSurvey",
+        "MarketResearchSurvey",
+        "AcademicSurvey"
+      ]
+    },
+    {
+      "name": "SustainabilityandCorporateSocialResponsibility",
+      "kind": "object",
+      "description": "This reflects achieving one or more goals related to improving the ability of a company to quickly and effectively react to changes in its internal and external environment (organizational responsiveness) and the ability of a company to adapt to changes, scale operations, and modify processes without significant setbacks (organizational flexibility). ",
+      "properties": [
+        {
+          "name": "BusinessDevelopmentStrategyInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalInstanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalDateandTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalInvolvedParty",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalPlannedAction",
+          "type": "object",
+          "ref": "PlannedAction"
+        },
+        {
+          "name": "OrganizationalResponsivenessandFlexibilityGoalPlannedActionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "BusinessDevelopmentStrategy",
+        "operations": [
+          "Update",
+          "Grant",
+          "Exchange",
+          "Create",
+          "Request",
+          "Retrieve",
+          "Capture"
+        ]
+      }
+    ],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/BusinessDevelopment.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "f3d00afae52fac28851b53906d25badd84b36021f685200fc4f5703ef8544535",
+    "retrieved_at": "2026-09-12T22:09:27.365993+00:00"
+  }
+}

@@ -1,0 +1,1447 @@
+{
+  "service_domain": "Trade Confirmation Matching",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/Exchange",
+      "tipo": "CR",
+      "grupo": "TradeMatchingOperatingSession",
+      "request_schema": "TradeMatchingOperatingSession",
+      "response_schema": "TradeMatchingOperatingSession",
+      "summary": "Exchange Trade Matching Operating Session",
+      "description": "Exchange Trade Matching Operating Session"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/Control",
+      "tipo": "CR",
+      "grupo": "TradeMatchingOperatingSession",
+      "request_schema": "TradeMatchingOperatingSession",
+      "response_schema": "TradeMatchingOperatingSession",
+      "summary": "Control Trade Matching Operating Session",
+      "description": "Control Trade Matching Operating Session"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/Execute",
+      "tipo": "CR",
+      "grupo": "TradeMatchingOperatingSession",
+      "request_schema": "TradeMatchingOperatingSession",
+      "response_schema": "TradeMatchingOperatingSession",
+      "summary": "Execute Trade Matching Operating Session",
+      "description": "Execute Trade Matching Operating Session"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/TradeConfirmationMatching/Initiate",
+      "tipo": "CR",
+      "grupo": "TradeMatchingOperatingSession",
+      "request_schema": "TradeMatchingOperatingSession",
+      "response_schema": "TradeMatchingOperatingSession",
+      "summary": "Initiate Trade Matching Operating Session",
+      "description": "Initiate Trade Matching Operating Session"
+    },
+    {
+      "operation_id": "Notify",
+      "method": "GET",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/Notify",
+      "tipo": "CR",
+      "grupo": "TradeMatchingOperatingSession",
+      "request_schema": "",
+      "response_schema": "TradeMatchingOperatingSession",
+      "summary": "Notify Trade Matching Operating Session",
+      "description": "Notify Trade Matching Operating Session"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/Request",
+      "tipo": "CR",
+      "grupo": "TradeMatchingOperatingSession",
+      "request_schema": "TradeMatchingOperatingSession",
+      "response_schema": "TradeMatchingOperatingSession",
+      "summary": "Request Trade Matching Operating Session",
+      "description": "Request Trade Matching Operating Session"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/Update",
+      "tipo": "CR",
+      "grupo": "TradeMatchingOperatingSession",
+      "request_schema": "TradeMatchingOperatingSession",
+      "response_schema": "TradeMatchingOperatingSession",
+      "summary": "Update Trade Matching Operating Session",
+      "description": "Update Trade Matching Operating Session"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "TradeMatchingOperatingSession",
+      "request_schema": "",
+      "response_schema": "TradeMatchingOperatingSession",
+      "summary": "Retrieve Trade Matching Operating Session",
+      "description": "Retrieve Trade Matching Operating Session"
+    },
+    {
+      "operation_id": "ExchangeTransactionConfirmationAffirmation",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionConfirmationAffirmation/{transactionconfirmationaffirmationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "TransactionConfirmationAffirmation",
+      "request_schema": "TransactionConfirmationAffirmation",
+      "response_schema": "TransactionConfirmationAffirmation",
+      "summary": "Exchange Transaction Confirmation/Affirmation Function",
+      "description": "Exchange Transaction Confirmation/Affirmation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "ExchangeUnmatchedMarketTradeEscalation",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/UnmatchedMarketTradeEscalation/{unmatchedmarkettradeescalationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "UnmatchedMarketTradeEscalation",
+      "request_schema": "UnmatchedMarketTradeEscalation",
+      "response_schema": "UnmatchedMarketTradeEscalation",
+      "summary": "Exchange Unmatched Market Trade Escalation Function",
+      "description": "Exchange Unmatched Market Trade Escalation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteTransactionConfirmationAffirmation",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionConfirmationAffirmation/{transactionconfirmationaffirmationid}/Execute",
+      "tipo": "BQ",
+      "grupo": "TransactionConfirmationAffirmation",
+      "request_schema": "TransactionConfirmationAffirmation",
+      "response_schema": "TransactionConfirmationAffirmation",
+      "summary": "Execute Transaction Confirmation/Affirmation Function",
+      "description": "Execute Transaction Confirmation/Affirmation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "ExchangeTransactionReporting",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionReporting/{transactionreportingid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "TransactionReporting",
+      "request_schema": "TransactionReporting",
+      "response_schema": "TransactionReporting",
+      "summary": "Exchange Transaction Reporting Function",
+      "description": "Exchange Transaction Reporting Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "InitiateTransactionConfirmationAffirmation",
+      "method": "POST",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionConfirmationAffirmation/Initiate",
+      "tipo": "BQ",
+      "grupo": "TransactionConfirmationAffirmation",
+      "request_schema": "TransactionConfirmationAffirmation",
+      "response_schema": "TransactionConfirmationAffirmation",
+      "summary": "Initiate Transaction Confirmation/Affirmation Function",
+      "description": "Initiate Transaction Confirmation/Affirmation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteTransactionReporting",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionReporting/{transactionreportingid}/Execute",
+      "tipo": "BQ",
+      "grupo": "TransactionReporting",
+      "request_schema": "TransactionReporting",
+      "response_schema": "TransactionReporting",
+      "summary": "Execute Transaction Reporting Function",
+      "description": "Execute Transaction Reporting Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "InitiateTransactionReporting",
+      "method": "POST",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionReporting/Initiate",
+      "tipo": "BQ",
+      "grupo": "TransactionReporting",
+      "request_schema": "TransactionReporting",
+      "response_schema": "TransactionReporting",
+      "summary": "Initiate Transaction Reporting Function",
+      "description": "Initiate Transaction Reporting Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "NotifyTransactionConfirmationAffirmation",
+      "method": "GET",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionConfirmationAffirmation/{transactionconfirmationaffirmationid}/Notify",
+      "tipo": "BQ",
+      "grupo": "TransactionConfirmationAffirmation",
+      "request_schema": "",
+      "response_schema": "TransactionConfirmationAffirmation",
+      "summary": "Notify Transaction Confirmation/Affirmation Function",
+      "description": "Notify Transaction Confirmation/Affirmation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteUnmatchedMarketTradeEscalation",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/UnmatchedMarketTradeEscalation/{unmatchedmarkettradeescalationid}/Execute",
+      "tipo": "BQ",
+      "grupo": "UnmatchedMarketTradeEscalation",
+      "request_schema": "UnmatchedMarketTradeEscalation",
+      "response_schema": "UnmatchedMarketTradeEscalation",
+      "summary": "Execute Unmatched Market Trade Escalation Function",
+      "description": "Execute Unmatched Market Trade Escalation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "InitiateUnmatchedMarketTradeEscalation",
+      "method": "POST",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/UnmatchedMarketTradeEscalation/Initiate",
+      "tipo": "BQ",
+      "grupo": "UnmatchedMarketTradeEscalation",
+      "request_schema": "UnmatchedMarketTradeEscalation",
+      "response_schema": "UnmatchedMarketTradeEscalation",
+      "summary": "Initiate Unmatched Market Trade Escalation Function",
+      "description": "Initiate Unmatched Market Trade Escalation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "RequestTransactionConfirmationAffirmation",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionConfirmationAffirmation/{transactionconfirmationaffirmationid}/Request",
+      "tipo": "BQ",
+      "grupo": "TransactionConfirmationAffirmation",
+      "request_schema": "TransactionConfirmationAffirmation",
+      "response_schema": "TransactionConfirmationAffirmation",
+      "summary": "Request Transaction Confirmation/Affirmation Function",
+      "description": "Request Transaction Confirmation/Affirmation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "NotifyTransactionReporting",
+      "method": "GET",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionReporting/{transactionreportingid}/Notify",
+      "tipo": "BQ",
+      "grupo": "TransactionReporting",
+      "request_schema": "",
+      "response_schema": "TransactionReporting",
+      "summary": "Notify Transaction Reporting Function",
+      "description": "Notify Transaction Reporting Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "RequestTransactionReporting",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionReporting/{transactionreportingid}/Request",
+      "tipo": "BQ",
+      "grupo": "TransactionReporting",
+      "request_schema": "TransactionReporting",
+      "response_schema": "TransactionReporting",
+      "summary": "Request Transaction Reporting Function",
+      "description": "Request Transaction Reporting Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "NotifyUnmatchedMarketTradeEscalation",
+      "method": "GET",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/UnmatchedMarketTradeEscalation/{unmatchedmarkettradeescalationid}/Notify",
+      "tipo": "BQ",
+      "grupo": "UnmatchedMarketTradeEscalation",
+      "request_schema": "",
+      "response_schema": "UnmatchedMarketTradeEscalation",
+      "summary": "Notify Unmatched Market Trade Escalation Function",
+      "description": "Notify Unmatched Market Trade Escalation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveTransactionConfirmationAffirmation",
+      "method": "GET",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionConfirmationAffirmation/{transactionconfirmationaffirmationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "TransactionConfirmationAffirmation",
+      "request_schema": "",
+      "response_schema": "TransactionConfirmationAffirmation",
+      "summary": "Retrieve Transaction Confirmation/Affirmation Function",
+      "description": "Retrieve Transaction Confirmation/Affirmation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveTransactionReporting",
+      "method": "GET",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionReporting/{transactionreportingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "TransactionReporting",
+      "request_schema": "",
+      "response_schema": "TransactionReporting",
+      "summary": "Retrieve Transaction Reporting Function",
+      "description": "Retrieve Transaction Reporting Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "RequestUnmatchedMarketTradeEscalation",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/UnmatchedMarketTradeEscalation/{unmatchedmarkettradeescalationid}/Request",
+      "tipo": "BQ",
+      "grupo": "UnmatchedMarketTradeEscalation",
+      "request_schema": "UnmatchedMarketTradeEscalation",
+      "response_schema": "UnmatchedMarketTradeEscalation",
+      "summary": "Request Unmatched Market Trade Escalation Function",
+      "description": "Request Unmatched Market Trade Escalation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "UpdateTransactionReporting",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionReporting/{transactionreportingid}/Update",
+      "tipo": "BQ",
+      "grupo": "TransactionReporting",
+      "request_schema": "TransactionReporting",
+      "response_schema": "TransactionReporting",
+      "summary": "Update Transaction Reporting Function",
+      "description": "Update Transaction Reporting Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveUnmatchedMarketTradeEscalation",
+      "method": "GET",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/UnmatchedMarketTradeEscalation/{unmatchedmarkettradeescalationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "UnmatchedMarketTradeEscalation",
+      "request_schema": "",
+      "response_schema": "UnmatchedMarketTradeEscalation",
+      "summary": "Retrieve Unmatched Market Trade Escalation Function",
+      "description": "Retrieve Unmatched Market Trade Escalation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "UpdateTransactionConfirmationAffirmation",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/TransactionConfirmationAffirmation/{transactionconfirmationaffirmationid}/Update",
+      "tipo": "BQ",
+      "grupo": "TransactionConfirmationAffirmation",
+      "request_schema": "TransactionConfirmationAffirmation",
+      "response_schema": "TransactionConfirmationAffirmation",
+      "summary": "Update Transaction Confirmation/Affirmation Function",
+      "description": "Update Transaction Confirmation/Affirmation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    },
+    {
+      "operation_id": "UpdateUnmatchedMarketTradeEscalation",
+      "method": "PUT",
+      "path": "/TradeConfirmationMatching/{tradeconfirmationmatchingid}/UnmatchedMarketTradeEscalation/{unmatchedmarkettradeescalationid}/Update",
+      "tipo": "BQ",
+      "grupo": "UnmatchedMarketTradeEscalation",
+      "request_schema": "UnmatchedMarketTradeEscalation",
+      "response_schema": "UnmatchedMarketTradeEscalation",
+      "summary": "Update Unmatched Market Trade Escalation Function",
+      "description": "Update Unmatched Market Trade Escalation Function",
+      "parent_control_record": "TradeMatchingOperatingSession"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "BusinessService",
+    "Businessservicetypevalues",
+    "Condition",
+    "Conditionstatustypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Duration",
+    "Event",
+    "Feature",
+    "Featuretypevalues",
+    "Function",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Location",
+    "Log",
+    "Name",
+    "Schedule",
+    "Servicetype",
+    "Servicetypevalues",
+    "Session",
+    "Sessiontype",
+    "Sessiontypevalues",
+    "Status",
+    "SystemConfigurationOption",
+    "Termandconditiontypevalues",
+    "TradeConfirmationMatchingOutcome",
+    "TradeMatchingOperatingSession",
+    "TransactionConfirmationAffirmation",
+    "TransactionReporting",
+    "UnmatchedMarketTradeEscalation"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "BusinessService",
+      "kind": "object",
+      "description": "The Transaction Reporting Function specific Business Service",
+      "properties": [
+        {
+          "name": "BusinessServiceType",
+          "type": "object",
+          "ref": "Businessservicetypevalues"
+        },
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Businessservicetypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Businessservicetypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Condition",
+      "kind": "object",
+      "description": "The required status/situation and or tasks that need to be completed prior to the invocation of the feature",
+      "properties": [
+        {
+          "name": "ConditionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ConditionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ConditionValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ConditionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ConditionStatus",
+          "type": "object",
+          "ref": "Conditionstatustypevalues"
+        },
+        {
+          "name": "ConditionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ConditionType",
+          "type": "object",
+          "ref": "Termandconditiontypevalues"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Conditionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Defined` - Condition is authored or configured\r\n* `Pending` - Awaiting approval or validation\r\n* `Activated` - Live and ready for evaluation\r\n* `Evaluated` - Assessed in context of process or event\r\n* `Fulfilled` - Condition criteria met\r\n* `Violated` - Condition criteria not met\r\n* `Expired` - No longer valid due to time/version limits\r\n* `Archived` - Retired from use, retained for audit/history\r\n",
+      "enum_values": [
+        "Defined",
+        "Pending",
+        "Activated",
+        "Evaluated",
+        "Fulfilled",
+        "Violated",
+        "Expired",
+        "Archived"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The validity period of Condition",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "The time the session was active",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Event",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "Function",
+      "kind": "object",
+      "description": "Reference to Transaction Reporting Function",
+      "properties": [
+        {
+          "name": "Function",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "The identifier of Condition",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Reference to the log of (usage) ativities/events  of Trade Matching Operating Session",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of Condition",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the function",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetype",
+      "kind": "object",
+      "description": "A Classification value that distinguishes between the type of services within Trade Matching Operating Session",
+      "properties": [
+        {
+          "name": "ServiceTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Session",
+      "kind": "object",
+      "description": "Reference to Transaction Reporting Function",
+      "properties": [
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontype",
+      "kind": "object",
+      "description": "Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.",
+      "properties": [
+        {
+          "name": "SessionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ContactHandlingSession` - \r\n* `CustomerDialogueSession` - \r\n* `ChannelOperatingSession` - \r\n* `GatewayOperatingSession` - \r\n* `SwitchOperatingSession` - \r\n* `DeviceOperatingSession` - \r\n* `InterbankTransactionOperatingSession` - \r\n* `CorrespondenceOperatingSession` - \r\n* `InteractiveHelpOperatingSession` - \r\n* `ACHOperatingSession` - \r\n",
+      "enum_values": [
+        "ContactHandlingSession",
+        "CustomerDialogueSession",
+        "ChannelOperatingSession",
+        "GatewayOperatingSession",
+        "SwitchOperatingSession",
+        "DeviceOperatingSession",
+        "InterbankTransactionOperatingSession",
+        "CorrespondenceOperatingSession",
+        "InteractiveHelpOperatingSession",
+        "ACHOperatingSession"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "SystemConfigurationOption",
+      "kind": "object",
+      "description": "The configuration of Trade Matching Operating Session",
+      "properties": [
+        {
+          "name": "SystemConfigurationOption",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Termandconditiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommissionTermAndCondition` - Commission terms for workforce/employee commission processing\r\n* `LegalTermAndCondition` - Covers the legal considerations of the agreement\r\n* `RegulatoryTermAndCondition` - Covers the regulatory considerations of the agreement\r\n* `PolicyTermAndCondition` - Covers the corporate policies and requirements considerations of the agreement\r\n* `RestrictionTermAndCondition` - Details channel access restrictions for products and services\r\n* `PreferenceTermAndCondition` - Customer channel/device usage preferences\r\n* `InvestmentTermAndCondition` - Terms making up the agreement that govern the management of the investment portfolio. Note that there may be many different types of terms and clauses making up the overall policy\r\n* `MandateTermAndCondition` - Reference to the terms in force for a specific customer for this service provider\r\n* `OperationalTermAndCondition` - \r\n* `ProductTermAndCondition` - \r\n* `AgreementTermAndCondition` - \r\n* `RelationshipTermAndCondition` - \r\n* `ConfidentialTermAndCondition` - \r\n",
+      "enum_values": [
+        "CommissionTermAndCondition",
+        "LegalTermAndCondition",
+        "RegulatoryTermAndCondition",
+        "PolicyTermAndCondition",
+        "RestrictionTermAndCondition",
+        "PreferenceTermAndCondition",
+        "InvestmentTermAndCondition",
+        "MandateTermAndCondition",
+        "OperationalTermAndCondition",
+        "ProductTermAndCondition",
+        "AgreementTermAndCondition",
+        "RelationshipTermAndCondition",
+        "ConfidentialTermAndCondition"
+      ]
+    },
+    {
+      "name": "TradeConfirmationMatchingOutcome",
+      "kind": "object",
+      "description": "An operational service or function supported within the Transaction Reporting Function for doing Transaction Reporting Function",
+      "properties": [
+        {
+          "name": "TradeConfirmationMatchingIncident",
+          "type": "object",
+          "ref": "Event"
+        },
+        {
+          "name": "TradeConfirmationMatchingProvision",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "TradeMatchingOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within Trade Confirmation Matching. ",
+      "properties": [
+        {
+          "name": "TradeMatchingOperatingSessionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "TradeMatchingOperatingSessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "TradeMatchingOperatingSessionUsageLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "TradeMatchingOperatingSessionAssociatedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "TradeMatchingOperatingSessionServiceProviderReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "TradeMatchingOperatingSessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "TradeMatchingOperatingSessionServiceProviderSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "TradeMatchingOperatingSessionServiceType",
+          "type": "object",
+          "ref": "Servicetype"
+        },
+        {
+          "name": "TradeMatchingOperatingSessionServiceConfiguration",
+          "type": "object",
+          "ref": "SystemConfigurationOption"
+        },
+        {
+          "name": "TradeMatchingOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        }
+      ]
+    },
+    {
+      "name": "TransactionConfirmationAffirmation",
+      "kind": "object",
+      "description": "An operational service or function supported within the Transaction Reporting Function for doing Transaction Reporting Function",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "TradeMatchingOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "TransactionConfirmationorAffirmationFunctionReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "TransactionConfirmationorAffirmationFunctionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "TransactionReporting",
+      "kind": "object",
+      "description": "An operational service or function supported within the Transaction Reporting Function for doing Transaction Reporting Function",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "TradeMatchingOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "TransactionReportingFunctionReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "TransactionReportingFunctionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "UnmatchedMarketTradeEscalation",
+      "kind": "object",
+      "description": "An operational service or function supported within the Transaction Reporting Function for doing Transaction Reporting Function",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "TradeMatchingOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "UnmatchedMarketTradeEscalationFunctionReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "UnmatchedMarketTradeEscalationFunctionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "TradeMatchingOperatingSession",
+        "operations": [
+          "Exchange",
+          "Control",
+          "Execute",
+          "Initiate",
+          "Notify",
+          "Request",
+          "Update",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "TransactionConfirmationAffirmation",
+        "parent_control_record": "TradeMatchingOperatingSession",
+        "operations": [
+          "ExchangeTransactionConfirmationAffirmation",
+          "ExecuteTransactionConfirmationAffirmation",
+          "InitiateTransactionConfirmationAffirmation",
+          "NotifyTransactionConfirmationAffirmation",
+          "RequestTransactionConfirmationAffirmation",
+          "RetrieveTransactionConfirmationAffirmation",
+          "UpdateTransactionConfirmationAffirmation"
+        ]
+      },
+      {
+        "name": "TransactionReporting",
+        "parent_control_record": "TradeMatchingOperatingSession",
+        "operations": [
+          "ExchangeTransactionReporting",
+          "ExecuteTransactionReporting",
+          "InitiateTransactionReporting",
+          "NotifyTransactionReporting",
+          "RequestTransactionReporting",
+          "RetrieveTransactionReporting",
+          "UpdateTransactionReporting"
+        ]
+      },
+      {
+        "name": "UnmatchedMarketTradeEscalation",
+        "parent_control_record": "TradeMatchingOperatingSession",
+        "operations": [
+          "ExchangeUnmatchedMarketTradeEscalation",
+          "ExecuteUnmatchedMarketTradeEscalation",
+          "InitiateUnmatchedMarketTradeEscalation",
+          "NotifyUnmatchedMarketTradeEscalation",
+          "RequestUnmatchedMarketTradeEscalation",
+          "RetrieveUnmatchedMarketTradeEscalation",
+          "UpdateUnmatchedMarketTradeEscalation"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/TradeConfirmationMatching.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "2e67320beafb205c848144a718f6da7b206ff8e0588221d675aed9416cb455a1",
+    "retrieved_at": "2026-09-12T21:59:11.692460+00:00"
+  }
+}

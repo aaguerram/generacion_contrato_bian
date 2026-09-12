@@ -1,0 +1,856 @@
+{
+  "service_domain": "Location Data Management",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Register",
+      "method": "POST",
+      "path": "/LocationDataManagement/Register",
+      "tipo": "CR",
+      "grupo": "LocationDirectoryEntry",
+      "request_schema": "LocationDirectoryEntry",
+      "response_schema": "LocationDirectoryEntry",
+      "summary": "InCR Register a location in the catalog",
+      "description": "InCR Register a location in the catalog"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Update",
+      "tipo": "CR",
+      "grupo": "LocationDirectoryEntry",
+      "request_schema": "LocationDirectoryEntry",
+      "response_schema": "LocationDirectoryEntry",
+      "summary": "UpCR Update details about the location's directory entry",
+      "description": "UpCR Update details about the location's directory entry"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Control",
+      "tipo": "CR",
+      "grupo": "LocationDirectoryEntry",
+      "request_schema": "LocationDirectoryEntry",
+      "response_schema": "LocationDirectoryEntry",
+      "summary": "CoCR Control the handling of a location entry (e.g. terminate)",
+      "description": "CoCR Control the handling of a location entry (e.g. terminate)"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Request",
+      "tipo": "CR",
+      "grupo": "LocationDirectoryEntry",
+      "request_schema": "LocationDirectoryEntry",
+      "response_schema": "LocationDirectoryEntry",
+      "summary": "RqCR Request manual intervention with an entry (e.g. refresh content)",
+      "description": "RqCR Request manual intervention with an entry (e.g. refresh content)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "LocationDirectoryEntry",
+      "request_schema": "",
+      "response_schema": "LocationDirectoryEntry",
+      "summary": "ReCR Retrieve details about a location directory entry",
+      "description": "ReCR Retrieve details about a location directory entry"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Execute",
+      "tipo": "CR",
+      "grupo": "LocationDirectoryEntry",
+      "request_schema": "LocationDirectoryEntry",
+      "response_schema": "LocationDirectoryEntry",
+      "summary": "ExCR Execute an automated action against an entry",
+      "description": "ExCR Execute an automated action against an entry"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Exchange",
+      "tipo": "CR",
+      "grupo": "LocationDirectoryEntry",
+      "request_schema": "LocationDirectoryEntry",
+      "response_schema": "LocationDirectoryEntry",
+      "summary": "EcCR Accept, verify, reject a directory entry",
+      "description": "EcCR Accept, verify, reject a directory entry"
+    },
+    {
+      "operation_id": "UpdateLocation",
+      "method": "PUT",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Location/{locationid}/Update",
+      "tipo": "BQ",
+      "grupo": "Location",
+      "request_schema": "Location",
+      "response_schema": "Location",
+      "summary": "UpBQ Update details about a location entry",
+      "description": "UpBQ Update details about a location entry",
+      "parent_control_record": "LocationDirectoryEntry"
+    },
+    {
+      "operation_id": "ExchangeLocation",
+      "method": "PUT",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Location/{locationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "Location",
+      "request_schema": "Location",
+      "response_schema": "Location",
+      "summary": "EcBQ Accept, verify, reject etc. details of a location directory entry",
+      "description": "EcBQ Accept, verify, reject etc. details of a location directory entry",
+      "parent_control_record": "LocationDirectoryEntry"
+    },
+    {
+      "operation_id": "RetrieveLocation",
+      "method": "GET",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Location/{locationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Location",
+      "request_schema": "",
+      "response_schema": "Location",
+      "summary": "ReBQ Retrieve details about location entries in the directory",
+      "description": "ReBQ Retrieve details about location entries in the directory",
+      "parent_control_record": "LocationDirectoryEntry"
+    },
+    {
+      "operation_id": "UpdateUse",
+      "method": "PUT",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Use/{useid}/Update",
+      "tipo": "BQ",
+      "grupo": "Use",
+      "request_schema": "Use",
+      "response_schema": "Use",
+      "summary": "UpBQ Update details about an usage entry for the location",
+      "description": "UpBQ Update details about an usage entry for the location",
+      "parent_control_record": "LocationDirectoryEntry"
+    },
+    {
+      "operation_id": "RetrieveUse",
+      "method": "GET",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Use/{useid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Use",
+      "request_schema": "",
+      "response_schema": "Use",
+      "summary": "ReBQ Retrieve details about usage entries in the location directory",
+      "description": "ReBQ Retrieve details about usage entries in the location directory",
+      "parent_control_record": "LocationDirectoryEntry"
+    },
+    {
+      "operation_id": "UpdateOccupancy",
+      "method": "PUT",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Occupancy/{occupancyid}/Update",
+      "tipo": "BQ",
+      "grupo": "Occupancy",
+      "request_schema": "Occupancy",
+      "response_schema": "Occupancy",
+      "summary": "UpBQ Update details about a location's occupancy",
+      "description": "UpBQ Update details about a location's occupancy",
+      "parent_control_record": "LocationDirectoryEntry"
+    },
+    {
+      "operation_id": "RetrieveOccupancy",
+      "method": "GET",
+      "path": "/LocationDataManagement/{locationdatamanagementid}/Occupancy/{occupancyid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Occupancy",
+      "request_schema": "",
+      "response_schema": "Occupancy",
+      "summary": "ReBQ Retrieve details about location's occupancy entry in the directory",
+      "description": "ReBQ Retrieve details about location's occupancy entry in the directory",
+      "parent_control_record": "LocationDirectoryEntry"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Address",
+    "Addresstypevalues",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Directoryentrydatetypevalues",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Location",
+    "LocationArrangement",
+    "LocationDirectoryEntry",
+    "LocationUsage",
+    "Locationtypevalues",
+    "Name",
+    "Occupancy",
+    "Status",
+    "Subject",
+    "Use"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Address",
+      "kind": "object",
+      "description": "Reference address for the location (e.g. postal address, email, coordinates)",
+      "properties": [
+        {
+          "name": "AddressType",
+          "type": "object",
+          "ref": "Addresstypevalues"
+        },
+        {
+          "name": "AddressDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Addresstypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PostalAddress` - \r\n* `GeolocationAddress` - \r\n* `LatitudeAddress` - \r\n* `LongitudeAddress` - \r\n* `ElectronicAddress` - \r\n",
+      "enum_values": [
+        "PostalAddress",
+        "GeolocationAddress",
+        "LatitudeAddress",
+        "LongitudeAddress",
+        "ElectronicAddress"
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Directoryentrydatetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpenDate` - \r\n* `RefreshDate` - \r\n",
+      "enum_values": [
+        "OpenDate",
+        "RefreshDate"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to the bank customer (if they are owner and/or occupier of the property at the location)",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "LocationArrangement",
+      "kind": "object",
+      "description": "Nature of the access terms or entitlement of the occupier (e.g. leasehold, rental, public access)",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "LocationDirectoryEntry",
+      "kind": "object",
+      "description": "Capture and maintain reference information about some type of entitity within Location Data Management.",
+      "properties": [
+        {
+          "name": "LocationReference",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Directoryentrydatetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "LocationUsage",
+      "kind": "object",
+      "description": "The allowed usage for the property at the location (e.g. domestic residence, manufacturing, retail)",
+      "properties": [
+        {
+          "name": "LocationUsage",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Locationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `GeographicalArea` - \r\n* `DigitalArea` - \r\n* `StatisticalArea` - \r\n* `TimeZone` - \r\n* `TreatyArea` - \r\n",
+      "enum_values": [
+        "GeographicalArea",
+        "DigitalArea",
+        "StatisticalArea",
+        "TimeZone",
+        "TreatyArea"
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "Name (label) of the location. (ISO20022)",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Occupancy",
+      "kind": "object",
+      "description": "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management",
+      "properties": [
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "LocationOwnerTitle",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupierType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupierReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "LocationOccupierTerms",
+          "type": "object",
+          "ref": "LocationArrangement"
+        },
+        {
+          "name": "AlliancePartnerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "The tracked status (e.g. under construction or repair, inhabited, vacant).",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Use",
+      "kind": "object",
+      "description": "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management",
+      "properties": [
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationUsage",
+          "type": "object",
+          "ref": "LocationUsage"
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "LocationDirectoryEntry",
+        "operations": [
+          "Register",
+          "Update",
+          "Control",
+          "Request",
+          "Retrieve",
+          "Execute",
+          "Exchange"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Location",
+        "parent_control_record": "LocationDirectoryEntry",
+        "operations": [
+          "UpdateLocation",
+          "ExchangeLocation",
+          "RetrieveLocation"
+        ]
+      },
+      {
+        "name": "Occupancy",
+        "parent_control_record": "LocationDirectoryEntry",
+        "operations": [
+          "UpdateOccupancy",
+          "RetrieveOccupancy"
+        ]
+      },
+      {
+        "name": "Use",
+        "parent_control_record": "LocationDirectoryEntry",
+        "operations": [
+          "UpdateUse",
+          "RetrieveUse"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/LocationDataManagement.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "d3ea08295ae7dda5a30579432ce84d817430385485fb4fa16ebfb103efbef22f",
+    "retrieved_at": "2026-09-12T22:36:03.691215+00:00"
+  }
+}

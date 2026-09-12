@@ -1,0 +1,451 @@
+{
+  "service_domain": "Claim Administration",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [],
+  "schemas": [
+    "Administration",
+    "ClaimProcessingAdministrativePlan",
+    "Communication",
+    "Disbursement",
+    "Documentation",
+    "HTTPError",
+    "Negotiation"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Administration",
+      "kind": "object",
+      "description": "The Disbursement is an activity that is performed as one aspect of carrying out the Disbursement",
+      "properties": [
+        {
+          "name": "AdministrativeTransactionIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PolicyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrativeTransactionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrativeTransactionInitiator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrativeTransactionTimestamp",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrativeTransactionStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrativeTransactionOutcomeorResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrativeRelatedTransaction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrativeTransactionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimProcessingAdministrativePlanIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrationIdentification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ClaimProcessingAdministrativePlan",
+      "kind": "object",
+      "description": "Handle and assign the day to day activities, capture time, costs and income for an operational unit within Claim Administration. ",
+      "properties": [
+        {
+          "name": "ClaimAdministrationIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PolicyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimantReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BeneficiaryorPayeeReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceProviderReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InternalActorReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimAdministrationStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimStage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StartDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LastUpdatedDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SLAorProcessingTimeline",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimProcessingAdministrativePlanIdentification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Communication",
+      "kind": "object",
+      "description": "The Disbursement is an activity that is performed as one aspect of carrying out the Disbursement",
+      "properties": [
+        {
+          "name": "CommunicationIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CommunicationType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CommunicationDirection",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CommunicationSenderorReceiverReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CommunicationChannel",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CommunicationContentorSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CommunicationTimestamp",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CommunicationStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CommunicationLinkedTransaction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimProcessingAdministrativePlanIdentification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Disbursement",
+      "kind": "object",
+      "description": "The Disbursement is an activity that is performed as one aspect of carrying out the Disbursement",
+      "properties": [
+        {
+          "name": "DisbursementIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PolicyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BeneficiaryorPayeeReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DisbursementAmount",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DisbursementType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentInstructionReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DisbursementTransactionStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DisbursementExecutionTimestamp",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SettlementConfirmation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimProcessingAdministrativePlanIdentification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Documentation",
+      "kind": "object",
+      "description": "The Disbursement is an activity that is performed as one aspect of carrying out the Disbursement",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSourceorProviderReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentTimestamp",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentOwnerReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentLinkedTransaction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentStorageLocationorReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimProcessingAdministrativePlanIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentationIdentification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Negotiation",
+      "kind": "object",
+      "description": "The Disbursement is an activity that is performed as one aspect of carrying out the Disbursement",
+      "properties": [
+        {
+          "name": "NegotiationIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PolicyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "NegotiationType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "NegotiationInitiatorReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "NegotiationCounterpartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "NegotiationStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "NegotiationTimestamp",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "NegotiationOutcome",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "NegotiationLinkedTransaction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SupportingDocumentReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimProcessingAdministrativePlanIdentification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ClaimAdministration.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "917f0f4ced6af07e86d1ce38c46b8187a609ec96014908d261bb2f97b9fc0d52",
+    "retrieved_at": "2026-09-12T22:33:38.313086+00:00"
+  }
+}

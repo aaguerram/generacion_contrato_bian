@@ -1,0 +1,1282 @@
+{
+  "service_domain": "Legal Entity Directory",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Register",
+      "method": "POST",
+      "path": "/LegalEntityDirectory/Register",
+      "tipo": "CR",
+      "grupo": "LegalEntityDirectoryEntry",
+      "request_schema": "LegalEntityDirectoryEntry",
+      "response_schema": "LegalEntityDirectoryEntry",
+      "summary": "InCR Register a new legal entity in the catalog",
+      "description": "InCR Register a new legal entity in the catalog"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/LegalEntityDirectory/{legalentitydirectoryid}/Control",
+      "tipo": "CR",
+      "grupo": "LegalEntityDirectoryEntry",
+      "request_schema": "LegalEntityDirectoryEntry",
+      "response_schema": "LegalEntityDirectoryEntry",
+      "summary": "CoCR Control the handling of an entity entry (e.g. terminate)",
+      "description": "CoCR Control the handling of an entity entry (e.g. terminate)"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/LegalEntityDirectory/{legalentitydirectoryid}/Update",
+      "tipo": "CR",
+      "grupo": "LegalEntityDirectoryEntry",
+      "request_schema": "LegalEntityDirectoryEntry",
+      "response_schema": "LegalEntityDirectoryEntry",
+      "summary": "UpCR Update details about the legal entity directory entry",
+      "description": "UpCR Update details about the legal entity directory entry"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/LegalEntityDirectory/{legalentitydirectoryid}/Exchange",
+      "tipo": "CR",
+      "grupo": "LegalEntityDirectoryEntry",
+      "request_schema": "LegalEntityDirectoryEntry",
+      "response_schema": "LegalEntityDirectoryEntry",
+      "summary": "EcCR Accept, verify, reject etc. details of a legal entity directory entry",
+      "description": "EcCR Accept, verify, reject etc. details of a legal entity directory entry"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/LegalEntityDirectory/{legalentitydirectoryid}/Request",
+      "tipo": "CR",
+      "grupo": "LegalEntityDirectoryEntry",
+      "request_schema": "LegalEntityDirectoryEntry",
+      "response_schema": "LegalEntityDirectoryEntry",
+      "summary": "RqCR Request manual intervention with an entry (e.g. refresh content)",
+      "description": "RqCR Request manual intervention with an entry (e.g. refresh content)"
+    },
+    {
+      "operation_id": "RetrieveReference",
+      "method": "GET",
+      "path": "/LegalEntityDirectory/{legalentitydirectoryid}/Reference/{referenceid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Reference",
+      "request_schema": "",
+      "response_schema": "Reference",
+      "summary": "ReBQ Retrieve details about reference entries in the directory record",
+      "description": "ReBQ Retrieve details about reference entries in the directory record",
+      "parent_control_record": "LegalEntityDirectoryEntry"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/LegalEntityDirectory/{legalentitydirectoryid}/Execute",
+      "tipo": "CR",
+      "grupo": "LegalEntityDirectoryEntry",
+      "request_schema": "LegalEntityDirectoryEntry",
+      "response_schema": "LegalEntityDirectoryEntry",
+      "summary": "ExCR Execute an automated action against an entry",
+      "description": "ExCR Execute an automated action against an entry"
+    },
+    {
+      "operation_id": "UpdateReference",
+      "method": "PUT",
+      "path": "/LegalEntityDirectory/{legalentitydirectoryid}/Reference/{referenceid}/Update",
+      "tipo": "BQ",
+      "grupo": "Reference",
+      "request_schema": "Reference",
+      "response_schema": "Reference",
+      "summary": "UpBQ Update details about a reference entry for the legal entity",
+      "description": "UpBQ Update details about a reference entry for the legal entity",
+      "parent_control_record": "LegalEntityDirectoryEntry"
+    },
+    {
+      "operation_id": "RetrieveProfile",
+      "method": "GET",
+      "path": "/LegalEntityDirectory/{legalentitydirectoryid}/Profile/{profileid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Profile",
+      "request_schema": "",
+      "response_schema": "Profile",
+      "summary": "ReBQ Retrieve details about profile entries in the directory record",
+      "description": "ReBQ Retrieve details about profile entries in the directory record",
+      "parent_control_record": "LegalEntityDirectoryEntry"
+    },
+    {
+      "operation_id": "UpdateProfile",
+      "method": "PUT",
+      "path": "/LegalEntityDirectory/{legalentitydirectoryid}/Profile/{profileid}/Update",
+      "tipo": "BQ",
+      "grupo": "Profile",
+      "request_schema": "Profile",
+      "response_schema": "Profile",
+      "summary": "UpBQ Update details about a profile entry for the legal entity",
+      "description": "UpBQ Update details about a profile entry for the legal entity",
+      "parent_control_record": "LegalEntityDirectoryEntry"
+    },
+    {
+      "operation_id": "UpdateAssociations",
+      "method": "PUT",
+      "path": "/LegalEntityDirectory/{legalentitydirectoryid}/Associations/{associationsid}/Update",
+      "tipo": "BQ",
+      "grupo": "Associations",
+      "request_schema": "Associations",
+      "response_schema": "Associations",
+      "summary": "UpBQ Update details about an association entry for the legal entity",
+      "description": "UpBQ Update details about an association entry for the legal entity",
+      "parent_control_record": "LegalEntityDirectoryEntry"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/LegalEntityDirectory/{legalentitydirectoryid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "LegalEntityDirectoryEntry",
+      "request_schema": "",
+      "response_schema": "LegalEntityDirectoryEntry",
+      "summary": "ReCR Retrieve details about a legal entity directory entry",
+      "description": "ReCR Retrieve details about a legal entity directory entry"
+    },
+    {
+      "operation_id": "RetrieveAssociations",
+      "method": "GET",
+      "path": "/LegalEntityDirectory/{legalentitydirectoryid}/Associations/{associationsid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Associations",
+      "request_schema": "",
+      "response_schema": "Associations",
+      "summary": "ReBQ Retrieve details about association entries in the directory record",
+      "description": "ReBQ Retrieve details about association entries in the directory record",
+      "parent_control_record": "LegalEntityDirectoryEntry"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Address",
+    "Addresstypevalues",
+    "Arrangement",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "Associations",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Industrycode",
+    "Involvedparty",
+    "Jurisdiction",
+    "LegalEntityDirectoryEntry",
+    "Location",
+    "Name",
+    "Organisation",
+    "Organisationdatetime",
+    "Organisationdatetimetypevalues",
+    "Organisationidentification",
+    "Organisationidentificationtypevalues",
+    "Organisationlegalstructuretypevalues",
+    "Organisationname",
+    "Organisationnametypevalues",
+    "Organisationtypevalues",
+    "Party",
+    "Partyidentification",
+    "Partyidentificationtypevalues",
+    "Partylegalstructuretypevalues",
+    "Partytypevalues",
+    "Profile",
+    "Rate",
+    "Reference",
+    "ShareholdingProfile",
+    "Status",
+    "Subject"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Address",
+      "kind": "object",
+      "description": "The registered address for the legal entity",
+      "properties": [
+        {
+          "name": "AddressType",
+          "type": "object",
+          "ref": "Addresstypevalues"
+        },
+        {
+          "name": "AddressDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Addresstypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PostalAddress` - \r\n* `GeolocationAddress` - \r\n* `LatitudeAddress` - \r\n* `LongitudeAddress` - \r\n* `ElectronicAddress` - \r\n",
+      "enum_values": [
+        "PostalAddress",
+        "GeolocationAddress",
+        "LatitudeAddress",
+        "LongitudeAddress",
+        "ElectronicAddress"
+      ]
+    },
+    {
+      "name": "Arrangement",
+      "kind": "object",
+      "description": "Description of the association and applicable obligations  (e.g. shareholder, director, guardian, guarantor)",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "Associations",
+      "kind": "object",
+      "description": "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management",
+      "properties": [
+        {
+          "name": "LegalEntityAssociationReference",
+          "type": "object",
+          "ref": "Party"
+        },
+        {
+          "name": "LegalEntityAssociationType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalEntityAssociationObligation",
+          "type": "object",
+          "ref": "Arrangement"
+        },
+        {
+          "name": "ParentLegalEntityReference",
+          "type": "object",
+          "ref": "Organisation"
+        },
+        {
+          "name": "SubsidiaryLegalEntityReference",
+          "type": "object",
+          "ref": "Organisation"
+        },
+        {
+          "name": "ShareholdingProfile",
+          "type": "object",
+          "ref": "ShareholdingProfile"
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Industrycode",
+      "kind": "object",
+      "description": "Economical activity of Party (ISO20022)",
+      "properties": [
+        {
+          "name": "Industrycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Jurisdiction",
+      "kind": "object",
+      "description": "The jurisdiction governing the company",
+      "properties": [
+        {
+          "name": "Jurisdiction",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "LegalEntityDirectoryEntry",
+      "kind": "object",
+      "description": "Capture and maintain reference information about some type of entitity within Legal Entity Directory.",
+      "properties": [
+        {
+          "name": "LegalEntityReference",
+          "type": "object",
+          "ref": "Organisation"
+        },
+        {
+          "name": "PartyReference",
+          "type": "object",
+          "ref": "Party"
+        },
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "Name by which a party is known and which is usually used to identify that party. (ISO20022)\n",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Organisation",
+      "kind": "object",
+      "description": "Reference the parent entity if applicable",
+      "properties": [
+        {
+          "name": "OrganisationStructureHierarchy",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Organisationidentification"
+        },
+        {
+          "name": "OrganisationSector",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalEntityIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationDate",
+          "type": "object",
+          "ref": "Organisationdatetime"
+        },
+        {
+          "name": "OrganisationType",
+          "type": "object",
+          "ref": "Organisationtypevalues"
+        },
+        {
+          "name": "OrganisationName",
+          "type": "object",
+          "ref": "Organisationname"
+        },
+        {
+          "name": "OrganisationLegalStructure",
+          "type": "object",
+          "ref": "Organisationlegalstructuretypevalues"
+        },
+        {
+          "name": "PartyName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PartyType",
+          "type": "object",
+          "ref": "Partytypevalues"
+        },
+        {
+          "name": "PartyDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Partyidentification"
+        },
+        {
+          "name": "PartyLegalStructureType",
+          "type": "object",
+          "ref": "Partylegalstructuretypevalues"
+        },
+        {
+          "name": "PartyActivityIndicator",
+          "type": "object",
+          "ref": "Industrycode"
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisatioDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "OrganisatioDateType",
+          "type": "object",
+          "ref": "Organisationdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `RegistrationDate` - Date and time at which a given organisation was officially registered. (ISO20022)\r\n* `EstablishmentDate` - Date when the organisation was established. ISO20022\r\n* `EntityExpirationDate` - The date the Legal Entity ceased operation or was merged. ISO20022\r\n",
+      "enum_values": [
+        "RegistrationDate",
+        "EstablishmentDate",
+        "EntityExpirationDate"
+      ]
+    },
+    {
+      "name": "Organisationidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisationIdentificationType",
+          "type": "object",
+          "ref": "Organisationidentificationtypevalues"
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Organisationidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LEI` - Legal Entity Identifier is a code allocated to a party as described in ISO 17442 \"Financial Services - Legal Entity Identifier (LEI)\".\r\n* `ELF` - Entity Legal Forms is a code allocated to a party as described in ISO 20275 \"Financial services  Entity legal forms (ELF)\". \r\n* `MIC` - Market Identifier Code. Identification of a financial market, as stipulated in the norm ISO 10383 \"Codes for exchanges and market identifications\".\r\n* `BICFI` - Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 \"Banking - Banking telecommunication messages - Business identifier code (BIC)\".\r\n* `Bankpartyidentification` - Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client.\r\n* `Centralbankidentificationnumber` - A unique identification number assigned by a central bank to identify an organisation.\r\n* `Clearingidentificationnumber` - A unique identification number assigned by a clearing house to identify an organisation\r\n* `Certificateofincorporationnumber` - A unique identification number assigned by a designated authority to a certificate of incorporation and used to identify an organisation.\r\n* `Countryidentificationcode` - Country authority given organisation identification (e.g., corporate registration number)\r\n* `Customernumber` - Number assigned by an issuer to identify a customer.\nNumber assigned by a party to identify a creditor or debtor relationship.\r\n* `Datauniversalnumberingsystem` - A unique identification number provided by Dun & Bradstreet to identify an organisation.\r\n* `Employeridentificationnumber` - Number assigned by a registration authority to an employer.\r\n* `Gs1glnidentifier` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to GS1 numbering scheme rules.The number is used to retrieve detailed information that is linked to it.\r\n* `SIREN` - The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France.\r\n* `SIRET` - The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to identify an organisation.\r\n* `EANGLN` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to the European Association for Numbering (EAN) numbering scheme rules. The number is used to retrieve detailed information that is linked to it. (iso20022)\r\n",
+      "enum_values": [
+        "LEI",
+        "ELF",
+        "MIC",
+        "BICFI",
+        "Bankpartyidentification",
+        "Centralbankidentificationnumber",
+        "Clearingidentificationnumber",
+        "Certificateofincorporationnumber",
+        "Countryidentificationcode",
+        "Customernumber",
+        "Datauniversalnumberingsystem",
+        "Employeridentificationnumber",
+        "Gs1glnidentifier",
+        "SIREN",
+        "SIRET",
+        "Taxidentificationnumber",
+        "EANGLN"
+      ]
+    },
+    {
+      "name": "Organisationlegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Corporation` - Legal structure is a corporation.\r\n* `Individual` - Legal structure is an individual.\r\n* `Supranational` - Legal structure is a supranational.\r\n* `Sovereign` - Legal structure is a sovereign.\r\n* `Municipal` - Legal structure is a municipal.\r\n* `Province` - Legal structure is a province.\r\n* `State` - Legal structure is a state.\r\n* `County` - Legal structure is a county.\r\n* `Partnership` - Legal structure is a partnership.\r\n* `Financialinstitution` - Legal structure is a financial institution.\r\n* `National` - Legal structure is a state.\r\n",
+      "enum_values": [
+        "Corporation",
+        "Individual",
+        "Supranational",
+        "Sovereign",
+        "Municipal",
+        "Province",
+        "State",
+        "County",
+        "Partnership",
+        "Financialinstitution",
+        "National"
+      ]
+    },
+    {
+      "name": "Organisationname",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "NameType",
+          "type": "object",
+          "ref": "Organisationnametypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationnametypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ShortName` - \r\n* `TradingName` - \r\n* `LegalName` - \r\n",
+      "enum_values": [
+        "ShortName",
+        "TradingName",
+        "LegalName"
+      ]
+    },
+    {
+      "name": "Organisationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LegalEntity` - \r\n* `Authority` - \r\n* `OrganisationUnit` - \r\n* `FinancialInstitution` - \r\n* `Charity` - \r\n* `GovernmentBody` - \r\n",
+      "enum_values": [
+        "LegalEntity",
+        "Authority",
+        "OrganisationUnit",
+        "FinancialInstitution",
+        "Charity",
+        "GovernmentBody"
+      ]
+    },
+    {
+      "name": "Party",
+      "kind": "object",
+      "description": "Reference to the associated entity (e.g. company or individual)",
+      "properties": [
+        {
+          "name": "PartyName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PartyType",
+          "type": "object",
+          "ref": "Partytypevalues"
+        },
+        {
+          "name": "PartyDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Partyidentification"
+        },
+        {
+          "name": "PartyLegalStructureType",
+          "type": "object",
+          "ref": "Partylegalstructuretypevalues"
+        },
+        {
+          "name": "PartyActivityIndicator",
+          "type": "object",
+          "ref": "Industrycode"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyIdentificationType",
+          "type": "object",
+          "ref": "Partyidentificationtypevalues"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to an entity.\r\n* `Nationalregistrationnumber` - Number assigned by a national registration authority to an entity. In Singapore this is known as the NRIC. (ISO20022)\r\n* `Registrationauthorityidentification` - An identifier for the Legal Entity in a business registry in the jurisdiction of legal registration, or in the appropriate registration authority. (ISO20022)\r\n* `LEI(LegalEntityIdentifier)` - \r\n* `Alienregistrationnumber` - Number assigned by a government agency to identify foreign nationals.\r\n* `Passportnumber` - Number assigned by a passport authority.\r\n* `Taxexemptidentificationnumber` - Number assigned to a tax exempt entity.\r\n* `Corporateidentification` - Number assigned to a corporate entity.\r\n* `Driverlicensenumber` - Number assigned to a driver's license.\r\n* `Foreigninvestmentidentitynumber` - Number assigned to a foreign investor (other than the alien number).\r\n* `Socialsecuritynumber` - Number assigned by a social security agency.\r\n* `Identitycardnumber` - Number assigned by a national authority to an identity card.\r\n* `Concat` - Number assigned by an issuer to identify a customer via the concatenation of the birthdate and characters of the first name and surname.\r\n* `Nationalregistrationidentificationnumber` - National registration identification number. In Singapore this is known as the NRIC.\r\n",
+      "enum_values": [
+        "Taxidentificationnumber",
+        "Nationalregistrationnumber",
+        "Registrationauthorityidentification",
+        "LEI(LegalEntityIdentifier)",
+        "Alienregistrationnumber",
+        "Passportnumber",
+        "Taxexemptidentificationnumber",
+        "Corporateidentification",
+        "Driverlicensenumber",
+        "Foreigninvestmentidentitynumber",
+        "Socialsecuritynumber",
+        "Identitycardnumber",
+        "Concat",
+        "Nationalregistrationidentificationnumber"
+      ]
+    },
+    {
+      "name": "Partylegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Individual` - \r\n* `CommunityInterestCompany` - \r\n* `CharitableIncorporatedOrganisation` - \r\n* `Co-Operative` - \r\n* `Charity` - \r\n* `GeneralPartnership` - \r\n* `LimitedLiabilityPartnership` - \r\n* `ScottishLimitedPartnership` - \r\n* `LimitedPartnership` - \r\n* `PrivateLimitedCompany` - \r\n* `PublicLimitedCompany` - \r\n* `Sole(SoleTrader)` - \r\n",
+      "enum_values": [
+        "Individual",
+        "CommunityInterestCompany",
+        "CharitableIncorporatedOrganisation",
+        "Co-Operative",
+        "Charity",
+        "GeneralPartnership",
+        "LimitedLiabilityPartnership",
+        "ScottishLimitedPartnership",
+        "LimitedPartnership",
+        "PrivateLimitedCompany",
+        "PublicLimitedCompany",
+        "Sole(SoleTrader)"
+      ]
+    },
+    {
+      "name": "Partytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\r\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\r\n",
+      "enum_values": [
+        "Person",
+        "Organisation"
+      ]
+    },
+    {
+      "name": "Profile",
+      "kind": "object",
+      "description": "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management",
+      "properties": [
+        {
+          "name": "OrganizationCapitalization",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganizationDebtLevel",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganizationEconomicIntent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganizationGrowthRate",
+          "type": "object",
+          "ref": "Rate"
+        },
+        {
+          "name": "OrganizationProfitabilityStocks",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganizationRevenueTurnover",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Rate",
+      "kind": "object",
+      "description": "Past and projected growth rates",
+      "properties": [
+        {
+          "name": "RateValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RateUnit",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RatePeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "RateCapitalUnit",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reference",
+      "kind": "object",
+      "description": "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management",
+      "properties": [
+        {
+          "name": "LegalEntityOfficialName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LegalEntityType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SectorsofOperation",
+          "type": "object",
+          "ref": "Organisation"
+        },
+        {
+          "name": "RegisteredAddress",
+          "type": "object",
+          "ref": "Address"
+        },
+        {
+          "name": "HeadquartersLocation",
+          "type": "object",
+          "ref": "Address"
+        },
+        {
+          "name": "DateofIncorporation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "JurisdictionofIncorporation",
+          "type": "object",
+          "ref": "Jurisdiction"
+        },
+        {
+          "name": "RegistrationAuthority",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "PrimaryRegulator",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "TaxReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ContactRole",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ContactAddressDetails",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ShareholdingProfile",
+      "kind": "object",
+      "description": "List of major shareholders and shareholdings of significance",
+      "properties": [
+        {
+          "name": "ShareholdingProfile",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "The tracked status (e.g. under construction or repair, inhabited, vacant).",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "LegalEntityDirectoryEntry",
+        "operations": [
+          "Register",
+          "Control",
+          "Update",
+          "Exchange",
+          "Request",
+          "Execute",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Associations",
+        "parent_control_record": "LegalEntityDirectoryEntry",
+        "operations": [
+          "UpdateAssociations",
+          "RetrieveAssociations"
+        ]
+      },
+      {
+        "name": "Profile",
+        "parent_control_record": "LegalEntityDirectoryEntry",
+        "operations": [
+          "RetrieveProfile",
+          "UpdateProfile"
+        ]
+      },
+      {
+        "name": "Reference",
+        "parent_control_record": "LegalEntityDirectoryEntry",
+        "operations": [
+          "RetrieveReference",
+          "UpdateReference"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/LegalEntityDirectory.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "6c38eb742ed1bd67e34331370311dd2d942c9d49617433372543b4ac99a23803",
+    "retrieved_at": "2026-09-12T22:03:15.236981+00:00"
+  }
+}

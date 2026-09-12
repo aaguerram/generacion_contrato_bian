@@ -1,0 +1,1190 @@
+{
+  "service_domain": "Contact Routing",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Provide",
+      "method": "POST",
+      "path": "/ContactRouting/Provide",
+      "tipo": "CR",
+      "grupo": "CustomerServicingResourceAllocation",
+      "request_schema": "CustomerServicingResourceAllocation",
+      "response_schema": "CustomerServicingResourceAllocation",
+      "summary": "PrCR Enable the service resource pool allocation",
+      "description": "PrCR Enable the service resource pool allocation"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/ContactRouting/{contactroutingid}/Control",
+      "tipo": "CR",
+      "grupo": "CustomerServicingResourceAllocation",
+      "request_schema": "CustomerServicingResourceAllocation",
+      "response_schema": "CustomerServicingResourceAllocation",
+      "summary": "CoCR Control the processing of the servicing resource allocation (e.g. adjust priorities)",
+      "description": "CoCR Control the processing of the servicing resource allocation (e.g. adjust priorities)"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/ContactRouting/{contactroutingid}/Update",
+      "tipo": "CR",
+      "grupo": "CustomerServicingResourceAllocation",
+      "request_schema": "CustomerServicingResourceAllocation",
+      "response_schema": "CustomerServicingResourceAllocation",
+      "summary": "UpCR Update details about the servicing resource pool",
+      "description": "UpCR Update details about the servicing resource pool"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/ContactRouting/{contactroutingid}/Exchange",
+      "tipo": "CR",
+      "grupo": "CustomerServicingResourceAllocation",
+      "request_schema": "CustomerServicingResourceAllocation",
+      "response_schema": "CustomerServicingResourceAllocation",
+      "summary": "EcCR Accept, verify servicing resource pool activity",
+      "description": "EcCR Accept, verify servicing resource pool activity"
+    },
+    {
+      "operation_id": "Capture",
+      "method": "PUT",
+      "path": "/ContactRouting/{contactroutingid}/Capture",
+      "tipo": "CR",
+      "grupo": "CustomerServicingResourceAllocation",
+      "request_schema": "CustomerServicingResourceAllocation",
+      "response_schema": "CustomerServicingResourceAllocation",
+      "summary": "CaCR Capture servicing resource pool data (e.g. resource status/availability)",
+      "description": "CaCR Capture servicing resource pool data (e.g. resource status/availability)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/ContactRouting/{contactroutingid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "CustomerServicingResourceAllocation",
+      "request_schema": "",
+      "response_schema": "CustomerServicingResourceAllocation",
+      "summary": "ReCR Retrieve details about the servicing resource assignments",
+      "description": "ReCR Retrieve details about the servicing resource assignments"
+    },
+    {
+      "operation_id": "RequestAllocation",
+      "method": "PUT",
+      "path": "/ContactRouting/{contactroutingid}/Allocation/{allocationid}/Request",
+      "tipo": "BQ",
+      "grupo": "Allocation",
+      "request_schema": "Allocation",
+      "response_schema": "Allocation",
+      "summary": "PrBQ Request a servicing resource (can be qualification and future booking)",
+      "description": "PrBQ Request a servicing resource (can be qualification and future booking)",
+      "parent_control_record": "CustomerServicingResourceAllocation"
+    },
+    {
+      "operation_id": "UpdateAllocation",
+      "method": "PUT",
+      "path": "/ContactRouting/{contactroutingid}/Allocation/{allocationid}/Update",
+      "tipo": "BQ",
+      "grupo": "Allocation",
+      "request_schema": "Allocation",
+      "response_schema": "Allocation",
+      "summary": "UpBQ Update details of a servicing resource allocation",
+      "description": "UpBQ Update details of a servicing resource allocation",
+      "parent_control_record": "CustomerServicingResourceAllocation"
+    },
+    {
+      "operation_id": "ControlAllocation",
+      "method": "PUT",
+      "path": "/ContactRouting/{contactroutingid}/Allocation/{allocationid}/Control",
+      "tipo": "BQ",
+      "grupo": "Allocation",
+      "request_schema": "Allocation",
+      "response_schema": "Allocation",
+      "summary": "CoBQ Control an allocation (e.g. terminate)",
+      "description": "CoBQ Control an allocation (e.g. terminate)",
+      "parent_control_record": "CustomerServicingResourceAllocation"
+    },
+    {
+      "operation_id": "ExchangeAllocation",
+      "method": "PUT",
+      "path": "/ContactRouting/{contactroutingid}/Allocation/{allocationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "Allocation",
+      "request_schema": "Allocation",
+      "response_schema": "Allocation",
+      "summary": "EcBQ Accept, verify, reject etc. an allocation",
+      "description": "EcBQ Accept, verify, reject etc. an allocation",
+      "parent_control_record": "CustomerServicingResourceAllocation"
+    },
+    {
+      "operation_id": "CaptureAllocation",
+      "method": "PUT",
+      "path": "/ContactRouting/{contactroutingid}/Allocation/{allocationid}/Capture",
+      "tipo": "BQ",
+      "grupo": "Allocation",
+      "request_schema": "Allocation",
+      "response_schema": "Allocation",
+      "summary": "CaBQ Capture data for an active allocation (e.g. availability)",
+      "description": "CaBQ Capture data for an active allocation (e.g. availability)",
+      "parent_control_record": "CustomerServicingResourceAllocation"
+    },
+    {
+      "operation_id": "RetrieveAllocation",
+      "method": "GET",
+      "path": "/ContactRouting/{contactroutingid}/Allocation/{allocationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Allocation",
+      "request_schema": "",
+      "response_schema": "Allocation",
+      "summary": "ReBQ Retrieve details about a servicing resource allocation",
+      "description": "ReBQ Retrieve details about a servicing resource allocation",
+      "parent_control_record": "CustomerServicingResourceAllocation"
+    }
+  ],
+  "schemas": [
+    "Allocation",
+    "Amount",
+    "Amounttypevalues",
+    "Currencycode",
+    "CustomerContact",
+    "CustomerServicingResourceAllocation",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Device",
+    "Deviceidentification",
+    "Deviceidentificationtypevalues",
+    "Deviceoperatingsystemtypevalues",
+    "Devicetypevalues",
+    "Duration",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Instruction",
+    "Instructiondatetime",
+    "Instructiondatetimetypevalues",
+    "Instructionidentification",
+    "Instructionidentificationtypevalues",
+    "Instructionstatus",
+    "Instructionstatustypevalues",
+    "Instructiontypevalues",
+    "Involvedparty",
+    "Location",
+    "Log",
+    "Name",
+    "Position",
+    "Profile",
+    "Schedule",
+    "ServicingResource",
+    "Session",
+    "Sessiontype",
+    "Sessiontypevalues",
+    "Status",
+    "Task"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Allocation",
+      "kind": "object",
+      "description": "Set of rules for the purpose of deciding if or if not something is applicable\n\nExamples: Staff assignment, Facility allocation.",
+      "properties": [
+        {
+          "name": "AllocationRequestType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerServicingRequestRecord",
+          "type": "object",
+          "ref": "Instruction"
+        },
+        {
+          "name": "CustomerContactRecord",
+          "type": "object",
+          "ref": "CustomerContact"
+        },
+        {
+          "name": "AllocationTaskResult",
+          "type": "object",
+          "ref": "Task"
+        }
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CustomerContact",
+      "kind": "object",
+      "description": "Extracts from the active contact can be used to support more advance selection logic to identify the best available servicing specialist resource",
+      "properties": [
+        {
+          "name": "CustomerContactType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CustomerContactLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "CustomerContactSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CustomerContactResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactDevice",
+          "type": "object",
+          "ref": "Device"
+        },
+        {
+          "name": "CustomerContactIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "CustomerServicingResourceAllocation",
+      "kind": "object",
+      "description": "Maintain an inventory or holding of some resource and make assignments/allocations as requested  within Contact Routing. \nExample: Track the inventory and administer the distribution of central cash holdings throughout the branch & ATM network.",
+      "properties": [
+        {
+          "name": "ServicingResourceAllocationServiceSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "ServicingResourceReference",
+          "type": "object",
+          "ref": "ServicingResource"
+        },
+        {
+          "name": "ServicingResourceRecord",
+          "type": "object",
+          "ref": "ServicingResource"
+        },
+        {
+          "name": "ServicingResourceQualificationProfile",
+          "type": "object",
+          "ref": "Profile"
+        },
+        {
+          "name": "ServicingPositionReference",
+          "type": "object",
+          "ref": "Position"
+        },
+        {
+          "name": "ServicingResourceAvailabilitySchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "ServicingResourceStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServicingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Device",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Deviceidentification"
+        },
+        {
+          "name": "DeviceType",
+          "type": "object",
+          "ref": "Devicetypevalues"
+        },
+        {
+          "name": "DeviceProperty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceElement",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DeviceVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DeviceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DeviceLanguage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DevicePhoneNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceLocationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceManufacturer",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceCountryReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceAddressReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceOperatingSystem",
+          "type": "object",
+          "ref": "Deviceoperatingsystemtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Deviceidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DeviceIdentificationType",
+          "type": "object",
+          "ref": "Deviceidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Deviceidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `IMEI` - International Mobile Equipment Identity.\r\n* `Serialnumber` - Device serial number.\r\n* `Secureelementidentification` - Secure element ID.\r\n* `Othernational` - Other nationally assigned code.\r\n* `Otherprivate` - Other privately assigned code.\r\n",
+      "enum_values": [
+        "IMEI",
+        "Serialnumber",
+        "Secureelementidentification",
+        "Othernational",
+        "Otherprivate"
+      ]
+    },
+    {
+      "name": "Deviceoperatingsystemtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Android` - Android operating system.\r\n* `Ios` - iOS operating system.\r\n* `Windows` - Windows operating system.\r\n* `Blackberry` - Blackberry operating system.\r\n* `Tizen` - Tizen operating system.\r\n* `Othernational` - Other nationally defined code.\r\n* `Otherprivate` - Other privately defined code.\r\n",
+      "enum_values": [
+        "Android",
+        "Ios",
+        "Windows",
+        "Blackberry",
+        "Tizen",
+        "Othernational",
+        "Otherprivate"
+      ]
+    },
+    {
+      "name": "Devicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Securecardreader` - Secure card reader attached to the customer device\r\n* `Nonsecurecardreader` - Non-secure card reader attached to the customer device.\r\n* `Mobile` - Mobile phone\r\n* `Tablet` - Tablet\r\n* `Personalcomputer` - Personal computer\r\n* `Othernational` - Other device defined at national level\r\n* `Otherprivate` - Other device defined in a private way.\r\n* `Wearable` - Wearable device.\r\n* `Vehicle` - Vehicle.\r\n* `Embedded` - Embedded in a device.\r\n* `Keyfob` - Key Fob\r\n* `Jewellery` - Jewellery\r\n* `Sticker` - Sticker\r\n* `Gamingdevice` - Gaming Device\r\n* `Watch` - Watch\r\n* `Unknown` - Device type unknown\r\n* `BiometricDevice` - A biometric device is a security identification and authentication device. Such devices use automated methods of verifying or recognising the identity of a living person based on a physiological or behavioral characteristic.\nhttps://en.wikipedia.org/wiki/Biometric_device\n\r\n",
+      "enum_values": [
+        "Securecardreader",
+        "Nonsecurecardreader",
+        "Mobile",
+        "Tablet",
+        "Personalcomputer",
+        "Othernational",
+        "Otherprivate",
+        "Wearable",
+        "Vehicle",
+        "Embedded",
+        "Keyfob",
+        "Jewellery",
+        "Sticker",
+        "Gamingdevice",
+        "Watch",
+        "Unknown",
+        "BiometricDevice"
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "The time the session was active",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Instruction",
+      "kind": "object",
+      "description": "Contains details of servicing resource request. This can be simple for next available agent, or detail specific required qualifications and expertise",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Instructiondatetime"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Instructionstatus"
+        },
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Instructionidentification"
+        },
+        {
+          "name": "InstructionType",
+          "type": "object",
+          "ref": "Instructiontypevalues"
+        },
+        {
+          "name": "InstructionResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InstructionPurpose",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "InstructionDateType",
+          "type": "object",
+          "ref": "Instructiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DueDate` - \r\n* `ExecutionDate` - \r\n* `FulfillmentDate` - \r\n",
+      "enum_values": [
+        "DueDate",
+        "ExecutionDate",
+        "FulfillmentDate"
+      ]
+    },
+    {
+      "name": "Instructionidentification",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of an Instruction.\n",
+      "properties": [
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InstructionIdentificationType",
+          "type": "object",
+          "ref": "Instructionidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructionidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OrderNumber` - \r\n* `InstructionNumber` - \r\n",
+      "enum_values": [
+        "OrderNumber",
+        "InstructionNumber"
+      ]
+    },
+    {
+      "name": "Instructionstatus",
+      "kind": "object",
+      "description": "A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); ",
+      "properties": [
+        {
+          "name": "InstructionStatusType",
+          "type": "object",
+          "ref": "Instructionstatustypevalues"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Instructionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Pendingprocessing` - Processing of the instruction is pending.\r\n* `Acknowledgedaccepted` - Instruction has been acknowledged and accepted and is validated for further processing.\r\n* `Rejected` - Instruction has been rejected.\r\n* `Accepted` - Instruction has been accepted and is validated for further processing.\r\n* `Completed` - Processing has been completed.\r\n* `Notreceived` - No instruction has been received (to be used in a reminder).\r\n* `Cancelled` - Instruction has been cancelled.\r\n* `Beingcancelled` - Cancel request is being processed.\r\n* `Receivedbyissuerorregistrar` - Instruction has been received by Issuer.\r\n* `Pending` - Instruction is pending.\r\n* `Standinginstruction` - Standing instruction is applied.\r\n* `Queued` - Instruction is queued.\r\n* `Cancelledbysubcustodian` - Instruction has been cancelled by the agent, for example, due to an event deadline extension.\r\n* `Forwarded` - Accepted and sent along the chain.\r\n",
+      "enum_values": [
+        "Pendingprocessing",
+        "Acknowledgedaccepted",
+        "Rejected",
+        "Accepted",
+        "Completed",
+        "Notreceived",
+        "Cancelled",
+        "Beingcancelled",
+        "Receivedbyissuerorregistrar",
+        "Pending",
+        "Standinginstruction",
+        "Queued",
+        "Cancelledbysubcustodian",
+        "Forwarded"
+      ]
+    },
+    {
+      "name": "Instructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PaymentInstruction` - \r\n* `DeliveryOrder` - \r\n* `InformationRequest` - \r\n* `ExchangeInstruction` - \r\n* `AllocationInstruction` - \r\n* `MaintenanceInstruction` - \r\n",
+      "enum_values": [
+        "PaymentInstruction",
+        "DeliveryOrder",
+        "InformationRequest",
+        "ExchangeInstruction",
+        "AllocationInstruction",
+        "MaintenanceInstruction"
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "Name (label) of the location. (ISO20022)",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Position",
+      "kind": "object",
+      "description": "Reference to the assigned servicing position for the resource for the current session",
+      "properties": [
+        {
+          "name": "PositionValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PositionQuantity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PositionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PositionAmount",
+          "type": "object",
+          "ref": "Amount"
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "kind": "object",
+      "description": "Details the qualification, expertise and level of experience of a servicing specialist",
+      "properties": [
+        {
+          "name": "Profile",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule of past and planned customer contacts",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ServicingResource",
+      "kind": "object",
+      "description": "Reference to a servicing resource",
+      "properties": [
+        {
+          "name": "ResourceStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ResourceAvailabilitySchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ResourceLocation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ResourceQualificationProfile",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Session",
+      "kind": "object",
+      "description": "Reference to a servicing session assignments made",
+      "properties": [
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontype",
+      "kind": "object",
+      "description": "Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.",
+      "properties": [
+        {
+          "name": "SessionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ContactHandlingSession` - \r\n* `CustomerDialogueSession` - \r\n* `ChannelOperatingSession` - \r\n* `GatewayOperatingSession` - \r\n* `SwitchOperatingSession` - \r\n* `DeviceOperatingSession` - \r\n* `InterbankTransactionOperatingSession` - \r\n* `CorrespondenceOperatingSession` - \r\n* `InteractiveHelpOperatingSession` - \r\n* `ACHOperatingSession` - \r\n",
+      "enum_values": [
+        "ContactHandlingSession",
+        "CustomerDialogueSession",
+        "ChannelOperatingSession",
+        "GatewayOperatingSession",
+        "SwitchOperatingSession",
+        "DeviceOperatingSession",
+        "InterbankTransactionOperatingSession",
+        "CorrespondenceOperatingSession",
+        "InteractiveHelpOperatingSession",
+        "ACHOperatingSession"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "The result of the allocation task",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "CustomerServicingResourceAllocation",
+        "operations": [
+          "Provide",
+          "Control",
+          "Update",
+          "Exchange",
+          "Capture",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Allocation",
+        "parent_control_record": "CustomerServicingResourceAllocation",
+        "operations": [
+          "RequestAllocation",
+          "UpdateAllocation",
+          "ControlAllocation",
+          "ExchangeAllocation",
+          "CaptureAllocation",
+          "RetrieveAllocation"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ContactRouting.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "e900f1b0613d1f0f5674a9d9ed96b3e0d8e9689f2c8f0737943d1213136ebd60",
+    "retrieved_at": "2026-09-12T22:08:27.853069+00:00"
+  }
+}

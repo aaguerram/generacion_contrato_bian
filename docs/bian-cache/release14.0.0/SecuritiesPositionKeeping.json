@@ -1,0 +1,969 @@
+{
+  "service_domain": "Securities Position Keeping",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/SecuritiesPositionKeeping/Initiate",
+      "tipo": "CR",
+      "grupo": "SecuritiesPositionLog",
+      "request_schema": "SecuritiesPositionLog",
+      "response_schema": "SecuritiesPositionLog",
+      "summary": "InCR Initiate a position keeping transaction log",
+      "description": "InCR Initiate a position keeping transaction log"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/SecuritiesPositionKeeping/{securitiespositionkeepingid}/Update",
+      "tipo": "CR",
+      "grupo": "SecuritiesPositionLog",
+      "request_schema": "SecuritiesPositionLog",
+      "response_schema": "SecuritiesPositionLog",
+      "summary": "UpCR Update details for an active securities transaction log, including reflecting an account block",
+      "description": "UpCR Update details for an active securities transaction log, including reflecting an account block"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/SecuritiesPositionKeeping/{securitiespositionkeepingid}/Control",
+      "tipo": "CR",
+      "grupo": "SecuritiesPositionLog",
+      "request_schema": "SecuritiesPositionLog",
+      "response_schema": "SecuritiesPositionLog",
+      "summary": "CoCR Control the processing of the log",
+      "description": "CoCR Control the processing of the log"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/SecuritiesPositionKeeping/{securitiespositionkeepingid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "SecuritiesPositionLog",
+      "request_schema": "",
+      "response_schema": "SecuritiesPositionLog",
+      "summary": "ReCR Retrieve information about the log",
+      "description": "ReCR Retrieve information about the log"
+    },
+    {
+      "operation_id": "UpdateSecuritiesTransactionCapture",
+      "method": "PUT",
+      "path": "/SecuritiesPositionKeeping/{securitiespositionkeepingid}/SecuritiesTransactionCapture/{securitiestransactioncaptureid}/Update",
+      "tipo": "BQ",
+      "grupo": "SecuritiesTransactionCapture",
+      "request_schema": "SecuritiesTransactionCapture",
+      "response_schema": "SecuritiesTransactionCapture",
+      "summary": "UpBQ Update details of a captured securities transaction",
+      "description": "UpBQ Update details of a captured securities transaction",
+      "parent_control_record": "SecuritiesPositionLog"
+    },
+    {
+      "operation_id": "RetrieveSecuritiesTransactionCapture",
+      "method": "GET",
+      "path": "/SecuritiesPositionKeeping/{securitiespositionkeepingid}/SecuritiesTransactionCapture/{securitiestransactioncaptureid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "SecuritiesTransactionCapture",
+      "request_schema": "",
+      "response_schema": "SecuritiesTransactionCapture",
+      "summary": "ReBQ Retrieve details of securities transactions captured in the log",
+      "description": "ReBQ Retrieve details of securities transactions captured in the log",
+      "parent_control_record": "SecuritiesPositionLog"
+    },
+    {
+      "operation_id": "CaptureSecuritiesTransactionCapture",
+      "method": "PUT",
+      "path": "/SecuritiesPositionKeeping/{securitiespositionkeepingid}/SecuritiesTransactionCapture/{securitiestransactioncaptureid}/Capture",
+      "tipo": "BQ",
+      "grupo": "SecuritiesTransactionCapture",
+      "request_schema": "SecuritiesTransactionCapture",
+      "response_schema": "SecuritiesTransactionCapture",
+      "summary": "CaBQ Capture details of a securities transaction in the log",
+      "description": "CaBQ Capture details of a securities transaction in the log",
+      "parent_control_record": "SecuritiesPositionLog"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Agreementstatus",
+    "Agreementstatustypevalues",
+    "Agreementtypevalues",
+    "Amount",
+    "Amounttypevalues",
+    "Currencycode",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Limittypevalues",
+    "Location",
+    "Name",
+    "ProductAgreement",
+    "Productagreementtypevalues",
+    "SecuritiesPositionLog",
+    "SecuritiesTransactionCapture",
+    "Status",
+    "Transaction",
+    "Transactiondatetime",
+    "Transactiondatetimetypevalues",
+    "Transactionstatus",
+    "Transactionstatustypevalues",
+    "Transactiontypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Action",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Agreementstatus",
+      "kind": "object",
+      "description": "A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).",
+      "properties": [
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AgreementStatusType",
+          "type": "object",
+          "ref": "Agreementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Agreementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Offered` - \r\n* `Confirmed` - \r\n* `Completed` - \r\n* `Signed` - \r\n* `Terminated` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Offered",
+        "Confirmed",
+        "Completed",
+        "Signed",
+        "Terminated",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Agreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerAgreement` - \r\n* `SupplierAgreement` - \r\n* `BrokerAgreement` - \r\n* `SalesAgreement` - \r\n* `PurchaseAgreement` - \r\n* `MaintenanceAgreement` - \r\n* `ProductAgreement` - \r\n* `ResourceAgreement` - \r\n* `PartnerAgreement` - \r\n* `MasterAgreement` - \r\n* `BilateralAgreement` - \r\n* `RepurchaseAgreement` - \r\n",
+      "enum_values": [
+        "CustomerAgreement",
+        "SupplierAgreement",
+        "BrokerAgreement",
+        "SalesAgreement",
+        "PurchaseAgreement",
+        "MaintenanceAgreement",
+        "ProductAgreement",
+        "ResourceAgreement",
+        "PartnerAgreement",
+        "MasterAgreement",
+        "BilateralAgreement",
+        "RepurchaseAgreement"
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "The current calculated position",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date on which the agreement was signed by all parties. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of a transaction.",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Limittypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Multilateral` - Limit is a maximum amount value applied to, or by, a participant to a set of counterparties. The multilateral limit is taken into account by the transaction administrator to contain the risk in the system. With the help of the multilateral limit, the direct participant restricts the use of liquidity when clearing payments with all other direct participants for which no bilateral limit is set.\r\n* `Bilateral` - Limit is applied by one party to a specific counterparty, and corresponds to the maximum amount of traffic party setting the limit can send to that counterparty. The limit can be expressed as a debit or a credit limit. With the help of a bilateral limit, the direct participant restricts the use of liquidity when clearing payments with another direct participant.\r\n* `Netbilateral` - Limit is applied by one party to a specific counterparty, and corresponds to the maximum net balance acceptable by the party that is setting the limit. The limit is calculated as an arithmetic sum in value of the bilateral flows exchanged between the two parties. The net bilateral limit can be expressed as a debit or a credit balance.\r\n* `Indirectbilateral` - Limit is a maximum value set by a direct participant with respect to its indirect participant. The limit represents the maximum amount the indirect participant can use to settle its operations.\r\n* `Global` - Maximum value set by either the transaction administrator or by a member for the participation of a member in the system. The global limit may be expressed as a credit or debit maximum value and is taken into account by the transaction administrator when processing transaction inside the system. With the help of the global limit, the direct participant may limit the use of liquidity when clearing specific type of payments.\r\n* `Mandatorybilateral` - Mandatory part of the bilateral limit applied by one party to a specific counterparty, and corresponds to the maximum amount of traffic party setting the limit can send to that counterparty. The limit can be expressed as a debit or a credit limit. With the help of a bilateral limit, the direct participant restricts the use of liquidity when clearing payments with another direct participant.\r\n* `Discretionarybilateral` - Discretionary part of the bilateral limit applied by one party to a specific counterparty, and corresponds to the maximum amount of traffic party setting the limit can send to that counterparty. The limit can be expressed as a debit or a credit limit. With the help of a bilateral limit, the direct participant restricts the use of liquidity when clearing payments with another direct participant.\r\n* `Directdebit` - Limit not to be exceeded for direct debit operations.\r\n* `Singlecustomerdirectdebit` - Single direct debit payment limit not to be exceeded by any single direct debit transaction by a customer.\r\n* `Singlefinancialinstitutiondirectdebit` - Single direct debit payment limit not to be exceeded by any single direct debit transaction initiated by a financial institution.\r\n* `Totaldailycustomerdirectdebit` - Total daily payments limit for customer direct debits not to be exceeded by the total of all direct debit transactions initiated by customers.\r\n* `Totaldailyfinancialinstitutiondirectdebit` - Total daily payments limit for financial institutions direct debits not to be exceeded by the total of all direct debit transactions initiated by financial institutions.\r\n* `Autocollateralisation` - Limit is related to a credit operation that is or can be triggered when a buyer does not have a sufficient amount of money to settle a securities transaction in order to improve its cash position for the next settlement cycle. The credit provided can be secured using securities already held by the buyer (“collateral stocks”) or the securities that are being purchased (“collateral flows”).\r\n* `Unsecuredcredit` - Limit is related to a cap amount granted by a national central bank or a settlement bank, but generally unsecured outside of the market infrastructure.\r\n* `Externalguarantee` - Limit is related to a cap amount granted by a national central bank or a settlement bank.\r\n",
+      "enum_values": [
+        "Multilateral",
+        "Bilateral",
+        "Netbilateral",
+        "Indirectbilateral",
+        "Global",
+        "Mandatorybilateral",
+        "Discretionarybilateral",
+        "Directdebit",
+        "Singlecustomerdirectdebit",
+        "Singlefinancialinstitutiondirectdebit",
+        "Totaldailycustomerdirectdebit",
+        "Totaldailyfinancialinstitutiondirectdebit",
+        "Autocollateralisation",
+        "Unsecuredcredit",
+        "Externalguarantee"
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of transaction.",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductAgreement",
+      "kind": "object",
+      "description": "The product/service investment account for which this is the securities transaction log",
+      "properties": [
+        {
+          "name": "ProductAgreementType",
+          "type": "object",
+          "ref": "Productagreementtypevalues"
+        },
+        {
+          "name": "ProductAgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementSignedDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AgreementType",
+          "type": "object",
+          "ref": "Agreementtypevalues"
+        },
+        {
+          "name": "AgreementValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AgreementVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Agreementstatus"
+        },
+        {
+          "name": "AgreementSubjectMatter",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AgreementDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Productagreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CurrentAccountAgreement` - \r\n* `SavingsAccountAgreement` - \r\n* `BrokeredProductAgreement` - \r\n* `ConsumerLoanAgreement` - \r\n* `MortgageLoanAgreement` - \r\n* `DirectDebitServiceAgreement` - \r\n* `TermDepositAgreement` - \r\n",
+      "enum_values": [
+        "CurrentAccountAgreement",
+        "SavingsAccountAgreement",
+        "BrokeredProductAgreement",
+        "ConsumerLoanAgreement",
+        "MortgageLoanAgreement",
+        "DirectDebitServiceAgreement",
+        "TermDepositAgreement"
+      ]
+    },
+    {
+      "name": "SecuritiesPositionLog",
+      "kind": "object",
+      "description": "Maintain a log of transactions or activity, typically a financial account/journal or a log of activity to support behavioral analysis within Securities Position Keeping. ",
+      "properties": [
+        {
+          "name": "SecuritiesTransactionLogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductInstanceReference",
+          "type": "object",
+          "ref": "ProductAgreement"
+        },
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CounterpartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SecuritiesPositionLogInstrumentProfile",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SecuritiesPositionLogInstrumentRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SecuritiesInstrumentType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SecuritiesInstrumentReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SecuritiesPositionLimits",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SecuritiesPositionLimitType",
+          "type": "object",
+          "ref": "Limittypevalues"
+        },
+        {
+          "name": "SecuritiesPositionLimitSettings",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SecuritiesPositionLimitValue",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "SecuritiesAmountBlock",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SecuritiesAmountBlockType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Priority",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Amount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "DateType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        },
+        {
+          "name": "Date",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "InitiationDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "Status",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "SecuritiesTransactionCapture",
+      "kind": "object",
+      "description": "A collection of the events/transactions recorded by the log\n\nExamples: Customer life event, Servicing event",
+      "properties": [
+        {
+          "name": "SecuritiesPostingType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SecuritiesPostingTransaction",
+          "type": "object",
+          "ref": "Transaction"
+        },
+        {
+          "name": "SecuritiesPostingValueDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Transaction",
+      "kind": "object",
+      "description": "The logged securities transaction. Note the log can handle a range of transactions covering bought and sold amounts and securities instrument related transactions such as dividend payments",
+      "properties": [
+        {
+          "name": "TransactionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Transactiondatetime"
+        },
+        {
+          "name": "TransactionType",
+          "type": "object",
+          "ref": "Transactiontypevalues"
+        },
+        {
+          "name": "TransactionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Transactionstatus"
+        },
+        {
+          "name": "TransactionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetime",
+      "kind": "object",
+      "description": "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). ",
+      "properties": [
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "TransactionDateType",
+          "type": "object",
+          "ref": "Transactiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ExecutedDate` - \r\n* `FulfillmentDate` - \r\n* `InitiatedDate` - \r\n* `CancelledDate` - \r\n* `ApprovedDate` - \r\n* `ValueDate` - \r\n* `BookingDate` - \r\n",
+      "enum_values": [
+        "ExecutedDate",
+        "FulfillmentDate",
+        "InitiatedDate",
+        "CancelledDate",
+        "ApprovedDate",
+        "ValueDate",
+        "BookingDate"
+      ]
+    },
+    {
+      "name": "Transactionstatus",
+      "kind": "object",
+      "description": "A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) ",
+      "properties": [
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "TransactionStatusType",
+          "type": "object",
+          "ref": "Transactionstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Executed` - \r\n* `Cancelled` - \r\n* `Confirmed` - \r\n* `Suspended` - \r\n* `Pending` - \r\n* `Completed` - \r\n* `Notified` - \r\n* `Booked` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Executed",
+        "Cancelled",
+        "Confirmed",
+        "Suspended",
+        "Pending",
+        "Completed",
+        "Notified",
+        "Booked",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Transactiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialTransaction` - \r\n* `BusinessTransaction` - \r\n* `BankingTransaction` - \r\n* `AccountingTransaction` - \r\n* `BookingTransaction` - \r\n* `AllocationTransaction` - \r\n* `DeliveryTransaction` - \r\n* `ProductionTransaction` - \r\n",
+      "enum_values": [
+        "FinancialTransaction",
+        "BusinessTransaction",
+        "BankingTransaction",
+        "AccountingTransaction",
+        "BookingTransaction",
+        "AllocationTransaction",
+        "DeliveryTransaction",
+        "ProductionTransaction"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "SecuritiesPositionLog",
+        "operations": [
+          "Initiate",
+          "Update",
+          "Control",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "SecuritiesTransactionCapture",
+        "parent_control_record": "SecuritiesPositionLog",
+        "operations": [
+          "UpdateSecuritiesTransactionCapture",
+          "RetrieveSecuritiesTransactionCapture",
+          "CaptureSecuritiesTransactionCapture"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/SecuritiesPositionKeeping.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "4a646189d98267f772f3a9776e9b20e1f56aae6350d34a61ac2e5fdbf86b1f0f",
+    "retrieved_at": "2026-09-12T22:32:04.733844+00:00"
+  }
+}

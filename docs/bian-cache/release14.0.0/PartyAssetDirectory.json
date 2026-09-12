@@ -1,0 +1,1538 @@
+{
+  "service_domain": "Party Asset Directory",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "RegisterAssetProperties",
+      "method": "POST",
+      "path": "/PartyAssetDirectory/{partyassetdirectoryid}/AssetProperties/Register",
+      "tipo": "BQ",
+      "grupo": "AssetProperties",
+      "request_schema": "AssetProperties",
+      "response_schema": "AssetProperties",
+      "summary": "Register a Party Asset in the Directory",
+      "description": "Register a Party Asset in the Directory",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "UpdateAssetProperties",
+      "method": "PUT",
+      "path": "/PartyAssetDirectory/{partyassetdirectoryid}/AssetProperties/{assetpropertiesid}/Update",
+      "tipo": "BQ",
+      "grupo": "AssetProperties",
+      "request_schema": "AssetProperties",
+      "response_schema": "AssetProperties",
+      "summary": "Update Details of a Party Asset",
+      "description": "Update Details of a Party Asset",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "RetrieveAssetProperties",
+      "method": "GET",
+      "path": "/PartyAssetDirectory/{partyassetdirectoryid}/AssetProperties/{assetpropertiesid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "AssetProperties",
+      "request_schema": "",
+      "response_schema": "AssetProperties",
+      "summary": "Retrieve Details about a Party Asset",
+      "description": "Retrieve Details about a Party Asset",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "UpdateAssetEstimatedValue",
+      "method": "PUT",
+      "path": "/PartyAssetDirectory/{partyassetdirectoryid}/AssetEstimatedValue/{assetestimatedvalueid}/Update",
+      "tipo": "BQ",
+      "grupo": "AssetEstimatedValue",
+      "request_schema": "AssetEstimatedValue",
+      "response_schema": "AssetEstimatedValue",
+      "summary": "Update Details of a Valuation of a Party Asset",
+      "description": "Update Details of a Valuation of a Party Asset",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "RegisterAssetEstimatedValue",
+      "method": "POST",
+      "path": "/PartyAssetDirectory/{partyassetdirectoryid}/AssetEstimatedValue/Register",
+      "tipo": "BQ",
+      "grupo": "AssetEstimatedValue",
+      "request_schema": "AssetEstimatedValue",
+      "response_schema": "AssetEstimatedValue",
+      "summary": "Register Details of a Valuation of a Party Asset",
+      "description": "Register Details of a Valuation of a Party Asset",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "RetrieveAssetEstimatedValue",
+      "method": "GET",
+      "path": "/PartyAssetDirectory/{partyassetdirectoryid}/AssetEstimatedValue/{assetestimatedvalueid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "AssetEstimatedValue",
+      "request_schema": "",
+      "response_schema": "AssetEstimatedValue",
+      "summary": "Retrieve Details about a Valuation of a Party Asset",
+      "description": "Retrieve Details about a Valuation of a Party Asset",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "RegisterAssetInsurance",
+      "method": "POST",
+      "path": "/PartyAssetDirectory/{partyassetdirectoryid}/AssetInsurance/Register",
+      "tipo": "BQ",
+      "grupo": "AssetInsurance",
+      "request_schema": "AssetInsurance",
+      "response_schema": "AssetInsurance",
+      "summary": "Register Details of the Insurance of a Party Asset",
+      "description": "Register Details of the Insurance of a Party Asset",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "UpdateAssetMaintenance",
+      "method": "PUT",
+      "path": "/PartyAssetDirectory/{partyassetdirectoryid}/AssetMaintenance/{assetmaintenanceid}/Update",
+      "tipo": "BQ",
+      "grupo": "AssetMaintenance",
+      "request_schema": "AssetMaintenance",
+      "response_schema": "AssetMaintenance",
+      "summary": "Update Details of a Maintenance Task of a Party Asset",
+      "description": "Update Details of a Maintenance Task of a Party Asset",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "UpdateAssetInsurance",
+      "method": "PUT",
+      "path": "/PartyAssetDirectory/{partyassetdirectoryid}/AssetInsurance/{assetinsuranceid}/Update",
+      "tipo": "BQ",
+      "grupo": "AssetInsurance",
+      "request_schema": "AssetInsurance",
+      "response_schema": "AssetInsurance",
+      "summary": "Update Details of the Insurance of a Party Asset",
+      "description": "Update Details of the Insurance of a Party Asset",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "RegisterAssetMaintenance",
+      "method": "POST",
+      "path": "/PartyAssetDirectory/{partyassetdirectoryid}/AssetMaintenance/Register",
+      "tipo": "BQ",
+      "grupo": "AssetMaintenance",
+      "request_schema": "AssetMaintenance",
+      "response_schema": "AssetMaintenance",
+      "summary": "Register Details of a Maintenance Task of a Party Asset",
+      "description": "Register Details of a Maintenance Task of a Party Asset",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "RetrieveAssetMaintenance",
+      "method": "GET",
+      "path": "/PartyAssetDirectory/{partyassetdirectoryid}/AssetMaintenance/{assetmaintenanceid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "AssetMaintenance",
+      "request_schema": "",
+      "response_schema": "AssetMaintenance",
+      "summary": "Retrieve Details about a Maintenance Task of a Party Asset",
+      "description": "Retrieve Details about a Maintenance Task of a Party Asset",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "RetrieveAssetInsurance",
+      "method": "GET",
+      "path": "/PartyAssetDirectory/{partyassetdirectoryid}/AssetInsurance/{assetinsuranceid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "AssetInsurance",
+      "request_schema": "",
+      "response_schema": "AssetInsurance",
+      "summary": "Retrieve Details about the Insurance of a Party Asset",
+      "description": "Retrieve Details about the Insurance of a Party Asset",
+      "parent_control_record": ""
+    }
+  ],
+  "schemas": [
+    "Amount",
+    "Amounttypevalues",
+    "Asset",
+    "AssetEstimatedValue",
+    "AssetInsurance",
+    "AssetLocationorJurisdiction",
+    "AssetMaintenance",
+    "AssetProperties",
+    "AssetTitleOwnership",
+    "AssetTypeClassification",
+    "Assetclassificationtypevalues",
+    "Assetsubclassificationtypevalues",
+    "Assettypevalues",
+    "Assetvaluationtypevalues",
+    "Currencycode",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Document",
+    "Documentdatetimetypevalues",
+    "Feetypevalues",
+    "Financialdocumenttypevalues",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Industrycode",
+    "Involvedparty",
+    "Jurisdiction",
+    "Location",
+    "Log",
+    "Name",
+    "Organisation",
+    "Organisationdatetime",
+    "Organisationdatetimetypevalues",
+    "Organisationidentification",
+    "Organisationidentificationtypevalues",
+    "Organisationlegalstructuretypevalues",
+    "Organisationname",
+    "Organisationnametypevalues",
+    "Organisationtypevalues",
+    "PartyAssetDirectoryEntry",
+    "Partyidentification",
+    "Partyidentificationtypevalues",
+    "Partylegalstructuretypevalues",
+    "Partytypevalues",
+    "Schedule",
+    "Status"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "Premium amount that has to be paid for the insurance per period",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Asset",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AssetTitle",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AssetType",
+          "type": "object",
+          "ref": "Assettypevalues"
+        },
+        {
+          "name": "AssetDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssetDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetClassification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetClassificationType",
+          "type": "object",
+          "ref": "Assetclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassificationType",
+          "type": "object",
+          "ref": "Assetsubclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "AssetEstimatedValue",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AssetRemainingValueToPledgeAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "AssetCurrentValueAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "AssetValuationDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetValuationAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "AssetValuationType",
+          "type": "object",
+          "ref": "Assetvaluationtypevalues"
+        },
+        {
+          "name": "AssetValuationServiceReference",
+          "type": "object",
+          "ref": "Organisation"
+        },
+        {
+          "name": "AssetInitialValueAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "AssetValuationSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssetValuationHistoryDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetValuationReference",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "AssetInsurance",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AssetInsuranceReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AssetInsuranceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "AssetInsurancePremiumPaymentDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetInsuranceHistoryDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetInsurancePremiumAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "AssetInsurancePremiumPaymentPeriodicity",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AssetInsuranceStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetInsuranceAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "AssetInsuranceCompanyReference",
+          "type": "object",
+          "ref": "Organisation"
+        },
+        {
+          "name": "AssetInsuranceDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssetInsuranceEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "AssetLocationorJurisdiction",
+      "kind": "object",
+      "description": "",
+      "properties": []
+    },
+    {
+      "name": "AssetMaintenance",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AssetMaintenanceFeeAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "AssetMaintenanceFeeType",
+          "type": "object",
+          "ref": "Feetypevalues"
+        },
+        {
+          "name": "AssetVerificationandComplianceRecordDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetMaintenanceTaskTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "AssetMaintenanceTaskEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetMaintenanceTaskStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetMaintenanceServiceProviderReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "AssetMaintenanceSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssetMaintenanceReference",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "AssetProperties",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AssetInterestedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "AssetPartyInterestType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssetType",
+          "type": "object",
+          "ref": "Assettypevalues"
+        },
+        {
+          "name": "AssetOwningPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "AssetTaxesPaidDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "AssetStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssetRegisterDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetMaturityDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetTitleName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "AssetRiskProfileDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetJurisdiction",
+          "type": "object",
+          "ref": "Jurisdiction"
+        },
+        {
+          "name": "PartyAssetReference",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "AssetTitleOwnership",
+      "kind": "object",
+      "description": "",
+      "properties": []
+    },
+    {
+      "name": "AssetTypeClassification",
+      "kind": "object",
+      "description": "",
+      "properties": []
+    },
+    {
+      "name": "Assetclassificationtypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Assetclassificationtypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Assetsubclassificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Subassetclass` - Sub-asset class.(ISO20022)\r\n* `Timetomaturitybucket` - Time to maturity bucket.(ISO20022)\r\n* `Optiontimetomaturitybucket` - Time to maturity bucket of the option.(ISO20022)\r\n* `Swaptimetomaturitybucket` - Time to maturity bucket of the swap.(ISO20022)\r\n* `Underlyinginstrumentidentification` - Underlying instrument identification, such as an ISIN code.(ISO20022)\r\n* `Underlyingbondissuer` - Issuer of the underlying bond.(ISO20022)\r\n* `Underlyinginterestrate` - Underlying interest rate.(ISO20022)\r\n* `Underlyingbondterm` - Term of the underlying bond.(ISO20022)\r\n* `Assetclass` - Asset class.(ISO20022)\r\n* `Underlyingindexidentification` - Underlying index identification such as an ISIN or an index name.(ISO20022)\r\n* `Interestratetermofcontract` - Interest rate term of contract.(ISO20022)\r\n* `Underlyingreferenceentity` - Underlying reference entity.(ISO20022)\r\n* `Sovereignandpublictypeissuer` - Issuer of sovereign and public type.(ISO20022)\r\n* `Irdnotionalcurrency1` - Interest rate derivative notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency1` - Foreign exchange derivative notional currency 1.(ISO20022)\r\n* `Cfdnotionalcurrency1` - Contract for difference notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency2` - Foreign exchange derivative notional currency 2.(ISO20022)\r\n* `Irdnotionalcurrency2` - Interest rate derivative notional currency 2.(ISO20022)\r\n* `Cfdnotionalcurrency2` - Contract for difference notional currency 2.(ISO20022)\r\n* `Swaptionnotionalcurrency` - Notional currency of the swaption.(ISO20022)\r\n* `Creditnotionalcurrency` - Credit derivative notional currency.(ISO20022)\r\n* `Commoditynotionalcurrency` - Commodity derivative notional currency.(ISO20022)\r\n* `Contracttype` - Contract type.(ISO20022)\r\n* `Baseproduct` - Base product.(ISO20022)\r\n* `Subproduct` - Sub product.(ISO20022)\r\n* `Furthersubproduct` - Further sub product.(ISO20022)\r\n* `Deliverycashlocation` - Delivery cash settlement location.(ISO20022)\r\n* `Deliverysettlementtype` - Delivery settlement type.(ISO20022)\r\n* `Sizespecificationrelatedtofreightsubtype` - Size specification related to freight subtype.(ISO20022)\r\n* `Specificroutetimecharteraverage` - Specific route time charter average.(ISO20022)\r\n* `Equityunderlyingtype` - Equity derivative underlying type.(ISO20022)\r\n* `Parameter` - Parameter.(ISO20022)\r\n* `Inflationindexcodename` - Inflation index code or name.(ISO20022)\r\n* `ISIN` - Instrument identification.(ISO20022)\r\n* `Underlyingindexcdssubclassidentification` - Sub class of the underlying index credit default swap (CDS).(ISO20022)\r\n* `Underlyingtype` - Underlying type.(ISSO20022)\r\n",
+      "enum_values": [
+        "Subassetclass",
+        "Timetomaturitybucket",
+        "Optiontimetomaturitybucket",
+        "Swaptimetomaturitybucket",
+        "Underlyinginstrumentidentification",
+        "Underlyingbondissuer",
+        "Underlyinginterestrate",
+        "Underlyingbondterm",
+        "Assetclass",
+        "Underlyingindexidentification",
+        "Interestratetermofcontract",
+        "Underlyingreferenceentity",
+        "Sovereignandpublictypeissuer",
+        "Irdnotionalcurrency1",
+        "Fexnotionalcurrency1",
+        "Cfdnotionalcurrency1",
+        "Fexnotionalcurrency2",
+        "Irdnotionalcurrency2",
+        "Cfdnotionalcurrency2",
+        "Swaptionnotionalcurrency",
+        "Creditnotionalcurrency",
+        "Commoditynotionalcurrency",
+        "Contracttype",
+        "Baseproduct",
+        "Subproduct",
+        "Furthersubproduct",
+        "Deliverycashlocation",
+        "Deliverysettlementtype",
+        "Sizespecificationrelatedtofreightsubtype",
+        "Specificroutetimecharteraverage",
+        "Equityunderlyingtype",
+        "Parameter",
+        "Inflationindexcodename",
+        "ISIN",
+        "Underlyingindexcdssubclassidentification",
+        "Underlyingtype"
+      ]
+    },
+    {
+      "name": "Assettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `TangibleAsset` - It has a physical form and can be touched or seen.\r\n* `IntangibleAsset` - It doesn't have a physical form but hold value\r\n* `OperatingAsset` - Used in the day-to-day operations of the business.\r\n* `Non-OperatingAsset` - Not used in core business operations but still provide value\r\n* `CurrentAsset` - Expected to be converted into cash within one year.\r\n* `Non-Current(Fixed)Asset` - Provide value over the long term (more than one year).\r\n* `PersonalAsset` - Owned by individuals and not related to a business.\r\n* `BusinessAsset` - Owned by a business and used to generate revenue.\r\n",
+      "enum_values": [
+        "TangibleAsset",
+        "IntangibleAsset",
+        "OperatingAsset",
+        "Non-OperatingAsset",
+        "CurrentAsset",
+        "Non-Current(Fixed)Asset",
+        "PersonalAsset",
+        "BusinessAsset"
+      ]
+    },
+    {
+      "name": "Assetvaluationtypevalues",
+      "kind": "object",
+      "description": "Type of a particular valuation. Possible types are ad hoc-external valuer, ad hoc-internal valuer, scheduöed external valuer, scheduled internal valuer",
+      "properties": [
+        {
+          "name": "Assetvaluationtypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of the payments of the insurance premium, i.e. the interval between two payments",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Reference to an insurance document as recorded by Document Directory",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Feetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Accountingfee` - Fee paid for accounting services rendered.\r\n* `Adrfee` - Charge linked to an ADR (American Depositary Receipt).\r\n* `Advisoryfee` - Fee paid for advisory services rendered.\r\n* `Airwaybillfee` - Charge is an airway bill fee.\r\n* `Backendload` - Sales charge paid by the investor when redeeming an investment such as an investment fund.\r\n* `Brokeragefee` - Fee paid to a broker for services provided.\r\n* `Clearanceandhandlingatdestination` - Charge is for clearance and handling of goods at destination.\r\n* `Clearanceandhandlingatorigin` - Charge is for clearance and handling of goods at origin.\r\n* `Collectfreight` - Charge is for the collection of the freight.\r\n* `Commission` - Fee paid for services provided.\r\n* `Contingencydeferredsalescharge` - Deferred sales charge.\r\n* `Correspondentbankcharge` - In investment funds, the charge of the correspondent bank for transferring money.\r\n* `Custodyfee` - Fee paid to a custodian in respect of custodial services.\r\n* `Dangerousgoodsfee` - Charge is for dangerous goods.\r\n* `Dilutionlevy` - In investment funds, a charge payable by the investor covering bid-offer spreads and dealing charges for the underlying investments. The dilution levy is paid to the fund for the benefit of other unit holders.\r\n* `Discount` - Charge that has been reduced from the standard initial charge levied by a fund, eg, during a launch period or as negotiated by a funds supermarket / discount broker.\r\n* `Equalisation` - The part of an investor's subscription amount that is held by the fund in order to pay incentive or performance fees at the end of the fiscal year.\r\n* `Frontendload` - Sales charge paid immediately by the investor when subscribing to an investment such as an investment fund.\r\n* `Initial` - Charge paid at the time of the first subscription.\r\n* `Insurancepremium` - Charge is a premium for insurance.\r\n* `Issuancecancellationfee` - Fee linked to the cancellation of an issuance.\r\n* `Issuancefee` - Charge linked to the issuance of security.\r\n* `Managementfee` - Fee paid to an investment manager for services. The fee usually includes fund administration costs and investor relationship management. Typically, the amount paid is a percentage of the assets under management.\r\n* `Matchingfees` - Fee charged for matching and/or confirmation.\r\n* `Miscellaneousfee` - Miscellaneous fee.\r\n* `Other` - Another type of charge.\r\n* `Packaging` - Charge is for packaging of goods.\r\n* `Partacquis` - Portion of charge that the fund is entitled to receive, that cannot be reduced by an intermediary.\r\n* `Penalty` - Fee charged to the investor for early redemption of the fund.\r\n* `Pickup` - Charge is for pick-up of goods.\r\n* `Postagecharge` - Charge paid for the postage.\r\n* `Premium` - In investment funds, pre-arranged addition to the trade amount based on the published net asset value.\r\n* `Publicationfee` - Fee paid in respect of publications made.\r\n* `Regulatoryfee` - Fee charged by a regulatory authority, eg, Securities and Exchange fees.\r\n* `Securitycharge` - Charge is for security.\r\n* `Serviceprovisionfee` - Fee paid for the provision of financial services.\r\n* `Shippingcharge` - Charge for shipping, including the insurance of securities.\r\n* `Signatureservice` - Charge is for signature services.\r\n* `Specialconcessions` - Charges, drawdown, or other reduction from or in addition to the deal price.\r\n* `Speciallyagreedfrontendload` - Specially agreed front-end load.\r\n* `Storageatdestination` - Charge is for storage of goods at destination.\r\n* `Storageatorigin` - Charge is for storage of goods at origin.\r\n* `Switch` - In investment funds, charge related to a switch transaction.\r\n* `Transferfee` - In investment funds, a fee charged for the transfer of ownership of an investment fund.\r\n* `Transportcharges` - Charge is for transport.\r\n* `Ucitscommission` - Charges paid by the investor to the Fund Company for subscription and redemption orders.\r\n* `ChequeRelatedFee` - \r\n",
+      "enum_values": [
+        "Accountingfee",
+        "Adrfee",
+        "Advisoryfee",
+        "Airwaybillfee",
+        "Backendload",
+        "Brokeragefee",
+        "Clearanceandhandlingatdestination",
+        "Clearanceandhandlingatorigin",
+        "Collectfreight",
+        "Commission",
+        "Contingencydeferredsalescharge",
+        "Correspondentbankcharge",
+        "Custodyfee",
+        "Dangerousgoodsfee",
+        "Dilutionlevy",
+        "Discount",
+        "Equalisation",
+        "Frontendload",
+        "Initial",
+        "Insurancepremium",
+        "Issuancecancellationfee",
+        "Issuancefee",
+        "Managementfee",
+        "Matchingfees",
+        "Miscellaneousfee",
+        "Other",
+        "Packaging",
+        "Partacquis",
+        "Penalty",
+        "Pickup",
+        "Postagecharge",
+        "Premium",
+        "Publicationfee",
+        "Regulatoryfee",
+        "Securitycharge",
+        "Serviceprovisionfee",
+        "Shippingcharge",
+        "Signatureservice",
+        "Specialconcessions",
+        "Speciallyagreedfrontendload",
+        "Storageatdestination",
+        "Storageatorigin",
+        "Switch",
+        "Transferfee",
+        "Transportcharges",
+        "Ucitscommission",
+        "ChequeRelatedFee"
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "An unique reference to an item or an occurrence of \"Asset Insurance\"\n",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Industrycode",
+      "kind": "object",
+      "description": "Economical activity of Party (ISO20022)",
+      "properties": [
+        {
+          "name": "Industrycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Jurisdiction",
+      "kind": "object",
+      "description": "Jurisdiction under which the party asset is officially registered",
+      "properties": [
+        {
+          "name": "Jurisdiction",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "Name of the location of the party asset",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Reference to the log of (usage) ativities/events  of Party Asset Directory Entry",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "Name of the insurance expressed in common language like fire, flooding, theft, collision, etc.",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Organisation",
+      "kind": "object",
+      "description": "Reference to the insurance company as recorded by Party Reference Data Directory",
+      "properties": [
+        {
+          "name": "OrganisationStructureHierarchy",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Organisationidentification"
+        },
+        {
+          "name": "OrganisationSector",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalEntityIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationDate",
+          "type": "object",
+          "ref": "Organisationdatetime"
+        },
+        {
+          "name": "OrganisationType",
+          "type": "object",
+          "ref": "Organisationtypevalues"
+        },
+        {
+          "name": "OrganisationName",
+          "type": "object",
+          "ref": "Organisationname"
+        },
+        {
+          "name": "OrganisationLegalStructure",
+          "type": "object",
+          "ref": "Organisationlegalstructuretypevalues"
+        },
+        {
+          "name": "PartyName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PartyType",
+          "type": "object",
+          "ref": "Partytypevalues"
+        },
+        {
+          "name": "PartyDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Partyidentification"
+        },
+        {
+          "name": "PartyLegalStructureType",
+          "type": "object",
+          "ref": "Partylegalstructuretypevalues"
+        },
+        {
+          "name": "PartyActivityIndicator",
+          "type": "object",
+          "ref": "Industrycode"
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisatioDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "OrganisatioDateType",
+          "type": "object",
+          "ref": "Organisationdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `RegistrationDate` - Date and time at which a given organisation was officially registered. (ISO20022)\r\n* `EstablishmentDate` - Date when the organisation was established. ISO20022\r\n* `EntityExpirationDate` - The date the Legal Entity ceased operation or was merged. ISO20022\r\n",
+      "enum_values": [
+        "RegistrationDate",
+        "EstablishmentDate",
+        "EntityExpirationDate"
+      ]
+    },
+    {
+      "name": "Organisationidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisationIdentificationType",
+          "type": "object",
+          "ref": "Organisationidentificationtypevalues"
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Organisationidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LEI` - Legal Entity Identifier is a code allocated to a party as described in ISO 17442 \"Financial Services - Legal Entity Identifier (LEI)\".\r\n* `ELF` - Entity Legal Forms is a code allocated to a party as described in ISO 20275 \"Financial services  Entity legal forms (ELF)\". \r\n* `MIC` - Market Identifier Code. Identification of a financial market, as stipulated in the norm ISO 10383 \"Codes for exchanges and market identifications\".\r\n* `BICFI` - Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 \"Banking - Banking telecommunication messages - Business identifier code (BIC)\".\r\n* `Bankpartyidentification` - Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client.\r\n* `Centralbankidentificationnumber` - A unique identification number assigned by a central bank to identify an organisation.\r\n* `Clearingidentificationnumber` - A unique identification number assigned by a clearing house to identify an organisation\r\n* `Certificateofincorporationnumber` - A unique identification number assigned by a designated authority to a certificate of incorporation and used to identify an organisation.\r\n* `Countryidentificationcode` - Country authority given organisation identification (e.g., corporate registration number)\r\n* `Customernumber` - Number assigned by an issuer to identify a customer.\nNumber assigned by a party to identify a creditor or debtor relationship.\r\n* `Datauniversalnumberingsystem` - A unique identification number provided by Dun & Bradstreet to identify an organisation.\r\n* `Employeridentificationnumber` - Number assigned by a registration authority to an employer.\r\n* `Gs1glnidentifier` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to GS1 numbering scheme rules.The number is used to retrieve detailed information that is linked to it.\r\n* `SIREN` - The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France.\r\n* `SIRET` - The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to identify an organisation.\r\n* `EANGLN` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to the European Association for Numbering (EAN) numbering scheme rules. The number is used to retrieve detailed information that is linked to it. (iso20022)\r\n",
+      "enum_values": [
+        "LEI",
+        "ELF",
+        "MIC",
+        "BICFI",
+        "Bankpartyidentification",
+        "Centralbankidentificationnumber",
+        "Clearingidentificationnumber",
+        "Certificateofincorporationnumber",
+        "Countryidentificationcode",
+        "Customernumber",
+        "Datauniversalnumberingsystem",
+        "Employeridentificationnumber",
+        "Gs1glnidentifier",
+        "SIREN",
+        "SIRET",
+        "Taxidentificationnumber",
+        "EANGLN"
+      ]
+    },
+    {
+      "name": "Organisationlegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Corporation` - Legal structure is a corporation.\r\n* `Individual` - Legal structure is an individual.\r\n* `Supranational` - Legal structure is a supranational.\r\n* `Sovereign` - Legal structure is a sovereign.\r\n* `Municipal` - Legal structure is a municipal.\r\n* `Province` - Legal structure is a province.\r\n* `State` - Legal structure is a state.\r\n* `County` - Legal structure is a county.\r\n* `Partnership` - Legal structure is a partnership.\r\n* `Financialinstitution` - Legal structure is a financial institution.\r\n* `National` - Legal structure is a state.\r\n",
+      "enum_values": [
+        "Corporation",
+        "Individual",
+        "Supranational",
+        "Sovereign",
+        "Municipal",
+        "Province",
+        "State",
+        "County",
+        "Partnership",
+        "Financialinstitution",
+        "National"
+      ]
+    },
+    {
+      "name": "Organisationname",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "NameType",
+          "type": "object",
+          "ref": "Organisationnametypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationnametypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ShortName` - \r\n* `TradingName` - \r\n* `LegalName` - \r\n",
+      "enum_values": [
+        "ShortName",
+        "TradingName",
+        "LegalName"
+      ]
+    },
+    {
+      "name": "Organisationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LegalEntity` - \r\n* `Authority` - \r\n* `OrganisationUnit` - \r\n* `FinancialInstitution` - \r\n* `Charity` - \r\n* `GovernmentBody` - \r\n",
+      "enum_values": [
+        "LegalEntity",
+        "Authority",
+        "OrganisationUnit",
+        "FinancialInstitution",
+        "Charity",
+        "GovernmentBody"
+      ]
+    },
+    {
+      "name": "PartyAssetDirectoryEntry",
+      "kind": "object",
+      "description": "Capture and maintain reference information about some type of entitity within Party Asset Directory Entry",
+      "properties": [
+        {
+          "name": "PartyAssetDirectoryEntryDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartyAssetDirectoryEntrySchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "PartyAssetDirectoryEntryVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartyAssetDirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "PartyAssetDirectoryEntryUsageLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "PartyAssetDirectoryEntryUpdateLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "PartyAssetDirectoryEntryServiceConfiguration",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PartyAssetDirectoryEntryReference",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "PartyAssetReference",
+          "type": "object",
+          "ref": "Asset"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyIdentificationType",
+          "type": "object",
+          "ref": "Partyidentificationtypevalues"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to an entity.\r\n* `Nationalregistrationnumber` - Number assigned by a national registration authority to an entity. In Singapore this is known as the NRIC. (ISO20022)\r\n* `Registrationauthorityidentification` - An identifier for the Legal Entity in a business registry in the jurisdiction of legal registration, or in the appropriate registration authority. (ISO20022)\r\n* `LEI(LegalEntityIdentifier)` - \r\n* `Alienregistrationnumber` - Number assigned by a government agency to identify foreign nationals.\r\n* `Passportnumber` - Number assigned by a passport authority.\r\n* `Taxexemptidentificationnumber` - Number assigned to a tax exempt entity.\r\n* `Corporateidentification` - Number assigned to a corporate entity.\r\n* `Driverlicensenumber` - Number assigned to a driver's license.\r\n* `Foreigninvestmentidentitynumber` - Number assigned to a foreign investor (other than the alien number).\r\n* `Socialsecuritynumber` - Number assigned by a social security agency.\r\n* `Identitycardnumber` - Number assigned by a national authority to an identity card.\r\n* `Concat` - Number assigned by an issuer to identify a customer via the concatenation of the birthdate and characters of the first name and surname.\r\n* `Nationalregistrationidentificationnumber` - National registration identification number. In Singapore this is known as the NRIC.\r\n",
+      "enum_values": [
+        "Taxidentificationnumber",
+        "Nationalregistrationnumber",
+        "Registrationauthorityidentification",
+        "LEI(LegalEntityIdentifier)",
+        "Alienregistrationnumber",
+        "Passportnumber",
+        "Taxexemptidentificationnumber",
+        "Corporateidentification",
+        "Driverlicensenumber",
+        "Foreigninvestmentidentitynumber",
+        "Socialsecuritynumber",
+        "Identitycardnumber",
+        "Concat",
+        "Nationalregistrationidentificationnumber"
+      ]
+    },
+    {
+      "name": "Partylegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Individual` - \r\n* `CommunityInterestCompany` - \r\n* `CharitableIncorporatedOrganisation` - \r\n* `Co-Operative` - \r\n* `Charity` - \r\n* `GeneralPartnership` - \r\n* `LimitedLiabilityPartnership` - \r\n* `ScottishLimitedPartnership` - \r\n* `LimitedPartnership` - \r\n* `PrivateLimitedCompany` - \r\n* `PublicLimitedCompany` - \r\n* `Sole(SoleTrader)` - \r\n",
+      "enum_values": [
+        "Individual",
+        "CommunityInterestCompany",
+        "CharitableIncorporatedOrganisation",
+        "Co-Operative",
+        "Charity",
+        "GeneralPartnership",
+        "LimitedLiabilityPartnership",
+        "ScottishLimitedPartnership",
+        "LimitedPartnership",
+        "PrivateLimitedCompany",
+        "PublicLimitedCompany",
+        "Sole(SoleTrader)"
+      ]
+    },
+    {
+      "name": "Partytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\r\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\r\n",
+      "enum_values": [
+        "Person",
+        "Organisation"
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "Schedule according to which a party asset is being valued",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "Status of the document (e.g. delivered, paid, etc.). ISO20022",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": [
+      {
+        "name": "AssetEstimatedValue",
+        "parent_control_record": "",
+        "operations": [
+          "UpdateAssetEstimatedValue",
+          "RegisterAssetEstimatedValue",
+          "RetrieveAssetEstimatedValue"
+        ]
+      },
+      {
+        "name": "AssetInsurance",
+        "parent_control_record": "",
+        "operations": [
+          "RegisterAssetInsurance",
+          "UpdateAssetInsurance",
+          "RetrieveAssetInsurance"
+        ]
+      },
+      {
+        "name": "AssetMaintenance",
+        "parent_control_record": "",
+        "operations": [
+          "UpdateAssetMaintenance",
+          "RegisterAssetMaintenance",
+          "RetrieveAssetMaintenance"
+        ]
+      },
+      {
+        "name": "AssetProperties",
+        "parent_control_record": "",
+        "operations": [
+          "RegisterAssetProperties",
+          "UpdateAssetProperties",
+          "RetrieveAssetProperties"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyAssetDirectory.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "83067035a7468c1d92bbc8f83db521a2e27e45ba9a50d0d2cbdaf6ec8eaa6edb",
+    "retrieved_at": "2026-09-12T21:52:34.818285+00:00"
+  }
+}

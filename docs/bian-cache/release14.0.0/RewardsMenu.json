@@ -1,0 +1,91 @@
+{
+  "service_domain": "Rewards Menu",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [],
+  "schemas": [
+    "HTTPError",
+    "RewardsOptionDirectoryEntry"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "RewardsOptionDirectoryEntry",
+      "kind": "object",
+      "description": "Capture and maintain reference information about some type of entitity within Rewards Menu.",
+      "properties": [
+        {
+          "name": "RewardsOptionDirectoryEntryDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsOptionDirectoryEntrySchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsOptionDirectoryEntryVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsOptionDirectoryEntryStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsOptionDirectoryEntryUsageLog",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsOptionDirectoryEntryUpdateLog",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsOptionDirectoryEntryServiceConfiguration",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RewardsOptionDirectoryEntryReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/RewardsMenu.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "09ba7625dbb4f28f203155d4a6389cb582942de2dc9e758c7d9a19a175c31af6",
+    "retrieved_at": "2026-09-12T22:33:06.894290+00:00"
+  }
+}

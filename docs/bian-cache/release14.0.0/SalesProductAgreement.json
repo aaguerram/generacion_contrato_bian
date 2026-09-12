@@ -1,0 +1,1556 @@
+{
+  "service_domain": "Sales Product Agreement",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Evaluate",
+      "method": "POST",
+      "path": "/SalesProductAgreement/Evaluate",
+      "tipo": "CR",
+      "grupo": "SalesProductAgreement",
+      "request_schema": "SalesProductAgreement",
+      "response_schema": "SalesProductAgreement",
+      "summary": "EvCR Establish a sales product agreement",
+      "description": "EvCR Establish a sales product agreement"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/Update",
+      "tipo": "CR",
+      "grupo": "SalesProductAgreement",
+      "request_schema": "SalesProductAgreement",
+      "response_schema": "SalesProductAgreement",
+      "summary": "UpCR Update details of an active sales product agreement",
+      "description": "UpCR Update details of an active sales product agreement"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/Control",
+      "tipo": "CR",
+      "grupo": "SalesProductAgreement",
+      "request_schema": "SalesProductAgreement",
+      "response_schema": "SalesProductAgreement",
+      "summary": "CoCR Control the processing of an agreement",
+      "description": "CoCR Control the processing of an agreement"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/Exchange",
+      "tipo": "CR",
+      "grupo": "SalesProductAgreement",
+      "request_schema": "SalesProductAgreement",
+      "response_schema": "SalesProductAgreement",
+      "summary": "EcCR Accept, reject etc an agreement",
+      "description": "EcCR Accept, reject etc an agreement"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/Request",
+      "tipo": "CR",
+      "grupo": "SalesProductAgreement",
+      "request_schema": "SalesProductAgreement",
+      "response_schema": "SalesProductAgreement",
+      "summary": "RqCR Request check of a proposed activity is compatible",
+      "description": "RqCR Request check of a proposed activity is compatible"
+    },
+    {
+      "operation_id": "Grant",
+      "method": "PUT",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/Grant",
+      "tipo": "CR",
+      "grupo": "SalesProductAgreement",
+      "request_schema": "SalesProductAgreement",
+      "response_schema": "SalesProductAgreement",
+      "summary": "GrCR Obtain grant authority to act under the terms of the agreement",
+      "description": "GrCR Obtain grant authority to act under the terms of the agreement"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "SalesProductAgreement",
+      "request_schema": "",
+      "response_schema": "SalesProductAgreement",
+      "summary": "ReCR Retrieve details about a sales product agreement",
+      "description": "ReCR Retrieve details about a sales product agreement"
+    },
+    {
+      "operation_id": "EvaluateLegalTerm",
+      "method": "POST",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/LegalTerm/Evaluate",
+      "tipo": "BQ",
+      "grupo": "LegalTerm",
+      "request_schema": "LegalTerm",
+      "response_schema": "LegalTerm",
+      "summary": "EvBQ Establish the legal terms for a sales product agreement",
+      "description": "EvBQ Establish the legal terms for a sales product agreement",
+      "parent_control_record": "SalesProductAgreement"
+    },
+    {
+      "operation_id": "RetrieveLegalTerm",
+      "method": "GET",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/LegalTerm/{legaltermid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "LegalTerm",
+      "request_schema": "",
+      "response_schema": "LegalTerm",
+      "summary": "ReBQ Retrieve details about the legal terms of an agreement",
+      "description": "ReBQ Retrieve details about the legal terms of an agreement",
+      "parent_control_record": "SalesProductAgreement"
+    },
+    {
+      "operation_id": "UpdateLegalTerm",
+      "method": "PUT",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/LegalTerm/{legaltermid}/Update",
+      "tipo": "BQ",
+      "grupo": "LegalTerm",
+      "request_schema": "LegalTerm",
+      "response_schema": "LegalTerm",
+      "summary": "UpBQ Update the legal terms for a sales product agreement",
+      "description": "UpBQ Update the legal terms for a sales product agreement",
+      "parent_control_record": "SalesProductAgreement"
+    },
+    {
+      "operation_id": "EvaluateRegulatoryTerm",
+      "method": "POST",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/RegulatoryTerm/Evaluate",
+      "tipo": "BQ",
+      "grupo": "RegulatoryTerm",
+      "request_schema": "RegulatoryTerm",
+      "response_schema": "RegulatoryTerm",
+      "summary": "EvBQ Establish the regulatory terms for a sales product agreement",
+      "description": "EvBQ Establish the regulatory terms for a sales product agreement",
+      "parent_control_record": "SalesProductAgreement"
+    },
+    {
+      "operation_id": "UpdateRegulatoryTerm",
+      "method": "PUT",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/RegulatoryTerm/{regulatorytermid}/Update",
+      "tipo": "BQ",
+      "grupo": "RegulatoryTerm",
+      "request_schema": "RegulatoryTerm",
+      "response_schema": "RegulatoryTerm",
+      "summary": "UpBQ Update the regulatory terms for a sales product agreement",
+      "description": "UpBQ Update the regulatory terms for a sales product agreement",
+      "parent_control_record": "SalesProductAgreement"
+    },
+    {
+      "operation_id": "RetrieveRegulatoryTerm",
+      "method": "GET",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/RegulatoryTerm/{regulatorytermid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "RegulatoryTerm",
+      "request_schema": "",
+      "response_schema": "RegulatoryTerm",
+      "summary": "ReBQ Retrieve details about the regulatory terms of an agreement",
+      "description": "ReBQ Retrieve details about the regulatory terms of an agreement",
+      "parent_control_record": "SalesProductAgreement"
+    },
+    {
+      "operation_id": "EvaluatePolicyTerm",
+      "method": "POST",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/PolicyTerm/Evaluate",
+      "tipo": "BQ",
+      "grupo": "PolicyTerm",
+      "request_schema": "PolicyTerm",
+      "response_schema": "PolicyTerm",
+      "summary": "EvBQ Establish the corporate policy terms for a sales product agreement",
+      "description": "EvBQ Establish the corporate policy terms for a sales product agreement",
+      "parent_control_record": "SalesProductAgreement"
+    },
+    {
+      "operation_id": "UpdatePolicyTerm",
+      "method": "PUT",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/PolicyTerm/{policytermid}/Update",
+      "tipo": "BQ",
+      "grupo": "PolicyTerm",
+      "request_schema": "PolicyTerm",
+      "response_schema": "PolicyTerm",
+      "summary": "UpBQ Update the corporate policy terms for a sales product agreement",
+      "description": "UpBQ Update the corporate policy terms for a sales product agreement",
+      "parent_control_record": "SalesProductAgreement"
+    },
+    {
+      "operation_id": "RetrievePolicyTerm",
+      "method": "GET",
+      "path": "/SalesProductAgreement/{salesproductagreementid}/PolicyTerm/{policytermid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "PolicyTerm",
+      "request_schema": "",
+      "response_schema": "PolicyTerm",
+      "summary": "ReBQ Retrieve details about the corporate policy terms of an agreement",
+      "description": "ReBQ Retrieve details about the corporate policy terms of an agreement",
+      "parent_control_record": "SalesProductAgreement"
+    }
+  ],
+  "schemas": [
+    "Agreementstatus",
+    "Agreementstatustypevalues",
+    "Agreementtypevalues",
+    "Assetclassificationtypevalues",
+    "Assetsubclassificationtypevalues",
+    "Assettypevalues",
+    "Bankingproducttypevalues",
+    "CustomerAgreement",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Directoryentrydatetypevalues",
+    "DocumentDirectoryEntry",
+    "Financialinstrumentdatetime",
+    "Financialinstrumentdatetimetypevalues",
+    "Financialinstrumentidentification",
+    "Financialinstrumentidentificationtypevalues",
+    "Financialinstrumenttypevalues",
+    "HTTPError",
+    "Identifier",
+    "Industrycode",
+    "Involvedparty",
+    "Jurisdiction",
+    "Law",
+    "LegalTerm",
+    "Name",
+    "Party",
+    "PartyRelationshipLifecyclePhase",
+    "Partyidentification",
+    "Partyidentificationtypevalues",
+    "Partylegalstructuretypevalues",
+    "Partytypevalues",
+    "Policy",
+    "PolicyTerm",
+    "Policytypevalues",
+    "Product",
+    "ProductAgreement",
+    "ProductAgreementInvolvement",
+    "Productagreement",
+    "Productagreementtypevalues",
+    "Productidentification",
+    "Productidentificationtypevalues",
+    "Productserviceagreementinvolvementtypevalues",
+    "Productstatus",
+    "Productstatustypevalues",
+    "Regulation",
+    "RegulatoryAuthority",
+    "RegulatoryTerm",
+    "Rulesettypevalues",
+    "SalesProductAgreement",
+    "Status"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Agreementstatus",
+      "kind": "object",
+      "description": "A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).",
+      "properties": [
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AgreementStatusType",
+          "type": "object",
+          "ref": "Agreementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Agreementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Offered` - \r\n* `Confirmed` - \r\n* `Completed` - \r\n* `Signed` - \r\n* `Terminated` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Offered",
+        "Confirmed",
+        "Completed",
+        "Signed",
+        "Terminated",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Agreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerAgreement` - \r\n* `SupplierAgreement` - \r\n* `BrokerAgreement` - \r\n* `SalesAgreement` - \r\n* `PurchaseAgreement` - \r\n* `MaintenanceAgreement` - \r\n* `ProductAgreement` - \r\n* `ResourceAgreement` - \r\n* `PartnerAgreement` - \r\n* `MasterAgreement` - \r\n* `BilateralAgreement` - \r\n* `RepurchaseAgreement` - \r\n",
+      "enum_values": [
+        "CustomerAgreement",
+        "SupplierAgreement",
+        "BrokerAgreement",
+        "SalesAgreement",
+        "PurchaseAgreement",
+        "MaintenanceAgreement",
+        "ProductAgreement",
+        "ResourceAgreement",
+        "PartnerAgreement",
+        "MasterAgreement",
+        "BilateralAgreement",
+        "RepurchaseAgreement"
+      ]
+    },
+    {
+      "name": "Assetclassificationtypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Assetclassificationtypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Assetsubclassificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Subassetclass` - Sub-asset class.(ISO20022)\r\n* `Timetomaturitybucket` - Time to maturity bucket.(ISO20022)\r\n* `Optiontimetomaturitybucket` - Time to maturity bucket of the option.(ISO20022)\r\n* `Swaptimetomaturitybucket` - Time to maturity bucket of the swap.(ISO20022)\r\n* `Underlyinginstrumentidentification` - Underlying instrument identification, such as an ISIN code.(ISO20022)\r\n* `Underlyingbondissuer` - Issuer of the underlying bond.(ISO20022)\r\n* `Underlyinginterestrate` - Underlying interest rate.(ISO20022)\r\n* `Underlyingbondterm` - Term of the underlying bond.(ISO20022)\r\n* `Assetclass` - Asset class.(ISO20022)\r\n* `Underlyingindexidentification` - Underlying index identification such as an ISIN or an index name.(ISO20022)\r\n* `Interestratetermofcontract` - Interest rate term of contract.(ISO20022)\r\n* `Underlyingreferenceentity` - Underlying reference entity.(ISO20022)\r\n* `Sovereignandpublictypeissuer` - Issuer of sovereign and public type.(ISO20022)\r\n* `Irdnotionalcurrency1` - Interest rate derivative notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency1` - Foreign exchange derivative notional currency 1.(ISO20022)\r\n* `Cfdnotionalcurrency1` - Contract for difference notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency2` - Foreign exchange derivative notional currency 2.(ISO20022)\r\n* `Irdnotionalcurrency2` - Interest rate derivative notional currency 2.(ISO20022)\r\n* `Cfdnotionalcurrency2` - Contract for difference notional currency 2.(ISO20022)\r\n* `Swaptionnotionalcurrency` - Notional currency of the swaption.(ISO20022)\r\n* `Creditnotionalcurrency` - Credit derivative notional currency.(ISO20022)\r\n* `Commoditynotionalcurrency` - Commodity derivative notional currency.(ISO20022)\r\n* `Contracttype` - Contract type.(ISO20022)\r\n* `Baseproduct` - Base product.(ISO20022)\r\n* `Subproduct` - Sub product.(ISO20022)\r\n* `Furthersubproduct` - Further sub product.(ISO20022)\r\n* `Deliverycashlocation` - Delivery cash settlement location.(ISO20022)\r\n* `Deliverysettlementtype` - Delivery settlement type.(ISO20022)\r\n* `Sizespecificationrelatedtofreightsubtype` - Size specification related to freight subtype.(ISO20022)\r\n* `Specificroutetimecharteraverage` - Specific route time charter average.(ISO20022)\r\n* `Equityunderlyingtype` - Equity derivative underlying type.(ISO20022)\r\n* `Parameter` - Parameter.(ISO20022)\r\n* `Inflationindexcodename` - Inflation index code or name.(ISO20022)\r\n* `ISIN` - Instrument identification.(ISO20022)\r\n* `Underlyingindexcdssubclassidentification` - Sub class of the underlying index credit default swap (CDS).(ISO20022)\r\n* `Underlyingtype` - Underlying type.(ISSO20022)\r\n",
+      "enum_values": [
+        "Subassetclass",
+        "Timetomaturitybucket",
+        "Optiontimetomaturitybucket",
+        "Swaptimetomaturitybucket",
+        "Underlyinginstrumentidentification",
+        "Underlyingbondissuer",
+        "Underlyinginterestrate",
+        "Underlyingbondterm",
+        "Assetclass",
+        "Underlyingindexidentification",
+        "Interestratetermofcontract",
+        "Underlyingreferenceentity",
+        "Sovereignandpublictypeissuer",
+        "Irdnotionalcurrency1",
+        "Fexnotionalcurrency1",
+        "Cfdnotionalcurrency1",
+        "Fexnotionalcurrency2",
+        "Irdnotionalcurrency2",
+        "Cfdnotionalcurrency2",
+        "Swaptionnotionalcurrency",
+        "Creditnotionalcurrency",
+        "Commoditynotionalcurrency",
+        "Contracttype",
+        "Baseproduct",
+        "Subproduct",
+        "Furthersubproduct",
+        "Deliverycashlocation",
+        "Deliverysettlementtype",
+        "Sizespecificationrelatedtofreightsubtype",
+        "Specificroutetimecharteraverage",
+        "Equityunderlyingtype",
+        "Parameter",
+        "Inflationindexcodename",
+        "ISIN",
+        "Underlyingindexcdssubclassidentification",
+        "Underlyingtype"
+      ]
+    },
+    {
+      "name": "Assettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `TangibleAsset` - It has a physical form and can be touched or seen.\r\n* `IntangibleAsset` - It doesn't have a physical form but hold value\r\n* `OperatingAsset` - Used in the day-to-day operations of the business.\r\n* `Non-OperatingAsset` - Not used in core business operations but still provide value\r\n* `CurrentAsset` - Expected to be converted into cash within one year.\r\n* `Non-Current(Fixed)Asset` - Provide value over the long term (more than one year).\r\n* `PersonalAsset` - Owned by individuals and not related to a business.\r\n* `BusinessAsset` - Owned by a business and used to generate revenue.\r\n",
+      "enum_values": [
+        "TangibleAsset",
+        "IntangibleAsset",
+        "OperatingAsset",
+        "Non-OperatingAsset",
+        "CurrentAsset",
+        "Non-Current(Fixed)Asset",
+        "PersonalAsset",
+        "BusinessAsset"
+      ]
+    },
+    {
+      "name": "Bankingproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LoanProduct` - \r\n* `CurrentAccountProduct` - \r\n* `SavingAccountProduct` - \r\n* `BrokeredProduct` - \r\n* `TermDepositProduct` - \r\n",
+      "enum_values": [
+        "LoanProduct",
+        "CurrentAccountProduct",
+        "SavingAccountProduct",
+        "BrokeredProduct",
+        "TermDepositProduct"
+      ]
+    },
+    {
+      "name": "CustomerAgreement",
+      "kind": "object",
+      "description": "Reference to the customer master agreement that governs the product agreement",
+      "properties": [
+        {
+          "name": "AgreementSignedDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AgreementType",
+          "type": "object",
+          "ref": "Agreementtypevalues"
+        },
+        {
+          "name": "AgreementValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AgreementVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Agreementstatus"
+        },
+        {
+          "name": "AgreementSubjectMatter",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AgreementDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date on which the agreement was signed by all parties. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Directoryentrydatetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpenDate` - \r\n* `RefreshDate` - \r\n",
+      "enum_values": [
+        "OpenDate",
+        "RefreshDate"
+      ]
+    },
+    {
+      "name": "DocumentDirectoryEntry",
+      "kind": "object",
+      "description": "Reference to any associated documents",
+      "properties": [
+        {
+          "name": "DocumentDirectoryEntryIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Directoryentrydatetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "DirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetime",
+      "kind": "object",
+      "description": "Key dates of financial instrument",
+      "properties": [
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "FinancialInstrumentDateType",
+          "type": "object",
+          "ref": "Financialinstrumentdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CouponDate` - Next payment date of an interest bearing financial instrument.(ISO20022)\r\n* `ExpiryDate` - Date on which a privilege expires.(ISO20022)\r\n* `FloatingRateFixingDate` - Date at which the interest rate of an interest bearing security will be calculated and reset, according to the terms of the issue.(ISO20022)\r\n* `MaturityDate` - Planned final repayment date at the time of issuance.(ISO20022)\r\n* `IssueDate` - Date at which the security was made available.(ISO20022)\r\n* `NextCallableDate` - Next date at which the issuer has the right to pay the security prior to maturity.(ISO20022)\r\n* `PutableDate` - Date at which the holder has the right to ask for redemption of the security prior to final maturity.(ISO20022)\r\n* `DatedDate` - First date at which a security begins to accrue interest.(ISO20022)\r\n* `FirstPaymentDate` - Date at which the first interest payment is due to holders of the security.(ISO20022)\r\n",
+      "enum_values": [
+        "CouponDate",
+        "ExpiryDate",
+        "FloatingRateFixingDate",
+        "MaturityDate",
+        "IssueDate",
+        "NextCallableDate",
+        "PutableDate",
+        "DatedDate",
+        "FirstPaymentDate"
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FinancialInstrumentIdentificationType",
+          "type": "object",
+          "ref": "Financialinstrumentidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `NASDAQ` - \r\n* `ISIN` - \r\n",
+      "enum_values": [
+        "NASDAQ",
+        "ISIN"
+      ]
+    },
+    {
+      "name": "Financialinstrumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Loan` - \r\n* `Bond` - \r\n* `Deposit` - \r\n* `Stock` - \r\n* `Option` - \r\n* `Share` - \r\n* `Debt` - Financial instruments evidencing moneys owed by the issuer to the holder on terms as specified. (ISO20022)\n\nAny type of instrument primarily classified as debt can be considered a debt instrument. Debt instruments are tools an individual, government entity, or business entity can utilize for the purpose of obtaining capital. Debt instruments provide capital to an entity that promises to repay the capital over time. Credit cards, credit lines, loans, and bonds can all be types of debt instruments. (Investopedia)\r\n* `Letterofcredit` - Instrument issued by a bank substituting its name and credit standing for that of its customer. A letter of credit is a written undertaking of the bank, issued for the account of a customer (the applicant), to honour a demand for payment, upon the beneficiary's compliance with the terms and conditions set forth in the undertaking. (ISO20022)\r\n* `Security` - Financial instruments representing a sum of rights of the investor vis-a-vis the issuer. (ISO20022)\r\n* `Derivative` - \r\n",
+      "enum_values": [
+        "Loan",
+        "Bond",
+        "Deposit",
+        "Stock",
+        "Option",
+        "Share",
+        "Debt",
+        "Letterofcredit",
+        "Security",
+        "Derivative"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Industrycode",
+      "kind": "object",
+      "description": "Economical activity of Party (ISO20022)",
+      "properties": [
+        {
+          "name": "Industrycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Jurisdiction",
+      "kind": "object",
+      "description": "The legal jurisdiction",
+      "properties": [
+        {
+          "name": "Jurisdiction",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Law",
+      "kind": "object",
+      "description": "Reference to any legal requirements",
+      "properties": [
+        {
+          "name": "LawType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LawDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalPenalty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalGuideline",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetInterpretation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetType",
+          "type": "object",
+          "ref": "Rulesettypevalues"
+        },
+        {
+          "name": "RuleSetName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "RuleSetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "RuleSetLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "LegalTerm",
+      "kind": "object",
+      "description": "A collection of terms (within some jurisdiction) that can be selected and configured to define a contract /agreement\n\n- The Regulatory Terms reflects the application of a specific rule or regulation that is an aspect of the Service Domain",
+      "properties": [
+        {
+          "name": "Jurisdiction",
+          "type": "object",
+          "ref": "Jurisdiction"
+        },
+        {
+          "name": "ApplicableLawReference",
+          "type": "object",
+          "ref": "Law"
+        },
+        {
+          "name": "ApplicableLawInterpretation",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Party",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PartyType",
+          "type": "object",
+          "ref": "Partytypevalues"
+        },
+        {
+          "name": "PartyDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Partyidentification"
+        },
+        {
+          "name": "PartyLegalStructureType",
+          "type": "object",
+          "ref": "Partylegalstructuretypevalues"
+        },
+        {
+          "name": "PartyActivityIndicator",
+          "type": "object",
+          "ref": "Industrycode"
+        }
+      ]
+    },
+    {
+      "name": "PartyRelationshipLifecyclePhase",
+      "kind": "object",
+      "description": "Reference to KYC/Regulatory assessments maintained elsewhere for the customer",
+      "properties": [
+        {
+          "name": "Description",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IsCurrentPhase",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PhaseName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PhaseStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "PhasePeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyIdentificationType",
+          "type": "object",
+          "ref": "Partyidentificationtypevalues"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to an entity.\r\n* `Nationalregistrationnumber` - Number assigned by a national registration authority to an entity. In Singapore this is known as the NRIC. (ISO20022)\r\n* `Registrationauthorityidentification` - An identifier for the Legal Entity in a business registry in the jurisdiction of legal registration, or in the appropriate registration authority. (ISO20022)\r\n* `LEI(LegalEntityIdentifier)` - \r\n* `Alienregistrationnumber` - Number assigned by a government agency to identify foreign nationals.\r\n* `Passportnumber` - Number assigned by a passport authority.\r\n* `Taxexemptidentificationnumber` - Number assigned to a tax exempt entity.\r\n* `Corporateidentification` - Number assigned to a corporate entity.\r\n* `Driverlicensenumber` - Number assigned to a driver's license.\r\n* `Foreigninvestmentidentitynumber` - Number assigned to a foreign investor (other than the alien number).\r\n* `Socialsecuritynumber` - Number assigned by a social security agency.\r\n* `Identitycardnumber` - Number assigned by a national authority to an identity card.\r\n* `Concat` - Number assigned by an issuer to identify a customer via the concatenation of the birthdate and characters of the first name and surname.\r\n* `Nationalregistrationidentificationnumber` - National registration identification number. In Singapore this is known as the NRIC.\r\n",
+      "enum_values": [
+        "Taxidentificationnumber",
+        "Nationalregistrationnumber",
+        "Registrationauthorityidentification",
+        "LEI(LegalEntityIdentifier)",
+        "Alienregistrationnumber",
+        "Passportnumber",
+        "Taxexemptidentificationnumber",
+        "Corporateidentification",
+        "Driverlicensenumber",
+        "Foreigninvestmentidentitynumber",
+        "Socialsecuritynumber",
+        "Identitycardnumber",
+        "Concat",
+        "Nationalregistrationidentificationnumber"
+      ]
+    },
+    {
+      "name": "Partylegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Individual` - \r\n* `CommunityInterestCompany` - \r\n* `CharitableIncorporatedOrganisation` - \r\n* `Co-Operative` - \r\n* `Charity` - \r\n* `GeneralPartnership` - \r\n* `LimitedLiabilityPartnership` - \r\n* `ScottishLimitedPartnership` - \r\n* `LimitedPartnership` - \r\n* `PrivateLimitedCompany` - \r\n* `PublicLimitedCompany` - \r\n* `Sole(SoleTrader)` - \r\n",
+      "enum_values": [
+        "Individual",
+        "CommunityInterestCompany",
+        "CharitableIncorporatedOrganisation",
+        "Co-Operative",
+        "Charity",
+        "GeneralPartnership",
+        "LimitedLiabilityPartnership",
+        "ScottishLimitedPartnership",
+        "LimitedPartnership",
+        "PrivateLimitedCompany",
+        "PublicLimitedCompany",
+        "Sole(SoleTrader)"
+      ]
+    },
+    {
+      "name": "Partytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\r\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\r\n",
+      "enum_values": [
+        "Person",
+        "Organisation"
+      ]
+    },
+    {
+      "name": "Policy",
+      "kind": "object",
+      "description": "Reference to the bank's policies or rules",
+      "properties": [
+        {
+          "name": "PolicyType",
+          "type": "object",
+          "ref": "Policytypevalues"
+        },
+        {
+          "name": "RuleSetDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetInterpretation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetType",
+          "type": "object",
+          "ref": "Rulesettypevalues"
+        },
+        {
+          "name": "RuleSetName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "RuleSetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "RuleSetLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "PolicyTerm",
+      "kind": "object",
+      "description": "A collection of terms (within some jurisdiction) that can be selected and configured to define a contract /agreement\n\n- The Regulatory Terms reflects the application of a specific rule or regulation that is an aspect of the Service Domain",
+      "properties": [
+        {
+          "name": "BankPolicy-RuleType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ApplicableBankPolicy-RuleReference",
+          "type": "object",
+          "ref": "Policy"
+        },
+        {
+          "name": "ApplicableBankPolicy-RuleInterpretation",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Policytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SecurityPolicy` - \r\n* `AdministrativePolicy` - \r\n* `SocialPolicy` - \r\n* `RegulatoryPolicy` - \r\n",
+      "enum_values": [
+        "SecurityPolicy",
+        "AdministrativePolicy",
+        "SocialPolicy",
+        "RegulatoryPolicy"
+      ]
+    },
+    {
+      "name": "Product",
+      "kind": "object",
+      "description": "Reference to the banking product (e.g., its features, terms and conditions)",
+      "properties": [
+        {
+          "name": "ProductIdentification",
+          "type": "object",
+          "ref": "Productidentification"
+        },
+        {
+          "name": "ProductType",
+          "type": "object",
+          "ref": "Bankingproducttypevalues"
+        },
+        {
+          "name": "ProductLifecycleStatus",
+          "type": "object",
+          "ref": "Productstatus"
+        },
+        {
+          "name": "ProductPriority",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentType",
+          "type": "object",
+          "ref": "Financialinstrumenttypevalues"
+        },
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Financialinstrumentidentification"
+        },
+        {
+          "name": "FinancialInstrumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Financialinstrumentdatetime"
+        },
+        {
+          "name": "AssetTitle",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AssetType",
+          "type": "object",
+          "ref": "Assettypevalues"
+        },
+        {
+          "name": "AssetDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssetDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetClassification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetClassificationType",
+          "type": "object",
+          "ref": "Assetclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassificationType",
+          "type": "object",
+          "ref": "Assetsubclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductAgreement",
+      "kind": "object",
+      "description": "Reference to the specific product instance covered by the sales product agreement",
+      "properties": [
+        {
+          "name": "ProductAgreementType",
+          "type": "object",
+          "ref": "Productagreementtypevalues"
+        },
+        {
+          "name": "ProductAgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementSignedDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AgreementType",
+          "type": "object",
+          "ref": "Agreementtypevalues"
+        },
+        {
+          "name": "AgreementValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AgreementVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Agreementstatus"
+        },
+        {
+          "name": "AgreementSubjectMatter",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AgreementDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductAgreementInvolvement",
+      "kind": "object",
+      "description": "Reference to signatories",
+      "properties": [
+        {
+          "name": "InvolvementType",
+          "type": "object",
+          "ref": "Productserviceagreementinvolvementtypevalues"
+        },
+        {
+          "name": "PartyReference",
+          "type": "object",
+          "ref": "Party"
+        },
+        {
+          "name": "AgreementReference",
+          "type": "object",
+          "ref": "Productagreement"
+        }
+      ]
+    },
+    {
+      "name": "Productagreement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ProductAgreement",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Productagreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CurrentAccountAgreement` - \r\n* `SavingsAccountAgreement` - \r\n* `BrokeredProductAgreement` - \r\n* `ConsumerLoanAgreement` - \r\n* `MortgageLoanAgreement` - \r\n* `DirectDebitServiceAgreement` - \r\n* `TermDepositAgreement` - \r\n",
+      "enum_values": [
+        "CurrentAccountAgreement",
+        "SavingsAccountAgreement",
+        "BrokeredProductAgreement",
+        "ConsumerLoanAgreement",
+        "MortgageLoanAgreement",
+        "DirectDebitServiceAgreement",
+        "TermDepositAgreement"
+      ]
+    },
+    {
+      "name": "Productidentification",
+      "kind": "object",
+      "description": "The identifier of product e.g. ISIN Code.",
+      "properties": [
+        {
+          "name": "ProductIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ProductIdentificationType",
+          "type": "object",
+          "ref": "Productidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ISINCode` - \r\n* `PackageCode` - \r\n* `Buyersitemnumber` - Product identifier assigned by the buyer.\r\n* `Commercialdescriptioncodename` - A code to identify a product based on applicable commercial conditions.\r\n* `EAN` - The unique EAN (European Article Number) code.\r\n* `Harmonizedtariffcodename` - Classification of goods as developed by the Customs Cooperation council.\r\n* `Manufacturersitemnumber` - Product identifier as assigned by the manufacturer.\r\n* `Modelnumber` - Reference number assigned by the manufacturer to differentiate variations in similar products in a class or group.\r\n* `Partnumber` - Reference assigned by the manufacturer to a product part.\r\n* `Quotacategory` - Product identifier used by the retail industry.\r\n* `Stylenumber` - Identification of the style of a product.\r\n* `Suppliersitemnumber` - Number assigned to an article by the supplier of that article.\r\n* `Universalproductcode` - Number assigned to a manufacturer's product by the Product Code Council.\r\n",
+      "enum_values": [
+        "ISINCode",
+        "PackageCode",
+        "Buyersitemnumber",
+        "Commercialdescriptioncodename",
+        "EAN",
+        "Harmonizedtariffcodename",
+        "Manufacturersitemnumber",
+        "Modelnumber",
+        "Partnumber",
+        "Quotacategory",
+        "Stylenumber",
+        "Suppliersitemnumber",
+        "Universalproductcode"
+      ]
+    },
+    {
+      "name": "Productserviceagreementinvolvementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `SecondaryOwner` - \r\n* `Beneficiary` - \r\n* `PowerOfAttorney` - \r\n* `LegalGuardian` - \r\n* `CustodianForMinor` - \r\n* `SuccessorOnDeath` - \r\n* `Administrator` - \r\n* `OtherParty` - \r\n* `Granter` - \r\n* `Settlor` - \r\n* `SeniorManagingOfficial` - \r\n* `Protector` - \r\n* `RegisteredShareholderName` - \r\n",
+      "enum_values": [
+        "Principal",
+        "SecondaryOwner",
+        "Beneficiary",
+        "PowerOfAttorney",
+        "LegalGuardian",
+        "CustodianForMinor",
+        "SuccessorOnDeath",
+        "Administrator",
+        "OtherParty",
+        "Granter",
+        "Settlor",
+        "SeniorManagingOfficial",
+        "Protector",
+        "RegisteredShareholderName"
+      ]
+    },
+    {
+      "name": "Productstatus",
+      "kind": "object",
+      "description": "Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).",
+      "properties": [
+        {
+          "name": "ProductStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ProductStatusType",
+          "type": "object",
+          "ref": "Productstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Productstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Announced` - \r\n* `Sold` - \r\n* `Obsolete` - \r\n* `Active` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Announced",
+        "Sold",
+        "Obsolete",
+        "Active"
+      ]
+    },
+    {
+      "name": "Regulation",
+      "kind": "object",
+      "description": "Reference to any regulatory requirements",
+      "properties": [
+        {
+          "name": "RegulationDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetInterpretation",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RuleSetType",
+          "type": "object",
+          "ref": "Rulesettypevalues"
+        },
+        {
+          "name": "RuleSetName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "RuleSetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "RuleSetLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "RegulatoryAuthority",
+      "kind": "object",
+      "description": "The applicable regulatory authority",
+      "properties": [
+        {
+          "name": "RegulatoryAuthority",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "RegulatoryTerm",
+      "kind": "object",
+      "description": "A collection of terms (within some jurisdiction) that can be selected and configured to define a contract /agreement\n\n- The Regulatory Terms reflects the application of a specific rule or regulation that is an aspect of the Service Domain",
+      "properties": [
+        {
+          "name": "RegulatoryAuthority",
+          "type": "object",
+          "ref": "RegulatoryAuthority"
+        },
+        {
+          "name": "ApplicableRegulationReference",
+          "type": "object",
+          "ref": "Regulation"
+        },
+        {
+          "name": "ApplicableRegulationInterpretation",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Rulesettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Policy` - Rule that governs business execution.\n\nThe set of basic principles and associated guidelines, formulated and enforced by the governing body of an organization, to direct and limit its actions in pursuit of long-term goals. (Business Dictionary)\n\r\n* `Regulation` - A rule used to carry out a law (FIBO)\n\nBusiness Dictionary: a rule (with or without the coercive power of law) employed in controlling, directing, or managing an activity, organization, or system. \n\nThe set of rules and legislation governing certain actions. \nhttps://financial-dictionary.thefreedictionary.com/Regulatory\r\n* `Law` - A binding rule that the courts will enforce.\nA system of rules and guidelines which are enforced through social institutions to govern behavior. (FIBO)\n\r\n* `Guideline` - A recommended practice (adapted from Business Dictionary)\nA general rule, principle, or piece of advice.\r\n* `Criterion` - A principle or standard by which something may be judged or decided.\n\nRead more: http://www.businessdictionary.com/definition/criterion.html\r\n* `Standard` - A rule considered by an authority or by general consent as a basis of comparison\r\n",
+      "enum_values": [
+        "Policy",
+        "Regulation",
+        "Law",
+        "Guideline",
+        "Criterion",
+        "Standard"
+      ]
+    },
+    {
+      "name": "SalesProductAgreement",
+      "kind": "object",
+      "description": "Maintain the terms and conditions that apply to a commercial relationship within Sales Product Agreement.\n\n\n",
+      "properties": [
+        {
+          "name": "CustomerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "LegalEntityReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "ProductInstanceReference",
+          "type": "object",
+          "ref": "ProductAgreement"
+        },
+        {
+          "name": "AgreementType",
+          "type": "object",
+          "ref": "Agreementtypevalues"
+        },
+        {
+          "name": "AgreementJurisdiction",
+          "type": "object",
+          "ref": "Jurisdiction"
+        },
+        {
+          "name": "AgreementValidFromToDate",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AgreementSignatoriesResponsibleParties",
+          "type": "object",
+          "ref": "ProductAgreementInvolvement"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "CustomerAgreementReference",
+          "type": "object",
+          "ref": "CustomerAgreement"
+        },
+        {
+          "name": "PartyLife-cycleManagementReference",
+          "type": "object",
+          "ref": "PartyRelationshipLifecyclePhase"
+        },
+        {
+          "name": "BankingProductReference",
+          "type": "object",
+          "ref": "Product"
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "SalesProductAgreement",
+        "operations": [
+          "Evaluate",
+          "Update",
+          "Control",
+          "Exchange",
+          "Request",
+          "Grant",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "LegalTerm",
+        "parent_control_record": "SalesProductAgreement",
+        "operations": [
+          "EvaluateLegalTerm",
+          "RetrieveLegalTerm",
+          "UpdateLegalTerm"
+        ]
+      },
+      {
+        "name": "PolicyTerm",
+        "parent_control_record": "SalesProductAgreement",
+        "operations": [
+          "EvaluatePolicyTerm",
+          "UpdatePolicyTerm",
+          "RetrievePolicyTerm"
+        ]
+      },
+      {
+        "name": "RegulatoryTerm",
+        "parent_control_record": "SalesProductAgreement",
+        "operations": [
+          "EvaluateRegulatoryTerm",
+          "UpdateRegulatoryTerm",
+          "RetrieveRegulatoryTerm"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/SalesProductAgreement.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "b21600fde4ae1eb4607dc5e5d9094d087ce3a0ae5cd091fdce2aafdb808ef8ff",
+    "retrieved_at": "2026-09-12T22:09:13.557100+00:00"
+  }
+}

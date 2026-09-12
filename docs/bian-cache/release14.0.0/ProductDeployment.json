@@ -1,0 +1,2088 @@
+{
+  "service_domain": "Product Deployment",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Create",
+      "method": "POST",
+      "path": "/ProductDeployment/Create",
+      "tipo": "CR",
+      "grupo": "ProductandServiceDeploymentDevelopment",
+      "request_schema": "ProductandServiceDeploymentDevelopment",
+      "response_schema": "ProductandServiceDeploymentDevelopment",
+      "summary": "CrCR Create a product or service deployment project",
+      "description": "CrCR Create a product or service deployment project"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Update",
+      "tipo": "CR",
+      "grupo": "ProductandServiceDeploymentDevelopment",
+      "request_schema": "ProductandServiceDeploymentDevelopment",
+      "response_schema": "ProductandServiceDeploymentDevelopment",
+      "summary": "UpCR Update details of a product or service deployment project",
+      "description": "UpCR Update details of a product or service deployment project"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Exchange",
+      "tipo": "CR",
+      "grupo": "ProductandServiceDeploymentDevelopment",
+      "request_schema": "ProductandServiceDeploymentDevelopment",
+      "response_schema": "ProductandServiceDeploymentDevelopment",
+      "summary": "EcCR Accept, verify etc. aspects of a product or service deployment project",
+      "description": "EcCR Accept, verify etc. aspects of a product or service deployment project"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Control",
+      "tipo": "CR",
+      "grupo": "ProductandServiceDeploymentDevelopment",
+      "request_schema": "ProductandServiceDeploymentDevelopment",
+      "response_schema": "ProductandServiceDeploymentDevelopment",
+      "summary": "CoCR Control the execution of a product or service deployment project",
+      "description": "CoCR Control the execution of a product or service deployment project"
+    },
+    {
+      "operation_id": "Capture",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Capture",
+      "tipo": "CR",
+      "grupo": "ProductandServiceDeploymentDevelopment",
+      "request_schema": "ProductandServiceDeploymentDevelopment",
+      "response_schema": "ProductandServiceDeploymentDevelopment",
+      "summary": "CaCR Capture details about tasks performed during the deployment",
+      "description": "CaCR Capture details about tasks performed during the deployment"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Request",
+      "tipo": "CR",
+      "grupo": "ProductandServiceDeploymentDevelopment",
+      "request_schema": "ProductandServiceDeploymentDevelopment",
+      "response_schema": "ProductandServiceDeploymentDevelopment",
+      "summary": "RqCR Request manual intervention in a deployment project",
+      "description": "RqCR Request manual intervention in a deployment project"
+    },
+    {
+      "operation_id": "Grant",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Grant",
+      "tipo": "CR",
+      "grupo": "ProductandServiceDeploymentDevelopment",
+      "request_schema": "ProductandServiceDeploymentDevelopment",
+      "response_schema": "ProductandServiceDeploymentDevelopment",
+      "summary": "GrCR Grant permission to perform some action or access resources under the control of the deployment",
+      "description": "GrCR Grant permission to perform some action or access resources under the control of the deployment"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/ProductDeployment/{productdeploymentid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "ProductandServiceDeploymentDevelopment",
+      "request_schema": "",
+      "response_schema": "ProductandServiceDeploymentDevelopment",
+      "summary": "ReCR Retrieve details about a deployment project",
+      "description": "ReCR Retrieve details about a deployment project"
+    },
+    {
+      "operation_id": "RequestSystems",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Systems/{systemsid}/Request",
+      "tipo": "BQ",
+      "grupo": "Systems",
+      "request_schema": "Systems",
+      "response_schema": "Systems",
+      "summary": "RqBQ Request manual intervention in a systems related deployment task",
+      "description": "RqBQ Request manual intervention in a systems related deployment task",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RetrieveSystems",
+      "method": "GET",
+      "path": "/ProductDeployment/{productdeploymentid}/Systems/{systemsid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Systems",
+      "request_schema": "",
+      "response_schema": "Systems",
+      "summary": "ReBQ Retrieve details about a systems related deployment task or deliverable",
+      "description": "ReBQ Retrieve details about a systems related deployment task or deliverable",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "UpdateSystems",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Systems/{systemsid}/Update",
+      "tipo": "BQ",
+      "grupo": "Systems",
+      "request_schema": "Systems",
+      "response_schema": "Systems",
+      "summary": "UpBQ Update details relating to the systems tasks of the deployment",
+      "description": "UpBQ Update details relating to the systems tasks of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "ExchangeSystems",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Systems/{systemsid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "Systems",
+      "request_schema": "Systems",
+      "response_schema": "Systems",
+      "summary": "EcBQ Accept, reject etc. a systems related task of the deployment",
+      "description": "EcBQ Accept, reject etc. a systems related task of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "UpdateITOperations",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/ITOperations/{itoperationsid}/Update",
+      "tipo": "BQ",
+      "grupo": "ITOperations",
+      "request_schema": "ITOperations",
+      "response_schema": "ITOperations",
+      "summary": "UpBQ Update details relating to the IT operations tasks of the deployment",
+      "description": "UpBQ Update details relating to the IT operations tasks of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "ExchangeITOperations",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/ITOperations/{itoperationsid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "ITOperations",
+      "request_schema": "ITOperations",
+      "response_schema": "ITOperations",
+      "summary": "EcBQ Accept, reject etc. an IT operations related task of the deployment",
+      "description": "EcBQ Accept, reject etc. an IT operations related task of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RequestITOperations",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/ITOperations/{itoperationsid}/Request",
+      "tipo": "BQ",
+      "grupo": "ITOperations",
+      "request_schema": "ITOperations",
+      "response_schema": "ITOperations",
+      "summary": "RqBQ Request manual intervention in an IT operations related deployment task",
+      "description": "RqBQ Request manual intervention in an IT operations related deployment task",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RetrieveITOperations",
+      "method": "GET",
+      "path": "/ProductDeployment/{productdeploymentid}/ITOperations/{itoperationsid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "ITOperations",
+      "request_schema": "",
+      "response_schema": "ITOperations",
+      "summary": "ReBQ Retrieve details about an IT operations related deployment task or deliverable",
+      "description": "ReBQ Retrieve details about an IT operations related deployment task or deliverable",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "UpdateHROperations",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/HROperations/{hroperationsid}/Update",
+      "tipo": "BQ",
+      "grupo": "HROperations",
+      "request_schema": "HROperations",
+      "response_schema": "HROperations",
+      "summary": "UpBQ Update details relating to the staff operations tasks of the deployment",
+      "description": "UpBQ Update details relating to the staff operations tasks of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "ExchangeHROperations",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/HROperations/{hroperationsid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "HROperations",
+      "request_schema": "HROperations",
+      "response_schema": "HROperations",
+      "summary": "EcBQ Accept, reject etc. a staff operations related task of the deployment",
+      "description": "EcBQ Accept, reject etc. a staff operations related task of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RequestHROperations",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/HROperations/{hroperationsid}/Request",
+      "tipo": "BQ",
+      "grupo": "HROperations",
+      "request_schema": "HROperations",
+      "response_schema": "HROperations",
+      "summary": "RqBQ Request manual intervention in a staff operations related deployment task",
+      "description": "RqBQ Request manual intervention in a staff operations related deployment task",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RetrieveHROperations",
+      "method": "GET",
+      "path": "/ProductDeployment/{productdeploymentid}/HROperations/{hroperationsid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "HROperations",
+      "request_schema": "",
+      "response_schema": "HROperations",
+      "summary": "ReBQ Retrieve details about a staff operations related deployment task or deliverable",
+      "description": "ReBQ Retrieve details about a staff operations related deployment task or deliverable",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "UpdateSalesandMarketing",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/SalesandMarketing/{salesandmarketingid}/Update",
+      "tipo": "BQ",
+      "grupo": "SalesandMarketing",
+      "request_schema": "SalesandMarketing",
+      "response_schema": "SalesandMarketing",
+      "summary": "UpBQ Update details relating to the sales and marketing tasks of the deployment",
+      "description": "UpBQ Update details relating to the sales and marketing tasks of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "ExchangeSalesandMarketing",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/SalesandMarketing/{salesandmarketingid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "SalesandMarketing",
+      "request_schema": "SalesandMarketing",
+      "response_schema": "SalesandMarketing",
+      "summary": "EcBQ Accept, reject etc. a sales and marketing related task of the deployment",
+      "description": "EcBQ Accept, reject etc. a sales and marketing related task of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RequestSalesandMarketing",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/SalesandMarketing/{salesandmarketingid}/Request",
+      "tipo": "BQ",
+      "grupo": "SalesandMarketing",
+      "request_schema": "SalesandMarketing",
+      "response_schema": "SalesandMarketing",
+      "summary": "RqBQ Request manual intervention in a sales and marketing related deployment task",
+      "description": "RqBQ Request manual intervention in a sales and marketing related deployment task",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RetrieveSalesandMarketing",
+      "method": "GET",
+      "path": "/ProductDeployment/{productdeploymentid}/SalesandMarketing/{salesandmarketingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "SalesandMarketing",
+      "request_schema": "",
+      "response_schema": "SalesandMarketing",
+      "summary": "ReBQ Retrieve details about a sales and marketing related deployment task or deliverable",
+      "description": "ReBQ Retrieve details about a sales and marketing related deployment task or deliverable",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "UpdateServicing",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Servicing/{servicingid}/Update",
+      "tipo": "BQ",
+      "grupo": "Servicing",
+      "request_schema": "Servicing",
+      "response_schema": "Servicing",
+      "summary": "UpBQ Update details relating to the servicing tasks of the deployment",
+      "description": "UpBQ Update details relating to the servicing tasks of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "ExchangeServicing",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Servicing/{servicingid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "Servicing",
+      "request_schema": "Servicing",
+      "response_schema": "Servicing",
+      "summary": "EcBQ Accept, reject etc. a servicing related task of the deployment",
+      "description": "EcBQ Accept, reject etc. a servicing related task of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RequestServicing",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Servicing/{servicingid}/Request",
+      "tipo": "BQ",
+      "grupo": "Servicing",
+      "request_schema": "Servicing",
+      "response_schema": "Servicing",
+      "summary": "RqBQ Request manual intervention in a servicing related deployment task",
+      "description": "RqBQ Request manual intervention in a servicing related deployment task",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RetrieveServicing",
+      "method": "GET",
+      "path": "/ProductDeployment/{productdeploymentid}/Servicing/{servicingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Servicing",
+      "request_schema": "",
+      "response_schema": "Servicing",
+      "summary": "ReBQ Retrieve details about a servicing related deployment task or deliverable",
+      "description": "ReBQ Retrieve details about a servicing related deployment task or deliverable",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "UpdateProduction",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Production/{productionid}/Update",
+      "tipo": "BQ",
+      "grupo": "Production",
+      "request_schema": "Production",
+      "response_schema": "Production",
+      "summary": "UpBQ Update details relating to the production tasks of the deployment",
+      "description": "UpBQ Update details relating to the production tasks of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "ExchangeProduction",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Production/{productionid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "Production",
+      "request_schema": "Production",
+      "response_schema": "Production",
+      "summary": "EcBQ Accept, reject etc. a production related task of the deployment",
+      "description": "EcBQ Accept, reject etc. a production related task of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RequestProduction",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/Production/{productionid}/Request",
+      "tipo": "BQ",
+      "grupo": "Production",
+      "request_schema": "Production",
+      "response_schema": "Production",
+      "summary": "RqBQ Request manual intervention in a production related deployment task",
+      "description": "RqBQ Request manual intervention in a production related deployment task",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "UpdateProductionSupport",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/ProductionSupport/{productionsupportid}/Update",
+      "tipo": "BQ",
+      "grupo": "ProductionSupport",
+      "request_schema": "ProductionSupport",
+      "response_schema": "ProductionSupport",
+      "summary": "UpBQ Update details relating to the production support tasks of the deployment",
+      "description": "UpBQ Update details relating to the production support tasks of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RequestProductionSupport",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/ProductionSupport/{productionsupportid}/Request",
+      "tipo": "BQ",
+      "grupo": "ProductionSupport",
+      "request_schema": "ProductionSupport",
+      "response_schema": "ProductionSupport",
+      "summary": "RqBQ Request manual intervention in a production support related deployment task",
+      "description": "RqBQ Request manual intervention in a production support related deployment task",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RetrieveProduction",
+      "method": "GET",
+      "path": "/ProductDeployment/{productdeploymentid}/Production/{productionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Production",
+      "request_schema": "",
+      "response_schema": "Production",
+      "summary": "ReBQ Retrieve details about a production related deployment task or deliverable",
+      "description": "ReBQ Retrieve details about a production related deployment task or deliverable",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "ExchangeProductionSupport",
+      "method": "PUT",
+      "path": "/ProductDeployment/{productdeploymentid}/ProductionSupport/{productionsupportid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "ProductionSupport",
+      "request_schema": "ProductionSupport",
+      "response_schema": "ProductionSupport",
+      "summary": "EcBQ Accept, reject etc. a production support related task of the deployment",
+      "description": "EcBQ Accept, reject etc. a production support related task of the deployment",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    },
+    {
+      "operation_id": "RetrieveProductionSupport",
+      "method": "GET",
+      "path": "/ProductDeployment/{productdeploymentid}/ProductionSupport/{productionsupportid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "ProductionSupport",
+      "request_schema": "",
+      "response_schema": "ProductionSupport",
+      "summary": "ReBQ Retrieve details about a production support related deployment task or deliverable",
+      "description": "ReBQ Retrieve details about a production support related deployment task or deliverable",
+      "parent_control_record": "ProductandServiceDeploymentDevelopment"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Agreementstatus",
+    "Agreementstatustypevalues",
+    "Agreementtypevalues",
+    "Amount",
+    "Amounttypevalues",
+    "Arrangementstatus",
+    "Arrangementstatustypevalues",
+    "Arrangementtypevalues",
+    "BudgetArrangement",
+    "Budgetarrangement",
+    "Budgettype",
+    "Budgettypevalues",
+    "Currencycode",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Directoryentrydatetypevalues",
+    "DocumentDirectoryEntry",
+    "Geographicalareatypevalues",
+    "Goal",
+    "Goaldatetime",
+    "Goaldatetimetypevalues",
+    "Goalstatus",
+    "Goalstatustypevalues",
+    "Goaltypevalues",
+    "HROperations",
+    "HTTPError",
+    "ITOperations",
+    "Identifier",
+    "Industrycode",
+    "Involvedparty",
+    "Location",
+    "Name",
+    "Organisation",
+    "Organisationdatetime",
+    "Organisationdatetimetypevalues",
+    "Organisationidentification",
+    "Organisationidentificationtypevalues",
+    "Organisationlegalstructuretypevalues",
+    "Organisationname",
+    "Organisationnametypevalues",
+    "Organisationtypevalues",
+    "Partyidentification",
+    "Partyidentificationtypevalues",
+    "Partylegalstructuretypevalues",
+    "Partytypevalues",
+    "Plan",
+    "Plannedaction",
+    "Plantypevalues",
+    "ProductandServiceDeploymentDevelopment",
+    "Production",
+    "ProductionSupport",
+    "Requirement",
+    "SalesandMarketing",
+    "Schedule",
+    "Servicing",
+    "Status",
+    "Subject",
+    "Systems",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Agreementstatus",
+      "kind": "object",
+      "description": "A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).",
+      "properties": [
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AgreementStatusType",
+          "type": "object",
+          "ref": "Agreementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Agreementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Offered` - \r\n* `Confirmed` - \r\n* `Completed` - \r\n* `Signed` - \r\n* `Terminated` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Offered",
+        "Confirmed",
+        "Completed",
+        "Signed",
+        "Terminated",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Agreementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CustomerAgreement` - \r\n* `SupplierAgreement` - \r\n* `BrokerAgreement` - \r\n* `SalesAgreement` - \r\n* `PurchaseAgreement` - \r\n* `MaintenanceAgreement` - \r\n* `ProductAgreement` - \r\n* `ResourceAgreement` - \r\n* `PartnerAgreement` - \r\n* `MasterAgreement` - \r\n* `BilateralAgreement` - \r\n* `RepurchaseAgreement` - \r\n",
+      "enum_values": [
+        "CustomerAgreement",
+        "SupplierAgreement",
+        "BrokerAgreement",
+        "SalesAgreement",
+        "PurchaseAgreement",
+        "MaintenanceAgreement",
+        "ProductAgreement",
+        "ResourceAgreement",
+        "PartnerAgreement",
+        "MasterAgreement",
+        "BilateralAgreement",
+        "RepurchaseAgreement"
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Arrangementstatus",
+      "kind": "object",
+      "description": "A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)",
+      "properties": [
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ArrangementStatusType",
+          "type": "object",
+          "ref": "Arrangementstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Arrangementstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Requested` - \r\n* `Proposed` - \r\n* `Offered` - \r\n* `Accepted` - \r\n* `Cancelled` - \r\n* `Fulfilled` - \r\n* `Terminated` - \r\n",
+      "enum_values": [
+        "Requested",
+        "Proposed",
+        "Offered",
+        "Accepted",
+        "Cancelled",
+        "Fulfilled",
+        "Terminated"
+      ]
+    },
+    {
+      "name": "Arrangementtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\r\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \r\n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \r\n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\r\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \r\n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \r\n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\r\n* `PaymentArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \r\n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\r\n* `PeriodArrangement` - \r\n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \r\n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \r\n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\r\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \r\n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \r\n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \r\n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \r\n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \r\n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \r\n* `ProductAndServiceArrangement` - \r\n* `FactoringArrangement` - \r\n* `RolloverArrangement` - Arrangement stipulating the modalities for an automatic renewal of the agreement\n\ni.e. the replacement of the agreement with a new one without renewed negociation and witout explicit agreement of the customer \r\n* `RestructuringArrangement` - \r\n* `InsuranceArrangement` - \r\n* `CollectionArrangement` - An arrangement into which is promised to collect past-due debts from borrowers\r\n* `UnderwritingArrangement` - A contractual agreement between parties that commits the underwriter to assuming risk.\r\n* `TerminationArrangement` - \r\n* `MaturityArrangement` - \r\n* `AdministrativeArrangement` - \r\n",
+      "enum_values": [
+        "SweepArrangement",
+        "WithdrawalArrangement",
+        "DepositArrangement",
+        "InterestArrangement",
+        "FeeArrangement",
+        "LienArrangement",
+        "InformationArrangement",
+        "PaymentArrangement",
+        "EntitlementArrangement",
+        "PeriodArrangement",
+        "CollateralArrangement",
+        "LimitArrangement",
+        "AccessArrangement",
+        "CardPaymentArrangement",
+        "StandingOrderArrangement",
+        "OverdraftArrangement",
+        "RepaymentArrangement",
+        "StatementArrangement",
+        "CreditTransferArrangement",
+        "ProductAndServiceArrangement",
+        "FactoringArrangement",
+        "RolloverArrangement",
+        "RestructuringArrangement",
+        "InsuranceArrangement",
+        "CollectionArrangement",
+        "UnderwritingArrangement",
+        "TerminationArrangement",
+        "MaturityArrangement",
+        "AdministrativeArrangement"
+      ]
+    },
+    {
+      "name": "BudgetArrangement",
+      "kind": "object",
+      "description": "The financial considerations for the deployment (includes planning and execution)",
+      "properties": [
+        {
+          "name": "BudgetArrangement",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Budgetarrangement",
+      "kind": "object",
+      "description": "An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)",
+      "properties": [
+        {
+          "name": "BudgetType",
+          "type": "object",
+          "ref": "Budgettype"
+        },
+        {
+          "name": "BudgetAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Budgettype",
+      "kind": "object",
+      "description": "A Classification value that specifies the type of Budget",
+      "properties": [
+        {
+          "name": "BudgetTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "BudgetType",
+          "type": "object",
+          "ref": "Budgettypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Budgettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OperatingBudget` - \r\n* `FinancialBudget` - \r\n* `ResourceBudget` - \r\n",
+      "enum_values": [
+        "OperatingBudget",
+        "FinancialBudget",
+        "ResourceBudget"
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Directoryentrydatetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpenDate` - \r\n* `RefreshDate` - \r\n",
+      "enum_values": [
+        "OpenDate",
+        "RefreshDate"
+      ]
+    },
+    {
+      "name": "DocumentDirectoryEntry",
+      "kind": "object",
+      "description": "Reference to associated documents",
+      "properties": [
+        {
+          "name": "DocumentDirectoryEntryIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Directoryentrydatetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "DirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "Goal",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "GoalType",
+          "type": "object",
+          "ref": "Goaltypevalues"
+        },
+        {
+          "name": "GoalDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "GoalName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Goaldatetime"
+        },
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Goalstatus"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetime",
+      "kind": "object",
+      "description": "The key dates and times of Goal like Setting Data, Planning Date, Start Date, Review Date, Completion Date.",
+      "properties": [
+        {
+          "name": "GoalDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "GoalDateAndTimeType",
+          "type": "object",
+          "ref": "Goaldatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goaldatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `SettingDate` - \r\n* `PlanningDate` - \r\n* `StartDate` - \r\n* `ReviewDate` - \r\n* `CompletionDate` - \r\n",
+      "enum_values": [
+        "SettingDate",
+        "PlanningDate",
+        "StartDate",
+        "ReviewDate",
+        "CompletionDate"
+      ]
+    },
+    {
+      "name": "Goalstatus",
+      "kind": "object",
+      "description": "The lifecycle status of Goal like Goal Setting, Planning, Execution, Monitoring and Evaluation, Completion or Achievement, Maintenance or Sustainment, Closure or Renewal",
+      "properties": [
+        {
+          "name": "GoalStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "GoalStatusType",
+          "type": "object",
+          "ref": "Goalstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Goalstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Setting` - \r\n* `Planning` - \r\n* `Execution` - \r\n* `MonitoringAndEvaluation` - \r\n* `CompletionOrAchievement` - \r\n* `MaintenanceOrSustainment` - \r\n* `ClosureOrRenewal` - \r\n",
+      "enum_values": [
+        "Setting",
+        "Planning",
+        "Execution",
+        "MonitoringAndEvaluation",
+        "CompletionOrAchievement",
+        "MaintenanceOrSustainment",
+        "ClosureOrRenewal"
+      ]
+    },
+    {
+      "name": "Goaltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Short-TermGoal` - \r\n* `Long-TermGoal` - \r\n* `BusinessGoal` - \r\n* `PerformanceGoal` - \r\n* `FinancialGoal` - \r\n* `OutcomeGoal` - \r\n* `SMARTGoal` - \r\n",
+      "enum_values": [
+        "Short-TermGoal",
+        "Long-TermGoal",
+        "BusinessGoal",
+        "PerformanceGoal",
+        "FinancialGoal",
+        "OutcomeGoal",
+        "SMARTGoal"
+      ]
+    },
+    {
+      "name": "HROperations",
+      "kind": "object",
+      "description": "A collection of one or more deliverables that may be further defined in terms of an approach to be followed to create them\n\nExamples: Functional module specification",
+      "properties": [
+        {
+          "name": "ProductandServiceDeploymentHROperationsRequirements",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "ProductandServiceDeploymentHROperationsRequirementsWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "ProductandServiceDeploymentHROperationsRequirementsTaskSpecification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ITOperations",
+      "kind": "object",
+      "description": "A collection of one or more deliverables that may be further defined in terms of an approach to be followed to create them\n\nExamples: Functional module specification",
+      "properties": [
+        {
+          "name": "ProductandServiceDeploymentITOperationsRequirements",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "ProductandServiceDeploymentITOperationsRequirementsWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "ProductandServiceDeploymentITOperationsRequirementsTaskSpecification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Industrycode",
+      "kind": "object",
+      "description": "Economical activity of Party (ISO20022)",
+      "properties": [
+        {
+          "name": "Industrycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The reference to and descriptive name of the deployment project",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Organisation",
+      "kind": "object",
+      "description": "The organizational aspects of the deployment effort (includes planning and execution)",
+      "properties": [
+        {
+          "name": "OrganisationStructureHierarchy",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Organisationidentification"
+        },
+        {
+          "name": "OrganisationSector",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalEntityIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationDate",
+          "type": "object",
+          "ref": "Organisationdatetime"
+        },
+        {
+          "name": "OrganisationType",
+          "type": "object",
+          "ref": "Organisationtypevalues"
+        },
+        {
+          "name": "OrganisationName",
+          "type": "object",
+          "ref": "Organisationname"
+        },
+        {
+          "name": "OrganisationLegalStructure",
+          "type": "object",
+          "ref": "Organisationlegalstructuretypevalues"
+        },
+        {
+          "name": "PartyName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "PartyType",
+          "type": "object",
+          "ref": "Partytypevalues"
+        },
+        {
+          "name": "PartyDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Partyidentification"
+        },
+        {
+          "name": "PartyLegalStructureType",
+          "type": "object",
+          "ref": "Partylegalstructuretypevalues"
+        },
+        {
+          "name": "PartyActivityIndicator",
+          "type": "object",
+          "ref": "Industrycode"
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisatioDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "OrganisatioDateType",
+          "type": "object",
+          "ref": "Organisationdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `RegistrationDate` - Date and time at which a given organisation was officially registered. (ISO20022)\r\n* `EstablishmentDate` - Date when the organisation was established. ISO20022\r\n* `EntityExpirationDate` - The date the Legal Entity ceased operation or was merged. ISO20022\r\n",
+      "enum_values": [
+        "RegistrationDate",
+        "EstablishmentDate",
+        "EntityExpirationDate"
+      ]
+    },
+    {
+      "name": "Organisationidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisationIdentificationType",
+          "type": "object",
+          "ref": "Organisationidentificationtypevalues"
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Organisationidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LEI` - Legal Entity Identifier is a code allocated to a party as described in ISO 17442 \"Financial Services - Legal Entity Identifier (LEI)\".\r\n* `ELF` - Entity Legal Forms is a code allocated to a party as described in ISO 20275 \"Financial services  Entity legal forms (ELF)\". \r\n* `MIC` - Market Identifier Code. Identification of a financial market, as stipulated in the norm ISO 10383 \"Codes for exchanges and market identifications\".\r\n* `BICFI` - Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 \"Banking - Banking telecommunication messages - Business identifier code (BIC)\".\r\n* `Bankpartyidentification` - Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client.\r\n* `Centralbankidentificationnumber` - A unique identification number assigned by a central bank to identify an organisation.\r\n* `Clearingidentificationnumber` - A unique identification number assigned by a clearing house to identify an organisation\r\n* `Certificateofincorporationnumber` - A unique identification number assigned by a designated authority to a certificate of incorporation and used to identify an organisation.\r\n* `Countryidentificationcode` - Country authority given organisation identification (e.g., corporate registration number)\r\n* `Customernumber` - Number assigned by an issuer to identify a customer.\nNumber assigned by a party to identify a creditor or debtor relationship.\r\n* `Datauniversalnumberingsystem` - A unique identification number provided by Dun & Bradstreet to identify an organisation.\r\n* `Employeridentificationnumber` - Number assigned by a registration authority to an employer.\r\n* `Gs1glnidentifier` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to GS1 numbering scheme rules.The number is used to retrieve detailed information that is linked to it.\r\n* `SIREN` - The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France.\r\n* `SIRET` - The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to identify an organisation.\r\n* `EANGLN` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to the European Association for Numbering (EAN) numbering scheme rules. The number is used to retrieve detailed information that is linked to it. (iso20022)\r\n",
+      "enum_values": [
+        "LEI",
+        "ELF",
+        "MIC",
+        "BICFI",
+        "Bankpartyidentification",
+        "Centralbankidentificationnumber",
+        "Clearingidentificationnumber",
+        "Certificateofincorporationnumber",
+        "Countryidentificationcode",
+        "Customernumber",
+        "Datauniversalnumberingsystem",
+        "Employeridentificationnumber",
+        "Gs1glnidentifier",
+        "SIREN",
+        "SIRET",
+        "Taxidentificationnumber",
+        "EANGLN"
+      ]
+    },
+    {
+      "name": "Organisationlegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Corporation` - Legal structure is a corporation.\r\n* `Individual` - Legal structure is an individual.\r\n* `Supranational` - Legal structure is a supranational.\r\n* `Sovereign` - Legal structure is a sovereign.\r\n* `Municipal` - Legal structure is a municipal.\r\n* `Province` - Legal structure is a province.\r\n* `State` - Legal structure is a state.\r\n* `County` - Legal structure is a county.\r\n* `Partnership` - Legal structure is a partnership.\r\n* `Financialinstitution` - Legal structure is a financial institution.\r\n* `National` - Legal structure is a state.\r\n",
+      "enum_values": [
+        "Corporation",
+        "Individual",
+        "Supranational",
+        "Sovereign",
+        "Municipal",
+        "Province",
+        "State",
+        "County",
+        "Partnership",
+        "Financialinstitution",
+        "National"
+      ]
+    },
+    {
+      "name": "Organisationname",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "NameType",
+          "type": "object",
+          "ref": "Organisationnametypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationnametypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ShortName` - \r\n* `TradingName` - \r\n* `LegalName` - \r\n",
+      "enum_values": [
+        "ShortName",
+        "TradingName",
+        "LegalName"
+      ]
+    },
+    {
+      "name": "Organisationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LegalEntity` - \r\n* `Authority` - \r\n* `OrganisationUnit` - \r\n* `FinancialInstitution` - \r\n* `Charity` - \r\n* `GovernmentBody` - \r\n",
+      "enum_values": [
+        "LegalEntity",
+        "Authority",
+        "OrganisationUnit",
+        "FinancialInstitution",
+        "Charity",
+        "GovernmentBody"
+      ]
+    },
+    {
+      "name": "Partyidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PartyIdentificationType",
+          "type": "object",
+          "ref": "Partyidentificationtypevalues"
+        },
+        {
+          "name": "PartyIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Partyidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to an entity.\r\n* `Nationalregistrationnumber` - Number assigned by a national registration authority to an entity. In Singapore this is known as the NRIC. (ISO20022)\r\n* `Registrationauthorityidentification` - An identifier for the Legal Entity in a business registry in the jurisdiction of legal registration, or in the appropriate registration authority. (ISO20022)\r\n* `LEI(LegalEntityIdentifier)` - \r\n* `Alienregistrationnumber` - Number assigned by a government agency to identify foreign nationals.\r\n* `Passportnumber` - Number assigned by a passport authority.\r\n* `Taxexemptidentificationnumber` - Number assigned to a tax exempt entity.\r\n* `Corporateidentification` - Number assigned to a corporate entity.\r\n* `Driverlicensenumber` - Number assigned to a driver's license.\r\n* `Foreigninvestmentidentitynumber` - Number assigned to a foreign investor (other than the alien number).\r\n* `Socialsecuritynumber` - Number assigned by a social security agency.\r\n* `Identitycardnumber` - Number assigned by a national authority to an identity card.\r\n* `Concat` - Number assigned by an issuer to identify a customer via the concatenation of the birthdate and characters of the first name and surname.\r\n* `Nationalregistrationidentificationnumber` - National registration identification number. In Singapore this is known as the NRIC.\r\n",
+      "enum_values": [
+        "Taxidentificationnumber",
+        "Nationalregistrationnumber",
+        "Registrationauthorityidentification",
+        "LEI(LegalEntityIdentifier)",
+        "Alienregistrationnumber",
+        "Passportnumber",
+        "Taxexemptidentificationnumber",
+        "Corporateidentification",
+        "Driverlicensenumber",
+        "Foreigninvestmentidentitynumber",
+        "Socialsecuritynumber",
+        "Identitycardnumber",
+        "Concat",
+        "Nationalregistrationidentificationnumber"
+      ]
+    },
+    {
+      "name": "Partylegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Individual` - \r\n* `CommunityInterestCompany` - \r\n* `CharitableIncorporatedOrganisation` - \r\n* `Co-Operative` - \r\n* `Charity` - \r\n* `GeneralPartnership` - \r\n* `LimitedLiabilityPartnership` - \r\n* `ScottishLimitedPartnership` - \r\n* `LimitedPartnership` - \r\n* `PrivateLimitedCompany` - \r\n* `PublicLimitedCompany` - \r\n* `Sole(SoleTrader)` - \r\n",
+      "enum_values": [
+        "Individual",
+        "CommunityInterestCompany",
+        "CharitableIncorporatedOrganisation",
+        "Co-Operative",
+        "Charity",
+        "GeneralPartnership",
+        "LimitedLiabilityPartnership",
+        "ScottishLimitedPartnership",
+        "LimitedPartnership",
+        "PrivateLimitedCompany",
+        "PublicLimitedCompany",
+        "Sole(SoleTrader)"
+      ]
+    },
+    {
+      "name": "Partytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\r\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\r\n",
+      "enum_values": [
+        "Person",
+        "Organisation"
+      ]
+    },
+    {
+      "name": "Plan",
+      "kind": "object",
+      "description": "The derived deployment execution plan, covering tasks from the completion and acceptance of the deployment plan through to completion of the deployment including post deployment analysis tasks if required. Consolidates the different aspects of the plan. (Captures both planned and actual results)",
+      "properties": [
+        {
+          "name": "PlanGoal",
+          "type": "object",
+          "ref": "Goal"
+        },
+        {
+          "name": "PlanBudget",
+          "type": "object",
+          "ref": "Budgetarrangement"
+        },
+        {
+          "name": "PlannedAction",
+          "type": "object",
+          "ref": "Plannedaction"
+        },
+        {
+          "name": "PlanType",
+          "type": "object",
+          "ref": "Plantypevalues"
+        },
+        {
+          "name": "PlanValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "PlanDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementSignedDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AgreementType",
+          "type": "object",
+          "ref": "Agreementtypevalues"
+        },
+        {
+          "name": "AgreementValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AgreementVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementStatus",
+          "type": "object",
+          "ref": "Agreementstatus"
+        },
+        {
+          "name": "AgreementSubjectMatter",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AgreementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AgreementDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AgreementDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Plannedaction",
+      "kind": "object",
+      "description": "An action that is arranged in a plan for doing or achieving something ",
+      "properties": [
+        {
+          "name": "ArrangementAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "ArrangementStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ArrangementStatus",
+          "type": "object",
+          "ref": "Arrangementstatus"
+        },
+        {
+          "name": "ArrangementSubjectMatter",
+          "type": "object",
+          "ref": "Subject"
+        },
+        {
+          "name": "Arrangementtype",
+          "type": "object",
+          "ref": "Arrangementtypevalues"
+        },
+        {
+          "name": "ArrangementIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Plantypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `AdministrativePlan` - \r\n* `ManagementPlan` - \r\n* `StratgyPlan` - \r\n* `FinancialPlan` - \r\n* `DevelopmentPlan` - \r\n",
+      "enum_values": [
+        "AdministrativePlan",
+        "ManagementPlan",
+        "StratgyPlan",
+        "FinancialPlan",
+        "DevelopmentPlan"
+      ]
+    },
+    {
+      "name": "ProductandServiceDeploymentDevelopment",
+      "kind": "object",
+      "description": "To build or enhance something, typically an IT production systems  within Product Deployment. Includes development, Assessment and deployment activities.\nExample: Build, enhance, test and deploy a major enhancement to a production product processing system.",
+      "properties": [
+        {
+          "name": "ProductandServiceDeploymentProjectName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ProductandServiceDeploymentProjectType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceDeploymentProjectDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductandServiceDeploymentImplementationPlan",
+          "type": "object",
+          "ref": "Plan"
+        },
+        {
+          "name": "ProductandServiceDeploymentBudget",
+          "type": "object",
+          "ref": "BudgetArrangement"
+        },
+        {
+          "name": "ProductandServiceDeploymentOrganization",
+          "type": "object",
+          "ref": "Organisation"
+        },
+        {
+          "name": "ProductandServiceDeploymentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "DateType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        },
+        {
+          "name": "Date",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Production",
+      "kind": "object",
+      "description": "A collection of one or more deliverables that may be further defined in terms of an approach to be followed to create them\n\nExamples: Functional module specification",
+      "properties": [
+        {
+          "name": "ProductandServiceDeploymentProductionRequirements",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "ProductandServiceDeploymentProductionRequirementsWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "ProductandServiceDeploymentProductionRequirementsTaskSpecification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductionSupport",
+      "kind": "object",
+      "description": "A collection of one or more deliverables that may be further defined in terms of an approach to be followed to create them\n\nExamples: Functional module specification",
+      "properties": [
+        {
+          "name": "ProductandServiceDeploymentProductionSupportRequirements",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "ProductandServiceDeploymentProductionSupportRequirementsWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "ProductandServiceDeploymentProductionSupportRequirementsTaskSpecification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "The consolidated aspects of the servicing deployment tasks",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "SalesandMarketing",
+      "kind": "object",
+      "description": "A collection of one or more deliverables that may be further defined in terms of an approach to be followed to create them\n\nExamples: Functional module specification",
+      "properties": [
+        {
+          "name": "ProductandServiceDeploymentSalesandMarketingRequirements",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "ProductandServiceDeploymentSalesandMarketingRequirementsWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "ProductandServiceDeploymentSalesandMarketingRequirementsTaskSpecification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The deployment schedule of events, planned and actual (includes planning and execution tasks)",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicing",
+      "kind": "object",
+      "description": "A collection of one or more deliverables that may be further defined in terms of an approach to be followed to create them\n\nExamples: Functional module specification",
+      "properties": [
+        {
+          "name": "ProductandServiceDeploymentServicingRequirements",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "ProductandServiceDeploymentServicingRequirementsWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "ProductandServiceDeploymentServicingRequirementsTaskSpecification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Subject",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Subject",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Systems",
+      "kind": "object",
+      "description": "A collection of one or more deliverables that may be further defined in terms of an approach to be followed to create them\n\nExamples: Functional module specification",
+      "properties": [
+        {
+          "name": "ProductandServiceDeploymentSystemsRequirements",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "ProductandServiceDeploymentSystemsRequirementsWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "DocumentDirectoryEntryInstanceReference",
+          "type": "object",
+          "ref": "DocumentDirectoryEntry"
+        },
+        {
+          "name": "ProductandServiceDeploymentSystemsRequirementsTaskSpecification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "File of consolidated deployment planning and deliverable specifications for the task",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "ProductandServiceDeploymentDevelopment",
+        "operations": [
+          "Create",
+          "Update",
+          "Exchange",
+          "Control",
+          "Capture",
+          "Request",
+          "Grant",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "HROperations",
+        "parent_control_record": "ProductandServiceDeploymentDevelopment",
+        "operations": [
+          "UpdateHROperations",
+          "ExchangeHROperations",
+          "RequestHROperations",
+          "RetrieveHROperations"
+        ]
+      },
+      {
+        "name": "ITOperations",
+        "parent_control_record": "ProductandServiceDeploymentDevelopment",
+        "operations": [
+          "UpdateITOperations",
+          "ExchangeITOperations",
+          "RequestITOperations",
+          "RetrieveITOperations"
+        ]
+      },
+      {
+        "name": "Production",
+        "parent_control_record": "ProductandServiceDeploymentDevelopment",
+        "operations": [
+          "UpdateProduction",
+          "ExchangeProduction",
+          "RequestProduction",
+          "RetrieveProduction"
+        ]
+      },
+      {
+        "name": "ProductionSupport",
+        "parent_control_record": "ProductandServiceDeploymentDevelopment",
+        "operations": [
+          "UpdateProductionSupport",
+          "RequestProductionSupport",
+          "ExchangeProductionSupport",
+          "RetrieveProductionSupport"
+        ]
+      },
+      {
+        "name": "SalesandMarketing",
+        "parent_control_record": "ProductandServiceDeploymentDevelopment",
+        "operations": [
+          "UpdateSalesandMarketing",
+          "ExchangeSalesandMarketing",
+          "RequestSalesandMarketing",
+          "RetrieveSalesandMarketing"
+        ]
+      },
+      {
+        "name": "Servicing",
+        "parent_control_record": "ProductandServiceDeploymentDevelopment",
+        "operations": [
+          "UpdateServicing",
+          "ExchangeServicing",
+          "RequestServicing",
+          "RetrieveServicing"
+        ]
+      },
+      {
+        "name": "Systems",
+        "parent_control_record": "ProductandServiceDeploymentDevelopment",
+        "operations": [
+          "RequestSystems",
+          "RetrieveSystems",
+          "UpdateSystems",
+          "ExchangeSystems"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ProductDeployment.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "bbf1a8be301f4facb2338fa90c0f6fcc7e8c30fd9160a27e112a8116d9d007e8",
+    "retrieved_at": "2026-09-12T22:36:10.444857+00:00"
+  }
+}

@@ -1,0 +1,1336 @@
+{
+  "service_domain": "IT Standards And Guidelines",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/Exchange",
+      "tipo": "CR",
+      "grupo": "TechnologyStandardsSpecification",
+      "request_schema": "TechnologyStandardsSpecification",
+      "response_schema": "TechnologyStandardsSpecification",
+      "summary": "EcCR Accept, verify, etc. aspects of Technology Standards Specification processing",
+      "description": "EcCR Accept, verify, etc. aspects of Technology Standards Specification processing"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/Request",
+      "tipo": "CR",
+      "grupo": "TechnologyStandardsSpecification",
+      "request_schema": "TechnologyStandardsSpecification",
+      "response_schema": "TechnologyStandardsSpecification",
+      "summary": "RqCR Request manual intervention or a decision with respect to Technology Standards Specification",
+      "description": "RqCR Request manual intervention or a decision with respect to Technology Standards Specification"
+    },
+    {
+      "operation_id": "Capture",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/Capture",
+      "tipo": "CR",
+      "grupo": "TechnologyStandardsSpecification",
+      "request_schema": "TechnologyStandardsSpecification",
+      "response_schema": "TechnologyStandardsSpecification",
+      "summary": "CaCR Capture Technology Standards Specification activity or event related information",
+      "description": "CaCR Capture Technology Standards Specification activity or event related information"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/Control",
+      "tipo": "CR",
+      "grupo": "TechnologyStandardsSpecification",
+      "request_schema": "TechnologyStandardsSpecification",
+      "response_schema": "TechnologyStandardsSpecification",
+      "summary": "CoCR Control the processing of Technology Standards Specification",
+      "description": "CoCR Control the processing of Technology Standards Specification"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "TechnologyStandardsSpecification",
+      "request_schema": "",
+      "response_schema": "TechnologyStandardsSpecification",
+      "summary": "ReCR Retrieve details about any aspect of Technology Standards Specification",
+      "description": "ReCR Retrieve details about any aspect of Technology Standards Specification"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/ITStandardsAndGuidelines/Initiate",
+      "tipo": "CR",
+      "grupo": "TechnologyStandardsSpecification",
+      "request_schema": "TechnologyStandardsSpecification",
+      "response_schema": "TechnologyStandardsSpecification",
+      "summary": "InCR Instantiate a new Technology Standards Specification",
+      "description": "InCR Instantiate a new Technology Standards Specification"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/Update",
+      "tipo": "CR",
+      "grupo": "TechnologyStandardsSpecification",
+      "request_schema": "TechnologyStandardsSpecification",
+      "response_schema": "TechnologyStandardsSpecification",
+      "summary": "UpCR Update details relating to Technology Standards Specification",
+      "description": "UpCR Update details relating to Technology Standards Specification"
+    },
+    {
+      "operation_id": "CaptureDevelopmentToolingandEnvironment",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/DevelopmentToolingandEnvironment/{developmenttoolingandenvironmentid}/Capture",
+      "tipo": "BQ",
+      "grupo": "DevelopmentToolingandEnvironment",
+      "request_schema": "DevelopmentToolingandEnvironment",
+      "response_schema": "DevelopmentToolingandEnvironment",
+      "summary": "CaBQ Capture Development Tooling and Environment activity or event related information",
+      "description": "CaBQ Capture Development Tooling and Environment activity or event related information",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "CaptureITPoliciesandGuidelines",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ITPoliciesandGuidelines/{itpoliciesandguidelinesid}/Capture",
+      "tipo": "BQ",
+      "grupo": "ITPoliciesandGuidelines",
+      "request_schema": "ITPoliciesandGuidelines",
+      "response_schema": "ITPoliciesandGuidelines",
+      "summary": "CaBQ Capture IT Policies and Guidelines activity or event related information",
+      "description": "CaBQ Capture IT Policies and Guidelines activity or event related information",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "InitiateITPoliciesandGuidelines",
+      "method": "POST",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ITPoliciesandGuidelines/Initiate",
+      "tipo": "BQ",
+      "grupo": "ITPoliciesandGuidelines",
+      "request_schema": "ITPoliciesandGuidelines",
+      "response_schema": "ITPoliciesandGuidelines",
+      "summary": "InBQ Instantiate a new IT Policies and Guidelines",
+      "description": "InBQ Instantiate a new IT Policies and Guidelines",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "CaptureProductTestingandDeploymentMechanisms",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductTestingandDeploymentMechanisms/{producttestinganddeploymentmechanismsid}/Capture",
+      "tipo": "BQ",
+      "grupo": "ProductTestingandDeploymentMechanisms",
+      "request_schema": "ProductTestingandDeploymentMechanisms",
+      "response_schema": "ProductTestingandDeploymentMechanisms",
+      "summary": "CaBQ Capture Product Testing and Deployment Mechanisms activity or event related information",
+      "description": "CaBQ Capture Product Testing and Deployment Mechanisms activity or event related information",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "CaptureProductionPlatformsandInfrastructure",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductionPlatformsandInfrastructure/{productionplatformsandinfrastructureid}/Capture",
+      "tipo": "BQ",
+      "grupo": "ProductionPlatformsandInfrastructure",
+      "request_schema": "ProductionPlatformsandInfrastructure",
+      "response_schema": "ProductionPlatformsandInfrastructure",
+      "summary": "CaBQ Capture Production Platforms and Infrastructure activity or event related information",
+      "description": "CaBQ Capture Production Platforms and Infrastructure activity or event related information",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "ExchangeITPoliciesandGuidelines",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ITPoliciesandGuidelines/{itpoliciesandguidelinesid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "ITPoliciesandGuidelines",
+      "request_schema": "ITPoliciesandGuidelines",
+      "response_schema": "ITPoliciesandGuidelines",
+      "summary": "EcBQ Accept, verify, etc. aspects of IT Policies and Guidelines processing",
+      "description": "EcBQ Accept, verify, etc. aspects of IT Policies and Guidelines processing",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "ExchangeProductionPlatformsandInfrastructure",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductionPlatformsandInfrastructure/{productionplatformsandinfrastructureid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "ProductionPlatformsandInfrastructure",
+      "request_schema": "ProductionPlatformsandInfrastructure",
+      "response_schema": "ProductionPlatformsandInfrastructure",
+      "summary": "EcBQ Accept, verify, etc. aspects of Production Platforms and Infrastructure processing",
+      "description": "EcBQ Accept, verify, etc. aspects of Production Platforms and Infrastructure processing",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "InitiateProductTestingandDeploymentMechanisms",
+      "method": "POST",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductTestingandDeploymentMechanisms/Initiate",
+      "tipo": "BQ",
+      "grupo": "ProductTestingandDeploymentMechanisms",
+      "request_schema": "ProductTestingandDeploymentMechanisms",
+      "response_schema": "ProductTestingandDeploymentMechanisms",
+      "summary": "InBQ Instantiate a new Product Testing and Deployment Mechanisms",
+      "description": "InBQ Instantiate a new Product Testing and Deployment Mechanisms",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "CaptureProductionEnvironmentandSupportServices",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductionEnvironmentandSupportServices/{productionenvironmentandsupportservicesid}/Capture",
+      "tipo": "BQ",
+      "grupo": "ProductionEnvironmentandSupportServices",
+      "request_schema": "ProductionEnvironmentandSupportServices",
+      "response_schema": "ProductionEnvironmentandSupportServices",
+      "summary": "CaBQ Capture Production Environment and Support Services activity or event related information",
+      "description": "CaBQ Capture Production Environment and Support Services activity or event related information",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "ExchangeDevelopmentToolingandEnvironment",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/DevelopmentToolingandEnvironment/{developmenttoolingandenvironmentid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "DevelopmentToolingandEnvironment",
+      "request_schema": "DevelopmentToolingandEnvironment",
+      "response_schema": "DevelopmentToolingandEnvironment",
+      "summary": "EcBQ Accept, verify, etc. aspects of Development Tooling and Environment processing",
+      "description": "EcBQ Accept, verify, etc. aspects of Development Tooling and Environment processing",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "ExchangeProductTestingandDeploymentMechanisms",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductTestingandDeploymentMechanisms/{producttestinganddeploymentmechanismsid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "ProductTestingandDeploymentMechanisms",
+      "request_schema": "ProductTestingandDeploymentMechanisms",
+      "response_schema": "ProductTestingandDeploymentMechanisms",
+      "summary": "EcBQ Accept, verify, etc. aspects of Product Testing and Deployment Mechanisms processing",
+      "description": "EcBQ Accept, verify, etc. aspects of Product Testing and Deployment Mechanisms processing",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "ExchangeProductionEnvironmentandSupportServices",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductionEnvironmentandSupportServices/{productionenvironmentandsupportservicesid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "ProductionEnvironmentandSupportServices",
+      "request_schema": "ProductionEnvironmentandSupportServices",
+      "response_schema": "ProductionEnvironmentandSupportServices",
+      "summary": "EcBQ Accept, verify, etc. aspects of Production Environment and Support Services processing",
+      "description": "EcBQ Accept, verify, etc. aspects of Production Environment and Support Services processing",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "InitiateDevelopmentToolingandEnvironment",
+      "method": "POST",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/DevelopmentToolingandEnvironment/Initiate",
+      "tipo": "BQ",
+      "grupo": "DevelopmentToolingandEnvironment",
+      "request_schema": "DevelopmentToolingandEnvironment",
+      "response_schema": "DevelopmentToolingandEnvironment",
+      "summary": "InBQ Instantiate a new Development Tooling and Environment",
+      "description": "InBQ Instantiate a new Development Tooling and Environment",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "RetrieveDevelopmentToolingandEnvironment",
+      "method": "GET",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/DevelopmentToolingandEnvironment/{developmenttoolingandenvironmentid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "DevelopmentToolingandEnvironment",
+      "request_schema": "",
+      "response_schema": "DevelopmentToolingandEnvironment",
+      "summary": "ReBQ Retrieve details about any aspect of Development Tooling and Environment",
+      "description": "ReBQ Retrieve details about any aspect of Development Tooling and Environment",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "InitiateProductionPlatformsandInfrastructure",
+      "method": "POST",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductionPlatformsandInfrastructure/Initiate",
+      "tipo": "BQ",
+      "grupo": "ProductionPlatformsandInfrastructure",
+      "request_schema": "ProductionPlatformsandInfrastructure",
+      "response_schema": "ProductionPlatformsandInfrastructure",
+      "summary": "InBQ Instantiate a new Production Platforms and Infrastructure",
+      "description": "InBQ Instantiate a new Production Platforms and Infrastructure",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "RetrieveProductTestingandDeploymentMechanisms",
+      "method": "GET",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductTestingandDeploymentMechanisms/{producttestinganddeploymentmechanismsid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "ProductTestingandDeploymentMechanisms",
+      "request_schema": "",
+      "response_schema": "ProductTestingandDeploymentMechanisms",
+      "summary": "ReBQ Retrieve details about any aspect of Product Testing and Deployment Mechanisms",
+      "description": "ReBQ Retrieve details about any aspect of Product Testing and Deployment Mechanisms",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "InitiateProductionEnvironmentandSupportServices",
+      "method": "POST",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductionEnvironmentandSupportServices/Initiate",
+      "tipo": "BQ",
+      "grupo": "ProductionEnvironmentandSupportServices",
+      "request_schema": "ProductionEnvironmentandSupportServices",
+      "response_schema": "ProductionEnvironmentandSupportServices",
+      "summary": "InBQ Instantiate a new Production Environment and Support Services",
+      "description": "InBQ Instantiate a new Production Environment and Support Services",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "RetrieveITPoliciesandGuidelines",
+      "method": "GET",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ITPoliciesandGuidelines/{itpoliciesandguidelinesid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "ITPoliciesandGuidelines",
+      "request_schema": "",
+      "response_schema": "ITPoliciesandGuidelines",
+      "summary": "ReBQ Retrieve details about any aspect of IT Policies and Guidelines",
+      "description": "ReBQ Retrieve details about any aspect of IT Policies and Guidelines",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "RetrieveProductionEnvironmentandSupportServices",
+      "method": "GET",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductionEnvironmentandSupportServices/{productionenvironmentandsupportservicesid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "ProductionEnvironmentandSupportServices",
+      "request_schema": "",
+      "response_schema": "ProductionEnvironmentandSupportServices",
+      "summary": "ReBQ Retrieve details about any aspect of Production Environment and Support Services",
+      "description": "ReBQ Retrieve details about any aspect of Production Environment and Support Services",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "RetrieveProductionPlatformsandInfrastructure",
+      "method": "GET",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductionPlatformsandInfrastructure/{productionplatformsandinfrastructureid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "ProductionPlatformsandInfrastructure",
+      "request_schema": "",
+      "response_schema": "ProductionPlatformsandInfrastructure",
+      "summary": "ReBQ Retrieve details about any aspect of Production Platforms and Infrastructure",
+      "description": "ReBQ Retrieve details about any aspect of Production Platforms and Infrastructure",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "RequestDevelopmentToolingandEnvironment",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/DevelopmentToolingandEnvironment/{developmenttoolingandenvironmentid}/Request",
+      "tipo": "BQ",
+      "grupo": "DevelopmentToolingandEnvironment",
+      "request_schema": "DevelopmentToolingandEnvironment",
+      "response_schema": "DevelopmentToolingandEnvironment",
+      "summary": "RqBQ Request manual intervention or a decision with respect to Development Tooling and Environment",
+      "description": "RqBQ Request manual intervention or a decision with respect to Development Tooling and Environment",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "RequestProductionPlatformsandInfrastructure",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductionPlatformsandInfrastructure/{productionplatformsandinfrastructureid}/Request",
+      "tipo": "BQ",
+      "grupo": "ProductionPlatformsandInfrastructure",
+      "request_schema": "ProductionPlatformsandInfrastructure",
+      "response_schema": "ProductionPlatformsandInfrastructure",
+      "summary": "RqBQ Request manual intervention or a decision with respect to Production Platforms and Infrastructure",
+      "description": "RqBQ Request manual intervention or a decision with respect to Production Platforms and Infrastructure",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "UpdateProductionEnvironmentandSupportServices",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductionEnvironmentandSupportServices/{productionenvironmentandsupportservicesid}/Update",
+      "tipo": "BQ",
+      "grupo": "ProductionEnvironmentandSupportServices",
+      "request_schema": "ProductionEnvironmentandSupportServices",
+      "response_schema": "ProductionEnvironmentandSupportServices",
+      "summary": "UpBQ Update details relating to Production Environment and Support Services",
+      "description": "UpBQ Update details relating to Production Environment and Support Services",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "UpdateDevelopmentToolingandEnvironment",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/DevelopmentToolingandEnvironment/{developmenttoolingandenvironmentid}/Update",
+      "tipo": "BQ",
+      "grupo": "DevelopmentToolingandEnvironment",
+      "request_schema": "DevelopmentToolingandEnvironment",
+      "response_schema": "DevelopmentToolingandEnvironment",
+      "summary": "UpBQ Update details relating to Development Tooling and Environment",
+      "description": "UpBQ Update details relating to Development Tooling and Environment",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "UpdateProductionPlatformsandInfrastructure",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductionPlatformsandInfrastructure/{productionplatformsandinfrastructureid}/Update",
+      "tipo": "BQ",
+      "grupo": "ProductionPlatformsandInfrastructure",
+      "request_schema": "ProductionPlatformsandInfrastructure",
+      "response_schema": "ProductionPlatformsandInfrastructure",
+      "summary": "UpBQ Update details relating to Production Platforms and Infrastructure",
+      "description": "UpBQ Update details relating to Production Platforms and Infrastructure",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "RequestProductionEnvironmentandSupportServices",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductionEnvironmentandSupportServices/{productionenvironmentandsupportservicesid}/Request",
+      "tipo": "BQ",
+      "grupo": "ProductionEnvironmentandSupportServices",
+      "request_schema": "ProductionEnvironmentandSupportServices",
+      "response_schema": "ProductionEnvironmentandSupportServices",
+      "summary": "RqBQ Request manual intervention or a decision with respect to Production Environment and Support Services",
+      "description": "RqBQ Request manual intervention or a decision with respect to Production Environment and Support Services",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "UpdateITPoliciesandGuidelines",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ITPoliciesandGuidelines/{itpoliciesandguidelinesid}/Update",
+      "tipo": "BQ",
+      "grupo": "ITPoliciesandGuidelines",
+      "request_schema": "ITPoliciesandGuidelines",
+      "response_schema": "ITPoliciesandGuidelines",
+      "summary": "UpBQ Update details relating to IT Policies and Guidelines",
+      "description": "UpBQ Update details relating to IT Policies and Guidelines",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "UpdateProductTestingandDeploymentMechanisms",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductTestingandDeploymentMechanisms/{producttestinganddeploymentmechanismsid}/Update",
+      "tipo": "BQ",
+      "grupo": "ProductTestingandDeploymentMechanisms",
+      "request_schema": "ProductTestingandDeploymentMechanisms",
+      "response_schema": "ProductTestingandDeploymentMechanisms",
+      "summary": "UpBQ Update details relating to Product Testing and Deployment Mechanisms",
+      "description": "UpBQ Update details relating to Product Testing and Deployment Mechanisms",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "RequestITPoliciesandGuidelines",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ITPoliciesandGuidelines/{itpoliciesandguidelinesid}/Request",
+      "tipo": "BQ",
+      "grupo": "ITPoliciesandGuidelines",
+      "request_schema": "ITPoliciesandGuidelines",
+      "response_schema": "ITPoliciesandGuidelines",
+      "summary": "RqBQ Request manual intervention or a decision with respect to IT Policies and Guidelines",
+      "description": "RqBQ Request manual intervention or a decision with respect to IT Policies and Guidelines",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    },
+    {
+      "operation_id": "RequestProductTestingandDeploymentMechanisms",
+      "method": "PUT",
+      "path": "/ITStandardsAndGuidelines/{itstandardsandguidelinesid}/ProductTestingandDeploymentMechanisms/{producttestinganddeploymentmechanismsid}/Request",
+      "tipo": "BQ",
+      "grupo": "ProductTestingandDeploymentMechanisms",
+      "request_schema": "ProductTestingandDeploymentMechanisms",
+      "response_schema": "ProductTestingandDeploymentMechanisms",
+      "summary": "RqBQ Request manual intervention or a decision with respect to Product Testing and Deployment Mechanisms",
+      "description": "RqBQ Request manual intervention or a decision with respect to Product Testing and Deployment Mechanisms",
+      "parent_control_record": "TechnologyStandardsSpecification"
+    }
+  ],
+  "schemas": [
+    "Analysis",
+    "Analysistypevalues",
+    "BusinessService",
+    "Businessservicetypevalues",
+    "Condition",
+    "Conditionstatustypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "DevelopmentToolingandEnvironment",
+    "Feature",
+    "Featuretypevalues",
+    "HTTPError",
+    "ITPoliciesandGuidelines",
+    "ITStandardsAndGuidelinesOutcome",
+    "Identifier",
+    "Involvedparty",
+    "Log",
+    "Name",
+    "ProductTestingandDeploymentMechanisms",
+    "ProductionEnvironmentandSupportServices",
+    "ProductionPlatformsandInfrastructure",
+    "Schedule",
+    "Servicetypevalues",
+    "Status",
+    "Task",
+    "TechnologyStandardsSpecification",
+    "Termandconditiontypevalues",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Analysis",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "BusinessService",
+      "kind": "object",
+      "description": "The IT Policies and Guidelines specific  Business Service",
+      "properties": [
+        {
+          "name": "BusinessServiceType",
+          "type": "object",
+          "ref": "Businessservicetypevalues"
+        },
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Businessservicetypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Businessservicetypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Condition",
+      "kind": "object",
+      "description": "The required status/situation before the specification aspect can be defined",
+      "properties": [
+        {
+          "name": "ConditionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ConditionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ConditionValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ConditionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ConditionStatus",
+          "type": "object",
+          "ref": "Conditionstatustypevalues"
+        },
+        {
+          "name": "ConditionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ConditionType",
+          "type": "object",
+          "ref": "Termandconditiontypevalues"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Conditionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Defined` - Condition is authored or configured\r\n* `Pending` - Awaiting approval or validation\r\n* `Activated` - Live and ready for evaluation\r\n* `Evaluated` - Assessed in context of process or event\r\n* `Fulfilled` - Condition criteria met\r\n* `Violated` - Condition criteria not met\r\n* `Expired` - No longer valid due to time/version limits\r\n* `Archived` - Retired from use, retained for audit/history\r\n",
+      "enum_values": [
+        "Defined",
+        "Pending",
+        "Activated",
+        "Evaluated",
+        "Fulfilled",
+        "Violated",
+        "Expired",
+        "Archived"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The validity period of Condition",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "DevelopmentToolingandEnvironment",
+      "kind": "object",
+      "description": "The main design elements/views making up the overall specification\n\nExamples: Business Requirements",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "SpecificationSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ITPoliciesandGuidelines",
+      "kind": "object",
+      "description": "The main design elements/views making up the overall specification\n\nExamples: Business Requirements",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "SpecificationSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        }
+      ]
+    },
+    {
+      "name": "ITStandardsAndGuidelinesOutcome",
+      "kind": "object",
+      "description": "The main design elements/views making up the overall specification\n\nExamples: Business Requirements",
+      "properties": [
+        {
+          "name": "ITStandardsAndGuidelinesTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ITStandardsAndGuidelinesDesign",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ITStandardsAndGuidelinesWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "ITStandardsAndGuidelinesImpactAnalysis",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "The identifier of Condition",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Reference to the log of (usage) ativities/events of Technology Standards Specification",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of Condition",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ProductTestingandDeploymentMechanisms",
+      "kind": "object",
+      "description": "The main design elements/views making up the overall specification\n\nExamples: Business Requirements",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "SpecificationSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        }
+      ]
+    },
+    {
+      "name": "ProductionEnvironmentandSupportServices",
+      "kind": "object",
+      "description": "The main design elements/views making up the overall specification\n\nExamples: Business Requirements",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "SpecificationSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        }
+      ]
+    },
+    {
+      "name": "ProductionPlatformsandInfrastructure",
+      "kind": "object",
+      "description": "The main design elements/views making up the overall specification\n\nExamples: Business Requirements",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "SpecificationSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the definition and update/revisions of the specification aspect",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "TechnologyStandardsSpecification",
+      "kind": "object",
+      "description": "Create and maintain a design for a procedure, product/service model or other such entity  within IT Standards & Guidelines. \nExample: Create and maintain product designs and analytical models.",
+      "properties": [
+        {
+          "name": "TechnologyStandardsSpecificationParameterType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "TechnologyStandardsSpecificationSelectedOption",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "TechnologyStandardsSpecificationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TechnologyStandardsSpecificationVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TechnologyStandardsSpecificationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "TechnologyStandardsSpecificationUsageLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "TechnologyStandardsSpecificationFeedback",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TechnologyStandardsSpecificationServiceProviderReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Termandconditiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommissionTermAndCondition` - Commission terms for workforce/employee commission processing\r\n* `LegalTermAndCondition` - Covers the legal considerations of the agreement\r\n* `RegulatoryTermAndCondition` - Covers the regulatory considerations of the agreement\r\n* `PolicyTermAndCondition` - Covers the corporate policies and requirements considerations of the agreement\r\n* `RestrictionTermAndCondition` - Details channel access restrictions for products and services\r\n* `PreferenceTermAndCondition` - Customer channel/device usage preferences\r\n* `InvestmentTermAndCondition` - Terms making up the agreement that govern the management of the investment portfolio. Note that there may be many different types of terms and clauses making up the overall policy\r\n* `MandateTermAndCondition` - Reference to the terms in force for a specific customer for this service provider\r\n* `OperationalTermAndCondition` - \r\n* `ProductTermAndCondition` - \r\n* `AgreementTermAndCondition` - \r\n* `RelationshipTermAndCondition` - \r\n* `ConfidentialTermAndCondition` - \r\n",
+      "enum_values": [
+        "CommissionTermAndCondition",
+        "LegalTermAndCondition",
+        "RegulatoryTermAndCondition",
+        "PolicyTermAndCondition",
+        "RestrictionTermAndCondition",
+        "PreferenceTermAndCondition",
+        "InvestmentTermAndCondition",
+        "MandateTermAndCondition",
+        "OperationalTermAndCondition",
+        "ProductTermAndCondition",
+        "AgreementTermAndCondition",
+        "RelationshipTermAndCondition",
+        "ConfidentialTermAndCondition"
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "TechnologyStandardsSpecification",
+        "operations": [
+          "Exchange",
+          "Request",
+          "Capture",
+          "Control",
+          "Retrieve",
+          "Initiate",
+          "Update"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "DevelopmentToolingandEnvironment",
+        "parent_control_record": "TechnologyStandardsSpecification",
+        "operations": [
+          "CaptureDevelopmentToolingandEnvironment",
+          "ExchangeDevelopmentToolingandEnvironment",
+          "InitiateDevelopmentToolingandEnvironment",
+          "RetrieveDevelopmentToolingandEnvironment",
+          "RequestDevelopmentToolingandEnvironment",
+          "UpdateDevelopmentToolingandEnvironment"
+        ]
+      },
+      {
+        "name": "ITPoliciesandGuidelines",
+        "parent_control_record": "TechnologyStandardsSpecification",
+        "operations": [
+          "CaptureITPoliciesandGuidelines",
+          "InitiateITPoliciesandGuidelines",
+          "ExchangeITPoliciesandGuidelines",
+          "RetrieveITPoliciesandGuidelines",
+          "UpdateITPoliciesandGuidelines",
+          "RequestITPoliciesandGuidelines"
+        ]
+      },
+      {
+        "name": "ProductTestingandDeploymentMechanisms",
+        "parent_control_record": "TechnologyStandardsSpecification",
+        "operations": [
+          "CaptureProductTestingandDeploymentMechanisms",
+          "InitiateProductTestingandDeploymentMechanisms",
+          "ExchangeProductTestingandDeploymentMechanisms",
+          "RetrieveProductTestingandDeploymentMechanisms",
+          "UpdateProductTestingandDeploymentMechanisms",
+          "RequestProductTestingandDeploymentMechanisms"
+        ]
+      },
+      {
+        "name": "ProductionEnvironmentandSupportServices",
+        "parent_control_record": "TechnologyStandardsSpecification",
+        "operations": [
+          "CaptureProductionEnvironmentandSupportServices",
+          "ExchangeProductionEnvironmentandSupportServices",
+          "InitiateProductionEnvironmentandSupportServices",
+          "RetrieveProductionEnvironmentandSupportServices",
+          "UpdateProductionEnvironmentandSupportServices",
+          "RequestProductionEnvironmentandSupportServices"
+        ]
+      },
+      {
+        "name": "ProductionPlatformsandInfrastructure",
+        "parent_control_record": "TechnologyStandardsSpecification",
+        "operations": [
+          "CaptureProductionPlatformsandInfrastructure",
+          "ExchangeProductionPlatformsandInfrastructure",
+          "InitiateProductionPlatformsandInfrastructure",
+          "RetrieveProductionPlatformsandInfrastructure",
+          "RequestProductionPlatformsandInfrastructure",
+          "UpdateProductionPlatformsandInfrastructure"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/ITStandardsAndGuidelines.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "23fa8872b4edd67ab39e53e585f27e894d4119489cba3692c064235e2d3ba824",
+    "retrieved_at": "2026-09-12T22:31:47.160207+00:00"
+  }
+}

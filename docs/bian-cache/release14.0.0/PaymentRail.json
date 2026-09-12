@@ -1,0 +1,1582 @@
+{
+  "service_domain": "Payment Rail",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/Control",
+      "tipo": "CR",
+      "grupo": "PaymentRailOperatingSession",
+      "request_schema": "PaymentRailOperatingSession",
+      "response_schema": "PaymentRailOperatingSession",
+      "summary": "Control Payment Rail Operating Session",
+      "description": "Control Payment Rail Operating Session"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/Exchange",
+      "tipo": "CR",
+      "grupo": "PaymentRailOperatingSession",
+      "request_schema": "PaymentRailOperatingSession",
+      "response_schema": "PaymentRailOperatingSession",
+      "summary": "Exchange Payment Rail Operating Session",
+      "description": "Exchange Payment Rail Operating Session"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/Execute",
+      "tipo": "CR",
+      "grupo": "PaymentRailOperatingSession",
+      "request_schema": "PaymentRailOperatingSession",
+      "response_schema": "PaymentRailOperatingSession",
+      "summary": "Execute Payment Rail Operating Session",
+      "description": "Execute Payment Rail Operating Session"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/PaymentRail/Initiate",
+      "tipo": "CR",
+      "grupo": "PaymentRailOperatingSession",
+      "request_schema": "PaymentRailOperatingSession",
+      "response_schema": "PaymentRailOperatingSession",
+      "summary": "Initiate Payment Rail Operating Session",
+      "description": "Initiate Payment Rail Operating Session"
+    },
+    {
+      "operation_id": "Notify",
+      "method": "GET",
+      "path": "/PaymentRail/{paymentrailid}/Notify",
+      "tipo": "CR",
+      "grupo": "PaymentRailOperatingSession",
+      "request_schema": "",
+      "response_schema": "PaymentRailOperatingSession",
+      "summary": "Notify Payment Rail Operating Session",
+      "description": "Notify Payment Rail Operating Session"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/Request",
+      "tipo": "CR",
+      "grupo": "PaymentRailOperatingSession",
+      "request_schema": "PaymentRailOperatingSession",
+      "response_schema": "PaymentRailOperatingSession",
+      "summary": "Request Payment Rail Operating Session",
+      "description": "Request Payment Rail Operating Session"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/PaymentRail/{paymentrailid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "PaymentRailOperatingSession",
+      "request_schema": "",
+      "response_schema": "PaymentRailOperatingSession",
+      "summary": "Retrieve Payment Rail Operating Session",
+      "description": "Retrieve Payment Rail Operating Session"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/Update",
+      "tipo": "CR",
+      "grupo": "PaymentRailOperatingSession",
+      "request_schema": "PaymentRailOperatingSession",
+      "response_schema": "PaymentRailOperatingSession",
+      "summary": "Update Payment Rail Operating Session",
+      "description": "Update Payment Rail Operating Session"
+    },
+    {
+      "operation_id": "ExchangeInboundTransaction",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/InboundTransaction/{inboundtransactionid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "InboundTransaction",
+      "request_schema": "InboundTransaction",
+      "response_schema": "InboundTransaction",
+      "summary": "Exchange Inbound Transaction Function",
+      "description": "Exchange Inbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "ExchangeOutboundTransaction",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/OutboundTransaction/{outboundtransactionid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "OutboundTransaction",
+      "request_schema": "OutboundTransaction",
+      "response_schema": "OutboundTransaction",
+      "summary": "Exchange Outbound Transaction Function",
+      "description": "Exchange Outbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "ExchangePaymentAccountReconciliation",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/PaymentAccountReconciliation/{paymentaccountreconciliationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "PaymentAccountReconciliation",
+      "request_schema": "PaymentAccountReconciliation",
+      "response_schema": "PaymentAccountReconciliation",
+      "summary": "Exchange Payment Account Reconciliation Function",
+      "description": "Exchange Payment Account Reconciliation Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "ExchangePaymentClearingandSettlement",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/PaymentClearingandSettlement/{paymentclearingandsettlementid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "PaymentClearingandSettlement",
+      "request_schema": "PaymentClearingandSettlement",
+      "response_schema": "PaymentClearingandSettlement",
+      "summary": "Exchange Payment Clearing and Settlement Function",
+      "description": "Exchange Payment Clearing and Settlement Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "ExecutePaymentClearingandSettlement",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/PaymentClearingandSettlement/{paymentclearingandsettlementid}/Execute",
+      "tipo": "BQ",
+      "grupo": "PaymentClearingandSettlement",
+      "request_schema": "PaymentClearingandSettlement",
+      "response_schema": "PaymentClearingandSettlement",
+      "summary": "Execute Payment Clearing and Settlement Function",
+      "description": "Execute Payment Clearing and Settlement Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "ExecutePaymentAccountReconciliation",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/PaymentAccountReconciliation/{paymentaccountreconciliationid}/Execute",
+      "tipo": "BQ",
+      "grupo": "PaymentAccountReconciliation",
+      "request_schema": "PaymentAccountReconciliation",
+      "response_schema": "PaymentAccountReconciliation",
+      "summary": "Execute Payment Account Reconciliation Function",
+      "description": "Execute Payment Account Reconciliation Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "InitiateOutboundTransaction",
+      "method": "POST",
+      "path": "/PaymentRail/{paymentrailid}/OutboundTransaction/Initiate",
+      "tipo": "BQ",
+      "grupo": "OutboundTransaction",
+      "request_schema": "OutboundTransaction",
+      "response_schema": "OutboundTransaction",
+      "summary": "Initiate Outbound Transaction Function",
+      "description": "Initiate Outbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteInboundTransaction",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/InboundTransaction/{inboundtransactionid}/Execute",
+      "tipo": "BQ",
+      "grupo": "InboundTransaction",
+      "request_schema": "InboundTransaction",
+      "response_schema": "InboundTransaction",
+      "summary": "Execute Inbound Transaction Function",
+      "description": "Execute Inbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "InitiateInboundTransaction",
+      "method": "POST",
+      "path": "/PaymentRail/{paymentrailid}/InboundTransaction/Initiate",
+      "tipo": "BQ",
+      "grupo": "InboundTransaction",
+      "request_schema": "InboundTransaction",
+      "response_schema": "InboundTransaction",
+      "summary": "Initiate Inbound Transaction Function",
+      "description": "Initiate Inbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteOutboundTransaction",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/OutboundTransaction/{outboundtransactionid}/Execute",
+      "tipo": "BQ",
+      "grupo": "OutboundTransaction",
+      "request_schema": "OutboundTransaction",
+      "response_schema": "OutboundTransaction",
+      "summary": "Execute Outbound Transaction Function",
+      "description": "Execute Outbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "InitiatePaymentAccountReconciliation",
+      "method": "POST",
+      "path": "/PaymentRail/{paymentrailid}/PaymentAccountReconciliation/Initiate",
+      "tipo": "BQ",
+      "grupo": "PaymentAccountReconciliation",
+      "request_schema": "PaymentAccountReconciliation",
+      "response_schema": "PaymentAccountReconciliation",
+      "summary": "Initiate Payment Account Reconciliation Function",
+      "description": "Initiate Payment Account Reconciliation Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "InitiatePaymentClearingandSettlement",
+      "method": "POST",
+      "path": "/PaymentRail/{paymentrailid}/PaymentClearingandSettlement/Initiate",
+      "tipo": "BQ",
+      "grupo": "PaymentClearingandSettlement",
+      "request_schema": "PaymentClearingandSettlement",
+      "response_schema": "PaymentClearingandSettlement",
+      "summary": "Initiate Payment Clearing and Settlement Function",
+      "description": "Initiate Payment Clearing and Settlement Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "NotifyInboundTransaction",
+      "method": "GET",
+      "path": "/PaymentRail/{paymentrailid}/InboundTransaction/{inboundtransactionid}/Notify",
+      "tipo": "BQ",
+      "grupo": "InboundTransaction",
+      "request_schema": "",
+      "response_schema": "InboundTransaction",
+      "summary": "Notify Inbound Transaction Function",
+      "description": "Notify Inbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "NotifyOutboundTransaction",
+      "method": "GET",
+      "path": "/PaymentRail/{paymentrailid}/OutboundTransaction/{outboundtransactionid}/Notify",
+      "tipo": "BQ",
+      "grupo": "OutboundTransaction",
+      "request_schema": "",
+      "response_schema": "OutboundTransaction",
+      "summary": "Notify Outbound Transaction Function",
+      "description": "Notify Outbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "NotifyPaymentAccountReconciliation",
+      "method": "GET",
+      "path": "/PaymentRail/{paymentrailid}/PaymentAccountReconciliation/{paymentaccountreconciliationid}/Notify",
+      "tipo": "BQ",
+      "grupo": "PaymentAccountReconciliation",
+      "request_schema": "",
+      "response_schema": "PaymentAccountReconciliation",
+      "summary": "Notify Payment Account Reconciliation Function",
+      "description": "Notify Payment Account Reconciliation Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "NotifyPaymentClearingandSettlement",
+      "method": "GET",
+      "path": "/PaymentRail/{paymentrailid}/PaymentClearingandSettlement/{paymentclearingandsettlementid}/Notify",
+      "tipo": "BQ",
+      "grupo": "PaymentClearingandSettlement",
+      "request_schema": "",
+      "response_schema": "PaymentClearingandSettlement",
+      "summary": "Notify Payment Clearing and Settlement Function",
+      "description": "Notify Payment Clearing and Settlement Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "RequestPaymentClearingandSettlement",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/PaymentClearingandSettlement/{paymentclearingandsettlementid}/Request",
+      "tipo": "BQ",
+      "grupo": "PaymentClearingandSettlement",
+      "request_schema": "PaymentClearingandSettlement",
+      "response_schema": "PaymentClearingandSettlement",
+      "summary": "Request Payment Clearing and Settlement Function",
+      "description": "Request Payment Clearing and Settlement Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "RequestInboundTransaction",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/InboundTransaction/{inboundtransactionid}/Request",
+      "tipo": "BQ",
+      "grupo": "InboundTransaction",
+      "request_schema": "InboundTransaction",
+      "response_schema": "InboundTransaction",
+      "summary": "Request Inbound Transaction Function",
+      "description": "Request Inbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "RequestOutboundTransaction",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/OutboundTransaction/{outboundtransactionid}/Request",
+      "tipo": "BQ",
+      "grupo": "OutboundTransaction",
+      "request_schema": "OutboundTransaction",
+      "response_schema": "OutboundTransaction",
+      "summary": "Request Outbound Transaction Function",
+      "description": "Request Outbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "RequestPaymentAccountReconciliation",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/PaymentAccountReconciliation/{paymentaccountreconciliationid}/Request",
+      "tipo": "BQ",
+      "grupo": "PaymentAccountReconciliation",
+      "request_schema": "PaymentAccountReconciliation",
+      "response_schema": "PaymentAccountReconciliation",
+      "summary": "Request Payment Account Reconciliation Function",
+      "description": "Request Payment Account Reconciliation Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveInboundTransaction",
+      "method": "GET",
+      "path": "/PaymentRail/{paymentrailid}/InboundTransaction/{inboundtransactionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "InboundTransaction",
+      "request_schema": "",
+      "response_schema": "InboundTransaction",
+      "summary": "Retrieve Inbound Transaction Function",
+      "description": "Retrieve Inbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveOutboundTransaction",
+      "method": "GET",
+      "path": "/PaymentRail/{paymentrailid}/OutboundTransaction/{outboundtransactionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "OutboundTransaction",
+      "request_schema": "",
+      "response_schema": "OutboundTransaction",
+      "summary": "Retrieve Outbound Transaction Function",
+      "description": "Retrieve Outbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "RetrievePaymentAccountReconciliation",
+      "method": "GET",
+      "path": "/PaymentRail/{paymentrailid}/PaymentAccountReconciliation/{paymentaccountreconciliationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "PaymentAccountReconciliation",
+      "request_schema": "",
+      "response_schema": "PaymentAccountReconciliation",
+      "summary": "Retrieve Payment Account Reconciliation Function",
+      "description": "Retrieve Payment Account Reconciliation Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "RetrievePaymentClearingandSettlement",
+      "method": "GET",
+      "path": "/PaymentRail/{paymentrailid}/PaymentClearingandSettlement/{paymentclearingandsettlementid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "PaymentClearingandSettlement",
+      "request_schema": "",
+      "response_schema": "PaymentClearingandSettlement",
+      "summary": "Retrieve Payment Clearing and Settlement Function",
+      "description": "Retrieve Payment Clearing and Settlement Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "UpdateInboundTransaction",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/InboundTransaction/{inboundtransactionid}/Update",
+      "tipo": "BQ",
+      "grupo": "InboundTransaction",
+      "request_schema": "InboundTransaction",
+      "response_schema": "InboundTransaction",
+      "summary": "Update Inbound Transaction Function",
+      "description": "Update Inbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "UpdateOutboundTransaction",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/OutboundTransaction/{outboundtransactionid}/Update",
+      "tipo": "BQ",
+      "grupo": "OutboundTransaction",
+      "request_schema": "OutboundTransaction",
+      "response_schema": "OutboundTransaction",
+      "summary": "Update Outbound Transaction Function",
+      "description": "Update Outbound Transaction Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "UpdatePaymentAccountReconciliation",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/PaymentAccountReconciliation/{paymentaccountreconciliationid}/Update",
+      "tipo": "BQ",
+      "grupo": "PaymentAccountReconciliation",
+      "request_schema": "PaymentAccountReconciliation",
+      "response_schema": "PaymentAccountReconciliation",
+      "summary": "Update Payment Account Reconciliation Function",
+      "description": "Update Payment Account Reconciliation Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    },
+    {
+      "operation_id": "UpdatePaymentClearingandSettlement",
+      "method": "PUT",
+      "path": "/PaymentRail/{paymentrailid}/PaymentClearingandSettlement/{paymentclearingandsettlementid}/Update",
+      "tipo": "BQ",
+      "grupo": "PaymentClearingandSettlement",
+      "request_schema": "PaymentClearingandSettlement",
+      "response_schema": "PaymentClearingandSettlement",
+      "summary": "Update Payment Clearing and Settlement Function",
+      "description": "Update Payment Clearing and Settlement Function",
+      "parent_control_record": "PaymentRailOperatingSession"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "BusinessService",
+    "Businessservicetypevalues",
+    "Condition",
+    "Conditionstatustypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Duration",
+    "Event",
+    "Feature",
+    "Featuretypevalues",
+    "Function",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "InboundTransaction",
+    "Involvedparty",
+    "Location",
+    "Log",
+    "Name",
+    "OutboundTransaction",
+    "PaymentAccountReconciliation",
+    "PaymentClearingandSettlement",
+    "PaymentRailOperatingSession",
+    "PaymentRailOperationsOutcome",
+    "Schedule",
+    "Servicetype",
+    "Servicetypevalues",
+    "Session",
+    "Sessiontype",
+    "Sessiontypevalues",
+    "Status",
+    "SystemConfigurationOption",
+    "Termandconditiontypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "BusinessService",
+      "kind": "object",
+      "description": "The Outbound Transaction Function specific Business Service",
+      "properties": [
+        {
+          "name": "BusinessServiceType",
+          "type": "object",
+          "ref": "Businessservicetypevalues"
+        },
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Businessservicetypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Businessservicetypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Condition",
+      "kind": "object",
+      "description": "The required status/situation and or tasks that need to be completed prior to the invocation of the feature",
+      "properties": [
+        {
+          "name": "ConditionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ConditionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ConditionValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ConditionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ConditionStatus",
+          "type": "object",
+          "ref": "Conditionstatustypevalues"
+        },
+        {
+          "name": "ConditionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ConditionType",
+          "type": "object",
+          "ref": "Termandconditiontypevalues"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Conditionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Defined` - Condition is authored or configured\r\n* `Pending` - Awaiting approval or validation\r\n* `Activated` - Live and ready for evaluation\r\n* `Evaluated` - Assessed in context of process or event\r\n* `Fulfilled` - Condition criteria met\r\n* `Violated` - Condition criteria not met\r\n* `Expired` - No longer valid due to time/version limits\r\n* `Archived` - Retired from use, retained for audit/history\r\n",
+      "enum_values": [
+        "Defined",
+        "Pending",
+        "Activated",
+        "Evaluated",
+        "Fulfilled",
+        "Violated",
+        "Expired",
+        "Archived"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The validity period of Condition",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "The time the session was active",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Event",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "Function",
+      "kind": "object",
+      "description": "Reference to Outbound Transaction Function",
+      "properties": [
+        {
+          "name": "Function",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "The identifier of Condition",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "InboundTransaction",
+      "kind": "object",
+      "description": "An operational service or function supported within the Outbound Transaction Function for doing Outbound Transaction Function",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "PaymentRailOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "InboundTransactionFunctionReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "InboundTransactionFunctionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Reference to the log of (usage) ativities/events  of Payment Rail Operating Session",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of Condition",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "OutboundTransaction",
+      "kind": "object",
+      "description": "An operational service or function supported within the Outbound Transaction Function for doing Outbound Transaction Function",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "PaymentRailOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "OutboundTransactionFunctionReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "OutboundTransactionFunctionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PaymentAccountReconciliation",
+      "kind": "object",
+      "description": "An operational service or function supported within the Outbound Transaction Function for doing Outbound Transaction Function",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "PaymentRailOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "PaymentAccountReconciliationFunctionReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "PaymentAccountReconciliationFunctionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PaymentClearingandSettlement",
+      "kind": "object",
+      "description": "An operational service or function supported within the Outbound Transaction Function for doing Outbound Transaction Function",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "PaymentRailOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "PaymentClearingandSettlementFunctionReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "PaymentClearingandSettlementFunctionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PaymentRailOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within Payment Rail Operations. ",
+      "properties": [
+        {
+          "name": "PaymentRailOperatingSessionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "PaymentRailOperatingSessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "PaymentRailOperatingSessionUsageLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "PaymentRailOperatingSessionAssociatedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "PaymentRailOperatingSessionServiceProviderReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "PaymentRailOperatingSessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "PaymentRailOperatingSessionServiceProviderSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "PaymentRailOperatingSessionServiceType",
+          "type": "object",
+          "ref": "Servicetype"
+        },
+        {
+          "name": "PaymentRailOperatingSessionServiceConfiguration",
+          "type": "object",
+          "ref": "SystemConfigurationOption"
+        },
+        {
+          "name": "PaymentRailOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        }
+      ]
+    },
+    {
+      "name": "PaymentRailOperationsOutcome",
+      "kind": "object",
+      "description": "An operational service or function supported within the Outbound Transaction Function for doing Outbound Transaction Function",
+      "properties": [
+        {
+          "name": "PaymentRailOperationsIncident",
+          "type": "object",
+          "ref": "Event"
+        },
+        {
+          "name": "PaymentRailOperationsProvision",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the function",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetype",
+      "kind": "object",
+      "description": "A Classification value that distinguishes between the type of services within Payment Rail Operating Session",
+      "properties": [
+        {
+          "name": "ServiceTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Session",
+      "kind": "object",
+      "description": "Reference to Outbound Transaction Function",
+      "properties": [
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontype",
+      "kind": "object",
+      "description": "Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.",
+      "properties": [
+        {
+          "name": "SessionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ContactHandlingSession` - \r\n* `CustomerDialogueSession` - \r\n* `ChannelOperatingSession` - \r\n* `GatewayOperatingSession` - \r\n* `SwitchOperatingSession` - \r\n* `DeviceOperatingSession` - \r\n* `InterbankTransactionOperatingSession` - \r\n* `CorrespondenceOperatingSession` - \r\n* `InteractiveHelpOperatingSession` - \r\n* `ACHOperatingSession` - \r\n",
+      "enum_values": [
+        "ContactHandlingSession",
+        "CustomerDialogueSession",
+        "ChannelOperatingSession",
+        "GatewayOperatingSession",
+        "SwitchOperatingSession",
+        "DeviceOperatingSession",
+        "InterbankTransactionOperatingSession",
+        "CorrespondenceOperatingSession",
+        "InteractiveHelpOperatingSession",
+        "ACHOperatingSession"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "SystemConfigurationOption",
+      "kind": "object",
+      "description": "The configuration of Payment Rail Operating Session",
+      "properties": [
+        {
+          "name": "SystemConfigurationOption",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Termandconditiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommissionTermAndCondition` - Commission terms for workforce/employee commission processing\r\n* `LegalTermAndCondition` - Covers the legal considerations of the agreement\r\n* `RegulatoryTermAndCondition` - Covers the regulatory considerations of the agreement\r\n* `PolicyTermAndCondition` - Covers the corporate policies and requirements considerations of the agreement\r\n* `RestrictionTermAndCondition` - Details channel access restrictions for products and services\r\n* `PreferenceTermAndCondition` - Customer channel/device usage preferences\r\n* `InvestmentTermAndCondition` - Terms making up the agreement that govern the management of the investment portfolio. Note that there may be many different types of terms and clauses making up the overall policy\r\n* `MandateTermAndCondition` - Reference to the terms in force for a specific customer for this service provider\r\n* `OperationalTermAndCondition` - \r\n* `ProductTermAndCondition` - \r\n* `AgreementTermAndCondition` - \r\n* `RelationshipTermAndCondition` - \r\n* `ConfidentialTermAndCondition` - \r\n",
+      "enum_values": [
+        "CommissionTermAndCondition",
+        "LegalTermAndCondition",
+        "RegulatoryTermAndCondition",
+        "PolicyTermAndCondition",
+        "RestrictionTermAndCondition",
+        "PreferenceTermAndCondition",
+        "InvestmentTermAndCondition",
+        "MandateTermAndCondition",
+        "OperationalTermAndCondition",
+        "ProductTermAndCondition",
+        "AgreementTermAndCondition",
+        "RelationshipTermAndCondition",
+        "ConfidentialTermAndCondition"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "PaymentRailOperatingSession",
+        "operations": [
+          "Control",
+          "Exchange",
+          "Execute",
+          "Initiate",
+          "Notify",
+          "Request",
+          "Retrieve",
+          "Update"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "InboundTransaction",
+        "parent_control_record": "PaymentRailOperatingSession",
+        "operations": [
+          "ExchangeInboundTransaction",
+          "ExecuteInboundTransaction",
+          "InitiateInboundTransaction",
+          "NotifyInboundTransaction",
+          "RequestInboundTransaction",
+          "RetrieveInboundTransaction",
+          "UpdateInboundTransaction"
+        ]
+      },
+      {
+        "name": "OutboundTransaction",
+        "parent_control_record": "PaymentRailOperatingSession",
+        "operations": [
+          "ExchangeOutboundTransaction",
+          "InitiateOutboundTransaction",
+          "ExecuteOutboundTransaction",
+          "NotifyOutboundTransaction",
+          "RequestOutboundTransaction",
+          "RetrieveOutboundTransaction",
+          "UpdateOutboundTransaction"
+        ]
+      },
+      {
+        "name": "PaymentAccountReconciliation",
+        "parent_control_record": "PaymentRailOperatingSession",
+        "operations": [
+          "ExchangePaymentAccountReconciliation",
+          "ExecutePaymentAccountReconciliation",
+          "InitiatePaymentAccountReconciliation",
+          "NotifyPaymentAccountReconciliation",
+          "RequestPaymentAccountReconciliation",
+          "RetrievePaymentAccountReconciliation",
+          "UpdatePaymentAccountReconciliation"
+        ]
+      },
+      {
+        "name": "PaymentClearingandSettlement",
+        "parent_control_record": "PaymentRailOperatingSession",
+        "operations": [
+          "ExchangePaymentClearingandSettlement",
+          "ExecutePaymentClearingandSettlement",
+          "InitiatePaymentClearingandSettlement",
+          "NotifyPaymentClearingandSettlement",
+          "RequestPaymentClearingandSettlement",
+          "RetrievePaymentClearingandSettlement",
+          "UpdatePaymentClearingandSettlement"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PaymentRail.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "b135161a99ec517543c2d90baabb07fbe9cec3c9beb89d32879003c9db103a6f",
+    "retrieved_at": "2026-09-12T22:33:24.795439+00:00"
+  }
+}

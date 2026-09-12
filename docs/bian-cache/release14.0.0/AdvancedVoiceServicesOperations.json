@@ -1,0 +1,1590 @@
+{
+  "service_domain": "Advanced Voice Services Operations",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/AdvancedVoiceServicesOperations/Initiate",
+      "tipo": "CR",
+      "grupo": "VoiceChannelOperatingSession",
+      "request_schema": "VoiceChannelOperatingSession",
+      "response_schema": "VoiceChannelOperatingSession",
+      "summary": "InCR Initiate the voice channel service",
+      "description": "InCR Initiate the voice channel service"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/AdvancedVoiceServicesOperations/{advancedvoiceservicesoperationsid}/Update",
+      "tipo": "CR",
+      "grupo": "VoiceChannelOperatingSession",
+      "request_schema": "VoiceChannelOperatingSession",
+      "response_schema": "VoiceChannelOperatingSession",
+      "summary": "UpCR Update the voice access service menu during the session",
+      "description": "UpCR Update the voice access service menu during the session"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/AdvancedVoiceServicesOperations/{advancedvoiceservicesoperationsid}/Control",
+      "tipo": "CR",
+      "grupo": "VoiceChannelOperatingSession",
+      "request_schema": "VoiceChannelOperatingSession",
+      "response_schema": "VoiceChannelOperatingSession",
+      "summary": "CoCR Control the service session",
+      "description": "CoCR Control the service session"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/AdvancedVoiceServicesOperations/{advancedvoiceservicesoperationsid}/Request",
+      "tipo": "CR",
+      "grupo": "VoiceChannelOperatingSession",
+      "request_schema": "VoiceChannelOperatingSession",
+      "response_schema": "VoiceChannelOperatingSession",
+      "summary": "RqCR Report an issue with the production service",
+      "description": "RqCR Report an issue with the production service"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/AdvancedVoiceServicesOperations/{advancedvoiceservicesoperationsid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "VoiceChannelOperatingSession",
+      "request_schema": "",
+      "response_schema": "VoiceChannelOperatingSession",
+      "summary": "ReCR Retrieve details and statistics relating to a session",
+      "description": "ReCR Retrieve details and statistics relating to a session"
+    },
+    {
+      "operation_id": "InitiateInbound",
+      "method": "POST",
+      "path": "/AdvancedVoiceServicesOperations/{advancedvoiceservicesoperationsid}/Inbound/Initiate",
+      "tipo": "BQ",
+      "grupo": "Inbound",
+      "request_schema": "Inbound",
+      "response_schema": "Inbound",
+      "summary": "InBQ Execute an inbound voice connection",
+      "description": "InBQ Execute an inbound voice connection",
+      "parent_control_record": "VoiceChannelOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveInbound",
+      "method": "GET",
+      "path": "/AdvancedVoiceServicesOperations/{advancedvoiceservicesoperationsid}/Inbound/{inboundid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Inbound",
+      "request_schema": "",
+      "response_schema": "Inbound",
+      "summary": "ReBQ Retrieve details about an inbound voice connection",
+      "description": "ReBQ Retrieve details about an inbound voice connection",
+      "parent_control_record": "VoiceChannelOperatingSession"
+    },
+    {
+      "operation_id": "InitiateOutbound",
+      "method": "POST",
+      "path": "/AdvancedVoiceServicesOperations/{advancedvoiceservicesoperationsid}/Outbound/Initiate",
+      "tipo": "BQ",
+      "grupo": "Outbound",
+      "request_schema": "Outbound",
+      "response_schema": "Outbound",
+      "summary": "InBQ Execute an outbound voice connection",
+      "description": "InBQ Execute an outbound voice connection",
+      "parent_control_record": "VoiceChannelOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveOutbound",
+      "method": "GET",
+      "path": "/AdvancedVoiceServicesOperations/{advancedvoiceservicesoperationsid}/Outbound/{outboundid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Outbound",
+      "request_schema": "",
+      "response_schema": "Outbound",
+      "summary": "ReBQ Retrieve details about an outbound voice connection",
+      "description": "ReBQ Retrieve details about an outbound voice connection",
+      "parent_control_record": "VoiceChannelOperatingSession"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "AdvancedVoiceServicesOperationsOutcome",
+    "Amount",
+    "Amounttypevalues",
+    "BusinessUnit",
+    "Channeltypevalues",
+    "Communicationchannel",
+    "Currencycode",
+    "CustomerContact",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Device",
+    "Deviceidentification",
+    "Deviceidentificationtypevalues",
+    "Deviceoperatingsystemtypevalues",
+    "Devicetypevalues",
+    "DialogueSession",
+    "Dialoguesessionrequestedactionoutcomestatustypevalues",
+    "Duration",
+    "Event",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Inbound",
+    "Involvedparty",
+    "Location",
+    "Log",
+    "Name",
+    "Organisationdatetime",
+    "Organisationdatetimetypevalues",
+    "Organisationidentification",
+    "Organisationidentificationtypevalues",
+    "Organisationlegalstructuretypevalues",
+    "Organisationname",
+    "Organisationnametypevalues",
+    "Organisationtypevalues",
+    "Outbound",
+    "ProductionIssue",
+    "Report",
+    "Reporttypevalues",
+    "Schedule",
+    "Sessiontype",
+    "Sessiontypevalues",
+    "Status",
+    "Systemidentificationtypevalues",
+    "Systemstatustypevalues",
+    "Task",
+    "VoiceChannelOperatingSession"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "AdvancedVoiceServicesOperationsOutcome",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "AdvancedVoiceServicesOperationsIncident",
+          "type": "object",
+          "ref": "Event"
+        },
+        {
+          "name": "AdvancedVoiceServicesOperationsProvision",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "Property of the device that can be used in identification ( e.g. ANI phone number)",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "BusinessUnit",
+      "kind": "object",
+      "description": "The source of the outbound connection request",
+      "properties": [
+        {
+          "name": "BusinessFunction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "Goal",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationStructureHierarchy",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Organisationidentification"
+        },
+        {
+          "name": "OrganisationSector",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LegalEntityIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OrganisationDate",
+          "type": "object",
+          "ref": "Organisationdatetime"
+        },
+        {
+          "name": "OrganisationType",
+          "type": "object",
+          "ref": "Organisationtypevalues"
+        },
+        {
+          "name": "OrganisationName",
+          "type": "object",
+          "ref": "Organisationname"
+        },
+        {
+          "name": "OrganisationLegalStructure",
+          "type": "object",
+          "ref": "Organisationlegalstructuretypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Channeltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommunicationChannel` - \r\n* `AuthenticationChannel` - \r\n",
+      "enum_values": [
+        "CommunicationChannel",
+        "AuthenticationChannel"
+      ]
+    },
+    {
+      "name": "Communicationchannel",
+      "kind": "object",
+      "description": "The communication medium through which the party (e.g., customer) interacts with the enterprise during the session. Examples include voice call, chat, email, social media message, or self-service porta",
+      "properties": [
+        {
+          "name": "ChannelType",
+          "type": "object",
+          "ref": "Channeltypevalues"
+        },
+        {
+          "name": "SystemAccessSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SystemType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SystemIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "SystemIdentificationType",
+          "type": "object",
+          "ref": "Systemidentificationtypevalues"
+        },
+        {
+          "name": "SystemStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SystemStatusType",
+          "type": "object",
+          "ref": "Systemstatustypevalues"
+        },
+        {
+          "name": "SystemDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SystemLanguage",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "CustomerContact",
+      "kind": "object",
+      "description": "Reference to the customer contact record used accessing outbound channel",
+      "properties": [
+        {
+          "name": "CustomerContactType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "CustomerContactLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "CustomerContactSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "CustomerContactResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactDevice",
+          "type": "object",
+          "ref": "Device"
+        },
+        {
+          "name": "CustomerContactIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerContactIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Device",
+      "kind": "object",
+      "description": "Details of the device being used for access",
+      "properties": [
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Deviceidentification"
+        },
+        {
+          "name": "DeviceType",
+          "type": "object",
+          "ref": "Devicetypevalues"
+        },
+        {
+          "name": "DeviceProperty",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceElement",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DeviceVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DeviceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DeviceLanguage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DevicePhoneNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceLocationReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceManufacturer",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceCountryReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceAddressReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DeviceOperatingSystem",
+          "type": "object",
+          "ref": "Deviceoperatingsystemtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Deviceidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DeviceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DeviceIdentificationType",
+          "type": "object",
+          "ref": "Deviceidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Deviceidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `IMEI` - International Mobile Equipment Identity.\r\n* `Serialnumber` - Device serial number.\r\n* `Secureelementidentification` - Secure element ID.\r\n* `Othernational` - Other nationally assigned code.\r\n* `Otherprivate` - Other privately assigned code.\r\n",
+      "enum_values": [
+        "IMEI",
+        "Serialnumber",
+        "Secureelementidentification",
+        "Othernational",
+        "Otherprivate"
+      ]
+    },
+    {
+      "name": "Deviceoperatingsystemtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Android` - Android operating system.\r\n* `Ios` - iOS operating system.\r\n* `Windows` - Windows operating system.\r\n* `Blackberry` - Blackberry operating system.\r\n* `Tizen` - Tizen operating system.\r\n* `Othernational` - Other nationally defined code.\r\n* `Otherprivate` - Other privately defined code.\r\n",
+      "enum_values": [
+        "Android",
+        "Ios",
+        "Windows",
+        "Blackberry",
+        "Tizen",
+        "Othernational",
+        "Otherprivate"
+      ]
+    },
+    {
+      "name": "Devicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Securecardreader` - Secure card reader attached to the customer device\r\n* `Nonsecurecardreader` - Non-secure card reader attached to the customer device.\r\n* `Mobile` - Mobile phone\r\n* `Tablet` - Tablet\r\n* `Personalcomputer` - Personal computer\r\n* `Othernational` - Other device defined at national level\r\n* `Otherprivate` - Other device defined in a private way.\r\n* `Wearable` - Wearable device.\r\n* `Vehicle` - Vehicle.\r\n* `Embedded` - Embedded in a device.\r\n* `Keyfob` - Key Fob\r\n* `Jewellery` - Jewellery\r\n* `Sticker` - Sticker\r\n* `Gamingdevice` - Gaming Device\r\n* `Watch` - Watch\r\n* `Unknown` - Device type unknown\r\n* `BiometricDevice` - A biometric device is a security identification and authentication device. Such devices use automated methods of verifying or recognising the identity of a living person based on a physiological or behavioral characteristic.\nhttps://en.wikipedia.org/wiki/Biometric_device\n\r\n",
+      "enum_values": [
+        "Securecardreader",
+        "Nonsecurecardreader",
+        "Mobile",
+        "Tablet",
+        "Personalcomputer",
+        "Othernational",
+        "Otherprivate",
+        "Wearable",
+        "Vehicle",
+        "Embedded",
+        "Keyfob",
+        "Jewellery",
+        "Sticker",
+        "Gamingdevice",
+        "Watch",
+        "Unknown",
+        "BiometricDevice"
+      ]
+    },
+    {
+      "name": "DialogueSession",
+      "kind": "object",
+      "description": "The record used to handle the contact (see Service Domain-Contact Handler for complete definition)",
+      "properties": [
+        {
+          "name": "DialogueContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DialogueSessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DialoguePurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DialogueSessionRequestedAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "DialogueSessionOutcome",
+          "type": "object",
+          "ref": "Dialoguesessionrequestedactionoutcomestatustypevalues"
+        },
+        {
+          "name": "DialogueSessionUsedDevice",
+          "type": "object",
+          "ref": "Device"
+        },
+        {
+          "name": "DialogueSessionUsedChannel",
+          "type": "object",
+          "ref": "Communicationchannel"
+        },
+        {
+          "name": "DialogueSessionStartDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DialogueSessionEndDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DialogueSessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "DialogueSessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DialogueSessionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Dialoguesessionrequestedactionoutcomestatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Success` - Action executed successfully, requested result delivered.\r\n* `Pending` - Action accepted but not yet fully executed; requires background processing.\r\n* `Requires_Authentication` - Action cannot proceed until customer re-authenticates.\r\n* `Requires_Approval` - Action paused awaiting manual or automated approval.\r\n* `Failed_Validation` - Request failed due to invalid/missing input parameters.\r\n* `Failed_Authentication` - Request failed due to incorrect or missing authentication.\r\n* `Rejected` - Action explicitly denied due to business rules or risk controls.\r\n* `Cancelled` - Action was initiated but then stopped before completion.\r\n* `Error_System` - Request could not be completed due to a technical/system error.\r\n* `Error_Unknown` - Request failed for an unspecified or unexpected reason.\r\n",
+      "enum_values": [
+        "Success",
+        "Pending",
+        "Requires_Authentication",
+        "Requires_Approval",
+        "Failed_Validation",
+        "Failed_Authentication",
+        "Rejected",
+        "Cancelled",
+        "Error_System",
+        "Error_Unknown"
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "Detain used for statistics",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Event",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Inbound",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "VChannelDeviceReference",
+          "type": "object",
+          "ref": "Device"
+        },
+        {
+          "name": "VChannelDevicePropertyValue",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "VChannelInboundConnectionStartTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "VChannelInboundConnectionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "VChannelInboundConnectionContactReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "A complete record of the conversation during the session, including chat messages, call notes, emails, or any other exchanged content. It captures both customer and agent/bot contributions for reference, analysis, and compliance.",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisatioDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "OrganisatioDateType",
+          "type": "object",
+          "ref": "Organisationdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `RegistrationDate` - Date and time at which a given organisation was officially registered. (ISO20022)\r\n* `EstablishmentDate` - Date when the organisation was established. ISO20022\r\n* `EntityExpirationDate` - The date the Legal Entity ceased operation or was merged. ISO20022\r\n",
+      "enum_values": [
+        "RegistrationDate",
+        "EstablishmentDate",
+        "EntityExpirationDate"
+      ]
+    },
+    {
+      "name": "Organisationidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "OrganisationIdentificationType",
+          "type": "object",
+          "ref": "Organisationidentificationtypevalues"
+        },
+        {
+          "name": "OrganisationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Organisationidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LEI` - Legal Entity Identifier is a code allocated to a party as described in ISO 17442 \"Financial Services - Legal Entity Identifier (LEI)\".\r\n* `ELF` - Entity Legal Forms is a code allocated to a party as described in ISO 20275 \"Financial services  Entity legal forms (ELF)\". \r\n* `MIC` - Market Identifier Code. Identification of a financial market, as stipulated in the norm ISO 10383 \"Codes for exchanges and market identifications\".\r\n* `BICFI` - Code allocated to a financial institution by the ISO 9362 Registration Authority as described in ISO 9362 \"Banking - Banking telecommunication messages - Business identifier code (BIC)\".\r\n* `Bankpartyidentification` - Unique and unambiguous assignment made by a specific bank or similar financial institution to identify a relationship as defined between the bank and its client.\r\n* `Centralbankidentificationnumber` - A unique identification number assigned by a central bank to identify an organisation.\r\n* `Clearingidentificationnumber` - A unique identification number assigned by a clearing house to identify an organisation\r\n* `Certificateofincorporationnumber` - A unique identification number assigned by a designated authority to a certificate of incorporation and used to identify an organisation.\r\n* `Countryidentificationcode` - Country authority given organisation identification (e.g., corporate registration number)\r\n* `Customernumber` - Number assigned by an issuer to identify a customer.\nNumber assigned by a party to identify a creditor or debtor relationship.\r\n* `Datauniversalnumberingsystem` - A unique identification number provided by Dun & Bradstreet to identify an organisation.\r\n* `Employeridentificationnumber` - Number assigned by a registration authority to an employer.\r\n* `Gs1glnidentifier` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to GS1 numbering scheme rules.The number is used to retrieve detailed information that is linked to it.\r\n* `SIREN` - The SIREN number is a 9 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation in France.\r\n* `SIRET` - The SIRET number is a 14 digit code assigned by INSEE, the French National Institute for Statistics and Economic Studies, to identify an organisation unit in France. It consists of the SIREN number, followed by a five digit classification number, to identify the local geographical unit of that entity\r\n* `Taxidentificationnumber` - Number assigned by a tax authority to identify an organisation.\r\n* `EANGLN` - Global Location Number. A non-significant reference number used to identify legal entities, functional entities, or physical entities according to the European Association for Numbering (EAN) numbering scheme rules. The number is used to retrieve detailed information that is linked to it. (iso20022)\r\n",
+      "enum_values": [
+        "LEI",
+        "ELF",
+        "MIC",
+        "BICFI",
+        "Bankpartyidentification",
+        "Centralbankidentificationnumber",
+        "Clearingidentificationnumber",
+        "Certificateofincorporationnumber",
+        "Countryidentificationcode",
+        "Customernumber",
+        "Datauniversalnumberingsystem",
+        "Employeridentificationnumber",
+        "Gs1glnidentifier",
+        "SIREN",
+        "SIRET",
+        "Taxidentificationnumber",
+        "EANGLN"
+      ]
+    },
+    {
+      "name": "Organisationlegalstructuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Corporation` - Legal structure is a corporation.\r\n* `Individual` - Legal structure is an individual.\r\n* `Supranational` - Legal structure is a supranational.\r\n* `Sovereign` - Legal structure is a sovereign.\r\n* `Municipal` - Legal structure is a municipal.\r\n* `Province` - Legal structure is a province.\r\n* `State` - Legal structure is a state.\r\n* `County` - Legal structure is a county.\r\n* `Partnership` - Legal structure is a partnership.\r\n* `Financialinstitution` - Legal structure is a financial institution.\r\n* `National` - Legal structure is a state.\r\n",
+      "enum_values": [
+        "Corporation",
+        "Individual",
+        "Supranational",
+        "Sovereign",
+        "Municipal",
+        "Province",
+        "State",
+        "County",
+        "Partnership",
+        "Financialinstitution",
+        "National"
+      ]
+    },
+    {
+      "name": "Organisationname",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "NameType",
+          "type": "object",
+          "ref": "Organisationnametypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Organisationnametypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ShortName` - \r\n* `TradingName` - \r\n* `LegalName` - \r\n",
+      "enum_values": [
+        "ShortName",
+        "TradingName",
+        "LegalName"
+      ]
+    },
+    {
+      "name": "Organisationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `LegalEntity` - \r\n* `Authority` - \r\n* `OrganisationUnit` - \r\n* `FinancialInstitution` - \r\n* `Charity` - \r\n* `GovernmentBody` - \r\n",
+      "enum_values": [
+        "LegalEntity",
+        "Authority",
+        "OrganisationUnit",
+        "FinancialInstitution",
+        "Charity",
+        "GovernmentBody"
+      ]
+    },
+    {
+      "name": "Outbound",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "EmployeeBusinessUnitReference",
+          "type": "object",
+          "ref": "BusinessUnit"
+        },
+        {
+          "name": "CustomerContactRecordReference",
+          "type": "object",
+          "ref": "CustomerContact"
+        },
+        {
+          "name": "CustomerSessionDialogueRecord",
+          "type": "object",
+          "ref": "DialogueSession"
+        },
+        {
+          "name": "VChannelCustomerDeviceReference",
+          "type": "object",
+          "ref": "Device"
+        },
+        {
+          "name": "VChannelOutboundConnectionStartTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "VChannelOutboundConnectionDuration",
+          "type": "object",
+          "ref": "Duration"
+        }
+      ]
+    },
+    {
+      "name": "ProductionIssue",
+      "kind": "object",
+      "description": "A record of any production issues arising during the session",
+      "properties": [
+        {
+          "name": "ProductionIssueType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueDiagnosis",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueResolutionTask",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueStatus",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Report",
+      "kind": "object",
+      "description": "The session activity report",
+      "properties": [
+        {
+          "name": "ReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "ReportValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ReportVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ReportDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ReportFormat",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Reporttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialReport` - \r\n* `BusinessReport` - \r\n* `ManagementReport` - \r\n* `Statement` - \r\n* `MaintenanceReport` - \r\n* `RegulatoryReport` - \r\n* `TaxReport` - \r\n* `AnalysisReport` - \r\n",
+      "enum_values": [
+        "FinancialReport",
+        "BusinessReport",
+        "ManagementReport",
+        "Statement",
+        "MaintenanceReport",
+        "RegulatoryReport",
+        "TaxReport",
+        "AnalysisReport"
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule of past and planned customer contacts",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Sessiontype",
+      "kind": "object",
+      "description": "Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.",
+      "properties": [
+        {
+          "name": "SessionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ContactHandlingSession` - \r\n* `CustomerDialogueSession` - \r\n* `ChannelOperatingSession` - \r\n* `GatewayOperatingSession` - \r\n* `SwitchOperatingSession` - \r\n* `DeviceOperatingSession` - \r\n* `InterbankTransactionOperatingSession` - \r\n* `CorrespondenceOperatingSession` - \r\n* `InteractiveHelpOperatingSession` - \r\n* `ACHOperatingSession` - \r\n",
+      "enum_values": [
+        "ContactHandlingSession",
+        "CustomerDialogueSession",
+        "ChannelOperatingSession",
+        "GatewayOperatingSession",
+        "SwitchOperatingSession",
+        "DeviceOperatingSession",
+        "InterbankTransactionOperatingSession",
+        "CorrespondenceOperatingSession",
+        "InteractiveHelpOperatingSession",
+        "ACHOperatingSession"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "The life cycle stage of a device\n\ne.g. active, defect",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Systemidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Model` - Identification of a model for a given manufacturer.\r\n* `Serialnumber` - Serial number of a component.\r\n* `Approvalnumber` - Unique approval number for a component, delivered by a certification body.\r\n* `Systemversion` - Version of the system, eg, \"4.0.1\" to indicate version 4.0.1.\r\n* `Systemname` - Name by which a system is known.\r\n* `Identification` - Identification of a system.\r\n",
+      "enum_values": [
+        "Model",
+        "Serialnumber",
+        "Approvalnumber",
+        "Systemversion",
+        "Systemname",
+        "Identification"
+      ]
+    },
+    {
+      "name": "Systemstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Suspended` - System is suspended, that is, not operational.\r\n* `Active` - System is functioning normally, that is, operational.\r\n* `Closed` - System is closed (eg. normal closure of an RTGS).\r\n* `Closing` - System needs to wait for completion of intermediate internal activities before going to a status Closed.\r\n* `Reservemaintenanceperiodstart` - System is starting a new maintenance period.\r\n",
+      "enum_values": [
+        "Suspended",
+        "Active",
+        "Closed",
+        "Closing",
+        "Reservemaintenanceperiodstart"
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "Description of corrective action proposed and taken",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "VoiceChannelOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within Advanced Voice Services Operations. ",
+      "properties": [
+        {
+          "name": "AdvancedVoiceServicesOperationsServiceMenu",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "VChannelServiceSessionStatistics",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "VChannelServiceSessionReportType",
+          "type": "object",
+          "ref": "Reporttypevalues"
+        },
+        {
+          "name": "VChannelServiceSessionReport",
+          "type": "object",
+          "ref": "Report"
+        },
+        {
+          "name": "VChannelProductionIssueRecord",
+          "type": "object",
+          "ref": "ProductionIssue"
+        },
+        {
+          "name": "EmployeeBusinessUnitReference",
+          "type": "object",
+          "ref": "BusinessUnit"
+        },
+        {
+          "name": "CustomerContactRecordReference",
+          "type": "object",
+          "ref": "CustomerContact"
+        },
+        {
+          "name": "ProductionIssueType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueDiagnosis",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ProductionIssueResolutionTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "ProductionIssueStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "VoiceChannelOperatingSession",
+        "operations": [
+          "Initiate",
+          "Update",
+          "Control",
+          "Request",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Inbound",
+        "parent_control_record": "VoiceChannelOperatingSession",
+        "operations": [
+          "InitiateInbound",
+          "RetrieveInbound"
+        ]
+      },
+      {
+        "name": "Outbound",
+        "parent_control_record": "VoiceChannelOperatingSession",
+        "operations": [
+          "InitiateOutbound",
+          "RetrieveOutbound"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/AdvancedVoiceServicesOperations.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "fb7750bc6ee9eb0e849c3648d7f843560dcf61797da52d98c197b0d9e5a2814d",
+    "retrieved_at": "2026-09-12T22:06:59.809504+00:00"
+  }
+}

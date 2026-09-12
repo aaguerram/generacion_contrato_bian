@@ -1,0 +1,1034 @@
+{
+  "service_domain": "Brand Management",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/BrandManagement/{brandmanagementid}/Request",
+      "tipo": "CR",
+      "grupo": "BrandManagementPlan",
+      "request_schema": "BrandManagementPlan",
+      "response_schema": "BrandManagementPlan",
+      "summary": "RqCR Request manual intervention with the brand management plan (e.g. reassess brand value/significance)",
+      "description": "RqCR Request manual intervention with the brand management plan (e.g. reassess brand value/significance)"
+    },
+    {
+      "operation_id": "CreateBrandAdvice",
+      "method": "POST",
+      "path": "/BrandManagement/{brandmanagementid}/BrandAdvice/Create",
+      "tipo": "BQ",
+      "grupo": "BrandAdvice",
+      "request_schema": "BrandAdvice",
+      "response_schema": "BrandAdvice",
+      "summary": "CrBQ Create a brand advice task",
+      "description": "CrBQ Create a brand advice task",
+      "parent_control_record": "BrandManagementPlan"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/BrandManagement/{brandmanagementid}/Update",
+      "tipo": "CR",
+      "grupo": "BrandManagementPlan",
+      "request_schema": "BrandManagementPlan",
+      "response_schema": "BrandManagementPlan",
+      "summary": "UpCR Update aspects of eth brand management plan",
+      "description": "UpCR Update aspects of eth brand management plan"
+    },
+    {
+      "operation_id": "Grant",
+      "method": "PUT",
+      "path": "/BrandManagement/{brandmanagementid}/Grant",
+      "tipo": "CR",
+      "grupo": "BrandManagementPlan",
+      "request_schema": "BrandManagementPlan",
+      "response_schema": "BrandManagementPlan",
+      "summary": "GrCR Provide a permission grant to reference the brand (e.g. authorize logo use in marketing)",
+      "description": "GrCR Provide a permission grant to reference the brand (e.g. authorize logo use in marketing)"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/BrandManagement/{brandmanagementid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "BrandManagementPlan",
+      "request_schema": "",
+      "response_schema": "BrandManagementPlan",
+      "summary": "ReCR Retrieve details about brand management activity",
+      "description": "ReCR Retrieve details about brand management activity"
+    },
+    {
+      "operation_id": "UpdateBrandAdvice",
+      "method": "PUT",
+      "path": "/BrandManagement/{brandmanagementid}/BrandAdvice/{brandadviceid}/Update",
+      "tipo": "BQ",
+      "grupo": "BrandAdvice",
+      "request_schema": "BrandAdvice",
+      "response_schema": "BrandAdvice",
+      "summary": "UpBQ Update details of provided brand related advice",
+      "description": "UpBQ Update details of provided brand related advice",
+      "parent_control_record": "BrandManagementPlan"
+    },
+    {
+      "operation_id": "ExchangeBrandAdvice",
+      "method": "PUT",
+      "path": "/BrandManagement/{brandmanagementid}/BrandAdvice/{brandadviceid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "BrandAdvice",
+      "request_schema": "BrandAdvice",
+      "response_schema": "BrandAdvice",
+      "summary": "EcBQ Accept, reject proposed brand usage in an initiative",
+      "description": "EcBQ Accept, reject proposed brand usage in an initiative",
+      "parent_control_record": "BrandManagementPlan"
+    },
+    {
+      "operation_id": "RequestBrandAdvice",
+      "method": "PUT",
+      "path": "/BrandManagement/{brandmanagementid}/BrandAdvice/{brandadviceid}/Request",
+      "tipo": "BQ",
+      "grupo": "BrandAdvice",
+      "request_schema": "BrandAdvice",
+      "response_schema": "BrandAdvice",
+      "summary": "RqBQ Request manual intervention for brand advice (e.g. request specialist support)",
+      "description": "RqBQ Request manual intervention for brand advice (e.g. request specialist support)",
+      "parent_control_record": "BrandManagementPlan"
+    },
+    {
+      "operation_id": "RetrieveBrandAdvice",
+      "method": "GET",
+      "path": "/BrandManagement/{brandmanagementid}/BrandAdvice/{brandadviceid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "BrandAdvice",
+      "request_schema": "",
+      "response_schema": "BrandAdvice",
+      "summary": "ReBQ Retrieve details about brand advice activity",
+      "description": "ReBQ Retrieve details about brand advice activity",
+      "parent_control_record": "BrandManagementPlan"
+    },
+    {
+      "operation_id": "CreateTroubleshooting",
+      "method": "POST",
+      "path": "/BrandManagement/{brandmanagementid}/Troubleshooting/Create",
+      "tipo": "BQ",
+      "grupo": "Troubleshooting",
+      "request_schema": "Troubleshooting",
+      "response_schema": "Troubleshooting",
+      "summary": "CrBQ Create a brand troubleshooting action",
+      "description": "CrBQ Create a brand troubleshooting action",
+      "parent_control_record": "BrandManagementPlan"
+    },
+    {
+      "operation_id": "RetrieveTroubleshooting",
+      "method": "GET",
+      "path": "/BrandManagement/{brandmanagementid}/Troubleshooting/{troubleshootingid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Troubleshooting",
+      "request_schema": "",
+      "response_schema": "Troubleshooting",
+      "summary": "ReBQ Retrieve details about brand troubleshooting activity",
+      "description": "ReBQ Retrieve details about brand troubleshooting activity",
+      "parent_control_record": "BrandManagementPlan"
+    },
+    {
+      "operation_id": "UpdateTroubleshooting",
+      "method": "PUT",
+      "path": "/BrandManagement/{brandmanagementid}/Troubleshooting/{troubleshootingid}/Update",
+      "tipo": "BQ",
+      "grupo": "Troubleshooting",
+      "request_schema": "Troubleshooting",
+      "response_schema": "Troubleshooting",
+      "summary": "UpBQ Update details relating to brand troubleshooting activity",
+      "description": "UpBQ Update details relating to brand troubleshooting activity",
+      "parent_control_record": "BrandManagementPlan"
+    },
+    {
+      "operation_id": "RequestTroubleshooting",
+      "method": "PUT",
+      "path": "/BrandManagement/{brandmanagementid}/Troubleshooting/{troubleshootingid}/Request",
+      "tipo": "BQ",
+      "grupo": "Troubleshooting",
+      "request_schema": "Troubleshooting",
+      "response_schema": "Troubleshooting",
+      "summary": "RqBQ Request manual intervention in a troubleshooting action",
+      "description": "RqBQ Request manual intervention in a troubleshooting action",
+      "parent_control_record": "BrandManagementPlan"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "Assessmenttypevalues",
+    "BrandAdvice",
+    "BrandManagementPlan",
+    "BrandValueAssessment",
+    "Date",
+    "DateTime",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Document",
+    "Documentdatetimetypevalues",
+    "Financialdocumenttypevalues",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Location",
+    "Model",
+    "Name",
+    "Requirement",
+    "Schedule",
+    "Status",
+    "Task",
+    "Troubleshooting",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "Actions taken to mitigate the event (e.g. press release, other communications, corrective/compensatory actions",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Assessmenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Valuation` - \r\n* `Matching` - \r\n* `Authorization` - An evaluation whether a party or system is allowed to do something.\n\nThe consent given by a participant (or a third party acting on behalf of that participant) in order to transfer funds or securities. (ECB)\n\nAuthorization is a mechanism by which a computer system determines whether to allow or deny specific action to a user. Authorization is often controlled by rather complex rules and algorithms, usually specified as part of an access control model. Authorization often follows (and required) authentication, however, authentication and authorization are two separate mechanisms. In rare cases, \"authorization\" is understood as a process of allowing access, granting permissions or giving approval. Such as \"authorization\" of a request to join a group. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `Authentication` - An evaluation whether a party or system is what it claims to be.\n\nA security mechanism for verifying: 1) the identity of an individual or other entity (including verification by means of a computer or computer application); and 2) the level of authority of that person or entity (i.e. the ability of that person or entity to perform specific tasks or activities). (ECB)\n\nAuthentication is a mechanism by which a computer system checks that the user is really the one she or he claims to be. Authentication can be implemented by a broad variety of mechanisms broadly divided into three categories: something you know, something you have, something you are. Traditionally, authentication is done by the means of by username and password. Authentication is often followed by authorization, however, authentication and authorization are two separate mechanisms. (ISO/IEC 24760-1:2019 - IT Security and Privacy)\r\n* `QualityAssurance` - \r\n* `Audit` - \r\n* `ComplianceCheck` - \r\n* `FundingCheck` - \r\n* `SuitabilityCheck` - \r\n* `PerformanceCheck` - \r\n* `ImpactAssessment` - \r\n* `RiskAssessment` - \r\n* `Rating` - \r\n* `UnderwritingAssessment` - \r\n* `Qualification` - \r\n* `Verification` - A process establishing that a particular information is correct, while the meaning of \"information\" and \"correct\" varies from context to context. When dealing with identity information, this usually means formal verification of identity attributes, checking the schema, identifier uniqueness and referential integrity. However, verification may mean deeper verification, such as checking that the information is true and up-to-date.  (ISO/IEC 24760-1:2019 - IT Security and Privacy)\n\r\n* `KYCAssessment` - An assessment conducted by businesses and financial institutions to verify and confirm the identity of their customers or clients. The primary purpose of a KYC check is to prevent illegal activities, such as money laundering, terrorist financing, and fraud, by ensuring that customers are who they claim to be.\r\n* `PEPAssessment` - A PEP check, or \"Politically Exposed Person\" check, is an assessment conducted by used by businesses, financial institutions, and government agencies to identify individuals who hold prominent public positions or have significant political influence. The purpose of a PEP check is to assess and manage the potential risks associated with doing business with these individuals, as they may be more susceptible to corruption, money laundering, or other illicit activities.\r\n* `AMLAssessment` - An AML (Anti-Money Laundering) check is an assessment conducted by businesses, financial institutions, and other organizations to prevent and detect money laundering and the financing of criminal activities. The main purpose of an AML check is to ensure that financial transactions and business relationships are not being used to disguise the illegal origins of funds.\r\n* `EligibilityCheck` - Determines whether a person or case meets the criteria or preconditions to qualify for a benefit, service, or action.\r\n* `ExternalAgencyCheck` - \r\n* `EntitlementCheck` - Determines what benefit, amount, or service the person is actually entitled to receive once eligibility is confirmed.\r\n",
+      "enum_values": [
+        "Valuation",
+        "Matching",
+        "Authorization",
+        "Authentication",
+        "QualityAssurance",
+        "Audit",
+        "ComplianceCheck",
+        "FundingCheck",
+        "SuitabilityCheck",
+        "PerformanceCheck",
+        "ImpactAssessment",
+        "RiskAssessment",
+        "Rating",
+        "UnderwritingAssessment",
+        "Qualification",
+        "Verification",
+        "KYCAssessment",
+        "PEPAssessment",
+        "AMLAssessment",
+        "EligibilityCheck",
+        "ExternalAgencyCheck",
+        "EntitlementCheck"
+      ]
+    },
+    {
+      "name": "BrandAdvice",
+      "kind": "object",
+      "description": "A collection of one or more responsibilities or tasks under management\n\nExamples: Relationship development, Troubleshooting",
+      "properties": [
+        {
+          "name": "BrandAdviceWorkTaskType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BrandAdviceWorkTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "BrandAdviceWorkTaskWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "BrandAdviceWorkTaskResult",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "BrandAdviceWorkTaskDateandTime",
+          "type": "object",
+          "ref": "DateTime"
+        }
+      ]
+    },
+    {
+      "name": "BrandManagementPlan",
+      "kind": "object",
+      "description": "Oversee the working of a business unit, assign work, manage against a plan and troubleshoot issues within Brand Management.",
+      "properties": [
+        {
+          "name": "BrandDefinition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BrandValueAssessment",
+          "type": "object",
+          "ref": "BrandValueAssessment"
+        },
+        {
+          "name": "BrandUsage",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BrandDevelopmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "BrandValueAssessment",
+      "kind": "object",
+      "description": "An analysis of the brand value based on comparative market research",
+      "properties": [
+        {
+          "name": "AssessmentType",
+          "type": "object",
+          "ref": "Assessmenttypevalues"
+        },
+        {
+          "name": "AssessmentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "AssessmentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentModel",
+          "type": "object",
+          "ref": "Model"
+        },
+        {
+          "name": "AssessmentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssessmentResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentSupportingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRepresentingDocument",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "AssessmentRequiredAdjustment",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssessmentRequirement",
+          "type": "object",
+          "ref": "Requirement"
+        },
+        {
+          "name": "AssessmentExpiryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "AssessmentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssessmentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "Date when the assessment expires. (ISO20022)",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "DateTime",
+      "kind": "object",
+      "description": "Key dates associated with the troubleshooting activity",
+      "properties": [
+        {
+          "name": "TimeIndication",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeIndicationType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "Period of time during which the status is valid.",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "Document that provides background or corroborating information regarding an assessment(s).",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to a Party who plays a  specific role in the context of assigning a status.",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Model",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ModelType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ModelName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ModelDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ModelStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "Name (label) of the location. (ISO20022)",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Requirement",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "RequirementType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "Schedule of actions taken to mitigate the event (plan and actual)",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "The tracked status (e.g. under construction or repair, inhabited, vacant).",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "The structured task/work plan followed to address the issue",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Troubleshooting",
+      "kind": "object",
+      "description": "A collection of one or more responsibilities or tasks under management\n\nExamples: Relationship development, Troubleshooting",
+      "properties": [
+        {
+          "name": "BrandImpactEventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BrandImpactTroubleshootingTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "BrandImpactEventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BrandImpactEventResponseSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BrandImpactEventResponseAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "BrandImpactEventWorkProducts",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "BrandImpactEventWorkTaskResult",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "BrandImpactEventWorkTaskDateandTime",
+          "type": "object",
+          "ref": "DateTime"
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "File of consolidated notes, assessments, interview notes etc. and recommendations arising from the work",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "BrandManagementPlan",
+        "operations": [
+          "Request",
+          "Update",
+          "Grant",
+          "Retrieve"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "BrandAdvice",
+        "parent_control_record": "BrandManagementPlan",
+        "operations": [
+          "CreateBrandAdvice",
+          "UpdateBrandAdvice",
+          "ExchangeBrandAdvice",
+          "RequestBrandAdvice",
+          "RetrieveBrandAdvice"
+        ]
+      },
+      {
+        "name": "Troubleshooting",
+        "parent_control_record": "BrandManagementPlan",
+        "operations": [
+          "CreateTroubleshooting",
+          "RetrieveTroubleshooting",
+          "UpdateTroubleshooting",
+          "RequestTroubleshooting"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/BrandManagement.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "67b254d173fa9267d19525726779fe845e0ac65cb58a60b5bb0ec4f21d4e9759",
+    "retrieved_at": "2026-09-12T22:37:52.498975+00:00"
+  }
+}

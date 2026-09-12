@@ -1,0 +1,1928 @@
+{
+  "service_domain": "Financial Instrument Reference Data Management",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Control",
+      "tipo": "CR",
+      "grupo": "FinancialInstrumentDirectoryEntry",
+      "request_schema": "FinancialInstrumentDirectoryEntry",
+      "response_schema": "FinancialInstrumentDirectoryEntry",
+      "summary": "Control Financial Instrument Directory Entry",
+      "description": "Control Financial Instrument Directory Entry"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Execute",
+      "tipo": "CR",
+      "grupo": "FinancialInstrumentDirectoryEntry",
+      "request_schema": "FinancialInstrumentDirectoryEntry",
+      "response_schema": "FinancialInstrumentDirectoryEntry",
+      "summary": "Execute Financial Instrument Directory Entry",
+      "description": "Execute Financial Instrument Directory Entry"
+    },
+    {
+      "operation_id": "Notify",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Notify",
+      "tipo": "CR",
+      "grupo": "FinancialInstrumentDirectoryEntry",
+      "request_schema": "",
+      "response_schema": "FinancialInstrumentDirectoryEntry",
+      "summary": "Notify Financial Instrument Directory Entry",
+      "description": "Notify Financial Instrument Directory Entry"
+    },
+    {
+      "operation_id": "Register",
+      "method": "POST",
+      "path": "/FinancialInstrumentReferenceDataManagement/Register",
+      "tipo": "CR",
+      "grupo": "FinancialInstrumentDirectoryEntry",
+      "request_schema": "FinancialInstrumentDirectoryEntry",
+      "response_schema": "FinancialInstrumentDirectoryEntry",
+      "summary": "Register Financial Instrument Directory Entry",
+      "description": "Register Financial Instrument Directory Entry"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Request",
+      "tipo": "CR",
+      "grupo": "FinancialInstrumentDirectoryEntry",
+      "request_schema": "FinancialInstrumentDirectoryEntry",
+      "response_schema": "FinancialInstrumentDirectoryEntry",
+      "summary": "Request Financial Instrument Directory Entry",
+      "description": "Request Financial Instrument Directory Entry"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "FinancialInstrumentDirectoryEntry",
+      "request_schema": "",
+      "response_schema": "FinancialInstrumentDirectoryEntry",
+      "summary": "Retrieve Financial Instrument Directory Entry",
+      "description": "Retrieve Financial Instrument Directory Entry"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Update",
+      "tipo": "CR",
+      "grupo": "FinancialInstrumentDirectoryEntry",
+      "request_schema": "FinancialInstrumentDirectoryEntry",
+      "response_schema": "FinancialInstrumentDirectoryEntry",
+      "summary": "Update Financial Instrument Directory Entry",
+      "description": "Update Financial Instrument Directory Entry"
+    },
+    {
+      "operation_id": "ExecuteDebtInstrument",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/DebtInstrument/{debtinstrumentid}/Execute",
+      "tipo": "BQ",
+      "grupo": "DebtInstrument",
+      "request_schema": "DebtInstrument",
+      "response_schema": "DebtInstrument",
+      "summary": "Execute Debt Instrument",
+      "description": "Execute Debt Instrument",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "ExecuteEquity",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Equity/{equityid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Equity",
+      "request_schema": "Equity",
+      "response_schema": "Equity",
+      "summary": "Execute Equity",
+      "description": "Execute Equity",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "ExecuteFutures",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Futures/{futuresid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Futures",
+      "request_schema": "Futures",
+      "response_schema": "Futures",
+      "summary": "Execute Futures",
+      "description": "Execute Futures",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "ExecuteOption",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Option/{optionid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Option",
+      "request_schema": "Option",
+      "response_schema": "Option",
+      "summary": "Execute Option",
+      "description": "Execute Option",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "ExecuteWarrant",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Warrant/{warrantid}/Execute",
+      "tipo": "BQ",
+      "grupo": "Warrant",
+      "request_schema": "Warrant",
+      "response_schema": "Warrant",
+      "summary": "Execute Warrant",
+      "description": "Execute Warrant",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "NotifyDebtInstrument",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/DebtInstrument/{debtinstrumentid}/Notify",
+      "tipo": "BQ",
+      "grupo": "DebtInstrument",
+      "request_schema": "",
+      "response_schema": "DebtInstrument",
+      "summary": "Notify Debt Instrument",
+      "description": "Notify Debt Instrument",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "NotifyEquity",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Equity/{equityid}/Notify",
+      "tipo": "BQ",
+      "grupo": "Equity",
+      "request_schema": "",
+      "response_schema": "Equity",
+      "summary": "Notify Equity",
+      "description": "Notify Equity",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "NotifyFutures",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Futures/{futuresid}/Notify",
+      "tipo": "BQ",
+      "grupo": "Futures",
+      "request_schema": "",
+      "response_schema": "Futures",
+      "summary": "Notify Futures",
+      "description": "Notify Futures",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "NotifyOption",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Option/{optionid}/Notify",
+      "tipo": "BQ",
+      "grupo": "Option",
+      "request_schema": "",
+      "response_schema": "Option",
+      "summary": "Notify Option",
+      "description": "Notify Option",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "NotifyWarrant",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Warrant/{warrantid}/Notify",
+      "tipo": "BQ",
+      "grupo": "Warrant",
+      "request_schema": "",
+      "response_schema": "Warrant",
+      "summary": "Notify Warrant",
+      "description": "Notify Warrant",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RegisterDebtInstrument",
+      "method": "POST",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/DebtInstrument/Register",
+      "tipo": "BQ",
+      "grupo": "DebtInstrument",
+      "request_schema": "DebtInstrument",
+      "response_schema": "DebtInstrument",
+      "summary": "Register Debt Instrument",
+      "description": "Register Debt Instrument",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RegisterFutures",
+      "method": "POST",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Futures/Register",
+      "tipo": "BQ",
+      "grupo": "Futures",
+      "request_schema": "Futures",
+      "response_schema": "Futures",
+      "summary": "Register Futures",
+      "description": "Register Futures",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RegisterEquity",
+      "method": "POST",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Equity/Register",
+      "tipo": "BQ",
+      "grupo": "Equity",
+      "request_schema": "Equity",
+      "response_schema": "Equity",
+      "summary": "Register Equity",
+      "description": "Register Equity",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RegisterOption",
+      "method": "POST",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Option/Register",
+      "tipo": "BQ",
+      "grupo": "Option",
+      "request_schema": "Option",
+      "response_schema": "Option",
+      "summary": "Register Option",
+      "description": "Register Option",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RegisterWarrant",
+      "method": "POST",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Warrant/Register",
+      "tipo": "BQ",
+      "grupo": "Warrant",
+      "request_schema": "Warrant",
+      "response_schema": "Warrant",
+      "summary": "Register Warrant",
+      "description": "Register Warrant",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RequestDebtInstrument",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/DebtInstrument/{debtinstrumentid}/Request",
+      "tipo": "BQ",
+      "grupo": "DebtInstrument",
+      "request_schema": "DebtInstrument",
+      "response_schema": "DebtInstrument",
+      "summary": "Request Debt Instrument",
+      "description": "Request Debt Instrument",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RequestEquity",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Equity/{equityid}/Request",
+      "tipo": "BQ",
+      "grupo": "Equity",
+      "request_schema": "Equity",
+      "response_schema": "Equity",
+      "summary": "Request Equity",
+      "description": "Request Equity",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RequestFutures",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Futures/{futuresid}/Request",
+      "tipo": "BQ",
+      "grupo": "Futures",
+      "request_schema": "Futures",
+      "response_schema": "Futures",
+      "summary": "Request Futures",
+      "description": "Request Futures",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RequestOption",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Option/{optionid}/Request",
+      "tipo": "BQ",
+      "grupo": "Option",
+      "request_schema": "Option",
+      "response_schema": "Option",
+      "summary": "Request Option",
+      "description": "Request Option",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RequestWarrant",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Warrant/{warrantid}/Request",
+      "tipo": "BQ",
+      "grupo": "Warrant",
+      "request_schema": "Warrant",
+      "response_schema": "Warrant",
+      "summary": "Request Warrant",
+      "description": "Request Warrant",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RetrieveDebtInstrument",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/DebtInstrument/{debtinstrumentid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "DebtInstrument",
+      "request_schema": "",
+      "response_schema": "DebtInstrument",
+      "summary": "Retrieve Debt Instrument",
+      "description": "Retrieve Debt Instrument",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "UpdateDebtInstrument",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/DebtInstrument/{debtinstrumentid}/Update",
+      "tipo": "BQ",
+      "grupo": "DebtInstrument",
+      "request_schema": "DebtInstrument",
+      "response_schema": "DebtInstrument",
+      "summary": "Update Debt Instrument",
+      "description": "Update Debt Instrument",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RetrieveOption",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Option/{optionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Option",
+      "request_schema": "",
+      "response_schema": "Option",
+      "summary": "Retrieve Option",
+      "description": "Retrieve Option",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RetrieveFutures",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Futures/{futuresid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Futures",
+      "request_schema": "",
+      "response_schema": "Futures",
+      "summary": "Retrieve Futures",
+      "description": "Retrieve Futures",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "UpdateEquity",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Equity/{equityid}/Update",
+      "tipo": "BQ",
+      "grupo": "Equity",
+      "request_schema": "Equity",
+      "response_schema": "Equity",
+      "summary": "Update Equity",
+      "description": "Update Equity",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RetrieveEquity",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Equity/{equityid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Equity",
+      "request_schema": "",
+      "response_schema": "Equity",
+      "summary": "Retrieve Equity",
+      "description": "Retrieve Equity",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RetrieveWarrant",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Warrant/{warrantid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Warrant",
+      "request_schema": "",
+      "response_schema": "Warrant",
+      "summary": "Retrieve Warrant",
+      "description": "Retrieve Warrant",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "UpdateFutures",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Futures/{futuresid}/Update",
+      "tipo": "BQ",
+      "grupo": "Futures",
+      "request_schema": "Futures",
+      "response_schema": "Futures",
+      "summary": "Update Futures",
+      "description": "Update Futures",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "UpdateOption",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Option/{optionid}/Update",
+      "tipo": "BQ",
+      "grupo": "Option",
+      "request_schema": "Option",
+      "response_schema": "Option",
+      "summary": "Update Option",
+      "description": "Update Option",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RegisterCurrency",
+      "method": "POST",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Currency/Register",
+      "tipo": "BQ",
+      "grupo": "Currency",
+      "request_schema": "Currency",
+      "response_schema": "Currency",
+      "summary": "Register Currency",
+      "description": "Register Currency",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "UpdateWarrant",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Warrant/{warrantid}/Update",
+      "tipo": "BQ",
+      "grupo": "Warrant",
+      "request_schema": "Warrant",
+      "response_schema": "Warrant",
+      "summary": "Update Warrant",
+      "description": "Update Warrant",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "RetrieveCurrency",
+      "method": "GET",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Currency/{currencyid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "Currency",
+      "request_schema": "",
+      "response_schema": "Currency",
+      "summary": "Retrieve Details about Currency",
+      "description": "Retrieve Details about Currency",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    },
+    {
+      "operation_id": "UpdateCurrency",
+      "method": "PUT",
+      "path": "/FinancialInstrumentReferenceDataManagement/{financialinstrumentreferencedatamanagementid}/Currency/{currencyid}/Update",
+      "tipo": "BQ",
+      "grupo": "Currency",
+      "request_schema": "Currency",
+      "response_schema": "Currency",
+      "summary": "Update Details of Currency",
+      "description": "Update Details of Currency",
+      "parent_control_record": "FinancialInstrumentDirectoryEntry"
+    }
+  ],
+  "schemas": [
+    "Amount",
+    "Amounttypevalues",
+    "Assetclassificationtypevalues",
+    "Assetsubclassificationtypevalues",
+    "Assettypevalues",
+    "BusinessService",
+    "Businessservicetypevalues",
+    "Condition",
+    "Conditionstatustypevalues",
+    "Country",
+    "Countrycode",
+    "Currency",
+    "Currencycode",
+    "Date",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "DebtInstrument",
+    "DirectoryEntry",
+    "Directoryentrydatetypevalues",
+    "Equity",
+    "Feature",
+    "Featuretypevalues",
+    "FinancialInstrument",
+    "FinancialInstrumentDirectoryEntry",
+    "FinancialInstrumentReferenceDataManagementOutcome",
+    "FinancialMarket",
+    "Financialinstrumentdatetime",
+    "Financialinstrumentdatetimetypevalues",
+    "Financialinstrumentidentification",
+    "Financialinstrumentidentificationtypevalues",
+    "Financialinstrumenttypevalues",
+    "Financialmarkettypevalues",
+    "Futures",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Jurisdiction",
+    "Log",
+    "Markettypevalues",
+    "Name",
+    "Option",
+    "Schedule",
+    "Servicetypevalues",
+    "Status",
+    "Termandconditiontypevalues",
+    "Warrant",
+    "Workproduct",
+    "Workproducttypevalues",
+    "Yesnoindicator"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "Maximum amount of cash that the bank is allowed to hold",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Assetclassificationtypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Assetclassificationtypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Assetsubclassificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Subassetclass` - Sub-asset class.(ISO20022)\r\n* `Timetomaturitybucket` - Time to maturity bucket.(ISO20022)\r\n* `Optiontimetomaturitybucket` - Time to maturity bucket of the option.(ISO20022)\r\n* `Swaptimetomaturitybucket` - Time to maturity bucket of the swap.(ISO20022)\r\n* `Underlyinginstrumentidentification` - Underlying instrument identification, such as an ISIN code.(ISO20022)\r\n* `Underlyingbondissuer` - Issuer of the underlying bond.(ISO20022)\r\n* `Underlyinginterestrate` - Underlying interest rate.(ISO20022)\r\n* `Underlyingbondterm` - Term of the underlying bond.(ISO20022)\r\n* `Assetclass` - Asset class.(ISO20022)\r\n* `Underlyingindexidentification` - Underlying index identification such as an ISIN or an index name.(ISO20022)\r\n* `Interestratetermofcontract` - Interest rate term of contract.(ISO20022)\r\n* `Underlyingreferenceentity` - Underlying reference entity.(ISO20022)\r\n* `Sovereignandpublictypeissuer` - Issuer of sovereign and public type.(ISO20022)\r\n* `Irdnotionalcurrency1` - Interest rate derivative notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency1` - Foreign exchange derivative notional currency 1.(ISO20022)\r\n* `Cfdnotionalcurrency1` - Contract for difference notional currency 1.(ISO20022)\r\n* `Fexnotionalcurrency2` - Foreign exchange derivative notional currency 2.(ISO20022)\r\n* `Irdnotionalcurrency2` - Interest rate derivative notional currency 2.(ISO20022)\r\n* `Cfdnotionalcurrency2` - Contract for difference notional currency 2.(ISO20022)\r\n* `Swaptionnotionalcurrency` - Notional currency of the swaption.(ISO20022)\r\n* `Creditnotionalcurrency` - Credit derivative notional currency.(ISO20022)\r\n* `Commoditynotionalcurrency` - Commodity derivative notional currency.(ISO20022)\r\n* `Contracttype` - Contract type.(ISO20022)\r\n* `Baseproduct` - Base product.(ISO20022)\r\n* `Subproduct` - Sub product.(ISO20022)\r\n* `Furthersubproduct` - Further sub product.(ISO20022)\r\n* `Deliverycashlocation` - Delivery cash settlement location.(ISO20022)\r\n* `Deliverysettlementtype` - Delivery settlement type.(ISO20022)\r\n* `Sizespecificationrelatedtofreightsubtype` - Size specification related to freight subtype.(ISO20022)\r\n* `Specificroutetimecharteraverage` - Specific route time charter average.(ISO20022)\r\n* `Equityunderlyingtype` - Equity derivative underlying type.(ISO20022)\r\n* `Parameter` - Parameter.(ISO20022)\r\n* `Inflationindexcodename` - Inflation index code or name.(ISO20022)\r\n* `ISIN` - Instrument identification.(ISO20022)\r\n* `Underlyingindexcdssubclassidentification` - Sub class of the underlying index credit default swap (CDS).(ISO20022)\r\n* `Underlyingtype` - Underlying type.(ISSO20022)\r\n",
+      "enum_values": [
+        "Subassetclass",
+        "Timetomaturitybucket",
+        "Optiontimetomaturitybucket",
+        "Swaptimetomaturitybucket",
+        "Underlyinginstrumentidentification",
+        "Underlyingbondissuer",
+        "Underlyinginterestrate",
+        "Underlyingbondterm",
+        "Assetclass",
+        "Underlyingindexidentification",
+        "Interestratetermofcontract",
+        "Underlyingreferenceentity",
+        "Sovereignandpublictypeissuer",
+        "Irdnotionalcurrency1",
+        "Fexnotionalcurrency1",
+        "Cfdnotionalcurrency1",
+        "Fexnotionalcurrency2",
+        "Irdnotionalcurrency2",
+        "Cfdnotionalcurrency2",
+        "Swaptionnotionalcurrency",
+        "Creditnotionalcurrency",
+        "Commoditynotionalcurrency",
+        "Contracttype",
+        "Baseproduct",
+        "Subproduct",
+        "Furthersubproduct",
+        "Deliverycashlocation",
+        "Deliverysettlementtype",
+        "Sizespecificationrelatedtofreightsubtype",
+        "Specificroutetimecharteraverage",
+        "Equityunderlyingtype",
+        "Parameter",
+        "Inflationindexcodename",
+        "ISIN",
+        "Underlyingindexcdssubclassidentification",
+        "Underlyingtype"
+      ]
+    },
+    {
+      "name": "Assettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `TangibleAsset` - It has a physical form and can be touched or seen.\r\n* `IntangibleAsset` - It doesn't have a physical form but hold value\r\n* `OperatingAsset` - Used in the day-to-day operations of the business.\r\n* `Non-OperatingAsset` - Not used in core business operations but still provide value\r\n* `CurrentAsset` - Expected to be converted into cash within one year.\r\n* `Non-Current(Fixed)Asset` - Provide value over the long term (more than one year).\r\n* `PersonalAsset` - Owned by individuals and not related to a business.\r\n* `BusinessAsset` - Owned by a business and used to generate revenue.\r\n",
+      "enum_values": [
+        "TangibleAsset",
+        "IntangibleAsset",
+        "OperatingAsset",
+        "Non-OperatingAsset",
+        "CurrentAsset",
+        "Non-Current(Fixed)Asset",
+        "PersonalAsset",
+        "BusinessAsset"
+      ]
+    },
+    {
+      "name": "BusinessService",
+      "kind": "object",
+      "description": "The Futures Instrument property specific  Business Service",
+      "properties": [
+        {
+          "name": "BusinessServiceType",
+          "type": "object",
+          "ref": "Businessservicetypevalues"
+        },
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Businessservicetypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Businessservicetypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Condition",
+      "kind": "object",
+      "description": "The required status/situation before the property is valid/meaningful",
+      "properties": [
+        {
+          "name": "ConditionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ConditionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ConditionValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ConditionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ConditionStatus",
+          "type": "object",
+          "ref": "Conditionstatustypevalues"
+        },
+        {
+          "name": "ConditionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ConditionType",
+          "type": "object",
+          "ref": "Termandconditiontypevalues"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Conditionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Defined` - Condition is authored or configured\r\n* `Pending` - Awaiting approval or validation\r\n* `Activated` - Live and ready for evaluation\r\n* `Evaluated` - Assessed in context of process or event\r\n* `Fulfilled` - Condition criteria met\r\n* `Violated` - Condition criteria not met\r\n* `Expired` - No longer valid due to time/version limits\r\n* `Archived` - Retired from use, retained for audit/history\r\n",
+      "enum_values": [
+        "Defined",
+        "Pending",
+        "Activated",
+        "Evaluated",
+        "Fulfilled",
+        "Violated",
+        "Expired",
+        "Archived"
+      ]
+    },
+    {
+      "name": "Country",
+      "kind": "object",
+      "description": "Name of the country that is using the currency as its official currency",
+      "properties": [
+        {
+          "name": "NationalRegulatoryAuthority",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "CountryName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "CountryCode",
+          "type": "object",
+          "ref": "Countrycode"
+        }
+      ]
+    },
+    {
+      "name": "Countrycode",
+      "kind": "object",
+      "description": "Identifies a nation with its own government (ISO 3166).",
+      "properties": [
+        {
+          "name": "Countrycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Currency",
+      "kind": "object",
+      "description": "The Futures properties that represent a discrete aspect of the Futures Instrument property",
+      "properties": [
+        {
+          "name": "Identifier",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "CurrencyName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "CurrencyAlphabeticCode",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "CurrencyNumericalCode",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "CurrencySymbol",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CurrencyCountry",
+          "type": "object",
+          "ref": "Country"
+        },
+        {
+          "name": "CurrencyDecimalPositions",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CurrencyBanknoteDenomination",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CurrencyCoinDenomination",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CurrencyCashAcceptedIndicator",
+          "type": "object",
+          "ref": "Yesnoindicator"
+        },
+        {
+          "name": "CurrencyBanknotePicture",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CurrencyBanknoteAuthenticationMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MaximumAmountinCash",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "MinimumAmountinCash",
+          "type": "object",
+          "ref": "Amount"
+        }
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "Alphabetic code according to ISO 4217 that is used to refer to a currency, e.g. USD",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Date",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DateContent",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The validity period of Condition",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "DebtInstrument",
+      "kind": "object",
+      "description": "The Futures properties that represent a discrete aspect of the Futures Instrument property",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "FinancialInstrumentDirectoryEntryReference",
+          "type": "object",
+          "ref": "DirectoryEntry"
+        },
+        {
+          "name": "DebtInstrumentpropertyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DebtInstrumentpropertyType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "DirectoryEntry",
+      "kind": "object",
+      "description": "Reference to Futures Instrument property",
+      "properties": [
+        {
+          "name": "DirectoryEntryDateType",
+          "type": "object",
+          "ref": "Directoryentrydatetypevalues"
+        },
+        {
+          "name": "DirectoryEntryDate",
+          "type": "object",
+          "ref": "Date"
+        },
+        {
+          "name": "DirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Directoryentrydatetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpenDate` - \r\n* `RefreshDate` - \r\n",
+      "enum_values": [
+        "OpenDate",
+        "RefreshDate"
+      ]
+    },
+    {
+      "name": "Equity",
+      "kind": "object",
+      "description": "The Futures properties that represent a discrete aspect of the Futures Instrument property",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "FinancialInstrumentDirectoryEntryReference",
+          "type": "object",
+          "ref": "DirectoryEntry"
+        },
+        {
+          "name": "EquityInstrumentpropertyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EquityInstrumentpropertyType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "FinancialInstrument",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FinancialInstrumentType",
+          "type": "object",
+          "ref": "Financialinstrumenttypevalues"
+        },
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Financialinstrumentidentification"
+        },
+        {
+          "name": "FinancialInstrumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Financialinstrumentdatetime"
+        },
+        {
+          "name": "AssetTitle",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "AssetType",
+          "type": "object",
+          "ref": "Assettypevalues"
+        },
+        {
+          "name": "AssetDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AssetDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AssetClassification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AssetClassificationType",
+          "type": "object",
+          "ref": "Assetclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassificationType",
+          "type": "object",
+          "ref": "Assetsubclassificationtypevalues"
+        },
+        {
+          "name": "AssetSubClassification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "FinancialInstrumentDirectoryEntry",
+      "kind": "object",
+      "description": "Capture and maintain reference information about some type of entitity within Financial Instrument Reference Data Management.",
+      "properties": [
+        {
+          "name": "FinancialInstrumentDirectoryEntryDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FinancialInstrumentDirectoryEntrySchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "FinancialInstrumentDirectoryEntryVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FinancialInstrumentDirectoryEntryStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FinancialInstrumentDirectoryEntryUsageLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "FinancialInstrumentDirectoryEntryUpdateLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "FinancialInstrumentDirectoryEntryServiceConfiguration",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FinancialInstrumentDirectoryEntryReference",
+          "type": "object",
+          "ref": "DirectoryEntry"
+        },
+        {
+          "name": "FinancialInstrumentReference",
+          "type": "object",
+          "ref": "FinancialInstrument"
+        },
+        {
+          "name": "FinancialMarketReference",
+          "type": "object",
+          "ref": "FinancialMarket"
+        }
+      ]
+    },
+    {
+      "name": "FinancialInstrumentReferenceDataManagementOutcome",
+      "kind": "object",
+      "description": "The Futures properties that represent a discrete aspect of the Futures Instrument property",
+      "properties": [
+        {
+          "name": "FinancialInstrumentReferenceDataManagementEntry",
+          "type": "object",
+          "ref": "DirectoryEntry"
+        },
+        {
+          "name": "FinancialInstrumentReferenceDataManagementWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        }
+      ]
+    },
+    {
+      "name": "FinancialMarket",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FinancialMarketType",
+          "type": "object",
+          "ref": "Financialmarkettypevalues"
+        },
+        {
+          "name": "MarketType",
+          "type": "object",
+          "ref": "Markettypevalues"
+        },
+        {
+          "name": "MarketIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "MarketCountry",
+          "type": "object",
+          "ref": "Country"
+        },
+        {
+          "name": "MarketJurisdiction",
+          "type": "object",
+          "ref": "Jurisdiction"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetime",
+      "kind": "object",
+      "description": "Key dates of financial instrument",
+      "properties": [
+        {
+          "name": "FinancialInstrumentDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "FinancialInstrumentDateType",
+          "type": "object",
+          "ref": "Financialinstrumentdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CouponDate` - Next payment date of an interest bearing financial instrument.(ISO20022)\r\n* `ExpiryDate` - Date on which a privilege expires.(ISO20022)\r\n* `FloatingRateFixingDate` - Date at which the interest rate of an interest bearing security will be calculated and reset, according to the terms of the issue.(ISO20022)\r\n* `MaturityDate` - Planned final repayment date at the time of issuance.(ISO20022)\r\n* `IssueDate` - Date at which the security was made available.(ISO20022)\r\n* `NextCallableDate` - Next date at which the issuer has the right to pay the security prior to maturity.(ISO20022)\r\n* `PutableDate` - Date at which the holder has the right to ask for redemption of the security prior to final maturity.(ISO20022)\r\n* `DatedDate` - First date at which a security begins to accrue interest.(ISO20022)\r\n* `FirstPaymentDate` - Date at which the first interest payment is due to holders of the security.(ISO20022)\r\n",
+      "enum_values": [
+        "CouponDate",
+        "ExpiryDate",
+        "FloatingRateFixingDate",
+        "MaturityDate",
+        "IssueDate",
+        "NextCallableDate",
+        "PutableDate",
+        "DatedDate",
+        "FirstPaymentDate"
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentification",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FinancialInstrumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FinancialInstrumentIdentificationType",
+          "type": "object",
+          "ref": "Financialinstrumentidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Financialinstrumentidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `NASDAQ` - \r\n* `ISIN` - \r\n",
+      "enum_values": [
+        "NASDAQ",
+        "ISIN"
+      ]
+    },
+    {
+      "name": "Financialinstrumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Loan` - \r\n* `Bond` - \r\n* `Deposit` - \r\n* `Stock` - \r\n* `Option` - \r\n* `Share` - \r\n* `Debt` - Financial instruments evidencing moneys owed by the issuer to the holder on terms as specified. (ISO20022)\n\nAny type of instrument primarily classified as debt can be considered a debt instrument. Debt instruments are tools an individual, government entity, or business entity can utilize for the purpose of obtaining capital. Debt instruments provide capital to an entity that promises to repay the capital over time. Credit cards, credit lines, loans, and bonds can all be types of debt instruments. (Investopedia)\r\n* `Letterofcredit` - Instrument issued by a bank substituting its name and credit standing for that of its customer. A letter of credit is a written undertaking of the bank, issued for the account of a customer (the applicant), to honour a demand for payment, upon the beneficiary's compliance with the terms and conditions set forth in the undertaking. (ISO20022)\r\n* `Security` - Financial instruments representing a sum of rights of the investor vis-a-vis the issuer. (ISO20022)\r\n* `Derivative` - \r\n",
+      "enum_values": [
+        "Loan",
+        "Bond",
+        "Deposit",
+        "Stock",
+        "Option",
+        "Share",
+        "Debt",
+        "Letterofcredit",
+        "Security",
+        "Derivative"
+      ]
+    },
+    {
+      "name": "Financialmarkettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PrimaryMarket` - The place is a primary market.(ISO20022)\r\n* `SecondaryMarket` - The place is a secondary market.(ISO20022)\r\n* `ThirdMarket` - The place is a third market.(ISO20022)\r\n* `FourthMarket` - The place is a fourth market.(ISO20022)\r\n* `OverTheCounter` - The place is over the counter.(ISO20022)\r\n* `Various` - Various places.(ISO20022)\r\n* `StockExchange` - The place is a stock exchange.(ISO20022)\r\n* `Fund` - The place is a fund (transfer agent, fund itself, etc.).(ISO20022)\r\n* `LocalMarket` - The place is a local market.(ISO20022)\r\n* `Theoretical` - The place is theoretical.(ISO20022)\r\n* `Vendor` - The place is a vendor.(ISO20022)\r\n* `Interbank` - Specified type of market is inter bank market.(ISO20022)\r\n* `Counter` - Specified type of market is counter market.(ISO20022)\r\n",
+      "enum_values": [
+        "PrimaryMarket",
+        "SecondaryMarket",
+        "ThirdMarket",
+        "FourthMarket",
+        "OverTheCounter",
+        "Various",
+        "StockExchange",
+        "Fund",
+        "LocalMarket",
+        "Theoretical",
+        "Vendor",
+        "Interbank",
+        "Counter"
+      ]
+    },
+    {
+      "name": "Futures",
+      "kind": "object",
+      "description": "The Futures properties that represent a discrete aspect of the Futures Instrument property",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "FinancialInstrumentDirectoryEntryReference",
+          "type": "object",
+          "ref": "DirectoryEntry"
+        },
+        {
+          "name": "FuturesInstrumentpropertyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FuturesInstrumentpropertyType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "The identifier of Condition",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Jurisdiction",
+      "kind": "object",
+      "description": "    \nJurisdiction of the governing law for the trades on this market, for example, City of NY, County of NY, State of NY, regulatory SEC.(ISO20022)",
+      "properties": [
+        {
+          "name": "Jurisdiction",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Markettypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialMarket` - \r\n* `GeneralMarket` - \r\n",
+      "enum_values": [
+        "FinancialMarket",
+        "GeneralMarket"
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of Condition",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Option",
+      "kind": "object",
+      "description": "The Futures properties that represent a discrete aspect of the Futures Instrument property",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "FinancialInstrumentDirectoryEntryReference",
+          "type": "object",
+          "ref": "DirectoryEntry"
+        },
+        {
+          "name": "OptionInstrumentpropertyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "OptionInstrumentpropertyType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing for which the property value is valid",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Termandconditiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommissionTermAndCondition` - Commission terms for workforce/employee commission processing\r\n* `LegalTermAndCondition` - Covers the legal considerations of the agreement\r\n* `RegulatoryTermAndCondition` - Covers the regulatory considerations of the agreement\r\n* `PolicyTermAndCondition` - Covers the corporate policies and requirements considerations of the agreement\r\n* `RestrictionTermAndCondition` - Details channel access restrictions for products and services\r\n* `PreferenceTermAndCondition` - Customer channel/device usage preferences\r\n* `InvestmentTermAndCondition` - Terms making up the agreement that govern the management of the investment portfolio. Note that there may be many different types of terms and clauses making up the overall policy\r\n* `MandateTermAndCondition` - Reference to the terms in force for a specific customer for this service provider\r\n* `OperationalTermAndCondition` - \r\n* `ProductTermAndCondition` - \r\n* `AgreementTermAndCondition` - \r\n* `RelationshipTermAndCondition` - \r\n* `ConfidentialTermAndCondition` - \r\n",
+      "enum_values": [
+        "CommissionTermAndCondition",
+        "LegalTermAndCondition",
+        "RegulatoryTermAndCondition",
+        "PolicyTermAndCondition",
+        "RestrictionTermAndCondition",
+        "PreferenceTermAndCondition",
+        "InvestmentTermAndCondition",
+        "MandateTermAndCondition",
+        "OperationalTermAndCondition",
+        "ProductTermAndCondition",
+        "AgreementTermAndCondition",
+        "RelationshipTermAndCondition",
+        "ConfidentialTermAndCondition"
+      ]
+    },
+    {
+      "name": "Warrant",
+      "kind": "object",
+      "description": "The Futures properties that represent a discrete aspect of the Futures Instrument property",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "FinancialInstrumentDirectoryEntryReference",
+          "type": "object",
+          "ref": "DirectoryEntry"
+        },
+        {
+          "name": "WarrantInstrumentpropertyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "WarrantInstrumentpropertyType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    },
+    {
+      "name": "Yesnoindicator",
+      "kind": "object",
+      "description": "Indicator showing if the bank accepts cash of the currency. Values are yes, banknotes only, no",
+      "properties": [
+        {
+          "name": "Yesnoindicator",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "FinancialInstrumentDirectoryEntry",
+        "operations": [
+          "Control",
+          "Execute",
+          "Notify",
+          "Register",
+          "Request",
+          "Retrieve",
+          "Update"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "Currency",
+        "parent_control_record": "FinancialInstrumentDirectoryEntry",
+        "operations": [
+          "RegisterCurrency",
+          "RetrieveCurrency",
+          "UpdateCurrency"
+        ]
+      },
+      {
+        "name": "DebtInstrument",
+        "parent_control_record": "FinancialInstrumentDirectoryEntry",
+        "operations": [
+          "ExecuteDebtInstrument",
+          "NotifyDebtInstrument",
+          "RegisterDebtInstrument",
+          "RequestDebtInstrument",
+          "RetrieveDebtInstrument",
+          "UpdateDebtInstrument"
+        ]
+      },
+      {
+        "name": "Equity",
+        "parent_control_record": "FinancialInstrumentDirectoryEntry",
+        "operations": [
+          "ExecuteEquity",
+          "NotifyEquity",
+          "RegisterEquity",
+          "RequestEquity",
+          "UpdateEquity",
+          "RetrieveEquity"
+        ]
+      },
+      {
+        "name": "Futures",
+        "parent_control_record": "FinancialInstrumentDirectoryEntry",
+        "operations": [
+          "ExecuteFutures",
+          "NotifyFutures",
+          "RegisterFutures",
+          "RequestFutures",
+          "RetrieveFutures",
+          "UpdateFutures"
+        ]
+      },
+      {
+        "name": "Option",
+        "parent_control_record": "FinancialInstrumentDirectoryEntry",
+        "operations": [
+          "ExecuteOption",
+          "NotifyOption",
+          "RegisterOption",
+          "RequestOption",
+          "RetrieveOption",
+          "UpdateOption"
+        ]
+      },
+      {
+        "name": "Warrant",
+        "parent_control_record": "FinancialInstrumentDirectoryEntry",
+        "operations": [
+          "ExecuteWarrant",
+          "NotifyWarrant",
+          "RegisterWarrant",
+          "RequestWarrant",
+          "RetrieveWarrant",
+          "UpdateWarrant"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/FinancialInstrumentReferenceDataManagement.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "35ee746fefac5db26d561a2fa9dfe6337f6a7409b9f1865372fd1ff10826584d",
+    "retrieved_at": "2026-09-12T22:35:57.010583+00:00"
+  }
+}

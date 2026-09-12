@@ -1,0 +1,3076 @@
+{
+  "service_domain": "Bank Drafts",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/Exchange",
+      "tipo": "CR",
+      "grupo": "BearerDocumentTransaction",
+      "request_schema": "BearerDocumentTransaction",
+      "response_schema": "BearerDocumentTransaction",
+      "summary": "Exchange Bearer Document Transaction",
+      "description": "Exchange Bearer Document Transaction"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/Control",
+      "tipo": "CR",
+      "grupo": "BearerDocumentTransaction",
+      "request_schema": "BearerDocumentTransaction",
+      "response_schema": "BearerDocumentTransaction",
+      "summary": "Control Bearer Document Transaction",
+      "description": "Control Bearer Document Transaction"
+    },
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/Execute",
+      "tipo": "CR",
+      "grupo": "BearerDocumentTransaction",
+      "request_schema": "BearerDocumentTransaction",
+      "response_schema": "BearerDocumentTransaction",
+      "summary": "Execute Bearer Document Transaction",
+      "description": "Execute Bearer Document Transaction"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/BankDrafts/{bankdraftsid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "BearerDocumentTransaction",
+      "request_schema": "",
+      "response_schema": "BearerDocumentTransaction",
+      "summary": "Retrieve Bearer Document Transaction",
+      "description": "Retrieve Bearer Document Transaction"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/BankDrafts/Initiate",
+      "tipo": "CR",
+      "grupo": "BearerDocumentTransaction",
+      "request_schema": "BearerDocumentTransaction",
+      "response_schema": "BearerDocumentTransaction",
+      "summary": "Initiate Bearer Document Transaction",
+      "description": "Initiate Bearer Document Transaction"
+    },
+    {
+      "operation_id": "Notify",
+      "method": "GET",
+      "path": "/BankDrafts/{bankdraftsid}/Notify",
+      "tipo": "CR",
+      "grupo": "BearerDocumentTransaction",
+      "request_schema": "",
+      "response_schema": "BearerDocumentTransaction",
+      "summary": "Notify Bearer Document Transaction",
+      "description": "Notify Bearer Document Transaction"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/Update",
+      "tipo": "CR",
+      "grupo": "BearerDocumentTransaction",
+      "request_schema": "BearerDocumentTransaction",
+      "response_schema": "BearerDocumentTransaction",
+      "summary": "Update Bearer Document Transaction",
+      "description": "Update Bearer Document Transaction"
+    },
+    {
+      "operation_id": "ExchangeBankGuaranteedPaymentRemittance",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentRemittance/{bankguaranteedpaymentremittanceid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentRemittance",
+      "request_schema": "BankGuaranteedPaymentRemittance",
+      "response_schema": "BankGuaranteedPaymentRemittance",
+      "summary": "Exchange Bank Guaranteed Payment Remittance Task",
+      "description": "Exchange Bank Guaranteed Payment Remittance Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "ExchangeCustomerPayment",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/CustomerPayment/{customerpaymentid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "CustomerPayment",
+      "request_schema": "CustomerPayment",
+      "response_schema": "CustomerPayment",
+      "summary": "Exchange Customer Payment Task",
+      "description": "Exchange Customer Payment Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "ExecuteBankGuaranteedPaymentRemittance",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentRemittance/{bankguaranteedpaymentremittanceid}/Execute",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentRemittance",
+      "request_schema": "BankGuaranteedPaymentRemittance",
+      "response_schema": "BankGuaranteedPaymentRemittance",
+      "summary": "Execute Bank Guaranteed Payment Remittance Task",
+      "description": "Execute Bank Guaranteed Payment Remittance Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "ExecuteBearerDocumentCreationandRegistration",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/BearerDocumentCreationandRegistration/{bearerdocumentcreationandregistrationid}/Execute",
+      "tipo": "BQ",
+      "grupo": "BearerDocumentCreationandRegistration",
+      "request_schema": "BearerDocumentCreationandRegistration",
+      "response_schema": "BearerDocumentCreationandRegistration",
+      "summary": "Execute Bearer Document Creation and Registration Task",
+      "description": "Execute Bearer Document Creation and Registration Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "InitiateBankGuaranteedPaymentRemittance",
+      "method": "POST",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentRemittance/Initiate",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentRemittance",
+      "request_schema": "BankGuaranteedPaymentRemittance",
+      "response_schema": "BankGuaranteedPaymentRemittance",
+      "summary": "Initiate Bank Guaranteed Payment Remittance Task",
+      "description": "Initiate Bank Guaranteed Payment Remittance Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "InitiateBankGuaranteedPaymentSpecification",
+      "method": "POST",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentSpecification/Initiate",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentSpecification",
+      "request_schema": "BankGuaranteedPaymentSpecification",
+      "response_schema": "BankGuaranteedPaymentSpecification",
+      "summary": "Initiate Bank Guaranteed Payment Specification Task",
+      "description": "Initiate Bank Guaranteed Payment Specification Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/Request",
+      "tipo": "CR",
+      "grupo": "BearerDocumentTransaction",
+      "request_schema": "BearerDocumentTransaction",
+      "response_schema": "BearerDocumentTransaction",
+      "summary": "Request Bearer Document Transaction",
+      "description": "Request Bearer Document Transaction"
+    },
+    {
+      "operation_id": "ExchangeBankGuaranteedPaymentSpecification",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentSpecification/{bankguaranteedpaymentspecificationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentSpecification",
+      "request_schema": "BankGuaranteedPaymentSpecification",
+      "response_schema": "BankGuaranteedPaymentSpecification",
+      "summary": "Exchange Bank Guaranteed Payment Specification Task",
+      "description": "Exchange Bank Guaranteed Payment Specification Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "ExchangeBearerDocumentCreationandRegistration",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/BearerDocumentCreationandRegistration/{bearerdocumentcreationandregistrationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "BearerDocumentCreationandRegistration",
+      "request_schema": "BearerDocumentCreationandRegistration",
+      "response_schema": "BearerDocumentCreationandRegistration",
+      "summary": "Exchange Bearer Document Creation and Registration Task",
+      "description": "Exchange Bearer Document Creation and Registration Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "ExecuteBankGuaranteedPaymentSpecification",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentSpecification/{bankguaranteedpaymentspecificationid}/Execute",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentSpecification",
+      "request_schema": "BankGuaranteedPaymentSpecification",
+      "response_schema": "BankGuaranteedPaymentSpecification",
+      "summary": "Execute Bank Guaranteed Payment Specification Task",
+      "description": "Execute Bank Guaranteed Payment Specification Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "ExecuteCustomerPayment",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/CustomerPayment/{customerpaymentid}/Execute",
+      "tipo": "BQ",
+      "grupo": "CustomerPayment",
+      "request_schema": "CustomerPayment",
+      "response_schema": "CustomerPayment",
+      "summary": "Execute Customer Payment Task",
+      "description": "Execute Customer Payment Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "InitiateBearerDocumentCreationandRegistration",
+      "method": "POST",
+      "path": "/BankDrafts/{bankdraftsid}/BearerDocumentCreationandRegistration/Initiate",
+      "tipo": "BQ",
+      "grupo": "BearerDocumentCreationandRegistration",
+      "request_schema": "BearerDocumentCreationandRegistration",
+      "response_schema": "BearerDocumentCreationandRegistration",
+      "summary": "Initiate Bearer Document Creation and Registration Task",
+      "description": "Initiate Bearer Document Creation and Registration Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "NotifyBankGuaranteedPaymentSpecification",
+      "method": "GET",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentSpecification/{bankguaranteedpaymentspecificationid}/Notify",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentSpecification",
+      "request_schema": "",
+      "response_schema": "BankGuaranteedPaymentSpecification",
+      "summary": "Notify Bank Guaranteed Payment Specification Task",
+      "description": "Notify Bank Guaranteed Payment Specification Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "NotifyCustomerPayment",
+      "method": "GET",
+      "path": "/BankDrafts/{bankdraftsid}/CustomerPayment/{customerpaymentid}/Notify",
+      "tipo": "BQ",
+      "grupo": "CustomerPayment",
+      "request_schema": "",
+      "response_schema": "CustomerPayment",
+      "summary": "Notify Customer Payment Task",
+      "description": "Notify Customer Payment Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "RequestBankGuaranteedPaymentRemittance",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentRemittance/{bankguaranteedpaymentremittanceid}/Request",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentRemittance",
+      "request_schema": "BankGuaranteedPaymentRemittance",
+      "response_schema": "BankGuaranteedPaymentRemittance",
+      "summary": "Request Bank Guaranteed Payment Remittance Task",
+      "description": "Request Bank Guaranteed Payment Remittance Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "InitiateCustomerPayment",
+      "method": "POST",
+      "path": "/BankDrafts/{bankdraftsid}/CustomerPayment/Initiate",
+      "tipo": "BQ",
+      "grupo": "CustomerPayment",
+      "request_schema": "CustomerPayment",
+      "response_schema": "CustomerPayment",
+      "summary": "Initiate Customer Payment Task",
+      "description": "Initiate Customer Payment Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "NotifyBankGuaranteedPaymentRemittance",
+      "method": "GET",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentRemittance/{bankguaranteedpaymentremittanceid}/Notify",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentRemittance",
+      "request_schema": "",
+      "response_schema": "BankGuaranteedPaymentRemittance",
+      "summary": "Notify Bank Guaranteed Payment Remittance Task",
+      "description": "Notify Bank Guaranteed Payment Remittance Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "NotifyBearerDocumentCreationandRegistration",
+      "method": "GET",
+      "path": "/BankDrafts/{bankdraftsid}/BearerDocumentCreationandRegistration/{bearerdocumentcreationandregistrationid}/Notify",
+      "tipo": "BQ",
+      "grupo": "BearerDocumentCreationandRegistration",
+      "request_schema": "",
+      "response_schema": "BearerDocumentCreationandRegistration",
+      "summary": "Notify Bearer Document Creation and Registration Task",
+      "description": "Notify Bearer Document Creation and Registration Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "RequestBankGuaranteedPaymentSpecification",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentSpecification/{bankguaranteedpaymentspecificationid}/Request",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentSpecification",
+      "request_schema": "BankGuaranteedPaymentSpecification",
+      "response_schema": "BankGuaranteedPaymentSpecification",
+      "summary": "Request Bank Guaranteed Payment Specification Task",
+      "description": "Request Bank Guaranteed Payment Specification Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "RequestBearerDocumentCreationandRegistration",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/BearerDocumentCreationandRegistration/{bearerdocumentcreationandregistrationid}/Request",
+      "tipo": "BQ",
+      "grupo": "BearerDocumentCreationandRegistration",
+      "request_schema": "BearerDocumentCreationandRegistration",
+      "response_schema": "BearerDocumentCreationandRegistration",
+      "summary": "Request Bearer Document Creation and Registration Task",
+      "description": "Request Bearer Document Creation and Registration Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "UpdateBankGuaranteedPaymentRemittance",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentRemittance/{bankguaranteedpaymentremittanceid}/Update",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentRemittance",
+      "request_schema": "BankGuaranteedPaymentRemittance",
+      "response_schema": "BankGuaranteedPaymentRemittance",
+      "summary": "Update Bank Guaranteed Payment Remittance Task",
+      "description": "Update Bank Guaranteed Payment Remittance Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "RequestCustomerPayment",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/CustomerPayment/{customerpaymentid}/Request",
+      "tipo": "BQ",
+      "grupo": "CustomerPayment",
+      "request_schema": "CustomerPayment",
+      "response_schema": "CustomerPayment",
+      "summary": "Request Customer Payment Task",
+      "description": "Request Customer Payment Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "RetrieveBankGuaranteedPaymentSpecification",
+      "method": "GET",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentSpecification/{bankguaranteedpaymentspecificationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentSpecification",
+      "request_schema": "",
+      "response_schema": "BankGuaranteedPaymentSpecification",
+      "summary": "Retrieve Bank Guaranteed Payment Specification Task",
+      "description": "Retrieve Bank Guaranteed Payment Specification Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "RetrieveBearerDocumentCreationandRegistration",
+      "method": "GET",
+      "path": "/BankDrafts/{bankdraftsid}/BearerDocumentCreationandRegistration/{bearerdocumentcreationandregistrationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "BearerDocumentCreationandRegistration",
+      "request_schema": "",
+      "response_schema": "BearerDocumentCreationandRegistration",
+      "summary": "Retrieve Bearer Document Creation and Registration Task",
+      "description": "Retrieve Bearer Document Creation and Registration Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "RetrieveCustomerPayment",
+      "method": "GET",
+      "path": "/BankDrafts/{bankdraftsid}/CustomerPayment/{customerpaymentid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "CustomerPayment",
+      "request_schema": "",
+      "response_schema": "CustomerPayment",
+      "summary": "Retrieve Customer Payment Task",
+      "description": "Retrieve Customer Payment Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "RetrieveBankGuaranteedPaymentRemittance",
+      "method": "GET",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentRemittance/{bankguaranteedpaymentremittanceid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentRemittance",
+      "request_schema": "",
+      "response_schema": "BankGuaranteedPaymentRemittance",
+      "summary": "Retrieve Bank Guaranteed Payment Remittance Task",
+      "description": "Retrieve Bank Guaranteed Payment Remittance Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "UpdateBankGuaranteedPaymentSpecification",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/BankGuaranteedPaymentSpecification/{bankguaranteedpaymentspecificationid}/Update",
+      "tipo": "BQ",
+      "grupo": "BankGuaranteedPaymentSpecification",
+      "request_schema": "BankGuaranteedPaymentSpecification",
+      "response_schema": "BankGuaranteedPaymentSpecification",
+      "summary": "Update Bank Guaranteed Payment Specification Task",
+      "description": "Update Bank Guaranteed Payment Specification Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "UpdateBearerDocumentCreationandRegistration",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/BearerDocumentCreationandRegistration/{bearerdocumentcreationandregistrationid}/Update",
+      "tipo": "BQ",
+      "grupo": "BearerDocumentCreationandRegistration",
+      "request_schema": "BearerDocumentCreationandRegistration",
+      "response_schema": "BearerDocumentCreationandRegistration",
+      "summary": "Update Bearer Document Creation and Registration Task",
+      "description": "Update Bearer Document Creation and Registration Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    },
+    {
+      "operation_id": "UpdateCustomerPayment",
+      "method": "PUT",
+      "path": "/BankDrafts/{bankdraftsid}/CustomerPayment/{customerpaymentid}/Update",
+      "tipo": "BQ",
+      "grupo": "CustomerPayment",
+      "request_schema": "CustomerPayment",
+      "response_schema": "CustomerPayment",
+      "summary": "Update Customer Payment Task",
+      "description": "Update Customer Payment Task",
+      "parent_control_record": "BearerDocumentTransaction"
+    }
+  ],
+  "schemas": [
+    "Account",
+    "Accountbalance",
+    "Accountcurrency",
+    "Accountdatetime",
+    "Accountdatetimetypevalues",
+    "Accountidentification",
+    "Accountidentificationtypevalues",
+    "Accountstatus",
+    "Accountstatustypevalues",
+    "Accounttypevalues",
+    "Action",
+    "Actiontype",
+    "Actiontypevalues",
+    "Amount",
+    "Amounttypevalues",
+    "Balancecounterpartytypevalues",
+    "Balancesubtypevalues",
+    "Balancetypevalues",
+    "BankDraftsOutcome",
+    "BankGuaranteedPaymentRemittance",
+    "BankGuaranteedPaymentSpecification",
+    "BearerDocumentCreationandRegistration",
+    "BearerDocumentTransaction",
+    "BusinessService",
+    "Businessservicetypevalues",
+    "Calendar",
+    "Calendartypevalues",
+    "Clearingchanneltypevalues",
+    "Condition",
+    "Conditionstatustypevalues",
+    "Currencycode",
+    "Currencytypevalues",
+    "CustomerPayment",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Debitcreditindicatortvalues",
+    "Document",
+    "Documentdatetimetypevalues",
+    "Feature",
+    "Featuretypevalues",
+    "FeeTransaction",
+    "Feetypevalues",
+    "Financialdocumenttypevalues",
+    "Financialinstructiontypevalues",
+    "Financialtransactiontypevalues",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "Instructiondatetime",
+    "Instructiondatetimetypevalues",
+    "Instructionidentification",
+    "Instructionidentificationtypevalues",
+    "Instructionstatus",
+    "Instructionstatustypevalues",
+    "Instructiontypevalues",
+    "InterestTransaction",
+    "Interesttransactiontypevalues",
+    "Interesttypevalues",
+    "Involvedparty",
+    "Location",
+    "Log",
+    "Name",
+    "PaymentInstruction",
+    "Paymentamountandcurrency",
+    "Paymentamountandcurrencytypevalues",
+    "Paymentdatetime",
+    "Paymentdatetimetypevalues",
+    "Paymentidentification",
+    "Paymentidentificationtypevalues",
+    "Paymentinstructionstatus",
+    "Paymentmethodtypevalues",
+    "Paymenttypevalues",
+    "Priorityvaluetypes",
+    "Rate",
+    "Schedule",
+    "Service",
+    "Servicetypevalues",
+    "Status",
+    "Task",
+    "Termandconditiontypevalues",
+    "Transaction",
+    "Transactiondatetime",
+    "Transactiondatetimetypevalues",
+    "Transactionstatus",
+    "Transactionstatustypevalues",
+    "Transactiontypevalues",
+    "Undertakinginstructiontypevalues",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Account",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AccountStatus",
+          "type": "object",
+          "ref": "Accountstatus"
+        },
+        {
+          "name": "AccountIdentification",
+          "type": "object",
+          "ref": "Accountidentification"
+        },
+        {
+          "name": "AccountDate",
+          "type": "object",
+          "ref": "Accountdatetime"
+        },
+        {
+          "name": "AccountType",
+          "type": "object",
+          "ref": "Accounttypevalues"
+        },
+        {
+          "name": "AccountPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AccountBalance",
+          "type": "object",
+          "ref": "Accountbalance"
+        },
+        {
+          "name": "AccountCurrency",
+          "type": "object",
+          "ref": "Accountcurrency"
+        },
+        {
+          "name": "AccountDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AccountName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Accountbalance",
+      "kind": "object",
+      "description": "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html",
+      "properties": [
+        {
+          "name": "BalanceAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "BalanceType",
+          "type": "object",
+          "ref": "Balancetypevalues"
+        },
+        {
+          "name": "BalanceValueDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "BalanceIndicator",
+          "type": "object",
+          "ref": "Debitcreditindicatortvalues"
+        },
+        {
+          "name": "BalanceCounterpartyType",
+          "type": "object",
+          "ref": "Balancecounterpartytypevalues"
+        },
+        {
+          "name": "BalanceCalculationDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "BalanceSubType",
+          "type": "object",
+          "ref": "Balancesubtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Accountcurrency",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AccountCurrencyType",
+          "type": "object",
+          "ref": "Currencytypevalues"
+        },
+        {
+          "name": "AccountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        }
+      ]
+    },
+    {
+      "name": "Accountdatetime",
+      "kind": "object",
+      "description": "A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) ",
+      "properties": [
+        {
+          "name": "AccountDateType",
+          "type": "object",
+          "ref": "Accountdatetimetypevalues"
+        },
+        {
+          "name": "AccountDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Accountdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpeningDate` - Date on which the account and related basic services are effectively operational for the account owner. (ISO20022)\r\n* `ClosingDate` - Date on which the account and related services cease effectively to be operational for the account owner. (ISO20022)\r\n* `BlockingDate` - \r\n* `MaturityDate` - Maturity date for the account.\r\n* `LiveDate` - \r\n* `RenewalDate` - \r\n",
+      "enum_values": [
+        "OpeningDate",
+        "ClosingDate",
+        "BlockingDate",
+        "MaturityDate",
+        "LiveDate",
+        "RenewalDate"
+      ]
+    },
+    {
+      "name": "Accountidentification",
+      "kind": "object",
+      "description": "The identifier of account like Account Number.",
+      "properties": [
+        {
+          "name": "AccountIdentificationType",
+          "type": "object",
+          "ref": "Accountidentificationtypevalues"
+        },
+        {
+          "name": "AccountIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Accountidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `BBAN` - Basic Bank Account Number (BBAN) - identifier used nationally by financial institutions, ie, in individual countries, generally as part of a National Account Numbering Scheme(s), to uniquely identify the account of a customer. (ISO20022)\n\n.\r\n* `IBAN` - International Bank Account Number (IBAN) - identifier used internationally by financial institutions to uniquely identify the account of a customer. Further specifications of the format and content of the IBAN can be found in the standard ISO 13616 \"Banking and related financial services - International Bank Account Number (IBAN)\" version 1997-10-01, or later revisions. (ISO20022)\n\nAn identifier used internationally by financial institutions to uniquely identify the account of a customer at a financial institution, as described in the latest edition of the international standard ISO 13616. \"Banking and related financial services - International Bank Account Number (IBAN)\". (OBExternalAccountIdentification4Code)\r\n* `UPIC` - Universal Payment Identification Code (UPIC) - identifier used by the New York Clearing House to mask confidential data, such as bank accounts and bank routing numbers. UPIC numbers remain with business customers, regardless of banking relationship changes. (ISO20022)\r\n* `AccountNumber` - String of characters (mainly numbers) used to identify an account.(ISO20022)\n\r\n* `PAN` - Primary Account Number - identifier scheme used to identify a card account. (OBExternalAccountIdentification4Code)\r\n* `Paym` - Paym Scheme to make payments via mobile (OBExternalAccountIdentification4Code)\r\n* `Wallet` - A primary and unique account identifier used to identify a wallet.\nAn ASPSP must document on their developer portal, the payment methods that supports this account identifier.(OBExternalAccountIdentification4Code)\r\n* `SortCodeAndAccountNumber` - Sort Code and Account Number - identifier scheme used in the UK by financial institutions to identify the account of a customer. The identifier is the concatenation of the 6 digit UK sort code and 8 digit account number. (UK Open Banking)\r\n* `AIIN` - IssuerIdentificationNumber\r\n* `CUID` - CHIPSUniversalIdentifier\r\n",
+      "enum_values": [
+        "BBAN",
+        "IBAN",
+        "UPIC",
+        "AccountNumber",
+        "PAN",
+        "Paym",
+        "Wallet",
+        "SortCodeAndAccountNumber",
+        "AIIN",
+        "CUID"
+      ]
+    },
+    {
+      "name": "Accountstatus",
+      "kind": "object",
+      "description": "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)",
+      "properties": [
+        {
+          "name": "AccountStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "AccountStatusType",
+          "type": "object",
+          "ref": "Accountstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Accountstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Enabled` - Account can be used for its intended purpose.\r\n* `Disabled` - Account cannot be used for its intended purpose, either temporarily or permanently.\r\n* `Deleted` - Account cannot be used any longer.\r\n* `Proforma` - Account is temporary and can be partially used for its intended purpose. The account will be fully available for use when the account servicer has received all relevant documents.\r\n* `Pending` - Account change is pending approval.\r\n",
+      "enum_values": [
+        "Enabled",
+        "Disabled",
+        "Deleted",
+        "Proforma",
+        "Pending"
+      ]
+    },
+    {
+      "name": "Accounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DebitAccount` - \r\n* `CreditAccount` - \r\n* `VostroAcount` - In correspondent banking, an account held by one bank on behalf of another bank (the customer bank); the customer bank regards this account as its nostro account. (ECB)\r\n* `NostroAccount` - In correspondent banking, an account held by a customer bank on the books of another bank acting as a service provider. The other bank regards this account as a loro account. (ECB)\r\n* `PaymentAccount` - \r\n* `SettlementAccount` - A specific purpose account used to post debit and credit entries as a result of the transaction. (ISO20022)\n\nAccount which is used for settlement. (ISO20022)\r\n* `SavingAccount` - \r\n* `CurrentAccount` - \r\n* `CashAccount` - \r\n* `LoanAccount` - \r\n* `IndividualAccount` - \r\n* `JointAccount` - \r\n* `LiquidationAccount` - \r\n* `ProvisionAccount` - \r\n* `PartnershipAccount` - \r\n* `InvestmentAccount` - \r\n",
+      "enum_values": [
+        "DebitAccount",
+        "CreditAccount",
+        "VostroAcount",
+        "NostroAccount",
+        "PaymentAccount",
+        "SettlementAccount",
+        "SavingAccount",
+        "CurrentAccount",
+        "CashAccount",
+        "LoanAccount",
+        "IndividualAccount",
+        "JointAccount",
+        "LiquidationAccount",
+        "ProvisionAccount",
+        "PartnershipAccount",
+        "InvestmentAccount"
+      ]
+    },
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Action",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Actiontype",
+      "kind": "object",
+      "description": "A Classification value that specifies type of transaction for this  Bearer Document Transaction",
+      "properties": [
+        {
+          "name": "ActionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "Amount",
+      "kind": "object",
+      "description": "The fee that has been calculated and accumulated over time but not yet charged or applied to the account.\n\n- Common in situations like interest or periodic fees (e.g., monthly maintenance fee). ",
+      "properties": [
+        {
+          "name": "AmountValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "DecimalPointPosition",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AmountType",
+          "type": "object",
+          "ref": "Amounttypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Amounttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Principal` - \r\n* `Actual` - Actual amount.\r\n* `Estimated` - Estimated amount (the final amount could be above or below).\r\n* `Maximum` - Maximum amount (the final amount must be less or equal).\r\n* `Default` - Default amount.\r\n* `Replacement` - Replacement amount.\r\n* `Incremental` - Incremental amount for reservation.\r\n* `Decremental` - Decremental amount for reservation.\r\n* `Reserved` - Reserved or updated reserved amount for reservation.\r\n* `Available` - \r\n* `Used` - \r\n* `DuePayable` - \r\n* `Minimum` - \r\n* `Open` - The amount is open.(ISO20022)\r\n* `Unknown` - The amount is unkown.(ISO20022)\r\n* `Fixed` - The amount represents a fixed value.(ISO20022)\r\n",
+      "enum_values": [
+        "Principal",
+        "Actual",
+        "Estimated",
+        "Maximum",
+        "Default",
+        "Replacement",
+        "Incremental",
+        "Decremental",
+        "Reserved",
+        "Available",
+        "Used",
+        "DuePayable",
+        "Minimum",
+        "Open",
+        "Unknown",
+        "Fixed"
+      ]
+    },
+    {
+      "name": "Balancecounterpartytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Bilateral` - Balance calculated regarding one member in the system. (ISO20022)\r\n* `Multilateral` - Balance calculated regarding all members in the system. (ISO20022)\r\n",
+      "enum_values": [
+        "Bilateral",
+        "Multilateral"
+      ]
+    },
+    {
+      "name": "Balancesubtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Adjustment` - Balance to be held in the settlement account in order to comply with the average reserve due, in the event that the bank's balance is equal to the reserve due during the remaining days of the maintenance period.\r\n* `Basecurrency` - Balance representing the amount in the domestic or base accounting currency.\r\n* `Blocked` - Balance representing the regulatory reserve that a financial institution must have with the account servicing institution, eg, the minimum credit balance a financial institution is to keep with its Central Bank for mandatory reserve purposes. In some countries, a blocked balance is known as a 'reserve' balance.\r\n* `Blockedfunds` - Balance representing funds that cannot be touched by the account owner.\r\n* `Daylightoverdraft` - Balance representing the intra day overdraft granted by the Central Bank to financial institutions participating in a RTGS system. This balance may vary over time and shall be offset at the end of the day.\r\n* `Eligibleassets` - Balance representing the potential loan a Central Bank would make in cash if the collateral is pledged, eg, securities available and eligible as collateral with the Central Bank.\r\n* `Firmcollateralization` - Balance representing the forecast of the cash-equivalent resulting from evaluation of existing holdings at CSD that are qualified to serve as collateral.\r\n* `Amountsthathavebeenusedtoserveasfirmcollateral` - Balance representing the cash equivalent resulting from evaluation of existing holdings at CSD that are qualified to serve as collateral and have been used as collateral.\r\n* `Securitiesforecast` - Balance representing the total of all balance types representing the forecast of transactions to settle, blocked items, custody transactions and corporate actions cash disbursements.\r\n* `Netfunding` - Balance representing the net amount to be funded resulting from the difference between the total of all transactions with a cash impact and the existing cash coverage.\r\n* `Intermediate` - Balance representing an intermediate amount such as the opening or closing balance incrementally carried forward from one page to the next in a multi-page statement or report.\r\n* `Localcurrency` - Balance representing the amount in the local market currency for which the asset is held.\r\n* `Limitrelated` - Balance of a specific limit value, eg, a bilateral balance is calculated in relation to a given bilateral limit.\r\n* `Reservedliquidity` - Balance representing the amount that a financial institution has set aside for a specific reason and which is therefore not available. In the context of CSDs, reservation of liquidity made to meet settlement obligations.\r\n* `Securitiespending` - Balance of securities pending delivery, such as orders to sell securities have been executed but settlement of the open transactions has not been confirmed.\r\n* `Payinpayout` - Balance representing the fictive amount of automated direct debits or payment based on standing arrangements between the CSD and the user. Usage: Pay-Ins and Pay-Outs can be different based on individual payment instructions or available funds.\r\n* `Progressiveaverage` - Average of the daily balances on the account used to fulfil the reserve requirements calculated from the beginning of the maintenance period.\r\n* `Reserve` - Balance representing the regulatory reserve that a financial institution must have with the account servicing institution, eg, the minimum credit balance a financial institution is to keep with its Central Bank for mandatory reserve purposes.\r\n* `Selfcollateralization` - Balance representing the forecast of the cash-equivalent resulting from evaluation of the net incoming balance of securities qualified to serve as collateral for which settlement instructions are held at.\r\n* `Amountsthathavebeenusedtoserveasselfcollateral` - Balance representing the cash-equivalent resulting from evaluation of incoming securities, qualified to serve as collateral and actually used as collateral, which have been settled during the settlement process.\r\n* `Threshold` - Balance representing the amount that will be destined for investment. Difference between available balance and threshold for investment limit.\r\n",
+      "enum_values": [
+        "Adjustment",
+        "Basecurrency",
+        "Blocked",
+        "Blockedfunds",
+        "Daylightoverdraft",
+        "Eligibleassets",
+        "Firmcollateralization",
+        "Amountsthathavebeenusedtoserveasfirmcollateral",
+        "Securitiesforecast",
+        "Netfunding",
+        "Intermediate",
+        "Localcurrency",
+        "Limitrelated",
+        "Reservedliquidity",
+        "Securitiespending",
+        "Payinpayout",
+        "Progressiveaverage",
+        "Reserve",
+        "Selfcollateralization",
+        "Amountsthathavebeenusedtoserveasselfcollateral",
+        "Threshold"
+      ]
+    },
+    {
+      "name": "Balancetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OpeningBalance` - Book balance of the account at the beginning of the account servicer's business day. It always equals the closing book balance from the previous business day. Note: the available balance at the beginning of the account servicer's business day may be different from the closing book balance from the previous business day. (ISO20022)\r\n* `ClosingBalance` - Balance of the account at the end of the account servicer's business day. It is the sum of the opening balance at the beginning of the day and all entries booked to the account during the account servicer's business day. (ISO20022)\r\n* `CurrentBalance` - Balance of the account at a precise moment in time. (ISO20022)\r\n* `AvailableBalance` - Balance of money or securities that is at the disposal of the account owner on the date specified. (ISO20022)\r\n* `LedgerBalance` - Ledger balance refers to posted transactions (e.g. limit authorisation amount - posted transactions). (ISO20022)\r\n* `ReserveBalance` - \r\n* `FreeBalance` - \r\n* `PrincipalBalance` - \r\n* `ClosingAvailable` - Closing balance of amount of money that is at the disposal of the account owner on the date specified.\r\n* `ClosingBooked` - Balance of the account at the end of the pre-agreed account reporting period. It is the sum of the opening booked balance at the beginning of the period and all entries booked to the account during the pre-agreed account reporting period.\r\n* `ForwardAvailable` - Forward available balance of money that is at the disposal of the account owner on the date specified.\r\n* `Information` - Balance for informational purposes.\r\n* `InterimAvailable` - Available balance calculated in the course of the account servicer's business day, at the time specified, and subject to further changes during the business day. The interim balance is calculated on the basis of booked credit and debit items during the calculation time/period specified.\r\n* `InterimBooked` - Balance calculated in the course of the account servicer's business day, at the time specified, and subject to further changes during the business day. The interim balance is calculated on the basis of booked credit and debit items during the calculation time/period specified.\r\n* `OpeningAvailable` - Opening balance of amount of money that is at the disposal of the account owner on the date specified.\r\n* `OpeningBooked` - Book balance of the account at the beginning of the account reporting period. It always equals the closing book balance from the previous report.\r\n* `PreviouslyClosedBooked` - Balance of the account at the previously closed account reporting period. The opening booked balance for the new period has to be equal to this balance.\nUsage: the previously booked closing balance should equal (inclusive date) the booked closing balance of the date it references and equal the actual booked opening balance of the current date.\r\n* `Expected` - Balance, composed of booked entries and pending items known at the time of calculation, which projects the end of day balance if everything is booked on the account and no other entry is posted.\r\n",
+      "enum_values": [
+        "OpeningBalance",
+        "ClosingBalance",
+        "CurrentBalance",
+        "AvailableBalance",
+        "LedgerBalance",
+        "ReserveBalance",
+        "FreeBalance",
+        "PrincipalBalance",
+        "ClosingAvailable",
+        "ClosingBooked",
+        "ForwardAvailable",
+        "Information",
+        "InterimAvailable",
+        "InterimBooked",
+        "OpeningAvailable",
+        "OpeningBooked",
+        "PreviouslyClosedBooked",
+        "Expected"
+      ]
+    },
+    {
+      "name": "BankDraftsOutcome",
+      "kind": "object",
+      "description": "The Bank Guaranteed Payment Specification Task is a discrete action or task that is required in the execution of the Bank Guaranteed Payment Specification Task",
+      "properties": [
+        {
+          "name": "BankDraftsCalendar",
+          "type": "object",
+          "ref": "Calendar"
+        },
+        {
+          "name": "BankDraftsCounterparty",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "BankDraftsDividend",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BankDraftsFees",
+          "type": "object",
+          "ref": "FeeTransaction"
+        },
+        {
+          "name": "BankDraftsInterest",
+          "type": "object",
+          "ref": "InterestTransaction"
+        },
+        {
+          "name": "BankDraftsMargining",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BankDraftsNotionalPrincipal",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BankDraftsOptions",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BankDraftsRates",
+          "type": "object",
+          "ref": "Rate"
+        },
+        {
+          "name": "BankDraftsSettlement",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BankDraftsWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        }
+      ]
+    },
+    {
+      "name": "BankGuaranteedPaymentRemittance",
+      "kind": "object",
+      "description": "The Bank Guaranteed Payment Specification Task is a discrete action or task that is required in the execution of the Bank Guaranteed Payment Specification Task",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "Postconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "BearerDocumentTransactionReference",
+          "type": "object",
+          "ref": "Transaction"
+        },
+        {
+          "name": "BankGuaranteedPaymentRemittanceTaskReference",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "BankGuaranteedPaymentRemittanceTaskType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "BankGuaranteedPaymentSpecification",
+      "kind": "object",
+      "description": "The Bank Guaranteed Payment Specification Task is a discrete action or task that is required in the execution of the Bank Guaranteed Payment Specification Task",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "Postconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "BearerDocumentTransactionReference",
+          "type": "object",
+          "ref": "Transaction"
+        },
+        {
+          "name": "BankGuaranteedPaymentSpecificationTaskReference",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "BankGuaranteedPaymentSpecificationTaskType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "BearerDocumentCreationandRegistration",
+      "kind": "object",
+      "description": "The Bank Guaranteed Payment Specification Task is a discrete action or task that is required in the execution of the Bank Guaranteed Payment Specification Task",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "Postconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "BearerDocumentTransactionReference",
+          "type": "object",
+          "ref": "Transaction"
+        },
+        {
+          "name": "BearerDocumentCreationandRegistrationTaskReference",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "BearerDocumentCreationandRegistrationTaskType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "BearerDocumentTransaction",
+      "kind": "object",
+      "description": "Execute a well-bounded financial transaction/task, typically involving largely automated/structured fulfillment processing within Bank Drafts. ",
+      "properties": [
+        {
+          "name": "BearerDocumentTransactionParameterType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "BearerDocumentTransactionSelectedOption",
+          "type": "object",
+          "ref": "Service"
+        },
+        {
+          "name": "BearerDocumentTransactionStatus",
+          "type": "object",
+          "ref": "Transactionstatus"
+        },
+        {
+          "name": "BearerDocumentTransactionType",
+          "type": "object",
+          "ref": "Actiontype"
+        },
+        {
+          "name": "BearerDocumentTransactionReference",
+          "type": "object",
+          "ref": "Transaction"
+        },
+        {
+          "name": "BearerDocumentReference",
+          "type": "object",
+          "ref": "Document"
+        },
+        {
+          "name": "BearerDocumentInstructionReference",
+          "type": "object",
+          "ref": "PaymentInstruction"
+        },
+        {
+          "name": "BearerDocumentInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "BusinessService",
+      "kind": "object",
+      "description": "The Bank Guaranteed Payment Specification Task specific Business Service",
+      "properties": [
+        {
+          "name": "BusinessServiceType",
+          "type": "object",
+          "ref": "Businessservicetypevalues"
+        },
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Businessservicetypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Businessservicetypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Calendar",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "CalendarType",
+          "type": "object",
+          "ref": "Calendartypevalues"
+        },
+        {
+          "name": "CalendarName",
+          "type": "object",
+          "ref": "Name"
+        }
+      ]
+    },
+    {
+      "name": "Calendartypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `UKCalendar` - \r\n* `ChineseCalendar` - \r\n",
+      "enum_values": [
+        "UKCalendar",
+        "ChineseCalendar"
+      ]
+    },
+    {
+      "name": "Clearingchanneltypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Realtimegrosssettlementsystem` - Clearing channel is a real-time gross settlement system.\r\n* `Realtimenetsettlementsystem` - Clearing channel is a real-time net settlement system.\r\n* `Masspaymentnetsystem` - Clearing channel is a mass payment net settlement system.\r\n* `Booktransfer` - Payment through internal book transfer.\r\n",
+      "enum_values": [
+        "Realtimegrosssettlementsystem",
+        "Realtimenetsettlementsystem",
+        "Masspaymentnetsystem",
+        "Booktransfer"
+      ]
+    },
+    {
+      "name": "Condition",
+      "kind": "object",
+      "description": "The required status/situation prior to the execution of the task",
+      "properties": [
+        {
+          "name": "ConditionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ConditionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ConditionValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ConditionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ConditionStatus",
+          "type": "object",
+          "ref": "Conditionstatustypevalues"
+        },
+        {
+          "name": "ConditionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ConditionType",
+          "type": "object",
+          "ref": "Termandconditiontypevalues"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Conditionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Defined` - Condition is authored or configured\r\n* `Pending` - Awaiting approval or validation\r\n* `Activated` - Live and ready for evaluation\r\n* `Evaluated` - Assessed in context of process or event\r\n* `Fulfilled` - Condition criteria met\r\n* `Violated` - Condition criteria not met\r\n* `Expired` - No longer valid due to time/version limits\r\n* `Archived` - Retired from use, retained for audit/history\r\n",
+      "enum_values": [
+        "Defined",
+        "Pending",
+        "Activated",
+        "Evaluated",
+        "Fulfilled",
+        "Violated",
+        "Expired",
+        "Archived"
+      ]
+    },
+    {
+      "name": "Currencycode",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Currencycode",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Currencytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `BaseCurrency` - Base currency of the account. (ISO20022)\n\r\n* `ReportingCurrency` - Currency used to calculate and report the balance and related entries of an account. (ISO20022)\n\r\n* `SecondaryCurrency` - \r\n* `TransferCurrency` - Currency of the amount to be transferred which may be different from the currency of the debtor's account. (ISO20022)\r\n* `SettlementCurrency` - Specifies the currency used for settlement, if different from the account currency. \r\n",
+      "enum_values": [
+        "BaseCurrency",
+        "ReportingCurrency",
+        "SecondaryCurrency",
+        "TransferCurrency",
+        "SettlementCurrency"
+      ]
+    },
+    {
+      "name": "CustomerPayment",
+      "kind": "object",
+      "description": "The Bank Guaranteed Payment Specification Task is a discrete action or task that is required in the execution of the Bank Guaranteed Payment Specification Task",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "Postconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "BearerDocumentTransactionReference",
+          "type": "object",
+          "ref": "Transaction"
+        },
+        {
+          "name": "CustomerPaymentTaskReference",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "CustomerPaymentTaskType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The validity period of Condition",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Debitcreditindicatortvalues",
+      "kind": "enum",
+      "description": ">\r\n* `Debit` - Transaction is a debt entry\r\n* `Credit` - Transaction is a credit entry\r\n",
+      "enum_values": [
+        "Debit",
+        "Credit"
+      ]
+    },
+    {
+      "name": "Document",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "DocumentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "DocumentVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentType",
+          "type": "object",
+          "ref": "Financialdocumenttypevalues"
+        },
+        {
+          "name": "DocumentStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "DocumentDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "DocumentName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "DocumentDateTimeType",
+          "type": "object",
+          "ref": "Documentdatetimetypevalues"
+        },
+        {
+          "name": "DocumentPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentFormat",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentSubject",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DocumentValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        }
+      ]
+    },
+    {
+      "name": "Documentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n",
+      "enum_values": [
+        "CreationDate",
+        "CapturingDate",
+        "VersionDate",
+        "ValueDate",
+        "IssueDate"
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "FeeTransaction",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AppliedFeeType",
+          "type": "object",
+          "ref": "Feetypevalues"
+        },
+        {
+          "name": "AccruedFeeAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "AppliedFeeAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "ConvertedFeeAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "FinancialTransactionType",
+          "type": "object",
+          "ref": "Financialtransactiontypevalues"
+        },
+        {
+          "name": "FinancialTransactionCurrency",
+          "type": "object",
+          "ref": "Currencycode"
+        },
+        {
+          "name": "FinancialTransactionAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "FinancialTransactionFromAccount",
+          "type": "object",
+          "ref": "Account"
+        },
+        {
+          "name": "FinancialTransactionTargetAccount",
+          "type": "object",
+          "ref": "Account"
+        },
+        {
+          "name": "FinancialTransactionDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Feetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Accountingfee` - Fee paid for accounting services rendered.\r\n* `Adrfee` - Charge linked to an ADR (American Depositary Receipt).\r\n* `Advisoryfee` - Fee paid for advisory services rendered.\r\n* `Airwaybillfee` - Charge is an airway bill fee.\r\n* `Backendload` - Sales charge paid by the investor when redeeming an investment such as an investment fund.\r\n* `Brokeragefee` - Fee paid to a broker for services provided.\r\n* `Clearanceandhandlingatdestination` - Charge is for clearance and handling of goods at destination.\r\n* `Clearanceandhandlingatorigin` - Charge is for clearance and handling of goods at origin.\r\n* `Collectfreight` - Charge is for the collection of the freight.\r\n* `Commission` - Fee paid for services provided.\r\n* `Contingencydeferredsalescharge` - Deferred sales charge.\r\n* `Correspondentbankcharge` - In investment funds, the charge of the correspondent bank for transferring money.\r\n* `Custodyfee` - Fee paid to a custodian in respect of custodial services.\r\n* `Dangerousgoodsfee` - Charge is for dangerous goods.\r\n* `Dilutionlevy` - In investment funds, a charge payable by the investor covering bid-offer spreads and dealing charges for the underlying investments. The dilution levy is paid to the fund for the benefit of other unit holders.\r\n* `Discount` - Charge that has been reduced from the standard initial charge levied by a fund, eg, during a launch period or as negotiated by a funds supermarket / discount broker.\r\n* `Equalisation` - The part of an investor's subscription amount that is held by the fund in order to pay incentive or performance fees at the end of the fiscal year.\r\n* `Frontendload` - Sales charge paid immediately by the investor when subscribing to an investment such as an investment fund.\r\n* `Initial` - Charge paid at the time of the first subscription.\r\n* `Insurancepremium` - Charge is a premium for insurance.\r\n* `Issuancecancellationfee` - Fee linked to the cancellation of an issuance.\r\n* `Issuancefee` - Charge linked to the issuance of security.\r\n* `Managementfee` - Fee paid to an investment manager for services. The fee usually includes fund administration costs and investor relationship management. Typically, the amount paid is a percentage of the assets under management.\r\n* `Matchingfees` - Fee charged for matching and/or confirmation.\r\n* `Miscellaneousfee` - Miscellaneous fee.\r\n* `Other` - Another type of charge.\r\n* `Packaging` - Charge is for packaging of goods.\r\n* `Partacquis` - Portion of charge that the fund is entitled to receive, that cannot be reduced by an intermediary.\r\n* `Penalty` - Fee charged to the investor for early redemption of the fund.\r\n* `Pickup` - Charge is for pick-up of goods.\r\n* `Postagecharge` - Charge paid for the postage.\r\n* `Premium` - In investment funds, pre-arranged addition to the trade amount based on the published net asset value.\r\n* `Publicationfee` - Fee paid in respect of publications made.\r\n* `Regulatoryfee` - Fee charged by a regulatory authority, eg, Securities and Exchange fees.\r\n* `Securitycharge` - Charge is for security.\r\n* `Serviceprovisionfee` - Fee paid for the provision of financial services.\r\n* `Shippingcharge` - Charge for shipping, including the insurance of securities.\r\n* `Signatureservice` - Charge is for signature services.\r\n* `Specialconcessions` - Charges, drawdown, or other reduction from or in addition to the deal price.\r\n* `Speciallyagreedfrontendload` - Specially agreed front-end load.\r\n* `Storageatdestination` - Charge is for storage of goods at destination.\r\n* `Storageatorigin` - Charge is for storage of goods at origin.\r\n* `Switch` - In investment funds, charge related to a switch transaction.\r\n* `Transferfee` - In investment funds, a fee charged for the transfer of ownership of an investment fund.\r\n* `Transportcharges` - Charge is for transport.\r\n* `Ucitscommission` - Charges paid by the investor to the Fund Company for subscription and redemption orders.\r\n* `ChequeRelatedFee` - \r\n",
+      "enum_values": [
+        "Accountingfee",
+        "Adrfee",
+        "Advisoryfee",
+        "Airwaybillfee",
+        "Backendload",
+        "Brokeragefee",
+        "Clearanceandhandlingatdestination",
+        "Clearanceandhandlingatorigin",
+        "Collectfreight",
+        "Commission",
+        "Contingencydeferredsalescharge",
+        "Correspondentbankcharge",
+        "Custodyfee",
+        "Dangerousgoodsfee",
+        "Dilutionlevy",
+        "Discount",
+        "Equalisation",
+        "Frontendload",
+        "Initial",
+        "Insurancepremium",
+        "Issuancecancellationfee",
+        "Issuancefee",
+        "Managementfee",
+        "Matchingfees",
+        "Miscellaneousfee",
+        "Other",
+        "Packaging",
+        "Partacquis",
+        "Penalty",
+        "Pickup",
+        "Postagecharge",
+        "Premium",
+        "Publicationfee",
+        "Regulatoryfee",
+        "Securitycharge",
+        "Serviceprovisionfee",
+        "Shippingcharge",
+        "Signatureservice",
+        "Specialconcessions",
+        "Speciallyagreedfrontendload",
+        "Storageatdestination",
+        "Storageatorigin",
+        "Switch",
+        "Transferfee",
+        "Transportcharges",
+        "Ucitscommission",
+        "ChequeRelatedFee"
+      ]
+    },
+    {
+      "name": "Financialdocumenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n",
+      "enum_values": [
+        "Meteredserviceinvoice",
+        "Creditnoterelatedtofinancialadjustment",
+        "Debitnoterelatedtofinancialadjustment",
+        "Commercialinvoice",
+        "Creditnote",
+        "Debitnote",
+        "Hireinvoice",
+        "Selfbilledinvoice",
+        "Remittanceadvicemessage",
+        "Relatedpaymentinstruction",
+        "Commercialcontract",
+        "Foreignexchangedealreference",
+        "Statementofaccount",
+        "Dispatchadvice",
+        "Purchaseorder",
+        "Structuredcommunicationreference",
+        "Billoflading",
+        "Voucher",
+        "Accountreceivableopenitem",
+        "Tradeservicesutilitytransaction",
+        "Cashierreceipt",
+        "Customerreceipt",
+        "Journal",
+        "Salereceipt"
+      ]
+    },
+    {
+      "name": "Financialinstructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DepositInstruction` - \r\n* `WithdrawInstruction` - \r\n* `MoneyTransferInstruction` - \r\n* `StandingOrder/Instruction` - \r\n* `SettlementInstruction` - \r\n* `PaymentInstruction` - \r\n* `RepaymentInstruction` - \r\n",
+      "enum_values": [
+        "DepositInstruction",
+        "WithdrawInstruction",
+        "MoneyTransferInstruction",
+        "StandingOrder/Instruction",
+        "SettlementInstruction",
+        "PaymentInstruction",
+        "RepaymentInstruction"
+      ]
+    },
+    {
+      "name": "Financialtransactiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PricingTransaction` - \r\n* `FeeTransaction` - \r\n* `WithdrawalTransaction` - \r\n* `DepositTransaction` - \r\n* `PaymentTransaction` - \r\n* `ClearingTransaction` - \r\n* `SettlementTransaction` - \r\n* `Reconciliationtransaction` - \r\n* `Updatetransaction` - \r\n* `Securitiestransaction` - \r\n* `RepaymentTransaction` - \r\n",
+      "enum_values": [
+        "PricingTransaction",
+        "FeeTransaction",
+        "WithdrawalTransaction",
+        "DepositTransaction",
+        "PaymentTransaction",
+        "ClearingTransaction",
+        "SettlementTransaction",
+        "Reconciliationtransaction",
+        "Updatetransaction",
+        "Securitiestransaction",
+        "RepaymentTransaction"
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "The identifier of Condition",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "InstructionDateType",
+          "type": "object",
+          "ref": "Instructiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `DueDate` - \r\n* `ExecutionDate` - \r\n* `FulfillmentDate` - \r\n",
+      "enum_values": [
+        "DueDate",
+        "ExecutionDate",
+        "FulfillmentDate"
+      ]
+    },
+    {
+      "name": "Instructionidentification",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of an Instruction.\n",
+      "properties": [
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "InstructionIdentificationType",
+          "type": "object",
+          "ref": "Instructionidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Instructionidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `OrderNumber` - \r\n* `InstructionNumber` - \r\n",
+      "enum_values": [
+        "OrderNumber",
+        "InstructionNumber"
+      ]
+    },
+    {
+      "name": "Instructionstatus",
+      "kind": "object",
+      "description": "A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); ",
+      "properties": [
+        {
+          "name": "InstructionStatusType",
+          "type": "object",
+          "ref": "Instructionstatustypevalues"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Status"
+        }
+      ]
+    },
+    {
+      "name": "Instructionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Pendingprocessing` - Processing of the instruction is pending.\r\n* `Acknowledgedaccepted` - Instruction has been acknowledged and accepted and is validated for further processing.\r\n* `Rejected` - Instruction has been rejected.\r\n* `Accepted` - Instruction has been accepted and is validated for further processing.\r\n* `Completed` - Processing has been completed.\r\n* `Notreceived` - No instruction has been received (to be used in a reminder).\r\n* `Cancelled` - Instruction has been cancelled.\r\n* `Beingcancelled` - Cancel request is being processed.\r\n* `Receivedbyissuerorregistrar` - Instruction has been received by Issuer.\r\n* `Pending` - Instruction is pending.\r\n* `Standinginstruction` - Standing instruction is applied.\r\n* `Queued` - Instruction is queued.\r\n* `Cancelledbysubcustodian` - Instruction has been cancelled by the agent, for example, due to an event deadline extension.\r\n* `Forwarded` - Accepted and sent along the chain.\r\n",
+      "enum_values": [
+        "Pendingprocessing",
+        "Acknowledgedaccepted",
+        "Rejected",
+        "Accepted",
+        "Completed",
+        "Notreceived",
+        "Cancelled",
+        "Beingcancelled",
+        "Receivedbyissuerorregistrar",
+        "Pending",
+        "Standinginstruction",
+        "Queued",
+        "Cancelledbysubcustodian",
+        "Forwarded"
+      ]
+    },
+    {
+      "name": "Instructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PaymentInstruction` - \r\n* `DeliveryOrder` - \r\n* `InformationRequest` - \r\n* `ExchangeInstruction` - \r\n* `AllocationInstruction` - \r\n* `MaintenanceInstruction` - \r\n",
+      "enum_values": [
+        "PaymentInstruction",
+        "DeliveryOrder",
+        "InformationRequest",
+        "ExchangeInstruction",
+        "AllocationInstruction",
+        "MaintenanceInstruction"
+      ]
+    },
+    {
+      "name": "InterestTransaction",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InterestTransactionAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "InterestTransactionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InterestTransactionType",
+          "type": "object",
+          "ref": "Interesttransactiontypevalues"
+        },
+        {
+          "name": "AppliedInterestRate",
+          "type": "object",
+          "ref": "Rate"
+        },
+        {
+          "name": "AppliedInteretType",
+          "type": "object",
+          "ref": "Interesttypevalues"
+        },
+        {
+          "name": "InterestCreditDebitIndicator",
+          "type": "object",
+          "ref": "Debitcreditindicatortvalues"
+        },
+        {
+          "name": "TransactionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Transactiondatetime"
+        },
+        {
+          "name": "TransactionType",
+          "type": "object",
+          "ref": "Transactiontypevalues"
+        },
+        {
+          "name": "TransactionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Transactionstatus"
+        },
+        {
+          "name": "TransactionName",
+          "type": "object",
+          "ref": "Name"
+        }
+      ]
+    },
+    {
+      "name": "Interesttransactiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `InterestAllocationTransaction` - \r\n* `InterestPaymentTransaction` - \r\n* `InterestAdjustmentTransaction` - \r\n",
+      "enum_values": [
+        "InterestAllocationTransaction",
+        "InterestPaymentTransaction",
+        "InterestAdjustmentTransaction"
+      ]
+    },
+    {
+      "name": "Interesttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Fixed` - Indicates that the type of interest is fixed.\r\n* `Floatingratenote` - Indicates that the type of interest is a floating rate note.\r\n* `Dualbasis` - Indicates that the type of interest is a dual basis.\r\n* `Index` - Indicates that the type of interest is index.\r\n* `Discounted` - Indicates that the type of interest is discounted.\r\n* `Zerocoupon` - Indicates that the type of interest is a zero coupon.\r\n* `Exinterest` - Indicates deal price excluding accrued interest.\r\n* `Cuminterest` - Indicates deal price including accrued interest.\r\n",
+      "enum_values": [
+        "Fixed",
+        "Floatingratenote",
+        "Dualbasis",
+        "Index",
+        "Discounted",
+        "Zerocoupon",
+        "Exinterest",
+        "Cuminterest"
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of Condition",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PaymentInstruction",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PaymentInstructionDirectionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentInstructionType",
+          "type": "object",
+          "ref": "Paymenttypevalues"
+        },
+        {
+          "name": "PaymentInstructionRequestedMechanism",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentInstructionProcessingValidityTime",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "PaymentInstructionPriority",
+          "type": "object",
+          "ref": "Priorityvaluetypes"
+        },
+        {
+          "name": "PaymentInstructionClearingChannel",
+          "type": "object",
+          "ref": "Clearingchanneltypevalues"
+        },
+        {
+          "name": "PaymentInstructionCreditDebitIndicator",
+          "type": "object",
+          "ref": "Debitcreditindicatortvalues"
+        },
+        {
+          "name": "PaymentInstructionStatus",
+          "type": "object",
+          "ref": "Paymentinstructionstatus"
+        },
+        {
+          "name": "PaymentInstructionAmountAndCurrency",
+          "type": "object",
+          "ref": "Paymentamountandcurrency"
+        },
+        {
+          "name": "PaymentInstructionDateAndTime",
+          "type": "object",
+          "ref": "Paymentdatetime"
+        },
+        {
+          "name": "PaymentInstructionIdentification",
+          "type": "object",
+          "ref": "Paymentidentification"
+        },
+        {
+          "name": "PaymentInstructionMethod",
+          "type": "object",
+          "ref": "Paymentmethodtypevalues"
+        },
+        {
+          "name": "PaymentInstructionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDate",
+          "type": "object",
+          "ref": "Instructiondatetime"
+        },
+        {
+          "name": "InstructionStatus",
+          "type": "object",
+          "ref": "Instructionstatus"
+        },
+        {
+          "name": "InstructionIdentification",
+          "type": "object",
+          "ref": "Instructionidentification"
+        },
+        {
+          "name": "InstructionType",
+          "type": "object",
+          "ref": "Instructiontypevalues"
+        },
+        {
+          "name": "InstructionResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "InstructionPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "UndertakingInstructionType",
+          "type": "object",
+          "ref": "Undertakinginstructiontypevalues"
+        },
+        {
+          "name": "MoneyTransferInstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MoneyTransferInstructionAmount",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MoneyTransferInstructionAmountCurrency",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MoneyTransferInstructionPurpose",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MoneyTransferInstructionRequestedMechanism",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "MoneyTransferInstructionStatus",
+          "type": "object",
+          "ref": "Instructionstatus"
+        },
+        {
+          "name": "MoneyTransferInstructionChannelReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructionAmount",
+          "type": "object",
+          "ref": "Amount"
+        },
+        {
+          "name": "InstructionCurrency",
+          "type": "object",
+          "ref": "Accountcurrency"
+        },
+        {
+          "name": "FinancialInstructionType",
+          "type": "object",
+          "ref": "Financialinstructiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Paymentamountandcurrency",
+      "kind": "object",
+      "description": "Amount of the payment (requested to be paid)",
+      "properties": [
+        {
+          "name": "PaymentAmountAndCurrencyType",
+          "type": "object",
+          "ref": "Paymentamountandcurrencytypevalues"
+        },
+        {
+          "name": "PaymentAmountAndCurrency",
+          "type": "object",
+          "ref": "Amount"
+        }
+      ]
+    },
+    {
+      "name": "Paymentamountandcurrencytypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `InstructedAmountAndCurrency` - The amount the debtor asks their bank to transfer (e.g., “Send 100 EUR”).\r\n* `EquivalentAmountAndCurrency` - If the debtor’s account is in a different currency, this is the converted equivalent (e.g., 100 USD = 91 EUR).\r\n* `DebtorAccountAmountAndCurrency` - The actual amount debited from the debtor’s account (after currency conversion, possibly including charges).\r\n* `InterbankSettlementAmountAndCurrency` - The amount exchanged/settled between the banks (may be in a different settlement currency, e.g., USD).\r\n* `CreditorAccountAmountAndCurrency` - The amount credited to the creditor’s account in their account currency (e.g., GBP).\r\n* `Net/ReceivedAmountAndCurrency` - The final amount the creditor actually receives after any deductions (e.g., fees).\r\n",
+      "enum_values": [
+        "InstructedAmountAndCurrency",
+        "EquivalentAmountAndCurrency",
+        "DebtorAccountAmountAndCurrency",
+        "InterbankSettlementAmountAndCurrency",
+        "CreditorAccountAmountAndCurrency",
+        "Net/ReceivedAmountAndCurrency"
+      ]
+    },
+    {
+      "name": "Paymentdatetime",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PaymentDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "PaymentDateType",
+          "type": "object",
+          "ref": "Paymentdatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Paymentdatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `RequestedExecutionDate` - Date at which the initiating party requests the clearing agent to process the payment. ISO20022\nUsage: This is the date on which the debtor's account is to be debited. If payment by cheque, the date when the cheque must be generated by the bank. \r\n* `AcceptanceDate` - Date and time at which all processing conditions for execution of the payment are met and adequate financial cover is available at the account servicing agent. ISO20022\r\n* `CreationDate` - Date and time at which the payment execution was created by the instructing agent. ISO20022\r\n* `ValueDate` - Date on which a payment must be executed (ISO20022)\r\n* `DueDate` - Due date for the payment. (ISO20022)\n    \nLatest date whereby the amount of money must be paid. (ISO20022)\r\n* `ExpiryDate` - \r\n* `ExpectedDate` - Expected date whereby the amount must be paid.\r\n* `PoolingAdjustmentDate` - Date used for the correction of the value date of a cash pool movement that has been posted with a different value date. (ISO20022)\r\n",
+      "enum_values": [
+        "RequestedExecutionDate",
+        "AcceptanceDate",
+        "CreationDate",
+        "ValueDate",
+        "DueDate",
+        "ExpiryDate",
+        "ExpectedDate",
+        "PoolingAdjustmentDate"
+      ]
+    },
+    {
+      "name": "Paymentidentification",
+      "kind": "object",
+      "description": "An identifier that allows to uniquely refer to an instance of a Payment Instruction.\n",
+      "properties": [
+        {
+          "name": "PaymentIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "PaymentIdentificationType",
+          "type": "object",
+          "ref": "Paymentidentificationtypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Paymentidentificationtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Executionidentification` - Unique and unambiguous identifier for a payment execution, as assigned by the clearing agent or the initiating party. (ISO20022)\r\n* `Endtoendidentification` - Unique and unambiguous identifier for a payment as assigned by the originator. The payment transaction reference is used for reconciliation or to link tasks relating to the payment. (ISO20022)\r\n* `Instructionidentification` - Unique identification assigned by an instructing party for an instructed party to unambiguously identify the instruction. (ISO20022)\r\n* `Transactionidentification` - Unique identification assigned by the first instructing agent to unambiguously identify the transaction and passed on, unchanged, throughout the entire interbank chain. (ISO20022)\r\n* `Clearingsystemreference` - Unique and unambiguous identifier for a payment instruction, as assigned by the clearing system.(ISO20022)\r\n* `Creditorreference` - Unique and unambiguous reference assigned by the creditor to refer to the payment obligation. (ISO20022)\r\n* `UETR` - Universally unique identifier to provide an end-to-end reference of a payment transaction. (ISO20022)\r\n* `Counterpartyreference` - Unambiguous identification of the trade allocated by the counterparty.(ISO20022)\r\n* `Identification` - Reference assigned to the trade by the investor or the trading party. This reference will be used throughout the trade life cycle to access/update the trade details. (ISO20022)\r\n* `Commonidentification` - Unique reference agreed upon by the two trade counterparties to identify the trade. (ISO20022)\r\n* `Matchingreference` - Reference assigned by a matching system when the trade is matched.(ISO20022)\r\n* `Uniquetradeidentifier` - This field specifies the unique transaction identifier (UTI) to be created at the time a transaction is first executed, shared with all registered entities and counterparties involved in the transaction, and used to track that particular transaction over its life. This identifier can also be known as the Unique Swap Identifier (USI). (ISO20022)\r\n* `Clearingbrokeridentification` - Reference number assigned by the clearing broker. (ISO20022)\r\n* `PaymentOrderID` - Internal unique identifier for the payment instruction, used within the bank’s systems to track the order from initiation through to execution.\r\n* `ClientReference` - A reference provided by the customer (payer) to identify the payment (e.g., invoice number, transaction reference). Useful for reconciliation by the customer.\r\n* `End-To-EndID` - Identifier that stays the same across the entire payment chain (from ordering customer to beneficiary) to allow straight-through reconciliation. Common in ISO 20022 standards.\r\n* `ExternalReference` - Transaction identifier assigned by external schemes/networks (e.g., SWIFT MT/MX reference, SEPA End-to-End ID, clearing house reference).\r\n* `InstructionID` - Unique identifier for a specific instruction within a batch of payment orders.\r\n* `TransactionID(ExecutionID)` - Identifier created by the Payment Execution domain once the actual funds movement is initiated. Links execution to the originating order.\r\n",
+      "enum_values": [
+        "Executionidentification",
+        "Endtoendidentification",
+        "Instructionidentification",
+        "Transactionidentification",
+        "Clearingsystemreference",
+        "Creditorreference",
+        "UETR",
+        "Counterpartyreference",
+        "Identification",
+        "Commonidentification",
+        "Matchingreference",
+        "Uniquetradeidentifier",
+        "Clearingbrokeridentification",
+        "PaymentOrderID",
+        "ClientReference",
+        "End-To-EndID",
+        "ExternalReference",
+        "InstructionID",
+        "TransactionID(ExecutionID)"
+      ]
+    },
+    {
+      "name": "Paymentinstructionstatus",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "PaymentInstructionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "PaymentInstructionStatusType",
+          "type": "object",
+          "ref": "Instructionstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Paymentmethodtypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Cheque` - Written order to a bank to pay a certain amount of money from one person to another person.\r\n* `Credittransfer` - Transfer of an amount of money in the books of the account servicer.\r\n* `Directdebit` - Collection of an amount of money from the debtor's bank account by the creditor. The amount of money and dates of collections may vary.\r\n* `Transferadvice` - Transfer of an amount of money in the books of the account servicer. An advice should be sent back to the account owner.\r\n* `Direct` - Direct method.\r\n* `Classical` - Classical method.\r\n",
+      "enum_values": [
+        "Cheque",
+        "Credittransfer",
+        "Directdebit",
+        "Transferadvice",
+        "Direct",
+        "Classical"
+      ]
+    },
+    {
+      "name": "Paymenttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Cashtransaction` - Transaction is a withdrawal/deposit of cash.\r\n* `Domesticpayment` - Payment has an origin and a destination in the same country, and is made in the currency of that country.\r\n* `Domestichighvaluepayment` - Transaction is a high value payment that has an origin and a destination in the same country and is made in the currency of that country.\r\n* `Domesticprioritypayment` - Transaction is a priority payment that has an origin and a destination in the same country and is made in the currency of that country.\r\n* `Crossborderpayment` - Payment has an origin in one country, a destination in another, and is made in the currency of either the origin or destination country.\r\n* `Crossborderprioritypayment` - Transaction is a priority payment that has an origin in one country and a destination in another and is made in the currency of either the origin or destination country.\r\n* `Crossborderhighvaluepayment` - Transaction is a high value payment that has an origin in one country and a destination in another country and is made in the currency of either the origin or destination country.\r\n* `Thirdcurrencypayment` - Transaction is a payment that is made in a third currency to the origin and destination countries. The origin and destination countries may be one and the same country.\r\n* `Thirdcurrencyhighvaluepayment` - Transaction is a high value payment that is made in a third currency to the origin and destination countries. The origin and destination countries may be one and the same country.\r\n* `Thirdcurrencyprioritypayment` - Payment is made in a third currency to the origin and destination countries. The origin and destination countries may be the same country.\r\n* `Tradesettlementpayment` - Transaction is the settlement of a trade, eg, a securities transaction.\r\n* `Foreignexchange` - Transaction isthe settlement of a foreign exchange deal.\r\n* `Equivalentamount` - Transaction is an equivalent amount relative to a currency conversion.\r\n* `Loan` - Transaction is the payment of a specific amount of money lent by a creditor/lender.\r\n* `Loanrepayment` - Transaction is an amount of money transferred in repayment of loan.\r\n* `Securities` - Transaction is a payment of securities.\r\n* `Lockbox` - Transaction is a payment(s) resulting from a lock box service.\r\n* `Dividend` - Transaction is a payment of dividends.\r\n* `Crossedcheque` - Transaction is a crossed cheque. A crossed check has two parallel lines across its face, indicating that the cheque must be paid into an account and not cashed over the counter.\r\n* `Opencheque` - Transaction is an uncrossed cheque that can be cashed at the bank of origin.\r\n* `Ordercheque` - Transaction is a cheque made payable to a named recipient 'or order' enabling the creditor to either deposit it in an account or endorse it to a third party, ie, transfer the rights to the cheque by signing it on the reverse.\r\n* `Circularcheque` - Transaction is an instruction from a bank to its correspondent bank to pay the creditor a stated sum of money on presentation of a means of identification.\r\n* `Travellerscheques` - Transaction is a payment resulting from travellers cheques.\r\n* `Bankdraft` - Transaction is a cheque drawn by a bank on itself or its agent. A person who owes money to another buys the draft from a bank for cash and hands it to the creditor who need have no fear that it might be dishonoured.\r\n* `Documentarycredit` - Transaction is a documentary credit from one banker to another, authorising the payment of a specified sum of money to the person named in the document, based on specified conditions.\r\n* `Billofexchange` - Transaction is a written order from a drawer to a drawee to pay a specified sum of money upon demand, or on a specified date, to the drawer or to a third party specified by the drawer. A bill of exchange is also called a draft.\r\n* `Collection` - Transaction is a collection. A collection is the act of sending a cheque, bill of exchange or another financial instrument to the prospective financial institution for payment.\r\n* `Cashmanagementtransfer` - Transaction is a general cash management instruction.\r\n* `Topaccount` - Transaction is a cash management instruction, requesting to top the account of the debtor above a certain floor amount. The floor amount, if not pre-agreed by the parties involved, may be specified.\r\n* `Zerobalanceaccount` - Transaction is a cash management instruction, requesting to zero balance the account of the debtor.\r\n* `Standingfacilities` - Payment is linked to overnight deposits and the marginal lending facility.\r\n* `Standardservicelevelcredit` - Transaction is a credit transfer to be processed according to the Standard Service Level.\r\n* `Liquiditytransfer` - Payment is made to transfer liquidity to/from the settlement account of a member, to/from the current account held at the central institution or any other institution.\r\n* `Advancepayment` - Transaction is a payment made in advance or as an advance.\r\n* `Valuedateadjustment` - Transaction reverses a previously incorrectly value dated entry.\r\n* `Dvpgross` - Gross cash payment offsetting the amount owed/due for a securities transaction settlement.\r\n* `Dvpnet` - Net payment offsetting the cash balance due/owed for a series of securities transactions settlement.\r\n* `Netting` - Transaction is a netting operation.\r\n* `Limitpayment` - Transaction is a payment that is processed when the pool of liquidity exceeds the minimum value reserved for an express payment in the RTGSPlus system.\r\n* `Backup` - Payment is made under the recovery procedure to move liquidity to/from the settlement account of a member according to the specifications of the system.\r\n* `Expresspayment` - Transaction is a payment that is processed whenever liquidity is available on the settlement account of a member of the RTGSPlus system.\r\n* `Centralbankoperation` - Payment is made to settle an operation made with the central bank.\r\n* `Clspayment` - Payment is linked to CLS activities.\r\n* `Eurodomesticpayment` - Transaction is a credit transfer in Euro with its country of origin and country of destination within the European Union. The origin and destination countries may be one and the same country.\r\n* `Agriculturaltransfer` - Transaction is related to the agricultural domain.\r\n* `Alimonypayment` - Transaction is a payment(s) made by one spouse to the other after a separation or divorce. An alimony payment may be applied to other family relationships.\r\n* `Balanceretail` - Transaction is a payment offsetting the net cash balance owed/due in a retail payment system.\r\n* `Bonuspayment.` - Net cash payment offsetting the balance due/owed in a retail payment system.\r\n* `Brokeragefee` - Transaction is charges levied by a broker.\r\n* `Capitalbuilding` - Transaction is payment into a personal pension scheme for retirement.\r\n* `Charitypayment` - Transaction is a payment for charity reasons.\r\n* `Childbenefit` - Transaction is a payment made to a parent/guardian to help maintain a child.\r\n* `Commercialcredit` - Transaction is settlement of a commercial credit.\r\n* `Commission` - Transaction is payment of a fee for executing a transaction.\r\n* `Commoditytransfer` - Transaction is a payment of products traded on a commodity exchange.\r\n* `Costs` - Transaction is apayment of costs.\r\n* `Copyright` - Transaction is a payment of copyright.\r\n* `Governmentpayment` - Transaction is apayment to or from a government department.\r\n* `Instalmenthirepurchaseagreement` - Transaction is a payment of an instalment or to the settlement of a hire-purchase agreement.\r\n* `Insurancepremium` - Transaction is a payment of an insurance premium.\r\n* `Intracompanypayment` - Transaction is an intra-company payment, ie, a payment between two companies belonging to the same group.\r\n* `Interest` - Transaction is a payment of interest.\r\n* `Licensefee` - Transaction is a payment of a license fee.\r\n* `Metals` - Transaction is a purchase or sale of metals.\r\n* `Pensionpayment` - Transaction is a payment of a pension allowance.\r\n* `Purchasesaleofgoods` - Transaction is a payment for the purchase and sale of goods.\r\n* `Refund` - Transaction is a repayment of funds.\r\n* `Rent` - Transaction is a payment of rent.\r\n* `Royalties` - Transaction is a payment of royalties.\r\n* `Purchasesaleofservices` - Transaction is a payment for the purchase and sale of services.\r\n* `Salarypayment` - Transaction is a payment of salaries.\r\n* `Socialsecuritybenefit` - Transaction is a social security benefit, a payment made by a government to support individuals.\r\n* `Standingorder` - Transaction is a standing order. A standing order is an instruction given by a party having explicit authority on the account to debit, ie, either debit account owner or originating party, to a first agent to process cash transfers at specified intervals during an implicit or explicit period of time. It is given once, and is valid for an open or closed period of time.\r\n* `Subscription` - Transaction is a payment of a subscription.\r\n* `Treasurystatepayment` - Payment is linked to the Treasury State.\r\n* `Unemploymentdisabilitybenefit` - Transaction is a payment made to an unemployed/disabled person.\r\n* `Valueaddedtaxpayment` - Transaction is apayment of value added tax.\r\n* `Taxpayment` - Transaction is a payment of taxes.\r\n* `Overnightdeposit` - Transaction is linked to an overnight deposit.\r\n* `Marginallending` - Transaction is linked to the marginal lending facility.\r\n* `Other` - Specifies that a proprietary code must be indicated.\r\n* `Upfront` - Transaction is an initial payment made by one of the counterparties  either to bring a transaction to fair value or for any other reason that may be the cause of an off-market transaction.\r\n* `Unwind` - Transaction is the final settlement payment made when a transaction is unwound prior to its end date or a payment that may result due to the full termination of derivative transaction(s).\r\n* `Principalexchange` - Transaction is an exchange of notional values for cross-currency swaps.\r\n",
+      "enum_values": [
+        "Cashtransaction",
+        "Domesticpayment",
+        "Domestichighvaluepayment",
+        "Domesticprioritypayment",
+        "Crossborderpayment",
+        "Crossborderprioritypayment",
+        "Crossborderhighvaluepayment",
+        "Thirdcurrencypayment",
+        "Thirdcurrencyhighvaluepayment",
+        "Thirdcurrencyprioritypayment",
+        "Tradesettlementpayment",
+        "Foreignexchange",
+        "Equivalentamount",
+        "Loan",
+        "Loanrepayment",
+        "Securities",
+        "Lockbox",
+        "Dividend",
+        "Crossedcheque",
+        "Opencheque",
+        "Ordercheque",
+        "Circularcheque",
+        "Travellerscheques",
+        "Bankdraft",
+        "Documentarycredit",
+        "Billofexchange",
+        "Collection",
+        "Cashmanagementtransfer",
+        "Topaccount",
+        "Zerobalanceaccount",
+        "Standingfacilities",
+        "Standardservicelevelcredit",
+        "Liquiditytransfer",
+        "Advancepayment",
+        "Valuedateadjustment",
+        "Dvpgross",
+        "Dvpnet",
+        "Netting",
+        "Limitpayment",
+        "Backup",
+        "Expresspayment",
+        "Centralbankoperation",
+        "Clspayment",
+        "Eurodomesticpayment",
+        "Agriculturaltransfer",
+        "Alimonypayment",
+        "Balanceretail",
+        "Bonuspayment.",
+        "Brokeragefee",
+        "Capitalbuilding",
+        "Charitypayment",
+        "Childbenefit",
+        "Commercialcredit",
+        "Commission",
+        "Commoditytransfer",
+        "Costs",
+        "Copyright",
+        "Governmentpayment",
+        "Instalmenthirepurchaseagreement",
+        "Insurancepremium",
+        "Intracompanypayment",
+        "Interest",
+        "Licensefee",
+        "Metals",
+        "Pensionpayment",
+        "Purchasesaleofgoods",
+        "Refund",
+        "Rent",
+        "Royalties",
+        "Purchasesaleofservices",
+        "Salarypayment",
+        "Socialsecuritybenefit",
+        "Standingorder",
+        "Subscription",
+        "Treasurystatepayment",
+        "Unemploymentdisabilitybenefit",
+        "Valueaddedtaxpayment",
+        "Taxpayment",
+        "Overnightdeposit",
+        "Marginallending",
+        "Other",
+        "Upfront",
+        "Unwind",
+        "Principalexchange"
+      ]
+    },
+    {
+      "name": "Priorityvaluetypes",
+      "kind": "enum",
+      "description": ">\r\n* `Urgent` - Priority level is urgent (highest priority possible).\r\n* `High` - Priority level is high.\r\n* `Normal` - Priority level is normal.\r\n* `Low` - Priority level is low.\r\n",
+      "enum_values": [
+        "Urgent",
+        "High",
+        "Normal",
+        "Low"
+      ]
+    },
+    {
+      "name": "Rate",
+      "kind": "object",
+      "description": "The actual interest rate used for the payment of the interest for the specified interest period. (ISO20022)",
+      "properties": [
+        {
+          "name": "RateValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RateUnit",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "RatePeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "RateCapitalUnit",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The timing and key actions/milestones involved in completing the transaction task",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Service",
+      "kind": "object",
+      "description": "A selected optional business service as subject matter of Bearer Document Transaction",
+      "properties": [
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "Reference to Bank Guaranteed Payment Specification Task",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Termandconditiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommissionTermAndCondition` - Commission terms for workforce/employee commission processing\r\n* `LegalTermAndCondition` - Covers the legal considerations of the agreement\r\n* `RegulatoryTermAndCondition` - Covers the regulatory considerations of the agreement\r\n* `PolicyTermAndCondition` - Covers the corporate policies and requirements considerations of the agreement\r\n* `RestrictionTermAndCondition` - Details channel access restrictions for products and services\r\n* `PreferenceTermAndCondition` - Customer channel/device usage preferences\r\n* `InvestmentTermAndCondition` - Terms making up the agreement that govern the management of the investment portfolio. Note that there may be many different types of terms and clauses making up the overall policy\r\n* `MandateTermAndCondition` - Reference to the terms in force for a specific customer for this service provider\r\n* `OperationalTermAndCondition` - \r\n* `ProductTermAndCondition` - \r\n* `AgreementTermAndCondition` - \r\n* `RelationshipTermAndCondition` - \r\n* `ConfidentialTermAndCondition` - \r\n",
+      "enum_values": [
+        "CommissionTermAndCondition",
+        "LegalTermAndCondition",
+        "RegulatoryTermAndCondition",
+        "PolicyTermAndCondition",
+        "RestrictionTermAndCondition",
+        "PreferenceTermAndCondition",
+        "InvestmentTermAndCondition",
+        "MandateTermAndCondition",
+        "OperationalTermAndCondition",
+        "ProductTermAndCondition",
+        "AgreementTermAndCondition",
+        "RelationshipTermAndCondition",
+        "ConfidentialTermAndCondition"
+      ]
+    },
+    {
+      "name": "Transaction",
+      "kind": "object",
+      "description": "Reference to Bank Guaranteed Payment Specification Task",
+      "properties": [
+        {
+          "name": "TransactionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Transactiondatetime"
+        },
+        {
+          "name": "TransactionType",
+          "type": "object",
+          "ref": "Transactiontypevalues"
+        },
+        {
+          "name": "TransactionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Transactionstatus"
+        },
+        {
+          "name": "TransactionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetime",
+      "kind": "object",
+      "description": "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). ",
+      "properties": [
+        {
+          "name": "TransactionDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "TransactionDateType",
+          "type": "object",
+          "ref": "Transactiondatetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactiondatetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ExecutedDate` - \r\n* `FulfillmentDate` - \r\n* `InitiatedDate` - \r\n* `CancelledDate` - \r\n* `ApprovedDate` - \r\n* `ValueDate` - \r\n* `BookingDate` - \r\n",
+      "enum_values": [
+        "ExecutedDate",
+        "FulfillmentDate",
+        "InitiatedDate",
+        "CancelledDate",
+        "ApprovedDate",
+        "ValueDate",
+        "BookingDate"
+      ]
+    },
+    {
+      "name": "Transactionstatus",
+      "kind": "object",
+      "description": "A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) ",
+      "properties": [
+        {
+          "name": "TransactionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "TransactionStatusType",
+          "type": "object",
+          "ref": "Transactionstatustypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Transactionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiated` - \r\n* `Executed` - \r\n* `Cancelled` - \r\n* `Confirmed` - \r\n* `Suspended` - \r\n* `Pending` - \r\n* `Completed` - \r\n* `Notified` - \r\n* `Booked` - \r\n* `Rejected` - \r\n",
+      "enum_values": [
+        "Initiated",
+        "Executed",
+        "Cancelled",
+        "Confirmed",
+        "Suspended",
+        "Pending",
+        "Completed",
+        "Notified",
+        "Booked",
+        "Rejected"
+      ]
+    },
+    {
+      "name": "Transactiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FinancialTransaction` - \r\n* `BusinessTransaction` - \r\n* `BankingTransaction` - \r\n* `AccountingTransaction` - \r\n* `BookingTransaction` - \r\n* `AllocationTransaction` - \r\n* `DeliveryTransaction` - \r\n* `ProductionTransaction` - \r\n",
+      "enum_values": [
+        "FinancialTransaction",
+        "BusinessTransaction",
+        "BankingTransaction",
+        "AccountingTransaction",
+        "BookingTransaction",
+        "AllocationTransaction",
+        "DeliveryTransaction",
+        "ProductionTransaction"
+      ]
+    },
+    {
+      "name": "Undertakinginstructiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PaymentInstruction` - \r\n* `IssuingInstruction` - \r\n* `BookingInstruction` - \r\n* `CollateralAllocationInstruction` - \r\n* `AmendmentInstruction` - \r\n* `TerminationInstruction` - \r\n",
+      "enum_values": [
+        "PaymentInstruction",
+        "IssuingInstruction",
+        "BookingInstruction",
+        "CollateralAllocationInstruction",
+        "AmendmentInstruction",
+        "TerminationInstruction"
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "BearerDocumentTransaction",
+        "operations": [
+          "Exchange",
+          "Control",
+          "Execute",
+          "Retrieve",
+          "Initiate",
+          "Notify",
+          "Update",
+          "Request"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "BankGuaranteedPaymentRemittance",
+        "parent_control_record": "BearerDocumentTransaction",
+        "operations": [
+          "ExchangeBankGuaranteedPaymentRemittance",
+          "ExecuteBankGuaranteedPaymentRemittance",
+          "InitiateBankGuaranteedPaymentRemittance",
+          "RequestBankGuaranteedPaymentRemittance",
+          "NotifyBankGuaranteedPaymentRemittance",
+          "UpdateBankGuaranteedPaymentRemittance",
+          "RetrieveBankGuaranteedPaymentRemittance"
+        ]
+      },
+      {
+        "name": "BankGuaranteedPaymentSpecification",
+        "parent_control_record": "BearerDocumentTransaction",
+        "operations": [
+          "InitiateBankGuaranteedPaymentSpecification",
+          "ExchangeBankGuaranteedPaymentSpecification",
+          "ExecuteBankGuaranteedPaymentSpecification",
+          "NotifyBankGuaranteedPaymentSpecification",
+          "RequestBankGuaranteedPaymentSpecification",
+          "RetrieveBankGuaranteedPaymentSpecification",
+          "UpdateBankGuaranteedPaymentSpecification"
+        ]
+      },
+      {
+        "name": "BearerDocumentCreationandRegistration",
+        "parent_control_record": "BearerDocumentTransaction",
+        "operations": [
+          "ExecuteBearerDocumentCreationandRegistration",
+          "ExchangeBearerDocumentCreationandRegistration",
+          "InitiateBearerDocumentCreationandRegistration",
+          "NotifyBearerDocumentCreationandRegistration",
+          "RequestBearerDocumentCreationandRegistration",
+          "RetrieveBearerDocumentCreationandRegistration",
+          "UpdateBearerDocumentCreationandRegistration"
+        ]
+      },
+      {
+        "name": "CustomerPayment",
+        "parent_control_record": "BearerDocumentTransaction",
+        "operations": [
+          "ExchangeCustomerPayment",
+          "ExecuteCustomerPayment",
+          "NotifyCustomerPayment",
+          "InitiateCustomerPayment",
+          "RequestCustomerPayment",
+          "RetrieveCustomerPayment",
+          "UpdateCustomerPayment"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/BankDrafts.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "be9ff02920b25718eba4ffe7e21f6c7aa44b1f8138796778482284657ccaea9f",
+    "retrieved_at": "2026-09-12T22:33:35.014886+00:00"
+  }
+}

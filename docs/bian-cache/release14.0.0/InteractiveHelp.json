@@ -1,0 +1,283 @@
+{
+  "service_domain": "Interactive Help",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "InitiateHelpServiceSelection",
+      "method": "POST",
+      "path": "/InteractiveHelp/{interactivehelpid}/HelpServiceSelection/Initiate",
+      "tipo": "BQ",
+      "grupo": "HelpServiceSelection",
+      "request_schema": "HelpServiceSelection",
+      "response_schema": "HelpServiceSelection",
+      "summary": "InBQ Initiate an interactive help service exchange",
+      "description": "InBQ Initiate an interactive help service exchange",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "RetrieveHelpServiceSelection",
+      "method": "GET",
+      "path": "/InteractiveHelp/{interactivehelpid}/HelpServiceSelection/{helpserviceselectionid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "HelpServiceSelection",
+      "request_schema": "",
+      "response_schema": "HelpServiceSelection",
+      "summary": "ReBQ Retrieve details about an interactive help service exchange",
+      "description": "ReBQ Retrieve details about an interactive help service exchange",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "CaptureHelpServiceSelection",
+      "method": "PUT",
+      "path": "/InteractiveHelp/{interactivehelpid}/HelpServiceSelection/{helpserviceselectionid}/Capture",
+      "tipo": "BQ",
+      "grupo": "HelpServiceSelection",
+      "request_schema": "HelpServiceSelection",
+      "response_schema": "HelpServiceSelection",
+      "summary": "CaBQ Capture user feedback relating to the service exchange",
+      "description": "CaBQ Capture user feedback relating to the service exchange",
+      "parent_control_record": ""
+    },
+    {
+      "operation_id": "ExecuteHelpServiceSelection",
+      "method": "PUT",
+      "path": "/InteractiveHelp/{interactivehelpid}/HelpServiceSelection/{helpserviceselectionid}/Execute",
+      "tipo": "BQ",
+      "grupo": "HelpServiceSelection",
+      "request_schema": "HelpServiceSelection",
+      "response_schema": "HelpServiceSelection",
+      "summary": "ExBQ Execute an automated action within the exchange",
+      "description": "ExBQ Execute an automated action within the exchange",
+      "parent_control_record": ""
+    }
+  ],
+  "schemas": [
+    "Datetime",
+    "Datetimetypevalues",
+    "HTTPError",
+    "HelpServiceSelection",
+    "Involvedparty",
+    "Productfeaturetypevalues",
+    "Producttypevalues",
+    "Task",
+    "interactiveHelpServiceOperatingSession"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date, time (and duration) of the service usage",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "HelpServiceSelection",
+      "kind": "object",
+      "description": "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines",
+      "properties": [
+        {
+          "name": "HelpSelectionInteractionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "HelpSelectionProductandServiceType",
+          "type": "object",
+          "ref": "Producttypevalues"
+        },
+        {
+          "name": "HelpSelectionProductFeatureType",
+          "type": "object",
+          "ref": "Productfeaturetypevalues"
+        },
+        {
+          "name": "SessionDialogueRecord",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "HelpSelectionKeyWordMenu",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "HelpSelectionKeyWordSelection",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InteractiveHelp",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "HelpSelectionTaskResult",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "HelpSelectionFeedback",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EmployeeorBusinessUnitReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "DateandTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to the employee, business unit providing service feedback",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Productfeaturetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Bankingservice` - A classification that distinguishes between instances of product features according to the core banking services, functionality and/or objectives of banking.\n\ne.g. deposit services, exchange services, etc.\n\nThe primary reason for the contract with the client are the banking services. These services can be classified as follows:\n1. Selling services\n2. Financial Instruments Exchange\n3. Financial Stock Management\n4. Financial Transfers\n5. Financial Risk Transfer\n6. Business Operating\n7. Advisory\n8. Reporting\n\n\r\n* `Administrationservice` - A classification that distinguishes between instances of product features according to administrative tasks related to the Banking Product or Service.\r\n* `Accessservice` - A classification that distinguishes between product features according to way of the banking services can be accessed.\n\nThe access to services becomes more and more important in the evolving markets. \nWe need to separate different parts:\n1. The physical access to the infrastructure that allows access to the bank (where)\n2. The authorization of different parties to use the services of the bank (who)\n3. The agreed procedure to have access to different services (how)\n4. The services that are available for the different parties (what)\n\r\n* `Pricefeature` - A classification that distinguishes between instances of product features according to the cost/profit that is related to Banking Products or Services.\n\nIn all commercial offerings, there is an agreed cost for both parties (e.g. the interest arrangements are in both directions). The pricing structure of products or packages is a service that gives the possibility to the client to adapt his costs to his individual situation.\nWe see different generic categories in the pricing structure of the different products.\n1. Compensations\n2. Prices\n3. Fees\n4. Discounts\r\n",
+      "enum_values": [
+        "Bankingservice",
+        "Administrationservice",
+        "Accessservice",
+        "Pricefeature"
+      ]
+    },
+    {
+      "name": "Producttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `BankingProduct` - \r\n* `InsuranceProduct` - \r\n",
+      "enum_values": [
+        "BankingProduct",
+        "InsuranceProduct"
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "The user provided result of the interactive help service, including interaction statistics such as exchange frequency and duration",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "interactiveHelpServiceOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within Interactive Help. ",
+      "properties": []
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": [
+      {
+        "name": "HelpServiceSelection",
+        "parent_control_record": "",
+        "operations": [
+          "InitiateHelpServiceSelection",
+          "RetrieveHelpServiceSelection",
+          "CaptureHelpServiceSelection",
+          "ExecuteHelpServiceSelection"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/InteractiveHelp.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "3e6bad9802cefc864471573d2dd97972cb9b59de05fccc0dc3638b454feb0f7c",
+    "retrieved_at": "2026-09-12T22:37:35.468812+00:00"
+  }
+}

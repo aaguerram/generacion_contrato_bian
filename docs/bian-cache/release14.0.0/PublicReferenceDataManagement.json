@@ -1,0 +1,731 @@
+{
+  "service_domain": "Public Reference Data Management",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Capture",
+      "method": "PUT",
+      "path": "/PublicReferenceDataManagement/{publicreferencedatamanagementid}/Capture",
+      "tipo": "CR",
+      "grupo": "GlobalStandardSpecification",
+      "request_schema": "GlobalStandardSpecification",
+      "response_schema": "GlobalStandardSpecification",
+      "summary": "CaCR Capture Global Standard Specification activity or event related information",
+      "description": "CaCR Capture Global Standard Specification activity or event related information"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/PublicReferenceDataManagement/{publicreferencedatamanagementid}/Control",
+      "tipo": "CR",
+      "grupo": "GlobalStandardSpecification",
+      "request_schema": "GlobalStandardSpecification",
+      "response_schema": "GlobalStandardSpecification",
+      "summary": "CoCR Control the processing of Global Standard Specification",
+      "description": "CoCR Control the processing of Global Standard Specification"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/PublicReferenceDataManagement/Initiate",
+      "tipo": "CR",
+      "grupo": "GlobalStandardSpecification",
+      "request_schema": "GlobalStandardSpecification",
+      "response_schema": "GlobalStandardSpecification",
+      "summary": "InCR Instantiate a new Global Standard Specification",
+      "description": "InCR Instantiate a new Global Standard Specification"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/PublicReferenceDataManagement/{publicreferencedatamanagementid}/Exchange",
+      "tipo": "CR",
+      "grupo": "GlobalStandardSpecification",
+      "request_schema": "GlobalStandardSpecification",
+      "response_schema": "GlobalStandardSpecification",
+      "summary": "EcCR Accept, verify, etc. aspects of Global Standard Specification processing",
+      "description": "EcCR Accept, verify, etc. aspects of Global Standard Specification processing"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/PublicReferenceDataManagement/{publicreferencedatamanagementid}/Request",
+      "tipo": "CR",
+      "grupo": "GlobalStandardSpecification",
+      "request_schema": "GlobalStandardSpecification",
+      "response_schema": "GlobalStandardSpecification",
+      "summary": "RqCR Request manual intervention or a decision with respect to Global Standard Specification",
+      "description": "RqCR Request manual intervention or a decision with respect to Global Standard Specification"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/PublicReferenceDataManagement/{publicreferencedatamanagementid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "GlobalStandardSpecification",
+      "request_schema": "",
+      "response_schema": "GlobalStandardSpecification",
+      "summary": "ReCR Retrieve details about any aspect of Global Standard Specification",
+      "description": "ReCR Retrieve details about any aspect of Global Standard Specification"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/PublicReferenceDataManagement/{publicreferencedatamanagementid}/Update",
+      "tipo": "CR",
+      "grupo": "GlobalStandardSpecification",
+      "request_schema": "GlobalStandardSpecification",
+      "response_schema": "GlobalStandardSpecification",
+      "summary": "UpCR Update details relating to Global Standard Specification",
+      "description": "UpCR Update details relating to Global Standard Specification"
+    },
+    {
+      "operation_id": "InitiateGlobalReferenceData",
+      "method": "POST",
+      "path": "/PublicReferenceDataManagement/{publicreferencedatamanagementid}/GlobalReferenceData/Initiate",
+      "tipo": "BQ",
+      "grupo": "GlobalReferenceData",
+      "request_schema": "GlobalReferenceData",
+      "response_schema": "GlobalReferenceData",
+      "summary": "InBQ Instantiate a new Global Reference Data",
+      "description": "InBQ Instantiate a new Global Reference Data",
+      "parent_control_record": "GlobalStandardSpecification"
+    },
+    {
+      "operation_id": "RetrieveGlobalReferenceData",
+      "method": "GET",
+      "path": "/PublicReferenceDataManagement/{publicreferencedatamanagementid}/GlobalReferenceData/{globalreferencedataid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "GlobalReferenceData",
+      "request_schema": "",
+      "response_schema": "GlobalReferenceData",
+      "summary": "ReBQ Retrieve details about any aspect of Global Reference Data",
+      "description": "ReBQ Retrieve details about any aspect of Global Reference Data",
+      "parent_control_record": "GlobalStandardSpecification"
+    }
+  ],
+  "schemas": [
+    "Analysis",
+    "Analysistypevalues",
+    "BusinessService",
+    "Businessservicetypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Feature",
+    "Featuretypevalues",
+    "GlobalReferenceData",
+    "GlobalStandardSpecification",
+    "HTTPError",
+    "Identifier",
+    "Involvedparty",
+    "Log",
+    "Name",
+    "PublicReferenceDataManagementOutcome",
+    "Schedule",
+    "Servicetypevalues",
+    "Status",
+    "Task",
+    "Workproduct",
+    "Workproducttypevalues"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Analysis",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "AnalysisType",
+          "type": "object",
+          "ref": "Analysistypevalues"
+        },
+        {
+          "name": "AnalysisResult",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "AnalysisDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "AnalysisSpecification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AnalysisSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        }
+      ]
+    },
+    {
+      "name": "Analysistypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n* `RevenueAnalysis` - \r\n* `CostAnalysis` - \r\n* `PredictiveAnalysis` - \r\n* `BehavioralAnalysis` - \r\n* `ProfitabilityAnalysis` - \r\n* `CompetitiveAnalysis` - \r\n* `CohortAnalysis` - \r\n* `SegmentAnalysis` - \r\n* `SWOTAnalysis` - \r\n* `Benchmarking` - \r\n* `PositioningAnalysis` - \r\n* `ScenarioAnalysis` - \r\n* `IntelligenceGathering` - \r\n* `Profiling` - \r\n",
+      "enum_values": [
+        "PerformanceAnalysis",
+        "ActivityAnalysis",
+        "RevenueAnalysis",
+        "CostAnalysis",
+        "PredictiveAnalysis",
+        "BehavioralAnalysis",
+        "ProfitabilityAnalysis",
+        "CompetitiveAnalysis",
+        "CohortAnalysis",
+        "SegmentAnalysis",
+        "SWOTAnalysis",
+        "Benchmarking",
+        "PositioningAnalysis",
+        "ScenarioAnalysis",
+        "IntelligenceGathering",
+        "Profiling"
+      ]
+    },
+    {
+      "name": "BusinessService",
+      "kind": "object",
+      "description": "The Global Reference Data specific  Business Service",
+      "properties": [
+        {
+          "name": "BusinessServiceType",
+          "type": "object",
+          "ref": "Businessservicetypevalues"
+        },
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Businessservicetypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Businessservicetypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The period covered by the analysis (from to date time)",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "GlobalReferenceData",
+      "kind": "object",
+      "description": "The main design elements/views making up the overall specification\n\nExamples: Business Requirements",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SpecificationSchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "VersionNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        }
+      ]
+    },
+    {
+      "name": "GlobalStandardSpecification",
+      "kind": "object",
+      "description": "Create and maintain a design for a procedure, product/service model or other such entity  within Public Reference Data Management. \nExample: Create and maintain product designs and analytical models.",
+      "properties": [
+        {
+          "name": "GlobalStandardSpecificationParameterType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "GlobalStandardSpecificationSelectedOption",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "GlobalStandardSpecificationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "GlobalStandardSpecificationVersion",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "GlobalStandardSpecificationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "GlobalStandardSpecificationUsageLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "GlobalStandardSpecificationFeedback",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "GlobalStandardSpecificationServiceProviderReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Reference to the log of (usage) ativities/events of Global Standard Specification",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of service. ",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "PublicReferenceDataManagementOutcome",
+      "kind": "object",
+      "description": "The main design elements/views making up the overall specification\n\nExamples: Business Requirements",
+      "properties": [
+        {
+          "name": "PublicReferenceDataManagementTask",
+          "type": "object",
+          "ref": "Task"
+        },
+        {
+          "name": "PublicReferenceDataManagementDesign",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PublicReferenceDataManagementWorkProduct",
+          "type": "object",
+          "ref": "Workproduct"
+        },
+        {
+          "name": "PublicReferenceDataManagementImpactAnalysis",
+          "type": "object",
+          "ref": "Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the analysis performed using the algorithm",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "A characteristic of service which refers to the lifecycle of service (e.g., initiated, active, de-active, etc.) ",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "Task",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Task",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Workproduct",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "WorkProductType",
+          "type": "object",
+          "ref": "Workproducttypevalues"
+        },
+        {
+          "name": "WorkProductIdentifoication",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Workproducttypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Document` - \r\n* `WorkingPaper` - \r\n* `ActivityLog` - \r\n* `Form` - \r\n* `File` - File of consolidated notes, evaluations and recommendations for the work task\r\n* `MeetingSchedule` - \r\n* `MeetingMinute` - \r\n",
+      "enum_values": [
+        "Document",
+        "WorkingPaper",
+        "ActivityLog",
+        "Form",
+        "File",
+        "MeetingSchedule",
+        "MeetingMinute"
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "GlobalStandardSpecification",
+        "operations": [
+          "Capture",
+          "Control",
+          "Initiate",
+          "Exchange",
+          "Request",
+          "Retrieve",
+          "Update"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "GlobalReferenceData",
+        "parent_control_record": "GlobalStandardSpecification",
+        "operations": [
+          "InitiateGlobalReferenceData",
+          "RetrieveGlobalReferenceData"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PublicReferenceDataManagement.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "ca08e744978261b60aec851bbc1045bf94f3e7851312cec660522ace9b0a5188",
+    "retrieved_at": "2026-09-12T22:03:07.779343+00:00"
+  }
+}

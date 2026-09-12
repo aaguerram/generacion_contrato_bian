@@ -1,0 +1,358 @@
+{
+  "service_domain": "Funeral Policy",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [],
+  "schemas": [
+    "Administration",
+    "Billing",
+    "ClaimInitiation",
+    "FuneralPolicyFacility",
+    "HTTPError",
+    "Payment"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Administration",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FuneralPolicyFacilityIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrationIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrationService",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrationServiceArrangement",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrationInstruction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrationTransaction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrationInvolvementReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "AdministrationArrangementAccount",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Billing",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "InvoiceNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "SellerReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BuyerReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvoiceEffectiveDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvoiceCreationDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvoiceAmount",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvoiceCurrency",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvoiceAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvoicePeriodCovered",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvoiceLineItem",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FuneralPolicyFacilityIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BillingIdentification",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "ClaimInitiation",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FuneralPolicyFacilityIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimInitiationIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimInitiationService",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimInitiationServiceArrangement",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimInitiationInstruction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimInitiationTransaction",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimInitiationInvolvementReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ClaimInitiationArrangementAccount",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "FuneralPolicyFacility",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FuneralPolicyFacilityIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "FuneralPolicyNumber",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PolicyHolderReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InsuredPersonsReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "BeneficiaryorNomineeReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PolicyCoverageType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PolicyTerm",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PolicyEffectiveDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PolicyStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "GoverningLaworJurisdiction",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "FuneralPolicyFacilityIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "CustomerReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PayeeReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PayeeName",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PayeeAccountIdentification",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentAmountandCurrency",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentExecutionDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentFrequency",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentEndDate",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentStatus",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PayeeBankReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentMethod",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "PaymentSchedule",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InstructedPaymentReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ExecutedTransactionReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [],
+    "behavior_qualifiers": []
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/FuneralPolicy.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "db27822ffd6bb6a19c4dd91f9886f9bee7665f7539d596018a5d431b4ec12782",
+    "retrieved_at": "2026-09-12T22:33:52.200876+00:00"
+  }
+}

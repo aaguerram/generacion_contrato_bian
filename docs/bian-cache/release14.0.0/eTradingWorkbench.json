@@ -1,0 +1,1582 @@
+{
+  "service_domain": "eTrading Workbench",
+  "release": "14.0.0",
+  "cache_version": 2,
+  "operations": [
+    {
+      "operation_id": "Execute",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/Execute",
+      "tipo": "CR",
+      "grupo": "eTradingWorkbenchOperatingSession",
+      "request_schema": "eTradingWorkbenchOperatingSession",
+      "response_schema": "eTradingWorkbenchOperatingSession",
+      "summary": "Execute eTrading Workbench Operating Session",
+      "description": "Execute eTrading Workbench Operating Session"
+    },
+    {
+      "operation_id": "Exchange",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/Exchange",
+      "tipo": "CR",
+      "grupo": "eTradingWorkbenchOperatingSession",
+      "request_schema": "eTradingWorkbenchOperatingSession",
+      "response_schema": "eTradingWorkbenchOperatingSession",
+      "summary": "Exchange eTrading Workbench Operating Session",
+      "description": "Exchange eTrading Workbench Operating Session"
+    },
+    {
+      "operation_id": "Control",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/Control",
+      "tipo": "CR",
+      "grupo": "eTradingWorkbenchOperatingSession",
+      "request_schema": "eTradingWorkbenchOperatingSession",
+      "response_schema": "eTradingWorkbenchOperatingSession",
+      "summary": "Control eTrading Workbench Operating Session",
+      "description": "Control eTrading Workbench Operating Session"
+    },
+    {
+      "operation_id": "Initiate",
+      "method": "POST",
+      "path": "/eTradingWorkbench/Initiate",
+      "tipo": "CR",
+      "grupo": "eTradingWorkbenchOperatingSession",
+      "request_schema": "eTradingWorkbenchOperatingSession",
+      "response_schema": "eTradingWorkbenchOperatingSession",
+      "summary": "Initiate eTrading Workbench Operating Session",
+      "description": "Initiate eTrading Workbench Operating Session"
+    },
+    {
+      "operation_id": "Notify",
+      "method": "GET",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/Notify",
+      "tipo": "CR",
+      "grupo": "eTradingWorkbenchOperatingSession",
+      "request_schema": "",
+      "response_schema": "eTradingWorkbenchOperatingSession",
+      "summary": "Notify eTrading Workbench Operating Session",
+      "description": "Notify eTrading Workbench Operating Session"
+    },
+    {
+      "operation_id": "Request",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/Request",
+      "tipo": "CR",
+      "grupo": "eTradingWorkbenchOperatingSession",
+      "request_schema": "eTradingWorkbenchOperatingSession",
+      "response_schema": "eTradingWorkbenchOperatingSession",
+      "summary": "Request eTrading Workbench Operating Session",
+      "description": "Request eTrading Workbench Operating Session"
+    },
+    {
+      "operation_id": "Retrieve",
+      "method": "GET",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/Retrieve",
+      "tipo": "CR",
+      "grupo": "eTradingWorkbenchOperatingSession",
+      "request_schema": "",
+      "response_schema": "eTradingWorkbenchOperatingSession",
+      "summary": "Retrieve eTrading Workbench Operating Session",
+      "description": "Retrieve eTrading Workbench Operating Session"
+    },
+    {
+      "operation_id": "ExchangeMarketOrderInitiation",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderInitiation/{marketorderinitiationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "MarketOrderInitiation",
+      "request_schema": "MarketOrderInitiation",
+      "response_schema": "MarketOrderInitiation",
+      "summary": "Exchange Market Order Initiation Function",
+      "description": "Exchange Market Order Initiation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "Update",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/Update",
+      "tipo": "CR",
+      "grupo": "eTradingWorkbenchOperatingSession",
+      "request_schema": "eTradingWorkbenchOperatingSession",
+      "response_schema": "eTradingWorkbenchOperatingSession",
+      "summary": "Update eTrading Workbench Operating Session",
+      "description": "Update eTrading Workbench Operating Session"
+    },
+    {
+      "operation_id": "ExchangeMarketOrderQuotation",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderQuotation/{marketorderquotationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "MarketOrderQuotation",
+      "request_schema": "MarketOrderQuotation",
+      "response_schema": "MarketOrderQuotation",
+      "summary": "Exchange Market Order Quotation Function",
+      "description": "Exchange Market Order Quotation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "ExchangeMarketPriceAnalysis",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketPriceAnalysis/{marketpriceanalysisid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "MarketPriceAnalysis",
+      "request_schema": "MarketPriceAnalysis",
+      "response_schema": "MarketPriceAnalysis",
+      "summary": "Exchange Market Price Analysis Function",
+      "description": "Exchange Market Price Analysis Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "ExchangeInvestmentPortfolioValuation",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/InvestmentPortfolioValuation/{investmentportfoliovaluationid}/Exchange",
+      "tipo": "BQ",
+      "grupo": "InvestmentPortfolioValuation",
+      "request_schema": "InvestmentPortfolioValuation",
+      "response_schema": "InvestmentPortfolioValuation",
+      "summary": "Exchange Investment Portfolio Valuation Function",
+      "description": "Exchange Investment Portfolio Valuation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteInvestmentPortfolioValuation",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/InvestmentPortfolioValuation/{investmentportfoliovaluationid}/Execute",
+      "tipo": "BQ",
+      "grupo": "InvestmentPortfolioValuation",
+      "request_schema": "InvestmentPortfolioValuation",
+      "response_schema": "InvestmentPortfolioValuation",
+      "summary": "Execute Investment Portfolio Valuation Function",
+      "description": "Execute Investment Portfolio Valuation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteMarketOrderInitiation",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderInitiation/{marketorderinitiationid}/Execute",
+      "tipo": "BQ",
+      "grupo": "MarketOrderInitiation",
+      "request_schema": "MarketOrderInitiation",
+      "response_schema": "MarketOrderInitiation",
+      "summary": "Execute Market Order Initiation Function",
+      "description": "Execute Market Order Initiation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteMarketOrderQuotation",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderQuotation/{marketorderquotationid}/Execute",
+      "tipo": "BQ",
+      "grupo": "MarketOrderQuotation",
+      "request_schema": "MarketOrderQuotation",
+      "response_schema": "MarketOrderQuotation",
+      "summary": "Execute Market Order Quotation Function",
+      "description": "Execute Market Order Quotation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "ExecuteMarketPriceAnalysis",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketPriceAnalysis/{marketpriceanalysisid}/Execute",
+      "tipo": "BQ",
+      "grupo": "MarketPriceAnalysis",
+      "request_schema": "MarketPriceAnalysis",
+      "response_schema": "MarketPriceAnalysis",
+      "summary": "Execute Market Price Analysis Function",
+      "description": "Execute Market Price Analysis Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "InitiateInvestmentPortfolioValuation",
+      "method": "POST",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/InvestmentPortfolioValuation/Initiate",
+      "tipo": "BQ",
+      "grupo": "InvestmentPortfolioValuation",
+      "request_schema": "InvestmentPortfolioValuation",
+      "response_schema": "InvestmentPortfolioValuation",
+      "summary": "Initiate Investment Portfolio Valuation Function",
+      "description": "Initiate Investment Portfolio Valuation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "InitiateMarketOrderQuotation",
+      "method": "POST",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderQuotation/Initiate",
+      "tipo": "BQ",
+      "grupo": "MarketOrderQuotation",
+      "request_schema": "MarketOrderQuotation",
+      "response_schema": "MarketOrderQuotation",
+      "summary": "Initiate Market Order Quotation Function",
+      "description": "Initiate Market Order Quotation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "InitiateMarketOrderInitiation",
+      "method": "POST",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderInitiation/Initiate",
+      "tipo": "BQ",
+      "grupo": "MarketOrderInitiation",
+      "request_schema": "MarketOrderInitiation",
+      "response_schema": "MarketOrderInitiation",
+      "summary": "Initiate Market Order Initiation Function",
+      "description": "Initiate Market Order Initiation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "InitiateMarketPriceAnalysis",
+      "method": "POST",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketPriceAnalysis/Initiate",
+      "tipo": "BQ",
+      "grupo": "MarketPriceAnalysis",
+      "request_schema": "MarketPriceAnalysis",
+      "response_schema": "MarketPriceAnalysis",
+      "summary": "Initiate Market Price Analysis Function",
+      "description": "Initiate Market Price Analysis Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "NotifyInvestmentPortfolioValuation",
+      "method": "GET",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/InvestmentPortfolioValuation/{investmentportfoliovaluationid}/Notify",
+      "tipo": "BQ",
+      "grupo": "InvestmentPortfolioValuation",
+      "request_schema": "",
+      "response_schema": "InvestmentPortfolioValuation",
+      "summary": "Notify Investment Portfolio Valuation Function",
+      "description": "Notify Investment Portfolio Valuation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "NotifyMarketOrderInitiation",
+      "method": "GET",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderInitiation/{marketorderinitiationid}/Notify",
+      "tipo": "BQ",
+      "grupo": "MarketOrderInitiation",
+      "request_schema": "",
+      "response_schema": "MarketOrderInitiation",
+      "summary": "Notify Market Order Initiation Function",
+      "description": "Notify Market Order Initiation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "NotifyMarketOrderQuotation",
+      "method": "GET",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderQuotation/{marketorderquotationid}/Notify",
+      "tipo": "BQ",
+      "grupo": "MarketOrderQuotation",
+      "request_schema": "",
+      "response_schema": "MarketOrderQuotation",
+      "summary": "Notify Market Order Quotation Function",
+      "description": "Notify Market Order Quotation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "NotifyMarketPriceAnalysis",
+      "method": "GET",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketPriceAnalysis/{marketpriceanalysisid}/Notify",
+      "tipo": "BQ",
+      "grupo": "MarketPriceAnalysis",
+      "request_schema": "",
+      "response_schema": "MarketPriceAnalysis",
+      "summary": "Notify Market Price Analysis Function",
+      "description": "Notify Market Price Analysis Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RequestInvestmentPortfolioValuation",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/InvestmentPortfolioValuation/{investmentportfoliovaluationid}/Request",
+      "tipo": "BQ",
+      "grupo": "InvestmentPortfolioValuation",
+      "request_schema": "InvestmentPortfolioValuation",
+      "response_schema": "InvestmentPortfolioValuation",
+      "summary": "Request Investment Portfolio Valuation Function",
+      "description": "Request Investment Portfolio Valuation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RequestMarketPriceAnalysis",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketPriceAnalysis/{marketpriceanalysisid}/Request",
+      "tipo": "BQ",
+      "grupo": "MarketPriceAnalysis",
+      "request_schema": "MarketPriceAnalysis",
+      "response_schema": "MarketPriceAnalysis",
+      "summary": "Request Market Price Analysis Function",
+      "description": "Request Market Price Analysis Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RequestMarketOrderInitiation",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderInitiation/{marketorderinitiationid}/Request",
+      "tipo": "BQ",
+      "grupo": "MarketOrderInitiation",
+      "request_schema": "MarketOrderInitiation",
+      "response_schema": "MarketOrderInitiation",
+      "summary": "Request Market Order Initiation Function",
+      "description": "Request Market Order Initiation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RequestMarketOrderQuotation",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderQuotation/{marketorderquotationid}/Request",
+      "tipo": "BQ",
+      "grupo": "MarketOrderQuotation",
+      "request_schema": "MarketOrderQuotation",
+      "response_schema": "MarketOrderQuotation",
+      "summary": "Request Market Order Quotation Function",
+      "description": "Request Market Order Quotation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveInvestmentPortfolioValuation",
+      "method": "GET",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/InvestmentPortfolioValuation/{investmentportfoliovaluationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "InvestmentPortfolioValuation",
+      "request_schema": "",
+      "response_schema": "InvestmentPortfolioValuation",
+      "summary": "Retrieve Investment Portfolio Valuation Function",
+      "description": "Retrieve Investment Portfolio Valuation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveMarketOrderInitiation",
+      "method": "GET",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderInitiation/{marketorderinitiationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "MarketOrderInitiation",
+      "request_schema": "",
+      "response_schema": "MarketOrderInitiation",
+      "summary": "Retrieve Market Order Initiation Function",
+      "description": "Retrieve Market Order Initiation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveMarketOrderQuotation",
+      "method": "GET",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderQuotation/{marketorderquotationid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "MarketOrderQuotation",
+      "request_schema": "",
+      "response_schema": "MarketOrderQuotation",
+      "summary": "Retrieve Market Order Quotation Function",
+      "description": "Retrieve Market Order Quotation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "RetrieveMarketPriceAnalysis",
+      "method": "GET",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketPriceAnalysis/{marketpriceanalysisid}/Retrieve",
+      "tipo": "BQ",
+      "grupo": "MarketPriceAnalysis",
+      "request_schema": "",
+      "response_schema": "MarketPriceAnalysis",
+      "summary": "Retrieve Market Price Analysis Function",
+      "description": "Retrieve Market Price Analysis Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "UpdateInvestmentPortfolioValuation",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/InvestmentPortfolioValuation/{investmentportfoliovaluationid}/Update",
+      "tipo": "BQ",
+      "grupo": "InvestmentPortfolioValuation",
+      "request_schema": "InvestmentPortfolioValuation",
+      "response_schema": "InvestmentPortfolioValuation",
+      "summary": "Update Investment Portfolio Valuation Function",
+      "description": "Update Investment Portfolio Valuation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "UpdateMarketOrderInitiation",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderInitiation/{marketorderinitiationid}/Update",
+      "tipo": "BQ",
+      "grupo": "MarketOrderInitiation",
+      "request_schema": "MarketOrderInitiation",
+      "response_schema": "MarketOrderInitiation",
+      "summary": "Update Market Order Initiation Function",
+      "description": "Update Market Order Initiation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "UpdateMarketOrderQuotation",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketOrderQuotation/{marketorderquotationid}/Update",
+      "tipo": "BQ",
+      "grupo": "MarketOrderQuotation",
+      "request_schema": "MarketOrderQuotation",
+      "response_schema": "MarketOrderQuotation",
+      "summary": "Update Market Order Quotation Function",
+      "description": "Update Market Order Quotation Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    },
+    {
+      "operation_id": "UpdateMarketPriceAnalysis",
+      "method": "PUT",
+      "path": "/eTradingWorkbench/{etradingworkbenchid}/MarketPriceAnalysis/{marketpriceanalysisid}/Update",
+      "tipo": "BQ",
+      "grupo": "MarketPriceAnalysis",
+      "request_schema": "MarketPriceAnalysis",
+      "response_schema": "MarketPriceAnalysis",
+      "summary": "Update Market Price Analysis Function",
+      "description": "Update Market Price Analysis Function",
+      "parent_control_record": "eTradingWorkbenchOperatingSession"
+    }
+  ],
+  "schemas": [
+    "Action",
+    "Actiontypevalues",
+    "BusinessService",
+    "Businessservicetypevalues",
+    "Condition",
+    "Conditionstatustypevalues",
+    "Datetime",
+    "Datetimeperiod",
+    "Datetimetypevalues",
+    "Duration",
+    "Event",
+    "Feature",
+    "Featuretypevalues",
+    "Function",
+    "Geographicalareatypevalues",
+    "HTTPError",
+    "Identifier",
+    "InvestmentPortfolioValuation",
+    "Involvedparty",
+    "Location",
+    "Log",
+    "MarketOrderInitiation",
+    "MarketOrderQuotation",
+    "MarketPriceAnalysis",
+    "Name",
+    "Schedule",
+    "Servicetype",
+    "Servicetypevalues",
+    "Session",
+    "Sessiontype",
+    "Sessiontypevalues",
+    "Status",
+    "SystemConfigurationOption",
+    "Termandconditiontypevalues",
+    "eTradingWorkbenchOperatingSession",
+    "eTradingWorkbenchOutcome"
+  ],
+  "schemas_detalle": [
+    {
+      "name": "Action",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "ActionType",
+          "type": "object",
+          "ref": "Actiontypevalues"
+        },
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Actiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Initiate` - \r\n* `Execute` - \r\n* `Create` - \r\n* `Transfer` - \r\n* `Pay` - \r\n* `Deliver` - \r\n* `Apply` - \r\n* `Calculate` - \r\n",
+      "enum_values": [
+        "Initiate",
+        "Execute",
+        "Create",
+        "Transfer",
+        "Pay",
+        "Deliver",
+        "Apply",
+        "Calculate"
+      ]
+    },
+    {
+      "name": "BusinessService",
+      "kind": "object",
+      "description": "The Market Order Quotation Function specific Business Service",
+      "properties": [
+        {
+          "name": "BusinessServiceType",
+          "type": "object",
+          "ref": "Businessservicetypevalues"
+        },
+        {
+          "name": "ServiceName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        },
+        {
+          "name": "ServiceIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ServiceLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "ServiceFeature",
+          "type": "object",
+          "ref": "Feature"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Businessservicetypevalues",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "Businessservicetypevalues",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Condition",
+      "kind": "object",
+      "description": "The required status/situation and or tasks that need to be completed prior to the invocation of the feature",
+      "properties": [
+        {
+          "name": "ConditionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "ConditionName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ConditionValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "ConditionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ConditionStatus",
+          "type": "object",
+          "ref": "Conditionstatustypevalues"
+        },
+        {
+          "name": "ConditionDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "ConditionType",
+          "type": "object",
+          "ref": "Termandconditiontypevalues"
+        },
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Conditionstatustypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Defined` - Condition is authored or configured\r\n* `Pending` - Awaiting approval or validation\r\n* `Activated` - Live and ready for evaluation\r\n* `Evaluated` - Assessed in context of process or event\r\n* `Fulfilled` - Condition criteria met\r\n* `Violated` - Condition criteria not met\r\n* `Expired` - No longer valid due to time/version limits\r\n* `Archived` - Retired from use, retained for audit/history\r\n",
+      "enum_values": [
+        "Defined",
+        "Pending",
+        "Activated",
+        "Evaluated",
+        "Fulfilled",
+        "Violated",
+        "Expired",
+        "Archived"
+      ]
+    },
+    {
+      "name": "Datetime",
+      "kind": "object",
+      "description": "The date when the identifier became valid.",
+      "properties": [
+        {
+          "name": "DateTimeContent",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "TimeZoneCode",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DaylightSavingIndicator",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "DateTimeType",
+          "type": "object",
+          "ref": "Datetimetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Datetimeperiod",
+      "kind": "object",
+      "description": "The validity period of Condition",
+      "properties": [
+        {
+          "name": "FromDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "ToDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "Datetimetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `MaturityDate` - \r\n* `InitiatedDate` - \r\n* `RequestedDate` - \r\n* `ExecutedDate` - \r\n* `OpenDate` - \r\n* `CloseDate` - \r\n* `ExpiryDate` - \r\n* `EffectiveDate` - \r\n* `CreatingDate` - \r\n* `ActivationDate` - \r\n* `DeactivationDate` - \r\n* `BlockingDate` - \r\n* `SendingDate` - \r\n* `ValidFromDate` - \r\n* `ValidToDate` - \r\n* `ReceivingDate` - \r\n* `SigningDate` - \r\n* `DueDate` - \r\n* `ValueDate` - \r\n* `FulfillmentDate` - \r\n* `EntryDate` - \r\n",
+      "enum_values": [
+        "MaturityDate",
+        "InitiatedDate",
+        "RequestedDate",
+        "ExecutedDate",
+        "OpenDate",
+        "CloseDate",
+        "ExpiryDate",
+        "EffectiveDate",
+        "CreatingDate",
+        "ActivationDate",
+        "DeactivationDate",
+        "BlockingDate",
+        "SendingDate",
+        "ValidFromDate",
+        "ValidToDate",
+        "ReceivingDate",
+        "SigningDate",
+        "DueDate",
+        "ValueDate",
+        "FulfillmentDate",
+        "EntryDate"
+      ]
+    },
+    {
+      "name": "Duration",
+      "kind": "object",
+      "description": "The time the session was active",
+      "properties": [
+        {
+          "name": "Duration",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Event",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "EventType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "EventDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventSource",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventLocation",
+          "type": "object",
+          "ref": "Location"
+        },
+        {
+          "name": "EventAction",
+          "type": "object",
+          "ref": "Action"
+        },
+        {
+          "name": "EventStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "EventValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "EventValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "EventIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "kind": "object",
+      "description": "A characteristic of service which refers 1) mainly to the function or condition of service. 2) to non-functional features like quality and security",
+      "properties": [
+        {
+          "name": "FeatureType",
+          "type": "object",
+          "ref": "Featuretypevalues"
+        },
+        {
+          "name": "FeatureIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "FeatureName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "FeatureLifecycleStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "FeatureDescription",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Featuretypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `FeeFeature` - This refers to the functionality in a system or platform that manages, calculates, or displays fees associated with specific transactions or services.\r\n* `InterestFeature` - This feature calculates and tracks interest earnings or charges on accounts, loans, or investments over time.\r\n* `WithdrawalFeature` - The withdraw feature typically refers to an option or functionality that allows users to retrieve or remove something from a system or platform.\r\n* `DepositFeature` - This refers to a functionality that allows users to add funds to an account or system, often by transferring money from another source.\r\n* `SweepFeature` - \r\n* `LienFeature` - \r\n* `PaymentFeature` - This refers to the functionality that facilitates or tracks the transfer of funds for a purchase or settlement of dues.\r\n* `RepaymentFeature` - This feature facilitates or manages the process of paying back borrowed funds, such as loans, credit card balances, or advances.\r\n* `LimitFeature` - This feature sets, monitors, or enforces restrictions on the maximum amount that can be accessed, spent, or transacted within a system.\r\n* `OverdraftFeature` - This functionality allows users to withdraw more money than what is available in their account balance, often up to a predefined limit.\r\n* `StatementFeature` - The statement feature refers to a functionality in banking, finance, or digital platforms that provides users with a detailed record of their transactions or activities over a specific period.\r\n* `CurrencyExchangeFeature` - This feature enables users to convert funds from one currency to another at prevailing exchange rates, often within financial or payment platforms.\r\n* `PriceFeature` - This feature involves displaying or managing the price of goods, services, or financial instruments within a platform.\r\n",
+      "enum_values": [
+        "FeeFeature",
+        "InterestFeature",
+        "WithdrawalFeature",
+        "DepositFeature",
+        "SweepFeature",
+        "LienFeature",
+        "PaymentFeature",
+        "RepaymentFeature",
+        "LimitFeature",
+        "OverdraftFeature",
+        "StatementFeature",
+        "CurrencyExchangeFeature",
+        "PriceFeature"
+      ]
+    },
+    {
+      "name": "Function",
+      "kind": "object",
+      "description": "Reference to Market Order Quotation Function",
+      "properties": [
+        {
+          "name": "Function",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Geographicalareatypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `Continent` - \r\n* `Country` - \r\n* `State` - \r\n* `District` - \r\n* `Province` - \r\n* `Town` - \r\n* `City` - \r\n* `Region` - \r\n",
+      "enum_values": [
+        "Continent",
+        "Country",
+        "State",
+        "District",
+        "Province",
+        "Town",
+        "City",
+        "Region"
+      ]
+    },
+    {
+      "name": "HTTPError",
+      "kind": "object",
+      "description": "Status Attributes",
+      "properties": [
+        {
+          "name": "status_code",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Identifier",
+      "kind": "object",
+      "description": "The identifier of Condition",
+      "properties": [
+        {
+          "name": "IdentifierValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "IdentifierIssuerReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "IdentifierStartDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "IdentifierEndDate",
+          "type": "object",
+          "ref": "Datetime"
+        }
+      ]
+    },
+    {
+      "name": "InvestmentPortfolioValuation",
+      "kind": "object",
+      "description": "An operational service or function supported within the Market Order Quotation Function for doing Market Order Quotation Function",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "InvestmentPortfolioValuationFunctionReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "InvestmentPortfolioValuationFunctionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Involvedparty",
+      "kind": "object",
+      "description": "Reference to an entity that assigns and manages the identification.\ntReference to the organization or agency that issued the identifier (e.g., DMV, Passport Office).",
+      "properties": [
+        {
+          "name": "PartyReference",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "InvolvementReference",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "LocationDescription",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LocationStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "LocationType",
+          "type": "object",
+          "ref": "Geographicalareatypevalues"
+        },
+        {
+          "name": "LocationZoningType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationNeighborhoodType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationConstructionType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationOccupancyType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationValue",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationCapacity",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        },
+        {
+          "name": "LocationAddress",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LocationName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "LocationTimeZone",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Log",
+      "kind": "object",
+      "description": "Reference to the log of (usage) ativities/events  of eTrading Workbench Operating Session",
+      "properties": [
+        {
+          "name": "LogType",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "LogPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "LogDate",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "LogIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "MarketOrderInitiation",
+      "kind": "object",
+      "description": "An operational service or function supported within the Market Order Quotation Function for doing Market Order Quotation Function",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "MarketOrderInitiationFunctionReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "MarketOrderInitiationFunctionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "MarketOrderQuotation",
+      "kind": "object",
+      "description": "An operational service or function supported within the Market Order Quotation Function for doing Market Order Quotation Function",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "MarketOrderQuotationFunctionReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "MarketOrderQuotationFunctionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "MarketPriceAnalysis",
+      "kind": "object",
+      "description": "An operational service or function supported within the Market Order Quotation Function for doing Market Order Quotation Function",
+      "properties": [
+        {
+          "name": "Preconditions",
+          "type": "object",
+          "ref": "Condition"
+        },
+        {
+          "name": "Schedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "BusinessService",
+          "type": "object",
+          "ref": "BusinessService"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        },
+        {
+          "name": "MarketPriceAnalysisFunctionReference",
+          "type": "object",
+          "ref": "Function"
+        },
+        {
+          "name": "MarketPriceAnalysisFunctionType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "kind": "object",
+      "description": "The name of Condition",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Schedule",
+      "kind": "object",
+      "description": "The schedule and timing of the function",
+      "properties": [
+        {
+          "name": "ScheduleType",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Servicetype",
+      "kind": "object",
+      "description": "A Classification value that distinguishes between the type of services within eTrading Workbench Operating Session",
+      "properties": [
+        {
+          "name": "ServiceTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "ServiceType",
+          "type": "object",
+          "ref": "Servicetypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Servicetypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ITService` - \r\n* `AdministrativeService` - \r\n* `SystemService` - \r\n* `FinancialService` - \r\n* `InformationService` - \r\n* `BusinessService` - \r\n",
+      "enum_values": [
+        "ITService",
+        "AdministrativeService",
+        "SystemService",
+        "FinancialService",
+        "InformationService",
+        "BusinessService"
+      ]
+    },
+    {
+      "name": "Session",
+      "kind": "object",
+      "description": "Reference to Market Order Quotation Function",
+      "properties": [
+        {
+          "name": "SessionDuration",
+          "type": "object",
+          "ref": "Duration"
+        },
+        {
+          "name": "SessionDateAndTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "SessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "SessionScheduel",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "SessionIdentification",
+          "type": "object",
+          "ref": "Identifier"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontype",
+      "kind": "object",
+      "description": "Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.",
+      "properties": [
+        {
+          "name": "SessionTypeName",
+          "type": "object",
+          "ref": "Name"
+        },
+        {
+          "name": "SessionType",
+          "type": "object",
+          "ref": "Sessiontypevalues"
+        }
+      ]
+    },
+    {
+      "name": "Sessiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `ContactHandlingSession` - \r\n* `CustomerDialogueSession` - \r\n* `ChannelOperatingSession` - \r\n* `GatewayOperatingSession` - \r\n* `SwitchOperatingSession` - \r\n* `DeviceOperatingSession` - \r\n* `InterbankTransactionOperatingSession` - \r\n* `CorrespondenceOperatingSession` - \r\n* `InteractiveHelpOperatingSession` - \r\n* `ACHOperatingSession` - \r\n",
+      "enum_values": [
+        "ContactHandlingSession",
+        "CustomerDialogueSession",
+        "ChannelOperatingSession",
+        "GatewayOperatingSession",
+        "SwitchOperatingSession",
+        "DeviceOperatingSession",
+        "InterbankTransactionOperatingSession",
+        "CorrespondenceOperatingSession",
+        "InteractiveHelpOperatingSession",
+        "ACHOperatingSession"
+      ]
+    },
+    {
+      "name": "Status",
+      "kind": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "StatusReason",
+          "type": "string",
+          "ref": ""
+        },
+        {
+          "name": "StatusDateTime",
+          "type": "object",
+          "ref": "Datetime"
+        },
+        {
+          "name": "StatusValidityPeriod",
+          "type": "object",
+          "ref": "Datetimeperiod"
+        },
+        {
+          "name": "StatusInvolvedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        }
+      ]
+    },
+    {
+      "name": "SystemConfigurationOption",
+      "kind": "object",
+      "description": "The configuration of eTrading Workbench Operating Session",
+      "properties": [
+        {
+          "name": "SystemConfigurationOption",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "name": "Termandconditiontypevalues",
+      "kind": "enum",
+      "description": ">\r\n* `CommissionTermAndCondition` - Commission terms for workforce/employee commission processing\r\n* `LegalTermAndCondition` - Covers the legal considerations of the agreement\r\n* `RegulatoryTermAndCondition` - Covers the regulatory considerations of the agreement\r\n* `PolicyTermAndCondition` - Covers the corporate policies and requirements considerations of the agreement\r\n* `RestrictionTermAndCondition` - Details channel access restrictions for products and services\r\n* `PreferenceTermAndCondition` - Customer channel/device usage preferences\r\n* `InvestmentTermAndCondition` - Terms making up the agreement that govern the management of the investment portfolio. Note that there may be many different types of terms and clauses making up the overall policy\r\n* `MandateTermAndCondition` - Reference to the terms in force for a specific customer for this service provider\r\n* `OperationalTermAndCondition` - \r\n* `ProductTermAndCondition` - \r\n* `AgreementTermAndCondition` - \r\n* `RelationshipTermAndCondition` - \r\n* `ConfidentialTermAndCondition` - \r\n",
+      "enum_values": [
+        "CommissionTermAndCondition",
+        "LegalTermAndCondition",
+        "RegulatoryTermAndCondition",
+        "PolicyTermAndCondition",
+        "RestrictionTermAndCondition",
+        "PreferenceTermAndCondition",
+        "InvestmentTermAndCondition",
+        "MandateTermAndCondition",
+        "OperationalTermAndCondition",
+        "ProductTermAndCondition",
+        "AgreementTermAndCondition",
+        "RelationshipTermAndCondition",
+        "ConfidentialTermAndCondition"
+      ]
+    },
+    {
+      "name": "eTradingWorkbenchOperatingSession",
+      "kind": "object",
+      "description": "Operate equipment and/or a largely automated facility within eTrading Workbench. ",
+      "properties": [
+        {
+          "name": "eTradingWorkbenchOperatingSessionSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionStatus",
+          "type": "object",
+          "ref": "Status"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionUsageLog",
+          "type": "object",
+          "ref": "Log"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionAssociatedPartyReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionServiceProviderReference",
+          "type": "object",
+          "ref": "Involvedparty"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionType",
+          "type": "object",
+          "ref": "Sessiontype"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionServiceProviderSchedule",
+          "type": "object",
+          "ref": "Schedule"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionServiceType",
+          "type": "object",
+          "ref": "Servicetype"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionServiceConfiguration",
+          "type": "object",
+          "ref": "SystemConfigurationOption"
+        },
+        {
+          "name": "eTradingWorkbenchOperatingSessionReference",
+          "type": "object",
+          "ref": "Session"
+        }
+      ]
+    },
+    {
+      "name": "eTradingWorkbenchOutcome",
+      "kind": "object",
+      "description": "An operational service or function supported within the Market Order Quotation Function for doing Market Order Quotation Function",
+      "properties": [
+        {
+          "name": "eTradingWorkbenchIncident",
+          "type": "object",
+          "ref": "Event"
+        },
+        {
+          "name": "eTradingWorkbenchProvision",
+          "type": "string",
+          "ref": ""
+        }
+      ]
+    }
+  ],
+  "catalog": {
+    "control_records": [
+      {
+        "name": "eTradingWorkbenchOperatingSession",
+        "operations": [
+          "Execute",
+          "Exchange",
+          "Control",
+          "Initiate",
+          "Notify",
+          "Request",
+          "Retrieve",
+          "Update"
+        ]
+      }
+    ],
+    "behavior_qualifiers": [
+      {
+        "name": "InvestmentPortfolioValuation",
+        "parent_control_record": "eTradingWorkbenchOperatingSession",
+        "operations": [
+          "ExchangeInvestmentPortfolioValuation",
+          "ExecuteInvestmentPortfolioValuation",
+          "InitiateInvestmentPortfolioValuation",
+          "NotifyInvestmentPortfolioValuation",
+          "RequestInvestmentPortfolioValuation",
+          "RetrieveInvestmentPortfolioValuation",
+          "UpdateInvestmentPortfolioValuation"
+        ]
+      },
+      {
+        "name": "MarketOrderInitiation",
+        "parent_control_record": "eTradingWorkbenchOperatingSession",
+        "operations": [
+          "ExchangeMarketOrderInitiation",
+          "ExecuteMarketOrderInitiation",
+          "InitiateMarketOrderInitiation",
+          "NotifyMarketOrderInitiation",
+          "RequestMarketOrderInitiation",
+          "RetrieveMarketOrderInitiation",
+          "UpdateMarketOrderInitiation"
+        ]
+      },
+      {
+        "name": "MarketOrderQuotation",
+        "parent_control_record": "eTradingWorkbenchOperatingSession",
+        "operations": [
+          "ExchangeMarketOrderQuotation",
+          "ExecuteMarketOrderQuotation",
+          "InitiateMarketOrderQuotation",
+          "NotifyMarketOrderQuotation",
+          "RequestMarketOrderQuotation",
+          "RetrieveMarketOrderQuotation",
+          "UpdateMarketOrderQuotation"
+        ]
+      },
+      {
+        "name": "MarketPriceAnalysis",
+        "parent_control_record": "eTradingWorkbenchOperatingSession",
+        "operations": [
+          "ExchangeMarketPriceAnalysis",
+          "ExecuteMarketPriceAnalysis",
+          "InitiateMarketPriceAnalysis",
+          "NotifyMarketPriceAnalysis",
+          "RequestMarketPriceAnalysis",
+          "RetrieveMarketPriceAnalysis",
+          "UpdateMarketPriceAnalysis"
+        ]
+      }
+    ]
+  },
+  "evidence": {
+    "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/eTradingWorkbench.yaml",
+    "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+    "content_sha256": "9ceae0c34d6f1453a93aaa917fdacce092b745dea6e4fe9cdf1fb6bedd133d12",
+    "retrieved_at": "2026-09-12T22:34:02.820484+00:00"
+  }
+}
