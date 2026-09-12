@@ -39,6 +39,7 @@ from src.dominio.historias import (
     ServiceDomainsDeHistoria,
 )
 from src.dominio.modelos import EntradaCatalogo
+from src.dominio.normalizacion import normalizar
 
 logger = logging.getLogger(__name__)
 
@@ -79,6 +80,18 @@ def _formatear_indice_global(catalogo: list[EntradaCatalogo], rol_max_chars: int
         f'- "{e.service_domain}"' + (f" :: {_recortar(e.service_role or '', rol_max_chars)}" if e.service_role else "")
         for e in catalogo
     )
+
+
+def _schemas_de_operaciones(operaciones) -> set[str]:
+    """Nombres normalizados de request/response schema de `operaciones` — para que
+    `formatear_schemas_bom(priorizar=...)` nunca deje fuera, por un corte alfabético, el schema
+    que de verdad sostiene (o descarta) un candidato con muchas operaciones/schemas."""
+    return {
+        normalizar(s)
+        for o in operaciones
+        for s in (getattr(o, "request_schema", ""), getattr(o, "response_schema", ""))
+        if s
+    }
 
 
 def _formatear_operaciones(operaciones) -> str:
@@ -226,7 +239,9 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
             "candidato_crs": _lista(paquete.control_records),
             "candidato_bqs": _lista(paquete.behavior_qualifiers),
             "candidato_operaciones": _formatear_operaciones(paquete.operations),
-            "candidato_schemas_bom": formatear_schemas_bom(paquete.schemas_detalle),
+            "candidato_schemas_bom": formatear_schemas_bom(
+                paquete.schemas_detalle, priorizar=_schemas_de_operaciones(paquete.operations)
+            ),
             "candidato_bom_puml": formatear_bom_puml(paquete.bom_modelo),
             "candidato_ev_estado": ev.estado,
             "candidato_ev_url": ev.source_url or "(n/d)",

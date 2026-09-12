@@ -1,0 +1,43 @@
+Como       usuario autenticado en la APP
+Quiero     acceder a una pantalla de datos personales
+Para         visualizar mi información básica y mis datos de contacto, y poder acceder a la edición de mi número de celular y correo electrónico.
+
+
+
+
+Escenario 1 - Ingresar a la pantalla de datos personales
+
+
+Dado          que estoy navegando en la APP de Produbanco
+Cuando      ingreso a la pantalla de "Datos Personales" desde la opción "Perfil"
+Entonces    se muestra una pantalla con los siguientes elementos;
+
+
+Título en la parte superior: “Datos personales”.
+Botón de retroceso para volver a la pantalla anterior.
+Sección de información personal:
+Avatar del usuario (iniciales o imagen de perfil).
+Nombre completo del usuario.
+Número de identificación del usuario.
+
+Sección de información de contacto:
+Subtítulo: “Información de contacto”.
+Tarjeta o recuadro con los siguientes datos:
+
+Número celular:
+Ícono de teléfono móvil.
+Número de celular registrado.
+Indicador visual (flecha) que permite acceder a la pantalla de edición del número de celular. Ver hu  794525 Actualizar número celular
+
+Correo electrónico:
+Ícono de correo.
+Dirección de correo electrónico registrada.
+Indicador visual (flecha) que permite acceder a la pantalla de edición del correo electrónico.  Ver HU 794679 Actualizar correo electrónico
+
+Diseño
+
+Image
+
+**Revisión 06/30/26**
+
+

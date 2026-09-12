@@ -96,8 +96,9 @@ def _resumen(resultado) -> None:
                 for op in a.operaciones_bian:
                     print(f"            op: {op.method} {op.operation_id}  [{op.tipo} {op.grupo}]")
                 for bq in a.bq_personalizados_propuestos:
-                    print(f"            BQ propuesto (NO oficial, revisar): {bq.operation_id}  "
-                          f"{bq.path_propuesto}  <- {bq.clase_bom}.{bq.atributo_bom}")
+                    print(f"            op personalizada (NO oficial, revisar): {bq.operation_id}  "
+                          f"[grupo existente: {bq.grupo_existente}]  {bq.path_propuesto}  "
+                          f"<- {bq.clase_bom}.{bq.atributo_bom}")
     print("=" * 72)
 
 

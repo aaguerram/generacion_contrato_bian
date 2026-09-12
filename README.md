@@ -378,18 +378,25 @@ En el paso 2, los `operation_id` que no estén en el catálogo local se descarta
 elegir el mínimo de SD `OWNED_CONTRACT`, y contrastar el verbo+objeto de la historia contra el
 Service Role antes de fijar el rol.
 
-### BQ personalizados (no oficiales) — cuando el BOM respalda un campo sin cubrir
+### Operaciones personalizadas (no oficiales) — cuando el BOM respalda un campo sin cubrir
 
-Un Control Record no se puede editar. Si una historia necesita un campo que **ningún** CR ni BQ
-oficial del SD expone, `seleccionar_operaciones` puede proponer un **Behavior Qualifier no oficial**
-— pero solo citando una clase/atributo real del BOM del Service Domain (`schemas_detalle` de la
-Semantic API, o el modelo de clases de `docs/bian-puml/`). El código (`_anclar_bq_personalizados`,
-determinista) ancla la propuesta solo si:
+Un Control Record no se puede editar. Si una historia necesita un campo que **ningún**
+`campos_respuesta` de ningún CR/BQ oficial del SD expone, `seleccionar_operaciones` puede proponer
+una **operación no oficial dentro de un CR/BQ YA EXISTENTE** — nunca un grupo/tag nuevo — citando
+una clase/atributo real del BOM del Service Domain (`schemas_detalle` de la Semantic API, o el
+modelo de clases de `docs/bian-puml/`). El código (`_anclar_bq_personalizados`, determinista) ancla
+la propuesta solo si:
 
-1. el campo **no** está ya cubierto por una operación oficial,
-2. el nombre del BQ **no** colisiona con un CR/BQ oficial existente del SD, y
-3. la clase/atributo BOM citados **existen de verdad** (se verifica contra la evidencia, nunca se
+1. `grupo_existente` **es realmente** un CR/BQ ya presente en el catálogo del SD (si no, se
+   descarta: no se crean tags nuevos),
+2. el `operationId` resultante (`Verbo+NombreDelGrupo`) **no** colisiona con uno oficial ya publicado,
+3. el campo **no** está ya cubierto por una operación oficial (incluidos sus campos de respuesta
+   reales), y
+4. la clase/atributo BOM citados **existen de verdad** (se verifica contra la evidencia, nunca se
    "arregla" una cita floja).
+
+El `path_propuesto` se deriva del path REAL de una operación existente de `grupo_existente` (mismo
+prefijo e id-param), solo cambiando el verbo final — nunca un `/{id}` genérico inventado.
 
 El resultado vive separado de `operaciones_bian` en un campo propio
 (`bq_personalizados_propuestos` / `custom_bq_candidates`), con `estado: "CUSTOM_BQ_CANDIDATE"`, para
@@ -440,8 +447,9 @@ Alias tolerados: `funcionalidad` / `nombre` / `macro` para el nombre; `descripci
             "evidencia_bian": { "estado": "CACHED_VERIFIED", "source_commit_sha": "b58bf4c…", "content_sha256": "…", "source_url": "https://raw.githubusercontent.com/bian-official/public/…" },
             "operaciones_bian": [],
             "bq_personalizados_propuestos": [
-              { "nombre_bq": "PreferredContactChannel", "operation_id": "UpdatePreferredContactChannel",
-                "verbo": "Update", "path_propuesto": "/PartyReferenceDataDirectory/{id}/PreferredContactChannel/Update",
+              { "grupo_existente": "Reference", "operation_id": "RegisterReference",
+                "verbo": "Register",
+                "path_propuesto": "/PartyReferenceDataDirectory/{partyreferencedatadirectoryid}/Reference/{referenceid}/Register",
                 "campo_no_cubierto": "canal de contacto preferido", "clase_bom": "ContactPreference",
                 "atributo_bom": "preferredChannel", "estado": "CUSTOM_BQ_CANDIDATE" }
             ]

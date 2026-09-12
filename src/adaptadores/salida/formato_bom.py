@@ -7,6 +7,7 @@ Usado por `analista_mapeo_langchain.py` (evaluar_candidato) y `mapeador_operacio
 from __future__ import annotations
 
 from src.dominio.historias import ModeloBomPuml, SchemaBom
+from src.dominio.normalizacion import normalizar
 
 
 def _recortar(texto: str, limite: int) -> str:
@@ -14,11 +15,24 @@ def _recortar(texto: str, limite: int) -> str:
     return t if len(t) <= limite else t[:limite].rsplit(" ", 1)[0] + "..."
 
 
-def formatear_schemas_bom(schemas_detalle: list[SchemaBom], *, limite: int = 22) -> str:
+def _ordenar_priorizado(elementos: list, clave_nombre, priorizar: set[str] | None) -> list:
+    """Reordena `elementos` (no los descarta) para que los que calzan `priorizar` (nombres
+    normalizados) vayan primero. Sin esto, un corte por `limite` puede excluir en silencio un
+    schema/clase que SÍ es relevante (p.ej. el response_schema de una operación candidata) solo
+    porque su nombre cae después alfabéticamente. `priorizar=None` deja el orden intacto."""
+    if not priorizar:
+        return elementos
+    return sorted(elementos, key=lambda e: 0 if normalizar(clave_nombre(e)) in priorizar else 1)
+
+
+def formatear_schemas_bom(
+    schemas_detalle: list[SchemaBom], *, limite: int = 22, priorizar: set[str] | None = None
+) -> str:
     if not schemas_detalle:
         return "  (la evidencia solo trae nombres de schema, sin cuerpo)"
+    ordenados = _ordenar_priorizado(schemas_detalle, lambda s: s.name, priorizar)
     filas = []
-    for s in schemas_detalle[:limite]:
+    for s in ordenados[:limite]:
         if s.kind == "enum":
             filas.append(f"  {s.name} (enum): {', '.join(s.enum_values[:12])}")
         elif s.properties:
@@ -28,16 +42,18 @@ def formatear_schemas_bom(schemas_detalle: list[SchemaBom], *, limite: int = 22)
             filas.append(f"  {s.name}: {{ {props} }}")
         else:
             filas.append(f"  {s.name} ({s.kind})")
-    if len(schemas_detalle) > limite:
-        filas.append(f"  … (+{len(schemas_detalle) - limite} schemas más)")
+    if len(ordenados) > limite:
+        filas.append(f"  … (+{len(ordenados) - limite} schemas más)")
     return "\n".join(filas)
 
 
-def formatear_bom_puml(modelo: ModeloBomPuml | None, *, limite: int = 14) -> str:
+def formatear_bom_puml(
+    modelo: ModeloBomPuml | None, *, limite: int = 14, priorizar: set[str] | None = None
+) -> str:
     if modelo is None or not (modelo.clases or modelo.enums):
         return "  (sin diagrama BOM PUML local para este Service Domain)"
     filas = []
-    for c in modelo.clases[:limite]:
+    for c in _ordenar_priorizado(modelo.clases, lambda c: c.name, priorizar)[:limite]:
         if c.attributes:
             attrs = ", ".join(
                 (f"{a.name}: {a.type}{'[' + a.cardinality + ']' if a.cardinality else ''}").strip()

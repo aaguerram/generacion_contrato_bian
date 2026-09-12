@@ -434,8 +434,20 @@ implementan cada escenario. Eliges el conjunto MÍNIMO SUFICIENTE.
 <reglas>
 - Usa SOLO operationId de `<operaciones_disponibles>` para ESE Service Domain. Copia literal.
   Nunca inventes ni muevas un operationId entre Service Domains.
+- Cada operación de `<operaciones_disponibles>` trae `campos_respuesta` (lista "campo:tipo") con
+  los campos REALES de su `response_schema`. Antes de elegir, revisa `campos_respuesta` de cada
+  candidata: si
+  el escenario pide un dato concreto (p.ej. un número de celular, un correo, una dirección), la
+  operación elegida debe tener ese dato -o un campo equivalente- en su propio `campos_respuesta`.
+  NO elijas una operación solo porque su nombre o su grupo "suena" relacionado con el escenario si
+  sus `campos_respuesta` no lo respaldan: entre varias operaciones del mismo Service Domain, gana
+  la que sí expone el dato, aunque su nombre parezca menos obvio.
+- `evidence_refs`: cuando el escenario pide un dato concreto, cita ahí el nombre EXACTO del campo
+  de `campos_respuesta` (o el nombre del schema/grupo) que respalda la elección. Sin ese campo
+  real, no hay evidencia suficiente para elegir esa operación sobre otra.
 - Cada operación debe empatar acción + objeto + Service Role de la historia. Si ninguna operación
-  es inequívoca para un escenario, NO elijas: regístralo en `gaps`.
+  es inequívoca para un escenario -incluida la revisión de `campos_respuesta`-, NO elijas:
+  regístralo en `gaps`.
 - Conjunto MÍNIMO suficiente: 1-4 operaciones por Service Domain. Prohibido seleccionar el
   catálogo completo "por cobertura".
 - `bq_seed`: el fragmento ÚNICO del use case / escenario que esa operación cubre. Inspecciona
@@ -449,22 +461,24 @@ implementan cada escenario. Eliges el conjunto MÍNIMO SUFICIENTE.
 - `escenarios_hu`: cita corta del escenario. `justificacion`: 1-2 frases.
 </reglas>
 
-<brechas_y_bq_personalizado>
+<brechas_y_operacion_personalizada>
 Un Control Record NO se puede editar: sus campos son los que ya trae `<operaciones_disponibles>`.
-Si un escenario necesita un campo/capacidad que NINGUNA operación oficial (CR ni BQ) de ese
-Service Domain expone:
+Si un escenario necesita un campo/capacidad que NINGÚN `campos_respuesta` de NINGUNA operación
+oficial (CR ni BQ) de ese Service Domain expone, con NINGÚN verbo:
 1. Revisa `<bom_por_sd>` (schemas_bom + modelo_bom_puml) de ESE Service Domain: ¿alguna clase
    -el objeto raíz del CR o cualquier clase ASOCIADA del mismo Service Domain- tiene ese campo?
-2. Si SÍ: agrega una entrada en `bq_personalizados` con `nombre_bq` (PascalCase, corto),
-   `verbo` (Initiate/Update/Retrieve/Control/Request/Execute/Exchange/Grant/Register),
-   `campo_no_cubierto`, `clase_bom` (nombre EXACTO de la clase citada) y `atributo_bom` (nombre
-   EXACTO del atributo dentro de esa clase). Sin cita exacta de `clase_bom`/`atributo_bom`, NO
-   propongas nada.
-3. Si NO hay ninguna clase del BOM de ese Service Domain con ese campo: no propongas un BQ
-   personalizado (no puedes inventar el campo); regístralo en `gaps`.
+2. Si SÍ: agrega una entrada en `bq_personalizados` con `grupo_existente` (copia LITERAL del
+   `grupo` de una operación YA listada en `<operaciones_disponibles>` de ese Service Domain -
+   PROHIBIDO inventar un grupo/tag nuevo: la operación nueva siempre se añade DENTRO de un CR/BQ
+   que ya existe, con un verbo que ese grupo todavía no use), `verbo`
+   (Initiate/Update/Retrieve/Control/Request/Execute/Exchange/Grant/Register), `campo_no_cubierto`,
+   `clase_bom` (nombre EXACTO de la clase citada) y `atributo_bom` (nombre EXACTO del atributo
+   dentro de esa clase). Sin cita exacta de `clase_bom`/`atributo_bom`, NO propongas nada.
+3. Si NO hay ninguna clase del BOM de ese Service Domain con ese campo: no propongas nada (no
+   puedes inventar el campo); regístralo en `gaps`.
 - `bq_personalizados` NUNCA reemplaza ni se mezcla con `operaciones`: es una propuesta que
-  requiere revisión BIAN, no una operación oficial existente.
-</brechas_y_bq_personalizado>
+  requiere revisión BIAN, no una operación oficial existente. Nunca representa un tag/grupo nuevo.
+</brechas_y_operacion_personalizada>
 
 {_ANTIALUCINACION}"""
 
@@ -485,11 +499,12 @@ _HUM_OPERACIONES = """\
 
 Devuelve 'operaciones' ({{service_domain, operation_id, escenarios_hu, justificacion, action_term,
 business_object, bq_seed, traceability, evidence_refs, reason_codes}}), 'bq_personalizados'
-({{service_domain, nombre_bq, verbo, campo_no_cubierto, clase_bom, atributo_bom, escenarios_hu,
-justificacion, reason_codes}} — vacío si no hace falta ninguno), 'gaps', 'blocking_codes'.
+({{service_domain, grupo_existente, verbo, campo_no_cubierto, clase_bom, atributo_bom, escenarios_hu,
+justificacion, reason_codes}} — vacío si no hace falta ninguno; `grupo_existente` SIEMPRE copiado de
+un grupo ya listado en operaciones_disponibles, nunca un grupo nuevo), 'gaps', 'blocking_codes'.
 """
 
-SPEC_OPERACIONES = _spec("mapeo.operaciones", "1.0.0", _SIS_OPERACIONES, _HUM_OPERACIONES)
+SPEC_OPERACIONES = _spec("mapeo.operaciones", "1.1.0", _SIS_OPERACIONES, _HUM_OPERACIONES)
 PROMPT_MAPEO_OPERACIONES = SPEC_OPERACIONES.template
 
 
