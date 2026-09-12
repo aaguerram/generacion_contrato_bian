@@ -313,6 +313,62 @@ def candidatos_operacion_elegibles(grupos: ServiceDomainsDeHistoria) -> list[Ser
     ]
 
 
+OPERATION_FINALIZED_REASON_CODE = "OWNED_FINALIZED_BY_OPERATION_EVIDENCE"
+
+
+def _finalizar_como_directo(
+    objetivo: ServiceDomainAsignado,
+    directos: list[ServiceDomainAsignado],
+    tentativos: list[ServiceDomainAsignado],
+    descartados: list[ServiceDomainAsignado],
+) -> None:
+    """Mueve `objetivo` a `directos` (mutando las tres listas in-place) y fija
+    `SELECTED`/`OWNED_SELECTED`. No decide NADA por sí solo — el llamador ya verificó la evidencia
+    que justifica saltarse el umbral numérico de 0.90; esto solo aplica el movimiento."""
+    clave = normalizar(objetivo.service_domain)
+    if objetivo.grupo != "directo":
+        tentativos[:] = [a for a in tentativos if normalizar(a.service_domain) != clave]
+        descartados[:] = [a for a in descartados if normalizar(a.service_domain) != clave]
+        objetivo.grupo = "directo"
+        directos.append(objetivo)
+    objetivo.decision_contractual = "SELECTED"
+    objetivo.motivo_decision = "OWNED_SELECTED"
+
+
+def finalizar_por_operacion_solida(grupos: ServiceDomainsDeHistoria) -> ServiceDomainsDeHistoria:
+    """Se llama DESPUÉS de anclar operaciones (`_asignar_operaciones`). Un candidato
+    `OWNED_CONTRACT` con evidencia BIAN oficial verificada Y al menos una operación anclada sin
+    reservas (`operaciones_bian` con `reason_codes` vacío, es decir ni
+    `OPERATION_EVIDENCE_UNVERIFIED` ni ninguna otra) ya reúne tres señales independientes de que la
+    identificación es correcta: el LLM lo propuso como propietario, hay evidencia BIAN real, y hay
+    una operación oficial concreta y verificada que la implementa. Eso pesa más que el score
+    léxico agregado, que puede quedar estructuralmente bajo para Service Domains "administrativos"
+    (Business Area/Domain sin vocabulario compartido con la historia, p.ej. Correspondence /
+    "Business Support / Document Management and Archive" contra "notificar cambio de datos") aun
+    cuando la identificación ya era correcta desde la primera evaluación (sin pasar por
+    `determinar_promociones`). Idempotente: no hace nada si ya está en `directo`."""
+    directos = list(grupos.candidatos_directos)
+    tentativos = list(grupos.candidatos_tentativos)
+    descartados = list(grupos.candidatos_descartados)
+    for a in (*tentativos, *descartados):
+        if (
+            a.rol_contractual == "OWNED_CONTRACT"
+            and a.evidencia_bian.estado in ("VERIFIED", "CACHED_VERIFIED")
+            and any(not o.reason_codes for o in a.operaciones_bian)
+        ):
+            a.reason_codes = list(dict.fromkeys([*a.reason_codes, OPERATION_FINALIZED_REASON_CODE]))
+            _finalizar_como_directo(a, directos, tentativos, descartados)
+
+    def _orden(a: ServiceDomainAsignado) -> tuple[float, str]:
+        return (-a.confianza, a.service_domain.lower())
+
+    return ServiceDomainsDeHistoria(
+        candidatos_directos=sorted(directos, key=_orden),
+        candidatos_tentativos=sorted(tentativos, key=_orden),
+        candidatos_descartados=sorted(descartados, key=_orden),
+    )
+
+
 def aplicar_hallazgos_adversariales(
     grupos: ServiceDomainsDeHistoria,
     revision: RevisionAdversarialLLM,
@@ -377,13 +433,7 @@ def aplicar_hallazgos_adversariales(
         # por eso venía bajo en objeto/jerarquía) no debe dejarlo varado en tentativo/descartado.
         # Simétrico en sentido inverso al tope que ya aplica a los no-owned (`tope_no_owned`).
         if objetivo.evidencia_bian.estado in ("VERIFIED", "CACHED_VERIFIED"):
-            if objetivo.grupo != "directo":
-                tentativos = [a for a in tentativos if normalizar(a.service_domain) != clave]
-                descartados = [a for a in descartados if normalizar(a.service_domain) != clave]
-                objetivo.grupo = "directo"
-                directos.append(objetivo)
-            objetivo.decision_contractual = "SELECTED"
-            objetivo.motivo_decision = "OWNED_SELECTED"
+            _finalizar_como_directo(objetivo, directos, tentativos, descartados)
 
     for code in revision.blocking_codes:
         if code and code not in bloqueos_hu:

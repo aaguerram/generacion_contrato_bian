@@ -370,6 +370,30 @@ class _AnalistaNotificacion(AnalistaMapeoBianPort):
 
 
 class _MapeadorNotificacion(MapeadorOperacionesBianPort):
+    """Reproduce el formato exacto que devolvió el modelo real en producción (un modelo más débil
+    de la cadena de failover): `"METODO /path"` en vez del operationId literal que pide el prompt.
+    `resolver_operation_id` debe reconstruirlo desde el path/method reales -- ver
+    `tests/test_cobertura_operaciones.py::TestResolverOperationId`."""
+
+    def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
+        ops = []
+        for sd, lista in operaciones_por_sd.items():
+            fuente = next((o for o in lista if o.operation_id == "InitiateOutbound"), None)
+            if fuente is not None:
+                ops.append(OperacionPropuestaLLM(
+                    service_domain=sd, operation_id=f"{fuente.method} {fuente.path}",
+                    escenarios_hu=["SC-01"], justificacion="guion: envia la notificacion saliente.",
+                    traceability=["SC-01", "SC-02"],
+                ))
+        return MapeoOperacionesLLM(operaciones=ops)
+
+
+class _MapeadorNotificacionVerificada(MapeadorOperacionesBianPort):
+    """Igual que `_MapeadorNotificacion`, pero citando el propio operationId como `evidence_refs`
+    (cita mínima que `operacion_evidencia_verificable` siempre acepta) para que la operación quede
+    SIN reservas -- necesario para ejercitar `finalizar_por_operacion_solida`, que exige una
+    operación anclada sin `reason_codes` pendientes, no solo "alguna" operación."""
+
     def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
         ops = []
         for sd, lista in operaciones_por_sd.items():
@@ -378,7 +402,7 @@ class _MapeadorNotificacion(MapeadorOperacionesBianPort):
                 ops.append(OperacionPropuestaLLM(
                     service_domain=sd, operation_id=fuente.operation_id,
                     escenarios_hu=["SC-01"], justificacion="guion: envia la notificacion saliente.",
-                    traceability=["SC-01", "SC-02"],
+                    traceability=["SC-01", "SC-02"], evidence_refs=[fuente.operation_id],
                 ))
         return MapeoOperacionesLLM(operaciones=ops)
 
@@ -434,9 +458,151 @@ class TestGrafoMapeoPromocionOwnership(unittest.TestCase):
             self.assertEqual(op.method, "POST")
             self.assertEqual(op.tipo, "BQ")
             self.assertEqual(op.grupo, "Outbound")
+            # el mapeador guion propuso "POST /Correspondence/.../Outbound/Initiate" (el formato
+            # real que devolvió el modelo débil en producción), no el operationId literal --
+            # resolver_operation_id lo reconstruyó desde el path/method reales.
+            self.assertIn("OPERATION_ID_RECONSTRUCTED_FROM_PATH", op.reason_codes)
 
             self.assertEqual(r.metricas["ownership_promovidos"], 1)
             self.assertEqual(r.metricas["ownership_sin_resolver"], 0)
+
+    def test_operation_id_irreconocible_no_se_pierde_en_silencio(self):
+        class _MapeadorInventado(MapeadorOperacionesBianPort):
+            def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
+                return MapeoOperacionesLLM(operaciones=[
+                    OperacionPropuestaLLM(
+                        service_domain=sd, operation_id="EnviarNotificacionYa",
+                        escenarios_hu=["SC-01"], justificacion="guion: operationId que no existe.",
+                    )
+                    for sd in operaciones_por_sd
+                ])
+
+        servicio = MapearHistoriasServiceDomainsService(
+            CatalogoJson(str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")),
+            LectorHistoriasFilesystem(),
+            _AnalistaNotificacion(),
+            PublicadorMapeoJson(),
+            CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
+                              "14.0.0", permitir_descargas=False),
+            _MapeadorInventado(),
+            umbrales=UmbralesMapeo(),
+            concurrencia=1,
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            raiz = Path(tmp)
+            (raiz / "HU").mkdir()
+            (raiz / "HU" / "HU-01.txt").write_text(
+                "Como cliente quiero recibir una notificacion cuando actualizo mis datos personales.\n"
+                "Escenario 1. Notificar cambio de correo\nEscenario 2. Notificar cambio de celular",
+                encoding="utf-8")
+            func = raiz / "f.json"
+            func.write_text(json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
+                             encoding="utf-8")
+            r = servicio.ejecutar(str(raiz / "HU"), str(func), str(raiz / "out"))
+
+            correspondence = next(
+                c for c in r.service_domains_consolidados if c.service_domain == "Correspondence"
+            )
+            # ownership sigue corregido -- eso no depende de si la operación resolvió
+            self.assertEqual(correspondence.contract_role, "OWNED_CONTRACT")
+            self.assertEqual(correspondence.selected_operations, [])
+
+            incidencia = next(
+                i for i in r.incidencias if i.get("motivo") == "OPERATION_ID_UNRESOLVED"
+            )
+            self.assertIn("EnviarNotificacionYa", incidencia["detalle"])
+
+
+class _AnalistaNotificacionYaOwned(AnalistaMapeoBianPort):
+    """Reproduce el caso real observado DESPUÉS de corregir la promoción (corrida CLI real
+    2026-09-11_21-22-45): el evaluador aislado YA clasifica Correspondence como OWNED_CONTRACT
+    desde el principio (nada que promover, el revisor adversarial no encuentra nada que señalar),
+    pero con rúbricas de acción/objeto débiles (igual score exacto que en producción: 0.6733) que
+    lo dejan en "tentativo" — `finalizar_por_operacion_solida` es lo único que puede rescatarlo,
+    no `determinar_promociones` (que aquí nunca se dispara)."""
+
+    def extraer_intencion(self, historia, funcionalidad):
+        return IntencionHistoriaLLM(
+            resumen_funcional="guion", business_actions=["notify"],
+            business_objects=["notification"], traceability_ids=["SC-01", "SC-02"],
+        )
+
+    def generar_candidatos(self, historia, funcionalidad, intencion, catalogo):
+        return CandidatosHistoriaLLM(candidatos=[
+            CandidatoServiceDomainLLM(service_domain="Correspondence"),
+        ])
+
+    def revisar_completitud(self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia):
+        return RevisionCompletitudLLM()
+
+    def evaluar_candidato(self, historia, funcionalidad, intencion, paquete):
+        return EvaluacionCandidatoLLM(
+            service_domain=paquete.service_domain, estado="TENTATIVO", rol_contractual="OWNED_CONTRACT",
+            accion_objeto="notificar actualizacion de datos personales",
+            functional_object="outbound correspondence notification",
+            match_action=2, match_business_object=1, match_service_role=2, evidence_quality=3,
+            ambiguity="NONE",
+            ownership_traceability=["SC-01", "SC-02"],
+            evidence_refs=["InitiateOutbound"],
+            justification="(guion) Correspondence administra directamente el envio de la notificacion.",
+        )
+
+    def revisar_adversarial(self, historia, intencion, grupos):
+        return RevisionAdversarialLLM(resumen="sin contradicciones")
+
+    def reconciliar_funcionalidad(self, funcionalidad, resumen_por_historia):
+        return ReconciliacionFuncionalidadLLM()
+
+
+class TestGrafoMapeoFinalizacionPorOperacion(unittest.TestCase):
+    """Regresión determinista del caso real posterior a la corrección de promoción: un SD ya
+    correctamente evaluado como OWNED_CONTRACT (sin necesitar promoción) puede igual quedar en
+    "tentativo" por rúbricas de acción/objeto débiles -- `finalizar_por_operacion_solida` debe
+    rescatarlo usando la operación oficial ya anclada y verificada, no la promoción de ownership."""
+
+    def test_owned_directo_desde_el_inicio_se_finaliza_por_operacion_verificada(self):
+        servicio = MapearHistoriasServiceDomainsService(
+            CatalogoJson(str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")),
+            LectorHistoriasFilesystem(),
+            _AnalistaNotificacionYaOwned(),
+            PublicadorMapeoJson(),
+            CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
+                              "14.0.0", permitir_descargas=False),
+            _MapeadorNotificacionVerificada(),
+            umbrales=UmbralesMapeo(),
+            concurrencia=1,
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            raiz = Path(tmp)
+            (raiz / "HU").mkdir()
+            (raiz / "HU" / "HU-01.txt").write_text(
+                "Como cliente quiero recibir una notificacion cuando actualizo mis datos personales.\n"
+                "Escenario 1. Notificar cambio de correo\nEscenario 2. Notificar cambio de celular",
+                encoding="utf-8")
+            func = raiz / "f.json"
+            func.write_text(json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
+                             encoding="utf-8")
+            r = servicio.ejecutar(str(raiz / "HU"), str(func), str(raiz / "out"))
+
+            hu = r.historias[0]
+            # sin este mecanismo, quedaría en candidatos_tentativos con confianza 0.6733 (el
+            # número exacto observado en la corrida real) -- nunca hubo nada que "promover".
+            asignado = next(
+                a for a in hu.service_domains.candidatos_directos if a.service_domain == "Correspondence"
+            )
+            self.assertEqual(asignado.grupo, "directo")
+            self.assertEqual(asignado.decision_contractual, "SELECTED")
+            self.assertEqual(asignado.motivo_decision, "OWNED_SELECTED")
+            self.assertIn("OWNED_FINALIZED_BY_OPERATION_EVIDENCE", asignado.reason_codes)
+            self.assertNotIn("OWNERSHIP_PROMOTED_BY_ADVERSARIAL", asignado.reason_codes)
+
+            correspondence = next(
+                c for c in r.service_domains_consolidados if c.service_domain == "Correspondence"
+            )
+            self.assertEqual(correspondence.decision, "SELECTED")
+            self.assertIn("InitiateOutbound", correspondence.selected_operations)
+            self.assertEqual(r.metricas["finalizados_por_operacion_solida"], 1)
+            self.assertEqual(r.metricas["ownership_promovidos"], 0)
 
 
 class _AnalistaSinCandidatos(AnalistaMapeoBianPort):

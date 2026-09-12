@@ -1,12 +1,17 @@
 """Adaptador: paso 6 del mapeo — asigna operaciones oficiales BIAN a una historia y detecta
-brechas CR/BQ-vs-BOM (BQ personalizado propuesto, si el BOM lo respalda).
+brechas CR/BQ-vs-BOM (operación personalizada propuesta dentro de un CR/BQ existente, si el BOM
+lo respalda).
 
-Contexto del prompt = las operaciones de los Service Domains directos con catálogo local +
-su BOM (schemas con cuerpo + modelo de clases PUML). Blindaje anti-alucinación: se descarta
-cualquier (service_domain, operation_id) que no esté en la lista provista; un `bq_personalizados`
-de un Service Domain no reconocido también se descarta. La validación PROFUNDA contra el BOM
-(¿existe de verdad esa clase/atributo?) la hace el código en la capa de aplicación, no el adaptador.
-Adjunta `MetadatosPrompt` para reproducibilidad.
+Contexto del prompt = las operaciones de los Service Domains directos con catálogo local
+(cada una con los campos alcanzables de su propio `response_schema`, resueltos desde
+`schemas_detalle` — sin esto el LLM tiene que cruzar mentalmente dos bloques separados y, si el
+bloque de schemas se trunca, elige por parecido de nombre en vez de evidencia real) + el BOM
+completo (schemas con cuerpo + modelo de clases PUML) para el fallback de brechas. Blindaje
+anti-alucinación: se descarta cualquier (service_domain, operation_id) que no esté en la lista
+provista; una operación personalizada para un Service Domain no reconocido también se descarta.
+La validación PROFUNDA contra el BOM (¿existe de verdad esa clase/atributo?, ¿el grupo citado
+existe de verdad?) la hace el código en la capa de aplicación, no el adaptador. Adjunta
+`MetadatosPrompt` para reproducibilidad.
 """
 
 from __future__ import annotations
@@ -18,6 +23,7 @@ from src.adaptadores.salida.formato_bom import formatear_bom_puml, formatear_sch
 from src.adaptadores.salida.llm.failover import SoportaStructured
 from src.adaptadores.salida.prompts_mapeo import SPEC_OPERACIONES
 from src.aplicacion.puertos.mapeador_operaciones import MapeadorOperacionesBianPort
+from src.dominio.cobertura_operaciones import resolver_operation_id
 from src.dominio.historias import (
     FuncionalidadMacro,
     HistoriaUsuario,
@@ -30,10 +36,32 @@ from src.dominio.normalizacion import normalizar
 
 logger = logging.getLogger(__name__)
 
+_MAX_CAMPOS_RESPUESTA = 15
 
-def _formatear(operaciones_por_sd: dict[str, list[OperacionBian]]) -> str:
+
+def _campos_respuesta(o: OperacionBian, indice_schemas: dict) -> str:
+    """`campos_respuesta={eMailAddress:ContactPoint, CellPhoneNumber:ContactPoint, ...}` del
+    `response_schema` real de `o`, resuelto desde `schemas_detalle` -ya cargado en el paquete de
+    evidencia, sin llamada extra-. Vacío si no hay `response_schema` o no se pudo resolver."""
+    schema = indice_schemas.get(normalizar(o.response_schema)) if o.response_schema else None
+    if schema is None or not schema.properties:
+        return ""
+    props = ", ".join(f"{p.name}:{p.ref or p.type}" if (p.ref or p.type) else p.name
+                       for p in schema.properties[:_MAX_CAMPOS_RESPUESTA])
+    extra = len(schema.properties) - _MAX_CAMPOS_RESPUESTA
+    if extra > 0:
+        props += f", …(+{extra})"
+    return f"campos_respuesta={{{props}}}"
+
+
+def _formatear(
+    operaciones_por_sd: dict[str, list[OperacionBian]],
+    paquetes_por_sd: dict[str, PaqueteEvidenciaCandidato],
+) -> str:
     bloques = []
     for sd, operaciones in operaciones_por_sd.items():
+        paquete = paquetes_por_sd.get(sd)
+        indice_schemas = {normalizar(s.name): s for s in paquete.schemas_detalle} if paquete else {}
         lineas = [f'Service Domain "{sd}":']
         for o in operaciones:
             padre = f" <- {o.parent_control_record}" if o.parent_control_record else ""
@@ -41,21 +69,31 @@ def _formatear(operaciones_por_sd: dict[str, list[OperacionBian]]) -> str:
                 f"req={o.request_schema}" if o.request_schema else "",
                 f"resp={o.response_schema}" if o.response_schema else "",
             ) if p)
+            campos = _campos_respuesta(o, indice_schemas)
             resumen = f"  {o.summary}" if o.summary else ""
             lineas.append(
                 f'  - {o.operation_id}  ({o.method} {o.path})  [{o.tipo} {o.grupo}{padre}]'
-                + (f"  {esquema}" if esquema else "") + resumen
+                + (f"  {esquema}" if esquema else "")
+                + (f"  {campos}" if campos else "")
+                + resumen
             )
         bloques.append("\n".join(lineas))
     return "\n\n".join(bloques)
 
 
-def _formatear_bom(paquetes_por_sd: dict[str, PaqueteEvidenciaCandidato]) -> str:
+def _formatear_bom(
+    operaciones_por_sd: dict[str, list[OperacionBian]],
+    paquetes_por_sd: dict[str, PaqueteEvidenciaCandidato],
+) -> str:
     bloques = []
     for sd, paquete in paquetes_por_sd.items():
+        priorizar = {
+            normalizar(s) for o in operaciones_por_sd.get(sd, [])
+            for s in (o.request_schema, o.response_schema) if s
+        }
         bloques.append(
             f'Service Domain "{sd}":\n'
-            f"  schemas_bom:\n{formatear_schemas_bom(paquete.schemas_detalle)}\n"
+            f"  schemas_bom:\n{formatear_schemas_bom(paquete.schemas_detalle, priorizar=priorizar)}\n"
             f"  modelo_bom_puml:\n{formatear_bom_puml(paquete.bom_modelo)}"
         )
     return "\n\n".join(bloques) if bloques else "(sin paquetes de evidencia)"
@@ -103,19 +141,21 @@ class MapeadorOperacionesLangChain(MapeadorOperacionesBianPort):
                 "historia_archivo": historia.archivo,
                 "historia_titulo": historia.titulo,
                 "historia_contenido": historia.contenido,
-                "operaciones": _formatear(operaciones_por_sd),
-                "bom_por_sd": _formatear_bom(paquetes_por_sd),
+                "operaciones": _formatear(operaciones_por_sd, paquetes_por_sd),
+                "bom_por_sd": _formatear_bom(operaciones_por_sd, paquetes_por_sd),
             }
         )
 
-        validos = {
-            normalizar(sd): {o.operation_id for o in operaciones}
-            for sd, operaciones in operaciones_por_sd.items()
-        }
+        catalogo_por_sd = {normalizar(sd): operaciones for sd, operaciones in operaciones_por_sd.items()}
         limpias = []
         for op in resultado.operaciones:
-            permitidas = validos.get(normalizar(op.service_domain))
-            if permitidas and op.operation_id in permitidas:
+            operaciones_sd = catalogo_por_sd.get(normalizar(op.service_domain))
+            # `resolver_operation_id` (no un chequeo exacto): modelos más débiles del failover a
+            # veces devuelven "METODO /path" en vez del operationId literal que pide el prompt --
+            # se tolera ese formato reconstruyéndolo desde el path/method REALES de una operación
+            # ya presente en `operaciones_sd`, nunca inventando una operación nueva ni cruzando a
+            # otro Service Domain (mismo blindaje anti-alucinación, formato de cita más tolerante).
+            if operaciones_sd and resolver_operation_id(op.operation_id, operaciones_sd) is not None:
                 limpias.append(op)
             else:
                 logger.warning(
@@ -125,15 +165,16 @@ class MapeadorOperacionesLangChain(MapeadorOperacionesBianPort):
                     op.operation_id,
                 )
 
-        sd_conocidos = set(validos) | {normalizar(sd) for sd in paquetes_por_sd}
+        sd_conocidos = set(catalogo_por_sd) | {normalizar(sd) for sd in paquetes_por_sd}
         bqs = []
         for bq in resultado.bq_personalizados:
             if normalizar(bq.service_domain) in sd_conocidos:
                 bqs.append(bq)
             else:
                 logger.warning(
-                    "HU '%s': BQ personalizado '%s' para un Service Domain no reconocido ('%s'); descartado",
-                    historia.titulo, bq.nombre_bq, bq.service_domain,
+                    "HU '%s': operación personalizada en grupo '%s' para un Service Domain no "
+                    "reconocido ('%s'); descartada",
+                    historia.titulo, bq.grupo_existente, bq.service_domain,
                 )
 
         return resultado.model_copy(update={

@@ -68,3 +68,40 @@ def operation_id_en_uso(operation_id: str, operaciones: list[OperacionBian]) -> 
     operación custom colisione con una oficial ya publicada."""
     clave = normalizar(operation_id)
     return any(normalizar(o.operation_id) == clave for o in operaciones)
+
+
+_METODOS_HTTP = {"GET", "POST", "PUT", "PATCH", "DELETE"}
+
+
+def resolver_operation_id(id_propuesto: str, operaciones: list[OperacionBian]) -> OperacionBian | None:
+    """Ancla un `operationId` propuesto por el LLM contra el catálogo REAL de `operaciones` de un
+    Service Domain (ya filtrado a ese SD por el llamador).
+
+    Match exacto primero (lo normal, y lo único que el prompt pide). Modelos más débiles de la
+    cadena de failover a veces devuelven `"METODO /path/completo"` en vez del operationId
+    (observado en producción: `"POST /Correspondence/{correspondenceid}/Outbound/Initiate"` en vez
+    de `"InitiateOutbound"`). En ese caso se reconstruye desde el `path`/`method` REALES de una
+    operación YA presente en `operaciones` — nunca desde texto libre ni fuzzy, y nunca inventa una
+    operación que no esté en el catálogo dado (mismo principio anti-alucinación que
+    `operacion_evidencia_verificable`: tolera un formato de cita distinto, no un contenido
+    distinto). `None` si ninguna operación del catálogo coincide de ninguna forma."""
+    directo = (id_propuesto or "").strip()
+    if not directo:
+        return None
+    for o in operaciones:
+        if o.operation_id == directo:
+            return o
+    clave = normalizar(directo)
+    for o in operaciones:
+        if normalizar(o.operation_id) == clave:
+            return o
+    partes = directo.split(None, 1)
+    if len(partes) == 2 and partes[0].upper() in _METODOS_HTTP:
+        metodo, ruta = partes[0].upper(), partes[1].strip()
+        for o in operaciones:
+            if o.path == ruta and o.method.upper() == metodo:
+                return o
+    for o in operaciones:
+        if o.path == directo:
+            return o
+    return None

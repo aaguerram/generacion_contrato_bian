@@ -51,12 +51,14 @@ from src.aplicacion.puertos.recuperador import RecuperadorSemanticoPort
 from src.aplicacion.servicios.estado_historia import EstadoHistoria
 from src.aplicacion.servicios.estado_mapeo import EstadoMapeo
 from src.dominio.clasificacion_historias import (
+    OPERATION_FINALIZED_REASON_CODE,
     PROMOTED_REASON_CODE,
     UmbralesMapeo,
     aplicar_hallazgos_adversariales,
     candidatos_operacion_elegibles,
     clasificar_service_domains,
     determinar_promociones,
+    finalizar_por_operacion_solida,
     propuestos_promovidos,
     resolver_nombre_sd,
 )
@@ -65,6 +67,7 @@ from src.dominio.cobertura_operaciones import (
     derivar_path_grupo,
     operacion_evidencia_verificable,
     operation_id_en_uso,
+    resolver_operation_id,
 )
 from src.dominio.deteccion_omitidos import detectar_omitidos
 from src.dominio.fusion_rrf import fusion_rrf
@@ -508,10 +511,19 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
 
     def _h_operaciones(self, estado: EstadoHistoria) -> dict:
         elegibles = candidatos_operacion_elegibles(estado["grupos"])
-        huella = self._asignar_operaciones(
+        huella, incidencias = self._asignar_operaciones(
             estado["historia"], estado["funcionalidad"], elegibles, estado.get("a_evaluar", []),
         )
-        return {"grupos": estado["grupos"], "huellas": [huella] if huella is not None else []}
+        # Recién ahora hay operaciones ancladas: un OWNED_CONTRACT con evidencia BIAN verificada y
+        # una operación oficial concreta y verificada pesa más que el score léxico agregado (ver
+        # `finalizar_por_operacion_solida`) -- no depende de haber pasado por
+        # `determinar_promociones` (ese cubre el caso "el LLM lo clasificó mal como dependencia";
+        # este cubre "el LLM ya lo clasificó bien pero con rúbricas de acción/objeto bajas").
+        grupos = finalizar_por_operacion_solida(estado["grupos"])
+        return {
+            "grupos": grupos, "huellas": [huella] if huella is not None else [],
+            "incidencias": incidencias,
+        }
 
     def _h_ensamblar(self, estado: EstadoHistoria) -> dict:
         historia: HistoriaUsuario = estado["historia"]
@@ -568,18 +580,18 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         funcionalidad,
         elegibles: list[ServiceDomainAsignado],
         a_evaluar: list[PaqueteEvidenciaCandidato],
-    ) -> MetadatosPrompt | None:
+    ) -> tuple[MetadatosPrompt | None, list[dict]]:
         """`elegibles` = `candidatos_operacion_elegibles(grupos)`: OWNED_CONTRACT, directo o
         tentativo (no solo "directo") — ver `clasificacion_historias.candidatos_operacion_elegibles`."""
         if not self._mapear_operaciones or not elegibles:
-            return None
+            return None, []
         operaciones_por_sd = {}
         for sd in elegibles:
             ops = self._catalogo_operaciones.operaciones_de(sd.service_domain)
             if ops:
                 operaciones_por_sd[sd.service_domain] = ops
         if not operaciones_por_sd:
-            return None
+            return None, []
 
         nombres_elegibles = {normalizar(sd.service_domain) for sd in elegibles}
         paquetes_por_sd = {p.service_domain: p for p in a_evaluar if normalizar(p.service_domain) in nombres_elegibles}
@@ -590,15 +602,36 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # acentos entre lo que devuelve el LLM y el nombre canónico del SD no debe hacer que la
         # operación "no se encuentre" y caiga a un fallback que la busca en OTRO Service Domain
         # (aislamiento estricto: un operationId de un SD nunca se ancla a otro SD).
-        indice_ops = {
-            normalizar(nombre): {o.operation_id: o for o in ops} for nombre, ops in operaciones_por_sd.items()
-        }
+        indice_ops = {normalizar(nombre): ops for nombre, ops in operaciones_por_sd.items()}
+        incidencias: list[dict] = []
         for op in mapeo.operaciones:
             asignado = por_sd_norm.get(op.service_domain.casefold())
-            fuente = indice_ops.get(normalizar(op.service_domain), {}).get(op.operation_id)
+            operaciones_sd = indice_ops.get(normalizar(op.service_domain), [])
+            fuente = resolver_operation_id(op.operation_id, operaciones_sd)
             if asignado is None or fuente is None:
+                # Modelos más débiles del failover a veces no devuelven el operationId exacto que
+                # el prompt pide (p.ej. "POST /Correspondence/{id}/Outbound/Initiate" en vez de
+                # "InitiateOutbound"); `resolver_operation_id` ya intentó reconstruirlo desde el
+                # path/method reales. Si ni así resuelve, no se descarta en silencio (mismo
+                # principio que `OPERATION_EVIDENCE_UNVERIFIED`): queda visible para revisión.
+                incidencias.append({
+                    "historia": historia.archivo,
+                    "service_domain_propuesto": op.service_domain,
+                    "resolucion": "NOT_FOUND",
+                    "decision": "NOT_EVALUATED",
+                    "motivo": "OPERATION_ID_UNRESOLVED",
+                    "detalle": f"operationId propuesto '{op.operation_id}' no resuelve contra el "
+                    "catálogo real de ese Service Domain (ni exacto ni por path/method).",
+                })
                 continue
             reason_codes = list(op.reason_codes)
+            if fuente.operation_id != op.operation_id:
+                reason_codes.append("OPERATION_ID_RECONSTRUCTED_FROM_PATH")
+                logger.info(
+                    "HU '%s': operationId propuesto '%s' no calzaba exacto; reconstruido a '%s' "
+                    "desde method+path reales del catálogo",
+                    historia.titulo, op.operation_id, fuente.operation_id,
+                )
             paquete = paquetes_por_sd.get(asignado.service_domain)
             if paquete is not None and not operacion_evidencia_verificable(
                 fuente, op.evidence_refs, paquete.schemas_detalle
@@ -637,7 +670,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 )
 
         self._anclar_bq_personalizados(mapeo.bq_personalizados, por_sd_norm, paquetes_por_sd, historia.titulo)
-        return mapeo.metadatos
+        return mapeo.metadatos, incidencias
 
     @staticmethod
     def _anclar_bq_personalizados(
@@ -800,6 +833,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         sin_resolver = sum(1 for i in incidencias if i.get("motivo") == "OWNERSHIP_CONFLICT_UNRESOLVED")
         base_ownership = promovidos + sin_resolver
         ownership_conflict_rate = round(sin_resolver / base_ownership, 4) if base_ownership else 0.0
+        finalizados_por_operacion = sum(1 for a in todos if OPERATION_FINALIZED_REASON_CODE in a.reason_codes)
 
         elegibles = [
             a for h in procesadas
@@ -808,6 +842,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         ops = [o for a in elegibles for o in a.operaciones_bian]
         verificadas = sum(1 for o in ops if "OPERATION_EVIDENCE_UNVERIFIED" not in o.reason_codes)
         operation_grounding_rate = round(verificadas / len(ops), 4) if ops else 1.0
+        operation_id_no_resuelto = sum(1 for i in incidencias if i.get("motivo") == "OPERATION_ID_UNRESOLVED")
 
         return {
             "candidate_drop_rate": candidate_drop_rate,
@@ -818,6 +853,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             "ownership_sin_resolver": sin_resolver,
             "operation_grounding_rate": operation_grounding_rate,
             "operaciones_ancladas": len(ops),
+            "operation_id_no_resuelto": operation_id_no_resuelto,
+            "finalizados_por_operacion_solida": finalizados_por_operacion,
         }
 
     @staticmethod
