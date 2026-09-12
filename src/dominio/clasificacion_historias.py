@@ -27,9 +27,16 @@ Pasos deterministas (stdlib + pydantic + dominio, sin frameworks, sin API):
    `CONSUMED_DEPENDENCY`. El código nunca confía en esa sola señal: solo promueve a
    `OWNED_CONTRACT` cuando, ADEMÁS, `dependency_kind` es del tipo que significa "este SD es el
    resultado/salida que la historia produce" (no una precondición), hay trazabilidad de
-   escenarios y evidencia de operación oficial citada, y el propio revisor no contradijo el
-   Service Role para el mismo SD. Es simétrico a la degradación (`_DEGRADA_SELECTED`): ninguna de
-   las dos la decide el LLM solo, ambas son reglas deterministas sobre lo que el LLM reportó.
+   escenarios, evidencia de operación oficial citada, y correspondencia léxica real con el objeto
+   de negocio (`objeto_bom`), y el propio revisor no contradijo el Service Role para el mismo SD.
+8. **Degradación de ownership** (`determinar_degradaciones` / `propuestos_degradados`), simétrica
+   en sentido contrario: el revisor puede señalar que un SD evaluado `OWNED_CONTRACT` en realidad
+   solo se consulta como precondición. El código tampoco confía en esa sola señal: solo degrada a
+   `CONSUMED_DEPENDENCY` cuando, ADEMÁS, la acción que el candidato cita no tiene NINGÚN token en
+   común con las `business_actions` que la propia historia declaró en `extraer_intencion` (antes
+   de proponer ningún SD) — confirmación independiente equivalente a `objeto_bom` en la promoción.
+   Ninguna de las dos direcciones la decide el LLM solo por su cuenta: ambas son reglas
+   deterministas sobre lo que el LLM reportó, verificadas contra una señal calculada por separado.
 """
 
 from __future__ import annotations
@@ -40,6 +47,7 @@ from src.dominio.historias import (
     DependencyKind,
     DesgloseScore,
     EvidenciaBian,
+    IntencionHistoriaLLM,
     RevisionAdversarialLLM,
     ServiceDomainAsignado,
     ServiceDomainPropuestoLLM,
@@ -47,6 +55,7 @@ from src.dominio.historias import (
 )
 from src.dominio.modelos import EntradaCatalogo
 from src.dominio.normalizacion import normalizar
+from src.dominio.scoring_bian import _sim
 from src.dominio.scoring_bian import calcular_score
 
 _EPS = 0.001  # margen para dejar un SD topado justo por debajo del umbral directo
@@ -325,6 +334,93 @@ def propuestos_promovidos(
     return salida
 
 
+DEMOTED_REASON_CODE = "OWNERSHIP_DEMOTED_BY_ADVERSARIAL"
+
+
+def determinar_degradaciones(
+    grupos: ServiceDomainsDeHistoria,
+    intencion: IntencionHistoriaLLM,
+    revision: RevisionAdversarialLLM,
+) -> frozenset[str]:
+    """Nombres normalizados de SD que pasan de `OWNED_CONTRACT` a `CONSUMED_DEPENDENCY`.
+
+    Simétrico a `determinar_promociones`, en la dirección contraria. Caso real que lo motivó:
+    "Party Reference Data Directory" fue evaluado `OWNED_CONTRACT` (accion_objeto="actualizar
+    número de celular o correo electrónico") para la historia "Notificar actualización de datos"
+    -que solo NOTIFICA, la actualización es una precondición ya ocurrida ("cuando el usuario
+    actualiza...")-. El revisor adversarial señaló `DEPENDENCIA_PROMOVIDA_A_CONTRATO`, y
+    `aplicar_hallazgos_adversariales` YA degradaba `SELECTED`->`UNRESOLVED` para ese hallazgo, pero
+    solo bloqueaba para revisión humana en vez de reclasificar.
+
+    Exige, además del hallazgo:
+    - `rol_contractual == OWNED_CONTRACT` (el eje que está en disputa);
+    - el `accion_objeto` que el candidato cita NO tiene NINGÚN token en común con
+      `intencion.business_actions` — las acciones que la propia historia declaró en
+      `extraer_intencion`, ANTES de que se propusiera ningún Service Domain. Es la confirmación
+      independiente equivalente a `objeto_bom` en la promoción: no basta con que el revisor
+      adversarial lo señale (podría estar equivocado, igual que la evaluación original), hace
+      falta que el código verifique que la acción citada no es ninguna de las que la historia
+      misma dice ejecutar. Si `intencion.business_actions` viene vacío no hay con qué confirmar
+      nada -> no degrada (se queda en el `UNRESOLVED` bloqueado, conservador por defecto).
+
+    A diferencia de la promoción, NO exige ausencia de un hallazgo contrario
+    (`DIRECTO_SIN_SERVICE_ROLE` para el mismo SD apunta en la MISMA dirección aquí — el rol no
+    encaja —, no la contradice).
+    """
+    if not intencion.business_actions:
+        return frozenset()
+    acciones_historia = " ".join(intencion.business_actions)
+
+    hallazgos_por_sd: dict[str, list[str]] = {}
+    for h in revision.hallazgos:
+        if h.service_domain:
+            hallazgos_por_sd.setdefault(normalizar(h.service_domain), []).append(h.tipo)
+
+    todos = {
+        normalizar(a.service_domain): a
+        for a in (*grupos.candidatos_directos, *grupos.candidatos_tentativos, *grupos.candidatos_descartados)
+    }
+
+    degradados: set[str] = set()
+    for clave, tipos in hallazgos_por_sd.items():
+        if "DEPENDENCIA_PROMOVIDA_A_CONTRATO" not in tipos:
+            continue
+        a = todos.get(clave)
+        if (
+            a is not None
+            and a.rol_contractual == "OWNED_CONTRACT"
+            and _sim(a.accion_objeto, acciones_historia) == 0.0
+        ):
+            degradados.add(clave)
+    return frozenset(degradados)
+
+
+def propuestos_degradados(
+    propuestos_por_sd: dict[str, ServiceDomainPropuestoLLM], degradados: frozenset[str]
+) -> dict[str, ServiceDomainPropuestoLLM]:
+    """Copia `propuestos_por_sd` con los SD de `degradados` reescritos a `CONSUMED_DEPENDENCY`.
+
+    Simétrico a `propuestos_promovidos`. `dependency_kind=SUPPORTING_LOOKUP` (precondición
+    consultada antes de actuar) porque lo único que `determinar_degradaciones` probó es que NO es
+    ownership — no de qué tipo específico de dependencia se trata; es el género más genérico de
+    los no-promocionables. El llamador debe recalcular score/decisión con
+    `clasificar_service_domains`: una vez `rol_contractual != OWNED_CONTRACT`, `_decidir` ya
+    garantiza `REJECTED`/`CONSUMED_DEPENDENCY` sin importar el score (no hace falta finalizar nada
+    a mano, a diferencia de la promoción)."""
+    salida = dict(propuestos_por_sd)
+    for clave in degradados:
+        p = salida.get(clave)
+        if p is None:
+            continue
+        salida[clave] = p.model_copy(update={
+            "rol_contractual": "CONSUMED_DEPENDENCY",
+            "dependency_kind": "SUPPORTING_LOOKUP",
+            "dependency_traceability": list(dict.fromkeys([*p.dependency_traceability, *p.ownership_traceability])),
+            "ownership_traceability": [],
+        })
+    return salida
+
+
 def candidatos_operacion_elegibles(grupos: ServiceDomainsDeHistoria) -> list[ServiceDomainAsignado]:
     """SD con base suficiente para intentar anclar operaciones oficiales: `OWNED_CONTRACT`,
     directo O tentativo. Desacopla la selección de operaciones del umbral de confianza directa
@@ -410,22 +506,35 @@ def aplicar_hallazgos_adversariales(
     revision: RevisionAdversarialLLM,
     *,
     promovidos: frozenset[str] = frozenset(),
+    degradados: frozenset[str] = frozenset(),
 ) -> tuple[ServiceDomainsDeHistoria, list[str]]:
     """Aplica la revisión adversarial de forma determinista.
 
     El revisor adversarial (LLM) es un asesor: por sí solo, un hallazgo aislado nunca decide nada
-    aquí. Dos movimientos, ambos gobernados por reglas ya evaluadas ANTES de llegar a esta función:
-    DEGRADAR (`SELECTED` -> `UNRESOLVED`) para `DEPENDENCIA_PROMOVIDA_A_CONTRATO`/
-    `DIRECTO_SIN_SERVICE_ROLE`, y FINALIZAR una promoción ya decidida por `determinar_promociones`
-    (no se re-decide aquí si promover, solo se completa): si el SD promovido tiene evidencia BIAN
-    oficial verificada, queda `SELECTED`/`OWNED_SELECTED` y se mueve a `candidatos_directos`
-    aunque su score léxico crudo (heredado de la evaluación cuando el LLM lo enmarcaba como
-    dependencia) siga en banda tentativa o incluso descartada — la barra de promoción ya es más
-    estricta que el umbral numérico. Sin evidencia oficial verificada, se anota la promoción
-    (`reason_codes`) pero se deja el grupo/decisión tal como salieron de la reclasificación
-    (probablemente `UNRESOLVED`/`NO_OFFICIAL_BIAN_EVIDENCE`) — no se inventa una operación sobre
-    evidencia inexistente. Devuelve los grupos (posiblemente reordenados/movidos) y los
-    `blocking_codes` a nivel de historia.
+    aquí. Tres movimientos, todos gobernados por reglas ya evaluadas ANTES de llegar a esta
+    función (esta función no re-decide nada, solo aplica lo ya decidido y anota trazabilidad):
+
+    - DEGRADAR (`SELECTED` -> `UNRESOLVED`, catch-all conservador) para
+      `DEPENDENCIA_PROMOVIDA_A_CONTRATO`/`DIRECTO_SIN_SERVICE_ROLE` cuando NO calificaron para la
+      reclasificación determinista de abajo — el SD queda bloqueado para revisión humana en vez de
+      publicarse, pero tampoco se reclasifica sin prueba independiente.
+    - FINALIZAR una promoción ya decidida por `determinar_promociones` (`CONSUMED_DEPENDENCY` ->
+      `OWNED_CONTRACT` reclasificado): si el SD promovido tiene evidencia BIAN oficial verificada,
+      queda `SELECTED`/`OWNED_SELECTED` y se mueve a `candidatos_directos` aunque su score léxico
+      crudo (heredado de la evaluación cuando el LLM lo enmarcaba como dependencia) siga en banda
+      tentativa o incluso descartada — la barra de promoción ya es más estricta que el umbral
+      numérico. Sin evidencia oficial verificada, se anota la promoción (`reason_codes`) pero se
+      deja el grupo/decisión tal como salieron de la reclasificación (probablemente
+      `UNRESOLVED`/`NO_OFFICIAL_BIAN_EVIDENCE`) — no se inventa una operación sobre evidencia
+      inexistente.
+    - ANOTAR una degradación ya decidida por `determinar_degradaciones` (`OWNED_CONTRACT` ->
+      `CONSUMED_DEPENDENCY` reclasificado): a diferencia de la promoción, no hace falta mover nada
+      a mano aquí — `_decidir` ya garantiza `REJECTED`/`CONSUMED_DEPENDENCY` en cuanto
+      `rol_contractual` deja de ser `OWNED_CONTRACT`, sin importar el score. Solo se deja
+      trazabilidad (`reason_codes`).
+
+    Devuelve los grupos (posiblemente reordenados/movidos) y los `blocking_codes` a nivel de
+    historia.
     """
     directos = list(grupos.candidatos_directos)
     tentativos = list(grupos.candidatos_tentativos)
@@ -470,6 +579,18 @@ def aplicar_hallazgos_adversariales(
         # Simétrico en sentido inverso al tope que ya aplica a los no-owned (`tope_no_owned`).
         if objetivo.evidencia_bian.estado in ("VERIFIED", "CACHED_VERIFIED"):
             _finalizar_como_directo(objetivo, directos, tentativos, descartados)
+
+    for clave in degradados:
+        objetivo = por_sd.get(clave)
+        if objetivo is None:
+            continue
+        objetivo.reason_codes = list(dict.fromkeys([*objetivo.reason_codes, DEMOTED_REASON_CODE]))
+        objetivo.observaciones_adversariales = [
+            *objetivo.observaciones_adversariales,
+            "[adversarial] Degradado a CONSUMED_DEPENDENCY: la acción citada no coincide con "
+            "ninguna acción propia de la historia (extraída antes de proponer este SD); el rol "
+            "OWNED_CONTRACT inicial no tiene sustento independiente.",
+        ]
 
     for code in revision.blocking_codes:
         if code and code not in bloqueos_hu:

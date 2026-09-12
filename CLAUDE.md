@@ -99,9 +99,29 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       hipótesis formarse). `HallazgoAdversarial.tipo` ∈ {ACCION_DIRECTA_COMO_DEPENDENCIA,
       OBJETO_SIN_PROPIETARIO, DIRECTO_SIN_SERVICE_ROLE, DEPENDENCIA_PROMOVIDA_A_CONTRATO,
       CANDIDATO_OMITIDO, EXCESO_DE_CONTRATOS} + `reason_codes` (`BIAN-SCOPE-002/003`).
-   8. `aplicar_adversarial` **[determinista]**: dos movimientos simétricos, ninguno decidido por
-      el LLM. **Degrada** (`aplicar_hallazgos_adversariales`, `SELECTED`→`UNRESOLVED`) en
-      `DEPENDENCIA_PROMOVIDA_A_CONTRATO`/`DIRECTO_SIN_SERVICE_ROLE`. **Promueve**
+   8. `aplicar_adversarial` **[determinista]**: tres movimientos, ninguno decidido por el LLM
+      solo — cada uno exige que una señal calculada por separado confirme el hallazgo, nunca se
+      reclasifica solo porque el revisor lo dijo. **Degrada** (`aplicar_hallazgos_adversariales`,
+      `SELECTED`→`UNRESOLVED`, catch-all conservador cuando ninguna reclasificación de abajo
+      calificó) en `DEPENDENCIA_PROMOVIDA_A_CONTRATO`/`DIRECTO_SIN_SERVICE_ROLE`. **Degrada
+      reclasificando** (`determinar_degradaciones` + `propuestos_degradados`)
+      `OWNED_CONTRACT`→`CONSUMED_DEPENDENCY` cuando hay un hallazgo `DEPENDENCIA_PROMOVIDA_A_CONTRATO`
+      para ese SD Y el `accion_objeto` que citó no tiene NINGÚN token en común con
+      `intencion.business_actions` (las acciones que la propia historia declaró en
+      `extraer_intencion`, antes de proponer ningún SD) — sin esa confirmación independiente,
+      queda solo en el degrade conservador de arriba (`UNRESOLVED`, bloqueado para revisión
+      humana, nunca reclasificado a ciegas). Al reclasificar, `dependency_kind=SUPPORTING_LOOKUP`
+      (precondición consultada antes de actuar) y `_decidir` ya garantiza
+      `REJECTED`/`CONSUMED_DEPENDENCY` sin importar el score, apenas `rol_contractual` deja de ser
+      `OWNED_CONTRACT`. Caso real: "Notificar actualización de datos" (funcionalidad
+      "Actualización de datos personales") → "Party Reference Data Directory" fue evaluado
+      `OWNED_CONTRACT` citando `accion_objeto="actualizar número de celular o correo electrónico"`
+      — la actualización es una precondición ya ocurrida ("cuando el usuario actualiza..."), la
+      historia solo notifica; `intencion.business_actions` nunca incluyó "actualizar". Antes de
+      este fix quedaba `UNRESOLVED` bloqueado (mejor que `SELECTED`, pero sin resolver);
+      ahora `REJECTED/CONSUMED_DEPENDENCY` directo. Regresión determinista en
+      `tests/test_grafo_mapeo.py::TestGrafoMapeoDegradacionOwnership` y
+      `tests/test_clasificacion_historias.py::TestDeterminarDegradaciones`. **Promueve**
       (`determinar_promociones` + `propuestos_promovidos`, ambos en `clasificacion_historias.py`)
       `CONSUMED_DEPENDENCY`→`OWNED_CONTRACT` cuando: hay un hallazgo
       `ACCION_DIRECTA_COMO_DEPENDENCIA` para ese SD SIN que el propio revisor también haya marcado
@@ -216,9 +236,12 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
    único por corrida) y `retrieval_hibrido_activo`/`retrieval_top_k`/`retrieval_max_inyectados`.
    `ResultadoMapeoHistorias.metricas` trae, derivado solo de lo que la propia corrida ya registra
    (sin golden set — eso es Recall@K de Fase 3): `candidate_drop_rate` (candidatos resueltos que
-   `TRUNCATED_BY_MAX_CANDIDATOS_HU` cortó, sobre el total), `ownership_conflict_rate`
-   (`ACCION_DIRECTA_COMO_DEPENDENCIA` que NO se promovió, sobre promovidos+sin-resolver),
-   `operation_grounding_rate` (operaciones ancladas sin `OPERATION_EVIDENCE_UNVERIFIED`, sobre el
+   `TRUNCATED_BY_MAX_CANDIDATOS_HU` cortó, sobre el total), `ownership_promovidos` /
+   `ownership_degradados` (reclasificaciones deterministas en cada dirección) y
+   `ownership_conflict_rate` (hallazgos `ACCION_DIRECTA_COMO_DEPENDENCIA`/
+   `DEPENDENCIA_PROMOVIDA_A_CONTRATO` que NO calificaron para ninguna reclasificación, sobre
+   promovidos+degradados+sin-resolver — quedan `UNRESOLVED` bloqueados, no reclasificados a
+   ciegas), `operation_grounding_rate` (operaciones ancladas sin `OPERATION_EVIDENCE_UNVERIFIED`, sobre el
    total ancladas), `operation_id_no_resuelto` (incidencias `OPERATION_ID_UNRESOLVED`) y
    `finalizados_por_operacion_solida` (`OWNED_FINALIZED_BY_OPERATION_EVIDENCE`, ver paso 9).
    `desglose_score` de cada SD también trae `retrieval_score` (origen retrieval híbrido) y

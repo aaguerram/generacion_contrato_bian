@@ -51,14 +51,17 @@ from src.aplicacion.puertos.recuperador import RecuperadorSemanticoPort
 from src.aplicacion.servicios.estado_historia import EstadoHistoria
 from src.aplicacion.servicios.estado_mapeo import EstadoMapeo
 from src.dominio.clasificacion_historias import (
+    DEMOTED_REASON_CODE,
     OPERATION_FINALIZED_REASON_CODE,
     PROMOTED_REASON_CODE,
     UmbralesMapeo,
     aplicar_hallazgos_adversariales,
     candidatos_operacion_elegibles,
     clasificar_service_domains,
+    determinar_degradaciones,
     determinar_promociones,
     finalizar_por_operacion_solida,
+    propuestos_degradados,
     propuestos_promovidos,
     resolver_nombre_sd,
 )
@@ -468,29 +471,41 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
     def _h_aplicar_adversarial(self, estado: EstadoHistoria) -> dict:
         revision = estado.get("revision_adversarial") or RevisionAdversarialLLM()
         propuestos_por_sd = estado.get("propuestos_por_sd") or {}
-        # `determinar_promociones` lee `desglose_score.objeto_bom` de la clasificación YA hecha
+        # Ambas leen `desglose_score`/`accion_objeto` de la clasificación YA hecha
         # (`estado["grupos"]`), no de `propuestos_por_sd` (que no trae el score calculado).
         promovidos = determinar_promociones(estado["grupos"], revision)
+        degradados = determinar_degradaciones(estado["grupos"], estado["intencion"], revision)
 
         grupos = estado["grupos"]
-        if promovidos:
-            # Re-clasifica con los promovidos ya reescritos a OWNED_CONTRACT: el score y el tope
-            # por rol deben recalcularse juntos (`clasificar_service_domains`), nunca parchear solo
-            # la etiqueta de decisión sobre el resultado viejo.
-            propuestos_por_sd = propuestos_promovidos(propuestos_por_sd, promovidos)
+        if promovidos or degradados:
+            # Re-clasifica con ambos ya reescritos: el score y el tope por rol deben recalcularse
+            # juntos (`clasificar_service_domains`), nunca parchear solo la etiqueta de decisión
+            # sobre el resultado viejo. Una sola pasada cubre las dos direcciones.
+            if promovidos:
+                propuestos_por_sd = propuestos_promovidos(propuestos_por_sd, promovidos)
+            if degradados:
+                propuestos_por_sd = propuestos_degradados(propuestos_por_sd, degradados)
             grupos = self._reclasificar(estado, propuestos_por_sd)
-            logger.info(
-                "HU '%s': %d SD promovido(s) CONSUMED_DEPENDENCY -> OWNED_CONTRACT por evidencia "
-                "adversarial fuerte: %s",
-                estado["historia"].titulo, len(promovidos), ", ".join(sorted(promovidos)),
-            )
+            if promovidos:
+                logger.info(
+                    "HU '%s': %d SD promovido(s) CONSUMED_DEPENDENCY -> OWNED_CONTRACT por "
+                    "evidencia adversarial fuerte: %s",
+                    estado["historia"].titulo, len(promovidos), ", ".join(sorted(promovidos)),
+                )
+            if degradados:
+                logger.info(
+                    "HU '%s': %d SD degradado(s) OWNED_CONTRACT -> CONSUMED_DEPENDENCY: la acción "
+                    "citada no coincide con ninguna acción propia de la historia: %s",
+                    estado["historia"].titulo, len(degradados), ", ".join(sorted(degradados)),
+                )
 
-        grupos, bloqueos = aplicar_hallazgos_adversariales(grupos, revision, promovidos=promovidos)
+        grupos, bloqueos = aplicar_hallazgos_adversariales(
+            grupos, revision, promovidos=promovidos, degradados=degradados
+        )
 
-        # Fase 0 (observabilidad): un hallazgo ACCION_DIRECTA_COMO_DEPENDENCIA que NO califica para
-        # promoción automática (falta trazabilidad/evidencia, o el propio revisor contradijo el
-        # Service Role) sigue siendo un conflicto de ownership real -- no debe quedar solo en un
-        # log; ver `_metricas` en `_resultado_mapeo` (`ownership_conflict_rate`).
+        # Fase 0 (observabilidad): un hallazgo que NO califica para reclasificación automática
+        # (ni promoción ni degradación) sigue siendo un conflicto de ownership real -- no debe
+        # quedar solo en un log; ver `_metricas` en `_resultado_mapeo` (`ownership_conflict_rate`).
         incidencias = [
             {
                 "historia": estado["historia"].archivo,
@@ -498,13 +513,14 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 "resolucion": "MATCH",
                 "decision": "UNRESOLVED",
                 "motivo": "OWNERSHIP_CONFLICT_UNRESOLVED",
-                "detalle": h.detalle or "ACCION_DIRECTA_COMO_DEPENDENCIA sin evidencia determinista "
-                "suficiente para promover automáticamente; revisar manualmente.",
+                "detalle": h.detalle or f"{h.tipo} sin evidencia determinista suficiente para "
+                "reclasificar automáticamente; revisar manualmente.",
             }
             for h in revision.hallazgos
-            if h.tipo == "ACCION_DIRECTA_COMO_DEPENDENCIA"
+            if h.tipo in ("ACCION_DIRECTA_COMO_DEPENDENCIA", "DEPENDENCIA_PROMOVIDA_A_CONTRATO")
             and h.service_domain
             and normalizar(h.service_domain) not in promovidos
+            and normalizar(h.service_domain) not in degradados
         ]
         return {
             "grupos": grupos, "bloqueos_hu": bloqueos, "propuestos_por_sd": propuestos_por_sd,
@@ -832,8 +848,9 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         candidate_drop_rate = round(truncados / base_drop, 4) if base_drop else 0.0
 
         promovidos = sum(1 for a in todos if PROMOTED_REASON_CODE in a.reason_codes)
+        degradados_count = sum(1 for a in todos if DEMOTED_REASON_CODE in a.reason_codes)
         sin_resolver = sum(1 for i in incidencias if i.get("motivo") == "OWNERSHIP_CONFLICT_UNRESOLVED")
-        base_ownership = promovidos + sin_resolver
+        base_ownership = promovidos + degradados_count + sin_resolver
         ownership_conflict_rate = round(sin_resolver / base_ownership, 4) if base_ownership else 0.0
         finalizados_por_operacion = sum(1 for a in todos if OPERATION_FINALIZED_REASON_CODE in a.reason_codes)
 
@@ -852,6 +869,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             "candidatos_evaluados": total_evaluados,
             "ownership_conflict_rate": ownership_conflict_rate,
             "ownership_promovidos": promovidos,
+            "ownership_degradados": degradados_count,
             "ownership_sin_resolver": sin_resolver,
             "operation_grounding_rate": operation_grounding_rate,
             "operaciones_ancladas": len(ops),

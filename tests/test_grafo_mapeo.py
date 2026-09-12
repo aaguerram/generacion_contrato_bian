@@ -605,6 +605,101 @@ class TestGrafoMapeoFinalizacionPorOperacion(unittest.TestCase):
             self.assertEqual(r.metricas["ownership_promovidos"], 0)
 
 
+class _AnalistaActualizacionMalClasificada(AnalistaMapeoBianPort):
+    """Reproduce el falso positivo real observado en `datos_personales_notificacion`: la historia
+    SOLO notifica (la actualización ya es una precondición: "cuando el usuario actualiza..."), pero
+    el evaluador aislado le asigna a "Party Reference Data Directory" el rol OWNED_CONTRACT citando
+    la acción "actualizar", que la propia historia nunca declaró como una de sus business_actions."""
+
+    def extraer_intencion(self, historia, funcionalidad):
+        return IntencionHistoriaLLM(
+            resumen_funcional="guion", business_actions=["notify", "register"],
+            business_objects=["notification"], traceability_ids=["SC-01", "SC-02", "SC-03"],
+        )
+
+    def generar_candidatos(self, historia, funcionalidad, intencion, catalogo):
+        return CandidatosHistoriaLLM(candidatos=[
+            CandidatoServiceDomainLLM(service_domain="Party Reference Data Directory"),
+        ])
+
+    def revisar_completitud(self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia):
+        return RevisionCompletitudLLM()
+
+    def evaluar_candidato(self, historia, funcionalidad, intencion, paquete):
+        return EvaluacionCandidatoLLM(
+            service_domain=paquete.service_domain, estado="DIRECTO", rol_contractual="OWNED_CONTRACT",
+            accion_objeto="actualizar numero de celular o correo electronico",
+            functional_object="reference contact data",
+            match_action=3, match_business_object=3, match_service_role=2, evidence_quality=3,
+            ambiguity="NONE", ownership_traceability=["SC-01", "SC-02", "SC-03"],
+            evidence_refs=["UpdateReference", "RetrieveReference"],
+            justification="(guion) evaluación aislada equivocada: confunde la precondición de "
+            "actualización con la acción propia de esta historia.",
+        )
+
+    def revisar_adversarial(self, historia, intencion, grupos):
+        return RevisionAdversarialLLM(hallazgos=[HallazgoAdversarial(
+            tipo="DEPENDENCIA_PROMOVIDA_A_CONTRATO", service_domain="Party Reference Data Directory",
+            reason_codes=["BIAN-SCOPE-002"],
+            detalle="La historia solo consume la actualización, pero se clasificó OWNED_CONTRACT.",
+        )])
+
+    def reconciliar_funcionalidad(self, funcionalidad, resumen_por_historia):
+        return ReconciliacionFuncionalidadLLM()
+
+
+class TestGrafoMapeoDegradacionOwnership(unittest.TestCase):
+    """Regresión determinista (sin LLM real, caché BIAN real) del falso positivo de
+    "Party Reference Data Directory" en la HU de notificaciones: nunca debe quedar
+    OWNED_CONTRACT/SELECTED cuando la acción que cita no es ninguna de las que la propia historia
+    declaró -- antes de este fix quedaba UNRESOLVED bloqueado, ahora se reclasifica a
+    CONSUMED_DEPENDENCY/REJECTED."""
+
+    def test_party_reference_data_directory_se_degrada_a_consumed_dependency(self):
+        servicio = MapearHistoriasServiceDomainsService(
+            CatalogoJson(str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")),
+            LectorHistoriasFilesystem(),
+            _AnalistaActualizacionMalClasificada(),
+            PublicadorMapeoJson(),
+            CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
+                              "14.0.0", permitir_descargas=False),
+            _MapeadorNotificacionVerificada(),
+            umbrales=UmbralesMapeo(),
+            concurrencia=1,
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            raiz = Path(tmp)
+            (raiz / "HU").mkdir()
+            (raiz / "HU" / "HU-01.txt").write_text(
+                "Como admin quiero notificar cuando un usuario actualiza su celular o correo.\n"
+                "Escenario 1. Notificar dato anterior\nEscenario 2. Notificar dato nuevo",
+                encoding="utf-8")
+            func = raiz / "f.json"
+            func.write_text(json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
+                             encoding="utf-8")
+            r = servicio.ejecutar(str(raiz / "HU"), str(func), str(raiz / "out"))
+
+            prdd = next(
+                c for c in r.service_domains_consolidados
+                if c.service_domain == "Party Reference Data Directory"
+            )
+            self.assertEqual(prdd.contract_role, "CONSUMED_DEPENDENCY")
+            self.assertEqual(prdd.decision, "REJECTED")
+            self.assertEqual(prdd.motivo, "CONSUMED_DEPENDENCY")
+
+            hu = r.historias[0]
+            asignado = next(
+                a for a in hu.service_domains.candidatos_descartados + hu.service_domains.candidatos_tentativos
+                if a.service_domain == "Party Reference Data Directory"
+            )
+            self.assertIn("OWNERSHIP_DEMOTED_BY_ADVERSARIAL", asignado.reason_codes)
+            self.assertEqual(asignado.dependency_kind, "SUPPORTING_LOOKUP")
+
+            self.assertEqual(r.metricas["ownership_degradados"], 1)
+            self.assertEqual(r.metricas["ownership_promovidos"], 0)
+            self.assertEqual(r.metricas["ownership_sin_resolver"], 0)
+
+
 class _AnalistaSinCandidatos(AnalistaMapeoBianPort):
     """El LLM no propone NADA (ni candidatos ni missing_candidates): el único origen posible de
     un candidato es el retrieval híbrido. Reproduce el falso negativo genérico de recall que la

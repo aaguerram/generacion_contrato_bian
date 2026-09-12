@@ -5,12 +5,15 @@ from __future__ import annotations
 import unittest
 
 from src.dominio.clasificacion_historias import (
+    DEMOTED_REASON_CODE,
     PROMOTED_REASON_CODE,
     UmbralesMapeo,
     aplicar_hallazgos_adversariales,
     candidatos_operacion_elegibles,
     clasificar_service_domains,
+    determinar_degradaciones,
     determinar_promociones,
+    propuestos_degradados,
     propuestos_promovidos,
     resolver_nombre_sd,
 )
@@ -18,6 +21,7 @@ from src.dominio.historias import ServiceDomainPropuestoLLM
 from src.dominio.historias import (
     EvidenciaBian,
     HallazgoAdversarial,
+    IntencionHistoriaLLM,
     OperacionBian,
     RevisionAdversarialLLM,
 )
@@ -366,6 +370,99 @@ class TestDeterminarPromociones(unittest.TestCase):
         )
         promovidos = determinar_promociones(grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
         self.assertEqual(promovidos, frozenset())
+
+
+class TestDeterminarDegradaciones(unittest.TestCase):
+    """`determinar_degradaciones` / `propuestos_degradados`: el caso real de "Notificar
+    actualización de datos" -> "Party Reference Data Directory" fue evaluado OWNED_CONTRACT
+    (accion_objeto="actualizar número de celular o correo electrónico") para una historia que solo
+    NOTIFICA (la actualización ya es una precondición ocurrida antes: "cuando el usuario
+    actualiza..."). El revisor adversarial señaló DEPENDENCIA_PROMOVIDA_A_CONTRATO; antes de este
+    fix solo se degradaba a UNRESOLVED (bloqueado para revisión humana), nunca se reclasificaba."""
+
+    U = UmbralesMapeo()
+    CAT = _cat("Party Reference Data Directory")
+
+    def _grupos(self, **overrides) -> "ServiceDomainsDeHistoria":
+        base = dict(
+            service_domain="Party Reference Data Directory", rol_contractual="OWNED_CONTRACT",
+            accion_objeto="actualizar numero de celular o correo electronico",
+            justificacion="administra los datos de contacto", confianza=1.0,
+            escenarios_hu=["SC-01. Notificar", "SC-02. Notificar", "SC-03. Notificar"],
+            ownership_traceability=["SC-01", "SC-02", "SC-03"],
+            match_action=3, match_objeto_negocio=3,
+        )
+        base.update(overrides)
+        propuesta = ServiceDomainPropuestoLLM(**base)
+        return clasificar_service_domains(
+            [propuesta], self.CAT, self.U,
+            operaciones_por_sd={"Party Reference Data Directory": []},
+            evidencias_por_sd={
+                "Party Reference Data Directory": EvidenciaBian(estado="CACHED_VERIFIED", content_sha256="x"),
+            },
+        )
+
+    def _intencion(self, acciones: list[str]) -> IntencionHistoriaLLM:
+        return IntencionHistoriaLLM(business_actions=acciones)
+
+    def _revision(self, tipos: list[str]) -> RevisionAdversarialLLM:
+        return RevisionAdversarialLLM(hallazgos=[
+            HallazgoAdversarial(tipo=t, service_domain="Party Reference Data Directory") for t in tipos
+        ])
+
+    def test_degrada_cuando_la_accion_citada_no_es_ninguna_de_la_historia(self):
+        grupos = self._grupos()
+        # antes de degradar: rúbricas altas -> SELECTED (el mismo punto de partida que en el caso
+        # real, donde solo el hallazgo adversarial + este chequeo evitan que se publique así).
+        self.assertEqual(grupos.candidatos_directos[0].decision_contractual, "SELECTED")
+        degradados = determinar_degradaciones(
+            grupos, self._intencion(["notificar", "registrar"]),
+            self._revision(["DEPENDENCIA_PROMOVIDA_A_CONTRATO"]),
+        )
+        self.assertEqual(degradados, frozenset({"partyreferencedatadirectory"}))
+
+        propuestos = {"partyreferencedatadirectory": ServiceDomainPropuestoLLM(
+            service_domain="Party Reference Data Directory", rol_contractual="OWNED_CONTRACT",
+            ownership_traceability=["SC-01", "SC-02"],
+        )}
+        nuevos = propuestos_degradados(propuestos, degradados)
+        p = nuevos["partyreferencedatadirectory"]
+        self.assertEqual(p.rol_contractual, "CONSUMED_DEPENDENCY")
+        self.assertEqual(p.dependency_kind, "SUPPORTING_LOOKUP")
+        self.assertEqual(p.dependency_traceability, ["SC-01", "SC-02"])
+        self.assertEqual(p.ownership_traceability, [])
+
+    def test_no_degrada_sin_hallazgo(self):
+        grupos = self._grupos()
+        degradados = determinar_degradaciones(grupos, self._intencion(["notificar"]), self._revision([]))
+        self.assertEqual(degradados, frozenset())
+
+    def test_no_degrada_si_la_accion_si_coincide_con_la_historia(self):
+        # la propia historia SÍ declara "actualizar" entre sus acciones -> hay sustento
+        # independiente, no se reclasifica solo por el hallazgo del revisor.
+        grupos = self._grupos()
+        degradados = determinar_degradaciones(
+            grupos, self._intencion(["actualizar", "notificar"]),
+            self._revision(["DEPENDENCIA_PROMOVIDA_A_CONTRATO"]),
+        )
+        self.assertEqual(degradados, frozenset())
+
+    def test_no_degrada_si_no_es_owned(self):
+        grupos = self._grupos(rol_contractual="RELATED_NOT_OWNED")
+        degradados = determinar_degradaciones(
+            grupos, self._intencion(["notificar"]),
+            self._revision(["DEPENDENCIA_PROMOVIDA_A_CONTRATO"]),
+        )
+        self.assertEqual(degradados, frozenset())
+
+    def test_no_degrada_sin_business_actions_en_la_intencion(self):
+        # sin acciones propias con qué confirmar nada, se queda en el UNRESOLVED bloqueado
+        # (conservador por defecto) en vez de reclasificar a ciegas.
+        grupos = self._grupos()
+        degradados = determinar_degradaciones(
+            grupos, self._intencion([]), self._revision(["DEPENDENCIA_PROMOVIDA_A_CONTRATO"]),
+        )
+        self.assertEqual(degradados, frozenset())
 
 
 class TestCandidatosOperacionElegibles(unittest.TestCase):
