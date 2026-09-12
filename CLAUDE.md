@@ -110,11 +110,24 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       SECURITY_GUARD/SUPPORTING_LOOKUP/EXTERNAL_PROVIDER/RISK_INPUT), y hay
       `dependency_traceability` + `evidence_refs` no vacíos. Al promover se **recalcula el score
       completo** (`clasificar_service_domains` de nuevo, nunca se parcha solo la etiqueta) y se
-      anota `reason_codes += ["OWNERSHIP_PROMOTED_BY_ADVERSARIAL"]`. Un
-      `ACCION_DIRECTA_COMO_DEPENDENCIA` que NO califica queda como incidencia
-      `OWNERSHIP_CONFLICT_UNRESOLVED` (nunca se pierde en silencio; ver `metricas.ownership_*` en
-      la salida). Caso real que motivó esto: "Notificar actualización de datos" → Correspondence
-      quedaba REJECTED/CONSUMED_DEPENDENCY pese a citar `InitiateOutbound`
+      anota `reason_codes += ["OWNERSHIP_PROMOTED_BY_ADVERSARIAL"]`. El score léxico crudo hereda
+      rúbricas (`match_action`/`match_objeto_negocio`/etc.) que el LLM calificó bajo mientras
+      todavía enmarcaba el SD como dependencia, así que casi siempre recalcula en banda tentativa
+      (a veces incluso descartada) — la barra de promoción (hallazgo independiente + evidencia +
+      trazabilidad + sin contradicción de rol) ya es más estricta que ese umbral numérico. Por eso
+      `aplicar_hallazgos_adversariales` **finaliza** la promoción: si la evidencia BIAN del SD es
+      oficial y verificada (`VERIFIED`/`CACHED_VERIFIED`), lo mueve a `candidatos_directos` con
+      `decision_contractual=SELECTED`/`motivo_decision=OWNED_SELECTED` **aunque su `grupo` numérico
+      no llegara a 0.90** (simétrico en sentido inverso al tope que ya aplica a los no-owned). Sin
+      evidencia oficial verificada, se anota la promoción pero NO se fuerza "directo" — queda donde
+      la reclasificación lo dejó (típicamente `REJECTED/OUT_OF_SCOPE` o
+      `UNRESOLVED/NO_OFFICIAL_BIAN_EVIDENCE`; nunca se inventa un contrato sobre evidencia
+      inexistente). Un `ACCION_DIRECTA_COMO_DEPENDENCIA` que no califica para promoción (sin
+      `dependency_kind` de salida, sin trazabilidad/evidencia, o contradicho por
+      `DIRECTO_SIN_SERVICE_ROLE`) queda como incidencia `OWNERSHIP_CONFLICT_UNRESOLVED` (nunca se
+      pierde en silencio; ver `metricas.ownership_*` en la salida). Caso real que motivó esto:
+      "Notificar actualización de datos" → Correspondence quedaba REJECTED/CONSUMED_DEPENDENCY
+      pese a citar `InitiateOutbound`
       (`salida/2026-09-11_17-59-40/`); regresión determinista en
       `tests/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership`.
    9. `seleccionar_operaciones` (si `paso2_operaciones`) → `MapeoOperacionesLLM` para los SD

@@ -232,6 +232,47 @@ class TestAplicarAdversarial(unittest.TestCase):
         out, _ = aplicar_hallazgos_adversariales(grupos, rev)
         self.assertEqual(out.candidatos_directos[0].decision_contractual, "SELECTED")
 
+    def _tentativo_promovido(self, *, estado_evidencia: str) -> "ServiceDomainsDeHistoria":
+        # score deliberadamente bajo en objeto/jerarquía -- igual que Correspondence real (0.6733):
+        # el LLM calificó esas rúbricas mientras todavía enmarcaba el candidato como dependencia.
+        p = _p("Party Authentication", 0.60, dep="AUDIT_OR_NOTIFICATION")
+        p = p.model_copy(update={
+            "accion_objeto": "notificar algo", "match_service_role": 2, "match_objeto_negocio": 1,
+            "escenarios_hu": ["Escenario 1. Algo", "Escenario 2. Otro"],
+        })
+        return clasificar_service_domains(
+            [p], self.CAT, self.U,
+            operaciones_por_sd={"Party Authentication": []},
+            evidencias_por_sd={"Party Authentication": EvidenciaBian(estado=estado_evidencia, content_sha256="x")},
+        )
+
+    def test_promocion_con_evidencia_verificada_finaliza_directo_selected(self):
+        grupos = self._tentativo_promovido(estado_evidencia="CACHED_VERIFIED")
+        self.assertEqual(grupos.candidatos_tentativos[0].service_domain, "Party Authentication")
+        out, _ = aplicar_hallazgos_adversariales(
+            grupos, RevisionAdversarialLLM(), promovidos=frozenset({"partyauthentication"})
+        )
+        self.assertEqual(out.candidatos_tentativos, [])
+        a = out.candidatos_directos[0]
+        self.assertEqual(a.grupo, "directo")
+        self.assertEqual(a.decision_contractual, "SELECTED")
+        self.assertEqual(a.motivo_decision, "OWNED_SELECTED")
+        self.assertIn("OWNERSHIP_PROMOTED_BY_ADVERSARIAL", a.reason_codes)
+
+    def test_promocion_sin_evidencia_verificada_no_fuerza_directo(self):
+        # sin evidencia BIAN verificable, el score cae más (penalización de scoring_bian) y la
+        # propuesta queda descartada -- pero eso, no una promoción silenciosa a "directo".
+        grupos = self._tentativo_promovido(estado_evidencia="BIAN_EVIDENCE_UNAVAILABLE")
+        self.assertEqual(grupos.candidatos_descartados[0].service_domain, "Party Authentication")
+        out, _ = aplicar_hallazgos_adversariales(
+            grupos, RevisionAdversarialLLM(), promovidos=frozenset({"partyauthentication"})
+        )
+        # se anota la promoción, pero sin evidencia oficial verificable no se inventa un "directo"
+        self.assertEqual(out.candidatos_directos, [])
+        a = next(a for a in out.candidatos_descartados if a.service_domain == "Party Authentication")
+        self.assertIn("OWNERSHIP_PROMOTED_BY_ADVERSARIAL", a.reason_codes)
+        self.assertNotEqual(a.decision_contractual, "SELECTED")
+
 
 class TestDeterminarPromociones(unittest.TestCase):
     """`determinar_promociones` / `propuestos_promovidos`: el caso real de "Notificar

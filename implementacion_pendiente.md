@@ -11,15 +11,25 @@ Del plan original de "recuperación y decisión BIAN híbrida", esto ya está im
 en `main` (Fases 0-2 + una versión mínima de Fase 3):
 
 - **Ownership determinista** (`src/dominio/clasificacion_historias.py::determinar_promociones` /
-  `propuestos_promovidos`): un `CONSUMED_DEPENDENCY` con `dependency_kind=AUDIT_OR_NOTIFICATION` +
-  evidencia fuerte se promueve a `OWNED_CONTRACT` cuando el revisor adversarial detecta
-  `ACCION_DIRECTA_COMO_DEPENDENCIA` y no lo contradice con `DIRECTO_SIN_SERVICE_ROLE`. Corrige el
-  falso negativo real de "Notificar actualización de datos" (Correspondence/`InitiateOutbound`).
-  Regresión determinista: `tests/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership`. E2E real
-  (gateada): `tests/test_e2e_notificacion_actualizacion.py`.
+  `propuestos_promovidos` + finalización en `aplicar_hallazgos_adversariales`): un
+  `CONSUMED_DEPENDENCY` con `dependency_kind=AUDIT_OR_NOTIFICATION` + evidencia fuerte se promueve
+  a `OWNED_CONTRACT` cuando el revisor adversarial detecta `ACCION_DIRECTA_COMO_DEPENDENCIA` y no
+  lo contradice con `DIRECTO_SIN_SERVICE_ROLE`. Al recalcular el score, casi siempre queda en
+  banda tentativa (o incluso descartada) porque hereda rúbricas que el LLM calificó bajo mientras
+  todavía enmarcaba el SD como dependencia — por eso, si la evidencia BIAN es oficial y verificada,
+  la promoción se **finaliza** moviendo el SD a `candidatos_directos` con
+  `SELECTED`/`OWNED_SELECTED` sin importar el score léxico crudo (la barra de promoción ya es más
+  estricta que el umbral numérico de 0.90). Sin evidencia verificada, NO se fuerza "directo" — se
+  anota la promoción pero se deja donde cayó (nunca se inventa un contrato sobre evidencia
+  inexistente). Corrige el falso negativo real de "Notificar actualización de datos"
+  (Correspondence/`InitiateOutbound`, que además terminaba en "tentativo" hasta que se agregó esta
+  finalización). Regresión determinista: `tests/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership`
+  + `tests/test_clasificacion_historias.py::TestAplicarAdversarial` (casos con/sin evidencia
+  verificada). E2E real (gateada): `tests/test_e2e_notificacion_actualizacion.py`.
 - **Elegibilidad de operaciones desacoplada** (`candidatos_operacion_elegibles`): `OWNED_CONTRACT`
-  directo O tentativo, no solo "directo" — un SD correctamente identificado como propietario con
-  confianza tentativa igual tiene una operación oficial que documentar.
+  directo O tentativo, no solo "directo" — sigue siendo útil como red de seguridad para el caso
+  (más raro tras la finalización de arriba) de un SD promovido que se queda en tentativo por falta
+  de evidencia BIAN verificada: aun así puede tener una operación oficial real que documentar.
 - **Retrieval híbrido EN MEMORIA** (`_candidatos_retrieval_hibrido` en
   `mapear_historias_service_domain.py` + `src/dominio/fusion_rrf.py`): RRF sobre
   `RecuperadorLexico` (rapidfuzz, siempre) + `RecuperadorVectorial` (embeddings, si hay proveedor

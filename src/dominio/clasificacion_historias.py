@@ -321,19 +321,24 @@ def aplicar_hallazgos_adversariales(
 ) -> tuple[ServiceDomainsDeHistoria, list[str]]:
     """Aplica la revisión adversarial de forma determinista.
 
-    El revisor adversarial es un asesor: solo puede DEGRADAR (`SELECTED` -> `UNRESOLVED`) y
-    anotar `reason_codes`. Nunca sube de grupo por sí solo. `promovidos` (calculado por
-    `determinar_promociones` y ya aplicado por el llamador vía `propuestos_promovidos` +
-    re-clasificación) solo se usa aquí para anotar la trazabilidad de la promoción sobre el
-    resultado ya reclasificado — este código no vuelve a decidir si promover. Devuelve los grupos
-    (posiblemente re-clasificados) y la lista de `blocking_codes` a nivel de historia.
+    El revisor adversarial (LLM) es un asesor: por sí solo, un hallazgo aislado nunca decide nada
+    aquí. Dos movimientos, ambos gobernados por reglas ya evaluadas ANTES de llegar a esta función:
+    DEGRADAR (`SELECTED` -> `UNRESOLVED`) para `DEPENDENCIA_PROMOVIDA_A_CONTRATO`/
+    `DIRECTO_SIN_SERVICE_ROLE`, y FINALIZAR una promoción ya decidida por `determinar_promociones`
+    (no se re-decide aquí si promover, solo se completa): si el SD promovido tiene evidencia BIAN
+    oficial verificada, queda `SELECTED`/`OWNED_SELECTED` y se mueve a `candidatos_directos`
+    aunque su score léxico crudo (heredado de la evaluación cuando el LLM lo enmarcaba como
+    dependencia) siga en banda tentativa o incluso descartada — la barra de promoción ya es más
+    estricta que el umbral numérico. Sin evidencia oficial verificada, se anota la promoción
+    (`reason_codes`) pero se deja el grupo/decisión tal como salieron de la reclasificación
+    (probablemente `UNRESOLVED`/`NO_OFFICIAL_BIAN_EVIDENCE`) — no se inventa una operación sobre
+    evidencia inexistente. Devuelve los grupos (posiblemente reordenados/movidos) y los
+    `blocking_codes` a nivel de historia.
     """
-    todos = [
-        *grupos.candidatos_directos,
-        *grupos.candidatos_tentativos,
-        *grupos.candidatos_descartados,
-    ]
-    por_sd = {normalizar(a.service_domain): a for a in todos}
+    directos = list(grupos.candidatos_directos)
+    tentativos = list(grupos.candidatos_tentativos)
+    descartados = list(grupos.candidatos_descartados)
+    por_sd = {normalizar(a.service_domain): a for a in (*directos, *tentativos, *descartados)}
     bloqueos_hu: list[str] = []
 
     for h in revision.hallazgos:
@@ -365,8 +370,31 @@ def aplicar_hallazgos_adversariales(
             "[adversarial] Promovido a OWNED_CONTRACT: accion directa con evidencia oficial y "
             "trazabilidad de escenarios, inicialmente clasificada como dependencia consumida.",
         ]
+        # La barra de promoción (hallazgo independiente + dependency_kind de salida/resultado +
+        # trazabilidad + evidencia citada + sin contradicción de Service Role) es más estricta que
+        # el umbral numérico de "directo": si además la evidencia BIAN es oficial y verificable, el
+        # score léxico crudo (heredado de cuando el LLM todavía enmarcaba esto como dependencia, y
+        # por eso venía bajo en objeto/jerarquía) no debe dejarlo varado en tentativo/descartado.
+        # Simétrico en sentido inverso al tope que ya aplica a los no-owned (`tope_no_owned`).
+        if objetivo.evidencia_bian.estado in ("VERIFIED", "CACHED_VERIFIED"):
+            if objetivo.grupo != "directo":
+                tentativos = [a for a in tentativos if normalizar(a.service_domain) != clave]
+                descartados = [a for a in descartados if normalizar(a.service_domain) != clave]
+                objetivo.grupo = "directo"
+                directos.append(objetivo)
+            objetivo.decision_contractual = "SELECTED"
+            objetivo.motivo_decision = "OWNED_SELECTED"
 
     for code in revision.blocking_codes:
         if code and code not in bloqueos_hu:
             bloqueos_hu.append(code)
-    return grupos, list(dict.fromkeys(bloqueos_hu))
+
+    def _orden(a: ServiceDomainAsignado) -> tuple[float, str]:
+        return (-a.confianza, a.service_domain.lower())
+
+    grupos_salida = ServiceDomainsDeHistoria(
+        candidatos_directos=sorted(directos, key=_orden),
+        candidatos_tentativos=sorted(tentativos, key=_orden),
+        candidatos_descartados=sorted(descartados, key=_orden),
+    )
+    return grupos_salida, list(dict.fromkeys(bloqueos_hu))

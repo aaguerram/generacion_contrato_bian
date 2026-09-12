@@ -418,14 +418,17 @@ class TestGrafoMapeoPromocionOwnership(unittest.TestCase):
                 c for c in r.service_domains_consolidados if c.service_domain == "Correspondence"
             )
             self.assertEqual(correspondence.contract_role, "OWNED_CONTRACT")
-            self.assertNotEqual(correspondence.decision, "REJECTED")
+            # evidencia CACHED_VERIFIED (caché BIAN real) -> la promoción se finaliza como SELECTED
+            # directo, no se queda varada en tentativo por el score léxico heredado de cuando el
+            # LLM lo enmarcaba como dependencia.
+            self.assertEqual(correspondence.decision, "SELECTED")
+            self.assertEqual(correspondence.motivo, "OWNED_SELECTED")
             self.assertIn("InitiateOutbound", correspondence.selected_operations)
 
             hu = r.historias[0]
-            asignado = next(
-                a for a in (*hu.service_domains.candidatos_directos, *hu.service_domains.candidatos_tentativos)
-                if a.service_domain == "Correspondence"
-            )
+            self.assertEqual(hu.total_directos, 1)
+            asignado = next(a for a in hu.service_domains.candidatos_directos if a.service_domain == "Correspondence")
+            self.assertEqual(asignado.grupo, "directo")
             self.assertIn("OWNERSHIP_PROMOTED_BY_ADVERSARIAL", asignado.reason_codes)
             op = next(o for o in asignado.operaciones_bian if o.operation_id == "InitiateOutbound")
             self.assertEqual(op.method, "POST")
