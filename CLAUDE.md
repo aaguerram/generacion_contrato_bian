@@ -288,22 +288,18 @@ Ejemplo: `tests/test_e2e_datos_personales.py` + `tests/resources/datos_personale
 (debe anclar `RetrieveReference`/`UpdateReference`, nunca `RetrieveDemographics`; ver
 `src/dominio/cobertura_operaciones.py`).
 
-Segundo ejemplo: `tests/test_e2e_notificacion_actualizacion.py` +
-`tests/resources/notificacion_actualizacion/` — HU "Notificar actualización de datos" bajo la
-funcionalidad macro "Notificar actualización de datos"; valida que Correspondence quede
-`OWNED_CONTRACT` (nunca `REJECTED`) con `InitiateOutbound` anclado (POST, BQ, grupo Outbound). Su
-equivalente determinista SIN LLM (corre siempre, no gateado) es
-`tests/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership` /
-`TestGrafoMapeoFinalizacionPorOperacion`.
-
-Tercer ejemplo: `tests/test_e2e_datos_personales_notificacion.py` +
-`tests/resources/datos_personales_notificacion/` — MISMA HU "Notificar actualización de datos",
-pero bajo la funcionalidad macro más amplia "Actualización de datos personales" (la misma que usa
-el primer ejemplo) — replica el comando manual real usado para validar esta corrección
+Segundo ejemplo: `tests/test_e2e_datos_personales_notificacion.py` +
+`tests/resources/datos_personales_notificacion/` — HU "Notificar actualización de datos" bajo la
+funcionalidad macro "Actualización de datos personales" (la misma que usa el primer ejemplo) —
+replica el comando manual real usado para validar la corrección de ownership de Correspondence
 (`--directorio-hu ./HU --funcionalidad ./ejemplos/funcionalidad-actualizacion-datos-personales.json`).
-El framing de la funcionalidad cambia el score que el LLM le da al candidato (0.5033 / 0.6733 /
-0.98 observados en corridas reales según el contexto y qué modelo del failover respondió) — por
-eso se cubre por separado del segundo ejemplo, no se asume que un framing generaliza al otro.
+Valida que Correspondence quede `OWNED_CONTRACT` (nunca `REJECTED`) con `InitiateOutbound` anclado
+(POST, BQ, grupo Outbound). Su equivalente determinista SIN LLM (corre siempre, no gateado) es
+`tests/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership` /
+`TestGrafoMapeoFinalizacionPorOperacion`. El framing de la funcionalidad cambia el score que el
+LLM le da al candidato (0.5033 / 0.6733 / 0.98 observados en corridas reales según el contexto y
+qué modelo del failover respondió) — la regresión determinista es la que fija ese caso sin
+depender de qué framing use la E2E.
 
 ## Comandos
 
