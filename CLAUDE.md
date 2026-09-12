@@ -145,7 +145,17 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       verifica esa cita contra `schemas_detalle`: si no hay evidencia real, la operación se ancla
       igual pero con `reason_codes += ["OPERATION_EVIDENCE_UNVERIFIED"]` (nunca se descarta en
       silencio). El anclaje es estricto por Service Domain (índice por nombre normalizado, sin
-      fallback a otro SD). **Operación personalizada**: un Control Record no se edita — si un
+      fallback a otro SD) — pero tolerante al FORMATO del `operationId`: modelos más débiles del
+      failover a veces devuelven `"METODO /path/completo"` en vez del literal exacto que pide el
+      prompt (observado en producción: `"POST /Correspondence/{id}/Outbound/Initiate"` en vez de
+      `"InitiateOutbound"`). `resolver_operation_id` (`src/dominio/cobertura_operaciones.py`, usado
+      tanto por el blindaje anti-alucinación del adaptador `mapeador_operaciones_langchain.py` como
+      por el anclaje de `_asignar_operaciones`) lo reconstruye desde el `path`/`method` REALES de
+      una operación ya presente en el catálogo de ESE SD — nunca inventa una operación ni cruza a
+      otro Service Domain, solo tolera un formato de cita distinto; cuando reconstruye así (no
+      match exacto) anota `reason_codes += ["OPERATION_ID_RECONSTRUCTED_FROM_PATH"]`, y si de plano
+      no resuelve ninguna forma, queda como incidencia `OPERATION_ID_UNRESOLVED` en vez de
+      perderse en un log. **Operación personalizada**: un Control Record no se edita — si un
       campo que la historia necesita no está en ningún `campos_respuesta` oficial (CR ni BQ), el
       prompt recibe también el BOM del SD (`schemas_bom` + `modelo_bom_puml`) y puede proponer
       `bq_personalizados` (`grupo_existente` + verbo BIAN + `clase_bom`/`atributo_bom` citados).
@@ -159,6 +169,20 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       **Nunca** se mezcla con `operaciones_bian`/`selected_operations`: vive en
       `bq_personalizados_propuestos` / `custom_bq_candidates`, `estado: CUSTOM_BQ_CANDIDATE`,
       pendiente de revisión BIAN.
+
+      **`finalizar_por_operacion_solida`** **[determinista, corre justo después de anclar
+      operaciones]**: un SD ya `OWNED_CONTRACT` desde la primera evaluación (sin haber pasado por
+      `determinar_promociones`) puede igual quedar en `tentativo` porque las rúbricas de
+      acción/objeto vinieron bajas — mismo problema estructural que motiva la promoción, pero sin
+      hallazgo adversarial que lo dispare. Si tiene evidencia BIAN oficial verificada Y al menos
+      una operación anclada SIN reservas (`operaciones_bian` con `reason_codes` vacío — ni
+      `OPERATION_EVIDENCE_UNVERIFIED` ni nada), se finaliza igual que una promoción: se mueve a
+      `candidatos_directos` con `SELECTED`/`OWNED_SELECTED` y
+      `reason_codes += ["OWNED_FINALIZED_BY_OPERATION_EVIDENCE"]`, sin importar el score léxico
+      agregado. Caso real que lo motivó: en una corrida con LLM real, Correspondence salió
+      `OWNED_CONTRACT` directo (nada que promover) pero con score 0.6733 (idéntico al caso de
+      promoción) — sin este paso quedaba en tentativo pese a tener `InitiateOutbound` ya anclado y
+      verificado. Ver `tests/test_grafo_mapeo.py::TestGrafoMapeoFinalizacionPorOperacion`.
    10. `reconciliar_funcionalidad` (1 llamada, ve todas las HU) → `ReconciliacionFuncionalidadLLM`
       (**asesor**: `functionality_role`, `supporting/contradicting_stories`, `recommended_status`).
       `_consolidar` **[determinista]** decide el estado final; la reconciliación solo aporta rol de
@@ -180,9 +204,11 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
    `TRUNCATED_BY_MAX_CANDIDATOS_HU` cortó, sobre el total), `ownership_conflict_rate`
    (`ACCION_DIRECTA_COMO_DEPENDENCIA` que NO se promovió, sobre promovidos+sin-resolver),
    `operation_grounding_rate` (operaciones ancladas sin `OPERATION_EVIDENCE_UNVERIFIED`, sobre el
-   total ancladas). `desglose_score` de cada SD también trae `retrieval_score` (origen retrieval
-   híbrido) y `operation_support_score` (fracción de sus operaciones verificadas) — aditivos,
-   nunca entran a `total`.
+   total ancladas), `operation_id_no_resuelto` (incidencias `OPERATION_ID_UNRESOLVED`) y
+   `finalizados_por_operacion_solida` (`OWNED_FINALIZED_BY_OPERATION_EVIDENCE`, ver paso 9).
+   `desglose_score` de cada SD también trae `retrieval_score` (origen retrieval híbrido) y
+   `operation_support_score` (fracción de sus operaciones verificadas) — aditivos, nunca entran a
+   `total`.
 
    Toda la evidencia BIAN vive en **`generacion_contrato_ia_v2/docs/`** (ver cabecera de este
    archivo). La red solo completa ausentes o refresca explícitamente; la memoria del modelo nunca
