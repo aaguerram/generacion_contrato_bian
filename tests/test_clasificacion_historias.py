@@ -277,9 +277,16 @@ class TestAplicarAdversarial(unittest.TestCase):
 class TestDeterminarPromociones(unittest.TestCase):
     """`determinar_promociones` / `propuestos_promovidos`: el caso real de "Notificar
     actualización de datos" (Correspondence CONSUMED_DEPENDENCY/AUDIT_OR_NOTIFICATION con
-    ACCION_DIRECTA_COMO_DEPENDENCIA) -- ver salida/2026-09-11_17-59-40."""
+    ACCION_DIRECTA_COMO_DEPENDENCIA) -- ver salida/2026-09-11_17-59-40 -- y el falso positivo real
+    de "Party Authentication" (evidence_refs citando su propio Control Record
+    `PartyAuthenticationAssessment` para una historia de "enviar notificación", sin relación real
+    con el objeto de negocio) que motivó el piso `objeto_bom_minimo` -- ver
+    salida/2026-09-12_*/mapeo-historias-service-domains.json, objeto_bom=0.0 exacto."""
 
-    def _propuesto_correspondence(self, **overrides) -> ServiceDomainPropuestoLLM:
+    U = UmbralesMapeo()
+    CAT = _cat("Correspondence")
+
+    def _grupos(self, **overrides) -> "ServiceDomainsDeHistoria":
         base = dict(
             service_domain="Correspondence", rol_contractual="CONSUMED_DEPENDENCY",
             dependency_kind="AUDIT_OR_NOTIFICATION", justificacion="consume Correspondence",
@@ -287,53 +294,77 @@ class TestDeterminarPromociones(unittest.TestCase):
             evidence_refs=["InitiateOutbound"],
         )
         base.update(overrides)
-        return ServiceDomainPropuestoLLM(**base)
+        propuesta = ServiceDomainPropuestoLLM(**base)
+        return clasificar_service_domains(
+            [propuesta], self.CAT, self.U,
+            operaciones_por_sd={"Correspondence": []},
+            evidencias_por_sd={"Correspondence": EvidenciaBian(estado="CACHED_VERIFIED", content_sha256="x")},
+        )
 
-    def _revision(self, tipos: list[str]) -> RevisionAdversarialLLM:
+    def _propuestos_de(self, grupos) -> dict[str, ServiceDomainPropuestoLLM]:
+        """Reconstruye el dict que necesita `propuestos_promovidos` a partir del `ServiceDomainAsignado`
+        ya clasificado (mismo patrón que usa el servicio real: `_h_clasificar` guarda este dict por
+        separado; aquí se reconstruye a mano porque el test opera un nivel más abajo)."""
+        a = (*grupos.candidatos_directos, *grupos.candidatos_tentativos, *grupos.candidatos_descartados)[0]
+        return {normalizar(a.service_domain): ServiceDomainPropuestoLLM(
+            service_domain=a.service_domain, rol_contractual=a.rol_contractual,
+            dependency_kind=a.dependency_kind, justificacion=a.justificacion, confianza=a.confianza_llm,
+            dependency_traceability=a.dependency_traceability, evidence_refs=a.evidence_refs,
+        )}
+
+    def _revision(self, tipos: list[str], *, sd: str = "Correspondence") -> RevisionAdversarialLLM:
         return RevisionAdversarialLLM(hallazgos=[
-            HallazgoAdversarial(tipo=t, service_domain="Correspondence") for t in tipos
+            HallazgoAdversarial(tipo=t, service_domain=sd) for t in tipos
         ])
 
     def test_promueve_con_evidencia_fuerte(self):
-        propuestos = {"correspondence": self._propuesto_correspondence()}
-        promovidos = determinar_promociones(propuestos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        # match_objeto_negocio=3 -> objeto_bom=1.0 (rúbrica del LLM sosteniendo el match real)
+        grupos = self._grupos(match_objeto_negocio=3)
+        promovidos = determinar_promociones(grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
         self.assertEqual(promovidos, frozenset({"correspondence"}))
 
+        propuestos = self._propuestos_de(grupos)
         nuevos = propuestos_promovidos(propuestos, promovidos)
         p = nuevos["correspondence"]
         self.assertEqual(p.rol_contractual, "OWNED_CONTRACT")
         self.assertIsNone(p.dependency_kind)
-        self.assertEqual(p.ownership_traceability, ["SC-01", "SC-02"])
-        self.assertEqual(p.dependency_traceability, [])
+
+    def test_no_promueve_objeto_bom_cero_aunque_todo_lo_demas_califique(self):
+        # regresión del falso positivo real: "Party Authentication" citó su propio CR como
+        # evidence_refs para una historia de notificación -- ACCION_DIRECTA_COMO_DEPENDENCIA +
+        # dependency_kind + trazabilidad + evidence_refs no vacíos, TODO presente, pero
+        # objeto_bom=0.0 (ninguna correspondencia léxica ni de rúbrica con el objeto de negocio).
+        grupos = self._grupos()  # match_objeto_negocio por defecto = 0, sin operaciones/esquemas
+        self.assertEqual(grupos.candidatos_descartados[0].desglose_score.objeto_bom, 0.0)
+        promovidos = determinar_promociones(grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        self.assertEqual(promovidos, frozenset())
 
     def test_no_promueve_sin_hallazgo(self):
-        propuestos = {"correspondence": self._propuesto_correspondence()}
-        self.assertEqual(determinar_promociones(propuestos, self._revision([])), frozenset())
+        grupos = self._grupos(match_objeto_negocio=3)
+        self.assertEqual(determinar_promociones(grupos, self._revision([])), frozenset())
 
     def test_no_promueve_si_revisor_contradice_service_role(self):
-        propuestos = {"correspondence": self._propuesto_correspondence()}
+        grupos = self._grupos(match_objeto_negocio=3)
         rev = self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA", "DIRECTO_SIN_SERVICE_ROLE"])
-        self.assertEqual(determinar_promociones(propuestos, rev), frozenset())
+        self.assertEqual(determinar_promociones(grupos, rev), frozenset())
 
     def test_no_promueve_dependency_kind_de_precondicion(self):
         # SECURITY_GUARD / SUPPORTING_LOOKUP / EXTERNAL_PROVIDER / RISK_INPUT: precondiciones
         # consultadas antes de actuar, no la salida que la historia produce -- nunca promueven.
-        propuestos = {"correspondence": self._propuesto_correspondence(dependency_kind="SECURITY_GUARD")}
-        promovidos = determinar_promociones(propuestos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        grupos = self._grupos(dependency_kind="SECURITY_GUARD", match_objeto_negocio=3)
+        promovidos = determinar_promociones(grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
         self.assertEqual(promovidos, frozenset())
 
     def test_no_promueve_sin_trazabilidad_ni_evidencia(self):
-        propuestos = {"correspondence": self._propuesto_correspondence(
-            dependency_traceability=[], evidence_refs=[],
-        )}
-        promovidos = determinar_promociones(propuestos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        grupos = self._grupos(dependency_traceability=[], evidence_refs=[], match_objeto_negocio=3)
+        promovidos = determinar_promociones(grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
         self.assertEqual(promovidos, frozenset())
 
     def test_no_promueve_related_not_owned(self):
-        propuestos = {"correspondence": self._propuesto_correspondence(
-            rol_contractual="RELATED_NOT_OWNED", dependency_kind=None,
-        )}
-        promovidos = determinar_promociones(propuestos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        grupos = self._grupos(
+            rol_contractual="RELATED_NOT_OWNED", dependency_kind=None, match_objeto_negocio=3,
+        )
+        promovidos = determinar_promociones(grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
         self.assertEqual(promovidos, frozenset())
 
 

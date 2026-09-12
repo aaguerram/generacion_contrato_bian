@@ -236,12 +236,23 @@ _DEGRADA_SELECTED = {
 # elegibles para promoción — no cualquier `CONSUMED_DEPENDENCY` con un hallazgo adversarial.
 _PROMOCION_DEPENDENCY_KINDS: frozenset[DependencyKind] = frozenset({"AUDIT_OR_NOTIFICATION"})
 
+# Piso de `desglose_score.objeto_bom` para promover/finalizar por evidencia sin score directo (ver
+# `determinar_promociones` / `finalizar_por_operacion_solida`). Filtra el caso real observado:
+# "Party Authentication" citó su propio CR (`PartyAuthenticationAssessment`) como `evidence_refs`
+# para una historia de "enviar notificación" -evidencia real pero de un objeto de negocio distinto,
+# objeto_bom=0.0 exacto- y sin este piso quedaba promovido/finalizado igual. 0.15 es
+# deliberadamente bajo (Correspondence real dio 0.3333; los casos de prueba scriptados dan 1.0):
+# solo bloquea el caso de correlación CERO, no exige un match fuerte.
+OBJETO_BOM_MINIMO_PROMOCION = 0.15
+
 PROMOTED_REASON_CODE = "OWNERSHIP_PROMOTED_BY_ADVERSARIAL"
 
 
 def determinar_promociones(
-    propuestos_por_sd: dict[str, ServiceDomainPropuestoLLM],
+    grupos: ServiceDomainsDeHistoria,
     revision: RevisionAdversarialLLM,
+    *,
+    objeto_bom_minimo: float = OBJETO_BOM_MINIMO_PROMOCION,
 ) -> frozenset[str]:
     """Nombres normalizados de SD que pasan de `CONSUMED_DEPENDENCY` a `OWNED_CONTRACT`.
 
@@ -251,24 +262,40 @@ def determinar_promociones(
     - `rol_contractual == CONSUMED_DEPENDENCY` con `dependency_kind` en `_PROMOCION_DEPENDENCY_KINDS`
       (el SD es la salida/resultado que la historia produce, no una precondición consultada);
     - trazabilidad a escenarios (`dependency_traceability`) y al menos una cita de evidencia
-      (`evidence_refs`, típicamente una operación oficial) — sin esto, no hay base determinista.
+      (`evidence_refs`, típicamente una operación oficial) — sin esto, no hay base determinista;
+    - `desglose_score.objeto_bom >= objeto_bom_minimo`: el LLM (evaluación + revisor adversarial)
+      puede citar `evidence_refs` no vacío señalando CUALQUIER operación real del SD -incluido el
+      nombre del propio Control Record, que `operacion_evidencia_verificable` acepta como cita
+      válida por diseño- sin que esa operación tenga relación real con el objeto de negocio de la
+      historia (caso real: "Party Authentication" fue promovido citando su propio CR
+      `PartyAuthenticationAssessment` para una historia de "enviar notificación" — evidencia
+      "real" pero irrelevante). `objeto_bom` es la única componente del score que mide
+      específicamente esa correspondencia con evidencia léxica (no solo autoreporte del LLM); un
+      valor de 0 significa que ni el texto de las operaciones/BOM del SD ni la rúbrica
+      `match_objeto_negocio` encontraron NADA en común con lo que la historia administra.
     """
     hallazgos_por_sd: dict[str, list[str]] = {}
     for h in revision.hallazgos:
         if h.service_domain:
             hallazgos_por_sd.setdefault(normalizar(h.service_domain), []).append(h.tipo)
 
+    todos = {
+        normalizar(a.service_domain): a
+        for a in (*grupos.candidatos_directos, *grupos.candidatos_tentativos, *grupos.candidatos_descartados)
+    }
+
     promovidos: set[str] = set()
     for clave, tipos in hallazgos_por_sd.items():
         if "ACCION_DIRECTA_COMO_DEPENDENCIA" not in tipos or "DIRECTO_SIN_SERVICE_ROLE" in tipos:
             continue
-        p = propuestos_por_sd.get(clave)
+        a = todos.get(clave)
         if (
-            p is not None
-            and p.rol_contractual == "CONSUMED_DEPENDENCY"
-            and p.dependency_kind in _PROMOCION_DEPENDENCY_KINDS
-            and p.dependency_traceability
-            and p.evidence_refs
+            a is not None
+            and a.rol_contractual == "CONSUMED_DEPENDENCY"
+            and a.dependency_kind in _PROMOCION_DEPENDENCY_KINDS
+            and a.dependency_traceability
+            and a.evidence_refs
+            and a.desglose_score.objeto_bom >= objeto_bom_minimo
         ):
             promovidos.add(clave)
     return frozenset(promovidos)
@@ -335,18 +362,26 @@ def _finalizar_como_directo(
     objetivo.motivo_decision = "OWNED_SELECTED"
 
 
-def finalizar_por_operacion_solida(grupos: ServiceDomainsDeHistoria) -> ServiceDomainsDeHistoria:
+def finalizar_por_operacion_solida(
+    grupos: ServiceDomainsDeHistoria, *, objeto_bom_minimo: float = OBJETO_BOM_MINIMO_PROMOCION
+) -> ServiceDomainsDeHistoria:
     """Se llama DESPUÉS de anclar operaciones (`_asignar_operaciones`). Un candidato
     `OWNED_CONTRACT` con evidencia BIAN oficial verificada Y al menos una operación anclada sin
-    reservas (`operaciones_bian` con `reason_codes` vacío, es decir ni
-    `OPERATION_EVIDENCE_UNVERIFIED` ni ninguna otra) ya reúne tres señales independientes de que la
-    identificación es correcta: el LLM lo propuso como propietario, hay evidencia BIAN real, y hay
-    una operación oficial concreta y verificada que la implementa. Eso pesa más que el score
-    léxico agregado, que puede quedar estructuralmente bajo para Service Domains "administrativos"
-    (Business Area/Domain sin vocabulario compartido con la historia, p.ej. Correspondence /
-    "Business Support / Document Management and Archive" contra "notificar cambio de datos") aun
-    cuando la identificación ya era correcta desde la primera evaluación (sin pasar por
-    `determinar_promociones`). Idempotente: no hace nada si ya está en `directo`."""
+    `OPERATION_EVIDENCE_UNVERIFIED` (la única reserva que refleja incertidumbre real sobre SI la
+    cita del LLM corresponde a un campo real — `OPERATION_ID_RECONSTRUCTED_FROM_PATH` no cuenta:
+    ahí la operación en sí ya quedó resuelta con certeza estructural, contra el path/method reales
+    del catálogo, `resolver_operation_id`; el único caveat es el FORMATO en que el LLM la citó, no
+    si es la correcta) ya reúne tres señales independientes de que la identificación es correcta:
+    el LLM lo propuso como propietario, hay evidencia BIAN real, y hay una operación oficial
+    concreta y verificada que la implementa. Eso pesa más que el score léxico agregado, que puede
+    quedar estructuralmente bajo para Service Domains "administrativos" (Business Area/Domain sin
+    vocabulario compartido con la historia, p.ej. Correspondence / "Business Support / Document
+    Management and Archive" contra "notificar cambio de datos") aun cuando la identificación ya
+    era correcta desde la primera evaluación (sin pasar por `determinar_promociones`). Mismo piso
+    `objeto_bom_minimo` que la promoción (misma vulnerabilidad: `operacion_evidencia_verificable`
+    acepta citar el propio `grupo`/`operation_id` como evidencia "verificada", lo que no garantiza
+    que esa operación tenga relación real con el objeto de negocio de la historia). Idempotente:
+    no hace nada si ya está en `directo`."""
     directos = list(grupos.candidatos_directos)
     tentativos = list(grupos.candidatos_tentativos)
     descartados = list(grupos.candidatos_descartados)
@@ -354,7 +389,8 @@ def finalizar_por_operacion_solida(grupos: ServiceDomainsDeHistoria) -> ServiceD
         if (
             a.rol_contractual == "OWNED_CONTRACT"
             and a.evidencia_bian.estado in ("VERIFIED", "CACHED_VERIFIED")
-            and any(not o.reason_codes for o in a.operaciones_bian)
+            and a.desglose_score.objeto_bom >= objeto_bom_minimo
+            and any("OPERATION_EVIDENCE_UNVERIFIED" not in o.reason_codes for o in a.operaciones_bian)
         ):
             a.reason_codes = list(dict.fromkeys([*a.reason_codes, OPERATION_FINALIZED_REASON_CODE]))
             _finalizar_como_directo(a, directos, tentativos, descartados)

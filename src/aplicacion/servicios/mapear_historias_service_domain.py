@@ -468,7 +468,9 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
     def _h_aplicar_adversarial(self, estado: EstadoHistoria) -> dict:
         revision = estado.get("revision_adversarial") or RevisionAdversarialLLM()
         propuestos_por_sd = estado.get("propuestos_por_sd") or {}
-        promovidos = determinar_promociones(propuestos_por_sd, revision)
+        # `determinar_promociones` lee `desglose_score.objeto_bom` de la clasificación YA hecha
+        # (`estado["grupos"]`), no de `propuestos_por_sd` (que no trae el score calculado).
+        promovidos = determinar_promociones(estado["grupos"], revision)
 
         grupos = estado["grupos"]
         if promovidos:

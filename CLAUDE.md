@@ -107,29 +107,40 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       `ACCION_DIRECTA_COMO_DEPENDENCIA` para ese SD SIN que el propio revisor también haya marcado
       `DIRECTO_SIN_SERVICE_ROLE` para el mismo SD, `dependency_kind == AUDIT_OR_NOTIFICATION` (el
       SD es la salida/resultado que la historia produce, no una precondición tipo
-      SECURITY_GUARD/SUPPORTING_LOOKUP/EXTERNAL_PROVIDER/RISK_INPUT), y hay
-      `dependency_traceability` + `evidence_refs` no vacíos. Al promover se **recalcula el score
-      completo** (`clasificar_service_domains` de nuevo, nunca se parcha solo la etiqueta) y se
-      anota `reason_codes += ["OWNERSHIP_PROMOTED_BY_ADVERSARIAL"]`. El score léxico crudo hereda
-      rúbricas (`match_action`/`match_objeto_negocio`/etc.) que el LLM calificó bajo mientras
-      todavía enmarcaba el SD como dependencia, así que casi siempre recalcula en banda tentativa
-      (a veces incluso descartada) — la barra de promoción (hallazgo independiente + evidencia +
-      trazabilidad + sin contradicción de rol) ya es más estricta que ese umbral numérico. Por eso
-      `aplicar_hallazgos_adversariales` **finaliza** la promoción: si la evidencia BIAN del SD es
-      oficial y verificada (`VERIFIED`/`CACHED_VERIFIED`), lo mueve a `candidatos_directos` con
-      `decision_contractual=SELECTED`/`motivo_decision=OWNED_SELECTED` **aunque su `grupo` numérico
-      no llegara a 0.90** (simétrico en sentido inverso al tope que ya aplica a los no-owned). Sin
-      evidencia oficial verificada, se anota la promoción pero NO se fuerza "directo" — queda donde
-      la reclasificación lo dejó (típicamente `REJECTED/OUT_OF_SCOPE` o
-      `UNRESOLVED/NO_OFFICIAL_BIAN_EVIDENCE`; nunca se inventa un contrato sobre evidencia
-      inexistente). Un `ACCION_DIRECTA_COMO_DEPENDENCIA` que no califica para promoción (sin
-      `dependency_kind` de salida, sin trazabilidad/evidencia, o contradicho por
-      `DIRECTO_SIN_SERVICE_ROLE`) queda como incidencia `OWNERSHIP_CONFLICT_UNRESOLVED` (nunca se
-      pierde en silencio; ver `metricas.ownership_*` en la salida). Caso real que motivó esto:
+      SECURITY_GUARD/SUPPORTING_LOOKUP/EXTERNAL_PROVIDER/RISK_INPUT), hay
+      `dependency_traceability` + `evidence_refs` no vacíos, Y `desglose_score.objeto_bom >=
+      OBJETO_BOM_MINIMO_PROMOCION` (0.15). Esta última condición existe porque `evidence_refs` no
+      vacío NO basta: `operacion_evidencia_verificable` acepta citar el propio nombre del
+      Control Record/`operation_id` como cita válida, así que el LLM puede satisfacer "hay
+      evidencia" señalando CUALQUIER operación real del SD sin que tenga relación con el objeto de
+      negocio de la historia — caso real: "Party Authentication" fue promovido citando su propio
+      CR `PartyAuthenticationAssessment` para una historia de "enviar notificación" (evidencia
+      real, pero de identidad/autenticación, no de mensajería); `objeto_bom` dio 0.0 exacto (ni la
+      rúbrica `match_objeto_negocio` ni el texto de operaciones/BOM encontraron nada en común). Al
+      promover se **recalcula el score completo** (`clasificar_service_domains` de nuevo, nunca se
+      parcha solo la etiqueta) y se anota `reason_codes += ["OWNERSHIP_PROMOTED_BY_ADVERSARIAL"]`.
+      El score léxico crudo hereda rúbricas (`match_action`/`match_objeto_negocio`/etc.) que el LLM
+      calificó bajo mientras todavía enmarcaba el SD como dependencia, así que casi siempre
+      recalcula en banda tentativa (a veces incluso descartada) — la barra de promoción (hallazgo
+      independiente + evidencia + trazabilidad + objeto_bom + sin contradicción de rol) ya es más
+      estricta que ese umbral numérico. Por eso `aplicar_hallazgos_adversariales` **finaliza** la
+      promoción: si la evidencia BIAN del SD es oficial y verificada (`VERIFIED`/`CACHED_VERIFIED`),
+      lo mueve a `candidatos_directos` con `decision_contractual=SELECTED`/
+      `motivo_decision=OWNED_SELECTED` **aunque su `grupo` numérico no llegara a 0.90** (simétrico
+      en sentido inverso al tope que ya aplica a los no-owned). Sin evidencia oficial verificada, se
+      anota la promoción pero NO se fuerza "directo" — queda donde la reclasificación lo dejó
+      (típicamente `REJECTED/OUT_OF_SCOPE` o `UNRESOLVED/NO_OFFICIAL_BIAN_EVIDENCE`; nunca se
+      inventa un contrato sobre evidencia inexistente). Un `ACCION_DIRECTA_COMO_DEPENDENCIA` que no
+      califica para promoción (sin `dependency_kind` de salida, sin trazabilidad/evidencia,
+      `objeto_bom` insuficiente, o contradicho por `DIRECTO_SIN_SERVICE_ROLE`) queda como
+      incidencia `OWNERSHIP_CONFLICT_UNRESOLVED` (nunca se pierde en silencio; ver
+      `metricas.ownership_*` en la salida). Caso real que motivó la promoción:
       "Notificar actualización de datos" → Correspondence quedaba REJECTED/CONSUMED_DEPENDENCY
-      pese a citar `InitiateOutbound`
-      (`salida/2026-09-11_17-59-40/`); regresión determinista en
-      `tests/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership`.
+      pese a citar `InitiateOutbound` (`salida/2026-09-11_17-59-40/`). Caso real que motivó el piso
+      `objeto_bom`: la misma historia promovía también a "Party Authentication" sin base real
+      (`salida/2026-09-12_*/`). Regresión determinista en
+      `tests/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership` y
+      `tests/test_clasificacion_historias.py::TestDeterminarPromociones`.
    9. `seleccionar_operaciones` (si `paso2_operaciones`) → `MapeoOperacionesLLM` para los SD
       **elegibles** (`candidatos_operacion_elegibles`: `OWNED_CONTRACT` directo O tentativo — YA NO
       solo "directo"; un SD correctamente identificado como propietario con confianza tentativa
@@ -174,9 +185,13 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       operaciones]**: un SD ya `OWNED_CONTRACT` desde la primera evaluación (sin haber pasado por
       `determinar_promociones`) puede igual quedar en `tentativo` porque las rúbricas de
       acción/objeto vinieron bajas — mismo problema estructural que motiva la promoción, pero sin
-      hallazgo adversarial que lo dispare. Si tiene evidencia BIAN oficial verificada Y al menos
-      una operación anclada SIN reservas (`operaciones_bian` con `reason_codes` vacío — ni
-      `OPERATION_EVIDENCE_UNVERIFIED` ni nada), se finaliza igual que una promoción: se mueve a
+      hallazgo adversarial que lo dispare. Si tiene evidencia BIAN oficial verificada, `objeto_bom
+      >= OBJETO_BOM_MINIMO_PROMOCION` (mismo piso y misma razón que la promoción — evita el mismo
+      falso positivo tipo "Party Authentication") Y al menos una operación anclada sin
+      `OPERATION_EVIDENCE_UNVERIFIED` (la única reserva que sí refleja incertidumbre real sobre la
+      cita; `OPERATION_ID_RECONSTRUCTED_FROM_PATH` no descalifica — ahí la operación quedó resuelta
+      con certeza estructural contra el path/method reales, `resolver_operation_id`, el único
+      caveat es el formato en que el LLM la citó), se finaliza igual que una promoción: se mueve a
       `candidatos_directos` con `SELECTED`/`OWNED_SELECTED` y
       `reason_codes += ["OWNED_FINALIZED_BY_OPERATION_EVIDENCE"]`, sin importar el score léxico
       agregado. Caso real que lo motivó: en una corrida con LLM real, Correspondence salió
