@@ -68,6 +68,7 @@ from src.dominio.clasificacion_historias import (
 from src.dominio.cobertura_operaciones import (
     campos_alcanzables,
     derivar_path_grupo,
+    fusionar_propuestas_de_operacion,
     operacion_evidencia_verificable,
     operation_id_en_uso,
     resolver_operation_id,
@@ -622,6 +623,12 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # (aislamiento estricto: un operationId de un SD nunca se ancla a otro SD).
         indice_ops = {normalizar(nombre): ops for nombre, ops in operaciones_por_sd.items()}
         incidencias: list[dict] = []
+        # 1ª pasada: resuelve cada propuesta contra el catálogo real y agrupa por (SD, operationId
+        # real) -- el LLM puede citar la MISMA operación más de una vez, una por cada
+        # escenario/bq_seed que cubre (`fusionar_propuestas_de_operacion`), nunca se ancla una
+        # entrada duplicada por eso.
+        por_grupo: dict[tuple[str, str], tuple[ServiceDomainAsignado, OperacionBian, list]] = {}
+        orden_grupos: list[tuple[str, str]] = []
         for op in mapeo.operaciones:
             asignado = por_sd_norm.get(op.service_domain.casefold())
             operaciones_sd = indice_ops.get(normalizar(op.service_domain), [])
@@ -642,13 +649,23 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                     "catálogo real de ese Service Domain (ni exacto ni por path/method).",
                 })
                 continue
+            clave = (normalizar(asignado.service_domain), fuente.operation_id)
+            if clave not in por_grupo:
+                orden_grupos.append(clave)
+                por_grupo[clave] = (asignado, fuente, [])
+            por_grupo[clave][2].append(op)
+
+        # 2ª pasada: fusiona cada grupo en una sola propuesta y ancla UNA operación por grupo.
+        for clave in orden_grupos:
+            asignado, fuente, propuestas_crudas = por_grupo[clave]
+            op = fusionar_propuestas_de_operacion(propuestas_crudas)
             reason_codes = list(op.reason_codes)
-            if fuente.operation_id != op.operation_id:
+            if any(fuente.operation_id != p.operation_id for p in propuestas_crudas):
                 reason_codes.append("OPERATION_ID_RECONSTRUCTED_FROM_PATH")
                 logger.info(
-                    "HU '%s': operationId propuesto '%s' no calzaba exacto; reconstruido a '%s' "
-                    "desde method+path reales del catálogo",
-                    historia.titulo, op.operation_id, fuente.operation_id,
+                    "HU '%s': operationId propuesto no calzaba exacto en al menos una cita; "
+                    "reconstruido a '%s' desde method+path reales del catálogo",
+                    historia.titulo, fuente.operation_id,
                 )
             paquete = paquetes_por_sd.get(asignado.service_domain)
             if paquete is not None and not operacion_evidencia_verificable(
@@ -668,14 +685,14 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 path=fuente.path,
                 tipo=fuente.tipo,
                 grupo=fuente.grupo,
-                escenarios_hu=[s.strip() for s in op.escenarios_hu if s and s.strip()],
-                justificacion=op.justificacion.strip(),
-                action_term=op.action_term.strip(),
-                business_object=op.business_object.strip(),
-                bq_seed=op.bq_seed.strip(),
-                traceability=[s.strip() for s in op.traceability if s and s.strip()],
-                evidence_refs=list(op.evidence_refs),
-                reason_codes=reason_codes,
+                escenarios_hu=op.escenarios_hu,
+                justificacion=op.justificacion,
+                action_term=op.action_term,
+                business_object=op.business_object,
+                bq_seed=op.bq_seed,
+                traceability=op.traceability,
+                evidence_refs=op.evidence_refs,
+                reason_codes=list(dict.fromkeys(reason_codes)),
             ))
         for sd in elegibles:
             sd.operaciones_bian.sort(key=lambda o: (o.tipo, o.grupo, o.operation_id))

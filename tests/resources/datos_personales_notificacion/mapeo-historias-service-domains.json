@@ -7,7 +7,7 @@
     "esfuerzo": "low",
     "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
     "evidencia_bian": "docs/SD.json + docs/bian-business-areas.json + docs/bian-operation-catalogs.json + docs/bian-cache",
-    "run_id": "0f6a622d85d64b6e8ef032a36a38da8f",
+    "run_id": "d3f88d942dad4d5f86dda17991544a5b",
     "umbral_directo": 0.9,
     "umbral_tentativo": 0.63,
     "concurrencia": 1,
@@ -24,36 +24,35 @@
     {
       "archivo": "HU-Notificar actualizacion de datos.txt",
       "titulo": "Notificar actualizacion de datos",
-      "razonamiento": "Enviar notificaciones al cliente cuando actualiza su número de celular o correo electrónico, indicando los datos anteriores y los nuevos, manteniendo el esquema de notificaciones existente.",
+      "razonamiento": "Enviar notificaciones a los datos de contacto anteriores y nuevos cuando un usuario actualiza su número de celular o correo electrónico, para prevenir fraudes.",
       "capacidades_funcionales": [
-        "Notificar al canal de contacto anterior sobre la actualización de datos",
-        "Notificar al canal de contacto nuevo sobre la actualización de datos",
-        "Generar notificaciones independientes para cada cambio cuando se actualizan ambos datos",
-        "Mantener el esquema de notificación existente para eventos de actualización de datos personales"
+        "Enviar notificación al celular o correo anterior",
+        "Enviar notificación al celular o correo nuevo",
+        "Generar notificaciones múltiples por actualización simultánea",
+        "Mantener el esquema de notificaciones existente"
       ],
       "business_actions": [
-        "registrar",
         "enviar",
-        "generar",
-        "mantener"
+        "actualizar",
+        "registrar",
+        "procesar",
+        "mantener",
+        "generar"
       ],
       "business_objects": [
-        "número de celular del cliente",
-        "correo electrónico del cliente",
-        "registro de cambio de datos personales",
-        "notificación de cambio",
-        "esquema de notificación"
+        "notificación",
+        "número celular",
+        "correo electrónico",
+        "datos personales"
       ],
       "outcomes": [
-        "Notificación enviada al celular o correo anterior",
-        "Notificación enviada al nuevo celular o correo",
-        "Notificaciones generadas para cada cambio cuando ambos se actualizan",
-        "Uso del mismo esquema de notificación para el evento de actualización de datos personales"
+        "El sistema envía una notificación al celular o correo anterior",
+        "El sistema envía una notificación al nuevo número de celular o correo",
+        "El sistema genera las notificaciones cada uno de los cambios",
+        "El sistema mantiene el mismo esquema definido para este tipo de eventos"
       ],
       "external_dependencies": [
-        "Smart Token (mecanismo de seguridad)",
-        "Módulo de validación de datos personales",
-        "Servicio de notificaciones existente"
+        "mecanismos actuales de notificación"
       ],
       "traceability_ids": [
         "HU-Notificar actualizacion de datos",
@@ -63,58 +62,43 @@
         "SC-04"
       ],
       "assumptions": [
-        "El usuario está autenticado antes de iniciar la actualización",
-        "Los canales de notificación (SMS y email) están operativos y son alcanzables",
-        "Smart Token valida la operación antes de registrar el cambio",
-        "El esquema de notificación actual soporta tanto SMS como email",
-        "Se asume que la notificación de cambios de datos se realiza a través de las capacidades de correspondencia del banco.",
-        "El Smart Token es cubierto por los mecanismos de autenticación y seguridad de la arquitectura."
+        "The update of personal data is handled by party management or customer profile domains not fully detailed in the snippet, relying on Customer Case for processing requests."
       ],
       "gaps": [
-        "Formato y contenido exacto de la notificación no está especificado",
-        "Comportamiento ante fallos en el envío de notificaciones no está definido",
-        "Si se envía una única notificación combinada cuando ambos datos cambian no está aclarado",
-        "Falta un Service Domain dedicado explícitamente a la validación de datos personales dentro del catálogo proporcionado."
+        "Lack of a dedicated Fraud Prevention Notification Service Domain in the provided catalog subset."
       ],
-      "unresolved_questions": [
-        "¿Debe la notificación incluir los valores antiguos y nuevos de los datos?",
-        "¿Existe un límite de tiempo para enviar la notificación después del registro del cambio?",
-        "¿Se requiere auditoría o registro adicional del evento de notificación?"
-      ],
-      "blocking_codes": [
-        "OBJETO_SIN_PROPIETARIO"
-      ],
+      "unresolved_questions": [],
+      "blocking_codes": [],
       "intencion": {
-        "resumen_funcional": "Enviar notificaciones al cliente cuando actualiza su número de celular o correo electrónico, indicando los datos anteriores y los nuevos, manteniendo el esquema de notificaciones existente.",
+        "resumen_funcional": "Enviar notificaciones a los datos de contacto anteriores y nuevos cuando un usuario actualiza su número de celular o correo electrónico, para prevenir fraudes.",
         "capacidades_funcionales": [
-          "Notificar al canal de contacto anterior sobre la actualización de datos",
-          "Notificar al canal de contacto nuevo sobre la actualización de datos",
-          "Generar notificaciones independientes para cada cambio cuando se actualizan ambos datos",
-          "Mantener el esquema de notificación existente para eventos de actualización de datos personales"
+          "Enviar notificación al celular o correo anterior",
+          "Enviar notificación al celular o correo nuevo",
+          "Generar notificaciones múltiples por actualización simultánea",
+          "Mantener el esquema de notificaciones existente"
         ],
         "business_actions": [
-          "registrar",
           "enviar",
-          "generar",
-          "mantener"
+          "actualizar",
+          "registrar",
+          "procesar",
+          "mantener",
+          "generar"
         ],
         "business_objects": [
-          "número de celular del cliente",
-          "correo electrónico del cliente",
-          "registro de cambio de datos personales",
-          "notificación de cambio",
-          "esquema de notificación"
+          "notificación",
+          "número celular",
+          "correo electrónico",
+          "datos personales"
         ],
         "outcomes": [
-          "Notificación enviada al celular o correo anterior",
-          "Notificación enviada al nuevo celular o correo",
-          "Notificaciones generadas para cada cambio cuando ambos se actualizan",
-          "Uso del mismo esquema de notificación para el evento de actualización de datos personales"
+          "El sistema envía una notificación al celular o correo anterior",
+          "El sistema envía una notificación al nuevo número de celular o correo",
+          "El sistema genera las notificaciones cada uno de los cambios",
+          "El sistema mantiene el mismo esquema definido para este tipo de eventos"
         ],
         "external_dependencies": [
-          "Smart Token (mecanismo de seguridad)",
-          "Módulo de validación de datos personales",
-          "Servicio de notificaciones existente"
+          "mecanismos actuales de notificación"
         ],
         "traceability_ids": [
           "HU-Notificar actualizacion de datos",
@@ -123,22 +107,9 @@
           "SC-03",
           "SC-04"
         ],
-        "assumptions": [
-          "El usuario está autenticado antes de iniciar la actualización",
-          "Los canales de notificación (SMS y email) están operativos y son alcanzables",
-          "Smart Token valida la operación antes de registrar el cambio",
-          "El esquema de notificación actual soporta tanto SMS como email"
-        ],
-        "gaps": [
-          "Formato y contenido exacto de la notificación no está especificado",
-          "Comportamiento ante fallos en el envío de notificaciones no está definido",
-          "Si se envía una única notificación combinada cuando ambos datos cambian no está aclarado"
-        ],
-        "unresolved_questions": [
-          "¿Debe la notificación incluir los valores antiguos y nuevos de los datos?",
-          "¿Existe un límite de tiempo para enviar la notificación después del registro del cambio?",
-          "¿Se requiere auditoría o registro adicional del evento de notificación?"
-        ],
+        "assumptions": [],
+        "gaps": [],
+        "unresolved_questions": [],
         "metadatos": {
           "prompt_id": "mapeo.intencion",
           "prompt_version": "1.0.0",
@@ -158,7 +129,7 @@
         "duplicated_responsibilities": [],
         "coverage_gaps": [],
         "blocking_codes": [],
-        "review_summary": "Los candidatos actuales cubren adecuadamente la generacion de notificaciones y la actualizacion de datos personales segun la evidencia disponible.",
+        "review_summary": "La historia y los candidatos actuales cubren adecuadamente el proceso de actualizacion de datos personales y sus respectivas notificaciones utilizando Correspondence, Party Reference Data Directory, Customer Case y Operational Gateway con evidencia verificada.",
         "metadatos": {
           "prompt_id": "mapeo.completitud",
           "prompt_version": "1.0.0",
@@ -174,32 +145,16 @@
       "revision_adversarial": {
         "hallazgos": [
           {
-            "tipo": "DIRECTO_SIN_SERVICE_ROLE",
-            "service_domain": "Party Reference Data Directory",
-            "reason_codes": [
-              "BIAN-SCOPE-003"
-            ],
-            "detalle": "actualizar número de celular o correo electrónico no está descrito en el service_role del dominio."
-          },
-          {
-            "tipo": "OBJETO_SIN_PROPIETARIO",
-            "service_domain": "Correspondence",
-            "reason_codes": [],
-            "detalle": "notificación de cambio no tiene ningún Service Domain con rol OWNED."
-          },
-          {
             "tipo": "DEPENDENCIA_PROMOVIDA_A_CONTRATO",
-            "service_domain": "Party Reference Data Directory",
+            "service_domain": "Correspondence",
             "reason_codes": [
               "BIAN-SCOPE-002"
             ],
-            "detalle": "actualizar número de celular o correo electrónico se trata como OWNED_CONTRACT aunque la historia solo lo consume como dependencia."
+            "detalle": "Correspondence está como OWNED_CONTRACT pero la historia solo consume la capacidad de envío de notificaciones."
           }
         ],
-        "blocking_codes": [
-          "OBJETO_SIN_PROPIETARIO"
-        ],
-        "resumen": "Se detectan tres contradicciones: el dominio Party Reference Data Directory no describe la acción directa, el objeto notificación de cambio carece de propietario y el mismo dominio está marcado como contrato propio cuando debería ser una dependencia consumida.",
+        "blocking_codes": [],
+        "resumen": "Se identifica que Correspondence fue clasificado incorrectamente como OWNED_CONTRACT en lugar de dependencia consumida.",
         "metadatos": {
           "prompt_id": "mapeo.adversarial",
           "prompt_version": "1.0.0",
@@ -212,181 +167,20 @@
           "evidence_snapshot_id": ""
         }
       },
-      "total_directos": 1,
-      "total_tentativos": 1,
+      "total_directos": 2,
+      "total_tentativos": 0,
       "total_descartados": 2,
       "service_domains": {
         "candidatos_directos": [
           {
-            "service_domain": "Correspondence",
+            "service_domain": "Party Reference Data Directory",
             "resolucion": "MATCH",
             "rol_contractual": "OWNED_CONTRACT",
             "dependency_kind": null,
-            "confianza": 0.6733,
-            "confianza_pct": 67,
-            "confianza_llm": 0.6667,
-            "grupo": "directo",
-            "accion_objeto": "enviar notificación de cambio",
-            "escenarios_hu": [
-              "HU-Notificar actualizacion de datos",
-              "SC-01",
-              "SC-02",
-              "SC-03",
-              "SC-04"
-            ],
-            "justificacion": "La historia requiere que el sistema envíe notificaciones de cambio de datos, lo que coincide con la generación de correspondencia saliente del Service Domain. Las operaciones InitiateOutbound/UpdateOutbound crean y envían correspondencia pre‑formateada, y el schema Outbound representa la notificación. La evidencia de operaciones, schemas y Service Role es clara y completa.",
-            "business_area": "Business Support",
-            "business_domain": "Document Management and Archive",
-            "rol_bian": "This service domain handles the automated generation of (batches of) pre-formatted correspondence. It also handles the tracking of expected responses to sent out mail requests and handles the matching of the response and the onward routing of these and all unsolicited inbound correspondence.",
-            "patron_funcional": "Operate",
-            "origen_candidato": "llm",
-            "operaciones_bian": [
-              {
-                "operation_id": "InitiateOutbound",
-                "method": "POST",
-                "path": "/Correspondence/{correspondenceid}/Outbound/Initiate",
-                "tipo": "BQ",
-                "grupo": "Outbound",
-                "escenarios_hu": [
-                  "Escenario 1. Notificación al celular o  correo anterior"
-                ],
-                "justificacion": "Envía notificación al contacto anterior tras actualización de datos personales",
-                "action_term": "Notificar",
-                "business_object": "Correspondence",
-                "bq_seed": "el sistema envíe una notificación al celular o correo anterior",
-                "traceability": [
-                  "HU-Notificar actualizacion de datos"
-                ],
-                "evidence_refs": [
-                  "CorrespondenceAddressee"
-                ],
-                "reason_codes": []
-              },
-              {
-                "operation_id": "InitiateOutbound",
-                "method": "POST",
-                "path": "/Correspondence/{correspondenceid}/Outbound/Initiate",
-                "tipo": "BQ",
-                "grupo": "Outbound",
-                "escenarios_hu": [
-                  "Escenario 2. Notificación al celular o correo nuevo"
-                ],
-                "justificacion": "Envía notificación al contacto nuevo tras actualización de datos personales",
-                "action_term": "Notificar",
-                "business_object": "Correspondence",
-                "bq_seed": "el sistema envía una notificación al nuevo número de celular o correo",
-                "traceability": [
-                  "HU-Notificar actualizacion de datos"
-                ],
-                "evidence_refs": [
-                  "CorrespondenceAddressee"
-                ],
-                "reason_codes": []
-              },
-              {
-                "operation_id": "InitiateOutbound",
-                "method": "POST",
-                "path": "/Correspondence/{correspondenceid}/Outbound/Initiate",
-                "tipo": "BQ",
-                "grupo": "Outbound",
-                "escenarios_hu": [
-                  "Escenario 3. Notificación al celular o correo nuevo"
-                ],
-                "justificacion": "Genera notificaciones para cada cambio de contacto tras actualización de datos personales",
-                "action_term": "Notificar",
-                "business_object": "Correspondence",
-                "bq_seed": "el sistema genere las notificaciones cada uno de los cambios",
-                "traceability": [
-                  "HU-Notificar actualizacion de datos"
-                ],
-                "evidence_refs": [
-                  "CorrespondenceAddressee"
-                ],
-                "reason_codes": []
-              },
-              {
-                "operation_id": "InitiateOutbound",
-                "method": "POST",
-                "path": "/Correspondence/{correspondenceid}/Outbound/Initiate",
-                "tipo": "BQ",
-                "grupo": "Outbound",
-                "escenarios_hu": [
-                  "Escenario 4. Mismo esquema de notificaciones"
-                ],
-                "justificacion": "Mantiene el mismo esquema de notificación definido para eventos de actualización de datos personales",
-                "action_term": "Notificar",
-                "business_object": "Correspondence",
-                "bq_seed": "el sistema debe mantener el mismo esquema definido para este tipo de eventos",
-                "traceability": [
-                  "HU-Notificar actualizacion de datos"
-                ],
-                "evidence_refs": [
-                  "CorrespondenceAddressee"
-                ],
-                "reason_codes": []
-              }
-            ],
-            "bq_personalizados_propuestos": [],
-            "evidencia_bian": {
-              "estado": "CACHED_VERIFIED",
-              "release": "14.0.0",
-              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/Correspondence.yaml",
-              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
-              "content_sha256": "955b0505dceed7a527c7ebbb1e956e447cbb133aee20c9c92ab6effed369c4f8",
-              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\Correspondence.json",
-              "recuperado_en": "2026-09-10T22:23:34.088935+00:00",
-              "error": ""
-            },
-            "desglose_score": {
-              "accion_oficial": 0.6667,
-              "objeto_bom": 0.3333,
-              "ownership_outcome": 1.0,
-              "trazabilidad_escenarios": 1.0,
-              "coherencia_jerarquia": 0.0,
-              "penalizacion": -0.04,
-              "total": 0.6733,
-              "retrieval_score": 0.0,
-              "operation_support_score": 1.0
-            },
-            "decision_contractual": "SELECTED",
-            "motivo_decision": "OWNED_SELECTED",
-            "ambiguity": "LOW",
-            "observaciones_adversariales": [
-              "[adversarial] notificación de cambio no tiene ningún Service Domain con rol OWNED."
-            ],
-            "ownership_traceability": [
-              "HU-Notificar actualizacion de datos",
-              "SC-01",
-              "SC-02",
-              "SC-03",
-              "SC-04"
-            ],
-            "dependency_traceability": [],
-            "evidence_refs": [
-              "InitiateOutbound",
-              "UpdateOutbound",
-              "Outbound"
-            ],
-            "reason_codes": [
-              "OWNED_FINALIZED_BY_OPERATION_EVIDENCE"
-            ],
-            "assumptions": [
-              "Se asume que una notificación de cambio se modela como un objeto Outbound de Correspondence"
-            ],
-            "gaps": [],
-            "blocking_codes": []
-          }
-        ],
-        "candidatos_tentativos": [
-          {
-            "service_domain": "Party Reference Data Directory",
-            "resolucion": "MATCH",
-            "rol_contractual": "CONSUMED_DEPENDENCY",
-            "dependency_kind": "SUPPORTING_LOOKUP",
-            "confianza": 0.795,
-            "confianza_pct": 80,
+            "confianza": 0.965,
+            "confianza_pct": 96,
             "confianza_llm": 1.0,
-            "grupo": "tentativo",
+            "grupo": "directo",
             "accion_objeto": "actualizar número de celular o correo electrónico",
             "escenarios_hu": [
               "HU-Notificar actualizacion de datos",
@@ -394,7 +188,7 @@
               "SC-02",
               "SC-03"
             ],
-            "justificacion": "La historia actualiza datos de contacto como celular y correo, lo cual mapea directamente al comportamiento y esquema Reference del Service Domain Party Reference Data Directory.",
+            "justificacion": "La historia actualiza datos de contacto como celular y correo, los cuales forman parte del esquema Reference administrado por el Service Domain Party Reference Data Directory mediante operaciones de actualización directa.",
             "business_area": "Sales and Service",
             "business_domain": "Customer Management",
             "rol_bian": "The party reference data directory service domain maintains a potentially wide range of party reference data that might be used in any interaction between the bank and the party including relationship development, sales/marketing, servicing and product delivery. This can include general reference and contact details, party associations, demographic details and some servicing preferences. Different information may be maintained for different party types such as individuals, corporates, partners",
@@ -415,105 +209,212 @@
             "desglose_score": {
               "accion_oficial": 1.0,
               "objeto_bom": 1.0,
-              "ownership_outcome": 0.55,
+              "ownership_outcome": 1.0,
               "trazabilidad_escenarios": 1.0,
               "coherencia_jerarquia": 0.25,
-              "penalizacion": 0.04,
-              "total": 0.795,
+              "penalizacion": -0.04,
+              "total": 0.965,
               "retrieval_score": 0.0,
               "operation_support_score": 0.0
             },
-            "decision_contractual": "REJECTED",
-            "motivo_decision": "CONSUMED_DEPENDENCY",
+            "decision_contractual": "SELECTED",
+            "motivo_decision": "OWNED_SELECTED",
             "ambiguity": "LOW",
-            "observaciones_adversariales": [
-              "Revisar ownership: correspondencia fuerte con catalogo oficial.",
-              "[adversarial] actualizar número de celular o correo electrónico no está descrito en el service_role del dominio.",
-              "[adversarial] actualizar número de celular o correo electrónico se trata como OWNED_CONTRACT aunque la historia solo lo consume como dependencia.",
-              "[adversarial] Degradado a CONSUMED_DEPENDENCY: la acción citada no coincide con ninguna acción propia de la historia (extraída antes de proponer este SD); el rol OWNED_CONTRACT inicial no tiene sustento independiente."
-            ],
-            "ownership_traceability": [],
-            "dependency_traceability": [
+            "observaciones_adversariales": [],
+            "ownership_traceability": [
               "HU-Notificar actualizacion de datos",
               "SC-01",
               "SC-02",
               "SC-03"
             ],
+            "dependency_traceability": [],
             "evidence_refs": [
               "UpdateReference",
-              "RetrieveReference",
               "Reference",
               "PartyReferenceDataDirectoryEntry"
             ],
-            "reason_codes": [
-              "BIAN-SCOPE-003",
-              "BIAN-SCOPE-002",
-              "OWNERSHIP_DEMOTED_BY_ADVERSARIAL"
-            ],
+            "reason_codes": [],
             "assumptions": [
-              "El envío de notificaciones forma parte de la ejecución o es manejado por eventos del mismo dominio de datos de referencia."
+              "La gestión de notificaciones posterior al cambio se realiza como parte del flujo operativo desencadenado por la actualización de los datos de contacto."
             ],
             "gaps": [],
             "blocking_codes": []
+          },
+          {
+            "service_domain": "Correspondence",
+            "resolucion": "MATCH",
+            "rol_contractual": "OWNED_CONTRACT",
+            "dependency_kind": null,
+            "confianza": 0.94,
+            "confianza_pct": 94,
+            "confianza_llm": 1.0,
+            "grupo": "directo",
+            "accion_objeto": "enviar notificación",
+            "escenarios_hu": [
+              "HU-Notificar actualizacion de datos",
+              "SC-01",
+              "SC-02",
+              "SC-03",
+              "SC-04"
+            ],
+            "justificacion": "El dominio Correspondence ofrece la operación InitiateOutbound que genera correspondencia, alineándose con el verbo enviar notificaciones y el objeto notificación. El Service Role describe la generación automática de correspondencia, por lo que el dominio administra directamente la capacidad.",
+            "business_area": "Business Support",
+            "business_domain": "Document Management and Archive",
+            "rol_bian": "This service domain handles the automated generation of (batches of) pre-formatted correspondence. It also handles the tracking of expected responses to sent out mail requests and handles the matching of the response and the onward routing of these and all unsolicited inbound correspondence.",
+            "patron_funcional": "Operate",
+            "origen_candidato": "llm",
+            "operaciones_bian": [
+              {
+                "operation_id": "InitiateOutbound",
+                "method": "POST",
+                "path": "/Correspondence/{correspondenceid}/Outbound/Initiate",
+                "tipo": "BQ",
+                "grupo": "Outbound",
+                "escenarios_hu": [
+                  "Escenario 1",
+                  "Escenario 2",
+                  "Escenario 3"
+                ],
+                "justificacion": "Inicia la generacion y envio de notificaciones salientes para los cambios de datos de contacto.",
+                "action_term": "Initiate",
+                "business_object": "Outbound",
+                "bq_seed": "el sistema envíe una notificación al celular o correo anterior",
+                "traceability": [
+                  "HU-Notificar actualizacion de datos/SC-1/BR-1",
+                  "HU-Notificar actualizacion de datos/SC-2/BR-1",
+                  "HU-Notificar actualizacion de datos/SC-3/BR-1"
+                ],
+                "evidence_refs": [
+                  "CorrespondenceContent",
+                  "CorrespondenceMediaorChannel"
+                ],
+                "reason_codes": []
+              }
+            ],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/Correspondence.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "955b0505dceed7a527c7ebbb1e956e447cbb133aee20c9c92ab6effed369c4f8",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\Correspondence.json",
+              "recuperado_en": "2026-09-10T22:23:34.088935+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 1.0,
+              "objeto_bom": 1.0,
+              "ownership_outcome": 1.0,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": -0.04,
+              "total": 0.94,
+              "retrieval_score": 0.0,
+              "operation_support_score": 1.0
+            },
+            "decision_contractual": "UNRESOLVED",
+            "motivo_decision": "TENTATIVE_SCORE",
+            "ambiguity": "LOW",
+            "observaciones_adversariales": [
+              "[adversarial] Correspondence está como OWNED_CONTRACT pero la historia solo consume la capacidad de envío de notificaciones."
+            ],
+            "ownership_traceability": [
+              "HU-Notificar actualizacion de datos",
+              "SC-01",
+              "SC-02",
+              "SC-03",
+              "SC-04"
+            ],
+            "dependency_traceability": [],
+            "evidence_refs": [
+              "InitiateOutbound",
+              "Outbound",
+              "CorrespondenceOperatingSession",
+              "Correspondence"
+            ],
+            "reason_codes": [
+              "BIAN-SCOPE-002"
+            ],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": [
+              "BIAN-SCOPE-002"
+            ]
           }
         ],
+        "candidatos_tentativos": [],
         "candidatos_descartados": [
           {
-            "service_domain": "Party Authentication",
+            "service_domain": "Operational Gateway",
             "resolucion": "MATCH",
-            "rol_contractual": "RELATED_NOT_OWNED",
-            "dependency_kind": null,
-            "confianza": 0.115,
-            "confianza_pct": 12,
-            "confianza_llm": 0.25,
+            "rol_contractual": "CONSUMED_DEPENDENCY",
+            "dependency_kind": "AUDIT_OR_NOTIFICATION",
+            "confianza": 0.4033,
+            "confianza_pct": 40,
+            "confianza_llm": 0.5,
             "grupo": "descartado",
-            "accion_objeto": "enviar notificaciones de actualizacion",
+            "accion_objeto": "enviar notificaciones",
             "escenarios_hu": [
-              "PartyAuthenticationAssessment"
+              "HU-Notificar actualizacion de datos",
+              "SC-01",
+              "SC-02",
+              "SC-03",
+              "SC-04"
             ],
-            "justificacion": "La historia se enfoca en enviar notificaciones sobre la actualización de datos personales (celular y correo), mientras que el dominio Party Authentication gestiona la confirmación de identidad mediante mecanismos de autenticación. No hay coincidencia funcional ni de objeto de negocio.",
-            "business_area": "Sales and Service",
-            "business_domain": "Cross Channel",
-            "rol_bian": "Customer/party authentication is a cross-channel/device capability that provides identity confirmation for customers accessing the bank through any interactive channel. The service may use a combination of one or more mechanisms to authenticate including issued tokens/devices, virtual mechanisms such as passwords and biometrics such as voice/face recognition. Different levels of authentication may be determined to support different types of access and there may be access permissions associated with the authentication mechanism used",
-            "patron_funcional": "Assess",
+            "justificacion": "La historia solicita el envío de notificaciones por actualización de datos personales, lo cual representa una dependencia de notificación y no la administración directa del dominio Operational Gateway.",
+            "business_area": "Business Support",
+            "business_domain": "IT Management",
+            "rol_bian": "The Operational Gateway Service Domain handles the secure sending and receiving of non-financial messages (and files) to and from professional entities outside the bank. The Service Domain may employ many different communication channels and mechanisms as appropriate for the type of information exchanged. The selected mechanism will need to consider volume and performance needs, security, channel availability and technical feasibility in addition to supporting different scheduling and exchange arrangements that may be needed. The operation of the external connection will usually be governed by an associated service level agreement (SLA)",
+            "patron_funcional": "Operate",
             "origen_candidato": "llm",
             "operaciones_bian": [],
             "bq_personalizados_propuestos": [],
             "evidencia_bian": {
               "estado": "CACHED_VERIFIED",
               "release": "14.0.0",
-              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyAuthentication.yaml",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/OperationalGateway.yaml",
               "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
-              "content_sha256": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd",
-              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyAuthentication.json",
-              "recuperado_en": "2026-09-10T22:23:59.281337+00:00",
+              "content_sha256": "e997bc841d763f3f992ee17b6a6fd967ad7e7a0631bac116cea005aba6a2e33e",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\OperationalGateway.json",
+              "recuperado_en": "2026-09-12T01:42:20.315827+00:00",
               "error": ""
             },
             "desglose_score": {
-              "accion_oficial": 0.0,
-              "objeto_bom": 0.0,
-              "ownership_outcome": 0.2,
-              "trazabilidad_escenarios": 0.5,
+              "accion_oficial": 0.3333,
+              "objeto_bom": 0.3333,
+              "ownership_outcome": 0.55,
+              "trazabilidad_escenarios": 1.0,
               "coherencia_jerarquia": 0.0,
-              "penalizacion": 0.0,
-              "total": 0.115,
+              "penalizacion": 0.04,
+              "total": 0.4033,
               "retrieval_score": 0.0,
               "operation_support_score": 0.0
             },
             "decision_contractual": "REJECTED",
-            "motivo_decision": "RELATED_NOT_OWNED",
-            "ambiguity": "NONE",
+            "motivo_decision": "CONSUMED_DEPENDENCY",
+            "ambiguity": "LOW",
             "observaciones_adversariales": [],
             "ownership_traceability": [],
-            "dependency_traceability": [],
+            "dependency_traceability": [
+              "HU-Notificar actualizacion de datos",
+              "SC-01",
+              "SC-02",
+              "SC-03",
+              "SC-04"
+            ],
             "evidence_refs": [
-              "PartyAuthenticationAssessment"
+              "OutboundMessage",
+              "OperationalGatewayOperatingSession",
+              "InitiateOutboundMessage"
             ],
-            "reason_codes": [],
-            "assumptions": [],
-            "gaps": [
-              "El paquete de evidencia no contiene capacidades de gestión o envío de notificaciones por actualización de datos personales."
+            "reason_codes": [
+              "BIAN-SCOPE-002"
             ],
+            "assumptions": [
+              "Se asume que la gestión de datos personales reside en otro dominio y Operational Gateway solo actúa como mecanismo de transporte de mensajes."
+            ],
+            "gaps": [],
             "blocking_codes": []
           },
           {
@@ -521,13 +422,16 @@
             "resolucion": "MATCH",
             "rol_contractual": "RELATED_NOT_OWNED",
             "dependency_kind": null,
-            "confianza": 0.0,
-            "confianza_pct": 0,
-            "confianza_llm": 0.0,
+            "confianza": 0.3333,
+            "confianza_pct": 33,
+            "confianza_llm": 0.4167,
             "grupo": "descartado",
-            "accion_objeto": "enviar notificaciones",
-            "escenarios_hu": [],
-            "justificacion": "No operation or schema in Customer Case matches sending notifications for personal data updates.",
+            "accion_objeto": "enviar notificacion",
+            "escenarios_hu": [
+              "CustomerCaseProcedure",
+              "CustomerContact"
+            ],
+            "justificacion": "La historia se enfoca en enviar notificaciones de actualización de datos personales (celular/correo), mientras que Customer Case gestiona procedimientos de casos de servicio y resolución. No existe administración directa de notificaciones en este dominio.",
             "business_area": "Sales and Service",
             "business_domain": "Servicing",
             "rol_bian": "Case resolution tasks follow specific procedures for the type of case involved. Case resolution can be quick by applying resolution rules and obtaining additional authorization as necessary, or they can be long living activities, for example where documentation is requested and has to be retrieved from merchants or other interested parties before the disputed issue can finally be ruled upon. A wide range of case types can be expected",
@@ -546,99 +450,93 @@
               "error": ""
             },
             "desglose_score": {
-              "accion_oficial": 0.0,
-              "objeto_bom": 0.0,
+              "accion_oficial": 0.3333,
+              "objeto_bom": 0.3333,
               "ownership_outcome": 0.2,
-              "trazabilidad_escenarios": 0.0,
+              "trazabilidad_escenarios": 1.0,
               "coherencia_jerarquia": 0.0,
-              "penalizacion": 0.13,
-              "total": 0.0,
+              "penalizacion": 0.04,
+              "total": 0.3333,
               "retrieval_score": 0.0,
               "operation_support_score": 0.0
             },
             "decision_contractual": "REJECTED",
             "motivo_decision": "RELATED_NOT_OWNED",
-            "ambiguity": "HIGH",
-            "observaciones_adversariales": [
-              "Ambiguedad alta en la evaluacion del candidato."
-            ],
+            "ambiguity": "LOW",
+            "observaciones_adversariales": [],
             "ownership_traceability": [],
             "dependency_traceability": [],
-            "evidence_refs": [],
-            "reason_codes": [
-              "NO_OFFICIAL_BIAN_EVIDENCE"
+            "evidence_refs": [
+              "CustomerCaseProcedure",
+              "CustomerContact"
             ],
-            "assumptions": [],
+            "reason_codes": [],
+            "assumptions": [
+              "La gestión de notificaciones y canales de contacto reside en otro Service Domain especializado."
+            ],
             "gaps": [
-              "No evidence of notification capability in Customer Case package"
+              "El paquete no contiene operaciones para el envío de notificaciones de datos de contacto."
             ],
             "blocking_codes": []
           }
         ]
       },
-      "service_domains_omitidos": [
-        {
-          "service_domain": "Customer Agreement",
-          "score_lexico": 0.5,
-          "business_area": "Sales and Service",
-          "business_domain": "Customer Management",
-          "rol_bian": "The Customer Agreement service domain captures and maintains the master legal terms of conditions in force for a customer (which as noted can be a complex multinational with many underlying product and service specific agreements).",
-          "señales": [
-            "customer"
-          ]
-        },
-        {
-          "service_domain": "Customer Billing",
-          "score_lexico": 0.5,
-          "business_area": "Operations and Execution",
-          "business_domain": "Operational Services",
-          "rol_bian": "This service domain provides a general customer billing service. The service domain is provided with the applicable fees and charges that are authorized for invoicing typically by a product or service fulfillment service domain. Processing can include verification and authorizations steps and the invoice could be issued as a single transaction or a schedule of transactions.",
-          "señales": [
-            "customer"
-          ]
-        },
-        {
-          "service_domain": "Customer Consent",
-          "score_lexico": 0.5,
-          "business_area": "Sales and Service",
-          "business_domain": "Customer Management",
-          "rol_bian": "This service domain administers customer consents for their preferences and constraints on accepting direct debit collection requests, request to pay against their accounts held at the bank, or preferences for credit transfer (e.g. payment rail, preferred funding account, etc.)",
-          "señales": [
-            "customer"
-          ]
-        },
-        {
-          "service_domain": "Customer Offer",
-          "score_lexico": 0.5,
-          "business_area": "Sales and Service",
-          "business_domain": "Sales",
-          "rol_bian": "The Offer Management Service Domain can process offers for all types of customers and any allowed combination of product or service. It references the Product Directory for the product specific offer instructions it must follow. The offer process may combine the selection of product/service specific details (e.g. pricing & negotiation ranges, documentation/authorization/regulatory requirements, eligibility and declarations, credit and other customer details), customer specific details (e.g. credit standing, other classifications such as operational overhead/retention target/activity history, demographics and segmentation). The service domain orchestrates a potentially complex/multi-threaded/multi stage workflow to get the offer to the point where the product/service can be initiated.",
-          "señales": [
-            "customer"
-          ]
-        },
-        {
-          "service_domain": "Customer Portfolio",
-          "score_lexico": 0.5,
-          "business_area": "Risk and Compliance",
-          "business_domain": "Business Analysis",
-          "rol_bian": "Maintain a portfolio of view of the customer base with key customer data and consolidated activity details to support profitability and performance analysis across many possible customer segment dimensions",
-          "señales": [
-            "customer"
-          ]
-        }
-      ]
+      "service_domains_omitidos": []
     }
   ],
   "service_domains_consolidados": [
     {
-      "service_domain": "Correspondence",
+      "service_domain": "Party Reference Data Directory",
       "decision": "SELECTED",
       "motivo": "OWNED_SELECTED",
       "contract_role": "OWNED_CONTRACT",
       "functionality_role": "OWNED_CONTRACT",
       "grupo": "directo",
-      "score": 0.6733,
+      "score": 0.965,
+      "historias": [
+        "HU-Notificar actualizacion de datos.txt"
+      ],
+      "supporting_stories": [
+        "HU-Notificar actualizacion de datos.txt"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "HU-Notificar actualizacion de datos",
+        "SC-01",
+        "SC-02",
+        "SC-03"
+      ],
+      "ownership_traceability": [
+        "HU-Notificar actualizacion de datos",
+        "SC-01",
+        "SC-02",
+        "SC-03"
+      ],
+      "dependency_traceability": [],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyReferenceDataDirectory.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyReferenceDataDirectory.json",
+        "recuperado_en": "2026-09-10T22:19:40.014858+00:00",
+        "error": ""
+      },
+      "rationale": "La historia actualiza datos de contacto como celular y correo, los cuales forman parte del esquema Reference administrado por el Service Domain Party Reference Data Directory mediante operaciones de actualización directa."
+    },
+    {
+      "service_domain": "Correspondence",
+      "decision": "UNRESOLVED",
+      "motivo": "TENTATIVE_SCORE",
+      "contract_role": "OWNED_CONTRACT",
+      "functionality_role": "OWNED_CONTRACT",
+      "grupo": "directo",
+      "score": 0.94,
       "historias": [
         "HU-Notificar actualizacion de datos.txt"
       ],
@@ -666,9 +564,11 @@
       ],
       "custom_bq_candidates": [],
       "reason_codes": [
-        "OWNED_FINALIZED_BY_OPERATION_EVIDENCE"
+        "BIAN-SCOPE-002"
       ],
-      "blocking_codes": [],
+      "blocking_codes": [
+        "BIAN-SCOPE-002"
+      ],
       "evidence": {
         "estado": "CACHED_VERIFIED",
         "release": "14.0.0",
@@ -679,16 +579,16 @@
         "recuperado_en": "2026-09-10T22:23:34.088935+00:00",
         "error": ""
       },
-      "rationale": "La historia requiere que el sistema envíe notificaciones de cambio de datos, lo que coincide con la generación de correspondencia saliente del Service Domain. Las operaciones InitiateOutbound/UpdateOutbound crean y envían correspondencia pre‑formateada, y el schema Outbound representa la notificación. La evidencia de operaciones, schemas y Service Role es clara y completa."
+      "rationale": "El dominio Correspondence ofrece la operación InitiateOutbound que genera correspondencia, alineándose con el verbo enviar notificaciones y el objeto notificación. El Service Role describe la generación automática de correspondencia, por lo que el dominio administra directamente la capacidad."
     },
     {
-      "service_domain": "Party Reference Data Directory",
+      "service_domain": "Operational Gateway",
       "decision": "REJECTED",
       "motivo": "CONSUMED_DEPENDENCY",
       "contract_role": "CONSUMED_DEPENDENCY",
       "functionality_role": "CONSUMED_DEPENDENCY",
-      "grupo": "tentativo",
-      "score": 0.795,
+      "grupo": "descartado",
+      "score": 0.4033,
       "historias": [
         "HU-Notificar actualizacion de datos.txt"
       ],
@@ -698,68 +598,34 @@
         "HU-Notificar actualizacion de datos",
         "SC-01",
         "SC-02",
-        "SC-03"
+        "SC-03",
+        "SC-04"
       ],
       "ownership_traceability": [],
       "dependency_traceability": [
         "HU-Notificar actualizacion de datos",
         "SC-01",
         "SC-02",
-        "SC-03"
+        "SC-03",
+        "SC-04"
       ],
       "selected_operations": [],
       "custom_bq_candidates": [],
       "reason_codes": [
-        "BIAN-SCOPE-002",
-        "BIAN-SCOPE-003",
-        "OWNERSHIP_DEMOTED_BY_ADVERSARIAL"
+        "BIAN-SCOPE-002"
       ],
       "blocking_codes": [],
       "evidence": {
         "estado": "CACHED_VERIFIED",
         "release": "14.0.0",
-        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyReferenceDataDirectory.yaml",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/OperationalGateway.yaml",
         "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
-        "content_sha256": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79",
-        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyReferenceDataDirectory.json",
-        "recuperado_en": "2026-09-10T22:19:40.014858+00:00",
+        "content_sha256": "e997bc841d763f3f992ee17b6a6fd967ad7e7a0631bac116cea005aba6a2e33e",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\OperationalGateway.json",
+        "recuperado_en": "2026-09-12T01:42:20.315827+00:00",
         "error": ""
       },
-      "rationale": "La historia actualiza datos de contacto como celular y correo, lo cual mapea directamente al comportamiento y esquema Reference del Service Domain Party Reference Data Directory."
-    },
-    {
-      "service_domain": "Party Authentication",
-      "decision": "REJECTED",
-      "motivo": "RELATED_NOT_OWNED",
-      "contract_role": "RELATED_NOT_OWNED",
-      "functionality_role": "RELATED_NOT_OWNED",
-      "grupo": "descartado",
-      "score": 0.115,
-      "historias": [
-        "HU-Notificar actualizacion de datos.txt"
-      ],
-      "supporting_stories": [],
-      "contradicting_stories": [],
-      "traceability": [
-        "PartyAuthenticationAssessment"
-      ],
-      "ownership_traceability": [],
-      "dependency_traceability": [],
-      "selected_operations": [],
-      "custom_bq_candidates": [],
-      "reason_codes": [],
-      "blocking_codes": [],
-      "evidence": {
-        "estado": "CACHED_VERIFIED",
-        "release": "14.0.0",
-        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyAuthentication.yaml",
-        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
-        "content_sha256": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd",
-        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyAuthentication.json",
-        "recuperado_en": "2026-09-10T22:23:59.281337+00:00",
-        "error": ""
-      },
-      "rationale": "La historia se enfoca en enviar notificaciones sobre la actualización de datos personales (celular y correo), mientras que el dominio Party Authentication gestiona la confirmación de identidad mediante mecanismos de autenticación. No hay coincidencia funcional ni de objeto de negocio."
+      "rationale": "La historia solicita el envío de notificaciones por actualización de datos personales, lo cual representa una dependencia de notificación y no la administración directa del dominio Operational Gateway."
     },
     {
       "service_domain": "Customer Case",
@@ -768,20 +634,21 @@
       "contract_role": "RELATED_NOT_OWNED",
       "functionality_role": "RELATED_NOT_OWNED",
       "grupo": "descartado",
-      "score": 0.0,
+      "score": 0.3333,
       "historias": [
         "HU-Notificar actualizacion de datos.txt"
       ],
       "supporting_stories": [],
       "contradicting_stories": [],
-      "traceability": [],
+      "traceability": [
+        "CustomerCaseProcedure",
+        "CustomerContact"
+      ],
       "ownership_traceability": [],
       "dependency_traceability": [],
       "selected_operations": [],
       "custom_bq_candidates": [],
-      "reason_codes": [
-        "NO_OFFICIAL_BIAN_EVIDENCE"
-      ],
+      "reason_codes": [],
       "blocking_codes": [],
       "evidence": {
         "estado": "CACHED_VERIFIED",
@@ -793,63 +660,23 @@
         "recuperado_en": "2026-09-12T02:23:08.347613+00:00",
         "error": ""
       },
-      "rationale": "No operation or schema in Customer Case matches sending notifications for personal data updates."
+      "rationale": "La historia se enfoca en enviar notificaciones de actualización de datos personales (celular/correo), mientras que Customer Case gestiona procedimientos de casos de servicio y resolución. No existe administración directa de notificaciones en este dominio."
     }
   ],
-  "service_domains_omitidos": [
-    {
-      "service_domain": "Customer Agreement",
-      "score_lexico": 0.5,
-      "business_area": "Sales and Service",
-      "business_domain": "Customer Management",
-      "rol_bian": "The Customer Agreement service domain captures and maintains the master legal terms of conditions in force for a customer (which as noted can be a complex multinational with many underlying product and service specific agreements).",
-      "señales": [
-        "customer"
-      ]
-    },
-    {
-      "service_domain": "Customer Billing",
-      "score_lexico": 0.5,
-      "business_area": "Operations and Execution",
-      "business_domain": "Operational Services",
-      "rol_bian": "This service domain provides a general customer billing service. The service domain is provided with the applicable fees and charges that are authorized for invoicing typically by a product or service fulfillment service domain. Processing can include verification and authorizations steps and the invoice could be issued as a single transaction or a schedule of transactions.",
-      "señales": [
-        "customer"
-      ]
-    },
-    {
-      "service_domain": "Customer Consent",
-      "score_lexico": 0.5,
-      "business_area": "Sales and Service",
-      "business_domain": "Customer Management",
-      "rol_bian": "This service domain administers customer consents for their preferences and constraints on accepting direct debit collection requests, request to pay against their accounts held at the bank, or preferences for credit transfer (e.g. payment rail, preferred funding account, etc.)",
-      "señales": [
-        "customer"
-      ]
-    },
-    {
-      "service_domain": "Customer Offer",
-      "score_lexico": 0.5,
-      "business_area": "Sales and Service",
-      "business_domain": "Sales",
-      "rol_bian": "The Offer Management Service Domain can process offers for all types of customers and any allowed combination of product or service. It references the Product Directory for the product specific offer instructions it must follow. The offer process may combine the selection of product/service specific details (e.g. pricing & negotiation ranges, documentation/authorization/regulatory requirements, eligibility and declarations, credit and other customer details), customer specific details (e.g. credit standing, other classifications such as operational overhead/retention target/activity history, demographics and segmentation). The service domain orchestrates a potentially complex/multi-threaded/multi stage workflow to get the offer to the point where the product/service can be initiated.",
-      "señales": [
-        "customer"
-      ]
-    },
-    {
-      "service_domain": "Customer Portfolio",
-      "score_lexico": 0.5,
-      "business_area": "Risk and Compliance",
-      "business_domain": "Business Analysis",
-      "rol_bian": "Maintain a portfolio of view of the customer base with key customer data and consolidated activity details to support profitability and performance analysis across many possible customer segment dimensions",
-      "señales": [
-        "customer"
-      ]
-    }
-  ],
+  "service_domains_omitidos": [],
   "reconciliacion": {
     "service_domains": [
+      {
+        "service_domain": "Party Reference Data Directory",
+        "functionality_role": "OWNED_CONTRACT",
+        "supporting_stories": [
+          "HU-Notificar actualizacion de datos.txt"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "SELECTED",
+        "reason_codes": [],
+        "rationale": "Soporta la propiedad directa de los datos personales en la historia analizada."
+      },
       {
         "service_domain": "Correspondence",
         "functionality_role": "OWNED_CONTRACT",
@@ -859,25 +686,16 @@
         "contradicting_stories": [],
         "recommended_status": "SELECTED",
         "reason_codes": [],
-        "rationale": "La funcionalidad administra directamente el dominio de correspondencia para notificar las actualizaciones."
+        "rationale": "Administra las notificaciones de los cambios realizados segun la historia."
       },
       {
-        "service_domain": "Party Reference Data Directory",
+        "service_domain": "Operational Gateway",
         "functionality_role": "CONSUMED_DEPENDENCY",
         "supporting_stories": [],
         "contradicting_stories": [],
         "recommended_status": "UNRESOLVED",
         "reason_codes": [],
-        "rationale": "Solo se consume como dependencia auxiliar para la actualizacion de datos."
-      },
-      {
-        "service_domain": "Party Authentication",
-        "functionality_role": "RELATED_NOT_OWNED",
-        "supporting_stories": [],
-        "contradicting_stories": [],
-        "recommended_status": "REJECTED",
-        "reason_codes": [],
-        "rationale": "Clasificado como rol marginal no poseido."
+        "rationale": "Actua exclusivamente como dependencia consumida en la historia."
       },
       {
         "service_domain": "Customer Case",
@@ -886,7 +704,7 @@
         "contradicting_stories": [],
         "recommended_status": "REJECTED",
         "reason_codes": [],
-        "rationale": "Clasificado como rol marginal no poseido."
+        "rationale": "Es marginal y no pertenece al ambito de propiedad de la funcionalidad."
       }
     ],
     "gaps": [],
@@ -935,7 +753,7 @@
       "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
-      "evidence_snapshot_id": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd"
+      "evidence_snapshot_id": "955b0505dceed7a527c7ebbb1e956e447cbb133aee20c9c92ab6effed369c4f8"
     },
     {
       "prompt_id": "mapeo.evaluacion",
@@ -946,7 +764,7 @@
       "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
-      "evidence_snapshot_id": "955b0505dceed7a527c7ebbb1e956e447cbb133aee20c9c92ab6effed369c4f8"
+      "evidence_snapshot_id": "e997bc841d763f3f992ee17b6a6fd967ad7e7a0631bac116cea005aba6a2e33e"
     },
     {
       "prompt_id": "mapeo.evaluacion",
@@ -1015,19 +833,28 @@
       "evidence_snapshot_id": ""
     }
   ],
-  "incidencias": [],
+  "incidencias": [
+    {
+      "historia": "HU-Notificar actualizacion de datos.txt",
+      "service_domain_propuesto": "Correspondence",
+      "resolucion": "MATCH",
+      "decision": "UNRESOLVED",
+      "motivo": "OWNERSHIP_CONFLICT_UNRESOLVED",
+      "detalle": "Correspondence está como OWNED_CONTRACT pero la historia solo consume la capacidad de envío de notificaciones."
+    }
+  ],
   "metricas": {
     "candidate_drop_rate": 0.0,
     "candidatos_truncados": 0,
     "candidatos_evaluados": 4,
-    "ownership_conflict_rate": 0.0,
+    "ownership_conflict_rate": 1.0,
     "ownership_promovidos": 0,
-    "ownership_degradados": 1,
-    "ownership_sin_resolver": 0,
+    "ownership_degradados": 0,
+    "ownership_sin_resolver": 1,
     "operation_grounding_rate": 1.0,
-    "operaciones_ancladas": 4,
+    "operaciones_ancladas": 1,
     "operation_id_no_resuelto": 0,
-    "finalizados_por_operacion_solida": 1
+    "finalizados_por_operacion_solida": 0
   },
-  "generado_en": "2026-09-12T04:54:25.324659+00:00"
+  "generado_en": "2026-09-12T05:07:33.917358+00:00"
 }

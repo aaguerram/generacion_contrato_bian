@@ -11,11 +11,12 @@ from src.adaptadores.salida.catalogo_bian_cache import CatalogoBianCache
 from src.dominio.cobertura_operaciones import (
     campos_alcanzables,
     derivar_path_grupo,
+    fusionar_propuestas_de_operacion,
     operacion_evidencia_verificable,
     operation_id_en_uso,
     resolver_operation_id,
 )
-from src.dominio.historias import OperacionBian
+from src.dominio.historias import OperacionBian, OperacionPropuestaLLM
 
 from support import DOCS
 
@@ -159,6 +160,72 @@ class TestResolverOperationId(unittest.TestCase):
         ).operaciones_de("Party Reference Data Directory")
         ajena = next(o for o in otras if o.operation_id == "RetrieveReference")
         self.assertIsNone(resolver_operation_id(f"{ajena.method} {ajena.path}", self.operaciones))
+
+
+class TestFusionarPropuestasDeOperacion(unittest.TestCase):
+    """Regresión del caso real: el LLM citó `InitiateOutbound` 4 veces para "Notificar
+    actualización de datos" -- una por escenario (SC-01..SC-04) -- y cada cita se anclaba como una
+    entrada DUPLICADA en `operaciones_bian` con el mismo operation_id/method/path, solo cambiando
+    escenarios_hu/justificacion/bq_seed. `fusionar_propuestas_de_operacion` las une en una sola."""
+
+    def _propuesta(self, **overrides) -> OperacionPropuestaLLM:
+        base = dict(
+            service_domain="Correspondence", operation_id="InitiateOutbound",
+            escenarios_hu=["SC-01"], justificacion="Envia notificacion",
+            action_term="Notificar", business_object="Correspondence",
+            bq_seed="el sistema envie una notificacion", traceability=["HU-Notificar"],
+            evidence_refs=["CorrespondenceAddressee"],
+        )
+        base.update(overrides)
+        return OperacionPropuestaLLM(**base)
+
+    def test_fusiona_escenarios_traceability_y_evidence_refs_sin_duplicar(self):
+        p1 = self._propuesta(escenarios_hu=["SC-01"], justificacion="Notifica al contacto anterior",
+                              bq_seed="notificar al contacto anterior", traceability=["HU-Notificar", "SC-01"],
+                              evidence_refs=["CorrespondenceAddressee"])
+        p2 = self._propuesta(escenarios_hu=["SC-02"], justificacion="Notifica al contacto nuevo",
+                              bq_seed="notificar al contacto nuevo", traceability=["HU-Notificar", "SC-02"],
+                              evidence_refs=["CorrespondenceAddressee", "CorrespondenceContent"])
+        fusion = fusionar_propuestas_de_operacion([p1, p2])
+
+        self.assertEqual(fusion.service_domain, "Correspondence")
+        self.assertEqual(fusion.operation_id, "InitiateOutbound")
+        self.assertEqual(fusion.escenarios_hu, ["SC-01", "SC-02"])
+        self.assertEqual(fusion.justificacion, "Notifica al contacto anterior; Notifica al contacto nuevo")
+        self.assertEqual(fusion.bq_seed, "notificar al contacto anterior; notificar al contacto nuevo")
+        # "HU-Notificar" aparece en ambas -> no se duplica
+        self.assertEqual(fusion.traceability, ["HU-Notificar", "SC-01", "SC-02"])
+        self.assertEqual(fusion.evidence_refs, ["CorrespondenceAddressee", "CorrespondenceContent"])
+
+    def test_una_sola_propuesta_se_devuelve_intacta(self):
+        p = self._propuesta()
+        fusion = fusionar_propuestas_de_operacion([p])
+        self.assertEqual(fusion.escenarios_hu, ["SC-01"])
+        self.assertEqual(fusion.justificacion, "Envia notificacion")
+
+    def test_cuatro_propuestas_del_caso_real_se_fusionan_en_una(self):
+        propuestas = [
+            self._propuesta(escenarios_hu=[f"SC-0{i}"], justificacion=f"Justificacion {i}",
+                             bq_seed=f"seed {i}", traceability=[f"SC-0{i}"])
+            for i in range(1, 5)
+        ]
+        fusion = fusionar_propuestas_de_operacion(propuestas)
+        self.assertEqual(fusion.escenarios_hu, ["SC-01", "SC-02", "SC-03", "SC-04"])
+        self.assertEqual(fusion.traceability, ["SC-01", "SC-02", "SC-03", "SC-04"])
+        self.assertEqual(fusion.justificacion, "Justificacion 1; Justificacion 2; Justificacion 3; Justificacion 4")
+
+    def test_action_term_y_business_object_toman_el_primero_no_vacio(self):
+        p1 = self._propuesta(action_term="", business_object="")
+        p2 = self._propuesta(action_term="Notificar", business_object="Correspondence")
+        fusion = fusionar_propuestas_de_operacion([p1, p2])
+        self.assertEqual(fusion.action_term, "Notificar")
+        self.assertEqual(fusion.business_object, "Correspondence")
+
+    def test_reason_codes_se_unen_sin_duplicar(self):
+        p1 = self._propuesta(reason_codes=["BIAN-SCOPE-008"])
+        p2 = self._propuesta(reason_codes=["BIAN-SCOPE-008", "OTRO"])
+        fusion = fusionar_propuestas_de_operacion([p1, p2])
+        self.assertEqual(fusion.reason_codes, ["BIAN-SCOPE-008", "OTRO"])
 
 
 if __name__ == "__main__":

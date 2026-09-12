@@ -2,13 +2,12 @@
 
 Cierra el hueco entre "el operationId existe en el catálogo" (lo que ya validaba el código) y
 "la operación realmente expone el dato que la historia necesita" (lo que antes solo decidía el
-LLM, sin verificación). Puro: solo stdlib + `src.dominio` (nada de pydantic siquiera hace falta
-aquí), respeta `test_arquitectura_hexagonal.py`.
+LLM, sin verificación). Puro: solo stdlib + `src.dominio`, respeta `test_arquitectura_hexagonal.py`.
 """
 
 from __future__ import annotations
 
-from src.dominio.historias import OperacionBian, SchemaBom
+from src.dominio.historias import OperacionBian, OperacionPropuestaLLM, SchemaBom
 from src.dominio.normalizacion import normalizar
 
 
@@ -105,3 +104,47 @@ def resolver_operation_id(id_propuesto: str, operaciones: list[OperacionBian]) -
         if o.path == directo:
             return o
     return None
+
+
+def fusionar_propuestas_de_operacion(propuestas: list[OperacionPropuestaLLM]) -> OperacionPropuestaLLM:
+    """Fusiona 2+ propuestas que YA se sabe que resuelven a la MISMA operación oficial (mismo
+    Service Domain + mismo `operationId` real tras `resolver_operation_id`) en una sola.
+
+    El LLM puede citar la misma operación más de una vez: `bq_seed` liga "1 fragmento -> ≤1
+    operación" (nunca cartesiano), pero eso no impide que VARIOS fragmentos/escenarios de la
+    historia apunten a la misma operación (p.ej. "notificar al contacto anterior" y "notificar al
+    contacto nuevo" son dos escenarios distintos que ambos se resuelven con `InitiateOutbound`).
+    Sin fusionar, cada fragmento generaba una entrada duplicada en `operaciones_bian` con el mismo
+    `operation_id`/`method`/`path`, solo cambiando `escenarios_hu`/`justificacion`/`bq_seed`.
+
+    Unión sin duplicados (se conserva el orden de aparición) de `escenarios_hu`/`traceability`/
+    `evidence_refs`/`reason_codes`; `justificacion`/`bq_seed` distintas se concatenan con "; " en
+    vez de perderse. Nunca se llama con una lista vacía."""
+    escenarios: list[str] = []
+    justificaciones: list[str] = []
+    bq_seeds: list[str] = []
+    traceability: list[str] = []
+    evidence_refs: list[str] = []
+    reason_codes: list[str] = []
+    action_term = business_object = ""
+    for p in propuestas:
+        escenarios.extend(s.strip() for s in p.escenarios_hu if s and s.strip())
+        if p.justificacion.strip():
+            justificaciones.append(p.justificacion.strip())
+        if p.bq_seed.strip():
+            bq_seeds.append(p.bq_seed.strip())
+        traceability.extend(s.strip() for s in p.traceability if s and s.strip())
+        evidence_refs.extend(p.evidence_refs)
+        reason_codes.extend(p.reason_codes)
+        action_term = action_term or p.action_term.strip()
+        business_object = business_object or p.business_object.strip()
+    return propuestas[0].model_copy(update={
+        "escenarios_hu": list(dict.fromkeys(escenarios)),
+        "justificacion": "; ".join(dict.fromkeys(justificaciones)),
+        "bq_seed": "; ".join(dict.fromkeys(bq_seeds)),
+        "action_term": action_term,
+        "business_object": business_object,
+        "traceability": list(dict.fromkeys(traceability)),
+        "evidence_refs": list(dict.fromkeys(evidence_refs)),
+        "reason_codes": list(dict.fromkeys(reason_codes)),
+    })

@@ -166,8 +166,16 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       solo "directo"; un SD correctamente identificado como propietario con confianza tentativa
       igual tiene una operación oficial real que documentar, sin que la confianza global de la
       historia decida si esa operación existe): `operationId` literal, conjunto mínimo suficiente, `traceability` por operación,
-      `bq_seed` (1 fragmento → ≤1 op, sin cartesianos), `BIAN-SCOPE-008` si una semilla queda sin
-      cubrir, gap si ninguna operación es inequívoca. Cada operación de `<operaciones_disponibles>`
+      `bq_seed` (1 fragmento → ≤1 op, sin cartesianos — esto NO impide que VARIOS fragmentos
+      distintos apunten a la MISMA operación: p.ej. "notificar al contacto anterior" y "notificar
+      al contacto nuevo" son dos escenarios que ambos resuelven con `InitiateOutbound`; el código
+      (`fusionar_propuestas_de_operacion` en `cobertura_operaciones.py`) fusiona todas las citas de
+      la MISMA operación de un SD en una sola entrada de `operaciones_bian` — unión sin duplicados
+      de `escenarios_hu`/`traceability`/`evidence_refs`/`reason_codes`, `justificacion`/`bq_seed`
+      distintas concatenadas con "; " — antes de esto una historia con 4 escenarios notificando por
+      el mismo canal generaba 4 entradas idénticas de `InitiateOutbound` en vez de una; ver
+      `tests/test_grafo_mapeo.py::TestGrafoMapeoOperacionesDuplicadas`), `BIAN-SCOPE-008` si una
+      semilla queda sin cubrir, gap si ninguna operación es inequívoca. Cada operación de `<operaciones_disponibles>`
       trae inline `campos_respuesta={...}` (propiedades reales de su `response_schema`, resueltas
       desde `schemas_detalle` — sin cruzar mentalmente el bloque de operaciones con un dump de
       schemas aparte, y sin depender de un corte alfabético que pueda excluir en silencio el

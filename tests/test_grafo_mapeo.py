@@ -407,6 +407,77 @@ class _MapeadorNotificacionVerificada(MapeadorOperacionesBianPort):
         return MapeoOperacionesLLM(operaciones=ops)
 
 
+class _MapeadorNotificacionMultiplesEscenarios(MapeadorOperacionesBianPort):
+    """Reproduce el caso real exacto: el LLM cita la MISMA operación una vez por cada escenario
+    que cubre (4 escenarios -> 4 citas de `InitiateOutbound`, cada una con su propio
+    escenario_hu/justificacion/bq_seed) -- antes de `fusionar_propuestas_de_operacion` esto
+    generaba 4 entradas duplicadas en `operaciones_bian`."""
+
+    def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
+        ops = []
+        for sd, lista in operaciones_por_sd.items():
+            fuente = next((o for o in lista if o.operation_id == "InitiateOutbound"), None)
+            if fuente is None:
+                continue
+            for i in range(1, 5):
+                ops.append(OperacionPropuestaLLM(
+                    service_domain=sd, operation_id=fuente.operation_id,
+                    escenarios_hu=[f"Escenario {i}"], justificacion=f"guion: notificacion escenario {i}.",
+                    bq_seed=f"seed del escenario {i}", traceability=[f"SC-0{i}"],
+                    evidence_refs=[fuente.operation_id],
+                ))
+        return MapeoOperacionesLLM(operaciones=ops)
+
+
+class TestGrafoMapeoOperacionesDuplicadas(unittest.TestCase):
+    """Regresión determinista (sin LLM real, caché BIAN real) del caso real observado en
+    `datos_personales_notificacion`: Correspondence terminaba con 4 entradas idénticas de
+    `InitiateOutbound` en `operaciones_bian`, una por escenario -- deben fusionarse en una sola."""
+
+    def test_misma_operacion_citada_por_escenario_se_fusiona_en_una_sola(self):
+        servicio = MapearHistoriasServiceDomainsService(
+            CatalogoJson(str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")),
+            LectorHistoriasFilesystem(),
+            _AnalistaNotificacionYaOwned(),
+            PublicadorMapeoJson(),
+            CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
+                              "14.0.0", permitir_descargas=False),
+            _MapeadorNotificacionMultiplesEscenarios(),
+            umbrales=UmbralesMapeo(),
+            concurrencia=1,
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            raiz = Path(tmp)
+            (raiz / "HU").mkdir()
+            (raiz / "HU" / "HU-01.txt").write_text(
+                "Como cliente quiero recibir una notificacion cuando actualizo mis datos personales.\n"
+                "Escenario 1. Notificar cambio de correo\nEscenario 2. Notificar cambio de celular",
+                encoding="utf-8")
+            func = raiz / "f.json"
+            func.write_text(json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
+                             encoding="utf-8")
+            r = servicio.ejecutar(str(raiz / "HU"), str(func), str(raiz / "out"))
+
+            hu = r.historias[0]
+            asignado = next(
+                a for a in hu.service_domains.candidatos_directos if a.service_domain == "Correspondence"
+            )
+            ops_initiate = [o for o in asignado.operaciones_bian if o.operation_id == "InitiateOutbound"]
+            self.assertEqual(len(ops_initiate), 1, "InitiateOutbound quedó duplicado en operaciones_bian")
+            op = ops_initiate[0]
+            self.assertEqual(
+                op.escenarios_hu, ["Escenario 1", "Escenario 2", "Escenario 3", "Escenario 4"]
+            )
+            self.assertEqual(op.traceability, ["SC-01", "SC-02", "SC-03", "SC-04"])
+            self.assertIn("escenario 1", op.justificacion)
+            self.assertIn("escenario 4", op.justificacion)
+
+            correspondence = next(
+                c for c in r.service_domains_consolidados if c.service_domain == "Correspondence"
+            )
+            self.assertEqual(correspondence.selected_operations, ["InitiateOutbound"])
+
+
 class TestGrafoMapeoPromocionOwnership(unittest.TestCase):
     """Regresión determinista (sin LLM real) del bug de "Notificar actualización de datos":
     Correspondence NUNCA debe quedar REJECTED/CONSUMED_DEPENDENCY cuando la propia evaluación cita
