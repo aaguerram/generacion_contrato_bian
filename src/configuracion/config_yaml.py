@@ -91,6 +91,13 @@ class MapearHistoriasConfig:
     release_bian: str = "14.0.0"
     descargar_faltantes: bool = True
     bom_puml_habilitado: bool = True
+    # Retrieval híbrido (RRF léxico+vectorial en memoria, Fase 3 del plan de recuperación híbrida).
+    # Por defecto OFF: es aditivo y ya tiene tests propios, pero encenderlo por defecto cambia qué
+    # candidatos se evalúan en corridas existentes -- eso debe decidirlo un benchmark de recall
+    # (ver implementacion_pendiente.md), no un valor por defecto silencioso.
+    retrieval_hibrido_habilitado: bool = False
+    retrieval_top_k: int = 20
+    retrieval_max_inyectados: int = 5
 
 
 @dataclass(frozen=True)
@@ -229,6 +236,9 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
         release_bian=str(mh.get("release_bian", "14.0.0")),
         descargar_faltantes=bool(mh.get("descargar_faltantes", True)),
         bom_puml_habilitado=bool(mh.get("bom_puml_habilitado", True)),
+        retrieval_hibrido_habilitado=bool(mh.get("retrieval_hibrido_habilitado", False)),
+        retrieval_top_k=int(mh.get("retrieval_top_k", 20)),
+        retrieval_max_inyectados=int(mh.get("retrieval_max_inyectados", 5)),
     )
 
     return Config(

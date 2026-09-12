@@ -151,6 +151,24 @@ def _sha256_archivo(ruta: str) -> str:
         return ""
 
 
+def _recuperadores_hibridos(
+    config: Config, catalogo: CatalogoJson, proveedor: str | None
+) -> list[RecuperadorSemanticoPort]:
+    """Léxico (siempre, sin API) + vectorial (best-effort: si no hay proveedor de embeddings
+    utilizable, se sigue solo con léxico -- nunca rompe la corrida por esto, igual que
+    `_h_preparar` degrada a "sin retrieval híbrido" si la lista queda vacía)."""
+    recuperadores: list[RecuperadorSemanticoPort] = [RecuperadorLexico(catalogo)]
+    try:
+        emb, modelo_emb = _embeddings(config, proveedor)
+        recuperadores.append(RecuperadorVectorial(catalogo, emb, modelo_embeddings=modelo_emb))
+    except RuntimeError as exc:
+        logger.warning(
+            "retrieval híbrido: sin proveedor de embeddings utilizable (%s); sigo solo con "
+            "recuperación léxica (rapidfuzz)", exc,
+        )
+    return recuperadores
+
+
 def crear_caso_uso_mapeo(config: Config, *, proveedor: str | None = None,
                          actualizar_cache_bian: bool = False) -> MapearHistoriasUseCase:
     mh = config.mapear_historias
@@ -163,6 +181,9 @@ def crear_caso_uso_mapeo(config: Config, *, proveedor: str | None = None,
         permitir_descargas=mh.descargar_faltantes,
     )
     catalogo_bom = CatalogoBomPuml(config.ruta_bian_puml) if mh.bom_puml_habilitado else None
+    recuperadores = (
+        _recuperadores_hibridos(config, catalogo, proveedor) if mh.retrieval_hibrido_habilitado else []
+    )
 
     analista = AnalistaMapeoBianLangChain(
         chat, modelo_desc=chat.descripcion, temperature=config.llm.temperature,
@@ -193,4 +214,7 @@ def crear_caso_uso_mapeo(config: Config, *, proveedor: str | None = None,
         },
         actualizar_cache_bian=actualizar_cache_bian,
         top_n_omitidos=mh.top_n_omitidos,
+        recuperadores=recuperadores,
+        retrieval_top_k=mh.retrieval_top_k,
+        retrieval_max_inyectados=mh.retrieval_max_inyectados,
     )

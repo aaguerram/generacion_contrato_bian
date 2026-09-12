@@ -158,3 +158,14 @@ mapear_historias:
   bom_puml_habilitado: true               # suma el modelo de clases del PUML al paquete de evidencia
   release_bian: "14.0.0"
   descargar_faltantes: true
+
+  # Retrieval híbrido (RRF léxico+vectorial en memoria) antes del fan-out, para reinyectar
+  # candidatos que el LLM no propuso -- ver implementacion_pendiente.md, Fase 3. Reusa los mismos
+  # adaptadores de validar-sd (RecuperadorLexico siempre; RecuperadorVectorial solo si hay un
+  # proveedor de embeddings utilizable en routing.embedding_priority, si no degrada a solo léxico).
+  # OFF por defecto a propósito: es aditivo y tiene tests propios, pero cambia qué candidatos entran
+  # al fan-out en corridas existentes -- encenderlo es una decisión de producto respaldada por el
+  # benchmark de recall de Fase 3, no un default silencioso.
+  retrieval_hibrido_habilitado: false
+  retrieval_top_k: 20            # top-k que pide cada recuperador (léxico y vectorial) antes de fusionar
+  retrieval_max_inyectados: 5    # tope de candidatos NUEVOS que el retrieval híbrido puede añadir por HU

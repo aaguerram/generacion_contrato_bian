@@ -1,0 +1,58 @@
+# Infra OPCIONAL para el KnowledgeIndexPort (Fase 3+ del plan de recuperación híbrida).
+#
+# No es necesaria para corregir el falso negativo de ownership (Fases 0-2): ese fix es
+# determinista, en memoria, sin índice externo. Solo se levanta esto si/cuando el benchmark
+# de Fase 3 demuestra que el InMemoryVectorStore actual (src/adaptadores/salida/recuperador_vectorial.py)
+# no alcanza en recall/latencia con el corpus canónico completo (SD + CR + BQ + operaciones +
+# schemas + campos), y la ADR correspondiente elige un backend.
+#
+# Nada arranca con `docker compose up` a secas: cada motor vive en su propio profile para no
+# forzar una decisión de antemano.
+#
+#   docker compose --profile qdrant up -d      # KnowledgeIndexPort -> adaptador Qdrant
+#   docker compose --profile pgvector up -d    # KnowledgeIndexPort -> adaptador Postgres+pgvector
+#
+# Apagar y borrar datos (reindexar desde cero):
+#   docker compose --profile qdrant down -v
+#   docker compose --profile pgvector down -v
+
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.11.3
+    profiles: ["qdrant"]
+    ports:
+      - "127.0.0.1:6333:6333"   # REST + dashboard (http://localhost:6333/dashboard)
+      - "127.0.0.1:6334:6334"   # gRPC
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      QDRANT__LOG_LEVEL: INFO
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/6333' || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  pgvector:
+    image: pgvector/pgvector:pg16
+    profiles: ["pgvector"]
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_DB: bian_knowledge_index
+      POSTGRES_USER: bian_rag
+      POSTGRES_PASSWORD: bian_rag_local_only   # solo uso local; nunca en .env de producción
+    volumes:
+      - pgvector_data:/var/lib/postgresql/data
+      - ./pgvector-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bian_rag -d bian_knowledge_index"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  qdrant_data:
+  pgvector_data:

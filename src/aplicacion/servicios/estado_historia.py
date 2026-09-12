@@ -21,6 +21,7 @@ from src.dominio.historias import (
     RevisionAdversarialLLM,
     RevisionCompletitudLLM,
     ServiceDomainOmitido,
+    ServiceDomainPropuestoLLM,
     ServiceDomainsDeHistoria,
 )
 from src.dominio.modelos import EntradaCatalogo
@@ -38,9 +39,11 @@ class EstadoHistoria(TypedDict, total=False):
     # preparación determinista + fan-out por candidato
     a_evaluar: list[PaqueteEvidenciaCandidato]
     omitidos: list[ServiceDomainOmitido]
+    retrieval_scores: dict[str, float]  # clave normalizada; ver _candidatos_retrieval_hibrido
     evaluaciones: Annotated[list[EvaluacionCandidatoLLM], operator.add]
     # clasificación + revisión adversarial deterministas/LLM
     grupos: ServiceDomainsDeHistoria
+    propuestos_por_sd: dict[str, ServiceDomainPropuestoLLM]  # clave normalizada; ver _h_clasificar
     revision_adversarial: RevisionAdversarialLLM
     bloqueos_hu: list[str]
     # acumuladores

@@ -22,6 +22,11 @@ para candidatos ausentes; no usa Internet ni memoria del modelo como evidencia d
 2. **`mapear-historias`** (`python -m src mapear-historias ...`): mapea un lote de HU a sus SD.
    (detalle abajo)
 
+Trabajo pendiente (Fases 3-5 del plan de recuperación híbrida: modelo canónico + ingestión, ADR
+Qdrant/pgvector, reranker, Graph RAG, endurecimiento operativo) documentado con problema/ventaja/
+justificación/pasos en [`implementacion_pendiente.md`](implementacion_pendiente.md) — léelo antes
+de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
+
 ## Configuración: `config.yaml` + `.env`
 
 - **`.env`** = SOLO API keys (`GROQ_API_KEY`, `GOOGLE_API_KEY`, `HF_TOKEN`,
@@ -54,14 +59,28 @@ para candidatos ausentes; no usa Internet ni memoria del modelo como evidencia d
    3. `revisar_completitud` → `RevisionCompletitudLLM` (usa el índice global BIAN como hint:
       `missing_candidates` / `unsupported_candidates` / `ownership_conflicts` /
       `duplicated_responsibilities` / `coverage_gaps` / `blocking_codes` `BIAN-SCOPE-009`).
-   4. `preparar_candidatos` **[determinista]**: resuelve nombres LLM ∪ `missing_candidates` contra
-      `SD.json`, tope `max_candidatos_hu`, `CatalogoBianCache.asegurar(...)` (cache-first en
+   4. `preparar_candidatos` **[determinista]**: resuelve nombres LLM ∪ `missing_candidates` ∪
+      **retrieval híbrido** (opcional, ver abajo) contra `SD.json`, tope `max_candidatos_hu` —
+      lo que exceda el tope NO desaparece en silencio: queda como incidencia
+      `TRUNCATED_BY_MAX_CANDIDATOS_HU` —, `CatalogoBianCache.asegurar(...)` (cache-first en
       `docs/bian-cache/release14.0.0`; descarga solo ausentes; `GITHUB_TOKEN` opcional), arma **un
       `PaqueteEvidenciaCandidato` cerrado por SD**: Service Role + CR/BQ + operaciones (con
       `request_schema`/`response_schema` y `parent_control_record`) + `schemas_detalle` (cuerpo de
       cada schema de la Semantic API) + `bom_modelo` (clases/atributos/asociaciones del PUML
       `docs/bian-puml/`, `CatalogoBomPuml`) + URL/commit/SHA-256. `deteccion_omitidos.py` corre
-      sobre lo NO evaluado → `service_domains_omitidos`.
+      sobre lo NO evaluado → `service_domains_omitidos` (solo reporta; el retrieval híbrido de
+      abajo sí reinyecta).
+
+      **Retrieval híbrido** (`mapear_historias.retrieval_hibrido_habilitado`, **OFF por
+      defecto**): antes de resolver, `_candidatos_retrieval_hibrido` consulta los
+      `RecuperadorSemanticoPort` configurados (léxico `RecuperadorLexico` siempre + vectorial
+      `RecuperadorVectorial` si hay embeddings utilizables — mismos adaptadores que `validar-sd`,
+      en memoria, sin Qdrant/pgvector) con la consulta = `business_actions/objects` +
+      `capacidades_funcionales` + `outcomes` de `intencion`, fusiona con RRF
+      (`src/dominio/fusion_rrf.py`) y añade hasta `retrieval_max_inyectados` candidatos que el LLM
+      NO propuso (`origen_candidato="retrieval_hibrido"`, `desglose_score.retrieval_score` = score
+      de fusión). Nunca reemplaza un candidato LLM/completitud. Ver `implementacion_pendiente.md`
+      (Fase 3) para el estado de la ADR sobre un índice externo.
    5. `evaluar_candidato` (**`Send` por candidato — 1 llamada aislada por SD**) → `EvaluacionCandidatoLLM`:
       **solo señales ordinales 0-3** (`match_action`, `match_business_object`, `match_service_role`,
       `evidence_quality`), `ambiguity` NONE/LOW/HIGH, `rol_contractual`, **`ownership_traceability`
@@ -80,18 +99,50 @@ para candidatos ausentes; no usa Internet ni memoria del modelo como evidencia d
       hipótesis formarse). `HallazgoAdversarial.tipo` ∈ {ACCION_DIRECTA_COMO_DEPENDENCIA,
       OBJETO_SIN_PROPIETARIO, DIRECTO_SIN_SERVICE_ROLE, DEPENDENCIA_PROMOVIDA_A_CONTRATO,
       CANDIDATO_OMITIDO, EXCESO_DE_CONTRATOS} + `reason_codes` (`BIAN-SCOPE-002/003`).
-   8. `aplicar_adversarial` **[determinista]** (`aplicar_hallazgos_adversariales`): **solo degrada**
-      (`SELECTED`→`UNRESOLVED`) y anota `reason_codes`/`blocking_codes`; nunca promueve.
+   8. `aplicar_adversarial` **[determinista]**: dos movimientos simétricos, ninguno decidido por
+      el LLM. **Degrada** (`aplicar_hallazgos_adversariales`, `SELECTED`→`UNRESOLVED`) en
+      `DEPENDENCIA_PROMOVIDA_A_CONTRATO`/`DIRECTO_SIN_SERVICE_ROLE`. **Promueve**
+      (`determinar_promociones` + `propuestos_promovidos`, ambos en `clasificacion_historias.py`)
+      `CONSUMED_DEPENDENCY`→`OWNED_CONTRACT` cuando: hay un hallazgo
+      `ACCION_DIRECTA_COMO_DEPENDENCIA` para ese SD SIN que el propio revisor también haya marcado
+      `DIRECTO_SIN_SERVICE_ROLE` para el mismo SD, `dependency_kind == AUDIT_OR_NOTIFICATION` (el
+      SD es la salida/resultado que la historia produce, no una precondición tipo
+      SECURITY_GUARD/SUPPORTING_LOOKUP/EXTERNAL_PROVIDER/RISK_INPUT), y hay
+      `dependency_traceability` + `evidence_refs` no vacíos. Al promover se **recalcula el score
+      completo** (`clasificar_service_domains` de nuevo, nunca se parcha solo la etiqueta) y se
+      anota `reason_codes += ["OWNERSHIP_PROMOTED_BY_ADVERSARIAL"]`. Un
+      `ACCION_DIRECTA_COMO_DEPENDENCIA` que NO califica queda como incidencia
+      `OWNERSHIP_CONFLICT_UNRESOLVED` (nunca se pierde en silencio; ver `metricas.ownership_*` en
+      la salida). Caso real que motivó esto: "Notificar actualización de datos" → Correspondence
+      quedaba REJECTED/CONSUMED_DEPENDENCY pese a citar `InitiateOutbound`
+      (`salida/2026-09-11_17-59-40/`); regresión determinista en
+      `tests/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership`.
    9. `seleccionar_operaciones` (si `paso2_operaciones`) → `MapeoOperacionesLLM` para los SD
-      directos: `operationId` literal, conjunto mínimo suficiente, `traceability` por operación,
+      **elegibles** (`candidatos_operacion_elegibles`: `OWNED_CONTRACT` directo O tentativo — YA NO
+      solo "directo"; un SD correctamente identificado como propietario con confianza tentativa
+      igual tiene una operación oficial real que documentar, sin que la confianza global de la
+      historia decida si esa operación existe): `operationId` literal, conjunto mínimo suficiente, `traceability` por operación,
       `bq_seed` (1 fragmento → ≤1 op, sin cartesianos), `BIAN-SCOPE-008` si una semilla queda sin
-      cubrir, gap si ninguna operación es inequívoca. **BQ personalizado**: un Control Record no
-      se edita — si un campo que la historia necesita no está en ningún CR/BQ oficial, el prompt
-      recibe también el BOM del SD (`schemas_bom` + `modelo_bom_puml`) y puede proponer
-      `bq_personalizados` (nombre + verbo BIAN + `clase_bom`/`atributo_bom` citados). El código
-      (`_bom_respalda`) **verifica la cita contra la evidencia real** (schemas_detalle o clases
-      del PUML, incl. clases asociadas fuera del objeto raíz del CR) antes de anclarlo como
-      `BqPersonalizadoAplicado` (`operationId=Verbo+NombreBQ`, `path=/{SD}/{id}/{NombreBQ}/{Verbo}`).
+      cubrir, gap si ninguna operación es inequívoca. Cada operación de `<operaciones_disponibles>`
+      trae inline `campos_respuesta={...}` (propiedades reales de su `response_schema`, resueltas
+      desde `schemas_detalle` — sin cruzar mentalmente el bloque de operaciones con un dump de
+      schemas aparte, y sin depender de un corte alfabético que pueda excluir en silencio el
+      schema que decide el caso); el prompt exige citar en `evidence_refs` un campo real de ahí
+      cuando el escenario pide un dato concreto. El código (`operacion_evidencia_verificable`)
+      verifica esa cita contra `schemas_detalle`: si no hay evidencia real, la operación se ancla
+      igual pero con `reason_codes += ["OPERATION_EVIDENCE_UNVERIFIED"]` (nunca se descarta en
+      silencio). El anclaje es estricto por Service Domain (índice por nombre normalizado, sin
+      fallback a otro SD). **Operación personalizada**: un Control Record no se edita — si un
+      campo que la historia necesita no está en ningún `campos_respuesta` oficial (CR ni BQ), el
+      prompt recibe también el BOM del SD (`schemas_bom` + `modelo_bom_puml`) y puede proponer
+      `bq_personalizados` (`grupo_existente` + verbo BIAN + `clase_bom`/`atributo_bom` citados).
+      `grupo_existente` DEBE ser un CR/BQ que YA aparece en `<operaciones_disponibles>` de ese SD —
+      **nunca crea un tag/grupo nuevo**; el código valida la cita, descarta si el grupo no existe o
+      si el `operationId` resultante (`Verbo+NombreDelGrupo`) ya es oficial, y (`_bom_respalda`)
+      **verifica la cita contra la evidencia real** (schemas_detalle o clases del PUML, incl.
+      clases asociadas fuera del objeto raíz del CR) antes de anclarlo como `BqPersonalizadoAplicado`
+      con `path_propuesto` derivado del path REAL de una operación existente de ese grupo (mismo
+      prefijo e id-param, solo cambia el verbo final — nunca un `/{id}` genérico inventado).
       **Nunca** se mezcla con `operaciones_bian`/`selected_operations`: vive en
       `bq_personalizados_propuestos` / `custom_bq_candidates`, `estado: CUSTOM_BQ_CANDIDATE`,
       pendiente de revisión BIAN.
@@ -108,6 +159,17 @@ para candidatos ausentes; no usa Internet ni memoria del modelo como evidencia d
    Coste: por corrida ≈ `HU * (3 + n_candidatos_evaluados + 2) + 1` llamadas LLM. `concurrencia`
    (HU en paralelo) × `concurrencia_candidatos` (candidatos en paralelo por HU) = llamadas
    simultáneas — con free tiers pequeños usa `--proveedor` pinneado o baja `max_candidatos_hu`.
+
+   **Observabilidad (Fase 0)**: cada `ResultadoMapeoHistorias.parametros` trae `run_id` (uuid4,
+   único por corrida) y `retrieval_hibrido_activo`/`retrieval_top_k`/`retrieval_max_inyectados`.
+   `ResultadoMapeoHistorias.metricas` trae, derivado solo de lo que la propia corrida ya registra
+   (sin golden set — eso es Recall@K de Fase 3): `candidate_drop_rate` (candidatos resueltos que
+   `TRUNCATED_BY_MAX_CANDIDATOS_HU` cortó, sobre el total), `ownership_conflict_rate`
+   (`ACCION_DIRECTA_COMO_DEPENDENCIA` que NO se promovió, sobre promovidos+sin-resolver),
+   `operation_grounding_rate` (operaciones ancladas sin `OPERATION_EVIDENCE_UNVERIFIED`, sobre el
+   total ancladas). `desglose_score` de cada SD también trae `retrieval_score` (origen retrieval
+   híbrido) y `operation_support_score` (fracción de sus operaciones verificadas) — aditivos,
+   nunca entran a `total`.
 
    Toda la evidencia BIAN vive en **`generacion_contrato_ia_v2/docs/`** (ver cabecera de este
    archivo). La red solo completa ausentes o refresca explícitamente; la memoria del modelo nunca
@@ -144,6 +206,54 @@ cd generacion_contrato_ia_v2
 
 `tests/test_arquitectura_hexagonal.py` falla si un import cruza una frontera. No lo relajes:
 mueve el código a la capa correcta o introduce un puerto.
+
+### Pruebas de integración/E2E — solo bajo demanda
+
+La suite de arriba es 100% determinista y sin red (`--proveedor fake` o evidencia local). Las
+pruebas que hacen llamadas LLM reales (consumen cuota, tardan segundos-minutos) viven igual en
+`tests/`, pero **decoradas con `@unittest.skipUnless(os.environ.get("EJECUTAR_E2E") == "1", ...)`**
+para que `discover -s tests` las salte por defecto. Se corren explícitamente cuando el usuario lo
+pide, nunca de forma automática:
+
+```bash
+EJECUTAR_E2E=1 .venv/Scripts/python -m unittest discover -s tests -p "test_e2e_*.py" -v
+```
+
+(`discover -s tests`, no un path con puntos: `tests/` no tiene `__init__.py`, así que un dotted
+path como `python -m unittest tests.test_e2e_x` no resuelve `support.py`.)
+
+**Estructura de recursos, pensada para que sigan sumándose casos.** La carpeta de recursos se
+llama IGUAL que el caso de prueba (sin el prefijo `test_e2e_`), para identificarla entre las demás
+a simple vista:
+
+```
+tests/
+  resources/
+    datos_personales/     <- entradas (HU + funcionalidad) Y salida de test_e2e_datos_personales.py
+    <otro_caso>/          <- entradas Y salida de test_e2e_<otro_caso>.py (futura)
+  e2e_support.py                    <- RESOURCES, requiere_e2e, ejecutar_caso(carpeta, funcionalidad)
+  test_e2e_datos_personales.py      <- ejecutar_caso("datos_personales", ...)
+  test_e2e_<otro_caso>.py           <- ejecutar_caso("<otro_caso>", ...)
+```
+
+Cada `resources/<caso>/` es autocontenida: trae su(s) HU (`.txt`), su JSON de funcionalidad, y
+`ejecutar_caso()` (en `tests/e2e_support.py`) escribe ahí mismo `mapeo-historias-service-domains.json`
+como salida -se sobreescribe en cada corrida, queda como artefacto inspeccionable, no un tempdir
+que se borra-. **Nunca** apuntar a las carpetas compartidas `./HU` / `./ejemplos` de la raíz: son
+para pruebas manuales del CLI, cambian de contenido libremente, y ya rompieron una prueba E2E por
+eso. Una prueba E2E nueva es mecánica: crear `tests/resources/<caso>/` con sus datos y, en
+`tests/test_e2e_<caso>.py`, `ejecutar_caso("<caso>", "<funcionalidad>.json")` bajo `@requiere_e2e`.
+
+Ejemplo: `tests/test_e2e_datos_personales.py` + `tests/resources/datos_personales/` — replica
+`mapear-historias` sobre su propia HU "Crear pantalla de datos personales" y valida la regresión
+(debe anclar `RetrieveReference`/`UpdateReference`, nunca `RetrieveDemographics`; ver
+`src/dominio/cobertura_operaciones.py`).
+
+Segundo ejemplo: `tests/test_e2e_notificacion_actualizacion.py` +
+`tests/resources/notificacion_actualizacion/` — HU "Notificar actualización de datos"; valida que
+Correspondence quede `OWNED_CONTRACT` (nunca `REJECTED`) con `InitiateOutbound` anclado (POST, BQ,
+grupo Outbound). Su equivalente determinista SIN LLM (corre siempre, no gateado) es
+`tests/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership`.
 
 ## Comandos
 

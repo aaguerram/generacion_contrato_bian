@@ -55,7 +55,7 @@ EstadoEvaluacion = Literal["DIRECTO", "TENTATIVO", "DESCARTADO", "NO_RESUELTO"]
 NivelAmbiguedad = Literal["NONE", "LOW", "HIGH"]
 
 # Origen de un candidato en la lista unificada a evaluar.
-OrigenCandidato = Literal["llm", "omitido", "completitud"]
+OrigenCandidato = Literal["llm", "omitido", "completitud", "retrieval_hibrido"]
 
 # Motivo de la decisión contractual (sub-taxonomía del diagrama de dos ejes).
 MotivoDecision = Literal[
@@ -188,6 +188,16 @@ class DesgloseScore(BaseModel):
     coherencia_jerarquia: float = 0.0
     penalizacion: float = 0.0
     total: float = 0.0
+    # Etapas adicionales del score (aditivas; no participan en `total` — ver scoring_bian.py).
+    retrieval_score: float = Field(
+        default=0.0,
+        description="Score de fusión RRF si el candidato entró por retrieval híbrido (0.0 = no aplica / origen LLM).",
+    )
+    operation_support_score: float = Field(
+        default=0.0,
+        description="Fracción de las operaciones ancladas de este SD con evidencia verificable "
+        "(sin OPERATION_EVIDENCE_UNVERIFIED). 0.0 si no se ancló ninguna operación todavía.",
+    )
 
 
 class MetadatosPrompt(BaseModel):
@@ -507,19 +517,31 @@ VerboBian = Literal[
 
 
 class BqPersonalizadoPropuestoLLM(BaseModel):
-    """Propuesta de un Behavior Qualifier NO oficial.
+    """Propuesta de una operación NO oficial dentro de un Control Record o Behavior Qualifier
+    YA EXISTENTE del Service Domain.
 
     Un Control Record no se puede editar: si una historia necesita un campo que ni el CR ni
-    ningún BQ oficial exponen, se revisa el BOM del Service Domain (schemas de la Semantic API +
-    modelo de clases del PUML). Solo si una clase del BOM tiene realmente ese campo -aunque sea
-    una clase asociada, no el objeto raíz del CR- se puede proponer un BQ personalizado, citando
-    la evidencia exacta. Nunca es una operación oficial: el código la ancla por separado y queda
-    pendiente de revisión BIAN.
+    ningún BQ oficial exponen con NINGÚN verbo, se revisa el BOM del Service Domain (schemas de
+    la Semantic API + modelo de clases del PUML). Solo si una clase del BOM tiene realmente ese
+    campo -aunque sea una clase asociada, no el objeto raíz del CR- se puede proponer esta
+    operación, citando la evidencia exacta. NUNCA crea un grupo/tag nuevo: siempre se añade un
+    verbo nuevo dentro de un CR/BQ que YA aparece en `<operaciones_disponibles>` de ese Service
+    Domain. Nunca es una operación oficial: el código la ancla por separado y queda pendiente de
+    revisión BIAN.
     """
 
     service_domain: str = Field(description="Nombre exacto del Service Domain (de la lista provista).")
-    nombre_bq: str = Field(description="Nombre del Behavior Qualifier propuesto, PascalCase (p.ej. 'CreditLimit').")
-    verbo: VerboBian = Field(description="Verbo BIAN de la operación (define operationId = Verbo+NombreBQ).")
+    grupo_existente: str = Field(
+        description=(
+            "Nombre EXACTO de un Control Record o Behavior Qualifier YA EXISTENTE en "
+            "<operaciones_disponibles> de ese Service Domain (copia literal del `grupo` de alguna "
+            "operación provista) — NUNCA un grupo/tag nuevo. La operación propuesta se añade DENTRO "
+            "de ese grupo, con un verbo distinto a los ya usados en él."
+        )
+    )
+    verbo: VerboBian = Field(
+        description="Verbo BIAN de la operación (define operationId = Verbo+NombreDelGrupoExistente)."
+    )
     campo_no_cubierto: str = Field(
         description="Capacidad/campo que la historia necesita y que NINGUNA operación oficial (CR ni BQ) expone."
     )
@@ -548,15 +570,20 @@ class MapeoOperacionesLLM(BaseModel):
 
 
 class BqPersonalizadoAplicado(BaseModel):
-    """Un BQ personalizado anclado a evidencia BOM real. NUNCA es una operación oficial BIAN;
+    """Una operación personalizada anclada a evidencia BOM real, DENTRO de un CR/BQ ya existente
+    del Service Domain (nunca crea un grupo/tag nuevo). NUNCA es una operación oficial BIAN;
     requiere revisión/gobierno antes de tratarse como endpoint real. Vive separado de
     `operaciones_bian` / `selected_operations` para que nunca se confunda con lo oficial."""
 
     service_domain: str
-    nombre_bq: str
-    operation_id: str = Field(description="Verbo+NombreBQ, siguiendo la convención BIAN (p.ej. 'UpdateCreditLimit').")
+    grupo_existente: str = Field(description="CR/BQ ya existente del Service Domain donde se añade la operación.")
+    operation_id: str = Field(
+        description="Verbo+NombreDelGrupoExistente, siguiendo la convención BIAN (p.ej. 'RegisterReference')."
+    )
     verbo: str
-    path_propuesto: str = Field(description="/{ServiceDomain}/{id}/{NombreBQ}/{Verbo}, patrón BIAN de un BQ.")
+    path_propuesto: str = Field(
+        description="Path real de una operación existente de `grupo_existente`, con el verbo final reemplazado."
+    )
     parent_control_record: str = ""
     campo_no_cubierto: str = ""
     clase_bom: str = ""
@@ -710,3 +737,8 @@ class ResultadoMapeoHistorias(BaseModel):
         default_factory=list, description="Huella reproducible de cada llamada LLM del run."
     )
     incidencias: list[dict] = Field(default_factory=list)
+    metricas: dict = Field(
+        default_factory=dict,
+        description="Fase 0 (observabilidad): candidate_drop_rate, ownership_conflict_rate, "
+        "operation_grounding_rate y sus conteos crudos. Ver `_metricas` en el caso de uso.",
+    )

@@ -22,6 +22,14 @@ Pasos deterministas (stdlib + pydantic + dominio, sin frameworks, sin API):
      `descartado` (score < umbral_tentativo): entonces es `OUT_OF_SCOPE`. Si el score alcanza la
      banda tentativa pero falta evidencia -> `UNRESOLVED / NO_OFFICIAL_BIAN_EVIDENCE`.
 6. **Dedup** por SD (se queda con la mayor confianza cruda) y orden por confianza desc.
+7. **Promoción de ownership** (`determinar_promociones` / `propuestos_promovidos`): el revisor
+   adversarial puede señalar que una acción directa de la historia quedó mal clasificada como
+   `CONSUMED_DEPENDENCY`. El código nunca confía en esa sola señal: solo promueve a
+   `OWNED_CONTRACT` cuando, ADEMÁS, `dependency_kind` es del tipo que significa "este SD es el
+   resultado/salida que la historia produce" (no una precondición), hay trazabilidad de
+   escenarios y evidencia de operación oficial citada, y el propio revisor no contradijo el
+   Service Role para el mismo SD. Es simétrico a la degradación (`_DEGRADA_SELECTED`): ninguna de
+   las dos la decide el LLM solo, ambas son reglas deterministas sobre lo que el LLM reportó.
 """
 
 from __future__ import annotations
@@ -29,6 +37,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from src.dominio.historias import (
+    DependencyKind,
     DesgloseScore,
     EvidenciaBian,
     RevisionAdversarialLLM,
@@ -214,20 +223,109 @@ def clasificar_service_domains(
 
 
 # Hallazgos adversariales que degradan una decisión (el LLM nunca promueve, solo el código decide).
+# NOTA: "ACCION_DIRECTA_COMO_DEPENDENCIA" NO degrada -> significa lo opuesto (una acción directa
+# quedó como dependencia) y solo puede PROMOVER, nunca degradar; ver `determinar_promociones`.
 _DEGRADA_SELECTED = {
     "DEPENDENCIA_PROMOVIDA_A_CONTRATO": "BIAN-SCOPE-002",
     "DIRECTO_SIN_SERVICE_ROLE": "BIAN-SCOPE-003",
-    "ACCION_DIRECTA_COMO_DEPENDENCIA": "BIAN-SCOPE-002",
 }
+
+# `dependency_kind` que puede indicar que el SD produce el RESULTADO que la historia ejecuta
+# (p.ej. una notificación es la salida directa), en vez de ser una precondición consultada antes
+# de actuar (SECURITY_GUARD/SUPPORTING_LOOKUP/EXTERNAL_PROVIDER/RISK_INPUT). Solo estos tipos son
+# elegibles para promoción — no cualquier `CONSUMED_DEPENDENCY` con un hallazgo adversarial.
+_PROMOCION_DEPENDENCY_KINDS: frozenset[DependencyKind] = frozenset({"AUDIT_OR_NOTIFICATION"})
+
+PROMOTED_REASON_CODE = "OWNERSHIP_PROMOTED_BY_ADVERSARIAL"
+
+
+def determinar_promociones(
+    propuestos_por_sd: dict[str, ServiceDomainPropuestoLLM],
+    revision: RevisionAdversarialLLM,
+) -> frozenset[str]:
+    """Nombres normalizados de SD que pasan de `CONSUMED_DEPENDENCY` a `OWNED_CONTRACT`.
+
+    Exige TODO lo siguiente (genérico, sin nombrar ningún Service Domain):
+    - un hallazgo `ACCION_DIRECTA_COMO_DEPENDENCIA` para ese SD, Y ningún `DIRECTO_SIN_SERVICE_ROLE`
+      para el mismo SD (el propio revisor no contradice el Service Role);
+    - `rol_contractual == CONSUMED_DEPENDENCY` con `dependency_kind` en `_PROMOCION_DEPENDENCY_KINDS`
+      (el SD es la salida/resultado que la historia produce, no una precondición consultada);
+    - trazabilidad a escenarios (`dependency_traceability`) y al menos una cita de evidencia
+      (`evidence_refs`, típicamente una operación oficial) — sin esto, no hay base determinista.
+    """
+    hallazgos_por_sd: dict[str, list[str]] = {}
+    for h in revision.hallazgos:
+        if h.service_domain:
+            hallazgos_por_sd.setdefault(normalizar(h.service_domain), []).append(h.tipo)
+
+    promovidos: set[str] = set()
+    for clave, tipos in hallazgos_por_sd.items():
+        if "ACCION_DIRECTA_COMO_DEPENDENCIA" not in tipos or "DIRECTO_SIN_SERVICE_ROLE" in tipos:
+            continue
+        p = propuestos_por_sd.get(clave)
+        if (
+            p is not None
+            and p.rol_contractual == "CONSUMED_DEPENDENCY"
+            and p.dependency_kind in _PROMOCION_DEPENDENCY_KINDS
+            and p.dependency_traceability
+            and p.evidence_refs
+        ):
+            promovidos.add(clave)
+    return frozenset(promovidos)
+
+
+def propuestos_promovidos(
+    propuestos_por_sd: dict[str, ServiceDomainPropuestoLLM], promovidos: frozenset[str]
+) -> dict[str, ServiceDomainPropuestoLLM]:
+    """Copia `propuestos_por_sd` con los SD de `promovidos` reescritos a `OWNED_CONTRACT`.
+
+    La trazabilidad que el LLM etiquetó como "consumo" pasa a ser trazabilidad de ownership: ya
+    está probado (por la regla de `determinar_promociones`) que es responsabilidad directa, no
+    una precondición. El llamador debe recalcular score/decisión con `clasificar_service_domains`
+    sobre el resultado — este helper solo reescribe la entrada, nunca el score.
+    """
+    salida = dict(propuestos_por_sd)
+    for clave in promovidos:
+        p = salida.get(clave)
+        if p is None:
+            continue
+        salida[clave] = p.model_copy(update={
+            "rol_contractual": "OWNED_CONTRACT",
+            "dependency_kind": None,
+            "ownership_traceability": list(dict.fromkeys([*p.ownership_traceability, *p.dependency_traceability])),
+            "dependency_traceability": [],
+        })
+    return salida
+
+
+def candidatos_operacion_elegibles(grupos: ServiceDomainsDeHistoria) -> list[ServiceDomainAsignado]:
+    """SD con base suficiente para intentar anclar operaciones oficiales: `OWNED_CONTRACT`,
+    directo O tentativo. Desacopla la selección de operaciones del umbral de confianza directa
+    (0.90): un SD correctamente identificado como propietario pero con confianza tentativa sigue
+    teniendo una operación oficial real que documentar para revisión — no depende de que la
+    historia por sí sola alcance el umbral de "directo". Los descartados no entran: ahí el score
+    es demasiado bajo o el rol no es de ownership, no hay base para anclar nada. Nunca incluye
+    `CONSUMED_DEPENDENCY`/`RELATED_NOT_OWNED`: eso seguiría mezclando "operación referenciada" con
+    "operación contratada", que es exactamente lo que este desacople evita."""
+    return [
+        a for a in (*grupos.candidatos_directos, *grupos.candidatos_tentativos)
+        if a.rol_contractual == "OWNED_CONTRACT"
+    ]
 
 
 def aplicar_hallazgos_adversariales(
-    grupos: ServiceDomainsDeHistoria, revision: RevisionAdversarialLLM
+    grupos: ServiceDomainsDeHistoria,
+    revision: RevisionAdversarialLLM,
+    *,
+    promovidos: frozenset[str] = frozenset(),
 ) -> tuple[ServiceDomainsDeHistoria, list[str]]:
     """Aplica la revisión adversarial de forma determinista.
 
     El revisor adversarial es un asesor: solo puede DEGRADAR (`SELECTED` -> `UNRESOLVED`) y
-    anotar `reason_codes`. Nunca puede seleccionar ni subir de grupo. Devuelve los grupos
+    anotar `reason_codes`. Nunca sube de grupo por sí solo. `promovidos` (calculado por
+    `determinar_promociones` y ya aplicado por el llamador vía `propuestos_promovidos` +
+    re-clasificación) solo se usa aquí para anotar la trazabilidad de la promoción sobre el
+    resultado ya reclasificado — este código no vuelve a decidir si promover. Devuelve los grupos
     (posiblemente re-clasificados) y la lista de `blocking_codes` a nivel de historia.
     """
     todos = [
@@ -256,6 +354,17 @@ def aplicar_hallazgos_adversariales(
             objetivo.decision_contractual = "UNRESOLVED"
             objetivo.motivo_decision = "TENTATIVE_SCORE"
             objetivo.blocking_codes = list(dict.fromkeys([*objetivo.blocking_codes, *codigos]))
+
+    for clave in promovidos:
+        objetivo = por_sd.get(clave)
+        if objetivo is None:
+            continue
+        objetivo.reason_codes = list(dict.fromkeys([*objetivo.reason_codes, PROMOTED_REASON_CODE]))
+        objetivo.observaciones_adversariales = [
+            *objetivo.observaciones_adversariales,
+            "[adversarial] Promovido a OWNED_CONTRACT: accion directa con evidencia oficial y "
+            "trazabilidad de escenarios, inicialmente clasificada como dependencia consumida.",
+        ]
 
     for code in revision.blocking_codes:
         if code and code not in bloqueos_hu:

@@ -5,9 +5,13 @@ from __future__ import annotations
 import unittest
 
 from src.dominio.clasificacion_historias import (
+    PROMOTED_REASON_CODE,
     UmbralesMapeo,
     aplicar_hallazgos_adversariales,
+    candidatos_operacion_elegibles,
     clasificar_service_domains,
+    determinar_promociones,
+    propuestos_promovidos,
     resolver_nombre_sd,
 )
 from src.dominio.historias import ServiceDomainPropuestoLLM
@@ -216,6 +220,104 @@ class TestAplicarAdversarial(unittest.TestCase):
         out, bloqueos = aplicar_hallazgos_adversariales(grupos, rev)
         self.assertIn("BIAN-SCOPE-009", bloqueos)
         self.assertEqual(out.candidatos_directos[0].decision_contractual, "SELECTED")
+
+    def test_accion_directa_como_dependencia_ya_no_degrada_selected(self):
+        # regresión: este hallazgo significa lo OPUESTO a DEPENDENCIA_PROMOVIDA_A_CONTRATO (una
+        # acción directa quedó como dependencia, no una dependencia que se coló como contrato) --
+        # nunca debe degradar un SELECTED existente.
+        grupos = self._seleccionado()
+        rev = RevisionAdversarialLLM(hallazgos=[HallazgoAdversarial(
+            tipo="ACCION_DIRECTA_COMO_DEPENDENCIA", service_domain="Transaction Authorization",
+            reason_codes=["BIAN-SCOPE-002"])])
+        out, _ = aplicar_hallazgos_adversariales(grupos, rev)
+        self.assertEqual(out.candidatos_directos[0].decision_contractual, "SELECTED")
+
+
+class TestDeterminarPromociones(unittest.TestCase):
+    """`determinar_promociones` / `propuestos_promovidos`: el caso real de "Notificar
+    actualización de datos" (Correspondence CONSUMED_DEPENDENCY/AUDIT_OR_NOTIFICATION con
+    ACCION_DIRECTA_COMO_DEPENDENCIA) -- ver salida/2026-09-11_17-59-40."""
+
+    def _propuesto_correspondence(self, **overrides) -> ServiceDomainPropuestoLLM:
+        base = dict(
+            service_domain="Correspondence", rol_contractual="CONSUMED_DEPENDENCY",
+            dependency_kind="AUDIT_OR_NOTIFICATION", justificacion="consume Correspondence",
+            confianza=0.6667, dependency_traceability=["SC-01", "SC-02"],
+            evidence_refs=["InitiateOutbound"],
+        )
+        base.update(overrides)
+        return ServiceDomainPropuestoLLM(**base)
+
+    def _revision(self, tipos: list[str]) -> RevisionAdversarialLLM:
+        return RevisionAdversarialLLM(hallazgos=[
+            HallazgoAdversarial(tipo=t, service_domain="Correspondence") for t in tipos
+        ])
+
+    def test_promueve_con_evidencia_fuerte(self):
+        propuestos = {"correspondence": self._propuesto_correspondence()}
+        promovidos = determinar_promociones(propuestos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        self.assertEqual(promovidos, frozenset({"correspondence"}))
+
+        nuevos = propuestos_promovidos(propuestos, promovidos)
+        p = nuevos["correspondence"]
+        self.assertEqual(p.rol_contractual, "OWNED_CONTRACT")
+        self.assertIsNone(p.dependency_kind)
+        self.assertEqual(p.ownership_traceability, ["SC-01", "SC-02"])
+        self.assertEqual(p.dependency_traceability, [])
+
+    def test_no_promueve_sin_hallazgo(self):
+        propuestos = {"correspondence": self._propuesto_correspondence()}
+        self.assertEqual(determinar_promociones(propuestos, self._revision([])), frozenset())
+
+    def test_no_promueve_si_revisor_contradice_service_role(self):
+        propuestos = {"correspondence": self._propuesto_correspondence()}
+        rev = self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA", "DIRECTO_SIN_SERVICE_ROLE"])
+        self.assertEqual(determinar_promociones(propuestos, rev), frozenset())
+
+    def test_no_promueve_dependency_kind_de_precondicion(self):
+        # SECURITY_GUARD / SUPPORTING_LOOKUP / EXTERNAL_PROVIDER / RISK_INPUT: precondiciones
+        # consultadas antes de actuar, no la salida que la historia produce -- nunca promueven.
+        propuestos = {"correspondence": self._propuesto_correspondence(dependency_kind="SECURITY_GUARD")}
+        promovidos = determinar_promociones(propuestos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        self.assertEqual(promovidos, frozenset())
+
+    def test_no_promueve_sin_trazabilidad_ni_evidencia(self):
+        propuestos = {"correspondence": self._propuesto_correspondence(
+            dependency_traceability=[], evidence_refs=[],
+        )}
+        promovidos = determinar_promociones(propuestos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        self.assertEqual(promovidos, frozenset())
+
+    def test_no_promueve_related_not_owned(self):
+        propuestos = {"correspondence": self._propuesto_correspondence(
+            rol_contractual="RELATED_NOT_OWNED", dependency_kind=None,
+        )}
+        promovidos = determinar_promociones(propuestos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        self.assertEqual(promovidos, frozenset())
+
+
+class TestCandidatosOperacionElegibles(unittest.TestCase):
+    U = UmbralesMapeo()
+    CAT = _cat("Correspondence")
+
+    def test_incluye_owned_directo_y_tentativo_excluye_no_owned(self):
+        directo = _p("Correspondence", 0.95)
+        r_directo = clasificar_service_domains([directo], self.CAT, self.U)
+
+        tentativo = _p("Correspondence", 0.70)
+        r_tentativo = clasificar_service_domains([tentativo], self.CAT, self.U)
+
+        no_owned = _p("Correspondence", 0.70, rol="CONSUMED_DEPENDENCY", dep="OTHER_DEPENDENCY")
+        r_no_owned = clasificar_service_domains([no_owned], self.CAT, self.U)
+
+        self.assertEqual(len(candidatos_operacion_elegibles(r_directo)), 1)
+        self.assertEqual(len(candidatos_operacion_elegibles(r_tentativo)), 1)
+        self.assertEqual(candidatos_operacion_elegibles(r_no_owned), [])
+
+    def test_excluye_descartados_aunque_sean_owned(self):
+        r = clasificar_service_domains([_p("Correspondence", 0.10)], self.CAT, self.U)
+        self.assertEqual(r.candidatos_descartados[0].rol_contractual, "OWNED_CONTRACT")
+        self.assertEqual(candidatos_operacion_elegibles(r), [])
 
 
 if __name__ == "__main__":
