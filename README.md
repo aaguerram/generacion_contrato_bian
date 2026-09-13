@@ -142,6 +142,32 @@ cd generacion_contrato_ia_v2
 `config.yaml → observabilidad.langsmith_tracing: true` + `LANGSMITH_API_KEY` en `.env` → LangGraph
 traza cada nodo, la búsqueda RAG y la llamada al LLM bajo el proyecto `observabilidad.langsmith_project`.
 
+### MEMANTO (memoria de agentes)
+
+Este proyecto usa un servidor [MEMANTO](https://github.com/moorcheh-ai/memanto) on-prem
+compartido (Docker + Moorcheh, corre en `super@100.102.221.79` vía Tailscale, docker-compose
+en `/home/super/Desktop/claude_cli/openwebui/memanto/`), con un **namespace/agente dedicado a
+este proyecto** para que su memoria no se mezcle con la de otros proyectos que usen el mismo
+servidor:
+
+- Agente MEMANTO: `generacion-contrato-ia-v2`
+- Namespace real en Moorcheh: `memanto_agent_generacion-contrato-ia-v2`
+
+En una máquina nueva (tras clonar el repo), configúralo una vez con:
+
+```bash
+python scripts/setup_memanto.py
+```
+
+Esto instala el CLI `memanto` si falta, apunta el backend on-prem de esta máquina al servidor
+de Produbanco y crea (o activa, si ya existe) el agente `generacion-contrato-ia-v2`. A partir de
+ahí, `memanto remember/recall/answer` (ver `~/.claude/CLAUDE.md`) quedan aislados en ese namespace.
+
+Nota: `~/.memanto/on-prem/state.json` es global a la máquina — solo puede apuntar a **un**
+servidor on-prem a la vez. Si esa máquina también usa MEMANTO on-prem para otro proyecto con
+otro servidor, `setup_memanto.py` reapunta la máquina hacia el servidor de Produbanco (el
+namespace de cada proyecto sigue siendo independiente y no se borra).
+
 ## Uso
 
 ```powershell
