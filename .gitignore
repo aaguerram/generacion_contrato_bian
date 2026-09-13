@@ -22,6 +22,11 @@ dist/
 # archivos temporales de Office (lock files al abrir .xlsx/.xlsm)
 ~$*
 
+# datos crudos descargados de fuentes externas (p.ej. los 47 shards de
+# bian.org que cachea scripts/bian_object_catalog/, ~146 MB) — no son
+# codigo ni un artefacto versionable, se vuelven a descargar solos si faltan
+/descarga/
+
 # IDE / OS
 .vscode/
 .idea/
