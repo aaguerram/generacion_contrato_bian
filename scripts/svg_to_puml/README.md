@@ -1,7 +1,7 @@
 # svg_to_puml
 
 Enriquece los `.puml` de `docs/bian-puml/` con la informacion que en el `.svg`
-fuente (`docs/bian-diagrams/svg/`) esta representada visualmente pero la
+fuente (`docs/bian-diagrams/svg_bom/`) esta representada visualmente pero la
 extraccion original a `.puml` no capturo como texto: notas turquesa/gris
 "pegadas" a una clase (**BQ** / Behavior Qualifier, **AssetType**,
 **ControlRecord**, **GenericArtifact**, y las cajas de referencia
@@ -113,7 +113,7 @@ Las relaciones, enums y atributos originales del `.puml` nunca se tocan.
 ## Alcance real del corpus
 
 Esto aplica a los pares donde existen **ambos** archivos con el mismo nombre
-base en `docs/bian-diagrams/svg/<nombre>.svg` y `docs/bian-puml/<nombre>.puml`
+base en `docs/bian-diagrams/svg_bom/<nombre>.svg` y `docs/bian-puml/<nombre>.puml`
 (hoy son 272 pares). Un numero de esos `.svg` son placeholders vacios (un
 canvas de 1x1 cm sin contenido, cuando el diagrama original solo existia como
 PNG de baja resolucion) — el script los detecta como "0 clases" y no toca su
@@ -126,7 +126,7 @@ generacion de contratos y queda fuera del alcance de este script.
 ## Como ejecutar
 
 Desde cualquier ubicacion (usa rutas por defecto relativas al repo:
-`docs/bian-diagrams/svg` y `docs/bian-puml`):
+`docs/bian-diagrams/svg_bom` y `docs/bian-puml`):
 
 ```bash
 cd generacion_contrato_ia_v2/scripts/svg_to_puml

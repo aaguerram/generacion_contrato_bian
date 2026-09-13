@@ -22,7 +22,7 @@ from typing import Dict, List, Optional, Tuple
 BBox = Tuple[float, float, float, float]
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SVG_DIR = REPO_ROOT / "docs" / "bian-diagrams" / "svg"
+DEFAULT_SVG_DIR = REPO_ROOT / "docs" / "bian-diagrams" / "svg_bom"
 DEFAULT_PUML_DIR = REPO_ROOT / "docs" / "bian-puml"
 
 LEGEND = """' Annotation legend (notes linked to a class via an SVG connector line/geometry):
@@ -43,7 +43,7 @@ LEGEND = """' Annotation legend (notes linked to a class via an SVG connector li
 """
 
 # Class-box border styles that carry the BIAN "can this be extended into the
-# current diagram" semantic (see docs/bian-diagrams/svg/*.svg <style> block,
+# current diagram" semantic (see docs/bian-diagrams/svg_bom/*.svg <style> block,
 # selector ".object{bizzid} {fill:...;stroke:...}"). Confirmed identical
 # across every SD checked (party-reference-data-directory, transaction-
 # authorization, session-dialogue, card-clearing, letter-of-credit).

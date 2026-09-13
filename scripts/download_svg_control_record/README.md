@@ -23,7 +23,7 @@ contiene literalmente
 
 incrustado dentro del `<div id="main">` de la pagina — el mismo formato
 Bizzdesign (`bizzid`, `bizzconcept="UML_Class"`, notas `dogear`, etc.) que ya
-usan los archivos locales en `docs/bian-diagrams/svg/`. El script solo
+usan los archivos locales en `docs/bian-diagrams/svg_bom/`. El script solo
 necesita bajar el HTML y recortar ese bloque.
 
 **Cuidado con un falso positivo**: el comentario de copyright que bian.org
@@ -36,7 +36,7 @@ revisadas) para no confundirlo con esa frase.
 ## Nombre de archivo
 
 El slug se arma igual que los archivos ya existentes en
-`docs/bian-diagrams/svg/` (minusculas, todo lo que no sea alfanumerico pasa a
+`docs/bian-diagrams/svg_bom/` (minusculas, todo lo que no sea alfanumerico pasa a
 un solo guion): `"Correspondence"` -> `correspondence.svg`. Se verifico que
 esta regla reproduce exactamente los 272 nombres de archivo ya presentes en
 esa carpeta antes de escribir el script.
@@ -82,5 +82,5 @@ cuentan y se omiten, no cuentan como fallo.
 
 `docs/bian-diagrams/svg_control_record/` — un `.svg` por cada Service Domain
 con Control Record publicado (271 en la corrida de referencia sobre el
-catalogo actual), en el mismo formato que `docs/bian-diagrams/svg/` pero
+catalogo actual), en el mismo formato que `docs/bian-diagrams/svg_bom/` pero
 mostrando el diagrama del Control Record en vez del BOM completo de la SD.

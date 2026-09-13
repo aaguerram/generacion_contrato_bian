@@ -33,7 +33,7 @@ SVG_OPEN_RE = re.compile(r"<svg\s+version=", re.IGNORECASE)
 
 
 def slugify(name: str) -> str:
-    """Same convention already used by every file in docs/bian-diagrams/svg/:
+    """Same convention already used by every file in docs/bian-diagrams/svg_bom/:
     lowercase, non-alphanumeric runs collapsed to one hyphen, no leading/
     trailing hyphen. Verified to reproduce all 272 existing filenames from
     their Service Domain name before writing this script.
@@ -49,7 +49,7 @@ def extract_svg(html: str) -> Optional[str]:
     itself (only the site chrome/navigation is Backbone+Handlebars) -- the
     actual diagram is a complete, standalone <svg>...</svg> tree sitting
     verbatim in the page's static HTML, in the exact same Bizzdesign export
-    format already used by docs/bian-diagrams/svg/*.svg (bizzid attributes,
+    format already used by docs/bian-diagrams/svg_bom/*.svg (bizzid attributes,
     etc). We just need to slice it out.
     """
 
