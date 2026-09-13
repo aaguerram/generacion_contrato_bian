@@ -18,6 +18,11 @@ Que hace:
      (no toca embedding/llm si ya estaban configurados, para no romper un
      setup on-prem local que el usuario ya tuviera para OTRO proyecto).
   4. Crea (o activa, si ya existe) el agente/namespace de este proyecto.
+  5. `memanto connect codex --project-dir .` (idempotente): asegura que
+     AGENTS.md + .agents/skills/memanto/ existan, para que Codex CLI sepa
+     usar MEMANTO igual que Claude Code (via ~/.claude/CLAUDE.md global).
+  6. `memanto memory sync --project-dir .`: refresca MEMORY.md (snapshot
+     estatico versionado, util como fallback aunque el CLI no este activo).
 
 Nota: `~/.memanto/on-prem/state.json` es global a la maquina -> solo puede
 apuntar a UN servidor on-prem a la vez. Si en esta maquina usas MEMANTO
@@ -48,7 +53,7 @@ AGENT_DESCRIPTION = (
     "(Produbanco - generacion de contratos BIAN via IA)"
 )
 
-# Deben coincidir con los defaults de infra/memanto-docker-compose.yml
+# Deben coincidir con los defaults del docker-compose del servidor
 # (EMBEDDING_MODEL / LLM_MODEL) para que `memanto answer` use el modelo
 # realmente servido por el Ollama del backend.
 DEFAULT_EMBEDDING_PROVIDER = "ollama"
@@ -57,6 +62,10 @@ DEFAULT_LLM_PROVIDER = "ollama"
 DEFAULT_LLM_MODEL = "qwen3.8:27b-q8_0"
 
 MEMANTO_HOME = Path.home() / ".memanto"
+
+# Raiz del proyecto (padre de scripts/), para que --project-dir sea correcto
+# sin importar desde donde se invoque este script.
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
 def _run(cmd: list[str]) -> subprocess.CompletedProcess:
@@ -154,16 +163,43 @@ def create_or_activate_agent() -> None:
     raise SystemExit("No se pudo crear el agente. Revisa el error arriba.")
 
 
+def connect_codex() -> None:
+    """Deploy AGENTS.md + skill so Codex CLI also knows to use MEMANTO.
+
+    Idempotent: memanto keeps a MEMANTO-MANAGED-SECTION marker in AGENTS.md
+    and just updates it in place on re-runs.
+    """
+    result = _run(["memanto", "connect", "codex", "--project-dir", str(PROJECT_ROOT)])
+    print(result.stdout + result.stderr)
+    if result.returncode != 0:
+        print("[warn] no se pudo correr 'memanto connect codex' (no bloqueante)")
+        return
+    print("[ok] AGENTS.md + .agents/skills/memanto/ listos para Codex CLI")
+
+
+def sync_memory_snapshot() -> None:
+    """Refresh the committed MEMORY.md snapshot from the active agent."""
+    result = _run(["memanto", "memory", "sync", "--project-dir", str(PROJECT_ROOT)])
+    print(result.stdout + result.stderr)
+    if result.returncode != 0:
+        print("[warn] no se pudo correr 'memanto memory sync' (no bloqueante)")
+        return
+    print("[ok] MEMORY.md sincronizado")
+
+
 def main() -> None:
     ensure_memanto_installed()
     configure_backend()
     configure_onprem_state()
     create_or_activate_agent()
+    connect_codex()
+    sync_memory_snapshot()
     print()
     print("Listo. Prueba con:")
     print('  memanto remember "..." --type fact --confidence 1.0 '
           '--provenance explicit_statement --source claude-code')
     print('  memanto recall "..."')
+    print('  memanto answer "..."')
 
 
 if __name__ == "__main__":

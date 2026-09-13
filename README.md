@@ -160,8 +160,18 @@ python scripts/setup_memanto.py
 ```
 
 Esto instala el CLI `memanto` si falta, apunta el backend on-prem de esta máquina al servidor
-de Produbanco y crea (o activa, si ya existe) el agente `generacion-contrato-ia-v2`. A partir de
-ahí, `memanto remember/recall/answer` (ver `~/.claude/CLAUDE.md`) quedan aislados en ese namespace.
+de Produbanco, crea (o activa, si ya existe) el agente `generacion-contrato-ia-v2`, deja
+`AGENTS.md` + `.agents/skills/memanto/` listos para **Codex CLI** (`memanto connect codex`) y
+refresca el snapshot `MEMORY.md`. A partir de ahí, `memanto remember/recall/answer` quedan
+aislados en ese namespace — usable tanto por Claude Code (instrucciones en `~/.claude/CLAUDE.md`
+global) como por Codex CLI (instrucciones en `AGENTS.md`, en este repo) u otra herramienta que
+corra `memanto connect <tool>`.
+
+Importante — a diferencia de Claude Code, la integración de Codex en esta versión de MEMANTO
+**no tiene hook automático de `SessionStart`**: nadie refresca `MEMORY.md` solo al abrir sesión.
+Si trabajás varias sesiones seguidas con Codex, conviene correr `memanto memory sync --project-dir .`
+de vez en cuando (o pedirle a Codex que lo haga) para que `MEMORY.md` no quede desactualizado
+frente a lo que hay en el servidor.
 
 Nota: `~/.memanto/on-prem/state.json` es global a la máquina — solo puede apuntar a **un**
 servidor on-prem a la vez. Si esa máquina también usa MEMANTO on-prem para otro proyecto con
