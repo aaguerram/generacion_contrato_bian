@@ -5,6 +5,21 @@ title Loan Syndication - BIAN BOM UML
 ' Source image: loan-syndication-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_34440.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -53,12 +68,20 @@ enum "LoanInvolvementTypeValues" as N197287 {
 
 class "Arrangement" as N197327 {
 }
+note right of N197327
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Loan Instruction" as N197290 {
 }
 
 class "Instruction" as N197302 {
 }
+note right of N197302
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 enum "LoanProductTypeValues" as N197295 {
   Consumer Loan
@@ -70,6 +93,10 @@ enum "LoanProductTypeValues" as N197295 {
 
 class "Agreement" as N197430 {
 }
+note right of N197430
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Loan Account" as N197320 {
 }
@@ -86,30 +113,62 @@ class "Loan Agreement" as N197456 {
 
 class "Customer Rating" as N197443 {
 }
+note right of N197443
+  Extensible: no
+  BOMDiagram: Customer Credit Rating BOM Diagram
+end note
 
 class "Product Agreement" as N197341 {
 }
+note right of N197341
+  Extensible: no
+  BOMDiagram: Sales Product BOM Diagram
+end note
 
 class "Customer Relationship" as N197384 {
 }
+note right of N197384
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Transaction" as N197283 {
 }
+note right of N197283
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Product" as N197451 {
 }
+note right of N197451
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 class "Loan" as N197359 {
 }
 
 class "Collateral Agreement" as N197472 {
 }
+note right of N197472
+  Extensible: no
+  BOMDiagram: Collateral Allocation Management BOM Diagram
+end note
 
 class "Customer Agreement" as N197398 {
 }
+note right of N197398
+  Extensible: no
+  BOMDiagram: Customer Agreement BOM Diagram
+end note
 
 class "Party" as N197308 {
 }
+note right of N197308
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Loan Product" as N197473 {
   + Loan Amount : Amount
@@ -128,12 +187,22 @@ class "Loan Arrangement" as N197418 {
 
 class "Product Feature" as N197315 {
 }
+note right of N197315
+  Extensible: no
+end note
 
 class "Financial Instrument" as N197397 {
 }
+note right of N197397
+  Extensible: no
+  BOMDiagram: Financial Instrument Reference Data Management BOM Diagram
+end note
 
 class "Product Arrangement" as N197392 {
 }
+note right of N197392
+  Extensible: no
+end note
 
 enum "DebtInstrumentTypeValues" as N197329 {
   Loan
@@ -143,12 +212,19 @@ enum "DebtInstrumentTypeValues" as N197329 {
 
 class "Account Entry" as N197336 {
 }
+note right of N197336
+  Extensible: yes
+end note
 
 class "Loan Transaction" as N197344 {
 }
 
 class "Account" as N197411 {
 }
+note right of N197411
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 ' Relationships
 N197290 "0..1" -- "0..*" N197344

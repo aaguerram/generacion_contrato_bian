@@ -5,12 +5,31 @@ title Trade Settlement - BIAN BOM UML
 ' Source image: trade-settlement-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51911.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Financial Instrument" as N183685 {
 }
+note right of N183685
+  Extensible: yes
+  HelperDiagram: Financial Instrument Helper Diagram
+end note
 
 enum "TradeIdentificationTypeValues" as N183679 {
   Counterparty Reference
@@ -33,6 +52,9 @@ class "Security" as N183684 {
   + Security Tax : Tax Arrangement
   + Security Jurisdiction : Jurisdiction
 }
+note right of N183684
+  HelperDiagram: Securities Helper Diagram
+end note
 
 class "TradeIdentification" as N183768 <<datatype>> {
   + Trade Identification : Identifier
@@ -53,9 +75,17 @@ class "Market Trade" as N183686 {
 
 class "Workstep" as N183627 {
 }
+note right of N183627
+  Extensible: yes
+  BQ: Type: Workstep
+end note
 
 class "Procedure" as N183709 {
 }
+note right of N183709
+  Extensible: yes
+  HelperDiagram: Procedure Helper Diagram
+end note
 
 class "Market Trade Settlement" as N183644 {
   + Market Trade Settlement Workstep : Workstep[1..*]
@@ -125,9 +155,17 @@ class "Securities Settlement" as N183669 {
 
 class "Settlement" as N183630 {
 }
+note right of N183630
+  Extensible: yes
+  HelperDiagram: Settlement Helper Diagram
+end note
 
 class "Account" as N183681 {
 }
+note right of N183681
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Securities Account" as N183654 {
   + Securities Account Type : SecuritiesAccountTypeValues

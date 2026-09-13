@@ -5,6 +5,21 @@ title Market Making - BIAN BOM UML
 ' Source image: market-making-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52024.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -38,27 +53,57 @@ enum "MarketMakingInvolvmentTypeValues" as N211787 {
 
 class "Agreement" as N211846 {
 }
+note right of N211846
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Instruction" as N211833 {
 }
+note right of N211833
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Transaction" as N211817 {
 }
+note right of N211817
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Account Entry" as N211838 {
 }
+note right of N211838
+  Extensible: yes
+end note
 
 class "Account" as N211851 {
 }
+note right of N211851
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Arrangement" as N211792 {
 }
+note right of N211792
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Party" as N211805 {
 }
+note right of N211805
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 class "Party Role" as N211813 {
 }
+note right of N211813
+  Extensible: yes
+end note
 
 ' Relationships
 N211862 "0..1" -- "0..1" N211773

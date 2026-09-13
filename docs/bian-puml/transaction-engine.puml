@@ -5,6 +5,21 @@ title Transaction Engine - BIAN BOM UML
 ' Source image: transaction-engine-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_31201.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -15,6 +30,9 @@ class "Transaction Schedule Service" as N77138 {
   + Service Function Type : String
   + Service Function Description : String
 }
+note right of N77138
+  AssetType: Transaction Schedule
+end note
 
 class "Service" as N77117 {
   + Service Name : Name
@@ -24,15 +42,25 @@ class "Service" as N77117 {
   + Service Lifecycle Status : Status
   + Service Feature : Feature[1..*]
 }
+note right of N77117
+  Extensible: yes
+end note
 
 class "Service Arrangement" as N77148 {
 }
+note right of N77148
+  Extensible: yes
+  HelperDiagram: Arrangement Fulfillment Helper Diagram
+end note
 
 class "Transaction Schedule Arrangement" as N77076 {
   + Applicable Service Fee Type : String
   + Applicable Service Fee Amount : String
   + Service Arrangement Date Time : String
 }
+note right of N77076
+  ControlRecord: Transaction Schedule Arrangement
+end note
 
 class "Transaction Schedule Arrangement Fulfillment Event" as N77100 {
   + Applied Service Fee Type : String
@@ -42,6 +70,10 @@ class "Transaction Schedule Arrangement Fulfillment Event" as N77100 {
 
 class "Product" as N77141 {
 }
+note right of N77141
+  Extensible: yes
+  HelperDiagram: Product Helper Diagram
+end note
 
 class "Transaction" as N77151 {
   + Transaction Identification : Identifier
@@ -51,6 +83,10 @@ class "Transaction" as N77151 {
   + Transaction Status : TransactionStatus
   + Transaction Name : Name
 }
+note right of N77151
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Financial Transaction" as N77131 {
   + Financial Transaction Type : FinancialTransactionTypeValues
@@ -63,6 +99,10 @@ class "Financial Transaction" as N77131 {
 
 class "Arrangement" as N77080 {
 }
+note right of N77080
+  Extensible: yes
+  GenericArtifact: Arrangement
+end note
 
 ' Relationships
 N77117 <|-- N77138

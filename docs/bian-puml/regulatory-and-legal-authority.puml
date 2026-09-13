@@ -5,36 +5,74 @@ title Regulatory And Legal Authority - BIAN BOM UML
 ' Source image: regulatory-and-legal-authority-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51854.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Regulatory Authority Relationship" as N218938 {
 }
+note right of N218938
+  AssetType: Regulatory And Legal Authority Relationship
+end note
 
 class "Regulatory Authority Relationship Involvement" as N218950 {
 }
 
 class "Party Role" as N219035 {
 }
+note right of N219035
+  Extensible: yes
+end note
 
 class "Party" as N219000 {
 }
+note right of N219000
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 class "Management Plan" as N219007 {
 }
+note right of N219007
+  HelperDiagram: Management Plan Helper Diagram
+end note
 
 class "Duty" as N218965 {
 }
+note right of N218965
+  BQ: Type: Duty
+end note
 
 class "Regulatory Authority Relationship Management Plan" as N218971 {
 }
+note right of N218971
+  ControlRecord: Regulatory And Legal Authority Relationship Management Plan
+end note
 
 class "Regulatory Authority Relationship Arrangement" as N218941 {
 }
 
 class "Agreement" as N218996 {
 }
+note right of N218996
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Regulatory Authority Relationship Instruction" as N219027 {
 }
@@ -44,12 +82,24 @@ class "Regulatory Authority Relationship Transaction" as N218943 {
 
 class "Transaction" as N218974 {
 }
+note right of N218974
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Instruction" as N219008 {
 }
+note right of N219008
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Arrangement" as N218985 {
 }
+note right of N218985
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 ' Relationships
 N218938 "0..1" -- "0..*" N218950

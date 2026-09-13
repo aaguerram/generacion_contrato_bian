@@ -5,12 +5,30 @@ title Prospect Campaign Design - BIAN BOM UML
 ' Source image: prospect-campaign-design-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36519.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Design Specification Aspect" as N172679 {
 }
+note right of N172679
+  BQ: Type: Aspects
+end note
 
 class "Campaign" as N172757 {
   + Campaign Type : CampaignTypeValues
@@ -21,6 +39,9 @@ class "Campaign" as N172757 {
 
 class "Prospect Campaign" as N172668 {
 }
+note right of N172668
+  AssetType: Prospect Campaign
+end note
 
 class "Prospect Campaign Assessment" as N172724 {
 }
@@ -32,6 +53,10 @@ class "Prospect Campaign Metric" as N172753 {
 
 class "Assessment" as N172716 {
 }
+note right of N172716
+  Extensible: yes
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 class "Prospect Campaign Design Specification" as N172722 {
 }
@@ -41,45 +66,89 @@ class "Prospect Campaign Involvement" as N172770 {
 
 class "Party Role" as N172731 {
 }
+note right of N172731
+  Extensible: yes
+end note
 
 class "Party" as N172703 {
 }
+note right of N172703
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+  BOMDiagram: Party Lifecycle Management BOM Diagram
+end note
 
 class "Customer Relationship Lifecycle Phase" as N172758 {
 }
+note right of N172758
+  Extensible: no
+end note
 
 class "Customer Relationship" as N172713 {
 }
+note right of N172713
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Prospect" as N172717 {
 }
+note right of N172717
+  Extensible: no
+end note
 
 class "Product" as N172691 {
 }
+note right of N172691
+  Extensible: yes
+  HelperDiagram: Product Helper Diagram
+end note
 
 class "Prospect Campaign Arrangement" as N172762 {
 }
 
 class "Arrangement" as N172767 {
 }
+note right of N172767
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+  BOMDiagram: Prospect Campaign Execution BOM Diagram
+end note
 
 class "Prospect Campaign Rule Set" as N172765 {
 }
 
 class "Rule Set" as N172754 {
 }
+note right of N172754
+  Extensible: yes
+  HelperDiagram: Rule Set Helper Diagram
+end note
 
 class "Prospect Campaign Procedure" as N172706 {
 }
+note right of N172706
+  Extensible: no
+end note
 
 class "Item Inventory" as N172778 {
 }
+note right of N172778
+  Extensible: no
+end note
 
 class "Item" as N172687 {
 }
+note right of N172687
+  Extensible: yes
+end note
 
 class "Design Specification" as N172665 {
 }
+note right of N172665
+  GenericArtifact: Specification
+  HelperDiagram: Design Specification Helper Diagram
+end note
 
 ' Relationships
 N172665 "0..1" -- "0..*" N172679

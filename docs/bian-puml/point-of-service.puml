@@ -5,51 +5,112 @@ title Point of Service - BIAN BOM UML
 ' Source image: point-of-service-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_29166.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "System" as N234243 {
 }
+note right of N234243
+  Extensible: yes
+end note
 
 class "Session" as N234197 {
 }
+note right of N234197
+  Extensible: yes
+  GenericArtifact: OperatingSession
+  HelperDiagram: System- Session Helper Diagram
+end note
 
 class "Point Of Service" as N234238 {
 }
+note right of N234238
+  AssetType: PointOfService
+end note
 
 class "Point Of Service Session" as N234218 {
 }
+note right of N234218
+  ControlRecord: PointOfServiceOperatingSession
+end note
 
 class "Service" as N234208 {
 }
+note right of N234208
+  Extensible: yes
+end note
 
 class "Servicing Event" as N234198 {
 }
+note right of N234198
+  Extensible: no
+end note
 
 class "Customer Contact" as N234212 {
 }
+note right of N234212
+  Extensible: no
+  BOMDiagram: Contact Handler BOM Diagram
+end note
 
 class "Dialogue Session" as N234264 {
 }
+note right of N234264
+  Extensible: no
+  BOMDiagram: Session Dialogue BOM Diagram
+end note
 
 class "Function" as N234296 {
 }
+note right of N234296
+  Extensible: yes
+  BQ: Type: Functions
+end note
 
 class "Servicing Event Log" as N234220 {
 }
+note right of N234220
+  Extensible: no
+  BOMDiagram: Servicing Event History BOM Diagram
+end note
 
 class "Point Of Service Session Involvement" as N234256 {
 }
 
 class "Party Role" as N234216 {
 }
+note right of N234216
+  Extensible: yes
+end note
 
 class "Session Dialogue Log" as N234213 {
 }
+note right of N234213
+  Extensible: no
+  BOMDiagram: Customer Event History BOM Diagram
+end note
 
 class "Item" as N234251 {
 }
+note right of N234251
+  Extensible: yes
+end note
 
 class "Item Inventory" as N234241 {
   + Item Inventory Type : Text
@@ -61,12 +122,23 @@ class "Item Transaction" as N234214 {
 
 class "Session Dialogue Log Entry" as N234292 {
 }
+note right of N234292
+  Extensible: no
+end note
 
 class "Channel Activity" as N234237 {
 }
+note right of N234237
+  Extensible: no
+  BOMDiagram: Channel Activity History BOM Diagram
+end note
 
 class "Party" as N234192 {
 }
+note right of N234192
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 ' Relationships
 N234243 <|-- N234238

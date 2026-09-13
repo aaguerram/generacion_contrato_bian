@@ -5,21 +5,53 @@ title Commission Agreement - BIAN BOM UML
 ' Source image: commission-agreement-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51965.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Commission Arrangement" as N184965 {
 }
+note right of N184965
+  BQ: Commission Terms
+end note
 
 class "Agreement" as N184931 {
 }
+note right of N184931
+  Extensible: yes
+  GenericArtifact: Agreement
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Arrangement" as N184914 {
 }
+note right of N184914
+  Extensible: yes
+  BQ: Type: Terms
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Sales Commission Agreement" as N184921 {
 }
+note right of N184921
+  AssetType: Employee Commission
+  ControlRecord: Employee Commission Agreement
+end note
 
 class "Fee Product Feature" as N184915 {
   + Fee Type : FeeTypeValues
@@ -30,6 +62,9 @@ class "Fee Product Feature" as N184915 {
   + Fee Rate : Rate
   + Fee Amount : Amount[1..*]
 }
+note right of N184915
+  HelperDiagram: Fee Helper Diagram
+end note
 
 class "Fee Product Feature Modality" as N184950 {
 }
@@ -39,9 +74,15 @@ class "Commission Arrangement Modality" as N184963 {
 
 class "Service Arrangement" as N184964 {
 }
+note right of N184964
+  Extensible: yes
+end note
 
 class "Service Arrangement Modality" as N184934 {
 }
+note right of N184934
+  Extensible: yes
+end note
 
 ' Relationships
 N184931 <|-- N184921

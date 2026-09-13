@@ -5,6 +5,21 @@ title Consumer Investments - BIAN BOM UML
 ' Source image: consumer-investments-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_33573.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -26,12 +41,24 @@ class "Securities Order" as N197060 {
   + Order Execution Result : Text
   + Order Execution Term and Condition : Arrangement
 }
+note right of N197060
+  AssetType: Consumer Securities Order
+end note
 
 class "Transaction" as N197033 {
 }
+note right of N197033
+  Extensible: yes
+  GenericArtifact: Transaction
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Instruction" as N197159 {
 }
+note right of N197159
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Securities Order Involvement" as N197094 {
   + Securities Order Involvement Type : SecuritiesOrderInvolvementTypeValues
@@ -39,9 +66,17 @@ class "Securities Order Involvement" as N197094 {
 
 class "Investment Account Arrangement" as N197129 {
 }
+note right of N197129
+  Extensible: no
+  BOMDiagram: Investment Portfolio Management BOM Diagram
+end note
 
 class "Investment Account" as N197139 {
 }
+note right of N197139
+  Extensible: no
+  BOMDiagram: Investment Account BOM Diagram
+end note
 
 class "Security" as N197093 {
   + Security Amount : Amount
@@ -55,25 +90,46 @@ class "Security" as N197093 {
   + Security Tax : Tax Arrangement
   + Security Jurisdiction : Jurisdiction
 }
+note right of N197093
+  HelperDiagram: Securities Helper Diagram
+end note
 
 class "Investment Portfolio" as N197199 {
 }
+note right of N197199
+  Extensible: no
+end note
 
 class "Party" as N197216 {
 }
+note right of N197216
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Assessment" as N197065 {
 }
+note right of N197065
+  Extensible: yes
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 class "Securities Transaction" as N197157 {
   + Replaced Amount : Amount
 }
+note right of N197157
+  ControlRecord: Consumer Securities Order Transaction
+end note
 
 class "Cash Account" as N197217 {
 }
 
 class "Market Order Instruction" as N197049 {
 }
+note right of N197049
+  Extensible: no
+  BOMDiagram: Market Order BOM Diagram
+end note
 
 enum "SecuritiesOrderInvolvementTypeValues" as N197092 {
   Order Origination Trader
@@ -85,6 +141,10 @@ enum "SecuritiesOrderInvolvementTypeValues" as N197092 {
 
 class "Financial Instrument" as N197136 {
 }
+note right of N197136
+  Extensible: yes
+  HelperDiagram: Financial Instrument Helper Diagram
+end note
 
 class "SecurityIdentification" as N197177 <<datatype>> {
   + Security Identification : Identifier
@@ -132,9 +192,17 @@ class "SecurityStatus" as N197126 <<datatype>> {
 
 class "Account" as N197070 {
 }
+note right of N197070
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Arrangement" as N197041 {
 }
+note right of N197041
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 ' Relationships
 N197060 "0..1" -- "0..*" N197157

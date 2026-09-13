@@ -5,20 +5,47 @@ title Customer Billing - BIAN BOM UML
 ' Source image: customer-billing-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_29461.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Procedure" as N75318 {
 }
+note right of N75318
+  Extensible: yes
+  GenericArtifact: Procedure
+  HelperDiagram: Procedure Helper Diagram
+end note
 
 class "Workstep" as N75441 {
 }
+note right of N75441
+  Extensible: yes
+  BQ: Type: Worksteps
+end note
 
 class "Customer Billing Management" as N75309 {
   + Customer Billing Management Workstep : Workstep[1..*]
   + Customer Billing Management Workstep Type : CustomerBillingManagementWorkstepTypeValues
 }
+note right of N75309
+  ControlRecord: Customer Billing Procedure
+end note
 
 class "Invoice" as N75331 {
   + Invoice Identification : Identifier
@@ -40,29 +67,56 @@ class "Invoice" as N75331 {
   + Remitted Amount : Amount
   + Invoice Issue Date : DateTime
 }
+note right of N75331
+  AssetType: Customer Billing
+  HelperDiagram: Invoice Helper Diagram
+end note
 
 class "Customer Relationship" as N75334 {
 }
+note right of N75334
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Product Agreement" as N75422 {
   + Product Agreement Type : ProductAgreementTypeValues
   + Product Agreement Identification : Identifier
 }
+note right of N75422
+  Extensible: no
+  BOMDiagram: Sales Product Agreement BOM Diagram
+end note
 
 class "Invoice Line" as N75409 {
 }
 
 class "Payment Transaction" as N75402 {
 }
+note right of N75402
+  Extensible: no
+end note
 
 class "Transaction" as N75447 {
 }
+note right of N75447
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Customer Agreement" as N75446 {
 }
+note right of N75446
+  Extensible: no
+  BOMDiagram: Customer Agreement BOM Diagram
+end note
 
 class "Agreement" as N75332 {
 }
+note right of N75332
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 enum "CustomerBillingManagementWorkstepTypeValues" as N75436 {
   Pricing and Discounts Application

@@ -5,24 +5,54 @@ title Reward Points Account - BIAN BOM UML
 ' Source image: reward-points-account-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52819.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Reward Point" as N187690 {
 }
+note right of N187690
+  AssetType: Reward Points
+end note
 
 class "Log" as N187656 {
 }
+note right of N187656
+  GenericArtifact: Log
+  HelperDiagram: Log Helper Diagram
+end note
 
 class "Log Entry" as N187731 {
 }
 
 class "Event" as N187655 {
 }
+note right of N187655
+  Extensible: yes
+  BQ: Type: Event
+  HelperDiagram: Event Helper Diagram
+end note
 
 class "Reward Point Log" as N187649 {
 }
+note right of N187649
+  ControlRecord: Reward Points Log
+end note
 
 class "Reward Point Log Entry" as N187675 {
 }
@@ -42,15 +72,26 @@ class "Position" as N187710 {
   + Position Date : DateTime
   + Position Amount : Amount
 }
+note right of N187710
+  Extensible: yes
+  HelperDiagram: Position Helper Diagram
+end note
 
 class "Reward Point Arrangement" as N187722 {
 }
 
 class "Arrangement" as N187691 {
 }
+note right of N187691
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Limit Arrangement" as N187671 {
 }
+note right of N187671
+  HelperDiagram: Limit Helper Diagram
+end note
 
 ' Relationships
 N187656 "1" -- "LogEntry / 1..*" N187731

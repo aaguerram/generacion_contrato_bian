@@ -5,49 +5,96 @@ title Corporate Tax Advisory - BIAN BOM UML
 ' Source image: corporate-tax-advisory-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_40076.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Tax Advisory Service" as N222552 {
 }
+note right of N222552
+  ControlRecord: Corporate Tax Advice
+end note
 
 class "Tax Advisory Service Arrangement" as N222586 {
 }
 
 class "Arrangement" as N222568 {
 }
+note right of N222568
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Tax Advisory Service Arrangement Fulfillment Event" as N222559 {
 }
 
 class "System" as N222569 {
 }
+note right of N222569
+  Extensible: yes
+  HelperDiagram: System- Session Helper Diagram
+end note
 
 class "Tax Advisory Service Session" as N222549 {
 }
 
 class "Session" as N222616 {
 }
+note right of N222616
+  Extensible: yes
+end note
 
 class "Arrangement Fulfillment Event" as N222611 {
 }
+note right of N222611
+  HelperDiagram: Arrangement Fulfillment Helper Diagram
+end note
 
 class "Tax Advisory Service Arrangement Involvement" as N222584 {
 }
 
 class "Party" as N222597 {
 }
+note right of N222597
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Customer Position State" as N222589 {
 }
+note right of N222589
+  Extensible: no
+  BOMDiagram: Customer Position BOM Diagram
+end note
 
 class "Fee Arrangement" as N222577 {
 }
+note right of N222577
+  BQ: Service Fees
+  HelperDiagram: Fee Helper Diagram
+end note
 
 class "Taxation Arrangement" as N222561 {
   + Applicable Service Charge : String
 }
+note right of N222561
+  BQ: Taxation
+end note
 
 class "Taxation Arrangement Modality" as N222546 {
 }
@@ -57,6 +104,9 @@ class "Tax Optimization Advisory Service Arrangement Fulfillment Event" as N2225
   + Advice Service Recommendation : String
   + Advice Service Result : String
 }
+note right of N222540
+  BQ: Taxation
+end note
 
 class "Taxation Advisory Service" as N222595 {
 }

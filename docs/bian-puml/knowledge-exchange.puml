@@ -5,6 +5,21 @@ title Knowledge Exchange - BIAN BOM UML
 ' Source image: knowledge-exchange-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52165.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -29,12 +44,22 @@ class "Asset" as N202097 {
   + Asset Sub Classification Type : AssetSubClassificationTypeValues
   + Asset Sub Classification : Text
 }
+note right of N202097
+  Extensible: yes
+end note
 
 class "Jurisdiction" as N202033 {
 }
+note right of N202033
+  Extensible: yes
+end note
 
 class "Document" as N202083 {
 }
+note right of N202083
+  Extensible: yes
+  HelperDiagram: Document Helper Diagram
+end note
 
 class "Intellectual Property Exchange Session" as N202031 {
 }
@@ -47,9 +72,16 @@ class "Session" as N202049 {
   + Session Scheduel : Schedule
   + Session Identification : Identifier
 }
+note right of N202049
+  Extensible: yes
+  GenericArtifact: Operating Session
+end note
 
 class "Intellectual Property Exchange System" as N202039 {
 }
+note right of N202039
+  AssetType: Intellectual Property Exchange
+end note
 
 class "System" as N202061 {
   + System Access Schedule : Schedule
@@ -61,6 +93,10 @@ class "System" as N202061 {
   + System Date Time : Date Time
   + System Language : Text
 }
+note right of N202061
+  Extensible: yes
+  HelperDiagram: System- Session Helper Diagram
+end note
 
 ' Relationships
 N202041 "0..1" -- "Intangible / Asset / 0..*" N202097

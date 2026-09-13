@@ -5,6 +5,21 @@ title ACH Operations - BIAN BOM UML
 ' Source image: ach-operations-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_30941.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -24,18 +39,32 @@ class "Payment Instruction" as N82747 {
   + Payment Instruction Method : PaymentMethodTypeValues
   + Payment Instruction Description : Text
 }
+note right of N82747
+  AssetType: ACHFulfillment
+  HelperDiagram: Payment Instruction Helper Diagram
+end note
 
 class "Product Sales Agreement" as N82792 {
 }
+note right of N82792
+  Extensible: no
+end note
 
 class "Product Sales Agreement Involvement" as N82662 {
 }
 
 class "Party Role" as N82799 {
 }
+note right of N82799
+  Extensible: yes
+end note
 
 class "Party" as N82784 {
 }
+note right of N82784
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 class "ACH System" as N82788 {
   + ACH System Identifier : Identifier
@@ -43,16 +72,30 @@ class "ACH System" as N82788 {
 
 class "System" as N82736 {
 }
+note right of N82736
+  Extensible: yes
+end note
 
 class "Session" as N82645 {
 }
+note right of N82645
+  Extensible: yes
+  GenericArtifact: OperatingSession
+end note
 
 class "ACH Session" as N82642 {
   + ACH Session Identifier : Identifier
 }
+note right of N82642
+  ControlRecord: ACHFulfillmentSession
+end note
 
 class "Payment Transaction" as N82720 {
 }
+note right of N82720
+  AssetType: ACHFulfillment
+  HelperDiagram: Payment Transaction Helper Diagram
+end note
 
 class "Payment Transaction Involvement" as N82703 {
 }
@@ -63,18 +106,33 @@ class "Instruction Batch" as N82679 {
 
 class "Account" as N82777 {
 }
+note right of N82777
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Correspondent Banking Agreement" as N82743 {
 }
+note right of N82743
+  Extensible: no
+  BOMDiagram: Correspondent Bank Operations BOM Diagram
+end note
 
 class "Correspondent Banking Involvement" as N82761 {
 }
 
 class "Instruction" as N82691 {
 }
+note right of N82691
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Payment Arrangement" as N82656 {
 }
+note right of N82656
+  HelperDiagram: Payment Helper Diagram
+end note
 
 ' Relationships
 N82792 "0..1" -- "1..*" N82656

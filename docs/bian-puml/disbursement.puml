@@ -5,12 +5,31 @@ title Disbursement - BIAN BOM UML
 ' Source image: disbursement-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_33840.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Transaction" as N195566 {
 }
+note right of N195566
+  Extensible: yes
+  HelperDiagram: Money Transfer Execution Helper Diagram
+end note
 
 class "Disbursement Instruction" as N195556 {
   + Disbursement Instruction Identification : String
@@ -18,12 +37,21 @@ class "Disbursement Instruction" as N195556 {
   + Disbursement Entitled Party Reference : String
   + Disbursement Instruction Agreement Reference : String
 }
+note right of N195556
+  Extensible: no
+end note
 
 class "Loan Agreement" as N195604 {
 }
+note right of N195604
+  Extensible: no
+end note
 
 class "Account" as N195600 {
 }
+note right of N195600
+  Extensible: yes
+end note
 
 class "Disbursement Assessment" as N195617 {
   + Disbursement Authorizing Employee Reference : String
@@ -32,12 +60,21 @@ class "Disbursement Assessment" as N195617 {
 
 class "Disbursement Instruction Document" as N195582 {
 }
+note right of N195582
+  Extensible: no
+end note
 
 class "Disbursement Arrangement" as N195527 {
 }
+note right of N195527
+  Extensible: no
+end note
 
 class "Banking Product Agreement" as N195551 {
 }
+note right of N195551
+  Extensible: no
+end note
 
 class "Money Transfer Transaction" as N195506 {
   + Money Transfer Transaction Amount : Amount

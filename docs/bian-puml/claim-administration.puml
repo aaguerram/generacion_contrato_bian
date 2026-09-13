@@ -5,6 +5,21 @@ title Claim Administration - BIAN BOM UML
 ' Source image: claim-administration-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52778.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -22,23 +37,45 @@ enum "InsuranceProductTypeValues" as N158998 {
 
 class "Product Agreement" as N158969 {
 }
+note right of N158969
+  Extensible: no
+  BOMDiagram: Sales Product Agreement BOM Diagram
+end note
 
 class "Party" as N158971 {
 }
+note right of N158971
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Insurance Agreement" as N158824 {
   + Insurance Agreement Type : InsuranceProductTypeValues
 }
+note right of N158824
+  Extensible: no
+end note
 
 class "Claim Arrangement Involvement" as N158920 {
   + Involvement Type : InsuranceInvolvementTypeValues
 }
+note right of N158920
+  Extensible: no
+end note
 
 class "Assessment" as N158883 {
 }
+note right of N158883
+  Extensible: yes
+  HelperDiagram: Assessment Helper Diagram
+  BOMDiagram: Funeral Policy BOM Diagram
+end note
 
 class "Claim Instruction" as N158946 {
 }
+note right of N158946
+  Extensible: no
+end note
 
 class "Claim Arrangement" as N158980 {
   + Claim Arrangement Identification : Identifier
@@ -46,12 +83,23 @@ class "Claim Arrangement" as N158980 {
   + Claim Event Typ : Text
   + Claim Waiting Period : Duration
 }
+note right of N158980
+  Extensible: no
+end note
 
 class "Arrangement" as N158865 {
 }
+note right of N158865
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Instruction" as N158901 {
 }
+note right of N158901
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Claim Transaction" as N158871 {
   + Claim Transaction Type : ClaimTransactionTypeValues
@@ -59,6 +107,10 @@ class "Claim Transaction" as N158871 {
 
 class "Transaction" as N158877 {
 }
+note right of N158877
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 enum "InsuranceInvolvementTypeValues" as N158966 {
   Insurer (Insurance Company)
@@ -76,6 +128,10 @@ enum "InsuranceInvolvementTypeValues" as N158966 {
 
 class "Claim Assessment" as N158919 {
 }
+note right of N158919
+  Extensible: no
+  BOMDiagram: Claim Assessment BOM Diagram
+end note
 
 class "Funeral Policy Agreement" as N158984 {
   + Policy Number : Identifier
@@ -83,12 +139,22 @@ class "Funeral Policy Agreement" as N158984 {
   + Policy Term : Duration
   + Policy Status : AgreementStatus
 }
+note right of N158984
+  Extensible: no
+end note
 
 class "Plan" as N158896 {
 }
+note right of N158896
+  Extensible: yes
+  HelperDiagram: Plan Helper Diagram
+end note
 
 class "Routine" as N158793 {
 }
+note right of N158793
+  BQ: Type: Routine
+end note
 
 class "Administrative Plan" as N158937 {
 }
@@ -104,15 +170,30 @@ enum "FinancialClaimTransactionValueTypes" as N158926 {
 
 class "Payment Transaction" as N158906 {
 }
+note right of N158906
+  Extensible: no
+  BOMDiagram: Document Directory BOM Diagram
+end note
 
 class "Document" as N158841 {
 }
+note right of N158841
+  Extensible: no
+end note
 
 class "Correspondence" as N158878 {
 }
+note right of N158878
+  Extensible: no
+  BOMDiagram: Correspondence BOM Diagram
+end note
 
 class "Disbursement Transaction" as N158853 {
 }
+note right of N158853
+  Extensible: no
+  BOMDiagram: Disbursement BOM Diagram
+end note
 
 enum "ClaimTransactionTypeValues" as N159005 {
   Financial Claim Transaction

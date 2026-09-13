@@ -5,12 +5,30 @@ title Term Deposit Framework Agreement - BIAN BOM UML
 ' Source image: term-deposit-framework-agreement-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_40775.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Account Entry" as N195742 {
 }
+note right of N195742
+  Extensible: yes
+end note
 
 enum "TermDepositAgreementTypeValues" as N195765 {
   Term Deposit Agreement
@@ -19,15 +37,27 @@ enum "TermDepositAgreementTypeValues" as N195765 {
 
 class "Transaction" as N195783 {
 }
+note right of N195783
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Term Deposit Arrangement Transaction" as N195712 {
 }
 
 class "Party" as N195672 {
 }
+note right of N195672
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Account" as N195650 {
 }
+note right of N195650
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Term Deposit Agreement" as N195657 {
   + Term Deposit Agreement Identification : Identifier
@@ -36,6 +66,10 @@ class "Term Deposit Agreement" as N195657 {
 
 class "Instruction" as N195695 {
 }
+note right of N195695
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Term Deposit Product" as N195716 {
   + Term Deposit Product Type : TermDepositTypeValues
@@ -109,15 +143,29 @@ class "Term Deposit Account" as N195639 {
 
 class "Product Agreement" as N195720 {
 }
+note right of N195720
+  Extensible: no
+  BOMDiagram: Sales Product BOM Diagram
+end note
 
 class "Product Feature" as N195694 {
 }
+note right of N195694
+  Extensible: no
+end note
 
 class "Product Arrangement" as N195758 {
 }
+note right of N195758
+  Extensible: no
+end note
 
 class "Product" as N195709 {
 }
+note right of N195709
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 ' Relationships
 N195783 <|-- N195712

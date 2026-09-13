@@ -5,18 +5,44 @@ title Special Pricing Conditions - BIAN BOM UML
 ' Source image: special-pricing-conditions-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52632.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Specific Pricing Term And Condition Directory Entry" as N231959 {
 }
+note right of N231959
+  ControlRecord: Special Pricing Conditions Directory Entry
+end note
 
 class "Directory Entry" as N231925 {
 }
+note right of N231925
+  Extensible: yes
+  GenericArtifact: Directory Entry
+end note
 
 class "Directory" as N231980 {
 }
+note right of N231980
+  Extensible: yes
+  HelperDiagram: Directory Helper Diagram
+end note
 
 class "Specific Pricing Term And Condition Directory" as N231996 {
 }
@@ -29,24 +55,45 @@ class "Exceptional Fee Product Feature" as N232032 {
   + Calculation Method : FeeCalculationModalityTypeValues
   + Priority or Override Rules : Rule Set
 }
+note right of N232032
+  Extensible: no
+end note
 
 class "Fee Product Feature" as N232024 {
 }
+note right of N232024
+  Extensible: no
+  HelperDiagram: Fee Helper Diagram
+end note
 
 class "Product Term And Condition" as N232044 {
   + Product Term And Condition Type : ProductTermAndConditionType
   + Condition Reference : Condition
   + Product Reference : Product
 }
+note right of N232044
+  Extensible: no
+end note
 
 class "Fee Arrangement" as N231960 {
 }
+note right of N231960
+  Extensible: no
+  BOMDiagram: Sales Product BOM Diagram
+end note
 
 class "Product" as N232040 {
 }
+note right of N232040
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 class "Product Feature" as N232053 {
 }
+note right of N232053
+  Extensible: no
+end note
 
 enum "DiscountTypeValues" as N231930 {
   Percentage Discount
@@ -67,6 +114,10 @@ enum "FeeCalculationModalityTypeValues" as N232050 {
 class "Exceptional Fee Discount" as N231928 {
   + Discount Type : DiscountTypeValues
 }
+note right of N231928
+  Extensible: no
+  BOMDiagram: Discount Pricing BOM Diagram
+end note
 
 class "Special Pricing Term and Condition" as N231939 {
   + Applicable Product or Service : Product
@@ -80,18 +131,36 @@ class "Special Pricing Term and Condition" as N231939 {
   + Funding Source or Budget Allocation : Text
   + Condition Lifecycle Status : ConditionStatusTypeValues
 }
+note right of N231939
+  AssetType: Special Pricing Conditions
+end note
 
 class "Condition" as N232049 {
 }
+note right of N232049
+  Extensible: yes
+  HelperDiagram: Condition Helper Diagram
+end note
 
 class "Customer Campaign" as N231992 {
 }
+note right of N231992
+  Extensible: no
+  BOMDiagram: Customer Campaign Execution BOM Diagram
+end note
 
 class "Campaign" as N231986 {
 }
+note right of N231986
+  Extensible: yes
+end note
 
 class "Sales Lead" as N232019 {
 }
+note right of N232019
+  Extensible: no
+  BOMDiagram: Lead and Opportunity Management BOM Diagram
+end note
 
 ' Relationships
 N231980 <|-- N231996

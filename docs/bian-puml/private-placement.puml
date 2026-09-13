@@ -5,6 +5,21 @@ title Private Placement - BIAN BOM UML
 ' Source image: private-placement-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51806.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -21,6 +36,10 @@ class "Service Arrangement" as N108794 {
 
 class "Arrangement" as N108761 {
 }
+note right of N108761
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 enum "PrivatePlacementArrangementTypeValues" as N108677 {
   Instrument Maintenance Arrangement
@@ -30,9 +49,16 @@ enum "PrivatePlacementArrangementTypeValues" as N108677 {
 
 class "Security" as N108746 {
 }
+note right of N108746
+  HelperDiagram: Securities Helper Diagram
+end note
 
 class "Financial Instrument" as N108800 {
 }
+note right of N108800
+  Extensible: yes
+  HelperDiagram: Financial Instrument Helper Diagram
+end note
 
 class "Private Placement Arrangement Involvement" as N108828 {
   + Private Placement Arrangement Involvement Type : PrivatePlacementArrangementInvolvementTypeVal ues
@@ -40,6 +66,10 @@ class "Private Placement Arrangement Involvement" as N108828 {
 
 class "Party" as N108722 {
 }
+note right of N108722
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 enum "PrivatePlacementArrangementInvolvementTypeValues" as N108707 {
   Placement Agent
@@ -54,15 +84,30 @@ class "Private Placement Transaction" as N108700 {
 
 class "Instruction" as N108811 {
 }
+note right of N108811
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Account Entry" as N108801 {
 }
+note right of N108801
+  Extensible: yes
+end note
 
 class "Transaction" as N108764 {
 }
+note right of N108764
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Account" as N108822 {
 }
+note right of N108822
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 enum "PrivatePlacementTransactionTypeValues" as N108683 {
   Instrument Maintenance Transaction

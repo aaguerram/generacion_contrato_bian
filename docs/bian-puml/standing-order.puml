@@ -5,6 +5,21 @@ title Standing Order - BIAN BOM UML
 ' Source image: standing-order-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_37578.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -47,24 +62,52 @@ class "Standing Order Transaction" as N65825 {
 
 class "Agreement" as N65996 {
 }
+note right of N65996
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Product Feature" as N65934 {
 }
+note right of N65934
+  Extensible: yes
+  HelperDiagram: Product Feature Helper Diagram
+end note
 
 class "Arrangement" as N65960 {
 }
+note right of N65960
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Payment Instruction" as N65873 {
 }
+note right of N65873
+  Extensible: no
+  BOMDiagram: Payment Order BOM Diagram
+  BOMDiagram: Payment Order Initiation BOM Diagram
+end note
 
 class "Payment Transaction" as N65879 {
 }
+note right of N65879
+  Extensible: no
+  BOMDiagram: Payment Execution BOM Diagram
+end note
 
 class "Account Entry" as N65925 {
 }
+note right of N65925
+  Extensible: yes
+end note
 
 class "Account" as N65979 {
 }
+note right of N65979
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 enum "ArrangementTypeValues" as N65774 {
   Fee Arrangement
@@ -82,9 +125,16 @@ class "Standing Order Service" as N65711 {
 
 class "Payment Service" as N65818 {
 }
+note right of N65818
+  Extensible: yes
+  HelperDiagram: Payment Helper Diagram
+end note
 
 class "Payment Arrangement" as N65961 {
 }
+note right of N65961
+  HelperDiagram: Payment Helper Diagram
+end note
 
 enum "PaymentInvolvementTypeValues" as N65971 {
   Payer or Debtor
@@ -100,6 +150,10 @@ enum "PaymentInvolvementTypeValues" as N65971 {
 
 class "Party" as N65816 {
 }
+note right of N65816
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Standing Order Involvement" as N65928 {
   + Standing Order Involvement Type : PaymentInvolvementTypeValues

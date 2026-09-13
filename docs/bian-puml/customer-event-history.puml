@@ -5,39 +5,89 @@ title Customer Event History - BIAN BOM UML
 ' Source image: customer-event-history-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_34068.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Event" as N180768 {
 }
+note right of N180768
+  Extensible: yes
+  BQ: Type: Events
+  HelperDiagram: Event Helper Diagram
+end note
 
 class "Log" as N180771 {
 }
+note right of N180771
+  Extensible: yes
+  GenericArtifact: Log
+  HelperDiagram: Log Helper Diagram
+end note
 
 class "Customer Relationship" as N180801 {
 }
+note right of N180801
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Event Involvement" as N180844 {
 }
 
 class "Sales Lead" as N180792 {
 }
+note right of N180792
+  Extensible: no
+  BOMDiagram: Lead and Opportunity Management BOM Diagram
+end note
 
 class "Product Sales Agreement" as N180780 {
 }
+note right of N180780
+  Extensible: no
+end note
 
 class "Fraud Case" as N180850 {
 }
+note right of N180850
+  Extensible: no
+  BOMDiagram: Fraud Resolution BOM Diagram
+end note
 
 class "Sales Intermediary Agreement" as N180782 {
 }
+note right of N180782
+  Extensible: no
+end note
 
 class "Customer Event Log" as N180762 {
 }
+note right of N180762
+  ControlRecord: CustomerEventLog
+end note
 
 class "Servicing Event" as N180841 {
 }
+note right of N180841
+  Extensible: no
+  BOMDiagram: Servicing Event History BOM Diagram
+end note
 
 enum "CustomerEventTypeValues" as N180759 {
   Customer Relationship Event
@@ -49,15 +99,29 @@ enum "CustomerEventTypeValues" as N180759 {
 
 class "Product Usage" as N180776 {
 }
+note right of N180776
+  Extensible: no
+end note
 
 class "Customer Contact" as N180837 {
 }
+note right of N180837
+  Extensible: no
+  BOMDiagram: Session Dialogue BOM Diagram
+end note
 
 class "Customer Relationship Lifecycle Phase" as N180817 {
 }
+note right of N180817
+  Extensible: no
+end note
 
 class "Party" as N180812 {
 }
+note right of N180812
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 ' Relationships
 N180771 "0..1" -- "0..*" N180768

@@ -5,6 +5,21 @@ title Payment Order Initiation - BIAN BOM UML
 ' Source image: payment-order-initiation-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_46932.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -24,24 +39,46 @@ class "Payment Instruction" as N197586 {
   + Payment Instruction Method : PaymentMethodTypeValues
   + Payment Instruction Description : Text
 }
+note right of N197586
+  AssetType: Payment Order Initiation
+  HelperDiagram: Payment Instruction Helper Diagram
+end note
 
 class "Payment Transaction" as N197580 {
 }
+note right of N197580
+  ControlRecord: Payment Order Initiation Transaction
+  HelperDiagram: Payment Transaction Helper Diagram
+end note
 
 class "Customer Relationship" as N197613 {
 }
+note right of N197613
+  Extensible: no
+end note
 
 class "Transaction" as N197577 {
 }
+note right of N197577
+  Extensible: yes
+  GenericArtifact: Transaction
+end note
 
 class "Transaction Step" as N197583 {
   + Transaction Step Type : String
   + Transaction Step Result : String
   + Transaction Step Status : String
 }
+note right of N197583
+  BQ: Type: Tasks/Steps
+end note
 
 class "Instruction" as N197622 {
 }
+note right of N197622
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 ' Relationships
 N197586 "1" -- "Causes / 0..*" N197580

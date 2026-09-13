@@ -5,12 +5,30 @@ title Customer Offer - BIAN BOM UML
 ' Source image: customer-offer-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_38989.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Customer Offer Procedure" as N66902 {
 }
+note right of N66902
+  ControlRecord: CustomerOfferProcedure
+end note
 
 class "Customer Offer" as N66866 {
   + Offer Identification : Identifier
@@ -23,36 +41,82 @@ class "Customer Offer" as N66866 {
   + Offer Term and Condition : Condition
   + Offer Amount : Amount
 }
+note right of N66866
+  AssetType: CustomerOffer
+end note
 
 class "Procedure" as N66916 {
 }
+note right of N66916
+  Extensible: yes
+  GenericArtifact: Procedure
+  HelperDiagram: Procedure Helper Diagram
+end note
 
 class "Workstep" as N67003 {
 }
+note right of N67003
+  Extensible: yes
+  BQ: Type: Worksteps
+end note
 
 class "Customer Agreement" as N66886 {
 }
+note right of N66886
+  Extensible: no
+  BOMDiagram: Customer Agreement BOM Diagram
+end note
 
 class "Customer Relationship" as N66933 {
 }
+note right of N66933
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Agreement" as N66961 {
 }
+note right of N66961
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Product" as N67035 {
 }
+note right of N67035
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 class "Customer Rating" as N66962 {
 }
+note right of N66962
+  Extensible: no
+  BOMDiagram: Customer Credit Rating BOM Diagram
+end note
 
 class "Underwriting" as N67050 {
 }
+note right of N67050
+  Extensible: no
+  BOMDiagram: Underwriting BOM Diagram
+end note
 
 class "Audit" as N66957 {
 }
+note right of N66957
+  Extensible: no
+  HelperDiagram: Audit Helper Diagram
+  BOMDiagram: Internal Audit BOM Diagram
+  BOMDiagram: Regulatory Compliance BOM Diagram
+end note
 
 class "Collateral Agreement" as N66928 {
 }
+note right of N66928
+  Extensible: no
+  BOMDiagram: Collateral Allocation Management BOM Diagram
+end note
 
 class "Customer Offer Procedure Workstep" as N67075 {
 }
@@ -68,11 +132,19 @@ class "Agreement Document" as N67008 {
 
 class "Document" as N67017 {
 }
+note right of N67017
+  Extensible: yes
+  HelperDiagram: Document Helper Diagram
+end note
 
 class "Product Agreement" as N66944 {
   + Product Agreement Type : ProductAgreementTypeValues
   + Product Agreement Identification : Identifier
 }
+note right of N66944
+  Extensible: no
+  BOMDiagram: Sales Product BOM Diagram
+end note
 
 enum "ProductAgreementTypeValues" as N67069 {
   Current Account Agreement
@@ -89,6 +161,9 @@ class "Statement" as N66950 {
   + Statement Frequency : Frequency
   + Statement Identification : Identifier
 }
+note right of N66950
+  Extensible: no
+end note
 
 enum "FinancialStatementTypeValues" as N67001 {
   Income Statement
@@ -107,6 +182,10 @@ class "Customer Offer Involvement" as N66911 {
 
 class "Party" as N67004 {
 }
+note right of N67004
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 enum "CustomerOfferInvolvementTypeValues" as N66904 {
   Customer
@@ -128,15 +207,28 @@ enum "OfferTypeValues" as N67096 {
 class "Offer Arrangement" as N67044 {
   + Arrangement Type : ArrangementTypeValues
 }
+note right of N67044
+  BQ: Facility Application
+end note
 
 class "Fee Arrangement" as N66862 {
 }
+note right of N66862
+  HelperDiagram: Fee Helper Diagram
+end note
 
 class "Product Feature" as N67086 {
 }
+note right of N67086
+  Extensible: no
+end note
 
 class "Arrangement" as N66925 {
 }
+note right of N66925
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 ' Relationships
 N66902 "0..1" -- "0..*" N66866

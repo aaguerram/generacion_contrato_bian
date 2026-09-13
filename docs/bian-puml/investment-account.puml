@@ -5,6 +5,21 @@ title Investment Account - BIAN BOM UML
 ' Source image: investment-account-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_33027.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -19,9 +34,16 @@ class "Investment Account" as N192980 {
   + Account Usage Type : AccountUsageTypeValues
   + Category : InvestmentAccountCategoryTypeValues
 }
+note right of N192980
+  AssetType: Investment Account
+end note
 
 class "Account" as N193322 {
 }
+note right of N193322
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Investment Account Product or Service" as N193051 {
   + Income Preference : IncomePreferenceTypeValues
@@ -34,12 +56,22 @@ class "Investment Account Agreement" as N193236 {
 
 class "Investment Account Arrangement" as N193054 {
 }
+note right of N193054
+  ControlRecord: Investment Account Arrangement
+end note
 
 class "Fee Arrangement" as N193208 {
 }
+note right of N193208
+  BQ: Service Fees
+  HelperDiagram: Fee Helper Diagram
+end note
 
 class "Corporate Action Arrangement" as N193250 {
 }
+note right of N193250
+  HelperDiagram: Corporate Action Helper Diagram
+end note
 
 class "Investment Account Agreement Involvement" as N193331 {
   + Investment Account Agreement Involvement Type : InvestmentAccountAgreementInvolvementTypeValues
@@ -55,6 +87,10 @@ enum "InvestmentAccountAgreementInvolvementTypeValues" as N193145 {
 
 class "Party" as N193260 {
 }
+note right of N193260
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Cash Service Arrangement" as N193247 {
 }
@@ -64,25 +100,45 @@ class "Non Cash Service Arrangement" as N192998 {
 
 class "Cash Account" as N193347 {
 }
+note right of N193347
+  Extensible: no
+end note
 
 class "Investment Portfolio" as N193313 {
 }
+note right of N193313
+  Extensible: no
+  BOMDiagram: Investment Portfolio Management BOM Diagram
+end note
 
 class "Investment Portfolio Item" as N193006 {
   + Investment Portfolio Item Amount : Amount
 }
+note right of N193006
+  Extensible: no
+end note
 
 class "Financial Instrument" as N193275 {
   + Financial Instrument Type : FinancialInstrumentTypeValues
   + Financial Instrument Identification : FinancialInstrumentIdentification[1..*]
   + Financial Instrument Date : FinancialInstrumentDateTime
 }
+note right of N193275
+  Extensible: no
+  HelperDiagram: Financial Instrument Helper Diagram
+end note
 
 class "Financial Market" as N193242 {
 }
+note right of N193242
+  Extensible: no
+end note
 
 class "Deposit Service Arrangement" as N193013 {
 }
+note right of N193013
+  HelperDiagram: Deposit Helper Diagram
+end note
 
 enum "DepositTypeValues" as N193222 {
   Cash Deposit
@@ -97,6 +153,9 @@ enum "DepositTypeValues" as N193222 {
 
 class "Withdrawal Service Arrangement" as N193004 {
 }
+note right of N193004
+  HelperDiagram: Withdrawal Helper Diagram
+end note
 
 enum "WithdrawalTypeValues" as N193147 {
   Cash Withdrawal
@@ -106,15 +165,26 @@ enum "WithdrawalTypeValues" as N193147 {
 class "Financial Instrument Position" as N193143 {
   + Position Type : FinancialInstrumentPositionValueType
 }
+note right of N193143
+  Extensible: no
+  BOMDiagram: Securities Position Keeping BOM Diagram
+end note
 
 class "Position" as N193308 {
 }
+note right of N193308
+  Extensible: yes
+  HelperDiagram: Position Helper Diagram
+end note
 
 class "Non Cash Account" as N193321 {
 }
 
 class "Limit Arrangement" as N193350 {
 }
+note right of N193350
+  HelperDiagram: Limit Helper Diagram
+end note
 
 enum "FinancialInstrumentPositionValueType" as N193339 {
   Market Value
@@ -124,18 +194,36 @@ enum "FinancialInstrumentPositionValueType" as N193339 {
 
 class "Product" as N193158 {
 }
+note right of N193158
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 class "Product Feature" as N193272 {
 }
+note right of N193272
+  Extensible: no
+end note
 
 class "Product Agreement" as N193071 {
 }
+note right of N193071
+  Extensible: no
+  BOMDiagram: Sales Product BOM Diagram
+end note
 
 class "Product Arrangement" as N193190 {
 }
+note right of N193190
+  Extensible: no
+end note
 
 class "Arrangement" as N193122 {
 }
+note right of N193122
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Security" as N193025 {
   + Security Amount : Amount
@@ -149,6 +237,9 @@ class "Security" as N193025 {
   + Security Tax : Tax Arrangement
   + Security Jurisdiction : Jurisdiction
 }
+note right of N193025
+  HelperDiagram: Securities Helper Diagram
+end note
 
 class "Securities Account" as N193279 {
   + Securities Account Type : SecuritiesAccountTypeValues
@@ -163,6 +254,10 @@ class "Investment Account Involvement" as N193251 {
 
 class "Party" as N193332 {
 }
+note right of N193332
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 enum "InvestmentAccountInvlvementTypeValues" as N193366 {
   Administrator Role

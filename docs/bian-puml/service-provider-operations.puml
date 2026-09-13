@@ -5,6 +5,21 @@ title Service Provider Operations - BIAN BOM UML
 ' Source image: service-provider-operations-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_30659.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -35,6 +50,9 @@ enum "OBAccountAccessPermissionTypeValues" as N196103 {
 
 class "Mandate Arrangement" as N196093 {
 }
+note right of N196093
+  Extensible: yes
+end note
 
 class "Account Access Consent" as N196053 {
   + Identification : Identifier
@@ -43,9 +61,16 @@ class "Account Access Consent" as N196053 {
   + Creation Date Time : DateTime
   + Consent Account : Product Agreement[1..*]
 }
+note right of N196053
+  BQ: Consents
+end note
 
 class "Agreement" as N196157 {
 }
+note right of N196157
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Account Access Consent Permission" as N196081 {
   + Service Arrangement Reference : Service Arrangement
@@ -62,6 +87,10 @@ enum "MandateTypeValues" as N196136 {
 
 class "Party" as N196161 {
 }
+note right of N196161
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Mandate" as N196223 {
   + Status : MandateStatus
@@ -71,6 +100,9 @@ class "Mandate" as N196223 {
   + Duration : DateTimePeriod
   + Tracking Indicator : YesNoIndicator
 }
+note right of N196223
+  Extensible: yes
+end note
 
 enum "AccountAccessConsentInvolvementTypeValues" as N196206 {
   Payment Service User (PSU)
@@ -87,6 +119,10 @@ enum "ConsentStatusTypeValues" as N196232 {
 
 class "Arrangement" as N196214 {
 }
+note right of N196214
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Account Access Consent Involvement" as N196187 {
   + Involvement Type : AccountAccessConsentInvolvementTypeValues
@@ -105,6 +141,12 @@ class "Token" as N196047 {
   + Token Storage Location : TokenStorageLocationTypeValues
   + Token Type : TokenTypeValues
 }
+note right of N196047
+  Extensible: no
+  BQ: Access Tokens
+  HelperDiagram: Token Helper Diagram
+  BOMDiagram: Issued Device Administration BOM Diagram
+end note
 
 enum "TokenStatusTypeValues" as N196230 {
   Active
@@ -129,15 +171,30 @@ class "Service Provider Registration" as N196123 {
 
 class "Authorization" as N196166 {
 }
+note right of N196166
+  Extensible: yes
+end note
 
 class "Assessment" as N196227 {
 }
+note right of N196227
+  Extensible: yes
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 class "Session" as N196050 {
 }
+note right of N196050
+  Extensible: yes
+  GenericArtifact: Operating Session
+end note
 
 class "System" as N196162 {
 }
+note right of N196162
+  Extensible: yes
+  HelperDiagram: System- Session Helper Diagram
+end note
 
 enum "TokenTypeValues" as N196222 {
   Refresh Token
@@ -150,9 +207,15 @@ class "Product Agreement" as N196140 {
   + Product Agreement Type : ProductAgreementTypeValues
   + Product Agreement Identification : Identifier
 }
+note right of N196140
+  Extensible: yes
+end note
 
 class "Service Arrangement" as N196246 {
 }
+note right of N196246
+  Extensible: yes
+end note
 
 ' Relationships
 N196093 <|-- N196081

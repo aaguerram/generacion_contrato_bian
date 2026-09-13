@@ -5,6 +5,21 @@ title Fraud Model - BIAN BOM UML
 ' Source image: fraud-model-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_33944.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -12,6 +27,9 @@ left to right direction
 class "Design Specification Aspect" as N93642 {
   + Design Specification Aspect Type : DesignSpecificationAspectTypeValues
 }
+note right of N93642
+  BQ: Type: Aspects
+end note
 
 class "Model Usage" as N93635 {
 }
@@ -25,19 +43,37 @@ class "Model Test" as N93700 {
 
 class "Rule Set" as N93725 {
 }
+note right of N93725
+  Extensible: yes
+  HelperDiagram: Rule Set Helper Diagram
+end note
 
 class "Model Design Functional Requirements Specification" as N93632 {
   + Functional Requirement Type : String
 }
+note right of N93632
+  BQ: Functional Requirements
+end note
 
 class "Assessment" as N93675 {
 }
+note right of N93675
+  Extensible: yes
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 class "Design Specification" as N93624 {
 }
+note right of N93624
+  GenericArtifact: Specification
+  HelperDiagram: Design Specification Helper Diagram
+end note
 
 class "Model Design Testing Specification" as N93682 {
 }
+note right of N93682
+  BQ: Testing
+end note
 
 class "Model Deployment Configuration" as N93691 {
 }
@@ -48,6 +84,9 @@ class "Model Design Specification" as N93656 {
 class "Model Design Production Specification" as N93621 {
   + Operational Requirement : String
 }
+note right of N93621
+  BQ: Production
+end note
 
 class "Model Usage Rule Set" as N93727 {
 }
@@ -66,12 +105,22 @@ class "Model Impact" as N93644 {
 
 class "Fraud Model Design Specification" as N93659 {
 }
+note right of N93659
+  ControlRecord: Fraud Model Specification
+end note
 
 class "Fraud Model" as N93664 {
 }
+note right of N93664
+  AssetType: Fraud Model
+end note
 
 class "Fraud Evaluation" as N93645 {
 }
+note right of N93645
+  Extensible: no
+  BOMDiagram: Fraud Evaluation BOM Diagram
+end note
 
 ' Relationships
 N93621 "0..1" -- "0..*" N93727

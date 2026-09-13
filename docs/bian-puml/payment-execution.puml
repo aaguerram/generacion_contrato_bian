@@ -5,6 +5,21 @@ title Payment Execution - BIAN BOM UML
 ' Source image: payment-execution-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_37242.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -12,39 +27,70 @@ left to right direction
 class "ACH System" as N66075 {
   + ACH System Identifier : Identifier
 }
+note right of N66075
+  Extensible: no
+end note
 
 class "System" as N66648 {
 }
+note right of N66648
+  Extensible: yes
+  HelperDiagram: System- Session Helper Diagram
+end note
 
 class "Session" as N66743 {
 }
+note right of N66743
+  Extensible: yes
+end note
 
 class "ACH Session" as N66246 {
   + ACH Session Identifier : Identifier
 }
+note right of N66246
+  Extensible: no
+end note
 
 class "Correspondent Access System" as N66434 {
   + Cirrespondent System Identifier : Identifier
 }
+note right of N66434
+  Extensible: no
+end note
 
 class "Correspondent Service Session" as N66608 {
   + Correspondent Service Session Identifier : Identifier
 }
+note right of N66608
+  Extensible: no
+  BOMDiagram: ACH Operations BOM Diagram
+end note
 
 class "Procedure" as N66229 {
 }
+note right of N66229
+  Extensible: yes
+  HelperDiagram: Procedure Helper Diagram
+end note
 
 class "Payment Execution Procedure" as N66039 {
 }
 
 class "Workstep" as N66113 {
 }
+note right of N66113
+  Extensible: yes
+  BQ: Type: Workstep
+end note
 
 class "Payment Execution Task" as N66630 {
 }
 
 class "Payment System Selection" as N66042 {
 }
+note right of N66042
+  BQ: Payment Mechanism
+end note
 
 class "Payment Service Provider Instruction" as N66367 {
   + Used Mechanism : String
@@ -68,6 +114,10 @@ class "Payment Transaction" as N66493 {
   + Payment Transaction Currency : CurrencyTypeValues[1..*]
   + Payment Transaction Credit Debit Indicator : DebitCreditIndicatortValues
 }
+note right of N66493
+  BQ: Payment Execution
+  HelperDiagram: Payment Transaction Helper Diagram
+end note
 
 class "Payment Instruction" as N66708 {
   + Payment Instruction Direction Type : Text
@@ -84,15 +134,32 @@ class "Payment Instruction" as N66708 {
   + Payment Instruction Method : PaymentMethodTypeValues
   + Payment Instruction Description : Text
 }
+note right of N66708
+  Extensible: no
+  BOMDiagram: Payment Instruction BOM Diagram
+  BOMDiagram: Payment Order BOM Diagram
+end note
 
 class "Instruction" as N66598 {
 }
+note right of N66598
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Transaction" as N66581 {
 }
+note right of N66581
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Arrangement" as N66480 {
 }
+note right of N66480
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Payment Arrangement" as N66741 {
   + Service Type : PaymentServiceTypeValues
@@ -108,6 +175,10 @@ class "Payment Arrangement" as N66741 {
   + Payment Frequency : Frequency
   + Payment Description : Text[0..*]
 }
+note right of N66741
+  Extensible: no
+  HelperDiagram: Payment Helper Diagram
+end note
 
 enum "PaymentInvolvementTypeValues" as N66307 {
   Payer or Debtor
@@ -129,12 +200,23 @@ class "Payment Transaction Involvement" as N66106 {
 
 class "Party" as N66654 {
 }
+note right of N66654
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Account" as N66697 {
 }
+note right of N66697
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Account Entry" as N66644 {
 }
+note right of N66644
+  Extensible: yes
+end note
 
 enum "PaymentDateTimeTypeValues" as N66475 {
   Requested Execution Date

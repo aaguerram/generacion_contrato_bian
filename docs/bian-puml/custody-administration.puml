@@ -5,6 +5,21 @@ title Custody Administration - BIAN BOM UML
 ' Source image: custody-administration-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51766.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -15,9 +30,15 @@ class "Custodial Agreement" as N232544 {
 class "Custody Service Arrangement" as N232508 {
   + Custody Service Arrangement Type : CustodyServiceArrangementTypeValues
 }
+note right of N232508
+  ControlRecord: Custody Arrangement
+end note
 
 class "Custody Service" as N232517 {
 }
+note right of N232517
+  AssetType: Custody
+end note
 
 class "Custody Account" as N232639 {
 }
@@ -40,24 +61,51 @@ enum "CustodyServiceArrangementTypeValues" as N232575 {
 
 class "Product Feature" as N232511 {
 }
+note right of N232511
+  Extensible: yes
+  BQ: Type: Feature
+end note
 
 class "Arrangement" as N232514 {
 }
+note right of N232514
+  Extensible: yes
+  GenericArtifact: Arrangement
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Party Role" as N232626 {
 }
+note right of N232626
+  Extensible: yes
+end note
 
 class "Party" as N232556 {
 }
+note right of N232556
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 class "Service Arrangement" as N232535 {
 }
+note right of N232535
+  Extensible: yes
+end note
 
 class "Service" as N232572 {
 }
+note right of N232572
+  Extensible: yes
+  HelperDiagram: Arrangement- Product Feature- Service Helper Diagram
+end note
 
 class "Agreement" as N232527 {
 }
+note right of N232527
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Custody Instruction" as N232518 {
 }
@@ -67,15 +115,30 @@ class "Custody Transaction" as N232542 {
 
 class "Account Entry" as N232625 {
 }
+note right of N232625
+  Extensible: yes
+end note
 
 class "Account" as N232640 {
 }
+note right of N232640
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Transaction" as N232606 {
 }
+note right of N232606
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Instruction" as N232590 {
 }
+note right of N232590
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 ' Relationships
 N232544 "0..1" -- "0..1" N232508

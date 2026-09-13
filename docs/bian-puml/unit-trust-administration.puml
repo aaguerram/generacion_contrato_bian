@@ -5,6 +5,21 @@ title Unit Trust Administration - BIAN BOM UML
 ' Source image: unit-trust-administration-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52426.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -14,6 +29,10 @@ class "Unit Trust" as N210014 {
 
 class "Financial Instrument" as N210067 {
 }
+note right of N210067
+  Extensible: yes
+  HelperDiagram: Financial Instrument Helper Diagram
+end note
 
 class "Unit Trust Administrative Plan" as N210060 {
   + Unit Trust Administrative Planned Action : Planned Action[1..*]
@@ -22,6 +41,11 @@ class "Unit Trust Administrative Plan" as N210060 {
 
 class "Administrative Plan" as N210042 {
 }
+note right of N210042
+  Extensible: yes
+  GenericArtifact: Administrative Plan
+  HelperDiagram: Administrative Plan Helper Diagram
+end note
 
 enum "UnitTrustAdministrativePlannedActionTypeValues" as N210073 {
   Fund Management Fee
@@ -52,9 +76,16 @@ class "Investment Fund" as N210056 {
 
 class "Party" as N210052 {
 }
+note right of N210052
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 class "Party Role" as N210086 {
 }
+note right of N210086
+  Extensible: yes
+end note
 
 enum "InvestmentFundTypeValues" as N210096 {
   Exchange-Traded Fund

@@ -5,12 +5,32 @@ title Customer Campaign Design - BIAN BOM UML
 ' Source image: customer-campaign-design-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_48736.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Design Specification" as N197959 {
 }
+note right of N197959
+  Extensible: yes
+  GenericArtifact: Specification
+  HelperDiagram: Design Specification Helper Diagram
+end note
 
 class "Customer Campaign Design Specification" as N198030 {
   + Customer Campaign Design Specification Aspect Type : CampaignDesignSpecificationAspectTypeValues[1..*]
@@ -28,12 +48,23 @@ class "Customer Campaign Rule Set" as N198125 {
 
 class "Rule Set" as N198049 {
 }
+note right of N198049
+  Extensible: yes
+  HelperDiagram: Rule Set Helper Diagram
+end note
 
 class "Arrangement" as N198136 {
 }
+note right of N198136
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Item" as N198120 {
 }
+note right of N198120
+  Extensible: yes
+end note
 
 class "Item Inventory" as N198045 {
 }
@@ -60,6 +91,9 @@ class "Customer Campaign Metric" as N198008 {
 class "Customer Campaign" as N198084 {
   + Customer Campaign Type : CustomerCampaignTypeValues
 }
+note right of N198084
+  AssetType: Customer Campaign
+end note
 
 class "Campaign" as N198032 {
   + Campaign Type : CampaignTypeValues
@@ -67,6 +101,9 @@ class "Campaign" as N198032 {
   + Campaign Description : Text
   + Campaign Period : DateTimePeriod
 }
+note right of N198032
+  HelperDiagram: Campaign Helper Diagram
+end note
 
 class "Customer Campaign Involvement" as N198140 {
   + Customer Campaign Involvement Type : CustomerCampaignInvolvementTypeValues
@@ -74,21 +111,44 @@ class "Customer Campaign Involvement" as N198140 {
 
 class "Customer Campaign Assessment" as N198108 {
 }
+note right of N198108
+  Extensible: no
+  BOMDiagram: Customer Campaign Management BOM Diagram
+  BOMDiagram: Lead and Opportunity Management BOM Diagram
+end note
 
 class "Customer Relationship" as N198042 {
 }
+note right of N198042
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Product" as N198028 {
 }
+note right of N198028
+  Extensible: yes
+end note
 
 class "Product Portfolio" as N198022 {
 }
+note right of N198022
+  Extensible: no
+  BOMDiagram: Product Portfolio BOM Diagram
+end note
 
 class "Customer Portfolio" as N198011 {
 }
+note right of N198011
+  Extensible: no
+  BOMDiagram: Customer Portfolio BOM Diagram
+end note
 
 class "Sales Lead" as N198002 {
 }
+note right of N198002
+  Extensible: no
+end note
 
 enum "CustomerCampaignInvolvementTypeValues" as N198000 {
   Marketing Team
@@ -103,12 +163,23 @@ enum "CustomerCampaignInvolvementTypeValues" as N198000 {
 
 class "Party" as N198019 {
 }
+note right of N198019
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Metric" as N198079 {
 }
+note right of N198079
+  Extensible: yes
+end note
 
 class "Assessment" as N198141 {
 }
+note right of N198141
+  Extensible: yes
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 enum "CustomerCampaignMetricTypeValues" as N198057 {
   Click-Through Rates (CTR)
@@ -125,9 +196,17 @@ enum "CustomerCampaignMetricTypeValues" as N198057 {
 class "Customer Campaign Goal" as N198016 {
   + Customer Campaign Goal Type : CustomerCampaignGoalTypeValues
 }
+note right of N198016
+  Extensible: no
+  BOMDiagram: Business Development BOM Diagram
+end note
 
 class "Goal" as N198089 {
 }
+note right of N198089
+  Extensible: yes
+  HelperDiagram: Plan Helper Diagram
+end note
 
 enum "CustomerCampaignGoalTypeValues" as N197981 {
   Brand Awareness
@@ -144,6 +223,9 @@ enum "CustomerCampaignGoalTypeValues" as N197981 {
 
 class "Requirement" as N198106 {
 }
+note right of N198106
+  Extensible: yes
+end note
 
 enum "CustomerCampaignRuleSetTypeValues" as N197970 {
   Segmentation Criteria

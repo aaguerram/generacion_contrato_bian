@@ -5,6 +5,21 @@ title Financial Instrument Reference Data Management - BIAN BOM UML
 ' Source image: financial-instrument-reference-data-management-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52602.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -15,12 +30,23 @@ class "Financial Instrument" as N68300 {
   + Financial Instrument Name : Name[1..*]
   + Financial Instrument Date : FinancialInstrumentDateTime
 }
+note right of N68300
+  HelperDiagram: Financial Instrument Helper Diagram
+end note
 
 class "Directory" as N68305 {
 }
+note right of N68305
+  Extensible: yes
+  HelperDiagram: Directory Helper Diagram
+end note
 
 class "Directory Entry" as N68376 {
 }
+note right of N68376
+  Extensible: yes
+  GenericArtifact: Directory Entry
+end note
 
 class "Financial Instrument Directory Entry" as N68288 {
 }
@@ -31,15 +57,30 @@ class "Financial Instrument Directory" as N68484 {
 class "Financial Market" as N68364 {
   + Financial Market Type : FinancialMarketTypeValues
 }
+note right of N68364
+  Extensible: no
+end note
 
 class "Market" as N68335 {
 }
+note right of N68335
+  Extensible: yes
+  BOMDiagram: Financial Market Analysis BOM Diagram
+end note
 
 class "Location" as N68268 {
 }
+note right of N68268
+  Extensible: no
+  BOMDiagram: Location Data Management BOM Diagram
+end note
 
 class "Party" as N68366 {
 }
+note right of N68366
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Financial Instrument Involvement" as N68446 {
   + Financial Instrument Involvement Type : FinancialInstrumentInvolvementTypeValues
@@ -86,12 +127,23 @@ class "Identifier" as N68349 <<datatype>> {
 
 class "Investment Portfolio Item" as N68483 {
 }
+note right of N68483
+  Extensible: no
+end note
 
 class "Investment Portfolio" as N68365 {
 }
+note right of N68365
+  Extensible: no
+  BOMDiagram: Investment Portfolio Management BOM Diagram
+end note
 
 class "Portfolio" as N68342 {
 }
+note right of N68342
+  Extensible: yes
+  HelperDiagram: Portfolio Helper Diagram
+end note
 
 class "SecurityStatus" as N68368 <<datatype>> {
   + Security Status : Status
@@ -110,6 +162,9 @@ class "Security" as N68494 {
   + Security Tax : Tax Arrangement
   + Security Jurisdiction : Jurisdiction
 }
+note right of N68494
+  HelperDiagram: Securities Helper Diagram
+end note
 
 enum "SecurityIdentificationTypeValues" as N68357 {
   RIC

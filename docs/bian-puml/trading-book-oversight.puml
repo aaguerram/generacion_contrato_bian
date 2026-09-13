@@ -5,6 +5,21 @@ title Trading Book Oversight - BIAN BOM UML
 ' Source image: trading-book-oversight-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52562.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -12,6 +27,9 @@ left to right direction
 class "Securities Position" as N183151 {
   + Securities Position Type : SecuritiesPositionTypeValues
 }
+note right of N183151
+  AssetType: Trading Position
+end note
 
 class "Security" as N183161 {
   + Security Amount : Amount
@@ -28,6 +46,10 @@ class "Security" as N183161 {
 
 class "Financial Instrument" as N183183 {
 }
+note right of N183183
+  Extensible: yes
+  HelperDiagram: Financial Instrument Helper Diagram
+end note
 
 class "Financial Transaction" as N183172 {
   + Financial Transaction Type : FinancialTransactionTypeValues
@@ -37,9 +59,16 @@ class "Financial Transaction" as N183172 {
   + Financial Transaction Target Account : Account
   + Financial Transaction Date Time : DateTime[1..*]
 }
+note right of N183172
+  Extensible: no
+end note
 
 class "Account Position" as N183214 {
 }
+note right of N183214
+  Extensible: yes
+  HelperDiagram: Position Helper Diagram
+end note
 
 class "Securities Transaction" as N183166 {
   + Replaced Amount : Amount
@@ -47,6 +76,10 @@ class "Securities Transaction" as N183166 {
 
 class "Investment Account" as N183155 {
 }
+note right of N183155
+  Extensible: no
+  BOMDiagram: Investment Account BOM Diagram
+end note
 
 enum "SecuritiesPositionTypeValues" as N183146 {
   Trading Position
@@ -54,15 +87,25 @@ enum "SecuritiesPositionTypeValues" as N183146 {
 
 class "Trading Position Management Plan" as N183164 {
 }
+note right of N183164
+  ControlRecord: Trading Position Management Plan
+end note
 
 class "Management Plan" as N183149 {
 }
 
 class "Duty" as N183182 {
 }
+note right of N183182
+  BQ: Type: Duty
+end note
 
 class "Plan" as N183192 {
 }
+note right of N183192
+  Extensible: yes
+  HelperDiagram: Plan Helper Diagram
+end note
 
 ' Relationships
 N183172 <|-- N183166

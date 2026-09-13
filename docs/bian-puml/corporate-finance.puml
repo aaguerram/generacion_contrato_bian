@@ -5,6 +5,21 @@ title Corporate Finance - BIAN BOM UML
 ' Source image: corporate-finance-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52797.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -22,12 +37,24 @@ class "Financial Advisory Service Agreement" as N210882 {
 
 class "Agreement" as N210941 {
 }
+note right of N210941
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Product" as N210891 {
 }
+note right of N210891
+  Extensible: yes
+  HelperDiagram: Agreement- Product Helper Diagram
+end note
 
 class "Arrangement" as N210914 {
 }
+note right of N210914
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 enum "FinancialAdvisoryServiceTypeValues" as N210857 {
   Consumer Financial Advisory Service
@@ -52,21 +79,44 @@ class "Financial Advisory Service Transaction" as N210925 {
 
 class "Instruction" as N210953 {
 }
+note right of N210953
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Transaction" as N210859 {
 }
+note right of N210859
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Account" as N210912 {
 }
+note right of N210912
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Account Entry" as N210930 {
 }
+note right of N210930
+  Extensible: yes
+end note
 
 class "Party" as N210884 {
 }
+note right of N210884
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Party Role" as N210880 {
 }
+note right of N210880
+  Extensible: yes
+  HelperDiagram: Party Role Helper Diagram
+end note
 
 class "Financial Advisory Service Involvement" as N210964 {
   + Financial Advisory Service Involvement Type : FinancialAdvisoryServiceInvolvementTypeValues

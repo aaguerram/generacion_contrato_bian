@@ -5,15 +5,38 @@ title Sales Product - BIAN BOM UML
 ' Source image: sales-product-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_32688.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Arrangement" as N222689 {
 }
+note right of N222689
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Agreement" as N222761 {
 }
+note right of N222761
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Product Arrangement" as N222740 {
   + Product Arrangement Type : ArrangementTypeValues
@@ -21,9 +44,17 @@ class "Product Arrangement" as N222740 {
 
 class "Account" as N222725 {
 }
+note right of N222725
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Product" as N222818 {
 }
+note right of N222818
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 enum "ArrangementTypeValues" as N222700 {
   Sweep Arrangement
@@ -59,6 +90,10 @@ enum "ArrangementTypeValues" as N222700 {
 
 class "Product Feature" as N222716 {
 }
+note right of N222716
+  Extensible: no
+  HelperDiagram: Product Feature Helper Diagram
+end note
 
 class "Product Agreement" as N222635 {
   + Product Agreement Type : ProductAgreementTypeValues
@@ -67,12 +102,20 @@ class "Product Agreement" as N222635 {
 
 class "Party" as N222753 {
 }
+note right of N222753
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Product Agreement Involvement" as N222798 {
   + Involvement Type : ProductServiceAgreementInvolvementTypeValues
   + Party Reference : Party
   + Agreement Reference : Product Agreement
 }
+note right of N222798
+  BOMDiagram: Corporate Current Account BOM Diagram
+  BOMDiagram: Current Account BOM Diagram
+end note
 
 enum "ProductServiceAgreementInvolvementTypeValues" as N222696 {
   Principal
@@ -93,18 +136,41 @@ enum "ProductServiceAgreementInvolvementTypeValues" as N222696 {
 
 class "Current Account Agreement" as N222638 {
 }
+note right of N222638
+  Extensible: no
+end note
 
 class "Savings Account Agreement" as N222679 {
 }
+note right of N222679
+  Extensible: no
+  BOMDiagram: Consumer Loan BOM Diagram
+  BOMDiagram: Savings Account BOM Diagram
+end note
 
 class "Loan Agreement" as N222641 {
 }
+note right of N222641
+  Extensible: no
+  BOMDiagram: Corporate Loan BOM Diagram
+  BOMDiagram: Merchandising Loan BOM Diagram
+  BOMDiagram: Syndicated Loan BOM Diagram
+end note
 
 class "Term Deposit Agreement" as N222729 {
 }
+note right of N222729
+  Extensible: no
+  BOMDiagram: Mortgage Loan BOM Diagram
+  BOMDiagram: Term Deposit BOM Diagram
+end note
 
 class "Customer Offer" as N222821 {
 }
+note right of N222821
+  Extensible: no
+  BOMDiagram: Customer Offer BOM Diagram
+end note
 
 enum "ProductAgreementTypeValues" as N222775 {
   Current Account Agreement

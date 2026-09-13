@@ -5,6 +5,21 @@ title Central Cash Handling - BIAN BOM UML
 ' Source image: central-cash-handling-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52038.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -18,12 +33,22 @@ class "Branch" as N87553 {
 
 class "Criterion" as N87445 {
 }
+note right of N87445
+  BQ: Type: Criteria
+end note
 
 class "Party" as N87486 {
 }
+note right of N87486
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 class "Party Role" as N87483 {
 }
+note right of N87483
+  Extensible: yes
+end note
 
 class "Allocation" as N87423 {
   + Allocation Amount : Amount
@@ -32,6 +57,10 @@ class "Allocation" as N87423 {
   + Allocation Status : Status
   + Allocation Description : Text
 }
+note right of N87423
+  GenericArtifact: Allocation
+  HelperDiagram: Allocation Helper Diagram
+end note
 
 class "Cash Inventory Management Agreement" as N87589 {
 }
@@ -41,6 +70,9 @@ class "ATM- Network" as N87575 {
 
 class "Cash" as N87429 {
 }
+note right of N87429
+  AssetType: Central Cash
+end note
 
 enum "CashStorageTypeValues" as N87537 {
   Bank Vault
@@ -63,6 +95,9 @@ class "Cash Storage Account" as N87608 {
 
 class "Cash Allocation" as N87426 {
 }
+note right of N87426
+  ControlRecord: Central Cash Allocation
+end note
 
 class "Cash Allocation Request" as N87526 {
 }
@@ -80,25 +115,51 @@ enum "ItemInventoryTypeValues" as N87503 {
 
 class "Item" as N87444 {
 }
+note right of N87444
+  Extensible: no
+end note
 
 class "Item Inventory" as N87545 {
   + Item Inventory Type : Text
 }
+note right of N87545
+  Extensible: no
+end note
 
 class "Point Of Service" as N87520 {
 }
+note right of N87520
+  Extensible: no
+  BOMDiagram: Point of Service BOM Diagram
+end note
 
 class "Agreement" as N87524 {
 }
+note right of N87524
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Arrangement" as N87469 {
 }
+note right of N87469
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Transaction" as N87536 {
 }
+note right of N87536
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Instruction" as N87465 {
 }
+note right of N87465
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 ' Relationships
 N87423 "0..*" -- "0..*" N87445

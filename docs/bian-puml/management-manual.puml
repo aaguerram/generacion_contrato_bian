@@ -5,6 +5,21 @@ title Management Manual - BIAN BOM UML
 ' Source image: management-manual-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52267.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -12,6 +27,9 @@ left to right direction
 class "Design Specification Aspect" as N65652 {
   + Design Specification Aspect Type : DesignSpecificationAspectTypeValues
 }
+note right of N65652
+  BQ: Type: Aspect
+end note
 
 class "Design Specification" as N65633 {
   + Design Specification Status : DesignSpecificationStatusTypeValues
@@ -20,10 +38,17 @@ class "Design Specification" as N65633 {
   + Design Specification Description : Text
   + Design Specification Schedule : Schedule
 }
+note right of N65633
+  GenericArtifact: Specification
+  HelperDiagram: Design Specification Helper Diagram
+end note
 
 class "Organisation Manual" as N65639 {
   + Organisation Manual Type : OrganisationManualTypeValues
 }
+note right of N65639
+  AssetType: Management Manual
+end note
 
 enum "OrganisationManualTypeValues" as N65695 {
   Policy Manual
@@ -36,6 +61,10 @@ class "Organisation Manual Design Specificatiob" as N65665 {
 
 class "Document" as N65662 {
 }
+note right of N65662
+  Extensible: yes
+  HelperDiagram: Document Helper Diagram
+end note
 
 ' Relationships
 N65633 "0..1" -- "0..*" N65652

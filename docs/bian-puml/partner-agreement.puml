@@ -5,22 +5,54 @@ title Partner Agreement - BIAN BOM UML
 ' Source image: partner-agreement-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_34802.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Agreement" as N198824 {
 }
+note right of N198824
+  Extensible: yes
+  GenericArtifact: Agreement
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Party Relationship" as N198911 {
 }
+note right of N198911
+  Extensible: yes
+  HelperDiagram: Party Relationship Helper Diagram
+end note
 
 class "Arrangement" as N198827 {
 }
+note right of N198827
+  Extensible: yes
+  BQ: Type: Term
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Partner Agreement" as N198833 {
   + Partner Agreement Type : PartnerAgreementTypeValues
 }
+note right of N198833
+  ControlRecord: Partner Agreement
+end note
 
 class "Partner Arrangement" as N198830 {
   + Partner Arrangement Type : PartnerArrangementTypeValues
@@ -34,6 +66,9 @@ class "Partner Agreement Involvement" as N198852 {
 
 class "Partner Relationship" as N198880 {
 }
+note right of N198880
+  AssetType: Partner
+end note
 
 enum "PartnerArrangementTypeValues" as N198847 {
   Financial Arrangement
@@ -64,6 +99,10 @@ enum "PartnerAgreementInvolvementTypeValues" as N198926 {
 
 class "Party" as N198878 {
 }
+note right of N198878
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 enum "PartnerAgreementTypeValues" as N198863 {
   Referral Agreement

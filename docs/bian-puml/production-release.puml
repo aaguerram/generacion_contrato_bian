@@ -5,18 +5,44 @@ title Production Release - BIAN BOM UML
 ' Source image: production-release-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_30650.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "IT System" as N225688 {
 }
+note right of N225688
+  AssetType: IT System
+end note
 
 class "System" as N225739 {
 }
+note right of N225739
+  Extensible: yes
+  HelperDiagram: System- Session Helper Diagram
+end note
 
 class "Assessment" as N225687 {
 }
+note right of N225687
+  GenericArtifact: Assessment
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 class "Test" as N225710 {
   + Test Result : Text
@@ -24,9 +50,15 @@ class "Test" as N225710 {
   + Test Type : TestTypeValues
   + Test Description : Text
 }
+note right of N225710
+  BQ: Type: Tests
+end note
 
 class "IT System Assessment" as N225700 {
 }
+note right of N225700
+  ControlRecord: IT System Assessment
+end note
 
 class "Production Release" as N225748 {
   + Production Release Type : String
@@ -50,9 +82,16 @@ enum "ITSystemRiskCheckTypeValues" as N225695 {
 
 class "Party Role" as N225696 {
 }
+note right of N225696
+  Extensible: yes
+end note
 
 class "Party" as N225708 {
 }
+note right of N225708
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 ' Relationships
 N225739 <|-- N225688

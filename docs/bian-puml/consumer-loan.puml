@@ -5,6 +5,21 @@ title Consumer Loan - BIAN BOM UML
 ' Source image: consumer-loan-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_48064.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -14,24 +29,43 @@ class "Loan Transaction" as N190515 {
 
 class "Account Entry" as N190534 {
 }
+note right of N190534
+  Extensible: yes
+end note
 
 class "Loan Instruction" as N190531 {
 }
 
 class "Agreement" as N190573 {
 }
+note right of N190573
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Customer Rating" as N190545 {
 }
+note right of N190545
+  Extensible: no
+  BOMDiagram: Customer Credit Rating BOM Diagram
+end note
 
 class "Customer Agreement" as N190699 {
 }
+note right of N190699
+  Extensible: no
+  BOMDiagram: Customer Agreement BOM Diagram
+end note
 
 class "Loan Account" as N190525 {
 }
 
 class "Account" as N190669 {
 }
+note right of N190669
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Loan Arrangement" as N190488 {
   + Loan Origination Date : Date
@@ -40,10 +74,17 @@ class "Loan Arrangement" as N190488 {
   + Loan Amount : Amount
   + Loan Arrangement Type : ArrangementTypeValues
 }
+note right of N190488
+  HelperDiagram: Fee Helper Diagram
+end note
 
 class "Loan Agreement" as N190421 {
   + Loan Term And Condition : Condition
 }
+note right of N190421
+  AssetType: Consumer Loan
+  ControlRecord: Consumer Loan Fecility
+end note
 
 class "Loan Product" as N190506 {
   + Loan Amount : Amount
@@ -54,15 +95,26 @@ class "Loan Product" as N190506 {
 
 class "Customer Relationship" as N190542 {
 }
+note right of N190542
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Collateral Agreement" as N190535 {
 }
+note right of N190535
+  Extensible: no
+  BOMDiagram: Collateral Allocation Management BOM Diagram
+end note
 
 class "Loan" as N190474 {
 }
 
 class "Interest Arrangement" as N190418 {
 }
+note right of N190418
+  HelperDiagram: Interest Helper Diagram
+end note
 
 class "Repayment Arrangement" as N190424 {
 }
@@ -73,6 +125,11 @@ class "Fee Arrangement" as N190427 {
 class "Disbursement Arrangement" as N190432 {
   + loan Disbursement Expected Date : DateTime
 }
+note right of N190432
+  Extensible: no
+  HelperDiagram: Repayment Helper Diagram
+  BOMDiagram: Disbursement BOM Diagram
+end note
 
 class "Debt Instrument" as N190646 {
   + Debt Instrument Type : DebtInstrumentTypeValues
@@ -80,9 +137,16 @@ class "Debt Instrument" as N190646 {
 
 class "Withdrawal Service Arrangement" as N190649 {
 }
+note right of N190649
+  HelperDiagram: Withdrawal Helper Diagram
+end note
 
 class "Arrangement" as N190532 {
 }
+note right of N190532
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 enum "LoanProductTypeValues" as N190468 {
   Consumer Loan
@@ -126,9 +190,17 @@ enum "ArrangementTypeValues" as N190493 {
 
 class "Instruction" as N190530 {
 }
+note right of N190530
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Transaction" as N190651 {
 }
+note right of N190651
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Loan Agreement Involvement" as N190634 {
   + Loan Involvement Type : LoanInvolvementTypeValues
@@ -144,21 +216,39 @@ enum "LoanInvolvementTypeValues" as N190670 {
 
 class "Party" as N190500 {
 }
+note right of N190500
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Limit Arrangement" as N190582 {
 }
 
 class "Product" as N190672 {
 }
+note right of N190672
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 class "Product Feature" as N190434 {
 }
+note right of N190434
+  Extensible: no
+end note
 
 class "Product Agreement" as N190548 {
 }
+note right of N190548
+  Extensible: no
+  BOMDiagram: Sales Product BOM Diagram
+end note
 
 class "Product Arrangement" as N190480 {
 }
+note right of N190480
+  Extensible: no
+end note
 
 enum "DebtInstrumentTypeValues" as N190540 {
   Loan
@@ -168,9 +258,17 @@ enum "DebtInstrumentTypeValues" as N190540 {
 
 class "Financial Instrument" as N190448 {
 }
+note right of N190448
+  Extensible: no
+  BOMDiagram: Financial Instrument Reference Data Management BOM Diagram
+end note
 
 class "Device Arrangement" as N190456 {
 }
+note right of N190456
+  HelperDiagram: Device Helper Diagram
+  HelperDiagram: Limit Helper Diagram
+end note
 
 class "Loan Arrangement Account" as N190438 {
 }

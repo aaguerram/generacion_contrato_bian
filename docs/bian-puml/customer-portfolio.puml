@@ -5,6 +5,21 @@ title Customer Portfolio - BIAN BOM UML
 ' Source image: customer-portfolio-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_34975.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -15,33 +30,63 @@ class "Customer Portfolio Analysis" as N154643 {
 
 class "Analysis" as N154649 {
 }
+note right of N154649
+  Extensible: yes
+  HelperDiagram: Analysis Helper Diagram
+end note
 
 class "Customer Relationship" as N154664 {
 }
+note right of N154664
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Document" as N154767 {
 }
+note right of N154767
+  Extensible: no
+  BOMDiagram: Document Directory BOM Diagram
+end note
 
 class "Analysis Model" as N154776 {
 }
 
 class "Market Research" as N154677 {
 }
+note right of N154677
+  Extensible: no
+  BOMDiagram: Market Research BOM Diagram
+end note
 
 class "Model" as N154749 {
 }
+note right of N154749
+  Extensible: yes
+end note
 
 class "Transaction" as N154771 {
 }
+note right of N154771
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Market Research Report" as N154658 {
 }
+note right of N154658
+  Extensible: no
+end note
 
 class "Customer Portfolio" as N154646 {
 }
 
 class "Portfolio" as N154725 {
 }
+note right of N154725
+  Extensible: yes
+  HelperDiagram: Portfolio Helper Diagram
+end note
 
 enum "CustomerPortfolioAnalysisTypeValues" as N154652 {
   Profitability Analysis
@@ -50,18 +95,37 @@ enum "CustomerPortfolioAnalysisTypeValues" as N154652 {
 
 class "Rule Set" as N154683 {
 }
+note right of N154683
+  Extensible: yes
+  HelperDiagram: Rule Set Helper Diagram
+end note
 
 class "Customer Product and Service Profile" as N154781 {
 }
+note right of N154781
+  Extensible: no
+end note
 
 class "Product Agreement" as N154780 {
 }
+note right of N154780
+  Extensible: no
+  BOMDiagram: Sales Product Agreement BOM Diagram
+end note
 
 class "Product" as N154758 {
 }
+note right of N154758
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 class "Agreement" as N154691 {
 }
+note right of N154691
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 ' Relationships
 N154649 <|-- N154643

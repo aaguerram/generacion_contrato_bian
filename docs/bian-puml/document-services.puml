@@ -5,6 +5,21 @@ title Document Services - BIAN BOM UML
 ' Source image: document-services-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_35561.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -23,6 +38,10 @@ class "Document" as N180183 {
   + Document Description : Text
   + Document Validity Period : DateTimePeriod
 }
+note right of N180183
+  Extensible: yes
+  HelperDiagram: Document Helper Diagram
+end note
 
 enum "DocumentServiceTypeValues" as N180220 {
   Document Provisioning
@@ -80,6 +99,10 @@ enum "FinancialDocumentTypeValues" as N180180 {
 
 class "Procedure" as N180150 {
 }
+note right of N180150
+  Extensible: yes
+  HelperDiagram: Procedure Helper Diagram
+end note
 
 class "Document Service Procedure" as N180195 {
 }

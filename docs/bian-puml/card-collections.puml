@@ -5,21 +5,51 @@ title Card Collections - BIAN BOM UML
 ' Source image: card-collections-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_44742.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Procedure" as N223137 {
 }
+note right of N223137
+  Extensible: yes
+  GenericArtifact: Procedure
+  HelperDiagram: Procedure Helper Diagram
+end note
 
 class "Workstep" as N223221 {
 }
+note right of N223221
+  Extensible: yes
+  BQ: Type: Worksteps
+end note
 
 class "Card Collection Procedure" as N223181 {
 }
+note right of N223181
+  ControlRecord: Card Collections Procedure
+end note
 
 class "Card Collection" as N223140 {
 }
+note right of N223140
+  AssetType: Card Collections
+end note
 
 class "Card Payment Account" as N223276 {
 }
@@ -46,15 +76,30 @@ enum "PaymentCardTypeValues" as N223195 {
 
 class "Device" as N223265 {
 }
+note right of N223265
+  Extensible: yes
+  HelperDiagram: Device Helper Diagram
+end note
 
 class "Account" as N223291 {
 }
+note right of N223291
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Card Payment Transaction" as N223288 {
 }
+note right of N223288
+  Extensible: no
+  HelperDiagram: Card Transaction Helper Diagram
+end note
 
 class "Payment Transaction" as N223254 {
 }
+note right of N223254
+  HelperDiagram: Payment Transaction Helper Diagram
+end note
 
 enum "CollectionInvolvementTypeValues" as N223308 {
   Collection Agent
@@ -65,19 +110,31 @@ class "Collection Assignment Workstep" as N223287 {
   + Assignment Decision : String
   + Work Product : String
 }
+note right of N223287
+  BQ: Assignment
+end note
 
 class "Payment Terms Negotiation Workstep" as N223146 {
   + Payment Terms Renegotiation Decision : String
   + Payment Terms Work Product : String
 }
+note right of N223146
+  BQ: Payment Terms
+end note
 
 class "Payment Management Workstep" as N223143 {
 }
+note right of N223143
+  BQ: Payment
+end note
 
 class "Collection Resolution Workstep" as N223134 {
   + Resolution Decision : String
   + Resolution Work Product : String
 }
+note right of N223134
+  BQ: Resolution
+end note
 
 class "Collection Involvement" as N223176 {
   + Collection Involvement Type : CollectionInvolvementTypeValues
@@ -88,15 +145,31 @@ class "Collection Agency Agreemen" as N223278 {
 
 class "Customer Credit Rating Assessment" as N223190 {
 }
+note right of N223190
+  Extensible: no
+  BOMDiagram: Customer Credit Rating BOM Diagram
+end note
 
 class "Customer Contact" as N223233 {
 }
+note right of N223233
+  Extensible: no
+  BOMDiagram: Contact Handler BOM Diagram
+end note
 
 class "Party" as N223169 {
 }
+note right of N223169
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Agreement" as N223204 {
 }
+note right of N223204
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 ' Relationships
 N223137 -- "0..*" N223221

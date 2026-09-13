@@ -5,6 +5,21 @@ title Internal Audit - BIAN BOM UML
 ' Source image: internal-audit-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52076.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -12,12 +27,25 @@ left to right direction
 class "Audit" as N74033 {
   + Audit Type : String
 }
+note right of N74033
+  AssetType: Internal Audit
+  ControlRecord: Internal Audit Assessment
+  HelperDiagram: Audit Helper Diagram
+end note
 
 class "Assessment" as N74050 {
 }
+note right of N74050
+  Extensible: yes
+  GenericArtifact: Assessment
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 class "Test" as N74030 {
 }
+note right of N74030
+  BQ: Type: Test
+end note
 
 enum "AuditTypeValues" as N74066 {
   Internal Audit
@@ -30,12 +58,20 @@ class "Audit Report" as N74123 {
 
 class "Report" as N74088 {
 }
+note right of N74088
+  Extensible: yes
+  HelperDiagram: Report Helper Diagram
+end note
 
 class "Audit Document" as N74125 {
 }
 
 class "Document" as N74085 {
 }
+note right of N74085
+  Extensible: yes
+  HelperDiagram: Document Helper Diagram
+end note
 
 enum "ComplianceCheckTypeValues" as N74146 {
   Regulatory Compliance Check
@@ -45,6 +81,10 @@ enum "ComplianceCheckTypeValues" as N74146 {
 
 class "Rule Set" as N74065 {
 }
+note right of N74065
+  Extensible: yes
+  HelperDiagram: Rule Set Helper Diagram
+end note
 
 enum "RuleSetTypeValues" as N74142 {
   Policy
@@ -60,6 +100,10 @@ class "Audit Request" as N74149 {
 
 class "Instruction" as N74058 {
 }
+note right of N74058
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Audit Involvement" as N74099 {
   + Audit Involvement Type : String
@@ -67,9 +111,16 @@ class "Audit Involvement" as N74099 {
 
 class "Party Role" as N74063 {
 }
+note right of N74063
+  Extensible: yes
+end note
 
 class "Party" as N74159 {
 }
+note right of N74159
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 enum "AuditInvolvementTypeValues" as N74152 {
   Auditor

@@ -5,24 +5,56 @@ title Card eCommerce Gateway - BIAN BOM UML
 ' Source image: card-ecommerce-gateway-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_45766.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Session" as N191533 {
 }
+note right of N191533
+  Extensible: yes
+  GenericArtifact: OperatingSession
+  HelperDiagram: System- Session Helper Diagram
+end note
 
 class "System" as N191691 {
 }
+note right of N191691
+  Extensible: yes
+end note
 
 class "eCommerce Gateway" as N191511 {
 }
+note right of N191511
+  AssetType: eCommerce Gateway
+end note
 
 class "eCommerce Gateway Session" as N191488 {
 }
+note right of N191488
+  ControlRecord: eCommerce Gateway Operating Session
+end note
 
 class "Payment Transaction" as N191627 {
 }
+note right of N191627
+  HelperDiagram: Payment Transaction Helper Diagram
+end note
 
 class "Payment Service" as N191581 {
 }
@@ -43,6 +75,11 @@ class "Card Payment Transaction" as N191603 {
   + Card Payment Transaction Identification : CardPaymentTransactionIdentification
   + Card Payment Transaction Service Type : CardPaymentTransactionServiceTypeValues
 }
+note right of N191603
+  Extensible: no
+  BQ: Card Transaction
+  HelperDiagram: Card Transaction Helper Diagram
+end note
 
 class "Card Payment Involvement" as N191736 {
   + Involvement Type : CardPaymentInvolvementTypeValues
@@ -73,6 +110,10 @@ class "Payment Card" as N191748 {
 
 class "Device" as N191662 {
 }
+note right of N191662
+  Extensible: yes
+  HelperDiagram: Device Helper Diagram
+end note
 
 enum "CardPaymentInvolvementTypeValues" as N191726 {
   Card Holder
@@ -86,10 +127,18 @@ enum "CardPaymentInvolvementTypeValues" as N191726 {
 class "Transaction Batch" as N191491 {
   + Batch Transaction Date Time : String
 }
+note right of N191491
+  BQ: Transaction Batch
+end note
 
 class "Card Payment Authentication" as N191626 {
   + Card Holder : InvolvedParty
 }
+note right of N191626
+  Extensible: no
+  BQ: Card Authentication
+  BOMDiagram: Card Transaction Tracking BOM Diagram
+end note
 
 class "Card Payment Authorization" as N191532 {
   + Transaction Success : TrueFalseIndicatorValues
@@ -103,33 +152,71 @@ class "Card Payment Authorization" as N191532 {
   + Failure Reason : FailureReasonTypeValues
   + Authorization Entity : InvolvedParty
 }
+note right of N191532
+  Extensible: no
+  BQ: Authorization
+  BOMDiagram: Card Authorization BOM Diagram
+end note
 
 class "Authorization" as N191716 {
 }
+note right of N191716
+  Extensible: yes
+end note
 
 class "Authentication" as N191720 {
 }
+note right of N191720
+  Extensible: yes
+  HelperDiagram: Authentication Helper Diagram
+end note
 
 class "Location" as N191561 {
 }
+note right of N191561
+  Extensible: yes
+  HelperDiagram: Location Helper Diagram
+end note
 
 class "Product" as N191590 {
 }
+note right of N191590
+  Extensible: yes
+  HelperDiagram: Product Helper Diagram
+end note
 
 class "Service" as N191599 {
 }
+note right of N191599
+  Extensible: yes
+end note
 
 class "Party" as N191643 {
 }
+note right of N191643
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Assessment" as N191499 {
 }
+note right of N191499
+  Extensible: yes
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 class "Account Entry" as N191525 {
 }
+note right of N191525
+  Extensible: yes
+end note
 
 class "Account" as N191512 {
 }
+note right of N191512
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 enum "PaymentCardTypeValues" as N191592 {
   CreditCard

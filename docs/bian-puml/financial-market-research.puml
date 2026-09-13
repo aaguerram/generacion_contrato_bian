@@ -5,6 +5,21 @@ title Financial Market Research - BIAN BOM UML
 ' Source image: financial-market-research-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_40809.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -14,6 +29,9 @@ class "Financial Market" as N188580 {
 
 class "Financial Market Research" as N188557 {
 }
+note right of N188557
+  AssetType: Financial Market Research
+end note
 
 class "Financial Market Research Report" as N188594 {
 }
@@ -30,15 +48,27 @@ class "Report" as N188573 {
   + Report Date Time : DateTime
   + Report Format : Text
 }
+note right of N188573
+  HelperDiagram: Report Helper Diagram
+end note
 
 class "Directory Entry" as N188579 {
 }
+note right of N188579
+  GenericArtifact: Directory Entry
+end note
 
 class "Financial Market Research Directory Entry" as N188555 {
 }
+note right of N188555
+  ControlRecord: Financial Market Research Directory Entry
+end note
 
 class "Directory" as N188560 {
 }
+note right of N188560
+  HelperDiagram: Directory Helper Diagram
+end note
 
 class "Financial Market Research Directory" as N188561 {
 }

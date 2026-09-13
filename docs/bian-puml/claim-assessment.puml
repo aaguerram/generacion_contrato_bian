@@ -5,12 +5,31 @@ title Claim Assessment - BIAN BOM UML
 ' Source image: claim-assessment-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51865.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Assessment" as N86302 {
 }
+note right of N86302
+  Extensible: yes
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 enum "ClaimAssessmentTypeValues" as N86545 {
   Policy Verification
@@ -26,6 +45,10 @@ enum "ClaimAssessmentTypeValues" as N86545 {
 
 class "Instruction" as N86470 {
 }
+note right of N86470
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Claim Instruction" as N86305 {
 }
@@ -39,10 +62,18 @@ class "Claim Arrangement" as N86344 {
 
 class "Arrangement" as N86550 {
 }
+note right of N86550
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Claim Transaction" as N86338 {
   + Claim Transaction Type : ClaimTransactionTypeValues
 }
+note right of N86338
+  Extensible: no
+  BOMDiagram: Claim Administration BOM Diagram
+end note
 
 class "Claim Assessment" as N86299 {
   + Claim Assessment Type : ClaimAssessmentTypeValues
@@ -50,6 +81,10 @@ class "Claim Assessment" as N86299 {
 
 class "Transaction" as N86362 {
 }
+note right of N86362
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 enum "InsuranceInvolvementTypeValues" as N86468 {
   Insurer (Insurance Company)
@@ -71,15 +106,31 @@ class "Claim Arrangement Involvement" as N86386 {
 
 class "Party" as N86359 {
 }
+note right of N86359
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Test" as N86308 {
 }
+note right of N86308
+  Extensible: yes
+  BQ: Type: Test
+end note
 
 class "Authentication" as N86296 {
 }
+note right of N86296
+  Extensible: no
+  HelperDiagram: Authentication Helper Diagram
+end note
 
 class "Party Authentication" as N86524 {
 }
+note right of N86524
+  Extensible: no
+  BOMDiagram: Party Authentication BOM Diagram
+end note
 
 enum "AssessmentTypeValues" as N86525 {
   Valuation
@@ -109,6 +160,9 @@ enum "AssessmentTypeValues" as N86525 {
 class "Insurance Agreement" as N86416 {
   + Insurance Agreement Type : InsuranceProductTypeValues
 }
+note right of N86416
+  Extensible: no
+end note
 
 enum "InsuranceProductTypeValues" as N86500 {
   Life Insurance
@@ -123,6 +177,10 @@ enum "InsuranceProductTypeValues" as N86500 {
 
 class "Product Agreement" as N86347 {
 }
+note right of N86347
+  Extensible: no
+  BOMDiagram: Sales Product Agreement BOM Diagram
+end note
 
 class "Funeral Policy Agreement" as N86578 {
   + Policy Number : Identifier
@@ -130,12 +188,24 @@ class "Funeral Policy Agreement" as N86578 {
   + Policy Term : Duration
   + Policy Status : AgreementStatus
 }
+note right of N86578
+  Extensible: no
+  BOMDiagram: Funeral Policy BOM Diagram
+end note
 
 class "Event" as N86544 {
 }
+note right of N86544
+  Extensible: no
+  BOMDiagram: Customer Event History BOM Diagram
+end note
 
 class "Document" as N86484 {
 }
+note right of N86484
+  Extensible: no
+  BOMDiagram: Document Directory BOM Diagram
+end note
 
 enum "ClaimEligibilityCheckTypeValues" as N86343 {
   Policy Eligibility Check
@@ -170,6 +240,10 @@ enum "ClaimExternalAgencyCheckTypeValues" as N86564 {
 
 class "Party Relationship" as N86537 {
 }
+note right of N86537
+  Extensible: no
+  BOMDiagram: Party Lifecycle Management BOM Diagram
+end note
 
 ' Relationships
 N86305 "0..1" -- "0..*" N86338

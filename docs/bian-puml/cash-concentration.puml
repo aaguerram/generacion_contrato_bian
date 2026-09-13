@@ -5,6 +5,21 @@ title Cash Concentration - BIAN BOM UML
 ' Source image: cash-concentration-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_34071.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -35,27 +50,57 @@ enum "Cash Concentration Service Arrangement Type" as N160470 {
 
 class "Account Entry" as N160521 {
 }
+note right of N160521
+  Extensible: yes
+end note
 
 class "Account" as N160534 {
 }
+note right of N160534
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Service" as N160531 {
 }
+note right of N160531
+  Extensible: yes
+end note
 
 class "Arrangement" as N160473 {
 }
+note right of N160473
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Instruction" as N160551 {
 }
+note right of N160551
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Transaction" as N160582 {
 }
+note right of N160582
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Party Role" as N160544 {
 }
+note right of N160544
+  Extensible: yes
+  HelperDiagram: Party Role Helper Diagram
+end note
 
 class "Party" as N160572 {
 }
+note right of N160572
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 ' Relationships
 N160516 "1" -- "0..*" N160478

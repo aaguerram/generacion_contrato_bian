@@ -5,24 +5,54 @@ title Direct Debit Mandate - BIAN BOM UML
 ' Source image: direct-debit-mandate-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_48852.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Directory" as N196503 {
 }
+note right of N196503
+  Extensible: yes
+  HelperDiagram: Directory Helper Diagram
+end note
 
 class "Directory Entry" as N196248 {
 }
+note right of N196248
+  Extensible: yes
+  GenericArtifact: Directory Entry
+end note
 
 class "Direct Debit Mandate Directory Entry" as N196251 {
 }
+note right of N196251
+  ControlRecord: Direct Debit Mandate Directory Entry
+end note
 
 class "Direct Debit Service" as N196442 {
 }
 
 class "Arrangement" as N196526 {
 }
+note right of N196526
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Direct Debit Mandate" as N196485 {
   + Direct Debit Mandate Identification : Identifier
@@ -31,19 +61,37 @@ class "Direct Debit Mandate" as N196485 {
   + Direct Debit Status : DirectDebitStatusTypeValues
   + Direct Debit Type : DirectDebitTypeValues
 }
+note right of N196485
+  AssetType: Direct Debit Mandate
+end note
 
 class "Mandate" as N196428 {
 }
+note right of N196428
+  Extensible: yes
+  HelperDiagram: Mandate Helper Diagram
+end note
 
 class "Feature" as N196275 {
 }
+note right of N196275
+  Extensible: yes
+  HelperDiagram: Feature Helper Diagram
+end note
 
 class "Payment Arrangement" as N196301 {
 }
+note right of N196301
+  Extensible: no
+  HelperDiagram: Payment Helper Diagram
+end note
 
 class "Payment Service" as N196421 {
   + Payment Service Type : PaymentServiceTypeValues
 }
+note right of N196421
+  Extensible: no
+end note
 
 enum "PaymentServiceTypeValues" as N196517 {
   Credit Transfer Service
@@ -72,26 +120,52 @@ class "Direct Debit Mandate Arrangement" as N196353 {
 
 class "Party" as N196388 {
 }
+note right of N196388
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Payment Transaction" as N196305 {
 }
+note right of N196305
+  Extensible: no
+  BOMDiagram: Payment Execution BOM Diagram
+end note
 
 class "Account Entry" as N196422 {
 }
+note right of N196422
+  Extensible: yes
+end note
 
 class "Transaction" as N196427 {
 }
+note right of N196427
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Instruction" as N196441 {
 }
+note right of N196441
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Direct Debit Instruction" as N196313 {
   + Direct Debit Type : DirectDebitTypeValues
   + PreNotification Date : DateTime
 }
+note right of N196313
+  Extensible: no
+end note
 
 class "Account" as N196325 {
 }
+note right of N196325
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Direct Debit Mandate Involvement" as N196501 {
   + Involvement Type : PaymentInvolvementTypeValues
@@ -113,6 +187,9 @@ enum "PaymentInvolvementTypeValues" as N196409 {
 
 class "Direct Debit Transaction" as N196482 {
 }
+note right of N196482
+  Extensible: no
+end note
 
 enum "DirectDebitTypeValues" as N196523 {
   Fixed Amount
@@ -124,9 +201,17 @@ enum "DirectDebitTypeValues" as N196523 {
 
 class "Payment Instruction" as N196479 {
 }
+note right of N196479
+  Extensible: no
+  BOMDiagram: Payment Instruction BOM Diagram
+  BOMDiagram: Payment Order BOM Diagram
+end note
 
 class "Service" as N196324 {
 }
+note right of N196324
+  Extensible: yes
+end note
 
 enum "DirectDebitStatusTypeValues" as N196298 {
   Active
@@ -156,14 +241,25 @@ enum "DirectDebitFrequencyValues" as N196341 {
 
 class "Agreement" as N196345 {
 }
+note right of N196345
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Direct Debit Service Agreement" as N196453 {
 }
+note right of N196453
+  Extensible: no
+end note
 
 class "Product Agreement" as N196499 {
   + Product Agreement Type : ProductAgreementTypeValues
   + Product Agreement Identification : Identifier
 }
+note right of N196499
+  Extensible: no
+  BOMDiagram: Sales Product Agreement BOM Diagram
+end note
 
 enum "ProductAgreementTypeValues" as N196318 {
   Current Account Agreement

@@ -5,6 +5,21 @@ title Financial Market Analysis - BIAN BOM UML
 ' Source image: financial-market-analysis-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52740.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -12,21 +27,41 @@ left to right direction
 class "Financial Market" as N78021 {
   + Financial Market Type : FinancialMarketTypeValues
 }
+note right of N78021
+  AssetType: Financial Market
+end note
 
 class "Financial Market Research" as N78026 {
 }
+note right of N78026
+  Extensible: no
+  BOMDiagram: Financial Market Research BOM Diagram
+end note
 
 class "Financial Market Information Service" as N78027 {
 }
+note right of N78027
+  Extensible: no
+  BOMDiagram: Market Information Management BOM Diagram
+end note
 
 class "Analysis" as N78015 {
 }
+note right of N78015
+  HelperDiagram: Analysis Helper Diagram
+end note
 
 class "Algorithm" as N78018 {
 }
+note right of N78018
+  BQ: Type: Algorithm
+end note
 
 class "Financial Market Analysis" as N78012 {
 }
+note right of N78012
+  ControlRecord: Financial Market Analysis
+end note
 
 ' Relationships
 N78021 "0..1" -- "0..*" N78026

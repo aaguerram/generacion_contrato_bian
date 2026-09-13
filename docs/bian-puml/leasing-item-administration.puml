@@ -5,30 +5,68 @@ title Leasing Item Administration - BIAN BOM UML
 ' Source image: leasing-item-administration-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51945.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Lease Agreement" as N159805 {
 }
+note right of N159805
+  Extensible: no
+end note
 
 class "Lease Arrangement" as N159755 {
 }
+note right of N159755
+  Extensible: no
+end note
 
 class "Agreement" as N159796 {
 }
+note right of N159796
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Arrangement" as N159785 {
 }
+note right of N159785
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Leasing Item Administrative Plan" as N159736 {
 }
+note right of N159736
+  ControlRecord: Leasing Item Administrative Plan
+end note
 
 class "Administrative Plan" as N159808 {
 }
+note right of N159808
+  GenericArtifact: Administrative Plan
+end note
 
 class "Routine" as N159777 {
 }
+note right of N159777
+  BQ: Type: Routine
+end note
 
 class "Asset Valuation" as N159849 {
   + Asset Value : Value
@@ -40,6 +78,9 @@ class "Asset Valuation" as N159849 {
   + Asset Valuation Validity Period : DateTimePeriod
   + Asse Valuation Amount : Amount
 }
+note right of N159849
+  BQ: Valuation
+end note
 
 class "Asset" as N159733 {
   + Asset Title : Text
@@ -53,12 +94,24 @@ class "Asset" as N159733 {
   + Asset Sub Classification Type : AssetSubClassificationTypeValues
   + Asset Sub Classification : Text
 }
+note right of N159733
+  BQ: Registration
+  AssetType: Leasing Item
+end note
 
 class "Assessment" as N159832 {
 }
+note right of N159832
+  BQ: Assurance
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 class "Leasing Item Arrangement" as N159865 {
 }
+note right of N159865
+  Extensible: no
+  BOMDiagram: Leasing BOM Diagram
+end note
 
 class "Lease Instruction" as N159773 {
 }
@@ -68,9 +121,17 @@ class "Lease Transaction" as N159847 {
 
 class "Transaction" as N159744 {
 }
+note right of N159744
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Instruction" as N159853 {
 }
+note right of N159853
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 ' Relationships
 N159805 "1" -- "1..*" N159755

@@ -5,6 +5,21 @@ title Product Expert Sales Support - BIAN BOM UML
 ' Source image: product-expert-sales-support-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_40532.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -15,15 +30,27 @@ class "Routine" as N188069 {
   + Routine Data Time : DateTime
   + Routine Status : Status
 }
+note right of N188069
+  BQ: Type: Routine
+end note
 
 class "Administrative Plan" as N188131 {
 }
+note right of N188131
+  GenericArtifact: Administrative Plan
+end note
 
 class "Sales Specialist Support Service" as N188118 {
 }
+note right of N188118
+  AssetType: Sales Specialist Support
+end note
 
 class "Sales Specialist Support Administrative Plan" as N188072 {
 }
+note right of N188072
+  ControlRecord: Sales Specialist Support Administrative Plan
+end note
 
 class "Resource" as N188127 {
   + Resource Status : String
@@ -38,21 +65,42 @@ class "Sales Specialist Support Request" as N188137 {
 
 class "System Service" as N188084 {
 }
+note right of N188084
+  Extensible: yes
+end note
 
 class "System" as N188160 {
 }
+note right of N188160
+  Extensible: yes
+  HelperDiagram: System- Session Helper Diagram
+end note
 
 class "Session" as N188113 {
 }
+note right of N188113
+  Extensible: yes
+end note
 
 class "Sales Specialist Support Assignment Session" as N188075 {
 }
+note right of N188075
+  BQ: Assignment
+end note
 
 class "Location" as N188087 {
 }
+note right of N188087
+  Extensible: yes
+  HelperDiagram: Location Helper Diagram
+end note
 
 class "Session Event" as N188112 {
 }
+note right of N188112
+  Extensible: yes
+  HelperDiagram: Session- Event Helper Diagram
+end note
 
 class "Sales Specialist Support Assignment Session Event" as N188140 {
   + Assignment Session Event Result : String

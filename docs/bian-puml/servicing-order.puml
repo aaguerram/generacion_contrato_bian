@@ -5,48 +5,103 @@ title Servicing Order - BIAN BOM UML
 ' Source image: servicing-order-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_47165.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Procedure" as N188299 {
 }
+note right of N188299
+  Extensible: yes
+  GenericArtifact: Procedure
+  HelperDiagram: Procedure Helper Diagram
+end note
 
 class "Workstep" as N188305 {
 }
+note right of N188305
+  BQ: Type: Worksteps
+end note
 
 class "Servicing Order Procedure" as N188302 {
 }
+note right of N188302
+  ControlRecord: ServicingOrderProcedure
+end note
 
 class "Servicing Order" as N188310 {
 }
+note right of N188310
+  AssetType: ServicingOrder
+end note
 
 class "Instruction" as N188324 {
 }
+note right of N188324
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Servicing Order Involvement" as N188355 {
 }
 
 class "Customer Relationship" as N188328 {
 }
+note right of N188328
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Servicing Mandate" as N188352 {
 }
+note right of N188352
+  Extensible: no
+  BOMDiagram: Servicing Mandate BOM Diagram
+end note
 
 class "Product Sales Agreement" as N188336 {
 }
+note right of N188336
+  Extensible: no
+end note
 
 class "Servicing Arrangement" as N188361 {
 }
 
 class "Customer Product and Service Profile" as N188327 {
 }
+note right of N188327
+  Extensible: no
+  BOMDiagram: Customer Product And Service Eligibility BOM Diagram
+end note
 
 class "Party" as N188323 {
 }
+note right of N188323
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 class "Party Role" as N188311 {
 }
+note right of N188311
+  Extensible: yes
+end note
 
 ' Relationships
 N188299 -- "0..*" N188305

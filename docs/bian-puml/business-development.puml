@@ -5,6 +5,21 @@ title Business Development - BIAN BOM UML
 ' Source image: business-development-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_43926.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -17,6 +32,10 @@ class "Business Development Strategy" as N192150 {
 
 class "Rule Set" as N192195 {
 }
+note right of N192195
+  Extensible: yes
+  HelperDiagram: Rule Set Helper Diagram
+end note
 
 class "Business Initiative" as N192293 {
   + Initiative Type : BusinessInitiativeTypeValues
@@ -27,21 +46,40 @@ class "Business Initiative" as N192293 {
 
 class "Document" as N192207 {
 }
+note right of N192207
+  Extensible: no
+  BOMDiagram: Document Directory BOM Diagram
+end note
 
 class "Correspondence" as N192224 {
 }
+note right of N192224
+  Extensible: no
+  BOMDiagram: Correspondence BOM Diagram
+end note
 
 class "Business Initiative Involvement" as N192204 {
 }
 
 class "Party" as N192230 {
 }
+note right of N192230
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Strategy" as N192159 {
 }
+note right of N192159
+  Extensible: yes
+end note
 
 class "Plan" as N192306 {
 }
+note right of N192306
+  Extensible: yes
+  HelperDiagram: Plan Helper Diagram
+end note
 
 enum "BusinessInitiativeTypeValues" as N192252 {
   Market Expansion
@@ -62,6 +100,10 @@ enum "BusinessInitiativeTypeValues" as N192252 {
 
 class "Project" as N192298 {
 }
+note right of N192298
+  Extensible: yes
+  HelperDiagram: Project Helper Diagram
+end note
 
 enum "ProjectDareTimeTypeValues" as N192236 {
   Kickoff Date
@@ -95,9 +137,16 @@ enum "BusinessDevelopmentInvolvementTypeValues" as N192183 {
 
 class "Goal" as N192156 {
 }
+note right of N192156
+  Extensible: yes
+  BQ: Type: Goal
+end note
 
 class "Planned Action" as N192160 {
 }
+note right of N192160
+  Extensible: yes
+end note
 
 class "Business Development Goal" as N192165 {
   + Business Development Goal Type : BusinessDevelopmentGoalTypeValues

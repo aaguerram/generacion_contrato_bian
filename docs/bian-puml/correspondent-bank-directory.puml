@@ -5,12 +5,32 @@ title Correspondent Bank Directory - BIAN BOM UML
 ' Source image: correspondent-bank-directory-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_37771.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Correspondent Banking Agreement" as N176682 {
 }
+note right of N176682
+  Extensible: no
+  AssetType: Correspondent Bank
+  BOMDiagram: Correspondent Bank Operations BOM Diagram
+end note
 
 class "Correspondent Banking Involvement" as N176699 {
   + Correspondent Banking Involvement Type : CorrespondentBankingInvolvementTypeVal ues
@@ -18,12 +38,24 @@ class "Correspondent Banking Involvement" as N176699 {
 
 class "Directory" as N176711 {
 }
+note right of N176711
+  Extensible: yes
+  HelperDiagram: Directory Helper Diagram
+end note
 
 class "Directory Entry" as N176686 {
 }
+note right of N176686
+  Extensible: yes
+end note
 
 class "Party" as N176707 {
 }
+note right of N176707
+  Extensible: no
+  AssetType: Correspondent Bank
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Correspondent Bank Directory" as N176688 {
 }
@@ -38,6 +70,10 @@ class "Correspondent Bank Directory Entry" as N176677 {
 
 class "Agreement" as N176697 {
 }
+note right of N176697
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 ' Relationships
 N176682 "0..1" -- "0..*" N176699

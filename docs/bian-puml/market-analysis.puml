@@ -5,12 +5,31 @@ title Market Analysis - BIAN BOM UML
 ' Source image: market-analysis-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_28791.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Analysis" as N101885 {
 }
+note right of N101885
+  Extensible: yes
+  HelperDiagram: Analysis Helper Diagram
+end note
 
 class "Market Analysis" as N101970 {
 }
@@ -20,9 +39,16 @@ class "Market Research Analysis Request" as N102005 {
 
 class "Market Research Report" as N101957 {
 }
+note right of N101957
+  Extensible: no
+end note
 
 class "Party" as N101945 {
 }
+note right of N101945
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Market" as N101893 {
   + Market Type : MarketTypeValues
@@ -33,6 +59,10 @@ class "Market" as N101893 {
 
 class "Market Research" as N101982 {
 }
+note right of N101982
+  Extensible: no
+  BOMDiagram: Market Research BOM Diagram
+end note
 
 class "Market Research Analysis" as N101888 {
   + Market Research Analysis : MarketResearchAnalysisTypeValues
@@ -40,12 +70,24 @@ class "Market Research Analysis" as N101888 {
 
 class "Report" as N101928 {
 }
+note right of N101928
+  Extensible: yes
+  HelperDiagram: Report Helper Diagram
+end note
 
 class "Location" as N102008 {
 }
+note right of N102008
+  Extensible: yes
+  HelperDiagram: Location Helper Diagram
+end note
 
 class "Instruction" as N101917 {
 }
+note right of N101917
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Market Research Analysis Involvement" as N101899 {
   + Market Research Analysis Involvement Type : MarketResearchAnalysisInvolvementTypeValues
@@ -68,9 +110,17 @@ enum "MarketTypeValues" as N101941 {
 
 class "Competitor Analysis" as N101896 {
 }
+note right of N101896
+  Extensible: no
+  BOMDiagram: Competitor Analysis BOM Diagram
+end note
 
 class "Customer Insight" as N101975 {
 }
+note right of N101975
+  Extensible: no
+  BOMDiagram: Customer Behavior Insights BOM Diagram
+end note
 
 enum "MarketResearchAnalysisTypeValues" as N101882 {
   Customer Need Analysis

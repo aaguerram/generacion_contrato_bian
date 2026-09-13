@@ -5,17 +5,38 @@ title Issued Device Tracking - BIAN BOM UML
 ' Source image: issued-device-tracking-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_45192.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Device" as N156787 {
 }
+note right of N156787
+  Extensible: yes
+end note
 
 class "Device Arrangement" as N156727 {
   + Device Functionality : Action
   + Device Remuneration : Fee Arrangement
 }
+note right of N156727
+  Extensible: no
+end note
 
 class "Issued Device" as N156714 {
   + Issued Device Status : IssuedDeviceStatusTypeValues
@@ -35,6 +56,9 @@ class "Product Sales Agreement" as N156723 {
   + Agreement Identification : Identifier
   + Product Reference : Product
 }
+note right of N156723
+  Extensible: yes
+end note
 
 class "Device Usage" as N156783 {
   + Device Transaction Used Element : String
@@ -58,6 +82,9 @@ class "Measurement" as N156711 {
 
 class "System" as N156731 {
 }
+note right of N156731
+  Extensible: yes
+end note
 
 ' Relationships
 N156723 "1" -- "0..*" N156727

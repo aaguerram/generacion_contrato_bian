@@ -5,16 +5,38 @@ title Current Account - BIAN BOM UML
 ' Source image: current-account-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_38290.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Product" as N67777 {
 }
+note right of N67777
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 class "Current Account Product" as N67907 {
   + Current Account Product Type : CurrentAccountTypeValues
 }
+note right of N67907
+  Extensible: no
+end note
 
 class "Current Account Arrangement" as N67955 {
   + Current Account Arrangement Type : ArrangementTypeValues
@@ -27,15 +49,29 @@ class "Current Account" as N67975 {
 
 class "Account" as N67712 {
 }
+note right of N67712
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Fee Arrangement" as N67931 {
 }
+note right of N67931
+  HelperDiagram: Fee Helper Diagram
+end note
 
 class "Deposit Service Arrangement" as N67791 {
 }
+note right of N67791
+  HelperDiagram: Deposit Helper Diagram
+end note
 
 class "Withdrawal Service Arrangement" as N67925 {
 }
+note right of N67925
+  HelperDiagram: Interest Helper Diagram
+  HelperDiagram: Withdrawal Helper Diagram
+end note
 
 class "Interest Arrangement" as N67783 {
 }
@@ -45,28 +81,50 @@ class "Sweep Arrangement" as N67803 {
 
 class "Payment Arrangement" as N67850 {
 }
+note right of N67850
+  HelperDiagram: Payment Helper Diagram
+  HelperDiagram: Sweep Helper Diagram
+end note
 
 class "Product Feature" as N67819 {
 }
+note right of N67819
+  Extensible: no
+end note
 
 class "Current Account Agreement" as N67653 {
   + Current Account Agreement Type : CurrentAccountTypeValues
 }
+note right of N67653
+  AssetType: CurrentAccount
+end note
 
 class "Limit Arrangement" as N67927 {
 }
+note right of N67927
+  HelperDiagram: Limit Helper Diagram
+end note
 
 class "Account Statement" as N67883 {
 }
+note right of N67883
+  HelperDiagram: Account Statement Helper Diagram
+end note
 
 class "Information Arrangement" as N67987 {
 }
 
 class "Debit Card Arrangement" as N67687 {
 }
+note right of N67687
+  HelperDiagram: Debit Card Helper Diagram
+end note
 
 class "Lien Arrangement" as N67756 {
 }
+note right of N67756
+  HelperDiagram: Lien Helper Diagram
+end note
 
 enum "ArrangementTypeValues" as N67788 {
   Sweep Arrangement
@@ -102,6 +160,9 @@ enum "ArrangementTypeValues" as N67788 {
 
 class "Device Arrangement" as N67813 {
 }
+note right of N67813
+  HelperDiagram: Device Helper Diagram
+end note
 
 class "Current Account Instruction" as N67957 {
 }
@@ -111,12 +172,23 @@ class "Current Account Transaction" as N67817 {
 
 class "Instruction" as N67740 {
 }
+note right of N67740
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Account Entry" as N67680 {
 }
+note right of N67680
+  Extensible: yes
+end note
 
 class "Transaction" as N67720 {
 }
+note right of N67720
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 enum "CurrentAccountTypeValues" as N67664 {
   Business Current Account
@@ -135,9 +207,16 @@ enum "CurrentAccountTypeValues" as N67664 {
 
 class "Product Agreement" as N67983 {
 }
+note right of N67983
+  Extensible: no
+  BOMDiagram: Sales Product Agreement BOM Diagram
+end note
 
 class "Product Arrangement" as N67853 {
 }
+note right of N67853
+  Extensible: no
+end note
 
 class "Current Account Involvement" as N67856 {
   + Current Account Involvement Type : CurrentAccountInvolvementTypeValues
@@ -145,6 +224,10 @@ class "Current Account Involvement" as N67856 {
 
 class "Party" as N67933 {
 }
+note right of N67933
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 enum "CurrentAccountInvolvementTypeValues" as N67962 {
   Current Account Holder or Customer

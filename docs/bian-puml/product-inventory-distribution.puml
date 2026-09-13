@@ -5,31 +5,67 @@ title Product Inventory Distribution - BIAN BOM UML
 ' Source image: product-inventory-distribution-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51881.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Product Inventory" as N221255 {
 }
+note right of N221255
+  Extensible: no
+end note
 
 class "Product Inventory Item" as N221204 {
 }
+note right of N221204
+  Extensible: no
+end note
 
 class "Product" as N221187 {
 }
+note right of N221187
+  Extensible: yes
+  HelperDiagram: Product Helper Diagram
+end note
 
 class "Product Inventory Distribution Arrangement" as N221165 {
   + Product Inventory Distribution Arrangement Type : String
 }
+note right of N221165
+  AssetType: Product Inventory Distribution
+end note
 
 class "Product Inventory Distribution Instruction" as N221286 {
 }
 
 class "Arrangement" as N221193 {
 }
+note right of N221193
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Agreement" as N221224 {
 }
+note right of N221224
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Product Inventory Distribution Transaction" as N221180 {
 }
@@ -46,30 +82,62 @@ class "Product Inventory Distribution Involvement" as N221216 {
 
 class "Routine" as N221197 {
 }
+note right of N221197
+  BQ: Type: Routine
+end note
 
 class "Administrative Plan" as N221202 {
 }
+note right of N221202
+  GenericArtifact: Administrative Plan
+end note
 
 class "Product Inventory Distribution Administrative Plan" as N221252 {
 }
+note right of N221252
+  ControlRecord: Product Inventory Distribution Administrative Plan
+  BOMDiagram: Product Inventory Item Management BOM Diagram
+end note
 
 class "Party Role" as N221208 {
 }
+note right of N221208
+  Extensible: yes
+end note
 
 class "Party" as N221211 {
 }
+note right of N221211
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 class "Account" as N221258 {
 }
+note right of N221258
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Account Entry" as N221267 {
 }
+note right of N221267
+  Extensible: yes
+end note
 
 class "Instruction" as N221257 {
 }
+note right of N221257
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Transaction" as N221279 {
 }
+note right of N221279
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 ' Relationships
 N221255 -- N221204 : 0..*

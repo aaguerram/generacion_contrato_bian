@@ -5,33 +5,69 @@ title Customer Credit Rating - BIAN BOM UML
 ' Source image: customer-credit-rating-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_43994.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Measurement" as N77762 {
 }
+note right of N77762
+  GenericArtifact: Measurement
+end note
 
 class "Signal" as N77819 {
 }
+note right of N77819
+  BQ: Type:Signals
+end note
 
 class "Customer Behavior Model" as N77767 {
 }
+note right of N77767
+  Extensible: no
+  BOMDiagram: Customer Behavior Models BOM Diagram
+end note
 
 class "Credit Rating Agency" as N77774 {
 }
 
 class "Party Role" as N77791 {
 }
+note right of N77791
+  Extensible: yes
+end note
 
 class "Internal Credit Analysis Report" as N77754 {
 }
 
 class "Report" as N77866 {
 }
+note right of N77866
+  Extensible: yes
+  HelperDiagram: Report Helper Diagram
+end note
 
 class "Customer Relationship" as N77809 {
 }
+note right of N77809
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Internal Credit Analysis" as N77834 {
 }
@@ -41,12 +77,20 @@ class "External Credit Rating Service" as N77854 {
 
 class "Analysis" as N77825 {
 }
+note right of N77825
+  Extensible: yes
+  HelperDiagram: Analysis Helper Diagram
+end note
 
 class "Credit Alert" as N77877 {
 }
 
 class "Event" as N77786 {
 }
+note right of N77786
+  Extensible: yes
+  HelperDiagram: Event Helper Diagram
+end note
 
 class "External Credit Rating Report" as N77847 {
 }
@@ -62,12 +106,22 @@ class "Customer Rating" as N77748 {
   + Customer Rating Value Date : DateTime
   + Customer Rating Validity Period : DateTimePeriod
 }
+note right of N77748
+  AssetType: CustomerCreditRating
+end note
 
 class "Assessment" as N77777 {
 }
+note right of N77777
+  Extensible: yes
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 class "Customer Credit Rating Measurement" as N77784 {
 }
+note right of N77784
+  ControlRecord: CustomerCreditRatingMeasurement
+end note
 
 class "Customer Activity Report" as N77820 {
 }
@@ -80,6 +134,10 @@ enum "CustomerRatingTypeValues" as N77833 {
 
 class "Party" as N77780 {
 }
+note right of N77780
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 ' Relationships
 N77762 "0..1" -- "0..*" N77819

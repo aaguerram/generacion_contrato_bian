@@ -5,6 +5,21 @@ title Corporate Payroll Services - BIAN BOM UML
 ' Source image: corporate-payroll-services-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36605.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -27,24 +42,51 @@ class "Payroll Payment Transaction" as N232293 {
 
 class "Instruction" as N232344 {
 }
+note right of N232344
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Transaction" as N232307 {
 }
+note right of N232307
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Product" as N232352 {
 }
+note right of N232352
+  Extensible: yes
+  HelperDiagram: Agreement- Product Helper Diagram
+end note
 
 class "Arrangement" as N232306 {
 }
+note right of N232306
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Agreement" as N232362 {
 }
+note right of N232362
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Account" as N232289 {
 }
+note right of N232289
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Account Entry" as N232329 {
 }
+note right of N232329
+  Extensible: yes
+end note
 
 enum "PayrollPaymentServiceArrangementTypeValues" as N232335 {
   Production Service Reporting Arrangement

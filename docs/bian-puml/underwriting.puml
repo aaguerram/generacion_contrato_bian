@@ -5,6 +5,21 @@ title Underwriting - BIAN BOM UML
 ' Source image: underwriting-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_40766.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -12,6 +27,9 @@ left to right direction
 class "Loan Agreement" as N192526 {
   + Loan Term And Condition : Condition
 }
+note right of N192526
+  Extensible: no
+end note
 
 class "Loan Product" as N192588 {
   + Loan Amount : Amount
@@ -19,12 +37,18 @@ class "Loan Product" as N192588 {
   + Loan Product Identifier : Identifier
   + Loan Product Type : LoanProductTypeValues
 }
+note right of N192588
+  Extensible: no
+end note
 
 class "Loan Agreement Involvement" as N192494 {
   + Loan Involvement Type : LoanInvolvementTypeValues
   + Agreement Reference : Loan Agreement
   + Party Reference : Party
 }
+note right of N192494
+  Extensible: no
+end note
 
 class "Underwriting Arrangement" as N192534 {
 }
@@ -37,12 +61,19 @@ class "Collateral Asset Arrangement" as N192572 {
   + Collateral Balance : AccountBalance
   + Collateral Purpose : CollateralPurposeTypeValues
 }
+note right of N192572
+  Extensible: no
+  BOMDiagram: Collateral Allocation Management BOM Diagram
+end note
 
 class "Collateral Asset" as N192577 {
   + Collateral Asset Identification : Identifier
   + Collateral Asset Type : CollateralTypeValues
   + Collateral Asset Status : CollateralAssetStatusTypeValues
 }
+note right of N192577
+  Extensible: no
+end note
 
 class "Underwriting Arrangement Involvement" as N192616 {
   + Underwriting Involvement Type : UnderwritingInvolvementType
@@ -53,26 +84,52 @@ class "Underwriting Arrangement Involvement" as N192616 {
 class "Collateral Involvement" as N192587 {
   + Collateral Involvement Type : CollateralInvolvementTypeValues
 }
+note right of N192587
+  Extensible: no
+end note
 
 class "Underwriting Assessment" as N192621 {
   + Underwriting Assessment Identifier : Identifier
 }
+note right of N192621
+  ControlRecord: Underwriting Assessment
+end note
 
 class "Assessment" as N192482 {
 }
+note right of N192482
+  Extensible: yes
+  GenericArtifact: Agreement
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 class "Underwriting" as N192453 {
 }
+note right of N192453
+  AssetType: Underwriting
+end note
 
 class "Agreement" as N192558 {
 }
+note right of N192558
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Product" as N192516 {
 }
+note right of N192516
+  Extensible: yes
+  HelperDiagram: Product Helper Diagram
+end note
 
 class "Disbursement Arrangement" as N192579 {
   + loan Disbursement Expected Date : DateTime
 }
+note right of N192579
+  Extensible: no
+  BOMDiagram: Disbursement BOM Diagram
+end note
 
 class "Loan Arrangement" as N192617 {
   + Loan Origination Date : Date
@@ -81,9 +138,16 @@ class "Loan Arrangement" as N192617 {
   + Loan Amount : Amount
   + Loan Arrangement Type : ArrangementTypeValues
 }
+note right of N192617
+  Extensible: no
+end note
 
 class "Arrangement" as N192594 {
 }
+note right of N192594
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 enum "LoanInvolvementTypeValues" as N192612 {
   Loan Lender
@@ -93,6 +157,10 @@ enum "LoanInvolvementTypeValues" as N192612 {
 
 class "Party" as N192501 {
 }
+note right of N192501
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 enum "LoanProductTypeValues" as N192561 {
   Consumer Loan

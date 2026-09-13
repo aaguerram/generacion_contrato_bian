@@ -5,21 +5,49 @@ title Contact Center Operations - BIAN BOM UML
 ' Source image: contact-center-operations-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_37828.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Contact Center Administrative Plan" as N249547 {
 }
+note right of N249547
+  ControlRecord: Contact Center Administrative Plan
+end note
 
 class "Administrative Plan" as N249541 {
 }
+note right of N249541
+  GenericArtifact: Administrative Plan
+  HelperDiagram: Administrative Plan Helper Diagram
+end note
 
 class "Routine" as N249554 {
 }
+note right of N249554
+  BQ: Type: Routines
+end note
 
 class "Customer Contact Center" as N249533 {
 }
+note right of N249533
+  AssetType: Contact Center
+end note
 
 class "Contact Center Operating Configuration" as N249555 {
 }
@@ -36,12 +64,21 @@ class "Point Of Service" as N249560 {
 
 class "Peak Load Detecting" as N249530 {
 }
+note right of N249530
+  BQ: Peak Load
+end note
 
 class "Troubleshooting" as N249527 {
 }
+note right of N249527
+  BQ: Troubleshooting
+end note
 
 class "Customer Service Representative Assignment" as N249536 {
 }
+note right of N249536
+  BQ: Assignment
+end note
 
 ' Relationships
 N249541 <|-- N249547

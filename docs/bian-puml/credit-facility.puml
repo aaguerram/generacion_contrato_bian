@@ -5,6 +5,21 @@ title Credit Facility - BIAN BOM UML
 ' Source image: credit-facility-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_35934.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -12,6 +27,9 @@ left to right direction
 class "Credit Facility" as N189539 {
   + Credit Facility Type : CreditFacilityTypeValues
 }
+note right of N189539
+  AssetType: Credit Facility
+end note
 
 class "Credit Facility Arrangement" as N189542 {
   + Credit Facility Amount : Amount
@@ -20,12 +38,24 @@ class "Credit Facility Arrangement" as N189542 {
   + Credit Facility Rate Type : CreditFacilityRateTypeValues
   + Credit Facility Type : CreditFacilityTypeValues
 }
+note right of N189542
+  ControlRecord: Credit Facility Arrangement
+end note
 
 class "Arrangement" as N189651 {
 }
+note right of N189651
+  Extensible: yes
+  GenericArtifact: Arrangement
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Product" as N189713 {
 }
+note right of N189713
+  Extensible: yes
+  HelperDiagram: Product Helper Diagram
+end note
 
 class "Credit Facility Agreement" as N189574 {
   + Credit Facility Status : AccountStatusTypeValues
@@ -33,24 +63,47 @@ class "Credit Facility Agreement" as N189574 {
 
 class "Agreement" as N189689 {
 }
+note right of N189689
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Fee Arrangement" as N189545 {
 }
+note right of N189545
+  BQ: Service Fees
+  HelperDiagram: Fee Helper Diagram
+end note
 
 class "Account" as N189715 {
 }
+note right of N189715
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Loan" as N189616 {
 }
 
 class "Collateral Agreement" as N189561 {
 }
+note right of N189561
+  Extensible: no
+  BOMDiagram: Collateral Allocation Management BOM Diagram
+end note
 
 class "Customer Agreement" as N189568 {
 }
+note right of N189568
+  Extensible: no
+  BOMDiagram: Customer Agreement BOM Diagram
+end note
 
 class "Limit Arrangement" as N189708 {
 }
+note right of N189708
+  HelperDiagram: Limit Helper Diagram
+end note
 
 class "Credit Facility Instruction" as N189640 {
 }
@@ -60,12 +113,23 @@ class "Credit Facility Transaction" as N189670 {
 
 class "Transaction" as N189556 {
 }
+note right of N189556
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Instruction" as N189699 {
 }
+note right of N189699
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Account Entry" as N189611 {
 }
+note right of N189611
+  Extensible: yes
+end note
 
 enum "CreditFacilityTypeValues" as N189677 {
   Revolving

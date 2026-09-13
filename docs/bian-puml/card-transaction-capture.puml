@@ -5,12 +5,30 @@ title Card Transaction Capture - BIAN BOM UML
 ' Source image: card-transaction-capture-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52217.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Card Payment Arrangement" as N204602 {
 }
+note right of N204602
+  Extensible: no
+end note
 
 class "Card Payment Transaction" as N204648 {
   + Amount : Amount[1..*]
@@ -28,6 +46,10 @@ class "Card Payment Transaction" as N204648 {
   + Card Payment Transaction Identification : CardPaymentTransactionIdentification
   + Card Payment Transaction Service Type : CardPaymentTransactionServiceTypeValues
 }
+note right of N204648
+  Extensible: no
+  HelperDiagram: Card Transaction Helper Diagram
+end note
 
 class "Money Transfer Transaction" as N204577 {
 }
@@ -44,9 +66,20 @@ class "Card Payment Authorization" as N204568 {
   + Failure Reason : FailureReasonTypeValues
   + Authorization Entity : InvolvedParty
 }
+note right of N204568
+  Extensible: no
+  BQ: Transaction Authorization
+  BOMDiagram: Card Authorization BOM Diagram
+  BOMDiagram: Card Financial Settlement BOM Diagram
+end note
 
 class "Card Payment Instruction" as N204570 {
 }
+note right of N204570
+  BQ: Transaction Capture
+  AssetType: Credit Card Financial Capture
+  ControlRecord: Credit Card Financial Capture Transaction
+end note
 
 class "Payment Service" as N204590 {
 }
@@ -56,10 +89,17 @@ class "Payment Arrangement" as N204737 {
 
 class "Card Payment Account" as N204580 {
 }
+note right of N204580
+  Extensible: no
+  BOMDiagram: Credit Card BOM Diagram
+end note
 
 class "Card Payment Authentication" as N204573 {
   + Card Holder : InvolvedParty
 }
+note right of N204573
+  Extensible: no
+end note
 
 enum "AuthenticationMethodTypeValues" as N204824 {
   OnLinePIN
@@ -154,19 +194,35 @@ class "Payment Card" as N204658 {
 
 class "Device" as N204799 {
 }
+note right of N204799
+  Extensible: yes
+  HelperDiagram: Device Helper Diagram
+end note
 
 class "Card Settlement" as N204646 {
   + Card Settlement Type : CardSettlementTypeValues
 }
+note right of N204646
+  Extensible: no
+end note
 
 class "Card Clearing" as N204623 {
 }
+note right of N204623
+  Extensible: no
+  BOMDiagram: Card Clearing BOM Diagram
+end note
 
 class "Card Network" as N204687 {
 }
 
 class "Transaction" as N204586 {
 }
+note right of N204586
+  Extensible: yes
+  GenericArtifact: Transaction
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Card Payment Involvement" as N204690 {
   + Involvement Type : CardPaymentInvolvementTypeValues
@@ -185,21 +241,39 @@ enum "CardPaymentInvolvementTypeValues" as N204724 {
 
 class "Party" as N204607 {
 }
+note right of N204607
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Payment Instruction" as N204675 {
 }
+note right of N204675
+  HelperDiagram: Payment Instruction Helper Diagram
+end note
 
 class "Instruction" as N204741 {
 }
+note right of N204741
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Service" as N204792 {
 }
+note right of N204792
+  Extensible: yes
+end note
 
 class "Service Arrangement" as N204697 {
 }
 
 class "Arrangement" as N204840 {
 }
+note right of N204840
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 ' Relationships
 N204568 "0..*" -- "0..1" N204648

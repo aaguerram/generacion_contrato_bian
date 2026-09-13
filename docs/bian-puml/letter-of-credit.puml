@@ -5,6 +5,21 @@ title Letter of Credit - BIAN BOM UML
 ' Source image: letter-of-credit-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52220.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -23,6 +38,10 @@ class "Undertaking" as N221031 {
 
 class "Agreement" as N221082 {
 }
+note right of N221082
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Undertaking Arrangement" as N220859 {
   + Undertaking Arrangement Type : UndertakingArrangementTypeValues
@@ -40,15 +59,31 @@ class "Undertaking Instruction" as N220853 {
 class "Undertaking Transaction" as N220856 {
   + Undertaking Transaction Type : UndertakingTransactionTypeValues
 }
+note right of N220856
+  ControlRecord: Letter Of Credit Transaction
+end note
 
 class "Arrangement" as N220966 {
 }
+note right of N220966
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Instruction" as N221153 {
 }
+note right of N221153
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Transaction" as N220864 {
 }
+note right of N220864
+  Extensible: yes
+  GenericArtifact: Transaction
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 enum "UndertakingArrangementTypeValues" as N220871 {
   Pricing Arrangement
@@ -68,9 +103,17 @@ class "Letter of Credit" as N220970 {
 
 class "Document" as N220915 {
 }
+note right of N220915
+  Extensible: no
+  BOMDiagram: Document Directory BOM Diagram
+end note
 
 class "Party" as N221057 {
 }
+note right of N221057
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Undertaking Involvement" as N221043 {
   + Undertaking Involvement Type : UndertakingInvolvementTypeValues
@@ -98,9 +141,16 @@ enum "UndertakingTransactionTypeValues" as N221158 {
 
 class "Collateral Allocation Request" as N220873 {
 }
+note right of N220873
+  Extensible: no
+end note
 
 class "Collateral Asset Allocation" as N220942 {
 }
+note right of N220942
+  Extensible: no
+  BOMDiagram: Collateral Allocation Management BOM Diagram
+end note
 
 class "Collateral Asset Arrangement" as N220878 {
 }
@@ -115,18 +165,37 @@ enum "LetterOfCreditTypeValues" as N221052 {
 
 class "Account" as N221067 {
 }
+note right of N221067
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Account Entry" as N220903 {
 }
+note right of N220903
+  Extensible: yes
+end note
 
 class "Payment Instruction" as N220898 {
 }
+note right of N220898
+  Extensible: no
+  BOMDiagram: Payment Order BOM Diagram
+end note
 
 class "Payment Transaction" as N220989 {
 }
+note right of N220989
+  Extensible: no
+  BOMDiagram: Payment Execution BOM Diagram
+end note
 
 class "Financial Instrument" as N221147 {
 }
+note right of N221147
+  Extensible: no
+  BOMDiagram: Financial Instrument Reference Data Management BOM Diagram
+end note
 
 enum "UndertakingDateTypeValues" as N221002 {
   Undertaking Termination Date
@@ -165,6 +234,10 @@ enum "UndertakingInvolvementTypeValues" as N220933 {
 
 class "Rule Set" as N220965 {
 }
+note right of N220965
+  Extensible: yes
+  HelperDiagram: Rule Set Helper Diagram
+end note
 
 class "Undertaking Demand Payment Arrangement" as N221061 {
   + Demand Submission Date : DateTime
@@ -216,6 +289,10 @@ enum "UndertakingTypeValues" as N220939 {
 
 class "Correspondence" as N221074 {
 }
+note right of N221074
+  Extensible: no
+  BOMDiagram: Correspondence BOM Diagram
+end note
 
 enum "UndertakingDemandTypeValues" as N220974 {
   Pay Only
@@ -227,6 +304,9 @@ class "Communication Channel" as N220976 {
 
 class "Channel" as N221151 {
 }
+note right of N221151
+  Extensible: yes
+end note
 
 ' Relationships
 N221082 <|-- N221031

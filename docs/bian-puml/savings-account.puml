@@ -5,12 +5,31 @@ title Savings Account - BIAN BOM UML
 ' Source image: savings-account-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_36488.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Account" as N199477 {
 }
+note right of N199477
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Savings Account Agreement" as N199348 {
   + Savings Account Agreement Identification : Identifier[1..*]
@@ -35,36 +54,67 @@ class "Savings Account Arrangement" as N199481 {
 
 class "Standing Order Arrangement" as N199442 {
 }
+note right of N199442
+  Extensible: no
+  BOMDiagram: Standing Order BOM Diagram
+end note
 
 class "Direct Debit Mandate" as N199416 {
 }
+note right of N199416
+  Extensible: no
+  BOMDiagram: Direct Debit BOM Diagram
+end note
 
 class "Account Entry" as N199533 {
 }
+note right of N199533
+  Extensible: yes
+end note
 
 class "Account Share Arrangement" as N199449 {
 }
+note right of N199449
+  HelperDiagram: Limit Helper Diagram
+end note
 
 class "Correspondence Arrangement" as N199634 {
 }
 
 class "Location" as N199431 {
 }
+note right of N199431
+  Extensible: yes
+  HelperDiagram: Location Helper Diagram
+end note
 
 class "Correspondence" as N199457 {
 }
+note right of N199457
+  HelperDiagram: Device Helper Diagram
+end note
 
 class "Fee Arrangement" as N199474 {
 }
+note right of N199474
+  HelperDiagram: Fee Helper Diagram
+end note
 
 class "Information Arrangement" as N199480 {
 }
+note right of N199480
+  HelperDiagram: Account Statement Helper Diagram
+end note
 
 class "Interest Arrangement" as N199410 {
 }
 
 class "Payment Arrangement" as N199546 {
 }
+note right of N199546
+  HelperDiagram: Payment Helper Diagram
+  HelperDiagram: Sweep Helper Diagram
+end note
 
 class "Sweep Arrangement" as N199473 {
 }
@@ -74,15 +124,25 @@ class "Limit Arrangement" as N199445 {
 
 class "Withdrawal Service Arrangement" as N199626 {
 }
+note right of N199626
+  HelperDiagram: Interest Helper Diagram
+  HelperDiagram: Withdrawal Helper Diagram
+end note
 
 class "Deposit Service Arrangement" as N199404 {
 }
+note right of N199404
+  HelperDiagram: Deposit Helper Diagram
+end note
 
 class "Device Arrangement" as N199485 {
 }
 
 class "Lien Arrangement" as N199619 {
 }
+note right of N199619
+  HelperDiagram: Lien Helper Diagram
+end note
 
 enum "ArrangementTypeValues" as N199371 {
   Sweep Arrangement
@@ -130,21 +190,43 @@ class "Savings Account Transaction" as N199627 {
 
 class "Instruction" as N199506 {
 }
+note right of N199506
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Transaction" as N199401 {
 }
+note right of N199401
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Product" as N199605 {
 }
+note right of N199605
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 class "Product Arrangement" as N199411 {
 }
+note right of N199411
+  Extensible: no
+end note
 
 class "Product Agreement" as N199646 {
 }
+note right of N199646
+  Extensible: no
+  BOMDiagram: Sales Product BOM Diagram
+end note
 
 class "Product Feature" as N199616 {
 }
+note right of N199616
+  Extensible: no
+end note
 
 ' Relationships
 N199477 <|-- N199458

@@ -5,29 +5,67 @@ title Customer Position - BIAN BOM UML
 ' Source image: customer-position-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_33218.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "State" as N143369 {
 }
+note right of N143369
+  Extensible: yes
+  GenericArtifact: State
+end note
 
 class "Customer Position State" as N143362 {
 }
+note right of N143362
+  ControlRecord: Customer Position State
+end note
 
 class "Customer Position" as N143359 {
   + Position Type : PositionTypeValues
   + Event Reference
 }
+note right of N143359
+  AssetType: Customer Position
+end note
 
 class "Customer Relationship" as N143393 {
 }
+note right of N143393
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Customer Event Log" as N143488 {
 }
+note right of N143488
+  Extensible: no
+  BOMDiagram: Customer Event History BOM Diagram
+end note
 
 class "Customer Rating" as N143356 {
 }
+note right of N143356
+  Extensible: no
+  BQ: Credit
+  BOMDiagram: Customer Credit Rating BOM Diagram
+end note
 
 enum "CustomerRatingTypeValues" as N143497 {
   Customer Profitability Rating
@@ -37,6 +75,10 @@ enum "CustomerRatingTypeValues" as N143497 {
 
 class "Position" as N143492 {
 }
+note right of N143492
+  Extensible: yes
+  HelperDiagram: Position Helper Diagram
+end note
 
 enum "FinancialStatementTypeValues" as N143448 {
   Income Statement
@@ -55,9 +97,17 @@ class "Statement" as N143536 {
 
 class "Report" as N143481 {
 }
+note right of N143481
+  Extensible: yes
+  HelperDiagram: Report Helper Diagram
+end note
 
 class "Indicator" as N143458 {
 }
+note right of N143458
+  Extensible: yes
+  BQ: Type: Indicator
+end note
 
 class "Customer Position State Indicator" as N143526 {
   + Indicator Type : CustomerPositionStateIndicatorTypeValues
@@ -90,6 +140,9 @@ class "Customer Product Agreement Event" as N143489 {
   + Account Reference : Product Sales Agreement
   + Product Event Type : CustomerProductAgreementEventTypeValues
 }
+note right of N143489
+  Extensible: no
+end note
 
 enum "CustomerProductAgreementEventTypeValues" as N143403 {
   New Product Agreement Event
@@ -98,23 +151,47 @@ enum "CustomerProductAgreementEventTypeValues" as N143403 {
 
 class "Collateral Agreement" as N143445 {
 }
+note right of N143445
+  Extensible: no
+  BQ: Collateral
+  BOMDiagram: Collateral Allocation Management BOM Diagram
+end note
 
 class "Agreement" as N143460 {
 }
+note right of N143460
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Event" as N143502 {
 }
+note right of N143502
+  Extensible: yes
+  HelperDiagram: Event Helper Diagram
+end note
 
 class "Product Agreement" as N143484 {
   + Product Agreement Type : ProductAgreementTypeValues
   + Product Agreement Identification : Identifier
 }
+note right of N143484
+  Extensible: no
+end note
 
 class "Arrangement" as N143447 {
 }
+note right of N143447
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Information Arrangement" as N143464 {
 }
+note right of N143464
+  Extensible: no
+  BOMDiagram: Brokered Product Proxy BOM Diagram
+end note
 
 enum "ProductAgreementTypeValues" as N143442 {
   Current Account Agreement
@@ -128,6 +205,10 @@ enum "ProductAgreementTypeValues" as N143442 {
 
 class "Account" as N143372 {
 }
+note right of N143372
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 ' Relationships
 N143369 <|-- N143362

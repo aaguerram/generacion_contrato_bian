@@ -5,12 +5,30 @@ title Leasing - BIAN BOM UML
 ' Source image: leasing-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52515.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Account Entry" as N209057 {
 }
+note right of N209057
+  Extensible: yes
+end note
 
 class "Lease Arrangement" as N209061 {
 }
@@ -22,6 +40,10 @@ class "Lease Agreement Involvement" as N209077 {
 class "Lease Agreement" as N208961 {
   + Lease Agreement Type : LeasingTypeValues
 }
+note right of N208961
+  AssetType: Leasing
+  ControlRecord: Leasing Facility
+end note
 
 enum "LeaseAgreementInvolvementTypeValues" as N208993 {
   Lessee
@@ -30,6 +52,10 @@ enum "LeaseAgreementInvolvementTypeValues" as N208993 {
 
 class "Account" as N209048 {
 }
+note right of N209048
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Lease Transaction" as N209122 {
 }
@@ -43,30 +69,51 @@ class "Interest Arrangement" as N209047 {
 
 class "Fee Arrangement" as N209115 {
 }
+note right of N209115
+  HelperDiagram: Fee Helper Diagram
+  HelperDiagram: Interest Helper Diagram
+end note
 
 class "Lien Arrangement" as N209093 {
 }
 
 class "Sweep Arrangement" as N209152 {
 }
+note right of N209152
+  HelperDiagram: Lien Helper Diagram
+  HelperDiagram: Sweep Helper Diagram
+end note
 
 class "Deposit Service Arrangement" as N209014 {
 }
 
 class "Withdrawal Service Arrangement" as N208997 {
 }
+note right of N208997
+  HelperDiagram: Deposit Helper Diagram
+end note
 
 class "Payment Arrangement" as N209175 {
 }
 
 class "Collateral Asset Arrangement" as N209109 {
 }
+note right of N209109
+  Extensible: no
+  HelperDiagram: Payment Helper Diagram
+  HelperDiagram: Withdrawal Helper Diagram
+end note
 
 class "Device Arrangement" as N209165 {
 }
 
 class "Corporate Action Arrangement" as N209225 {
 }
+note right of N209225
+  HelperDiagram: Corporate Action Helper Diagram
+  HelperDiagram: Device Helper Diagram
+  BOMDiagram: Collateral Allocation Management BOM Diagram
+end note
 
 class "Leasing Item Arrangement" as N208979 {
 }
@@ -76,15 +123,31 @@ class "Lease Instruction" as N209227 {
 
 class "Transaction" as N209168 {
 }
+note right of N209168
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Asset" as N209187 {
 }
+note right of N209187
+  Extensible: no
+  BOMDiagram: Leasing Item Administration BOM Diagram
+end note
 
 class "Instruction" as N209044 {
 }
+note right of N209044
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Financial Instrument" as N208986 {
 }
+note right of N208986
+  Extensible: yes
+  HelperDiagram: Financial Instrument Helper Diagram
+end note
 
 enum "LeasingTypeValues" as N209055 {
   Financing Lease
@@ -93,27 +156,58 @@ enum "LeasingTypeValues" as N209055 {
 
 class "Agreement" as N209097 {
 }
+note right of N209097
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Collateral Agreement" as N209030 {
 }
+note right of N209030
+  Extensible: no
+  BOMDiagram: Collateral Allocation Management BOM Diagram
+end note
 
 class "Party" as N209136 {
 }
+note right of N209136
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Product Arrangement" as N208978 {
 }
+note right of N208978
+  Extensible: no
+end note
 
 class "Product Agreement" as N209134 {
 }
+note right of N209134
+  Extensible: no
+  BOMDiagram: Sales Product BOM Diagram
+end note
 
 class "Product" as N208973 {
 }
+note right of N208973
+  Extensible: no
+  HelperDiagram: Product Helper Diagram
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 class "Product Feature" as N209036 {
 }
+note right of N209036
+  Extensible: no
+end note
 
 class "Arrangement" as N209212 {
 }
+note right of N209212
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 ' Relationships
 N209227 "0..*" -- N209061 : 0..1

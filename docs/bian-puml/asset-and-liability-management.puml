@@ -5,6 +5,21 @@ title Asset And Liability Management - BIAN BOM UML
 ' Source image: asset-and-liability-management-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_48259.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -14,6 +29,9 @@ class "Asset And Liability Portfolio Strategy" as N188864 {
 
 class "Strategy" as N188857 {
 }
+note right of N188857
+  HelperDiagram: Strategy Helper Diagram
+end note
 
 class "Goal" as N188843 {
   + Goal Type : GoalTypeValues
@@ -22,6 +40,9 @@ class "Goal" as N188843 {
   + Goal Date and Time : GoalDateTime
   + Goal Status : GoalStatus
 }
+note right of N188843
+  BQ: Type: Goals
+end note
 
 class "Balance Sheet" as N188892 {
 }
@@ -34,6 +55,9 @@ class "Financial Transaction" as N188861 {
   + Financial Transaction Target Account : Account
   + Financial Transaction Date Time : DateTime[1..*]
 }
+note right of N188861
+  Extensible: yes
+end note
 
 class "Financial Asset" as N188891 {
 }
@@ -43,6 +67,10 @@ class "Financial Liability" as N188873 {
 
 class "Financial Instrument" as N188854 {
 }
+note right of N188854
+  Extensible: yes
+  HelperDiagram: Financial Instrument Helper Diagram
+end note
 
 class "Asset Liability Portfolio" as N188846 {
 }
@@ -52,6 +80,10 @@ class "Asset Liability Portfolio Entry" as N188859 {
 
 class "Assessment" as N188840 {
 }
+note right of N188840
+  Extensible: yes
+  BQ: Transaction Alignment
+end note
 
 class "Financial Position" as N188916 {
 }

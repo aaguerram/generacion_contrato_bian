@@ -5,6 +5,21 @@ title Corporate Lease - BIAN BOM UML
 ' Source image: corporate-lease-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52543.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -12,10 +27,17 @@ left to right direction
 class "Lease Agreement" as N206101 {
   + Lease Agreement Type : LeasingTypeValues
 }
+note right of N206101
+  BQ: Administrate
+  AssetType: Corporate Lease
+end note
 
 class "Lease Agreement Involvement" as N206187 {
   + Lease Agreement Involvement Type : LeaseAgreementInvolvementTypeValues
 }
+note right of N206187
+  BOMDiagram: Collateral Allocation Management BOM Diagram
+end note
 
 enum "LeaseAgreementInvolvementTypeValues" as N206257 {
   Lessee
@@ -27,27 +49,56 @@ class "Lease Arrangement" as N206210 {
 
 class "Collateral Agreement" as N206134 {
 }
+note right of N206134
+  Extensible: no
+end note
 
 class "Account" as N206149 {
 }
+note right of N206149
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Agreement" as N206244 {
 }
+note right of N206244
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Arrangement" as N206190 {
 }
+note right of N206190
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Party" as N206118 {
 }
+note right of N206118
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 class "Lease Transaction" as N206193 {
 }
+note right of N206193
+  BQ: Fulfill
+end note
 
 class "Transaction" as N206225 {
 }
+note right of N206225
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Account Entry" as N206243 {
 }
+note right of N206243
+  Extensible: yes
+end note
 
 class "Leasing Product" as N206144 {
   + Leasing Product Type : LeasingTypeValues
@@ -55,27 +106,54 @@ class "Leasing Product" as N206144 {
 
 class "Lease Instruction" as N206262 {
 }
+note right of N206262
+  BQ: Fulfill
+end note
 
 class "Instruction" as N206141 {
 }
+note right of N206141
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Asset" as N206218 {
 }
+note right of N206218
+  Extensible: no
+end note
 
 class "Leasing Item Arrangement" as N206264 {
 }
+note right of N206264
+  BOMDiagram: Leasing Item Administration BOM Diagram
+end note
 
 class "Product Arrangement" as N206171 {
 }
+note right of N206171
+  Extensible: no
+end note
 
 class "Product Agreement" as N206203 {
 }
+note right of N206203
+  Extensible: no
+  BOMDiagram: Sales Product BOM Diagram
+end note
 
 class "Product" as N206209 {
 }
+note right of N206209
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 class "Product Feature" as N206147 {
 }
+note right of N206147
+  Extensible: no
+end note
 
 enum "LeasingTypeValues" as N206170 {
   Financing Lease

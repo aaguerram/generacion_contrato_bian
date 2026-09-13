@@ -5,12 +5,30 @@ title Suitability Checking - BIAN BOM UML
 ' Source image: suitability-checking-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_35068.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Suitability" as N146386 {
 }
+note right of N146386
+  AssetType: Suitability
+end note
 
 class "Suitability Assessment" as N146383 {
   + Suitability Assessment Type : String
@@ -18,39 +36,75 @@ class "Suitability Assessment" as N146383 {
   + Suitability Assessment Correspondence : String
   + Suitability Assessment Result : String
 }
+note right of N146383
+  ControlRecord: Suitability Assessment
+end note
 
 class "Suitability Assessment Involvement" as N146441 {
 }
 
 class "Party" as N146425 {
 }
+note right of N146425
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 class "Party Role" as N146444 {
 }
+note right of N146444
+  Extensible: yes
+end note
 
 class "Assessment" as N146422 {
 }
+note right of N146422
+  GenericArtifact: Assessment
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 class "Test" as N146389 {
 }
+note right of N146389
+  BQ: Type: Tests
+end note
 
 class "Market Order Instruction" as N146434 {
   + Market Order Type : String
   + Market Order Date : Date
   + Market Order Date Type : String
 }
+note right of N146434
+  Extensible: no
+  BOMDiagram: Market Order BOM Diagram
+end note
 
 class "Market Order Transaction" as N146393 {
 }
+note right of N146393
+  Extensible: no
+  BOMDiagram: Market Order Execution BOM Diagram
+end note
 
 class "Cash Account" as N146462 {
 }
+note right of N146462
+  Extensible: no
+end note
 
 class "Investment Account" as N146400 {
 }
+note right of N146400
+  Extensible: no
+  BOMDiagram: Investment Account BOM Diagram
+end note
 
 class "Investment Portfolio" as N146463 {
 }
+note right of N146463
+  Extensible: no
+  BOMDiagram: Investment Portfolio Management BOM Diagram
+end note
 
 ' Relationships
 N146386 "0..1" -- "0..*" N146383

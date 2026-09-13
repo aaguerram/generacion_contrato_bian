@@ -5,16 +5,38 @@ title Consumer Advisory Services - BIAN BOM UML
 ' Source image: consumer-advisory-services-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_31118.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Agreement" as N193758 {
 }
+note right of N193758
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Financial Advisory Service" as N193671 {
   + Financial Advisory Service Type : FinancialAdvisoryService TypeValues
 }
+note right of N193671
+  AssetType: Consumer Advice
+end note
 
 class "Financial Advisory Service Agreement" as N193652 {
 }
@@ -25,21 +47,35 @@ class "Financial Advisory Service Arrangement" as N193687 {
 
 class "Arrangement" as N193702 {
 }
+note right of N193702
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "System" as N193784 {
 }
+note right of N193784
+  Extensible: yes
+  HelperDiagram: System- Session Helper Diagram
+end note
 
 class "Financial Advisory Service Session" as N193629 {
 }
 
 class "Session" as N193719 {
 }
+note right of N193719
+  Extensible: yes
+end note
 
 class "Financial Advisory Service Arrangement Fulfillment Event" as N193639 {
 }
 
 class "Arrangement Fulfillment Event" as N193772 {
 }
+note right of N193772
+  HelperDiagram: Arrangement Fulfillment Helper Diagram
+end note
 
 class "Financial Advisory Service Involvement" as N193743 {
   + Financial Advisory Service Involvement Type : FinancialAdvisoryServiceInvolvementTypeValues
@@ -47,6 +83,9 @@ class "Financial Advisory Service Involvement" as N193743 {
 
 class "Fee Arrangement" as N193624 {
 }
+note right of N193624
+  HelperDiagram: Fee Helper Diagram
+end note
 
 class "Taxation Arrangement" as N193741 {
   + Applicable Service Charge : String
@@ -80,9 +119,17 @@ class "Product Guidance Arrangement" as N193618 {
 
 class "Customer Position State" as N193735 {
 }
+note right of N193735
+  Extensible: no
+  BOMDiagram: Customer Position BOM Diagram
+end note
 
 class "Party" as N193766 {
 }
+note right of N193766
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 enum "FinancialAdvisoryServiceTypeValues" as N193630 {
   Consumer Financial Advisory Service

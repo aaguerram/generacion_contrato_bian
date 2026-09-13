@@ -5,12 +5,30 @@ title Compliance Reporting - BIAN BOM UML
 ' Source image: compliance-reporting-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52397.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Assessment" as N207317 {
 }
+note right of N207317
+  HelperDiagram: Assessment Helper Diagram
+end note
 
 enum "ComplianceCheckTypeValues" as N207357 {
   Regulatory Compliance Check
@@ -20,12 +38,21 @@ enum "ComplianceCheckTypeValues" as N207357 {
 
 class "Administrative Plan" as N207294 {
 }
+note right of N207294
+  GenericArtifact: Administrative Plan
+end note
 
 class "Compliance Reporting Administrative Plan" as N207291 {
 }
+note right of N207291
+  ControlRecord: Compliance Reporting Administrative Plan
+end note
 
 class "Routine" as N207300 {
 }
+note right of N207300
+  BQ: Type: Routine
+end note
 
 class "Compliance Reporting Involvement" as N207373 {
   + Compliance Reporting Involvement Type : String
@@ -37,9 +64,16 @@ enum "ComplianceReportingInvolvementTypeValues" as N207350 {
 
 class "Party Role" as N207320 {
 }
+note right of N207320
+  Extensible: yes
+end note
 
 class "Party" as N207369 {
 }
+note right of N207369
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 class "Compliance Reporting Arrangement" as N207307 {
 }
@@ -49,12 +83,18 @@ class "Compliance Report" as N207301 {
 
 class "Compliance Reporting" as N207297 {
 }
+note right of N207297
+  AssetType: Compliance Reporting
+end note
 
 class "Compliance Reporting Instruction" as N207347 {
 }
 
 class "Report" as N207305 {
 }
+note right of N207305
+  HelperDiagram: Report Helper Diagram
+end note
 
 ' Relationships
 N207294 <|-- N207291

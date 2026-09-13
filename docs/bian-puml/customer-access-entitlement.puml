@@ -5,6 +5,21 @@ title Customer Access Entitlement - BIAN BOM UML
 ' Source image: customer-access-entitlement-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_41317.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -14,6 +29,9 @@ class "Access Restriction Arrangement" as N83564 {
   + Access Restriction Description : Text
   + Allowed Product Service : Text
 }
+note right of N83564
+  BQ: Restrictions
+end note
 
 class "Access Preference Arrangement" as N83696 {
   + Access Preference Type : Text
@@ -21,6 +39,9 @@ class "Access Preference Arrangement" as N83696 {
   + Product Service Type : Text
   + Access Preference Description : Text
 }
+note right of N83696
+  BQ: Preferences
+end note
 
 class "Access Arrangement" as N83605 {
   + Point Of Access Type : PointOfAccessTypeValues
@@ -30,9 +51,18 @@ class "Access Arrangement" as N83605 {
 class "Customer Access Agreement" as N83516 {
   + Customer Access Agreement Identification : Identifier
 }
+note right of N83516
+  AssetType: CustomerAccessProfile
+  ControlRecord: CustomerAccessProfileAgreement
+  BOMDiagram: Customer Agreement BOM Diagram
+end note
 
 class "Customer Relationship" as N83642 {
 }
+note right of N83642
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Access Arrangement Involvement" as N83598 {
   + Access Agreement Involvement Identification : Identifier
@@ -41,9 +71,16 @@ class "Access Arrangement Involvement" as N83598 {
 
 class "Device" as N83582 {
 }
+note right of N83582
+  Extensible: yes
+  HelperDiagram: Device Helper Diagram
+end note
 
 class "Channel" as N83588 {
 }
+note right of N83588
+  Extensible: yes
+end note
 
 class "Channel Access Arrangement" as N83651 {
 }
@@ -53,12 +90,26 @@ class "Device Access Arrangement" as N83870 {
 
 class "Service Arrangement" as N83654 {
 }
+note right of N83654
+  Extensible: no
+  HelperDiagram: Agreement- Product Helper Diagram
+end note
 
 class "Arrangement" as N83513 {
 }
+note right of N83513
+  Extensible: yes
+  BQ: Type: Terms
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Agreement" as N83551 {
 }
+note right of N83551
+  Extensible: yes
+  GenericArtifact: Agreement
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Product Feature" as N83585 {
   + Product Feature Type : ProductFeatureTypeValues
@@ -67,15 +118,29 @@ class "Product Feature" as N83585 {
   + Product Feature Name : Name
   + Product Feature Lifecycle Status : Status
 }
+note right of N83585
+  Extensible: no
+end note
 
 class "Product" as N83754 {
 }
+note right of N83754
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 class "Product Service" as N83576 {
 }
+note right of N83576
+  Extensible: no
+end note
 
 class "Party" as N83638 {
 }
+note right of N83638
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 enum "AccessRestrictionTypeValues" as N83574 {
   AccessRestrictionByChannelDevice
@@ -169,6 +234,10 @@ enum "AuthenticationMethodTypeValues" as N83708 {
 
 class "Product" as N83572 {
 }
+note right of N83572
+  Extensible: yes
+  HelperDiagram: Product Helper Diagram
+end note
 
 enum "AccessArrangementInvolvementTypeValues" as N83747 {
   Party who gives the access to Party
@@ -178,6 +247,10 @@ enum "AccessArrangementInvolvementTypeValues" as N83747 {
 
 class "Document" as N83707 {
 }
+note right of N83707
+  Extensible: no
+  BOMDiagram: Document Directory BOM Diagram
+end note
 
 class "Policy" as N83763 {
   + Policy Type : PolicyTypeValues
@@ -185,6 +258,10 @@ class "Policy" as N83763 {
 
 class "Rule Set" as N83634 {
 }
+note right of N83634
+  Extensible: yes
+  HelperDiagram: Rule Set Helper Diagram
+end note
 
 enum "ProductFeatureTypeValues" as N83617 {
   BankingService

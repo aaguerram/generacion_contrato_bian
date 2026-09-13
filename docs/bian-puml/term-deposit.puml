@@ -5,12 +5,31 @@ title Term Deposit - BIAN BOM UML
 ' Source image: term-deposit-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_39468.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
 
 class "Account" as N191235 {
 }
+note right of N191235
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Term Deposit Agreement" as N191120 {
   + Term Deposit Agreement Identification : Identifier
@@ -35,6 +54,10 @@ class "Term Deposit Product" as N191206 {
 
 class "Party" as N191397 {
 }
+note right of N191397
+  Extensible: no
+  BOMDiagram: Party Reference Data Directory BOM Diagram
+end note
 
 enum "TermDepositAgreementTypeValues" as N191337 {
   Term Deposit Agreement
@@ -43,21 +66,39 @@ enum "TermDepositAgreementTypeValues" as N191337 {
 
 class "Account Share Arrangement" as N191192 {
 }
+note right of N191192
+  HelperDiagram: Limit Helper Diagram
+end note
 
 class "Direct Debit Mandate" as N191354 {
 }
+note right of N191354
+  Extensible: no
+  BOMDiagram: Direct Debit BOM Diagram
+end note
 
 class "Correspondence Arrangement" as N191212 {
 }
 
 class "Correspondence" as N191407 {
 }
+note right of N191407
+  HelperDiagram: Device Helper Diagram
+end note
 
 class "Location" as N191367 {
 }
+note right of N191367
+  Extensible: yes
+  HelperDiagram: Location Helper Diagram
+end note
 
 class "Standing Order Arrangement" as N191240 {
 }
+note right of N191240
+  Extensible: no
+  BOMDiagram: Standing Order BOM Diagram
+end note
 
 class "Bill Pay Mandate Facility Arrangement" as N191372 {
 }
@@ -99,21 +140,36 @@ enum "ArrangementTypeValues" as N191410 {
 
 class "Fee Arrangement" as N191231 {
 }
+note right of N191231
+  HelperDiagram: Fee Helper Diagram
+end note
 
 class "Interest Arrangement" as N191371 {
 }
 
 class "Payment Arrangement" as N191468 {
 }
+note right of N191468
+  HelperDiagram: Payment Helper Diagram
+  HelperDiagram: Sweep Helper Diagram
+end note
 
 class "Information Arrangement" as N191154 {
 }
+note right of N191154
+  HelperDiagram: Account Statement Helper Diagram
+end note
 
 class "Sweep Arrangement" as N191152 {
 }
 
 class "Withdrawal Service Arrangement" as N191333 {
 }
+note right of N191333
+  HelperDiagram: Deposit Helper Diagram
+  HelperDiagram: Interest Helper Diagram
+  HelperDiagram: Withdrawal Helper Diagram
+end note
 
 class "Limit Arrangement" as N191176 {
 }
@@ -123,6 +179,9 @@ class "Device Arrangement" as N191146 {
 
 class "Lien Arrangement" as N191481 {
 }
+note right of N191481
+  HelperDiagram: Lien Helper Diagram
+end note
 
 class "Rollover Arrangement" as N191139 {
   + New Agreement Reference : Agreement
@@ -133,12 +192,23 @@ class "Deposit Service Arrangement" as N191185 {
 
 class "Account Entry" as N191377 {
 }
+note right of N191377
+  Extensible: yes
+end note
 
 class "Instruction" as N191332 {
 }
+note right of N191332
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 class "Transaction" as N191464 {
 }
+note right of N191464
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Term Deposint Agreement Involvement" as N191218 {
   + Involved Type : TermDepositAgreementInvolvementTypeValues
@@ -153,15 +223,29 @@ enum "TermDepositAgreementInvolvementTypeValues" as N191304 {
 
 class "Product" as N191359 {
 }
+note right of N191359
+  Extensible: no
+  BOMDiagram: Product Directory BOM Diagram
+end note
 
 class "Product Arrangement" as N191205 {
 }
+note right of N191205
+  Extensible: no
+end note
 
 class "Product Agreement" as N191315 {
 }
+note right of N191315
+  Extensible: no
+  BOMDiagram: Sales Product BOM Diagram
+end note
 
 class "Product Feature" as N191349 {
 }
+note right of N191349
+  Extensible: no
+end note
 
 class "Term Deposit Arrangement Instruction" as N191310 {
 }

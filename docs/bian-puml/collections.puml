@@ -5,6 +5,21 @@ title Collections - BIAN BOM UML
 ' Source image: collections-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_52147.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -16,6 +31,9 @@ class "Procedure" as N215221 {
   + Procedure Schedule : Schedule
   + Procedure Status : Status
 }
+note right of N215221
+  HelperDiagram: Procedure Helper Diagram
+end note
 
 class "Workstep" as N215210 {
   + Workstep Result : Text
@@ -25,20 +43,32 @@ class "Workstep" as N215210 {
   + Workstep Status : Status
   + Workstep WorkProduct : WorkProduct
 }
+note right of N215210
+  BQ: Type: Workstep
+end note
 
 class "Collateral Asset" as N215233 {
   + Collateral Asset Identification : Identifier
   + Collateral Asset Type : CollateralTypeValues
   + Collateral Asset Status : CollateralAssetStatusTypeValues
 }
+note right of N215233
+  Extensible: no
+end note
 
 class "Collateral Asset Liquidation" as N215216 {
   + Collateral Asset Liquidation Assessment : String
   + Collateral Asset Liquidation Schedule : String
 }
+note right of N215216
+  AssetType: CollateralAssetLiquidation
+end note
 
 class "Collateral Asset Liquidation Procedure" as N215312 {
 }
+note right of N215312
+  ControlRecord: CollateralAssetLiquidationProcedure
+end note
 
 class "Collateral Asset Liquidation Procedure Workstep" as N215213 {
   + Collateral Asset Liquidation Procedure Workstep Type : String
@@ -54,14 +84,23 @@ enum "CollateralAssetLiquidationProcedureWorkstepTypeValues" as N215218 {
 
 class "Asset" as N215295 {
 }
+note right of N215295
+  Extensible: yes
+end note
 
 class "Object" as N215369 {
 }
+note right of N215369
+  Extensible: yes
+end note
 
 class "Collateral Agreement" as N215311 {
   + Collateral Agreement Identifier : Identifier
   + Collateral Agreement Registration Reference : Text
 }
+note right of N215311
+  Extensible: no
+end note
 
 class "Collateral Asset Arrangement" as N215283 {
   + Collateral Pledged Date : Date
@@ -71,21 +110,36 @@ class "Collateral Asset Arrangement" as N215283 {
   + Collateral Balance : AccountBalance
   + Collateral Purpose : CollateralPurposeTypeValues
 }
+note right of N215283
+  Extensible: no
+  BOMDiagram: Collateral Allocation Management BOM Diagram
+end note
 
 class "Party Role" as N215359 {
 }
+note right of N215359
+  Extensible: yes
+end note
 
 class "Collateral Asset Liquidation Request" as N215343 {
 }
 
 class "Party" as N215306 {
 }
+note right of N215306
+  Extensible: yes
+  HelperDiagram: Party Helper Diagram
+end note
 
 class "Asset Type" as N215307 {
 }
 
 class "Account" as N215392 {
 }
+note right of N215392
+  Extensible: yes
+  HelperDiagram: Account Helper Diagram
+end note
 
 class "Factoring Agreement" as N215382 {
 }
@@ -95,24 +149,51 @@ class "Collection Agency Agreement" as N215371 {
 
 class "Customer Agreement" as N215262 {
 }
+note right of N215262
+  Extensible: no
+  BOMDiagram: Customer Agreement BOM Diagram
+end note
 
 class "Customer Relationship" as N215289 {
 }
+note right of N215289
+  Extensible: no
+  BOMDiagram: Customer Relationship Management BOM Diagram
+end note
 
 class "Loan Agreement" as N215234 {
 }
+note right of N215234
+  Extensible: no
+end note
 
 class "Agreement" as N215345 {
 }
+note right of N215345
+  Extensible: yes
+  HelperDiagram: Agreement Helper Diagram
+end note
 
 class "Arrangement" as N215294 {
 }
+note right of N215294
+  Extensible: yes
+  HelperDiagram: Arrangement Helper Diagram
+end note
 
 class "Transaction" as N215282 {
 }
+note right of N215282
+  Extensible: yes
+  HelperDiagram: Transaction Helper Diagram
+end note
 
 class "Instruction" as N215227 {
 }
+note right of N215227
+  Extensible: yes
+  HelperDiagram: Instruction Helper Diagram
+end note
 
 ' Relationships
 N215221 -- "0..*" N215210

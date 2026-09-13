@@ -5,6 +5,21 @@ title Incentive Account - BIAN BOM UML
 ' Source image: incentive-account-bom-uml.svg
 ' BIAN source: https://bian.org/servicelandscape-14-0-0/views/view_51968.html
 ' Extraction: SVG semantic extraction
+' Annotation legend (notes linked to a class via an SVG connector line/geometry):
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
 hide methods
 skinparam classAttributeIconSize 0
 left to right direction
@@ -15,12 +30,18 @@ class "Incentive Program" as N110457 {
 
 class "Product" as N110465 {
 }
+note right of N110465
+  Extensible: yes
+end note
 
 class "Incentive Account Agreement" as N110441 {
 }
 
 class "Agreement" as N110440 {
 }
+note right of N110440
+  Extensible: yes
+end note
 
 class "Incentive Account Involvement" as N110458 {
   + Involvement Type : IncentiveAccountInvolvementTypeValues
@@ -49,6 +70,9 @@ class "Incentive Account Arrangement" as N110491 {
 
 class "Arrangement" as N110514 {
 }
+note right of N110514
+  Extensible: yes
+end note
 
 enum "IncentiveAccountArrangementTypeValues" as N110508 {
   Eligibility Criteria
