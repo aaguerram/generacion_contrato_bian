@@ -553,7 +553,7 @@ def render_puml(service_domain: str, source_url: Optional[str], elements: Dict[s
     lines.append(f"' Service Domain: {service_domain}")
     if source_url:
         lines.append(f"' Source: {source_url}")
-    lines.append("' Extraction: SVG semantic extraction (svg_to_puml_v2)")
+    lines.append("' Extraction: SVG semantic extraction (svg_to_puml_control_record)")
     lines.append(LEGEND.rstrip("\n"))
     lines.append("hide methods")
     lines.append("skinparam classAttributeIconSize 0")

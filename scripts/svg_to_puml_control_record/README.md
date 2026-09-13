@@ -1,4 +1,4 @@
-# svg_to_puml_v2
+# svg_to_puml_control_record
 
 Genera, **desde cero**, un `.puml` por cada SVG de Control Record en
 [`docs/bian-diagrams/svg_control_record/`](../../docs/bian-diagrams/svg_control_record/)
@@ -13,7 +13,7 @@ proceso) agregandole notas (`BQ`, `AssetType`, `HelperDiagram`, etc.).
 
 Para los Control Record no hay ningun `.puml` previo -- `docs/bian-diagrams/puml-bom/`
 solo cubre el BOM completo de cada Service Domain, nunca su Control Record.
-`svg_to_puml_v2` no enriquece nada: **reconstruye el diagrama entero** leyendo
+`svg_to_puml_control_record` no enriquece nada: **reconstruye el diagrama entero** leyendo
 directamente el SVG -- clases, `<<datatype>>`, enums (con sus literales),
 atributos (con su cardinalidad), relaciones (con cardinalidad y rol en cada
 extremo), y las mismas anotaciones de v1 (`BQ`, `AssetType`, `ControlRecord`,
@@ -132,19 +132,19 @@ un atributo apuntando al mismo enum/datatype).
 ## Como ejecutar
 
 ```bash
-cd generacion_contrato_ia_v2/scripts/svg_to_puml_v2
+cd generacion_contrato_ia_v2/scripts/svg_to_puml_control_record
 
 # Un solo Service Domain, sin escribir nada (para probar)
-python svg_to_puml_v2.py --only party-reference-data-directory --dry-run
+python svg_to_puml_control_record.py --only party-reference-data-directory --dry-run
 
 # Aplicarlo a ese mismo Service Domain
-python svg_to_puml_v2.py --only party-reference-data-directory
+python svg_to_puml_control_record.py --only party-reference-data-directory
 
 # Dry-run de todo el corpus (271 SVG) + reporte JSON para revisar antes de escribir
-python svg_to_puml_v2.py --dry-run --report reporte.json
+python svg_to_puml_control_record.py --dry-run --report reporte.json
 
 # Generar todos los .puml (default: docs/bian-diagrams/puml-control-record/)
-python svg_to_puml_v2.py
+python svg_to_puml_control_record.py
 ```
 
 Flags: `--svg-dir`, `--puml-dir`, `--catalog` (default
