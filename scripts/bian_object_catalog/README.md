@@ -1,12 +1,16 @@
 # bian_object_catalog
 
 Genera [`docs/bian-object-catalog.json`](../../docs/bian-object-catalog.json):
-para cada **Service Domain** (348) y cada **clase/enum/data type del BIAN
-BOM** (~2300, los mismos nombres que usa `scripts/generate_entities/`), el
-link directo a su **pagina de objeto** en bian.org — la pagina con la
-documentacion en prosa a la que se llega haciendo click en una clase dentro
-de un diagrama, o en un Service Domain desde su listado. Formato de esa
-pagina: `https://bian.org/servicelandscape-14-0-0/object_<N>.html?object=<id>`.
+para cada **Service Domain** (348), cada **clase/enum/data type del BIAN
+BOM** (~2300, los mismos nombres que usa `scripts/generate_entities/`), cada
+**Business Area** (5) y cada **Business Domain** (38, las de
+`scripts/generate_matrix_view/`), el link directo a su **pagina de objeto**
+en bian.org — la pagina con la documentacion en prosa a la que se llega
+haciendo click en una clase dentro de un diagrama, en un Service Domain
+desde su listado, o en una Business Area/Domain desde el Matrix View — **mas
+esa documentacion ya extraida como texto plano** (sin las etiquetas HTML/RTF
+sueltas que trae el dato crudo del sitio). Formato de esa pagina:
+`https://bian.org/servicelandscape-14-0-0/object_<N>.html?object=<id>`.
 
 ## El problema: `<N>` no es un "tipo", es un shard
 
@@ -55,15 +59,23 @@ Esto:
    bian.org publica una actualizacion, o `--cache-dir` para usar otra ruta.
 2. Arma el indice combinado `{nombre -> [{object_id, shard, type}, ...]}`
    con los ~127.000 objetos.
-3. Resuelve contra ese indice:
+3. Resuelve contra ese indice, y para el ganador de cada nombre extrae ademas
+   su documentacion (categoria `"documentation"` del objeto, HTML/RTF
+   limpiado a texto plano):
    - Los 348 Service Domains de `docs/bian-view-catalog.json`.
    - Los nombres distintos de la columna "Business Object" de la hoja "BIAN
      BOM" en `docs/BIANBOM4XMI.xlsx` (mismo universo de nombres que usa
      `scripts/generate_entities/`).
+   - Las Business Area reales (`is_unclassified: false`) y todos los Business
+     Domain (de primer nivel y anidados) de
+     `docs/BIAN_Service_Landscape_V14.0_Matrix_View.json` (si ese archivo no
+     existe todavia, se omiten estas 2 categorias — correr
+     `scripts/generate_matrix_view/` primero).
 4. Escribe `docs/bian-object-catalog.json`.
 
 Flags: `--cache-dir`, `--force-refresh`, `--view-catalog`, `--xlsx`,
-`--output`. No requiere dependencias externas, solo la libreria estandar.
+`--matrix-view`, `--output`. No requiere dependencias externas, solo la
+libreria estandar.
 
 **Costo:** la primera corrida baja ~142 MB y tarda unos minutos (dominado
 por la red, no por CPU). Corridas siguientes son casi instantaneas gracias a
@@ -93,6 +105,14 @@ presente):
   Domain. Resultado: 333/348 (96%) resueltos sin ambiguedad.
 - Clases BIAN BOM: `("Business object", "Enumeration", "Data type",
   "Primitive type")` — en ese orden. Resultado: 1842/2320 (79%) resueltos.
+- Business Areas: `("Grouping",)` — asi tipifica bian.org una Business Area
+  (confirmado con "Reference Data": `stereotype: BusinessArea`). Resultado:
+  5/5 (100%) resueltos sin ambiguedad.
+- Business Domains: `("Capability",)` — mismo `type` que un Service Domain,
+  pero con `stereotype: BusinessDomain` (confirmado con "Party": object_id
+  216846). Resultado: 36/38 (95%) resueltos sin ambiguedad (ambiguos:
+  "Customer Management", "Product Management" — nombres genericos que
+  tambien existen como otro tipo de objeto en el sitio).
 
 Cuando ni con la prioridad alcanza a bajar a 1 candidato (pasa cuando el
 mismo nombre tiene 2+ definiciones canonicas genuinas — se comprobo: p.ej.
@@ -110,28 +130,85 @@ descripcion ya conocida por `BIANBOM4XMI.xlsx`).
 {
   "source": { "mapping_url": "...", "shard_url_template": "...", "object_url_template": "..." },
   "stats": {
-    "service_domains": { "total": 348, "resolved": 340, "ambiguous": 2, "unresolved": 6 },
-    "bian_bom_classes": { "total": 2320, "resolved": ..., "ambiguous": ..., "unresolved": ... }
+    "service_domains": { "total": 348, "resolved": 333, "ambiguous": 15, "unresolved": 0 },
+    "bian_bom_classes": { "total": 2320, "resolved": 1842, "ambiguous": 473, "unresolved": 5 },
+    "business_areas": { "total": 5, "resolved": 5, "ambiguous": 0, "unresolved": 0 },
+    "business_domains": { "total": 38, "resolved": 36, "ambiguous": 2, "unresolved": 0 }
   },
   "service_domains": {
-    "Customer Product and Service Directory": {
-      "object_id": 31128,
+    "Card Authorization": {
+      "object_id": 41757,
       "shard": 14,
       "matched_type": "Capability",
-      "url": "https://bian.org/servicelandscape-14-0-0/object_14.html?object=31128"
+      "url": "https://bian.org/servicelandscape-14-0-0/object_14.html?object=41757",
+      "documentation": null,
+      "documentation_sections": {
+        "role_definition": "The proposed card transaction is requested by a merchant and routed through the Acquirer and Card Network to the Issuer. ...",
+        "example_of_use": "A credit card customer makes a large purchase, the card authorization triggers a verbal check of the customer details for security and the authorization is given",
+        "executive_summary": "This service domain is responsible for the real time card authorization decisions for credit/charge cards.",
+        "key_features": "Card device verification checks\nCard member identity verification\nCredit checks\nFraud detection checks",
+        "documentation": null
+      }
     }
   },
   "bian_bom_classes": {
     "Product Agreement": {
       "object_id": 31805,
-      "shard": 8,
+      "shard": 31,
       "matched_type": "Business object",
-      "url": "https://bian.org/servicelandscape-14-0-0/object_8.html?object=31805"
+      "url": "https://bian.org/servicelandscape-14-0-0/object_31.html?object=31805",
+      "documentation": "..."
     }
   },
-  "unresolved": { "service_domains": [...], "bian_bom_classes": [...] }
+  "business_areas": {
+    "Reference Data": {
+      "object_id": 216783,
+      "shard": 17,
+      "matched_type": "Grouping",
+      "url": "https://bian.org/servicelandscape-14-0-0/object_17.html?object=216783",
+      "documentation": "The Business Area Reference Data contains all categories of managed business reference information, covering subjects including customer details, business partner details and product details. In the case of products it includes aspects of product design, development and quality assurance. It also covers market data feeds for general research and analysis and the range of more specialized trading support market information feeds. This reference information is widely accessed across other activities of the landscape."
+    }
+  },
+  "business_domains": {
+    "Party": {
+      "object_id": 216846,
+      "shard": 17,
+      "matched_type": "Capability",
+      "url": "https://bian.org/servicelandscape-14-0-0/object_17.html?object=216846",
+      "documentation": "This Business Domain covers the different party/customer reference information that is maintained by the bank for its institutional, corporate and consumer customers."
+    }
+  },
+  "unresolved": { "service_domains": [...], "bian_bom_classes": [...], "business_areas": [...], "business_domains": [...] }
 }
 ```
+
+Cada entrada trae ademas `documentation_sections` (no mostrado arriba por
+brevedad): `{slug -> texto}` con **todas** las categorias `type:
+"documentation"` del objeto, HTML/RTF limpiado a texto plano (etiquetas de
+bloque `<p>`/`<br>`/`<div>` -> salto de linea, el resto -> espacio,
+`html.unescape` para entidades como `&nbsp;`).
+
+**Bug encontrado y corregido:** un objeto de Service Domain en bian.org NO
+trae 1 sola categoria de documentacion — trae varias, numeradas ("1. Role
+Definition", "2. Example of Use", "3. Executive Summary", "4. Key
+Features"), MAS una generica titulada literalmente `"documentation"` que en
+muchos casos viene **vacia** en el propio dato del sitio (verificado con
+"Card Authorization", object_id 41757: bian.org le muestra esa seccion
+vacia). Una version anterior de este script tomaba la PRIMERA categoria de
+documentacion que encontraba — para un Service Domain, eso terminaba siendo
+"1. Role Definition" en vez de la seccion realmente titulada
+"documentation", asi que el campo `documentation` mostraba texto (el de Role
+Definition) donde la pagina real muestra vacio. Ahora `documentation`
+siempre sale especificamente de la seccion titulada `"documentation"` (por
+eso queda `null` para muchos Service Domains — es correcto, coincide con lo
+que muestra bian.org), y las otras secciones quedan disponibles, cada una
+con su propio slug, en `documentation_sections`.
+
+`scripts/generate_matrix_view/` es quien consume `documentation_sections`
+para agregarlas como atributos propios de cada Service Domain
+(`role_definition`, `example_of_use`, `executive_summary`, `key_features`,
+`documentation`) dentro de `BIAN_Service_Landscape_V14.0_Matrix_View.json` —
+ver su README.
 
 Un nombre en `unresolved` significa que no aparece con ese texto exacto en
 ningun shard (puede ser una variante de mayusculas/minusculas, un nombre
@@ -156,13 +233,45 @@ Es opcional: si `bian-object-catalog.json` no existe (todavia no se corrio
 este script, o se corrio sin red), `generate_entities.py` sigue funcionando
 igual, solo que esos 2 campos quedan en `null`.
 
+## Integracion con `scripts/generate_matrix_view/`
+
+`generate_matrix_view.py` acepta `--object-catalog` (default
+`docs/bian-object-catalog.json`) y, si el archivo existe, agrega a cada
+Business Area REAL (nunca al bucket sentinela `is_unclassified: true`), a
+cada Business Domain y a cada Service Domain su `object_url` y su
+`documentation` (el mismo texto que se ve en la seccion "Documentation" de
+la pagina de ese elemento en bian.org).
+
+**Orden de corrida** (hay una dependencia circular aparente para Business
+Areas/Domains, se resuelve corriendo cada script 2 veces; los Service
+Domains no la tienen, salen completos desde el primer paso porque este
+script los resuelve contra `bian-view-catalog.json`, no contra el arbol):
+`generate_matrix_view.py` necesita existir primero (aunque sea sin
+`object_url`/`documentation` en Areas/Domains) para que este script sepa que
+nombres de Business Area/Domain resolver; y este script necesita correr
+para que `generate_matrix_view.py` los pueda inyectar:
+
+```bash
+cd generacion_contrato_ia_v2/scripts
+python generate_matrix_view/generate_matrix_view.py   # 1. arma el arbol (Service Domains ya completos)
+python bian_object_catalog/bian_object_catalog.py      # 2. resuelve Service Domains + clases + Business Areas/Domains
+python generate_matrix_view/generate_matrix_view.py   # 3. re-arma el arbol, ahora TODO con object_url/documentation
+```
+
+Es opcional: si `BIAN_Service_Landscape_V14.0_Matrix_View.json` no existe
+todavia cuando corre este script, simplemente se omiten las categorias
+`business_areas`/`business_domains` (0 resueltos) sin fallar.
+
 ## Corrida de referencia
 
 ```
 126911 objetos indexados en 47 shards (data/all_objects_data_<N>.js), 36703 nombres distintos
 Service Domains:    {'total': 348,  'resolved': 333,  'ambiguous': 15,  'unresolved': 0}
 Clases BIAN BOM:    {'total': 2320, 'resolved': 1842, 'ambiguous': 473, 'unresolved': 5}
+Business Areas:     {'total': 5,    'resolved': 5,    'ambiguous': 0,   'unresolved': 0}
+Business Domains:   {'total': 38,   'resolved': 36,   'ambiguous': 2,   'unresolved': 0}
 ```
 
-Los `unresolved` (0 Service Domains, 5 clases) son nombres que no aparecen
-con ese texto exacto en ningun shard del sitio.
+Los `unresolved` (0 Service Domains, 5 clases, 0 Business Areas, 0 Business
+Domains) son nombres que no aparecen con ese texto exacto en ningun shard
+del sitio.

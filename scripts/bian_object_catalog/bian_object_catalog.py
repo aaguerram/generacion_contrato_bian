@@ -1,8 +1,9 @@
 """
-Genera `docs/bian-object-catalog.json`: para cada Service Domain y cada clase
-del BIAN BOM, el link directo a su pagina de objeto en bian.org
-(`object_<N>.html?object=<id>` — la pagina a la que se llega al hacer click
-en una clase dentro de un diagrama, con su documentacion en prosa).
+Genera `docs/bian-object-catalog.json`: para cada Service Domain, cada clase
+del BIAN BOM y cada Business Area, el link directo a su pagina de objeto en
+bian.org (`object_<N>.html?object=<id>` — la pagina a la que se llega al
+hacer click en una clase/Service Domain/Business Area, con su documentacion
+en prosa) y esa documentacion ya extraida como texto plano.
 
 ## Por que esto no es un simple "armar la URL"
 
@@ -35,13 +36,14 @@ Ver README.md en esta misma carpeta para el detalle completo, el formato de
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import re
 import time
 import urllib.request
 import zipfile
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 from xml.etree import ElementTree as ET
 
 BASE = "https://bian.org/servicelandscape-14-0-0"
@@ -53,6 +55,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CACHE_DIR = REPO_ROOT / "descarga" / "bian-object-catalog-shards"
 DEFAULT_VIEW_CATALOG = REPO_ROOT / "docs" / "bian-view-catalog.json"
 DEFAULT_XLSX = REPO_ROOT / "docs" / "BIANBOM4XMI.xlsx"
+DEFAULT_MATRIX_VIEW = REPO_ROOT / "docs" / "BIAN_Service_Landscape_V14.0_Matrix_View.json"
 DEFAULT_OUTPUT = REPO_ROOT / "docs" / "bian-object-catalog.json"
 
 # Tipo ArchiMate/InSite preferido cuando un nombre matchea mas de 1 objeto en
@@ -69,6 +72,8 @@ DEFAULT_OUTPUT = REPO_ROOT / "docs" / "bian-object-catalog.json"
 PREFERRED_TYPES = {
     "service_domains": ("Capability",),
     "bian_bom_classes": ("Business object", "Enumeration", "Data type", "Primitive type"),
+    "business_areas": ("Grouping",),  # confirmado con "Reference Data": stereotype BusinessArea
+    "business_domains": ("Capability",),  # confirmado con "Party": type Capability, stereotype BusinessDomain
 }
 
 
@@ -99,6 +104,59 @@ def _extract_js_object(text: str, var_name: str) -> dict:
     return json.loads(m.group(1))
 
 
+_BLOCK_TAG_RE = re.compile(r"</?(?:p|br|div)[^>]*>", re.IGNORECASE)
+_TAG_RE = re.compile(r"<[^>]+>")
+_NUMBERED_TITLE_RE = re.compile(r"^\s*\d+\s*\.\s*(.+)$")
+
+
+def _clean_html(raw: str) -> Optional[str]:
+    """HTML/RTF suelto (p.ej. `<span style="...">texto&nbsp;<p>...</p></span>`)
+    a texto plano, preservando saltos de linea en los tags de bloque (`<p>`,
+    `<br>`) para no pegar en una sola linea listas como "Key Features"."""
+
+    text = _BLOCK_TAG_RE.sub("\n", raw)
+    text = _TAG_RE.sub(" ", text)
+    text = html.unescape(text)
+    lines = [re.sub(r"[ \t]+", " ", line).strip() for line in text.split("\n")]
+    lines = [line for line in lines if line]
+    return "\n".join(lines) if lines else None
+
+
+def _slugify_section_title(title: str) -> str:
+    """"1. Role Definition" -> "role_definition"; "documentation" ->
+    "documentation" (el titulo generico y literal que trae bian.org para la
+    seccion "Documentation" de la pagina, la unica que NO viene numerada)."""
+
+    m = _NUMBERED_TITLE_RE.match(title or "")
+    text = m.group(1) if m else (title or "documentation")
+    slug = re.sub(r"[^a-z0-9]+", "_", text.strip().lower()).strip("_")
+    return slug or "documentation"
+
+
+def _extract_documentation_sections(entry_data: dict) -> Dict[str, Optional[str]]:
+    """{slug -> texto plano} de CADA categoria `type: "documentation"` del
+    objeto. Un objeto de Service Domain en bian.org trae varias: "1. Role
+    Definition", "2. Example of Use", "3. Executive Summary", "4. Key
+    Features", mas una seccion generica titulada literalmente
+    "documentation" (a veces vacia — VERIFICADO con "Card Authorization"
+    (object_id 41757): esa 5ta seccion esta vacia `""` en el propio dato de
+    bian.org, mientras "1. Role Definition" trae todo el texto; tomar solo
+    la PRIMERA categoria (como hacia una version anterior de esta funcion)
+    devolvia el texto de Role Definition como si fuera "la documentacion"
+    del objeto, cuando la pagina real muestra esa seccion vacia). Por eso se
+    devuelven todas, separadas por su propio slug — nunca se colapsan en 1
+    sola string."""
+
+    sections: Dict[str, Optional[str]] = {}
+    for category in entry_data.get("categories") or []:
+        if category.get("type") != "documentation":
+            continue
+        title = category.get("title") or "documentation"
+        raw = (category.get("content") or {}).get("value") or ""
+        sections[_slugify_section_title(title)] = _clean_html(raw)
+    return sections
+
+
 def load_shard_mapping(cache_dir: Path, force_refresh: bool) -> Dict[str, int]:
     text = _fetch_text(MAPPING_URL, cache_dir / "all_objects_data_mapping.js", force_refresh)
     return _extract_js_object(text, "objectDataMapping")
@@ -110,8 +168,11 @@ def load_shard(cache_dir: Path, shard_n: int, force_refresh: bool) -> Dict[str, 
     return _extract_js_object(text, "objectData")
 
 
-def build_name_index(cache_dir: Path, force_refresh: bool) -> Dict[str, List[dict]]:
-    """{nombre -> [{object_id, shard, type}, ...]} recorriendo los 47 shards.
+def build_name_index(
+    cache_dir: Path, force_refresh: bool
+) -> Tuple[Dict[str, List[dict]], Dict[int, Dict[str, Optional[str]]]]:
+    """({nombre -> [{object_id, shard, type}, ...]}, {object_id -> {slug_seccion -> texto}})
+    recorriendo los 47 shards.
 
     Un mismo nombre puede aparecer mas de una vez (en el mismo shard o en
     shards distintos) si bian.org tiene 2 objetos con el mismo texto visible
@@ -131,6 +192,7 @@ def build_name_index(cache_dir: Path, force_refresh: bool) -> Dict[str, List[dic
     print(f"  {len(shard_mapping)} objetos indexados en {len(shard_numbers)} shards (data/all_objects_data_<N>.js)")
 
     index: Dict[str, Dict[int, dict]] = {}
+    object_sections: Dict[int, Dict[str, Optional[str]]] = {}
     for i, shard_n in enumerate(shard_numbers, start=1):
         t0 = time.time()
         shard_data = load_shard(cache_dir, shard_n, force_refresh)
@@ -138,16 +200,19 @@ def build_name_index(cache_dir: Path, force_refresh: bool) -> Dict[str, List[dic
             entries = obj.get("data") or []
             if not entries:
                 continue
-            name = entries[0].get("name")
-            obj_type = entries[0].get("type")
+            entry0 = entries[0]
+            name = entry0.get("name")
+            obj_type = entry0.get("type")
             if not name:
                 continue
             object_id = int(object_id_str)
             canonical_shard = shard_mapping.get(object_id_str, shard_n)
             index.setdefault(name, {})[object_id] = {"object_id": object_id, "shard": canonical_shard, "type": obj_type}
+            if object_id not in object_sections:
+                object_sections[object_id] = _extract_documentation_sections(entry0)
         print(f"  [{i}/{len(shard_numbers)}] shard {shard_n}: {len(shard_data)} objetos ({time.time() - t0:.1f}s)")
 
-    return {name: list(candidates.values()) for name, candidates in index.items()}
+    return {name: list(candidates.values()) for name, candidates in index.items()}, object_sections
 
 
 # ---------------------------------------------------------------------------
@@ -231,12 +296,46 @@ def load_service_domain_names(view_catalog_path: Path) -> List[str]:
     return sorted({entry["service_domain"] for entry in data})
 
 
+def load_business_area_names(matrix_view_path: Path) -> List[str]:
+    """Nombres de las Business Area REALES del modelo (excluye el bucket
+    sentinela `is_unclassified: true` que arma generate_matrix_view.py para
+    los Service Domains sin Business Area de modelo asignada)."""
+
+    if not matrix_view_path.exists():
+        return []
+    data = json.loads(matrix_view_path.read_text(encoding="utf-8"))
+    return sorted(ba["name"] for ba in data.get("business_areas", []) if not ba.get("is_unclassified"))
+
+
+def load_business_domain_names(matrix_view_path: Path) -> List[str]:
+    """Nombres de todos los Business Domain del arbol (de primer nivel y
+    anidados, escenario 1 y 2), excluyendo el bucket sentinela."""
+
+    if not matrix_view_path.exists():
+        return []
+    data = json.loads(matrix_view_path.read_text(encoding="utf-8"))
+    names = set()
+    for ba in data.get("business_areas", []):
+        if ba.get("is_unclassified"):
+            continue
+        for bd in ba.get("business_domains", []):
+            names.add(bd["name"])
+            for nested in bd.get("business_domains", []):
+                names.add(nested["name"])
+    return sorted(names)
+
+
 # ---------------------------------------------------------------------------
 # Resolucion nombre -> object_id (con desambiguacion por tipo preferido).
 # ---------------------------------------------------------------------------
 
 
-def resolve_names(names: List[str], index: Dict[str, List[dict]], category: str) -> dict:
+def resolve_names(
+    names: List[str],
+    index: Dict[str, List[dict]],
+    category: str,
+    object_sections: Dict[int, Dict[str, Optional[str]]],
+) -> dict:
     priority = PREFERRED_TYPES[category]
     resolved, ambiguous, unresolved = {}, {}, []
 
@@ -267,11 +366,21 @@ def resolve_names(names: List[str], index: Dict[str, List[dict]], category: str)
                 # diagrama) en vez de un candidates[0] sin criterio.
                 chosen = (best_pool or candidates)[0]
 
+        sections = object_sections.get(chosen["object_id"], {})
         entry = {
             "object_id": chosen["object_id"],
             "shard": chosen["shard"],
             "matched_type": chosen["type"],
             "url": OBJECT_URL_TMPL.format(shard=chosen["shard"], object_id=chosen["object_id"]),
+            # "documentation" es la seccion literalmente titulada "documentation"
+            # en bian.org (puede venir vacia — no es un fallback a otra seccion,
+            # ver el bug documentado en _extract_documentation_sections).
+            "documentation": sections.get("documentation"),
+            # Secciones adicionales de la pagina (numeradas en bian.org: role_definition,
+            # example_of_use, executive_summary, key_features, y cualquier otra que
+            # aparezca a futuro) — solo se llenan para objetos que las traen (tipicamente
+            # Service Domains; Business Area/Domain suelen tener nada mas que "documentation").
+            "documentation_sections": sections,
         }
         if is_ambiguous:
             entry["ambiguous_candidates"] = candidates
@@ -300,22 +409,53 @@ def main() -> int:
     )
     parser.add_argument("--view-catalog", type=Path, default=DEFAULT_VIEW_CATALOG, help=f"default: {DEFAULT_VIEW_CATALOG}")
     parser.add_argument("--xlsx", type=Path, default=DEFAULT_XLSX, help=f"default: {DEFAULT_XLSX}")
+    parser.add_argument(
+        "--matrix-view",
+        type=Path,
+        default=DEFAULT_MATRIX_VIEW,
+        help=(
+            "Ruta a BIAN_Service_Landscape_V14.0_Matrix_View.json, de donde salen los nombres de "
+            f"Business Area a resolver (opcional: si no existe se omite esa categoria) (default: {DEFAULT_MATRIX_VIEW})"
+        ),
+    )
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help=f"default: {DEFAULT_OUTPUT}")
     args = parser.parse_args()
 
     print(f"Indexando objetos de {BASE} (cache: {args.cache_dir}) ...")
-    index = build_name_index(args.cache_dir, args.force_refresh)
+    index, object_sections = build_name_index(args.cache_dir, args.force_refresh)
     print(f"  {len(index)} nombres distintos indexados en total\n")
 
     print(f"Resolviendo Service Domains de {args.view_catalog} ...")
     sd_names = load_service_domain_names(args.view_catalog)
-    sd_result = resolve_names(sd_names, index, "service_domains")
+    sd_result = resolve_names(sd_names, index, "service_domains", object_sections)
     print(f"  {sd_result['stats']}\n")
 
     print(f"Resolviendo clases BIAN BOM de {args.xlsx} ...")
     class_names = load_bian_bom_class_names(args.xlsx)
-    class_result = resolve_names(class_names, index, "bian_bom_classes")
+    class_result = resolve_names(class_names, index, "bian_bom_classes", object_sections)
     print(f"  {class_result['stats']}\n")
+
+    empty_result = {"entries": {}, "stats": {"total": 0, "resolved": 0, "ambiguous": 0, "unresolved": 0}, "unresolved": []}
+
+    print(f"Resolviendo Business Areas de {args.matrix_view} ...")
+    area_names = load_business_area_names(args.matrix_view)
+    if area_names:
+        area_result = resolve_names(area_names, index, "business_areas", object_sections)
+        print(f"  {area_result['stats']}\n")
+    else:
+        print("  no existe (o no tiene Business Areas) -> se omite esta categoria; "
+              "correr scripts/generate_matrix_view/ primero\n")
+        area_result = empty_result
+
+    print(f"Resolviendo Business Domains de {args.matrix_view} ...")
+    domain_names = load_business_domain_names(args.matrix_view)
+    if domain_names:
+        domain_result = resolve_names(domain_names, index, "business_domains", object_sections)
+        print(f"  {domain_result['stats']}\n")
+    else:
+        print("  no existe (o no tiene Business Domains) -> se omite esta categoria; "
+              "correr scripts/generate_matrix_view/ primero\n")
+        domain_result = empty_result
 
     output = {
         "source": {
@@ -323,10 +463,22 @@ def main() -> int:
             "shard_url_template": SHARD_URL_TMPL,
             "object_url_template": OBJECT_URL_TMPL,
         },
-        "stats": {"service_domains": sd_result["stats"], "bian_bom_classes": class_result["stats"]},
+        "stats": {
+            "service_domains": sd_result["stats"],
+            "bian_bom_classes": class_result["stats"],
+            "business_areas": area_result["stats"],
+            "business_domains": domain_result["stats"],
+        },
         "service_domains": sd_result["entries"],
         "bian_bom_classes": class_result["entries"],
-        "unresolved": {"service_domains": sd_result["unresolved"], "bian_bom_classes": class_result["unresolved"]},
+        "business_areas": area_result["entries"],
+        "business_domains": domain_result["entries"],
+        "unresolved": {
+            "service_domains": sd_result["unresolved"],
+            "bian_bom_classes": class_result["unresolved"],
+            "business_areas": area_result["unresolved"],
+            "business_domains": domain_result["unresolved"],
+        },
     }
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
