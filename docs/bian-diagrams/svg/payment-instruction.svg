@@ -1,0 +1,2709 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" bizzid="51821" width="55.15cm" height="59.05cm" viewBox="0 0 5515.00 5905.00" preserveAspectRatio="none" style="margin-left:auto;margin-right:auto;display:block;">
+<defs>
+<g id="symbol-MetaModels/UML/UML_ClassDiagram">
+<g fill="#ffffff" fill-opacity="0" stroke="#000000" stroke-dasharray="16, 4" stroke-opacity="0" stroke-width="3">
+<rect x="2" y="2" width="420" height="420"></rect>
+</g>
+<g fill="#ffffff" stroke="#000000" stroke-width="18">
+<rect x="20" y="20" width="184" height="180"></rect>
+<g transform="translate(20 20)">
+<rect width="184" height="60" fill="#ffff80"></rect>
+<path d="m0 120h184" fill="none"></path>
+</g>
+</g>
+<g fill="#ffffff" stroke="#000000" stroke-width="18">
+<rect x="220" y="220" width="184" height="180"></rect>
+<g transform="translate(220 220)">
+<rect width="184" height="60" fill="#ffff80"></rect>
+<path d="m0 120h184" fill="none"></path>
+</g>
+</g>
+<g fill="#ffffff" stroke="#000000" stroke-width="12">
+<path d="m100 200v140q0 20 20 20h100" fill="none" stroke-linejoin="round" stroke-miterlimit="1"></path>
+</g>
+<g fill="#ffffff" stroke="#000000" stroke-width="12">
+<path d="m204 60h96q20 0 20 20v140" fill="none" stroke-linejoin="round" stroke-miterlimit="1"></path>
+</g>
+</g>
+<g id="symbol-node-icon">
+<path d="M 220,332.36218 L 160,372.36218 L 160,532.36218 L 320,532.36218 L 380,492.36218 L 380,332.36218 L 220,332.36218 z"></path>
+<path d="M 160,372.36218 L 320,372.36218 L 320,532.36218"></path>
+<path d="M 320,372.36218 L 380,332.36218"></path>
+</g>
+<g id="symbol-plus-icon">
+<path style="fill:none" d="m50,0 0,100"></path>
+<path style="fill:none" d="m0,50 100,0"></path>
+</g>
+</defs>
+<style>
+.object221393 {stroke:#000000;stroke-width:6.00}
+.object221488 {stroke:#7d7d7d;stroke-width:6.00}
+.object221401 {stroke:#000000;stroke-width:6.00}
+.object221306 {stroke:#7d7d7d;stroke-width:6.00}
+.object221460 {stroke:#000000;stroke-width:6.00}
+.object221420 {stroke:#000000;stroke-width:6.00}
+.object221339 {stroke:#000000;stroke-width:6.00}
+.object221300 {stroke:#7d7d7d;stroke-width:6.00}
+.object221303 {stroke:#7d7d7d;stroke-width:6.00}
+.object221454 {stroke:#000000;stroke-width:6.00}
+.object221338 {stroke:#000000;stroke-width:6.00}
+.object221453 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221426 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221482 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221396 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221414 {fill:#ffffff;stroke:#d9d9d9;stroke-width:6.00}
+.object221327 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221407 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221432 {fill:#eae8e8;stroke:#c47474;stroke-width:6.00}
+.object221330 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221380 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221490 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221320 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221450 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221355 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221428 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221318 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221334 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221392 {fill:#ffffff;stroke:#d9d9d9;stroke-width:6.00}
+.object221335 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221371 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221386 {fill:#eae8e8;stroke:#c47474;stroke-width:6.00}
+.object221331 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221370 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221387 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221427 {fill:#ffffff;stroke:#d9d9d9;stroke-width:6.00}
+.object221408 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221317 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221399 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221474 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221485 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221313 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221354 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221417 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221368 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221312 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221349 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221311 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221425 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221336 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221377 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221491 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221324 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221430 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221444 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221412 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221328 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221329 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221323 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221456 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221477 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221344 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221361 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221462 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221314 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221310 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221345 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221388 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221446 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221332 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221363 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221347 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221409 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221418 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221309 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221484 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221481 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221475 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221325 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221473 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221397 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221319 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221373 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221389 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221337 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221315 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221429 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221322 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221486 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221367 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221471 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221352 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221452 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221480 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221360 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221438 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221316 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221487 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221333 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221326 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221458 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221449 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221321 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221461 {fill:#e1e1e1;stroke:#bbbbbb;stroke-width:6.00}
+.object221413 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221302 {fill:#ffffff;stroke:#d9d9d9;stroke-width:6.00}
+.object221478 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221447 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.icon221351 {fill:none;stroke:#000000;stroke-width:18.80}
+.icon221461 {fill:none;stroke:#000000;stroke-width:18.80}
+.icon221424 {fill:none;stroke:#000000;stroke-width:18.80}
+.icon221411 {fill:none;stroke:#000000;stroke-width:18.80}
+.icon221437 {fill:none;stroke:#000000;stroke-width:18.80}
+.icon221340 {fill:none;stroke:#000000;stroke-width:18.80}
+.object221358 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221451 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221443 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221448 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221455 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221374 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221437 {fill:#e1e1e1;stroke:#bbbbbb;stroke-width:6.00}
+.object221307 {fill:#80ffff;stroke:#16d9d9;stroke-width:3.00;stroke-dasharray:16.00,4.00}
+.object221304 {fill:#80ffff;stroke:#16d9d9;stroke-width:3.00;stroke-dasharray:16.00,4.00}
+.object221467 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221379 {fill:#eae8e8;stroke:#c47474;stroke-width:6.00}
+.object221465 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221435 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221469 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221439 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221424 {fill:#e1e1e1;stroke:#bbbbbb;stroke-width:6.00}
+.object221308 {fill:#ffffff;stroke:#d9d9d9;stroke-width:6.00}
+.object221351 {fill:#e1e1e1;stroke:#bbbbbb;stroke-width:6.00}
+.object221350 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221375 {fill:#ffffff;stroke:#d9d9d9;stroke-width:6.00}
+.object221422 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221403 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221470 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221472 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221423 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221489 {fill:#80ffff;stroke:#16d9d9;stroke-width:3.00;stroke-dasharray:16.00,4.00}
+.object221301 {fill:#80ffff;stroke:#16d9d9;stroke-width:3.00;stroke-dasharray:16.00,4.00}
+.object221445 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221476 {fill:#ffffff;stroke:#d9d9d9;stroke-width:6.00}
+.object221457 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221411 {fill:#e1e1e1;stroke:#bbbbbb;stroke-width:6.00}
+.object221459 {fill:#80ffff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221346 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221394 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221390 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221421 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221305 {fill:#eae8e8;stroke:#c47474;stroke-width:6.00}
+.object221398 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221419 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221416 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221434 {fill:#ffffff;stroke:#d9d9d9;stroke-width:6.00}
+.object221463 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221384 {fill:#ff80ff;fill-opacity:0.00;stroke:none;stroke-width:3.00}
+.object221340 {fill:#e1e1e1;stroke:#bbbbbb;stroke-width:6.00}
+</style>
+<defs>
+</defs>
+<g>
+<use xlink:href="#background"></use>
+<g bizzid="51821" bizzconcept="Canvas" bizztype="">
+<g bizzid="221308" bizzsemantic="220495" bizzconcept="UML_Class" bizztype="node" bizzsymbol="rectangle">
+<g>
+<g class="object221308">
+<rect x="4053.00" y="2022.00" width="1080.00" height="264.00"></rect>
+</g>
+<g transform="translate(4053.00, 2022.00)" class="object221308">
+<rect style="fill:#ffff80;fillOpacity:0.5" x="0" y="0" width="1080.000" height="61.000"></rect>
+</g>
+</g>
+<use xlink:href="#object221308-report"></use>
+<g bizzid="label221308" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="4358.00" y="2064.00">Payment Instruction Procedure</text>
+</g>
+</g>
+<g bizzid="221457" bizzsemantic="220780" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221457">
+<rect x="4153.00" y="2093.00" width="940.00" height="61.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(4073.000000, 2112.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(4111.000000, 2112.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221457-report"></use>
+<g bizzid="label221457" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="4163.00" y="2135.00">Payment Instruction Procedure Workstep : Workstep[1..*]</text>
+</g>
+</g>
+<use xlink:href="#object221457-lvl"></use>
+</g>
+<g bizzid="221435" bizzsemantic="220789" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221435">
+<rect x="4153.00" y="2154.00" width="940.00" height="102.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(4073.000000, 2193.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(4111.000000, 2193.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221435-report"></use>
+<g bizzid="label221435" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="4163.00" y="2196.00">Payment Instruction Procedure Workstep Type : </text>
+<text x="4163.00" y="2237.00">PaymentInstructionProcedureWorkstepTypeValues[1..*]</text>
+</g>
+</g>
+<use xlink:href="#object221435-lvl"></use>
+</g>
+<use xlink:href="#object221308-lvl"></use>
+</g>
+<g bizzid="221302" bizzsemantic="44588" bizzconcept="UML_Class" bizztype="node" bizzsymbol="rectangle">
+<g>
+<g class="object221302">
+<rect x="2400.00" y="2022.00" width="1387.00" height="860.00"></rect>
+</g>
+<g transform="translate(2400.00, 2022.00)" class="object221302">
+<rect style="fill:#ffff80;fillOpacity:0.5" x="0" y="0" width="1387.000" height="60"></rect>
+</g>
+</g>
+<use xlink:href="#object221302-report"></use>
+<g bizzid="221445" bizzsemantic="65970" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221445">
+<rect x="2500.00" y="2212.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2230.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2230.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221445-report"></use>
+<g bizzid="label221445" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2253.50">Payment Instruction Direction Type : Text</text>
+</g>
+</g>
+<use xlink:href="#object221445-lvl"></use>
+</g>
+<g bizzid="221459" bizzsemantic="65715" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221459">
+<rect x="2500.00" y="2272.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2290.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2290.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221459-report"></use>
+<g bizzid="label221459" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2313.50">Payment Instruction Type : PaymentTypeValues</text>
+</g>
+</g>
+<use xlink:href="#object221459-lvl"></use>
+</g>
+<g bizzid="221374" bizzsemantic="65713" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221374">
+<rect x="2500.00" y="2332.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2350.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2350.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221374-report"></use>
+<g bizzid="label221374" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2373.50">Payment Instruction Requested Mechanism : Text</text>
+</g>
+</g>
+<use xlink:href="#object221374-lvl"></use>
+</g>
+<g bizzid="label221302" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2942.00" y="2064.00">Payment Instruction</text>
+</g>
+</g>
+<g bizzid="221455" bizzsemantic="65905" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221455">
+<rect x="2500.00" y="2452.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2470.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2470.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221455-report"></use>
+<g bizzid="label221455" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2493.50">Payment Instruction Processing Validity Time : DateTimePeriod</text>
+</g>
+</g>
+<use xlink:href="#object221455-lvl"></use>
+</g>
+<g bizzid="221443" bizzsemantic="65729" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221443">
+<rect x="2500.00" y="2512.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2530.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2530.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221443-report"></use>
+<g bizzid="label221443" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2553.50">Payment Instruction Priority : PriorityValueTypes</text>
+</g>
+</g>
+<use xlink:href="#object221443-lvl"></use>
+</g>
+<g bizzid="221451" bizzsemantic="65717" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221451">
+<rect x="2500.00" y="2572.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2590.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2590.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221451-report"></use>
+<g bizzid="label221451" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2613.50">Payment Instruction Clearing Channel : ClearingChannelTypeValues</text>
+</g>
+</g>
+<use xlink:href="#object221451-lvl"></use>
+</g>
+<g bizzid="221358" bizzsemantic="65723" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221358">
+<rect x="2500.00" y="2632.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2650.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2650.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221358-report"></use>
+<g bizzid="label221358" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2673.50">Payment Instruction Credit Debit Indicator : DebitCreditIndicatortValues</text>
+</g>
+</g>
+<use xlink:href="#object221358-lvl"></use>
+</g>
+<g bizzid="221448" bizzsemantic="65750" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221448">
+<rect x="2500.00" y="2692.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2710.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2710.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221448-report"></use>
+<g bizzid="label221448" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2733.50">Payment Instruction Status : PaymentInstructionStatus</text>
+</g>
+</g>
+<use xlink:href="#object221448-lvl"></use>
+</g>
+<g bizzid="221426" bizzsemantic="65721" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221426">
+<rect x="2500.00" y="2152.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2170.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2170.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221426-report"></use>
+<g bizzid="label221426" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2193.50">Payment Instruction Amount and Currency : PaymentAmountAndCurrency[1..*]</text>
+</g>
+</g>
+<use xlink:href="#object221426-lvl"></use>
+</g>
+<g bizzid="221453" bizzsemantic="65964" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221453">
+<rect x="2500.00" y="2392.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2410.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2410.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221453-report"></use>
+<g bizzid="label221453" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2433.50">Payment Instruction Date and Time : PaymentDateTime[1..*]</text>
+</g>
+</g>
+<use xlink:href="#object221453-lvl"></use>
+</g>
+<g bizzid="221447" bizzsemantic="65762" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221447">
+<rect x="2500.00" y="2092.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2110.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2110.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221447-report"></use>
+<g bizzid="label221447" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2133.50">Payment Instruction Identification  : PaymentIdentification</text>
+</g>
+</g>
+<use xlink:href="#object221447-lvl"></use>
+</g>
+<g bizzid="221478" bizzsemantic="65719" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221478">
+<rect x="2500.00" y="2752.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2770.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2770.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221478-report"></use>
+<g bizzid="label221478" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2793.50">Payment Instruction Method : PaymentMethodTypeValues</text>
+</g>
+</g>
+<use xlink:href="#object221478-lvl"></use>
+</g>
+<g bizzid="221413" bizzsemantic="65955" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221413">
+<rect x="2500.00" y="2812.00" width="1227.00" height="60.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2420.000000, 2830.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2458.000000, 2830.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221413-report"></use>
+<g bizzid="label221413" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2510.00" y="2853.50">Payment Instruction Description : Text</text>
+</g>
+</g>
+<use xlink:href="#object221413-lvl"></use>
+</g>
+<g>
+<g style="fill:#000000;stroke:none;stroke-width:1.00">
+</g>
+<g transform="translate(3737.00, 2842.00)" style="fill:#000000;stroke:none;stroke-width:1.00">
+<g bizzsemantic="44587" bizzid="20e56e02-7054-e911-8237-0676108d3cb6"><g style="fill-opacity:0;stroke-opacity:0"><rect x="0.00" y="0.00" width="40.00" height="30.00"></rect>
+</g><g transform=" translate(0.000000, 0.000000) scale(0.784314,0.588235) translate(-6.000000, -7.000000)">
+<path d="m 30.5,41.3 c 0.1,0.4 0.1,0.8 0.1,1.2 0,2.2 -0.8,4.2 -2.4,5.7 L 25,51.4 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -4.5,0 -8.1,-3.6 -8.1,-8.1 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 0.4,0 0.8,0.1 1.2,0.1 L 26.3,32 c -1.2,-0.4 -2.4,-0.6 -3.7,-0.6 -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,6.1 5,11.1 11.1,11.1 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 c 2.1,-2.1 3.3,-4.9 3.3,-7.9 0,-1.3 -0.2,-2.5 -0.6,-3.7 l -2.6,2.5"></path>
+<path d="m 44.9,9 c -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,1.3 0.2,2.5 0.6,3.7 l 2.5,-2.5 c -0.1,-0.4 -0.1,-0.8 -0.1,-1.2 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 4.5,0 8.1,3.6 8.1,8.1 0,2.2 -0.8,4.2 -2.4,5.7 l -3.2,3.2 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -0.4,0 -0.8,-0.1 -1.2,-0.1 L 38,33.8 c 1.2,0.4 2.4,0.6 3.7,0.6 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 C 54.9,25.8 56.1,23 56.1,20 56,14 51,9 44.9,9"></path>
+<path d="m 24.1,42.5 c -0.4,0 -0.8,-0.2 -1.1,-0.5 -0.6,-0.6 -0.6,-1.6 0,-2.3 l 16,-16 c 0.6,-0.6 1.6,-0.6 2.3,0 0.6,0.6 0.6,1.6 0,2.3 l -16,16 c -0.4,0.4 -0.8,0.5 -1.2,0.5"></path>
+</g>
+</g>
+</g>
+</g>
+<use xlink:href="#object221302-lvl"></use>
+</g>
+<g bizzid="221420" bizzsemantic="220687" bizzconcept="UML_Association" bizztype="relation" bizzsymbol="link">
+<g>
+<g class="object221420">
+<path style="fill:none;stroke-miterlimit:1.0;stroke-linejoin:round" d="M 3787.00 2122.00 L 4053.00 2122.00"></path>
+</g>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="3793.00" y="2144.00" width="108.00" height="77.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="3942.00" y="2024.00" width="103.00" height="77.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<ellipse cx="3807.00" cy="2122.00" rx="20.00" ry="20.00"></ellipse>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<ellipse cx="4033.00" cy="2122.00" rx="20.00" ry="20.00"></ellipse>
+</g>
+<use xlink:href="#object221420-report"></use>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="3803.00" y="2154.00" width="88.00" height="57.00"></rect>
+</g>
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3813.00" y="2194.00">0..1</text>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="3952.00" y="2034.00" width="83.00" height="57.00"></rect>
+</g>
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3962.00" y="2074.00">0..*</text>
+</g>
+<use xlink:href="#object221420-lvl"></use>
+</g>
+<g bizzid="221305" bizzsemantic="43686" bizzconcept="UML_Class" bizztype="node" bizzsymbol="rectangle">
+<g>
+<g class="object221305">
+<rect x="4130.00" y="1642.00" width="400.00" height="180.00"></rect>
+</g>
+<g transform="translate(4130.00, 1642.00)" class="object221305">
+<rect style="fill:#ffff80;fillOpacity:0.5" x="0" y="0" width="400.000" height="60"></rect>
+</g>
+</g>
+<use xlink:href="#object221305-report"></use>
+<g bizzid="label221305" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="4251.50" y="1684.00">Procedure</text>
+</g>
+</g>
+<g>
+<g style="fill:#000000;stroke:none;stroke-width:1.00">
+</g>
+<g transform="translate(4480.00, 1782.00)" style="fill:#000000;stroke:none;stroke-width:1.00">
+<g bizzsemantic="43685" bizzid="90de5a16-15dc-ea11-82b8-060197b50cc2"><g style="fill-opacity:0;stroke-opacity:0"><rect x="0.00" y="0.00" width="40.00" height="30.00"></rect>
+</g><g transform=" translate(0.000000, 0.000000) scale(0.784314,0.588235) translate(-6.000000, -7.000000)">
+<path d="m 30.5,41.3 c 0.1,0.4 0.1,0.8 0.1,1.2 0,2.2 -0.8,4.2 -2.4,5.7 L 25,51.4 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -4.5,0 -8.1,-3.6 -8.1,-8.1 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 0.4,0 0.8,0.1 1.2,0.1 L 26.3,32 c -1.2,-0.4 -2.4,-0.6 -3.7,-0.6 -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,6.1 5,11.1 11.1,11.1 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 c 2.1,-2.1 3.3,-4.9 3.3,-7.9 0,-1.3 -0.2,-2.5 -0.6,-3.7 l -2.6,2.5"></path>
+<path d="m 44.9,9 c -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,1.3 0.2,2.5 0.6,3.7 l 2.5,-2.5 c -0.1,-0.4 -0.1,-0.8 -0.1,-1.2 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 4.5,0 8.1,3.6 8.1,8.1 0,2.2 -0.8,4.2 -2.4,5.7 l -3.2,3.2 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -0.4,0 -0.8,-0.1 -1.2,-0.1 L 38,33.8 c 1.2,0.4 2.4,0.6 3.7,0.6 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 C 54.9,25.8 56.1,23 56.1,20 56,14 51,9 44.9,9"></path>
+<path d="m 24.1,42.5 c -0.4,0 -0.8,-0.2 -1.1,-0.5 -0.6,-0.6 -0.6,-1.6 0,-2.3 l 16,-16 c 0.6,-0.6 1.6,-0.6 2.3,0 0.6,0.6 0.6,1.6 0,2.3 l -16,16 c -0.4,0.4 -0.8,0.5 -1.2,0.5"></path>
+</g>
+</g>
+</g>
+</g>
+<use xlink:href="#object221305-lvl"></use>
+</g>
+<g bizzid="221304" bizzsemantic="221304" bizzconcept="ViewGraphic" bizztype="node" bizzsymbol="dogear">
+<g class="object221304">
+<path style="fill-rule:nonzero;stroke-linejoin:bevel" d="M 5040.00 1687.00 L 5040.00 1742.00 L 4640.00 1742.00 L 4640.00 1642.00 L 4995.00 1642.00 L 5040.00 1687.00 L 4995.00 1687.00 L 4995.00 1642.00 z"></path>
+</g>
+<use xlink:href="#object221304-report"></use>
+<g bizzid="label221304" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="arial" font-size="31.75" fill="#000000">
+<text x="4650.00" y="1680.00">Generic Artifact:
+</text>
+<text x="4650.00" y="1716.00">Procedure
+</text>
+<text x="4650.00" y="1752.00"></text>
+</g>
+</g>
+<use xlink:href="#object221304-lvl"></use>
+</g>
+<g bizzid="221340" bizzsemantic="52656" bizzconcept="UML_ClassDiagram" bizztype="node" bizzsymbol="rectangle">
+<g class="object221340">
+<rect x="4035.00" y="1502.00" width="560.00" height="80.00"></rect>
+</g>
+<use xlink:href="#object221340-report"></use>
+<g bizzid="icon221340" bizzconcept="icon" bizztype="node" bizzsymbol="MetaModels/UML/UML_ClassDiagram">
+<g class="icon221340" transform=" translate(4540.000000, 1512.000000) scale(0.106383,0.106383) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-MetaModels/UML/UML_ClassDiagram"></use>
+</g>
+</g>
+<g bizzid="label221340" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="arial" font-size="31.75" fill="#000000">
+<text x="4135.00" y="1552.00">Procedure Helper Diagram</text>
+</g>
+</g>
+<use xlink:href="#object221340-lvl"></use>
+</g>
+<g bizzid="221303" bizzconcept="ViewEdge" bizztype="relation" bizzsymbol="link">
+<g>
+<g class="object221303">
+<path style="fill:none;stroke-miterlimit:1.0;stroke-linejoin:round" d="M 4640.00 1702.00 L 4530.00 1722.00"></path>
+</g>
+</g>
+<use xlink:href="#object221303-report"></use>
+<use xlink:href="#object221303-lvl"></use>
+</g>
+<g bizzid="221393" bizzsemantic="220494" bizzconcept="UML_Generalization" bizztype="relation" bizzsymbol="link">
+<g>
+<g class="object221393">
+<path style="fill:none;stroke-miterlimit:1.0;stroke-linejoin:round" d="M 4313.00 2022.00 L 4320.00 1822.00"></path>
+</g>
+<g transform="translate(4320.00, 1822.00) rotate(2.004536) translate(-4320.00, -1822.00)">
+<g style="fill:#ffffff;stroke:#000000;stroke-width:6.00">
+<path style="stroke-linejoin:round" d="M 4320.00 1822.00 l 20.00 60.00 l -40.00 0.00 z"></path>
+</g>
+</g>
+</g>
+<use xlink:href="#object221393-report"></use>
+<use xlink:href="#object221393-lvl"></use>
+</g>
+<g bizzid="221434" bizzsemantic="65972" bizzconcept="UML_Enumeration" bizztype="node" bizzsymbol="rectangle">
+<g>
+<g class="object221434">
+<rect x="2213.00" y="3510.00" width="692.00" height="662.00"></rect>
+</g>
+<g transform="translate(2213.00, 3510.00)" class="object221434">
+<rect style="fill:#ffff80;fillOpacity:0.5" x="0" y="0" width="692.000" height="102"></rect>
+</g>
+</g>
+<use xlink:href="#object221434-report"></use>
+<g bizzid="221439" bizzsemantic="65855" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221439">
+<rect x="2293.00" y="3622.00" width="476.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(2251.000000, 3640.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221439-report"></use>
+<g bizzid="label221439" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2303.00" y="3663.50">Payer or Debtor</text>
+</g>
+</g>
+<use xlink:href="#object221439-lvl"></use>
+</g>
+<g bizzid="221469" bizzsemantic="65809" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221469">
+<rect x="2293.00" y="3682.00" width="476.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(2251.000000, 3700.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221469-report"></use>
+<g bizzid="label221469" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2303.00" y="3723.50">Payee Bank or Creditor Agent</text>
+</g>
+</g>
+<use xlink:href="#object221469-lvl"></use>
+</g>
+<g bizzid="221423" bizzsemantic="65831" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221423">
+<rect x="2293.00" y="3742.00" width="476.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(2251.000000, 3760.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221423-report"></use>
+<g bizzid="label221423" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2303.00" y="3783.50">Payee or Creditor</text>
+</g>
+</g>
+<use xlink:href="#object221423-lvl"></use>
+</g>
+<g bizzid="221472" bizzsemantic="65942" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221472">
+<rect x="2293.00" y="3802.00" width="476.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(2251.000000, 3820.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221472-report"></use>
+<g bizzid="label221472" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2303.00" y="3843.50">Payer Bank or Debtor Agent</text>
+</g>
+</g>
+<use xlink:href="#object221472-lvl"></use>
+</g>
+<g bizzid="221470" bizzsemantic="65795" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221470">
+<rect x="2293.00" y="3982.00" width="476.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(2251.000000, 4000.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221470-report"></use>
+<g bizzid="label221470" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2303.00" y="4023.50">Initiator</text>
+</g>
+</g>
+<use xlink:href="#object221470-lvl"></use>
+</g>
+<g bizzid="label221434" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2446.50" y="3552.00">«enumeration»
+</text>
+<text x="2312.50" y="3593.00">PaymentInvolvementTypeValues</text>
+</g>
+</g>
+<g bizzid="221390" bizzsemantic="65946" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221390">
+<rect x="2293.00" y="4042.00" width="476.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(2251.000000, 4060.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221390-report"></use>
+<g bizzid="label221390" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2303.00" y="4083.50">PSU</text>
+</g>
+</g>
+<use xlink:href="#object221390-lvl"></use>
+</g>
+<g bizzid="221394" bizzsemantic="65917" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221394">
+<rect x="2293.00" y="4102.00" width="476.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(2251.000000, 4120.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221394-report"></use>
+<g bizzid="label221394" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2303.00" y="4143.50">PSP</text>
+</g>
+</g>
+<use xlink:href="#object221394-lvl"></use>
+</g>
+<g bizzid="221467" bizzsemantic="65813" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221467">
+<rect x="2293.00" y="3862.00" width="476.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(2251.000000, 3880.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221467-report"></use>
+<g bizzid="label221467" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2303.00" y="3903.50">Ultimate Debtor</text>
+</g>
+</g>
+<use xlink:href="#object221467-lvl"></use>
+</g>
+<g bizzid="221384" bizzsemantic="65888" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221384">
+<rect x="2293.00" y="3922.00" width="476.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(2251.000000, 3940.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221384-report"></use>
+<g bizzid="label221384" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2303.00" y="3963.50">Ultimate Creditor</text>
+</g>
+</g>
+<use xlink:href="#object221384-lvl"></use>
+</g>
+<use xlink:href="#object221434-lvl"></use>
+</g>
+<g bizzid="221375" bizzsemantic="66476" bizzconcept="UML_Enumeration" bizztype="node" bizzsymbol="rectangle">
+<g>
+<g class="object221375">
+<rect x="3900.00" y="2481.00" width="657.00" height="602.00"></rect>
+</g>
+<g transform="translate(3900.00, 2481.00)" class="object221375">
+<rect style="fill:#ffff80;fillOpacity:0.5" x="0" y="0" width="657.000" height="102"></rect>
+</g>
+</g>
+<use xlink:href="#object221375-report"></use>
+<g bizzid="221416" bizzsemantic="66670" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221416">
+<rect x="3980.00" y="2593.00" width="427.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(3938.000000, 2611.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221416-report"></use>
+<g bizzid="label221416" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3990.00" y="2634.50">Requested Execution Date</text>
+</g>
+</g>
+<use xlink:href="#object221416-lvl"></use>
+</g>
+<g bizzid="label221375" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="4116.00" y="2523.00">«enumeration»
+</text>
+<text x="3999.50" y="2564.00">PaymentDateTimeTypeValues</text>
+</g>
+</g>
+<g bizzid="221403" bizzsemantic="66479" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221403">
+<rect x="3980.00" y="2653.00" width="427.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(3938.000000, 2671.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221403-report"></use>
+<g bizzid="label221403" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3990.00" y="2694.50">Acceptance Date</text>
+</g>
+</g>
+<use xlink:href="#object221403-lvl"></use>
+</g>
+<g bizzid="221398" bizzsemantic="66658" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221398">
+<rect x="3980.00" y="2713.00" width="427.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(3938.000000, 2731.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221398-report"></use>
+<g bizzid="label221398" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3990.00" y="2754.50">Creation Date</text>
+</g>
+</g>
+<use xlink:href="#object221398-lvl"></use>
+</g>
+<g bizzid="221422" bizzsemantic="66527" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221422">
+<rect x="3980.00" y="2773.00" width="427.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(3938.000000, 2791.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221422-report"></use>
+<g bizzid="label221422" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3990.00" y="2814.50">Value Date</text>
+</g>
+</g>
+<use xlink:href="#object221422-lvl"></use>
+</g>
+<g bizzid="221419" bizzsemantic="66679" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221419">
+<rect x="3980.00" y="2833.00" width="427.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(3938.000000, 2851.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221419-report"></use>
+<g bizzid="label221419" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3990.00" y="2874.50">Due Date</text>
+</g>
+</g>
+<use xlink:href="#object221419-lvl"></use>
+</g>
+<g bizzid="221421" bizzsemantic="66683" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221421">
+<rect x="3980.00" y="2893.00" width="427.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(3938.000000, 2911.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221421-report"></use>
+<g bizzid="label221421" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3990.00" y="2934.50">Expiry Date</text>
+</g>
+</g>
+<use xlink:href="#object221421-lvl"></use>
+</g>
+<g bizzid="221346" bizzsemantic="66674" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221346">
+<rect x="3980.00" y="2953.00" width="427.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(3938.000000, 2971.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221346-report"></use>
+<g bizzid="label221346" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3990.00" y="2994.50">Expected Date</text>
+</g>
+</g>
+<use xlink:href="#object221346-lvl"></use>
+</g>
+<g bizzid="221350" bizzsemantic="66687" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221350">
+<rect x="3980.00" y="3013.00" width="427.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(3938.000000, 3031.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221350-report"></use>
+<g bizzid="label221350" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3990.00" y="3054.50">Pooling Adjustment Date</text>
+</g>
+</g>
+<use xlink:href="#object221350-lvl"></use>
+</g>
+<use xlink:href="#object221375-lvl"></use>
+</g>
+<g bizzid="221392" bizzsemantic="36101" bizzconcept="UML_Class" bizztype="node" bizzsymbol="rectangle">
+<g>
+<g class="object221392">
+<rect x="2080.00" y="3100.00" width="1000.00" height="325.00"></rect>
+</g>
+<g transform="translate(2080.00, 3100.00)" class="object221392">
+<rect style="fill:#ffff80;fillOpacity:0.5" x="0" y="0" width="1000.000" height="61.000"></rect>
+</g>
+</g>
+<use xlink:href="#object221392-report"></use>
+<g bizzid="label221392" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2333.00" y="3142.00">Payment Instruction Involvement</text>
+</g>
+</g>
+<g bizzid="221396" bizzsemantic="75061" bizzconcept="UML_Attribute" bizztype="node" bizzsymbol="rectangle">
+<g class="object221396">
+<rect x="2180.00" y="3171.00" width="860.00" height="102.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:#000000;stroke-width:20.83" transform=" translate(2100.000000, 3210.000000) scale(0.240000,0.240000) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-plus-icon"></use>
+</g>
+<g style="fill:#80ffff;stroke:#000000;stroke-width:13.44" transform=" translate(2138.000000, 3210.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221396-report"></use>
+<g bizzid="label221396" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2190.00" y="3213.00">Payment Instruction Involvement Type : </text>
+<text x="2190.00" y="3254.00">PaymentInvolvementTypeValues</text>
+</g>
+</g>
+<use xlink:href="#object221396-lvl"></use>
+</g>
+<g>
+<g style="fill:#000000;stroke:none;stroke-width:1.00">
+</g>
+<g transform="translate(3030.00, 3385.00)" style="fill:#000000;stroke:none;stroke-width:1.00">
+<g bizzsemantic="36100" bizzid="15e56e02-7054-e911-8237-0676108d3cb6"><g style="fill-opacity:0;stroke-opacity:0"><rect x="0.00" y="0.00" width="40.00" height="30.00"></rect>
+</g><g transform=" translate(0.000000, 0.000000) scale(0.784314,0.588235) translate(-6.000000, -7.000000)">
+<path d="m 30.5,41.3 c 0.1,0.4 0.1,0.8 0.1,1.2 0,2.2 -0.8,4.2 -2.4,5.7 L 25,51.4 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -4.5,0 -8.1,-3.6 -8.1,-8.1 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 0.4,0 0.8,0.1 1.2,0.1 L 26.3,32 c -1.2,-0.4 -2.4,-0.6 -3.7,-0.6 -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,6.1 5,11.1 11.1,11.1 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 c 2.1,-2.1 3.3,-4.9 3.3,-7.9 0,-1.3 -0.2,-2.5 -0.6,-3.7 l -2.6,2.5"></path>
+<path d="m 44.9,9 c -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,1.3 0.2,2.5 0.6,3.7 l 2.5,-2.5 c -0.1,-0.4 -0.1,-0.8 -0.1,-1.2 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 4.5,0 8.1,3.6 8.1,8.1 0,2.2 -0.8,4.2 -2.4,5.7 l -3.2,3.2 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -0.4,0 -0.8,-0.1 -1.2,-0.1 L 38,33.8 c 1.2,0.4 2.4,0.6 3.7,0.6 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 C 54.9,25.8 56.1,23 56.1,20 56,14 51,9 44.9,9"></path>
+<path d="m 24.1,42.5 c -0.4,0 -0.8,-0.2 -1.1,-0.5 -0.6,-0.6 -0.6,-1.6 0,-2.3 l 16,-16 c 0.6,-0.6 1.6,-0.6 2.3,0 0.6,0.6 0.6,1.6 0,2.3 l -16,16 c -0.4,0.4 -0.8,0.5 -1.2,0.5"></path>
+</g>
+</g>
+</g>
+</g>
+<use xlink:href="#object221392-lvl"></use>
+</g>
+<g bizzid="221386" bizzsemantic="41277" bizzconcept="UML_Class" bizztype="node" bizzsymbol="rectangle">
+<g>
+<g class="object221386">
+<rect x="3400.00" y="3174.00" width="400.00" height="180.00"></rect>
+</g>
+<g transform="translate(3400.00, 3174.00)" class="object221386">
+<rect style="fill:#ffff80;fillOpacity:0.5" x="0" y="0" width="400.000" height="60"></rect>
+</g>
+</g>
+<use xlink:href="#object221386-report"></use>
+<g bizzid="label221386" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3560.00" y="3216.00">Party</text>
+</g>
+</g>
+<g>
+<g style="fill:#000000;stroke:none;stroke-width:1.00">
+</g>
+<g transform="translate(3750.00, 3314.00)" style="fill:#000000;stroke:none;stroke-width:1.00">
+<g bizzsemantic="41276" bizzid="84db5a16-15dc-ea11-82b8-060197b50cc2"><g style="fill-opacity:0;stroke-opacity:0"><rect x="0.00" y="0.00" width="40.00" height="30.00"></rect>
+</g><g transform=" translate(0.000000, 0.000000) scale(0.784314,0.588235) translate(-6.000000, -7.000000)">
+<path d="m 30.5,41.3 c 0.1,0.4 0.1,0.8 0.1,1.2 0,2.2 -0.8,4.2 -2.4,5.7 L 25,51.4 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -4.5,0 -8.1,-3.6 -8.1,-8.1 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 0.4,0 0.8,0.1 1.2,0.1 L 26.3,32 c -1.2,-0.4 -2.4,-0.6 -3.7,-0.6 -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,6.1 5,11.1 11.1,11.1 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 c 2.1,-2.1 3.3,-4.9 3.3,-7.9 0,-1.3 -0.2,-2.5 -0.6,-3.7 l -2.6,2.5"></path>
+<path d="m 44.9,9 c -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,1.3 0.2,2.5 0.6,3.7 l 2.5,-2.5 c -0.1,-0.4 -0.1,-0.8 -0.1,-1.2 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 4.5,0 8.1,3.6 8.1,8.1 0,2.2 -0.8,4.2 -2.4,5.7 l -3.2,3.2 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -0.4,0 -0.8,-0.1 -1.2,-0.1 L 38,33.8 c 1.2,0.4 2.4,0.6 3.7,0.6 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 C 54.9,25.8 56.1,23 56.1,20 56,14 51,9 44.9,9"></path>
+<path d="m 24.1,42.5 c -0.4,0 -0.8,-0.2 -1.1,-0.5 -0.6,-0.6 -0.6,-1.6 0,-2.3 l 16,-16 c 0.6,-0.6 1.6,-0.6 2.3,0 0.6,0.6 0.6,1.6 0,2.3 l -16,16 c -0.4,0.4 -0.8,0.5 -1.2,0.5"></path>
+</g>
+</g>
+</g>
+</g>
+<use xlink:href="#object221386-lvl"></use>
+</g>
+<g bizzid="221401" bizzsemantic="143162" bizzconcept="UML_Association" bizztype="relation" bizzsymbol="link">
+<g>
+<g class="object221401">
+<path style="fill:none;stroke-miterlimit:1.0;stroke-linejoin:round" d="M 2760.00 2882.00 L 2760.00 3100.00"></path>
+</g>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="2646.00" y="2904.00" width="108.00" height="77.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="2769.00" y="3002.00" width="103.00" height="77.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<ellipse cx="2760.00" cy="2902.00" rx="20.00" ry="20.00"></ellipse>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<ellipse cx="2760.00" cy="3080.00" rx="20.00" ry="20.00"></ellipse>
+</g>
+<use xlink:href="#object221401-report"></use>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="2656.00" y="2914.00" width="88.00" height="57.00"></rect>
+</g>
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2666.00" y="2954.00">0..1</text>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="2779.00" y="3012.00" width="83.00" height="57.00"></rect>
+</g>
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2789.00" y="3052.00">0..*</text>
+</g>
+<use xlink:href="#object221401-lvl"></use>
+</g>
+<g bizzid="221379" bizzsemantic="38506" bizzconcept="UML_Class" bizztype="node" bizzsymbol="rectangle">
+<g>
+<g class="object221379">
+<rect x="3213.00" y="1282.00" width="462.00" height="180.00"></rect>
+</g>
+<g transform="translate(3213.00, 1282.00)" class="object221379">
+<rect style="fill:#ffff80;fillOpacity:0.5" x="0" y="0" width="462.000" height="60"></rect>
+</g>
+</g>
+<use xlink:href="#object221379-report"></use>
+<g bizzid="label221379" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3364.50" y="1324.00">Instruction</text>
+</g>
+</g>
+<g>
+<g style="fill:#000000;stroke:none;stroke-width:1.00">
+</g>
+<g transform="translate(3625.00, 1422.00)" style="fill:#000000;stroke:none;stroke-width:1.00">
+<g bizzsemantic="38505" bizzid="5de56e02-7054-e911-8237-0676108d3cb6"><g style="fill-opacity:0;stroke-opacity:0"><rect x="0.00" y="0.00" width="40.00" height="30.00"></rect>
+</g><g transform=" translate(0.000000, 0.000000) scale(0.784314,0.588235) translate(-6.000000, -7.000000)">
+<path d="m 30.5,41.3 c 0.1,0.4 0.1,0.8 0.1,1.2 0,2.2 -0.8,4.2 -2.4,5.7 L 25,51.4 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -4.5,0 -8.1,-3.6 -8.1,-8.1 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 0.4,0 0.8,0.1 1.2,0.1 L 26.3,32 c -1.2,-0.4 -2.4,-0.6 -3.7,-0.6 -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,6.1 5,11.1 11.1,11.1 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 c 2.1,-2.1 3.3,-4.9 3.3,-7.9 0,-1.3 -0.2,-2.5 -0.6,-3.7 l -2.6,2.5"></path>
+<path d="m 44.9,9 c -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,1.3 0.2,2.5 0.6,3.7 l 2.5,-2.5 c -0.1,-0.4 -0.1,-0.8 -0.1,-1.2 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 4.5,0 8.1,3.6 8.1,8.1 0,2.2 -0.8,4.2 -2.4,5.7 l -3.2,3.2 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -0.4,0 -0.8,-0.1 -1.2,-0.1 L 38,33.8 c 1.2,0.4 2.4,0.6 3.7,0.6 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 C 54.9,25.8 56.1,23 56.1,20 56,14 51,9 44.9,9"></path>
+<path d="m 24.1,42.5 c -0.4,0 -0.8,-0.2 -1.1,-0.5 -0.6,-0.6 -0.6,-1.6 0,-2.3 l 16,-16 c 0.6,-0.6 1.6,-0.6 2.3,0 0.6,0.6 0.6,1.6 0,2.3 l -16,16 c -0.4,0.4 -0.8,0.5 -1.2,0.5"></path>
+</g>
+</g>
+</g>
+</g>
+<use xlink:href="#object221379-lvl"></use>
+</g>
+<g bizzid="221437" bizzsemantic="51914" bizzconcept="UML_ClassDiagram" bizztype="node" bizzsymbol="rectangle">
+<g class="object221437">
+<rect x="3180.00" y="1202.00" width="600.00" height="60.00"></rect>
+</g>
+<use xlink:href="#object221437-report"></use>
+<g bizzid="icon221437" bizzconcept="icon" bizztype="node" bizzsymbol="MetaModels/UML/UML_ClassDiagram">
+<g class="icon221437" transform=" translate(3725.000000, 1212.000000) scale(0.106383,0.106383) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-MetaModels/UML/UML_ClassDiagram"></use>
+</g>
+</g>
+<g bizzid="label221437" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="arial" font-size="31.75" fill="#000000">
+<text x="3298.50" y="1242.00">Instruction Helper Diagram</text>
+</g>
+</g>
+<use xlink:href="#object221437-lvl"></use>
+</g>
+<g bizzid="221427" bizzsemantic="45912" bizzconcept="UML_Class" bizztype="node" bizzsymbol="rectangle">
+<g>
+<g class="object221427">
+<rect x="2328.00" y="1292.00" width="462.00" height="180.00"></rect>
+</g>
+<g transform="translate(2328.00, 1292.00)" class="object221427">
+<rect style="fill:#ffff80;fillOpacity:0.5" x="0" y="0" width="462.000" height="61.000"></rect>
+</g>
+</g>
+<use xlink:href="#object221427-report"></use>
+<g bizzid="label221427" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2388.50" y="1334.00">Payment Arrangement</text>
+</g>
+</g>
+<g>
+<g style="fill:#000000;stroke:none;stroke-width:1.00">
+</g>
+<g transform="translate(2740.00, 1432.00)" style="fill:#000000;stroke:none;stroke-width:1.00">
+<g bizzsemantic="45911" bizzid="69da5a16-15dc-ea11-82b8-060197b50cc2"><g style="fill-opacity:0;stroke-opacity:0"><rect x="0.00" y="0.00" width="40.00" height="30.00"></rect>
+</g><g transform=" translate(0.000000, 0.000000) scale(0.784314,0.588235) translate(-6.000000, -7.000000)">
+<path d="m 30.5,41.3 c 0.1,0.4 0.1,0.8 0.1,1.2 0,2.2 -0.8,4.2 -2.4,5.7 L 25,51.4 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -4.5,0 -8.1,-3.6 -8.1,-8.1 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 0.4,0 0.8,0.1 1.2,0.1 L 26.3,32 c -1.2,-0.4 -2.4,-0.6 -3.7,-0.6 -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,6.1 5,11.1 11.1,11.1 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 c 2.1,-2.1 3.3,-4.9 3.3,-7.9 0,-1.3 -0.2,-2.5 -0.6,-3.7 l -2.6,2.5"></path>
+<path d="m 44.9,9 c -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,1.3 0.2,2.5 0.6,3.7 l 2.5,-2.5 c -0.1,-0.4 -0.1,-0.8 -0.1,-1.2 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 4.5,0 8.1,3.6 8.1,8.1 0,2.2 -0.8,4.2 -2.4,5.7 l -3.2,3.2 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -0.4,0 -0.8,-0.1 -1.2,-0.1 L 38,33.8 c 1.2,0.4 2.4,0.6 3.7,0.6 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 C 54.9,25.8 56.1,23 56.1,20 56,14 51,9 44.9,9"></path>
+<path d="m 24.1,42.5 c -0.4,0 -0.8,-0.2 -1.1,-0.5 -0.6,-0.6 -0.6,-1.6 0,-2.3 l 16,-16 c 0.6,-0.6 1.6,-0.6 2.3,0 0.6,0.6 0.6,1.6 0,2.3 l -16,16 c -0.4,0.4 -0.8,0.5 -1.2,0.5"></path>
+</g>
+</g>
+</g>
+</g>
+<use xlink:href="#object221427-lvl"></use>
+</g>
+<g bizzid="221339" bizzsemantic="66117" bizzconcept="UML_Association" bizztype="relation" bizzsymbol="link">
+<g>
+<g class="object221339">
+<path style="fill:none;stroke-miterlimit:1.0;stroke-linejoin:round" d="M 2540.00 1472.00 L 2540.00 2022.00"></path>
+</g>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="2426.00" y="1494.00" width="108.00" height="77.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="2549.00" y="1924.00" width="103.00" height="77.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<ellipse cx="2540.00" cy="1492.00" rx="20.00" ry="20.00"></ellipse>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<ellipse cx="2540.00" cy="2002.00" rx="20.00" ry="20.00"></ellipse>
+</g>
+<use xlink:href="#object221339-report"></use>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="2436.00" y="1504.00" width="88.00" height="57.00"></rect>
+</g>
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2446.00" y="1544.00">0..1</text>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="2559.00" y="1934.00" width="83.00" height="57.00"></rect>
+</g>
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2569.00" y="1974.00">0..*</text>
+</g>
+<use xlink:href="#object221339-lvl"></use>
+</g>
+<g bizzid="221424" bizzsemantic="51878" bizzconcept="UML_ClassDiagram" bizztype="node" bizzsymbol="rectangle">
+<g class="object221424">
+<rect x="2680.00" y="1852.00" width="640.00" height="100.00"></rect>
+</g>
+<use xlink:href="#object221424-report"></use>
+<g bizzid="icon221424" bizzconcept="icon" bizztype="node" bizzsymbol="MetaModels/UML/UML_ClassDiagram">
+<g class="icon221424" transform=" translate(3265.000000, 1862.000000) scale(0.106383,0.106383) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-MetaModels/UML/UML_ClassDiagram"></use>
+</g>
+</g>
+<g bizzid="label221424" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="arial" font-size="31.75" fill="#000000">
+<text x="2753.50" y="1912.00">Payment Instruction Helper Diagram</text>
+</g>
+</g>
+<use xlink:href="#object221424-lvl"></use>
+</g>
+<g bizzid="221411" bizzsemantic="52101" bizzconcept="UML_ClassDiagram" bizztype="node" bizzsymbol="rectangle">
+<g class="object221411">
+<rect x="3360.00" y="3432.00" width="540.00" height="80.00"></rect>
+</g>
+<use xlink:href="#object221411-report"></use>
+<g bizzid="icon221411" bizzconcept="icon" bizztype="node" bizzsymbol="MetaModels/UML/UML_ClassDiagram">
+<g class="icon221411" transform=" translate(3845.000000, 3442.000000) scale(0.106383,0.106383) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-MetaModels/UML/UML_ClassDiagram"></use>
+</g>
+</g>
+<g bizzid="label221411" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="arial" font-size="31.75" fill="#000000">
+<text x="3484.00" y="3482.00">Party Helper Diagram</text>
+</g>
+</g>
+<use xlink:href="#object221411-lvl"></use>
+</g>
+<g bizzid="221432" bizzsemantic="44189" bizzconcept="UML_Class" bizztype="node" bizzsymbol="rectangle">
+<g>
+<g class="object221432">
+<rect x="2253.00" y="872.00" width="400.00" height="180.00"></rect>
+</g>
+<g transform="translate(2253.00, 872.00)" class="object221432">
+<rect style="fill:#ffff80;fillOpacity:0.5" x="0" y="0" width="400.000" height="60"></rect>
+</g>
+</g>
+<use xlink:href="#object221432-report"></use>
+<g bizzid="label221432" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="2354.50" y="914.00">Arrangement</text>
+</g>
+</g>
+<g>
+<g style="fill:#000000;stroke:none;stroke-width:1.00">
+</g>
+<g transform="translate(2603.00, 1012.00)" style="fill:#000000;stroke:none;stroke-width:1.00">
+<g bizzsemantic="44188" bizzid="bf8e7c83-404e-ea11-8289-069813aed0a6"><g style="fill-opacity:0;stroke-opacity:0"><rect x="0.00" y="0.00" width="40.00" height="30.00"></rect>
+</g><g transform=" translate(0.000000, 0.000000) scale(0.784314,0.588235) translate(-6.000000, -7.000000)">
+<path d="m 30.5,41.3 c 0.1,0.4 0.1,0.8 0.1,1.2 0,2.2 -0.8,4.2 -2.4,5.7 L 25,51.4 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -4.5,0 -8.1,-3.6 -8.1,-8.1 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 0.4,0 0.8,0.1 1.2,0.1 L 26.3,32 c -1.2,-0.4 -2.4,-0.6 -3.7,-0.6 -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,6.1 5,11.1 11.1,11.1 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 c 2.1,-2.1 3.3,-4.9 3.3,-7.9 0,-1.3 -0.2,-2.5 -0.6,-3.7 l -2.6,2.5"></path>
+<path d="m 44.9,9 c -3,0 -5.8,1.2 -7.9,3.3 l -3.2,3.2 c -2.1,2.1 -3.3,4.9 -3.3,7.9 0,1.3 0.2,2.5 0.6,3.7 l 2.5,-2.5 c -0.1,-0.4 -0.1,-0.8 -0.1,-1.2 0,-2.2 0.8,-4.2 2.4,-5.7 l 3.2,-3.2 c 1.5,-1.5 3.6,-2.4 5.8,-2.4 4.5,0 8.1,3.6 8.1,8.1 0,2.2 -0.8,4.2 -2.4,5.7 l -3.2,3.2 c -1.5,1.5 -3.6,2.4 -5.7,2.4 -0.4,0 -0.8,-0.1 -1.2,-0.1 L 38,33.8 c 1.2,0.4 2.4,0.6 3.7,0.6 3,0 5.8,-1.2 7.9,-3.3 l 3.2,-3.2 C 54.9,25.8 56.1,23 56.1,20 56,14 51,9 44.9,9"></path>
+<path d="m 24.1,42.5 c -0.4,0 -0.8,-0.2 -1.1,-0.5 -0.6,-0.6 -0.6,-1.6 0,-2.3 l 16,-16 c 0.6,-0.6 1.6,-0.6 2.3,0 0.6,0.6 0.6,1.6 0,2.3 l -16,16 c -0.4,0.4 -0.8,0.5 -1.2,0.5"></path>
+</g>
+</g>
+</g>
+</g>
+<use xlink:href="#object221432-lvl"></use>
+</g>
+<g bizzid="221351" bizzsemantic="51933" bizzconcept="UML_ClassDiagram" bizztype="node" bizzsymbol="rectangle">
+<g class="object221351">
+<rect x="2180.00" y="752.00" width="620.00" height="60.00"></rect>
+</g>
+<use xlink:href="#object221351-report"></use>
+<g bizzid="icon221351" bizzconcept="icon" bizztype="node" bizzsymbol="MetaModels/UML/UML_ClassDiagram">
+<g class="icon221351" transform=" translate(2745.000000, 762.000000) scale(0.106383,0.106383) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-MetaModels/UML/UML_ClassDiagram"></use>
+</g>
+</g>
+<g bizzid="label221351" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="arial" font-size="31.75" fill="#000000">
+<text x="2291.50" y="792.00">Arrangement Helper Diagram</text>
+</g>
+</g>
+<use xlink:href="#object221351-lvl"></use>
+</g>
+<g bizzid="221301" bizzsemantic="221301" bizzconcept="ViewGraphic" bizztype="node" bizzsymbol="dogear">
+<g class="object221301">
+<path style="fill-rule:nonzero;stroke-linejoin:bevel" d="M 3900.00 1837.00 L 3900.00 1872.00 L 3580.00 1872.00 L 3580.00 1792.00 L 3855.00 1792.00 L 3900.00 1837.00 L 3855.00 1837.00 L 3855.00 1792.00 z"></path>
+</g>
+<use xlink:href="#object221301-report"></use>
+<g bizzid="label221301" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="arial" font-size="31.75" fill="#000000">
+<text x="3590.00" y="1830.00">Asset Type</text>
+</g>
+</g>
+<use xlink:href="#object221301-lvl"></use>
+</g>
+<g bizzid="221307" bizzsemantic="221307" bizzconcept="ViewGraphic" bizztype="node" bizzsymbol="dogear">
+<g class="object221307">
+<path style="fill-rule:nonzero;stroke-linejoin:bevel" d="M 4850.00 1917.00 L 4850.00 1952.00 L 4530.00 1952.00 L 4530.00 1872.00 L 4805.00 1872.00 L 4850.00 1917.00 L 4805.00 1917.00 L 4805.00 1872.00 z"></path>
+</g>
+<use xlink:href="#object221307-report"></use>
+<g bizzid="label221307" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="arial" font-size="31.75" fill="#000000">
+<text x="4540.00" y="1910.00">CR</text>
+</g>
+</g>
+<use xlink:href="#object221307-lvl"></use>
+</g>
+<g bizzid="221306" bizzconcept="ViewEdge" bizztype="relation" bizzsymbol="link">
+<g>
+<g class="object221306">
+<path style="fill:none;stroke-miterlimit:1.0;stroke-linejoin:round" d="M 4573.00 1952.00 L 4466.00 2022.00"></path>
+</g>
+</g>
+<use xlink:href="#object221306-report"></use>
+<use xlink:href="#object221306-lvl"></use>
+</g>
+<g bizzid="221300" bizzconcept="ViewEdge" bizztype="relation" bizzsymbol="link">
+<g>
+<g class="object221300">
+<path style="fill:none;stroke-miterlimit:1.0;stroke-linejoin:round" d="M 3718.00 1872.00 L 3513.00 2022.00"></path>
+</g>
+</g>
+<use xlink:href="#object221300-report"></use>
+<use xlink:href="#object221300-lvl"></use>
+</g>
+<g bizzid="221476" bizzsemantic="220790" bizzconcept="UML_Enumeration" bizztype="node" bizzsymbol="rectangle">
+<g>
+<g class="object221476">
+<rect x="4595.00" y="2361.00" width="817.00" height="242.00"></rect>
+</g>
+<g transform="translate(4595.00, 2361.00)" class="object221476">
+<rect style="fill:#ffff80;fillOpacity:0.5" x="0" y="0" width="817.000" height="102"></rect>
+</g>
+</g>
+<use xlink:href="#object221476-report"></use>
+<g bizzid="label221476" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="4891.00" y="2403.00">«enumeration»
+</text>
+<text x="4615.00" y="2444.00">PaymentInstructionProcedureWorkstepTypeValues</text>
+</g>
+</g>
+<g bizzid="221463" bizzsemantic="221464" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221463">
+<rect x="4675.00" y="2473.00" width="392.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(4633.000000, 2491.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221463-report"></use>
+<g bizzid="label221463" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="4685.00" y="2514.50">Compliance Check</text>
+</g>
+</g>
+<use xlink:href="#object221463-lvl"></use>
+</g>
+<g bizzid="221465" bizzsemantic="221466" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221465">
+<rect x="4675.00" y="2533.00" width="392.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(4633.000000, 2551.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221465-report"></use>
+<g bizzid="label221465" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="4685.00" y="2574.50">Agreement Confirmation</text>
+</g>
+</g>
+<use xlink:href="#object221465-lvl"></use>
+</g>
+<use xlink:href="#object221476-lvl"></use>
+</g>
+<g bizzid="221489" bizzsemantic="221489" bizzconcept="ViewGraphic" bizztype="node" bizzsymbol="dogear">
+<g class="object221489">
+<path style="fill-rule:nonzero;stroke-linejoin:bevel" d="M 5388.50 2208.00 L 5388.50 2243.00 L 5248.50 2243.00 L 5248.50 2163.00 L 5343.50 2163.00 L 5388.50 2208.00 L 5343.50 2208.00 L 5343.50 2163.00 z"></path>
+</g>
+<use xlink:href="#object221489-report"></use>
+<g bizzid="label221489" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="arial" font-size="31.75" fill="#000000">
+<text x="5258.50" y="2201.00">BQs</text>
+</g>
+</g>
+<use xlink:href="#object221489-lvl"></use>
+</g>
+<g bizzid="221488" bizzconcept="ViewEdge" bizztype="relation" bizzsymbol="link">
+<g>
+<g class="object221488">
+<path style="fill:none;stroke-miterlimit:1.0;stroke-linejoin:round" d="M 5248.50 2243.00 L 5357.00 2361.00"></path>
+</g>
+</g>
+<use xlink:href="#object221488-report"></use>
+<use xlink:href="#object221488-lvl"></use>
+</g>
+<g bizzid="221338" bizzsemantic="66291" bizzconcept="UML_Generalization" bizztype="relation" bizzsymbol="link">
+<g>
+<g class="object221338">
+<path style="fill:none;stroke-miterlimit:1.0;stroke-linejoin:round" d="M 3420.00 2022.00 L 3420.00 1462.00"></path>
+</g>
+<g transform="translate(3420.00, 1462.00) rotate(0.000003) translate(-3420.00, -1462.00)">
+<g style="fill:#ffffff;stroke:#000000;stroke-width:6.00">
+<path style="stroke-linejoin:round" d="M 3420.00 1462.00 l 20.00 60.00 l -40.00 0.00 z"></path>
+</g>
+</g>
+</g>
+<use xlink:href="#object221338-report"></use>
+<use xlink:href="#object221338-lvl"></use>
+</g>
+<g bizzid="221461" bizzsemantic="52546" bizzconcept="UML_ClassDiagram" bizztype="node" bizzsymbol="rectangle">
+<g class="object221461">
+<rect x="2500.00" y="1172.00" width="620.00" height="60.00"></rect>
+</g>
+<use xlink:href="#object221461-report"></use>
+<g bizzid="icon221461" bizzconcept="icon" bizztype="node" bizzsymbol="MetaModels/UML/UML_ClassDiagram">
+<g class="icon221461" transform=" translate(3065.000000, 1182.000000) scale(0.106383,0.106383) translate(-0.000000, -0.000000)">
+<use xlink:href="#symbol-MetaModels/UML/UML_ClassDiagram"></use>
+</g>
+</g>
+<g bizzid="label221461" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="arial" font-size="31.75" fill="#000000">
+<text x="2639.00" y="1212.00">Payment Helper Diagram</text>
+</g>
+</g>
+<use xlink:href="#object221461-lvl"></use>
+</g>
+<g bizzid="221414" bizzsemantic="66404" bizzconcept="UML_Enumeration" bizztype="node" bizzsymbol="rectangle">
+<g>
+<g class="object221414">
+<rect x="1040.00" y="280.00" width="694.00" height="5522.00"></rect>
+</g>
+<g transform="translate(1040.00, 280.00)" class="object221414">
+<rect style="fill:#ffff80;fillOpacity:0.5" x="0" y="0" width="694.000" height="102"></rect>
+</g>
+</g>
+<use xlink:href="#object221414-report"></use>
+<g bizzid="221321" bizzsemantic="66306" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221321">
+<rect x="1120.00" y="392.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 410.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221321-report"></use>
+<g bizzid="label221321" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="433.50">CashTransaction</text>
+</g>
+</g>
+<use xlink:href="#object221321-lvl"></use>
+</g>
+<g bizzid="221352" bizzsemantic="66596" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221352">
+<rect x="1120.00" y="452.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 470.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221352-report"></use>
+<g bizzid="label221352" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="493.50">DomesticPayment</text>
+</g>
+</g>
+<use xlink:href="#object221352-lvl"></use>
+</g>
+<g bizzid="221471" bizzsemantic="66391" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221471">
+<rect x="1120.00" y="512.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 530.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221471-report"></use>
+<g bizzid="label221471" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="553.50">DomesticHighValuePayment</text>
+</g>
+</g>
+<use xlink:href="#object221471-lvl"></use>
+</g>
+<g bizzid="221367" bizzsemantic="66647" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221367">
+<rect x="1120.00" y="572.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 590.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221367-report"></use>
+<g bizzid="label221367" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="613.50">DomesticPriorityPayment</text>
+</g>
+</g>
+<use xlink:href="#object221367-lvl"></use>
+</g>
+<g bizzid="221486" bizzsemantic="66381" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221486">
+<rect x="1120.00" y="632.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 650.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221486-report"></use>
+<g bizzid="label221486" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="673.50">CrossBorderPayment</text>
+</g>
+</g>
+<use xlink:href="#object221486-lvl"></use>
+</g>
+<g bizzid="221322" bizzsemantic="66466" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221322">
+<rect x="1120.00" y="692.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 710.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221322-report"></use>
+<g bizzid="label221322" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="733.50">CrossBorderPriorityPayment</text>
+</g>
+</g>
+<use xlink:href="#object221322-lvl"></use>
+</g>
+<g bizzid="221429" bizzsemantic="66470" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221429">
+<rect x="1120.00" y="752.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 770.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221429-report"></use>
+<g bizzid="label221429" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="793.50">CrossBorderHighValuePayment</text>
+</g>
+</g>
+<use xlink:href="#object221429-lvl"></use>
+</g>
+<g bizzid="221389" bizzsemantic="66519" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221389">
+<rect x="1120.00" y="812.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 830.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221389-report"></use>
+<g bizzid="label221389" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="853.50">ThirdCurrencyPayment</text>
+</g>
+</g>
+<use xlink:href="#object221389-lvl"></use>
+</g>
+<g bizzid="221373" bizzsemantic="66656" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221373">
+<rect x="1120.00" y="872.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 890.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221373-report"></use>
+<g bizzid="label221373" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="913.50">ThirdCurrencyHighValuePayment</text>
+</g>
+</g>
+<use xlink:href="#object221373-lvl"></use>
+</g>
+<g bizzid="221481" bizzsemantic="66464" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221481">
+<rect x="1120.00" y="932.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 950.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221481-report"></use>
+<g bizzid="label221481" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="973.50">ThirdCurrencyPriorityPayment</text>
+</g>
+</g>
+<use xlink:href="#object221481-lvl"></use>
+</g>
+<g bizzid="221484" bizzsemantic="66720" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221484">
+<rect x="1120.00" y="992.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1010.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221484-report"></use>
+<g bizzid="label221484" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1033.50">TradeSettlementPayment</text>
+</g>
+</g>
+<use xlink:href="#object221484-lvl"></use>
+</g>
+<g bizzid="221332" bizzsemantic="66315" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221332">
+<rect x="1120.00" y="1052.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1070.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221332-report"></use>
+<g bizzid="label221332" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1093.50">ForeignExchange</text>
+</g>
+</g>
+<use xlink:href="#object221332-lvl"></use>
+</g>
+<g bizzid="221344" bizzsemantic="66490" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221344">
+<rect x="1120.00" y="1112.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1130.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221344-report"></use>
+<g bizzid="label221344" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1153.50">EquivalentAmount</text>
+</g>
+</g>
+<use xlink:href="#object221344-lvl"></use>
+</g>
+<g bizzid="221475" bizzsemantic="66685" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221475">
+<rect x="1120.00" y="1172.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1190.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221475-report"></use>
+<g bizzid="label221475" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1213.50">Loan</text>
+</g>
+</g>
+<use xlink:href="#object221475-lvl"></use>
+</g>
+<g bizzid="221316" bizzsemantic="66424" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221316">
+<rect x="1120.00" y="1232.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1250.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221316-report"></use>
+<g bizzid="label221316" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1273.50">LoanRepayment</text>
+</g>
+</g>
+<use xlink:href="#object221316-lvl"></use>
+</g>
+<g bizzid="221323" bizzsemantic="66523" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221323">
+<rect x="1120.00" y="1292.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1310.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221323-report"></use>
+<g bizzid="label221323" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1333.50">Securities</text>
+</g>
+</g>
+<use xlink:href="#object221323-lvl"></use>
+</g>
+<g bizzid="221310" bizzsemantic="66604" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221310">
+<rect x="1120.00" y="1352.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1370.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221310-report"></use>
+<g bizzid="label221310" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1393.50">LockBox</text>
+</g>
+</g>
+<use xlink:href="#object221310-lvl"></use>
+</g>
+<g bizzid="221329" bizzsemantic="66309" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221329">
+<rect x="1120.00" y="1412.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1430.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221329-report"></use>
+<g bizzid="label221329" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1453.50">Dividend</text>
+</g>
+</g>
+<use xlink:href="#object221329-lvl"></use>
+</g>
+<g bizzid="221309" bizzsemantic="66462" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221309">
+<rect x="1120.00" y="1472.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1490.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221309-report"></use>
+<g bizzid="label221309" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1513.50">CrossedCheque</text>
+</g>
+</g>
+<use xlink:href="#object221309-lvl"></use>
+</g>
+<g bizzid="221446" bizzsemantic="66456" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221446">
+<rect x="1120.00" y="1532.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1550.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221446-report"></use>
+<g bizzid="label221446" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1573.50">OpenCheque</text>
+</g>
+</g>
+<use xlink:href="#object221446-lvl"></use>
+</g>
+<g bizzid="221325" bizzsemantic="66574" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221325">
+<rect x="1120.00" y="1592.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1610.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221325-report"></use>
+<g bizzid="label221325" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1633.50">OrderCheque</text>
+</g>
+</g>
+<use xlink:href="#object221325-lvl"></use>
+</g>
+<g bizzid="221452" bizzsemantic="66548" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221452">
+<rect x="1120.00" y="1652.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1670.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221452-report"></use>
+<g bizzid="label221452" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1693.50">CircularCheque</text>
+</g>
+</g>
+<use xlink:href="#object221452-lvl"></use>
+</g>
+<g bizzid="221412" bizzsemantic="66451" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221412">
+<rect x="1120.00" y="1712.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1730.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221412-report"></use>
+<g bizzid="label221412" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1753.50">TravellersCheques</text>
+</g>
+</g>
+<use xlink:href="#object221412-lvl"></use>
+</g>
+<g bizzid="221397" bizzsemantic="66521" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221397">
+<rect x="1120.00" y="1772.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1790.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221397-report"></use>
+<g bizzid="label221397" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1813.50">BankDraft</text>
+</g>
+</g>
+<use xlink:href="#object221397-lvl"></use>
+</g>
+<g bizzid="221409" bizzsemantic="66407" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221409">
+<rect x="1120.00" y="1832.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1850.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221409-report"></use>
+<g bizzid="label221409" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1873.50">DocumentaryCredit</text>
+</g>
+</g>
+<use xlink:href="#object221409-lvl"></use>
+</g>
+<g bizzid="221388" bizzsemantic="66584" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221388">
+<rect x="1120.00" y="1892.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1910.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221388-report"></use>
+<g bizzid="label221388" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1933.50">BillOfExchange</text>
+</g>
+</g>
+<use xlink:href="#object221388-lvl"></use>
+</g>
+<g bizzid="221349" bizzsemantic="66586" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221349">
+<rect x="1120.00" y="1952.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 1970.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221349-report"></use>
+<g bizzid="label221349" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="1993.50">Collection</text>
+</g>
+</g>
+<use xlink:href="#object221349-lvl"></use>
+</g>
+<g bizzid="221456" bizzsemantic="66488" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221456">
+<rect x="1120.00" y="2012.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2030.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221456-report"></use>
+<g bizzid="label221456" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2053.50">CashManagementTransfer</text>
+</g>
+</g>
+<use xlink:href="#object221456-lvl"></use>
+</g>
+<g bizzid="221312" bizzsemantic="66366" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221312">
+<rect x="1120.00" y="2072.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2090.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221312-report"></use>
+<g bizzid="label221312" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2113.50">TopAccount</text>
+</g>
+</g>
+<use xlink:href="#object221312-lvl"></use>
+</g>
+<g bizzid="221319" bizzsemantic="66286" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221319">
+<rect x="1120.00" y="2132.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2150.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221319-report"></use>
+<g bizzid="label221319" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2173.50">ZeroBalanceAccount</text>
+</g>
+</g>
+<use xlink:href="#object221319-lvl"></use>
+</g>
+<g bizzid="221417" bizzsemantic="66537" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221417">
+<rect x="1120.00" y="2192.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2210.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221417-report"></use>
+<g bizzid="label221417" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2233.50">StandingFacilities</text>
+</g>
+</g>
+<use xlink:href="#object221417-lvl"></use>
+</g>
+<g bizzid="221354" bizzsemantic="66311" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221354">
+<rect x="1120.00" y="2252.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2270.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221354-report"></use>
+<g bizzid="label221354" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2293.50">StandardServiceLevelCredit</text>
+</g>
+</g>
+<use xlink:href="#object221354-lvl"></use>
+</g>
+<g bizzid="221314" bizzsemantic="66347" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221314">
+<rect x="1120.00" y="2312.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2330.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221314-report"></use>
+<g bizzid="label221314" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2353.50">LiquidityTransfer</text>
+</g>
+</g>
+<use xlink:href="#object221314-lvl"></use>
+</g>
+<g bizzid="221491" bizzsemantic="66335" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221491">
+<rect x="1120.00" y="2372.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2390.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221491-report"></use>
+<g bizzid="label221491" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2413.50">AdvancePayment</text>
+</g>
+</g>
+<use xlink:href="#object221491-lvl"></use>
+</g>
+<g bizzid="221485" bizzsemantic="66563" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221485">
+<rect x="1120.00" y="2432.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2450.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221485-report"></use>
+<g bizzid="label221485" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2473.50">ValueDateAdjustment</text>
+</g>
+</g>
+<use xlink:href="#object221485-lvl"></use>
+</g>
+<g bizzid="221444" bizzsemantic="66322" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221444">
+<rect x="1120.00" y="2492.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2510.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221444-report"></use>
+<g bizzid="label221444" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2533.50">DVPGross</text>
+</g>
+</g>
+<use xlink:href="#object221444-lvl"></use>
+</g>
+<g bizzid="221328" bizzsemantic="66422" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221328">
+<rect x="1120.00" y="2552.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2570.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221328-report"></use>
+<g bizzid="label221328" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2593.50">DVPNet</text>
+</g>
+</g>
+<use xlink:href="#object221328-lvl"></use>
+</g>
+<g bizzid="221477" bizzsemantic="66433" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221477">
+<rect x="1120.00" y="2612.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2630.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221477-report"></use>
+<g bizzid="label221477" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2653.50">Netting</text>
+</g>
+</g>
+<use xlink:href="#object221477-lvl"></use>
+</g>
+<g bizzid="221336" bizzsemantic="66553" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221336">
+<rect x="1120.00" y="2672.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2690.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221336-report"></use>
+<g bizzid="label221336" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2713.50">LimitPayment</text>
+</g>
+</g>
+<use xlink:href="#object221336-lvl"></use>
+</g>
+<g bizzid="221347" bizzsemantic="66555" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221347">
+<rect x="1120.00" y="2732.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2750.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221347-report"></use>
+<g bizzid="label221347" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2773.50">BackUp</text>
+</g>
+</g>
+<use xlink:href="#object221347-lvl"></use>
+</g>
+<g bizzid="221474" bizzsemantic="66625" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221474">
+<rect x="1120.00" y="2792.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2810.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221474-report"></use>
+<g bizzid="label221474" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2833.50">ExpressPayment</text>
+</g>
+</g>
+<use xlink:href="#object221474-lvl"></use>
+</g>
+<g bizzid="221458" bizzsemantic="66429" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221458">
+<rect x="1120.00" y="2852.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2870.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221458-report"></use>
+<g bizzid="label221458" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2893.50">CentralBankOperation</text>
+</g>
+</g>
+<use xlink:href="#object221458-lvl"></use>
+</g>
+<g bizzid="221430" bizzsemantic="66539" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221430">
+<rect x="1120.00" y="2912.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2930.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221430-report"></use>
+<g bizzid="label221430" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="2953.50">CLSPayment</text>
+</g>
+</g>
+<use xlink:href="#object221430-lvl"></use>
+</g>
+<g bizzid="221418" bizzsemantic="66415" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221418">
+<rect x="1120.00" y="2972.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 2990.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221418-report"></use>
+<g bizzid="label221418" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3013.50">EuroDomesticPayment</text>
+</g>
+</g>
+<use xlink:href="#object221418-lvl"></use>
+</g>
+<g bizzid="221315" bizzsemantic="66652" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221315">
+<rect x="1120.00" y="3032.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3050.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221315-report"></use>
+<g bizzid="label221315" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3073.50">AgriculturalTransfer</text>
+</g>
+</g>
+<use xlink:href="#object221315-lvl"></use>
+</g>
+<g bizzid="221438" bizzsemantic="66370" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221438">
+<rect x="1120.00" y="3092.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3110.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221438-report"></use>
+<g bizzid="label221438" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3133.50">AlimonyPayment</text>
+</g>
+</g>
+<use xlink:href="#object221438-lvl"></use>
+</g>
+<g bizzid="221326" bizzsemantic="66483" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221326">
+<rect x="1120.00" y="3152.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3170.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221326-report"></use>
+<g bizzid="label221326" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3193.50">BalanceRetail</text>
+</g>
+</g>
+<use xlink:href="#object221326-lvl"></use>
+</g>
+<g bizzid="221360" bizzsemantic="66531" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221360">
+<rect x="1120.00" y="3212.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3230.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221360-report"></use>
+<g bizzid="label221360" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3253.50">BonusPayment.</text>
+</g>
+</g>
+<use xlink:href="#object221360-lvl"></use>
+</g>
+<g bizzid="221324" bizzsemantic="66359" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221324">
+<rect x="1120.00" y="3272.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3290.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221324-report"></use>
+<g bizzid="label221324" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3313.50">BrokerageFee</text>
+</g>
+</g>
+<use xlink:href="#object221324-lvl"></use>
+</g>
+<g bizzid="221462" bizzsemantic="66570" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221462">
+<rect x="1120.00" y="3332.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3350.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221462-report"></use>
+<g bizzid="label221462" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3373.50">CapitalBuilding</text>
+</g>
+</g>
+<use xlink:href="#object221462-lvl"></use>
+</g>
+<g bizzid="221311" bizzsemantic="66576" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221311">
+<rect x="1120.00" y="3392.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3410.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221311-report"></use>
+<g bizzid="label221311" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3433.50">CharityPayment</text>
+</g>
+</g>
+<use xlink:href="#object221311-lvl"></use>
+</g>
+<g bizzid="221425" bizzsemantic="66514" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221425">
+<rect x="1120.00" y="3452.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3470.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221425-report"></use>
+<g bizzid="label221425" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3493.50">ChildBenefit</text>
+</g>
+</g>
+<use xlink:href="#object221425-lvl"></use>
+</g>
+<g bizzid="221337" bizzsemantic="66341" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221337">
+<rect x="1120.00" y="3512.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3530.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221337-report"></use>
+<g bizzid="label221337" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3553.50">CommercialCredit</text>
+</g>
+</g>
+<use xlink:href="#object221337-lvl"></use>
+</g>
+<g bizzid="221487" bizzsemantic="66304" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221487">
+<rect x="1120.00" y="3572.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3590.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221487-report"></use>
+<g bizzid="label221487" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3613.50">Commission</text>
+</g>
+</g>
+<use xlink:href="#object221487-lvl"></use>
+</g>
+<g bizzid="221361" bizzsemantic="66506" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221361">
+<rect x="1120.00" y="3632.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3650.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221361-report"></use>
+<g bizzid="label221361" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3673.50">CommodityTransfer</text>
+</g>
+</g>
+<use xlink:href="#object221361-lvl"></use>
+</g>
+<g bizzid="221377" bizzsemantic="66413" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221377">
+<rect x="1120.00" y="3692.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3710.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221377-report"></use>
+<g bizzid="label221377" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3733.50">Costs</text>
+</g>
+</g>
+<use xlink:href="#object221377-lvl"></use>
+</g>
+<g bizzid="221333" bizzsemantic="66512" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221333">
+<rect x="1120.00" y="3752.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3770.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221333-report"></use>
+<g bizzid="label221333" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3793.50">Copyright</text>
+</g>
+</g>
+<use xlink:href="#object221333-lvl"></use>
+</g>
+<g bizzid="221313" bizzsemantic="66372" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221313">
+<rect x="1120.00" y="3812.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3830.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221313-report"></use>
+<g bizzid="label221313" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3853.50">GovernmentPayment</text>
+</g>
+</g>
+<use xlink:href="#object221313-lvl"></use>
+</g>
+<g bizzid="221473" bizzsemantic="66438" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221473">
+<rect x="1120.00" y="3872.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3890.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221473-report"></use>
+<g bizzid="label221473" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3913.50">InstalmentHirePurchaseAgreement</text>
+</g>
+</g>
+<use xlink:href="#object221473-lvl"></use>
+</g>
+<g bizzid="221449" bizzsemantic="66444" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221449">
+<rect x="1120.00" y="3932.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 3950.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221449-report"></use>
+<g bizzid="label221449" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="3973.50">InsurancePremium</text>
+</g>
+</g>
+<use xlink:href="#object221449-lvl"></use>
+</g>
+<g bizzid="221363" bizzsemantic="66374" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221363">
+<rect x="1120.00" y="3992.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4010.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221363-report"></use>
+<g bizzid="label221363" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4033.50">IntraCompanyPayment</text>
+</g>
+</g>
+<use xlink:href="#object221363-lvl"></use>
+</g>
+<g bizzid="221345" bizzsemantic="66353" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221345">
+<rect x="1120.00" y="4052.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4070.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221345-report"></use>
+<g bizzid="label221345" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4093.50">Interest</text>
+</g>
+</g>
+<use xlink:href="#object221345-lvl"></use>
+</g>
+<g bizzid="221399" bizzsemantic="66343" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221399">
+<rect x="1120.00" y="4112.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4130.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221399-report"></use>
+<g bizzid="label221399" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4153.50">LicenseFee</text>
+</g>
+</g>
+<use xlink:href="#object221399-lvl"></use>
+</g>
+<g bizzid="221368" bizzsemantic="66561" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221368">
+<rect x="1120.00" y="4172.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4190.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221368-report"></use>
+<g bizzid="label221368" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4213.50">Metals</text>
+</g>
+</g>
+<use xlink:href="#object221368-lvl"></use>
+</g>
+<g bizzid="221480" bizzsemantic="66559" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221480">
+<rect x="1120.00" y="4232.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4250.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221480-report"></use>
+<g bizzid="label221480" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4273.50">PensionPayment</text>
+</g>
+</g>
+<use xlink:href="#object221480-lvl"></use>
+</g>
+<g bizzid="221387" bizzsemantic="66376" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221387">
+<rect x="1120.00" y="4292.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4310.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221387-report"></use>
+<g bizzid="label221387" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4333.50">PurchaseSaleOfGoods</text>
+</g>
+</g>
+<use xlink:href="#object221387-lvl"></use>
+</g>
+<g bizzid="221334" bizzsemantic="66516" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221334">
+<rect x="1120.00" y="4352.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4370.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221334-report"></use>
+<g bizzid="label221334" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4393.50">Refund</text>
+</g>
+</g>
+<use xlink:href="#object221334-lvl"></use>
+</g>
+<g bizzid="221318" bizzsemantic="66590" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221318">
+<rect x="1120.00" y="4412.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4430.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221318-report"></use>
+<g bizzid="label221318" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4453.50">Rent</text>
+</g>
+</g>
+<use xlink:href="#object221318-lvl"></use>
+</g>
+<g bizzid="221428" bizzsemantic="66551" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221428">
+<rect x="1120.00" y="4472.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4490.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221428-report"></use>
+<g bizzid="label221428" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4513.50">Royalties</text>
+</g>
+</g>
+<use xlink:href="#object221428-lvl"></use>
+</g>
+<g bizzid="221355" bizzsemantic="66474" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221355">
+<rect x="1120.00" y="4532.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4550.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221355-report"></use>
+<g bizzid="label221355" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4573.50">PurchaseSaleOfServices</text>
+</g>
+</g>
+<use xlink:href="#object221355-lvl"></use>
+</g>
+<g bizzid="221450" bizzsemantic="66324" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221450">
+<rect x="1120.00" y="4592.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4610.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221450-report"></use>
+<g bizzid="label221450" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4633.50">SalaryPayment</text>
+</g>
+</g>
+<use xlink:href="#object221450-lvl"></use>
+</g>
+<g bizzid="221370" bizzsemantic="66572" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221370">
+<rect x="1120.00" y="4652.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4670.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221370-report"></use>
+<g bizzid="label221370" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4693.50">SocialSecurityBenefit</text>
+</g>
+</g>
+<use xlink:href="#object221370-lvl"></use>
+</g>
+<g bizzid="221371" bizzsemantic="66485" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221371">
+<rect x="1120.00" y="4712.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4730.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221371-report"></use>
+<g bizzid="label221371" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4753.50">StandingOrder</text>
+</g>
+</g>
+<use xlink:href="#object221371-lvl"></use>
+</g>
+<g bizzid="221490" bizzsemantic="66395" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221490">
+<rect x="1120.00" y="4772.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4790.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221490-report"></use>
+<g bizzid="label221490" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4813.50">Subscription</text>
+</g>
+</g>
+<use xlink:href="#object221490-lvl"></use>
+</g>
+<g bizzid="221330" bizzsemantic="66502" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221330">
+<rect x="1120.00" y="4832.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4850.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221330-report"></use>
+<g bizzid="label221330" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4873.50">TreasuryStatePayment</text>
+</g>
+</g>
+<use xlink:href="#object221330-lvl"></use>
+</g>
+<g bizzid="221331" bizzsemantic="66278" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221331">
+<rect x="1120.00" y="4892.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4910.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221331-report"></use>
+<g bizzid="label221331" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4933.50">UnemploymentDisabilityBenefit</text>
+</g>
+</g>
+<use xlink:href="#object221331-lvl"></use>
+</g>
+<g bizzid="221407" bizzsemantic="66449" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221407">
+<rect x="1120.00" y="4952.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 4970.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221407-report"></use>
+<g bizzid="label221407" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="4993.50">ValueAddedTaxPayment</text>
+</g>
+</g>
+<use xlink:href="#object221407-lvl"></use>
+</g>
+<g bizzid="221327" bizzsemantic="66728" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221327">
+<rect x="1120.00" y="5012.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 5030.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221327-report"></use>
+<g bizzid="label221327" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="5053.50">TaxPayment</text>
+</g>
+</g>
+<use xlink:href="#object221327-lvl"></use>
+</g>
+<g bizzid="221380" bizzsemantic="66326" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221380">
+<rect x="1120.00" y="5072.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 5090.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221380-report"></use>
+<g bizzid="label221380" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="5113.50">OvernightDeposit</text>
+</g>
+</g>
+<use xlink:href="#object221380-lvl"></use>
+</g>
+<g bizzid="221335" bizzsemantic="66389" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221335">
+<rect x="1120.00" y="5132.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 5150.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221335-report"></use>
+<g bizzid="label221335" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="5173.50">MarginalLending</text>
+</g>
+</g>
+<use xlink:href="#object221335-lvl"></use>
+</g>
+<g bizzid="221482" bizzsemantic="66447" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221482">
+<rect x="1120.00" y="5192.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 5210.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221482-report"></use>
+<g bizzid="label221482" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="5233.50">Other</text>
+</g>
+</g>
+<use xlink:href="#object221482-lvl"></use>
+</g>
+<g bizzid="221317" bizzsemantic="66713" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221317">
+<rect x="1120.00" y="5252.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 5270.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221317-report"></use>
+<g bizzid="label221317" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="5293.50">Upfront</text>
+</g>
+</g>
+<use xlink:href="#object221317-lvl"></use>
+</g>
+<g bizzid="221320" bizzsemantic="66318" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221320">
+<rect x="1120.00" y="5312.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 5330.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221320-report"></use>
+<g bizzid="label221320" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="5353.50">UnWind</text>
+</g>
+</g>
+<use xlink:href="#object221320-lvl"></use>
+</g>
+<g bizzid="221408" bizzsemantic="66299" bizzconcept="UML_EnumerationLiteral" bizztype="node" bizzsymbol="rectangle">
+<g class="object221408">
+<rect x="1120.00" y="5372.00" width="554.00" height="60.00"></rect>
+</g>
+<g style="fill:#ff80ff;stroke:#000000;stroke-width:13.44" transform=" translate(1078.000000, 5390.000000) scale(0.179372,0.118227) translate(-158.000000, -330.000000)">
+<use xlink:href="#symbol-node-icon"></use>
+</g>
+<use xlink:href="#object221408-report"></use>
+<g bizzid="label221408" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1130.00" y="5413.50">PrincipalExchange</text>
+</g>
+</g>
+<use xlink:href="#object221408-lvl"></use>
+</g>
+<g bizzid="label221414" bizzconcept="label" bizztype="text" bizzsymbol="text">
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="1274.50" y="322.00">«enumeration»
+</text>
+<text x="1231.00" y="363.00">PaymentTypeValues</text>
+</g>
+</g>
+<use xlink:href="#object221414-lvl"></use>
+</g>
+<g bizzid="221460" bizzsemantic="65725" bizzconcept="UML_Generalization" bizztype="relation" bizzsymbol="link">
+<g>
+<g class="object221460">
+<path style="fill:none;stroke-miterlimit:1.0;stroke-linejoin:round" d="M 2480.00 1292.00 L 2480.00 1052.00"></path>
+</g>
+<g transform="translate(2480.00, 1052.00) rotate(0.000003) translate(-2480.00, -1052.00)">
+<g style="fill:#ffffff;stroke:#000000;stroke-width:6.00">
+<path style="stroke-linejoin:round" d="M 2480.00 1052.00 l 20.00 60.00 l -40.00 0.00 z"></path>
+</g>
+</g>
+</g>
+<use xlink:href="#object221460-report"></use>
+<use xlink:href="#object221460-lvl"></use>
+</g>
+<g bizzid="221454" bizzsemantic="143169" bizzconcept="UML_Association" bizztype="relation" bizzsymbol="link">
+<g>
+<g class="object221454">
+<path style="fill:none;stroke-miterlimit:1.0;stroke-linejoin:round" d="M 3080.00 3240.00 L 3400.00 3240.00"></path>
+</g>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="3089.00" y="3262.00" width="103.00" height="77.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="3286.00" y="3142.00" width="108.00" height="77.00"></rect>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<ellipse cx="3100.00" cy="3240.00" rx="20.00" ry="20.00"></ellipse>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<ellipse cx="3380.00" cy="3240.00" rx="20.00" ry="20.00"></ellipse>
+</g>
+<use xlink:href="#object221454-report"></use>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="3099.00" y="3272.00" width="83.00" height="57.00"></rect>
+</g>
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3109.00" y="3312.00">0..*</text>
+</g>
+<g style="fill:#ffffff;fill-opacity:0.00;stroke:none;stroke-width:0.00">
+<rect x="3296.00" y="3152.00" width="88.00" height="57.00"></rect>
+</g>
+<g font-family="Arial" font-size="35.28" fill="#000000">
+<text x="3306.00" y="3192.00">0..1</text>
+</g>
+<use xlink:href="#object221454-lvl"></use>
+</g>
+</g>
+<use xlink:href="#foreground"></use>
+</g>
+</svg>
