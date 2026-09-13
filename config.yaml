@@ -17,7 +17,7 @@ version: "1.0"
 #  y modelos fuertes (gpt-oss). Luego Gemini, luego Hugging Face (modelos fuertes pero crédito
 #  mensual free muy pequeño) y OpenRouter (free lento) como último recurso.
 routing:
-  llm_priority: [ollama, groq, gemini, huggingface, openrouter]
+  llm_priority: [groq, gemini, huggingface, openrouter, ollama]
   # Embeddings SOLO para validar_sd.rag_estrategia: vectorial. Orden = precisión de retrieval.
   # Ollama primero (propio, sin cuota); Cohere, Gemini y OpenRouter de respaldo.
   embedding_priority: [ollama, cohere, gemini, openrouter]

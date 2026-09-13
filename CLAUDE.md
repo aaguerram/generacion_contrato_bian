@@ -120,8 +120,8 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       historia solo notifica; `intencion.business_actions` nunca incluyó "actualizar". Antes de
       este fix quedaba `UNRESOLVED` bloqueado (mejor que `SELECTED`, pero sin resolver);
       ahora `REJECTED/CONSUMED_DEPENDENCY` directo. Regresión determinista en
-      `tests/test_grafo_mapeo.py::TestGrafoMapeoDegradacionOwnership` y
-      `tests/test_clasificacion_historias.py::TestDeterminarDegradaciones`. **Promueve**
+      `tests/unit_test/test_grafo_mapeo.py::TestGrafoMapeoDegradacionOwnership` y
+      `tests/unit_test/test_clasificacion_historias.py::TestDeterminarDegradaciones`. **Promueve**
       (`determinar_promociones` + `propuestos_promovidos`, ambos en `clasificacion_historias.py`)
       `CONSUMED_DEPENDENCY`→`OWNED_CONTRACT` cuando: hay un hallazgo
       `ACCION_DIRECTA_COMO_DEPENDENCIA` para ese SD SIN que el propio revisor también haya marcado
@@ -159,8 +159,8 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       pese a citar `InitiateOutbound` (`salida/2026-09-11_17-59-40/`). Caso real que motivó el piso
       `objeto_bom`: la misma historia promovía también a "Party Authentication" sin base real
       (`salida/2026-09-12_*/`). Regresión determinista en
-      `tests/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership` y
-      `tests/test_clasificacion_historias.py::TestDeterminarPromociones`.
+      `tests/unit_test/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership` y
+      `tests/unit_test/test_clasificacion_historias.py::TestDeterminarPromociones`.
    9. `seleccionar_operaciones` (si `paso2_operaciones`) → `MapeoOperacionesLLM` para los SD
       **elegibles** (`candidatos_operacion_elegibles`: `OWNED_CONTRACT` directo O tentativo — YA NO
       solo "directo"; un SD correctamente identificado como propietario con confianza tentativa
@@ -174,7 +174,7 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       de `escenarios_hu`/`traceability`/`evidence_refs`/`reason_codes`, `justificacion`/`bq_seed`
       distintas concatenadas con "; " — antes de esto una historia con 4 escenarios notificando por
       el mismo canal generaba 4 entradas idénticas de `InitiateOutbound` en vez de una; ver
-      `tests/test_grafo_mapeo.py::TestGrafoMapeoOperacionesDuplicadas`), `BIAN-SCOPE-008` si una
+      `tests/unit_test/test_grafo_mapeo.py::TestGrafoMapeoOperacionesDuplicadas`), `BIAN-SCOPE-008` si una
       semilla queda sin cubrir, gap si ninguna operación es inequívoca. Cada operación de `<operaciones_disponibles>`
       trae inline `campos_respuesta={...}` (propiedades reales de su `response_schema`, resueltas
       desde `schemas_detalle` — sin cruzar mentalmente el bloque de operaciones con un dump de
@@ -225,7 +225,7 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       agregado. Caso real que lo motivó: en una corrida con LLM real, Correspondence salió
       `OWNED_CONTRACT` directo (nada que promover) pero con score 0.6733 (idéntico al caso de
       promoción) — sin este paso quedaba en tentativo pese a tener `InitiateOutbound` ya anclado y
-      verificado. Ver `tests/test_grafo_mapeo.py::TestGrafoMapeoFinalizacionPorOperacion`.
+      verificado. Ver `tests/unit_test/test_grafo_mapeo.py::TestGrafoMapeoFinalizacionPorOperacion`.
    10. `reconciliar_funcionalidad` (1 llamada, ve todas las HU) → `ReconciliacionFuncionalidadLLM`
       (**asesor**: `functionality_role`, `supporting/contradicting_stories`, `recommended_status`).
       `_consolidar` **[determinista]** decide el estado final; la reconciliación solo aporta rol de
@@ -289,7 +289,11 @@ cd generacion_contrato_ia_v2
 .venv/Scripts/python -m unittest discover -s tests -v
 ```
 
-`tests/test_arquitectura_hexagonal.py` falla si un import cruza una frontera. No lo relajes:
+Las pruebas deterministas (unittest, sin red, sin LLM) viven en `tests/unit_test/` (incluye
+`support.py`: `config_test()` para un `Config` de un único proveedor `fake`). Las E2E reales viven
+en `tests/e2e/` (ver la sección siguiente). `discover -s tests` recorre ambas carpetas igual.
+
+`tests/unit_test/test_arquitectura_hexagonal.py` falla si un import cruza una frontera. No lo relajes:
 mueve el código a la capa correcta o introduce un puerto.
 
 ### Pruebas de integración/E2E — solo bajo demanda
@@ -304,44 +308,62 @@ pide, nunca de forma automática:
 EJECUTAR_E2E=1 .venv/Scripts/python -m unittest discover -s tests -p "test_e2e_*.py" -v
 ```
 
-(`discover -s tests`, no un path con puntos: `tests/` no tiene `__init__.py`, así que un dotted
-path como `python -m unittest tests.test_e2e_x` no resuelve `support.py`.)
+(`discover -s tests`, no un path con puntos: `discover -s tests` inserta `tests/` en `sys.path`
+como `top_level_dir`, que es lo que permite los imports absolutos `from e2e.shared.e2e_common
+import ...` / `from unit_test.support import ...` dentro de los tests. Un path con puntos como
+`python -m unittest tests.e2e.test_e2e_x` NO inserta `tests/` en `sys.path` -solo el cwd, vía
+`-m`- así que esos imports fallan con `ModuleNotFoundError: No module named 'e2e'`.)
 
-**Estructura de recursos, pensada para que sigan sumándose casos.** La carpeta de recursos se
-llama IGUAL que el caso de prueba (sin el prefijo `test_e2e_`), para identificarla entre las demás
-a simple vista:
+**Toda prueba E2E vive en `tests/e2e/`; lo compartido, en `tests/e2e/shared/`.** Ver
+[`tests/e2e/README.md`](tests/e2e/README.md) para la regla completa (esquema de
+`expected-result.json`, cómo escribir un caso nuevo). Resumen:
 
 ```
 tests/
+  e2e/
+    shared/
+      e2e_common.py    <- RESOURCES, requiere_e2e, ejecutar_caso(carpeta), cargar_esperado(carpeta),
+                          verificar_candidatos_y_operaciones(testcase, resultado, esperado)
+    README.md          <- la regla completa
+    test_e2e_datos_personales.py
+    test_e2e_datos_personales_notificacion.py
   resources/
-    datos_personales/     <- entradas (HU + funcionalidad) Y salida de test_e2e_datos_personales.py
-    <otro_caso>/          <- entradas Y salida de test_e2e_<otro_caso>.py (futura)
-  e2e_support.py                    <- RESOURCES, requiere_e2e, ejecutar_caso(carpeta, funcionalidad)
-  test_e2e_datos_personales.py      <- ejecutar_caso("datos_personales", ...)
-  test_e2e_<otro_caso>.py           <- ejecutar_caso("<otro_caso>", ...)
+    datos_personales/            <- autocontenida (ver abajo)
+    datos_personales_notificacion/
+    <otro_caso>/                 <- futura
 ```
 
-Cada `resources/<caso>/` es autocontenida: trae su(s) HU (`.txt`), su JSON de funcionalidad, y
-`ejecutar_caso()` (en `tests/e2e_support.py`) escribe ahí mismo `mapeo-historias-service-domains.json`
-como salida -se sobreescribe en cada corrida, queda como artefacto inspeccionable, no un tempdir
-que se borra-. **Nunca** apuntar a las carpetas compartidas `./HU` / `./ejemplos` de la raíz: son
-para pruebas manuales del CLI, cambian de contenido libremente, y ya rompieron una prueba E2E por
-eso. Una prueba E2E nueva es mecánica: crear `tests/resources/<caso>/` con sus datos y, en
-`tests/test_e2e_<caso>.py`, `ejecutar_caso("<caso>", "<funcionalidad>.json")` bajo `@requiere_e2e`.
+**Prohibido hardcodear valores de negocio esperados en el `.py` del test** (nombre de Service
+Domain, operaciones, etc.). Cada `resources/<caso>/` trae SIEMPRE tres archivos: HU (`.txt`),
+`funcionalidad-*.json` (autodescubierto, debe haber exactamente uno) y **`expected-result.json`**
+— una corrida de referencia **completa** (la MISMA forma que `mapeo-historias-service-domains.json`,
+un `ResultadoMapeoHistorias` serializado; normalmente se arma copiando una corrida real ya
+validada), curada a mano. El test la carga con `cargar_esperado()` y compara el resultado en
+memoria contra ella con `verificar_candidatos_y_operaciones()`, que exige: (1) los mismos Service
+Domain candidatos por historia (unión de directos/tentativos/descartados) y (2) para cada uno,
+las mismas `operaciones_bian` comparadas por `(operation_id, method, path, tipo, grupo)` — ignora
+a propósito lo narrativo (razonamiento, justificacion, scores, evidence_refs...), que varía de
+corrida a corrida aunque el resultado de negocio sea el mismo. El pipeline real sigue escribiendo
+su salida completa (`mapeo-historias-service-domains.json`) en la misma carpeta en cada corrida
+-se sobreescribe, es el artefacto **actual** inspeccionable, deliberadamente distinto del
+`expected-result.json` **estático** de arriba: si el test comparara contra un archivo que el
+propio pipeline acaba de escribir, nunca podría fallar tras la primera corrida-. **Nunca** apuntar
+a las carpetas compartidas `./HU` / `./ejemplos` de la raíz: son para pruebas manuales del CLI,
+cambian de contenido libremente, y ya rompieron una prueba E2E por eso.
 
-Ejemplo: `tests/test_e2e_datos_personales.py` + `tests/resources/datos_personales/` — replica
+Ejemplo: `tests/e2e/test_e2e_datos_personales.py` + `tests/resources/datos_personales/` — replica
 `mapear-historias` sobre su propia HU "Crear pantalla de datos personales" y valida la regresión
 (debe anclar `RetrieveReference`/`UpdateReference`, nunca `RetrieveDemographics`; ver
 `src/dominio/cobertura_operaciones.py`).
 
-Segundo ejemplo: `tests/test_e2e_datos_personales_notificacion.py` +
+Segundo ejemplo: `tests/e2e/test_e2e_datos_personales_notificacion.py` +
 `tests/resources/datos_personales_notificacion/` — HU "Notificar actualización de datos" bajo la
 funcionalidad macro "Actualización de datos personales" (la misma que usa el primer ejemplo) —
 replica el comando manual real usado para validar la corrección de ownership de Correspondence
 (`--directorio-hu ./HU --funcionalidad ./ejemplos/funcionalidad-actualizacion-datos-personales.json`).
 Valida que Correspondence quede `OWNED_CONTRACT` (nunca `REJECTED`) con `InitiateOutbound` anclado
 (POST, BQ, grupo Outbound). Su equivalente determinista SIN LLM (corre siempre, no gateado) es
-`tests/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership` /
+`tests/unit_test/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership` /
 `TestGrafoMapeoFinalizacionPorOperacion`. El framing de la funcionalidad cambia el score que el
 LLM le da al candidato (0.5033 / 0.6733 / 0.98 observados en corridas reales según el contexto y
 qué modelo del failover respondió) — la regresión determinista es la que fija ese caso sin

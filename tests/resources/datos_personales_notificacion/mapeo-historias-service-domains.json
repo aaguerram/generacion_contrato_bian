@@ -3,15 +3,15 @@
   "detalle": "Permitir que el cliente actualice su número celular y correo electrónico desde la aplicación móvil, utilizando validaciones existentes y Smart Token como mecanismo de seguridad, asegurando trazabilidad y notificación de los cambios realizados.",
   "total_historias": 1,
   "parametros": {
-    "cadena_llm": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+    "cadena_llm": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
     "esfuerzo": "low",
     "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
     "evidencia_bian": "docs/SD.json + docs/bian-business-areas.json + docs/bian-operation-catalogs.json + docs/bian-cache",
-    "run_id": "d3f88d942dad4d5f86dda17991544a5b",
+    "run_id": "76503256f13b4a9aaa54e53e21a1a493",
     "umbral_directo": 0.9,
     "umbral_tentativo": 0.63,
     "concurrencia": 1,
-    "concurrencia_candidatos": 2,
+    "concurrencia_candidatos": 1,
     "max_candidatos_hu": 14,
     "paso2_operaciones": true,
     "actualizar_cache_bian": false,
@@ -24,35 +24,33 @@
     {
       "archivo": "HU-Notificar actualizacion de datos.txt",
       "titulo": "Notificar actualizacion de datos",
-      "razonamiento": "Enviar notificaciones a los datos de contacto anteriores y nuevos cuando un usuario actualiza su número de celular o correo electrónico, para prevenir fraudes.",
+      "razonamiento": "Permite notificar al cliente, tanto al contacto anterior como al nuevo, cuando actualiza su número de celular o correo electrónico, manteniendo el esquema de notificación existente.",
       "capacidades_funcionales": [
-        "Enviar notificación al celular o correo anterior",
-        "Enviar notificación al celular o correo nuevo",
-        "Generar notificaciones múltiples por actualización simultánea",
-        "Mantener el esquema de notificaciones existente"
+        "Enviar notificación al contacto anterior cuando se actualiza el número de celular o correo electrónico",
+        "Enviar notificación al contacto nuevo cuando se actualiza el número de celular o correo electrónico",
+        "Generar notificaciones independientes para cambios simultáneos de celular y correo",
+        "Conservar el esquema de notificación vigente para eventos de actualización de datos personales"
       ],
       "business_actions": [
-        "enviar",
-        "actualizar",
-        "registrar",
-        "procesar",
-        "mantener",
-        "generar"
+        "notificar",
+        "generar",
+        "mantener"
       ],
       "business_objects": [
-        "notificación",
-        "número celular",
+        "celular",
         "correo electrónico",
-        "datos personales"
+        "notificación",
+        "registro de cambio de datos personales"
       ],
       "outcomes": [
-        "El sistema envía una notificación al celular o correo anterior",
-        "El sistema envía una notificación al nuevo número de celular o correo",
-        "El sistema genera las notificaciones cada uno de los cambios",
-        "El sistema mantiene el mismo esquema definido para este tipo de eventos"
+        "Notificación enviada al celular o correo anterior",
+        "Notificación enviada al nuevo celular o correo",
+        "Notificaciones generadas para cada cambio cuando se actualizan celular y correo simultáneamente",
+        "Esquema de notificación existente se mantiene para actualizaciones de datos personales"
       ],
       "external_dependencies": [
-        "mecanismos actuales de notificación"
+        "Mecanismo de notificación existente",
+        "Smart Token de seguridad"
       ],
       "traceability_ids": [
         "HU-Notificar actualizacion de datos",
@@ -62,43 +60,56 @@
         "SC-04"
       ],
       "assumptions": [
-        "The update of personal data is handled by party management or customer profile domains not fully detailed in the snippet, relying on Customer Case for processing requests."
+        "El cambio de datos ya ha sido registrado exitosamente",
+        "Los mecanismos de notificación están operativos",
+        "La validación mediante Smart Token ha sido aprobada",
+        "El usuario está autenticado y autorizado",
+        "Se asume que el 'mecanismo de notificación existente' se implementa o consume a través del Service Domain de Correspondence.",
+        "Se asume que la actualización de datos personales (celular y correo electrónico) es gestionada y almacenada en Party Reference Data Directory."
       ],
       "gaps": [
-        "Lack of a dedicated Fraud Prevention Notification Service Domain in the provided catalog subset."
+        "Detalle del canal y formato de la notificación (SMS, email, push)",
+        "Manejo de fallos en el envío de notificaciones",
+        "Auditoría y registro de envío de notificaciones",
+        "No se encuentra en el catálogo un Service Domain específico para la gestión de 'Smart Token de seguridad' mencionado en las dependencias externas.",
+        "Mecanismo de seguridad / Smart Token mencionado en las dependencias externas para prevenir riesgos de fraude en la actualización de datos"
       ],
-      "unresolved_questions": [],
-      "blocking_codes": [],
+      "unresolved_questions": [
+        "¿Qué ocurre si el contacto anterior no está disponible para recibir la notificación?",
+        "¿Se envía notificación en caso de actualización parcial (solo celular o solo correo)?",
+        "¿Existen requisitos de localización o idioma para la notificación?"
+      ],
+      "blocking_codes": [
+        "OBJETO_SIN_PROPIETARIO"
+      ],
       "intencion": {
-        "resumen_funcional": "Enviar notificaciones a los datos de contacto anteriores y nuevos cuando un usuario actualiza su número de celular o correo electrónico, para prevenir fraudes.",
+        "resumen_funcional": "Permite notificar al cliente, tanto al contacto anterior como al nuevo, cuando actualiza su número de celular o correo electrónico, manteniendo el esquema de notificación existente.",
         "capacidades_funcionales": [
-          "Enviar notificación al celular o correo anterior",
-          "Enviar notificación al celular o correo nuevo",
-          "Generar notificaciones múltiples por actualización simultánea",
-          "Mantener el esquema de notificaciones existente"
+          "Enviar notificación al contacto anterior cuando se actualiza el número de celular o correo electrónico",
+          "Enviar notificación al contacto nuevo cuando se actualiza el número de celular o correo electrónico",
+          "Generar notificaciones independientes para cambios simultáneos de celular y correo",
+          "Conservar el esquema de notificación vigente para eventos de actualización de datos personales"
         ],
         "business_actions": [
-          "enviar",
-          "actualizar",
-          "registrar",
-          "procesar",
-          "mantener",
-          "generar"
+          "notificar",
+          "generar",
+          "mantener"
         ],
         "business_objects": [
-          "notificación",
-          "número celular",
+          "celular",
           "correo electrónico",
-          "datos personales"
+          "notificación",
+          "registro de cambio de datos personales"
         ],
         "outcomes": [
-          "El sistema envía una notificación al celular o correo anterior",
-          "El sistema envía una notificación al nuevo número de celular o correo",
-          "El sistema genera las notificaciones cada uno de los cambios",
-          "El sistema mantiene el mismo esquema definido para este tipo de eventos"
+          "Notificación enviada al celular o correo anterior",
+          "Notificación enviada al nuevo celular o correo",
+          "Notificaciones generadas para cada cambio cuando se actualizan celular y correo simultáneamente",
+          "Esquema de notificación existente se mantiene para actualizaciones de datos personales"
         ],
         "external_dependencies": [
-          "mecanismos actuales de notificación"
+          "Mecanismo de notificación existente",
+          "Smart Token de seguridad"
         ],
         "traceability_ids": [
           "HU-Notificar actualizacion de datos",
@@ -107,36 +118,53 @@
           "SC-03",
           "SC-04"
         ],
-        "assumptions": [],
-        "gaps": [],
-        "unresolved_questions": [],
+        "assumptions": [
+          "El cambio de datos ya ha sido registrado exitosamente",
+          "Los mecanismos de notificación están operativos",
+          "La validación mediante Smart Token ha sido aprobada",
+          "El usuario está autenticado y autorizado"
+        ],
+        "gaps": [
+          "Detalle del canal y formato de la notificación (SMS, email, push)",
+          "Manejo de fallos en el envío de notificaciones",
+          "Auditoría y registro de envío de notificaciones"
+        ],
+        "unresolved_questions": [
+          "¿Qué ocurre si el contacto anterior no está disponible para recibir la notificación?",
+          "¿Se envía notificación en caso de actualización parcial (solo celular o solo correo)?",
+          "¿Existen requisitos de localización o idioma para la notificación?"
+        ],
         "metadatos": {
           "prompt_id": "mapeo.intencion",
           "prompt_version": "1.0.0",
           "prompt_sha256": "b1e294c51943a0c47a267c88004bcd3e7de5fb637db9ddcf4ccc0d1af0e02e73",
           "nodo": "extraer_intencion",
           "historia": "HU-Notificar actualizacion de datos.txt",
-          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
           "temperature": 0.0,
           "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
           "evidence_snapshot_id": ""
         }
       },
       "revision_completitud": {
-        "missing_candidates": [],
+        "missing_candidates": [
+          "Party Authentication"
+        ],
         "unsupported_candidates": [],
         "ownership_conflicts": [],
         "duplicated_responsibilities": [],
-        "coverage_gaps": [],
+        "coverage_gaps": [
+          "Mecanismo de seguridad / Smart Token mencionado en las dependencias externas para prevenir riesgos de fraude en la actualización de datos"
+        ],
         "blocking_codes": [],
-        "review_summary": "La historia y los candidatos actuales cubren adecuadamente el proceso de actualizacion de datos personales y sus respectivas notificaciones utilizando Correspondence, Party Reference Data Directory, Customer Case y Operational Gateway con evidencia verificada.",
+        "review_summary": "The current candidates cover notification and data storage, but 'Party Authentication' is missing to support the security/Smart Token dependency. A coverage gap exists for the specific security token mechanism.",
         "metadatos": {
           "prompt_id": "mapeo.completitud",
           "prompt_version": "1.0.0",
           "prompt_sha256": "bbfd8e89cc9d01d63c0a001ae620ed67510fde6cf3c2702dbf09b79f69c6f664",
           "nodo": "revisar_completitud",
           "historia": "HU-Notificar actualizacion de datos.txt",
-          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
           "temperature": 0.0,
           "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
           "evidence_snapshot_id": ""
@@ -145,111 +173,53 @@
       "revision_adversarial": {
         "hallazgos": [
           {
-            "tipo": "DEPENDENCIA_PROMOVIDA_A_CONTRATO",
+            "tipo": "ACCION_DIRECTA_COMO_DEPENDENCIA",
             "service_domain": "Correspondence",
             "reason_codes": [
               "BIAN-SCOPE-002"
             ],
-            "detalle": "Correspondence está como OWNED_CONTRACT pero la historia solo consume la capacidad de envío de notificaciones."
+            "detalle": "notificar actualización de datos personales"
+          },
+          {
+            "tipo": "DIRECTO_SIN_SERVICE_ROLE",
+            "service_domain": "Party Authentication",
+            "reason_codes": [
+              "BIAN-SCOPE-003"
+            ],
+            "detalle": "notificar actualización de datos"
           }
         ],
-        "blocking_codes": [],
-        "resumen": "Se identifica que Correspondence fue clasificado incorrectamente como OWNED_CONTRACT en lugar de dependencia consumida.",
+        "blocking_codes": [
+          "OBJETO_SIN_PROPIETARIO"
+        ],
+        "resumen": "Se encontraron dos contradicciones: una acción directa clasificada como dependencia y un dominio con rol directo que no describe la acción; además, los objetos centrales carecen de propietario.",
         "metadatos": {
           "prompt_id": "mapeo.adversarial",
           "prompt_version": "1.0.0",
           "prompt_sha256": "fec929070580b147946f02599086c294b14c4b22abc1b5acf9e5032a4b252f7d",
           "nodo": "revisar_adversarial",
           "historia": "HU-Notificar actualizacion de datos.txt",
-          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
           "temperature": 0.0,
           "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
           "evidence_snapshot_id": ""
         }
       },
-      "total_directos": 2,
+      "total_directos": 1,
       "total_tentativos": 0,
-      "total_descartados": 2,
+      "total_descartados": 3,
       "service_domains": {
         "candidatos_directos": [
-          {
-            "service_domain": "Party Reference Data Directory",
-            "resolucion": "MATCH",
-            "rol_contractual": "OWNED_CONTRACT",
-            "dependency_kind": null,
-            "confianza": 0.965,
-            "confianza_pct": 96,
-            "confianza_llm": 1.0,
-            "grupo": "directo",
-            "accion_objeto": "actualizar número de celular o correo electrónico",
-            "escenarios_hu": [
-              "HU-Notificar actualizacion de datos",
-              "SC-01",
-              "SC-02",
-              "SC-03"
-            ],
-            "justificacion": "La historia actualiza datos de contacto como celular y correo, los cuales forman parte del esquema Reference administrado por el Service Domain Party Reference Data Directory mediante operaciones de actualización directa.",
-            "business_area": "Sales and Service",
-            "business_domain": "Customer Management",
-            "rol_bian": "The party reference data directory service domain maintains a potentially wide range of party reference data that might be used in any interaction between the bank and the party including relationship development, sales/marketing, servicing and product delivery. This can include general reference and contact details, party associations, demographic details and some servicing preferences. Different information may be maintained for different party types such as individuals, corporates, partners",
-            "patron_funcional": "Catalog",
-            "origen_candidato": "llm",
-            "operaciones_bian": [],
-            "bq_personalizados_propuestos": [],
-            "evidencia_bian": {
-              "estado": "CACHED_VERIFIED",
-              "release": "14.0.0",
-              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyReferenceDataDirectory.yaml",
-              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
-              "content_sha256": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79",
-              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyReferenceDataDirectory.json",
-              "recuperado_en": "2026-09-10T22:19:40.014858+00:00",
-              "error": ""
-            },
-            "desglose_score": {
-              "accion_oficial": 1.0,
-              "objeto_bom": 1.0,
-              "ownership_outcome": 1.0,
-              "trazabilidad_escenarios": 1.0,
-              "coherencia_jerarquia": 0.25,
-              "penalizacion": -0.04,
-              "total": 0.965,
-              "retrieval_score": 0.0,
-              "operation_support_score": 0.0
-            },
-            "decision_contractual": "SELECTED",
-            "motivo_decision": "OWNED_SELECTED",
-            "ambiguity": "LOW",
-            "observaciones_adversariales": [],
-            "ownership_traceability": [
-              "HU-Notificar actualizacion de datos",
-              "SC-01",
-              "SC-02",
-              "SC-03"
-            ],
-            "dependency_traceability": [],
-            "evidence_refs": [
-              "UpdateReference",
-              "Reference",
-              "PartyReferenceDataDirectoryEntry"
-            ],
-            "reason_codes": [],
-            "assumptions": [
-              "La gestión de notificaciones posterior al cambio se realiza como parte del flujo operativo desencadenado por la actualización de los datos de contacto."
-            ],
-            "gaps": [],
-            "blocking_codes": []
-          },
           {
             "service_domain": "Correspondence",
             "resolucion": "MATCH",
             "rol_contractual": "OWNED_CONTRACT",
             "dependency_kind": null,
-            "confianza": 0.94,
-            "confianza_pct": 94,
-            "confianza_llm": 1.0,
+            "confianza": 0.7733,
+            "confianza_pct": 77,
+            "confianza_llm": 0.75,
             "grupo": "directo",
-            "accion_objeto": "enviar notificación",
+            "accion_objeto": "notificar actualización de datos personales",
             "escenarios_hu": [
               "HU-Notificar actualizacion de datos",
               "SC-01",
@@ -257,7 +227,7 @@
               "SC-03",
               "SC-04"
             ],
-            "justificacion": "El dominio Correspondence ofrece la operación InitiateOutbound que genera correspondencia, alineándose con el verbo enviar notificaciones y el objeto notificación. El Service Role describe la generación automática de correspondencia, por lo que el dominio administra directamente la capacidad.",
+            "justificacion": "La historia requiere que el sistema envíe notificaciones al cambiar datos de contacto. El Service Domain Correspondence ofrece operaciones (InitiateOutbound, UpdateOutbound) que generan y gestionan correspondencia saliente, que corresponde a la notificación. Sin embargo, la historia solo consume la capacidad de notificar, no administra el ciclo de vida de la correspondencia, por lo que es una dependencia.",
             "business_area": "Business Support",
             "business_domain": "Document Management and Archive",
             "rol_bian": "This service domain handles the automated generation of (batches of) pre-formatted correspondence. It also handles the tracking of expected responses to sent out mail requests and handles the matching of the response and the onward routing of these and all unsolicited inbound correspondence.",
@@ -271,20 +241,23 @@
                 "tipo": "BQ",
                 "grupo": "Outbound",
                 "escenarios_hu": [
-                  "Escenario 1",
-                  "Escenario 2",
-                  "Escenario 3"
+                  "Escenario 1. Notificación al celular o correo anterior",
+                  "Escenario 2. Notificación al celular o correo nuevo",
+                  "Escenario 3. Notificación al celular o correo nuevo",
+                  "Escenario 4. Mismo esquema de notificaciones"
                 ],
-                "justificacion": "Inicia la generacion y envio de notificaciones salientes para los cambios de datos de contacto.",
+                "justificacion": "Permite iniciar el envío de correspondencia saliente (notificación) especificando el contenido, destinatario y canal de comunicación.",
                 "action_term": "Initiate",
                 "business_object": "Outbound",
                 "bq_seed": "el sistema envíe una notificación al celular o correo anterior",
                 "traceability": [
-                  "HU-Notificar actualizacion de datos/SC-1/BR-1",
-                  "HU-Notificar actualizacion de datos/SC-2/BR-1",
-                  "HU-Notificar actualizacion de datos/SC-3/BR-1"
+                  "HU-Notificar actualizacion de datos/SC-1",
+                  "HU-Notificar actualizacion de datos/SC-2",
+                  "HU-Notificar actualizacion de datos/SC-3",
+                  "HU-Notificar actualizacion de datos/SC-4"
                 ],
                 "evidence_refs": [
+                  "CorrespondenceAddressee",
                   "CorrespondenceContent",
                   "CorrespondenceMediaorChannel"
                 ],
@@ -304,20 +277,21 @@
             },
             "desglose_score": {
               "accion_oficial": 1.0,
-              "objeto_bom": 1.0,
+              "objeto_bom": 0.3333,
               "ownership_outcome": 1.0,
               "trazabilidad_escenarios": 1.0,
               "coherencia_jerarquia": 0.0,
               "penalizacion": -0.04,
-              "total": 0.94,
+              "total": 0.7733,
               "retrieval_score": 0.0,
               "operation_support_score": 1.0
             },
-            "decision_contractual": "UNRESOLVED",
-            "motivo_decision": "TENTATIVE_SCORE",
+            "decision_contractual": "SELECTED",
+            "motivo_decision": "OWNED_SELECTED",
             "ambiguity": "LOW",
             "observaciones_adversariales": [
-              "[adversarial] Correspondence está como OWNED_CONTRACT pero la historia solo consume la capacidad de envío de notificaciones."
+              "[adversarial] notificar actualización de datos personales",
+              "[adversarial] Promovido a OWNED_CONTRACT: accion directa con evidencia oficial y trazabilidad de escenarios, inicialmente clasificada como dependencia consumida."
             ],
             "ownership_traceability": [
               "HU-Notificar actualizacion de datos",
@@ -329,154 +303,203 @@
             "dependency_traceability": [],
             "evidence_refs": [
               "InitiateOutbound",
-              "Outbound",
-              "CorrespondenceOperatingSession",
-              "Correspondence"
+              "UpdateOutbound",
+              "Outbound"
             ],
             "reason_codes": [
-              "BIAN-SCOPE-002"
+              "BIAN-SCOPE-002",
+              "OWNERSHIP_PROMOTED_BY_ADVERSARIAL"
             ],
-            "assumptions": [],
+            "assumptions": [
+              "Se asume que la operación InitiateOutbound representa el envío de la notificación requerida"
+            ],
             "gaps": [],
-            "blocking_codes": [
-              "BIAN-SCOPE-002"
-            ]
+            "blocking_codes": []
           }
         ],
         "candidatos_tentativos": [],
         "candidatos_descartados": [
           {
-            "service_domain": "Operational Gateway",
+            "service_domain": "Party Reference Data Directory",
             "resolucion": "MATCH",
             "rol_contractual": "CONSUMED_DEPENDENCY",
-            "dependency_kind": "AUDIT_OR_NOTIFICATION",
-            "confianza": 0.4033,
-            "confianza_pct": 40,
-            "confianza_llm": 0.5,
+            "dependency_kind": "OTHER_DEPENDENCY",
+            "confianza": 0.62,
+            "confianza_pct": 62,
+            "confianza_llm": 0.8333,
             "grupo": "descartado",
-            "accion_objeto": "enviar notificaciones",
+            "accion_objeto": "consultar datos de contacto anteriores",
             "escenarios_hu": [
-              "HU-Notificar actualizacion de datos",
-              "SC-01",
-              "SC-02",
-              "SC-03",
-              "SC-04"
+              "HU-Notificar actualizacion de datos"
             ],
-            "justificacion": "La historia solicita el envío de notificaciones por actualización de datos personales, lo cual representa una dependencia de notificación y no la administración directa del dominio Operational Gateway.",
-            "business_area": "Business Support",
-            "business_domain": "IT Management",
-            "rol_bian": "The Operational Gateway Service Domain handles the secure sending and receiving of non-financial messages (and files) to and from professional entities outside the bank. The Service Domain may employ many different communication channels and mechanisms as appropriate for the type of information exchanged. The selected mechanism will need to consider volume and performance needs, security, channel availability and technical feasibility in addition to supporting different scheduling and exchange arrangements that may be needed. The operation of the external connection will usually be governed by an associated service level agreement (SLA)",
-            "patron_funcional": "Operate",
+            "justificacion": "La historia de usuario se centra en la generacion y envio de notificaciones ante un cambio de datos, lo cual no es responsabilidad de este Service Domain. Sin embargo, este dominio es consumido para obtener los datos de contacto anteriores y nuevos (eMailAddress y CellPhoneNumber dentro del schema Reference) necesarios para enviar dichas notificaciones.",
+            "business_area": "Sales and Service",
+            "business_domain": "Customer Management",
+            "rol_bian": "The party reference data directory service domain maintains a potentially wide range of party reference data that might be used in any interaction between the bank and the party including relationship development, sales/marketing, servicing and product delivery. This can include general reference and contact details, party associations, demographic details and some servicing preferences. Different information may be maintained for different party types such as individuals, corporates, partners",
+            "patron_funcional": "Catalog",
             "origen_candidato": "llm",
             "operaciones_bian": [],
             "bq_personalizados_propuestos": [],
             "evidencia_bian": {
               "estado": "CACHED_VERIFIED",
               "release": "14.0.0",
-              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/OperationalGateway.yaml",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyReferenceDataDirectory.yaml",
               "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
-              "content_sha256": "e997bc841d763f3f992ee17b6a6fd967ad7e7a0631bac116cea005aba6a2e33e",
-              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\OperationalGateway.json",
-              "recuperado_en": "2026-09-12T01:42:20.315827+00:00",
+              "content_sha256": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyReferenceDataDirectory.json",
+              "recuperado_en": "2026-09-10T22:19:40.014858+00:00",
               "error": ""
             },
             "desglose_score": {
-              "accion_oficial": 0.3333,
-              "objeto_bom": 0.3333,
+              "accion_oficial": 0.6667,
+              "objeto_bom": 1.0,
               "ownership_outcome": 0.55,
-              "trazabilidad_escenarios": 1.0,
-              "coherencia_jerarquia": 0.0,
+              "trazabilidad_escenarios": 0.5,
+              "coherencia_jerarquia": 0.25,
               "penalizacion": 0.04,
-              "total": 0.4033,
+              "total": 0.62,
               "retrieval_score": 0.0,
               "operation_support_score": 0.0
             },
             "decision_contractual": "REJECTED",
             "motivo_decision": "CONSUMED_DEPENDENCY",
             "ambiguity": "LOW",
-            "observaciones_adversariales": [],
+            "observaciones_adversariales": [
+              "Revisar ownership: correspondencia fuerte con catalogo oficial."
+            ],
             "ownership_traceability": [],
             "dependency_traceability": [
-              "HU-Notificar actualizacion de datos",
-              "SC-01",
-              "SC-02",
-              "SC-03",
-              "SC-04"
+              "HU-Notificar actualizacion de datos"
             ],
             "evidence_refs": [
-              "OutboundMessage",
-              "OperationalGatewayOperatingSession",
-              "InitiateOutboundMessage"
+              "RetrieveReference",
+              "Reference",
+              "eMailAddress",
+              "CellPhoneNumber"
             ],
             "reason_codes": [
               "BIAN-SCOPE-002"
             ],
             "assumptions": [
-              "Se asume que la gestión de datos personales reside en otro dominio y Operational Gateway solo actúa como mecanismo de transporte de mensajes."
+              "Se asume que el sistema que envia las notificaciones requiere consultar previamente los datos de contacto (celular y correo) registrados en Party Reference Data Directory."
             ],
             "gaps": [],
             "blocking_codes": []
           },
           {
-            "service_domain": "Customer Case",
+            "service_domain": "Party Authentication",
             "resolucion": "MATCH",
             "rol_contractual": "RELATED_NOT_OWNED",
             "dependency_kind": null,
-            "confianza": 0.3333,
-            "confianza_pct": 33,
-            "confianza_llm": 0.4167,
+            "confianza": 0.19,
+            "confianza_pct": 19,
+            "confianza_llm": 0.25,
             "grupo": "descartado",
-            "accion_objeto": "enviar notificacion",
+            "accion_objeto": "notificar actualizacion de datos",
             "escenarios_hu": [
-              "CustomerCaseProcedure",
-              "CustomerContact"
+              "PartyAuthenticationAssessment",
+              "Evaluate"
             ],
-            "justificacion": "La historia se enfoca en enviar notificaciones de actualización de datos personales (celular/correo), mientras que Customer Case gestiona procedimientos de casos de servicio y resolución. No existe administración directa de notificaciones en este dominio.",
+            "justificacion": "La historia de usuario requiere enviar notificaciones tras la actualizacion de datos personales (celular o correo). Party Authentication se encarga de la verificacion de identidad y autenticacion de clientes, no de la gestion de datos de contacto ni del envio de notificaciones de cambios de perfil.",
             "business_area": "Sales and Service",
-            "business_domain": "Servicing",
-            "rol_bian": "Case resolution tasks follow specific procedures for the type of case involved. Case resolution can be quick by applying resolution rules and obtaining additional authorization as necessary, or they can be long living activities, for example where documentation is requested and has to be retrieved from merchants or other interested parties before the disputed issue can finally be ruled upon. A wide range of case types can be expected",
-            "patron_funcional": "Process",
+            "business_domain": "Cross Channel",
+            "rol_bian": "Customer/party authentication is a cross-channel/device capability that provides identity confirmation for customers accessing the bank through any interactive channel. The service may use a combination of one or more mechanisms to authenticate including issued tokens/devices, virtual mechanisms such as passwords and biometrics such as voice/face recognition. Different levels of authentication may be determined to support different types of access and there may be access permissions associated with the authentication mechanism used",
+            "patron_funcional": "Assess",
+            "origen_candidato": "completitud",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyAuthentication.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyAuthentication.json",
+              "recuperado_en": "2026-09-10T22:23:59.281337+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.0,
+              "objeto_bom": 0.0,
+              "ownership_outcome": 0.2,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": 0.0,
+              "total": 0.19,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "RELATED_NOT_OWNED",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [
+              "[adversarial] notificar actualización de datos"
+            ],
+            "ownership_traceability": [],
+            "dependency_traceability": [],
+            "evidence_refs": [
+              "PartyAuthenticationAssessment",
+              "Evaluate"
+            ],
+            "reason_codes": [
+              "BIAN-SCOPE-003"
+            ],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": []
+          },
+          {
+            "service_domain": "Fraud Evaluation",
+            "resolucion": "MATCH",
+            "rol_contractual": "RELATED_NOT_OWNED",
+            "dependency_kind": null,
+            "confianza": 0.0,
+            "confianza_pct": 0,
+            "confianza_llm": 0.0,
+            "grupo": "descartado",
+            "accion_objeto": "",
+            "escenarios_hu": [],
+            "justificacion": "No operation or schema in Fraud Evaluation matches notification of personal data changes.",
+            "business_area": "Operations and Execution",
+            "business_domain": "Account Management",
+            "rol_bian": "This service domain handles the structured execution of fraud detection tests/routines that are used to identify possible fraud by detecting out of pattern behaviors. The tests may run in-line with production or may access transaction logs as appropriate. Detected anomalies are passed for further analysis and resolution.",
+            "patron_funcional": "Assess",
             "origen_candidato": "llm",
             "operaciones_bian": [],
             "bq_personalizados_propuestos": [],
             "evidencia_bian": {
               "estado": "CACHED_VERIFIED",
               "release": "14.0.0",
-              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerCase.yaml",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/FraudEvaluation.yaml",
               "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
-              "content_sha256": "40a52a85ccf4290500b928b1ac088dfa43cabb7d757afa690de99c6087ead671",
-              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\CustomerCase.json",
-              "recuperado_en": "2026-09-12T02:23:08.347613+00:00",
+              "content_sha256": "e95e7a21fc7a3956931f3cd54445f83114365b7227bcb1eee5c2ba5ef4e4f233",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\FraudEvaluation.json",
+              "recuperado_en": "2026-09-10T22:23:50.221564+00:00",
               "error": ""
             },
             "desglose_score": {
-              "accion_oficial": 0.3333,
-              "objeto_bom": 0.3333,
+              "accion_oficial": 0.0,
+              "objeto_bom": 0.0,
               "ownership_outcome": 0.2,
-              "trazabilidad_escenarios": 1.0,
+              "trazabilidad_escenarios": 0.0,
               "coherencia_jerarquia": 0.0,
-              "penalizacion": 0.04,
-              "total": 0.3333,
+              "penalizacion": 0.13,
+              "total": 0.0,
               "retrieval_score": 0.0,
               "operation_support_score": 0.0
             },
             "decision_contractual": "REJECTED",
             "motivo_decision": "RELATED_NOT_OWNED",
-            "ambiguity": "LOW",
-            "observaciones_adversariales": [],
+            "ambiguity": "HIGH",
+            "observaciones_adversariales": [
+              "Ambiguedad alta en la evaluacion del candidato."
+            ],
             "ownership_traceability": [],
             "dependency_traceability": [],
-            "evidence_refs": [
-              "CustomerCaseProcedure",
-              "CustomerContact"
-            ],
+            "evidence_refs": [],
             "reason_codes": [],
-            "assumptions": [
-              "La gestión de notificaciones y canales de contacto reside en otro Service Domain especializado."
-            ],
-            "gaps": [
-              "El paquete no contiene operaciones para el envío de notificaciones de datos de contacto."
-            ],
+            "assumptions": [],
+            "gaps": [],
             "blocking_codes": []
           }
         ]
@@ -486,57 +509,13 @@
   ],
   "service_domains_consolidados": [
     {
-      "service_domain": "Party Reference Data Directory",
+      "service_domain": "Correspondence",
       "decision": "SELECTED",
       "motivo": "OWNED_SELECTED",
       "contract_role": "OWNED_CONTRACT",
       "functionality_role": "OWNED_CONTRACT",
       "grupo": "directo",
-      "score": 0.965,
-      "historias": [
-        "HU-Notificar actualizacion de datos.txt"
-      ],
-      "supporting_stories": [
-        "HU-Notificar actualizacion de datos.txt"
-      ],
-      "contradicting_stories": [],
-      "traceability": [
-        "HU-Notificar actualizacion de datos",
-        "SC-01",
-        "SC-02",
-        "SC-03"
-      ],
-      "ownership_traceability": [
-        "HU-Notificar actualizacion de datos",
-        "SC-01",
-        "SC-02",
-        "SC-03"
-      ],
-      "dependency_traceability": [],
-      "selected_operations": [],
-      "custom_bq_candidates": [],
-      "reason_codes": [],
-      "blocking_codes": [],
-      "evidence": {
-        "estado": "CACHED_VERIFIED",
-        "release": "14.0.0",
-        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyReferenceDataDirectory.yaml",
-        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
-        "content_sha256": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79",
-        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyReferenceDataDirectory.json",
-        "recuperado_en": "2026-09-10T22:19:40.014858+00:00",
-        "error": ""
-      },
-      "rationale": "La historia actualiza datos de contacto como celular y correo, los cuales forman parte del esquema Reference administrado por el Service Domain Party Reference Data Directory mediante operaciones de actualización directa."
-    },
-    {
-      "service_domain": "Correspondence",
-      "decision": "UNRESOLVED",
-      "motivo": "TENTATIVE_SCORE",
-      "contract_role": "OWNED_CONTRACT",
-      "functionality_role": "OWNED_CONTRACT",
-      "grupo": "directo",
-      "score": 0.94,
+      "score": 0.7733,
       "historias": [
         "HU-Notificar actualizacion de datos.txt"
       ],
@@ -564,11 +543,10 @@
       ],
       "custom_bq_candidates": [],
       "reason_codes": [
-        "BIAN-SCOPE-002"
+        "BIAN-SCOPE-002",
+        "OWNERSHIP_PROMOTED_BY_ADVERSARIAL"
       ],
-      "blocking_codes": [
-        "BIAN-SCOPE-002"
-      ],
+      "blocking_codes": [],
       "evidence": {
         "estado": "CACHED_VERIFIED",
         "release": "14.0.0",
@@ -579,35 +557,29 @@
         "recuperado_en": "2026-09-10T22:23:34.088935+00:00",
         "error": ""
       },
-      "rationale": "El dominio Correspondence ofrece la operación InitiateOutbound que genera correspondencia, alineándose con el verbo enviar notificaciones y el objeto notificación. El Service Role describe la generación automática de correspondencia, por lo que el dominio administra directamente la capacidad."
+      "rationale": "La historia requiere que el sistema envíe notificaciones al cambiar datos de contacto. El Service Domain Correspondence ofrece operaciones (InitiateOutbound, UpdateOutbound) que generan y gestionan correspondencia saliente, que corresponde a la notificación. Sin embargo, la historia solo consume la capacidad de notificar, no administra el ciclo de vida de la correspondencia, por lo que es una dependencia."
     },
     {
-      "service_domain": "Operational Gateway",
+      "service_domain": "Party Reference Data Directory",
       "decision": "REJECTED",
       "motivo": "CONSUMED_DEPENDENCY",
       "contract_role": "CONSUMED_DEPENDENCY",
       "functionality_role": "CONSUMED_DEPENDENCY",
       "grupo": "descartado",
-      "score": 0.4033,
+      "score": 0.62,
       "historias": [
         "HU-Notificar actualizacion de datos.txt"
       ],
-      "supporting_stories": [],
+      "supporting_stories": [
+        "HU-Notificar actualizacion de datos.txt"
+      ],
       "contradicting_stories": [],
       "traceability": [
-        "HU-Notificar actualizacion de datos",
-        "SC-01",
-        "SC-02",
-        "SC-03",
-        "SC-04"
+        "HU-Notificar actualizacion de datos"
       ],
       "ownership_traceability": [],
       "dependency_traceability": [
-        "HU-Notificar actualizacion de datos",
-        "SC-01",
-        "SC-02",
-        "SC-03",
-        "SC-04"
+        "HU-Notificar actualizacion de datos"
       ],
       "selected_operations": [],
       "custom_bq_candidates": [],
@@ -618,32 +590,70 @@
       "evidence": {
         "estado": "CACHED_VERIFIED",
         "release": "14.0.0",
-        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/OperationalGateway.yaml",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyReferenceDataDirectory.yaml",
         "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
-        "content_sha256": "e997bc841d763f3f992ee17b6a6fd967ad7e7a0631bac116cea005aba6a2e33e",
-        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\OperationalGateway.json",
-        "recuperado_en": "2026-09-12T01:42:20.315827+00:00",
+        "content_sha256": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyReferenceDataDirectory.json",
+        "recuperado_en": "2026-09-10T22:19:40.014858+00:00",
         "error": ""
       },
-      "rationale": "La historia solicita el envío de notificaciones por actualización de datos personales, lo cual representa una dependencia de notificación y no la administración directa del dominio Operational Gateway."
+      "rationale": "La historia de usuario se centra en la generacion y envio de notificaciones ante un cambio de datos, lo cual no es responsabilidad de este Service Domain. Sin embargo, este dominio es consumido para obtener los datos de contacto anteriores y nuevos (eMailAddress y CellPhoneNumber dentro del schema Reference) necesarios para enviar dichas notificaciones."
     },
     {
-      "service_domain": "Customer Case",
+      "service_domain": "Party Authentication",
       "decision": "REJECTED",
       "motivo": "RELATED_NOT_OWNED",
       "contract_role": "RELATED_NOT_OWNED",
       "functionality_role": "RELATED_NOT_OWNED",
       "grupo": "descartado",
-      "score": 0.3333,
+      "score": 0.19,
       "historias": [
         "HU-Notificar actualizacion de datos.txt"
       ],
-      "supporting_stories": [],
+      "supporting_stories": [
+        "HU-Notificar actualizacion de datos.txt"
+      ],
       "contradicting_stories": [],
       "traceability": [
-        "CustomerCaseProcedure",
-        "CustomerContact"
+        "Evaluate",
+        "PartyAuthenticationAssessment"
       ],
+      "ownership_traceability": [],
+      "dependency_traceability": [],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [
+        "BIAN-SCOPE-003"
+      ],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyAuthentication.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyAuthentication.json",
+        "recuperado_en": "2026-09-10T22:23:59.281337+00:00",
+        "error": ""
+      },
+      "rationale": "La historia de usuario requiere enviar notificaciones tras la actualizacion de datos personales (celular o correo). Party Authentication se encarga de la verificacion de identidad y autenticacion de clientes, no de la gestion de datos de contacto ni del envio de notificaciones de cambios de perfil."
+    },
+    {
+      "service_domain": "Fraud Evaluation",
+      "decision": "REJECTED",
+      "motivo": "RELATED_NOT_OWNED",
+      "contract_role": "RELATED_NOT_OWNED",
+      "functionality_role": "RELATED_NOT_OWNED",
+      "grupo": "descartado",
+      "score": 0.0,
+      "historias": [
+        "HU-Notificar actualizacion de datos.txt"
+      ],
+      "supporting_stories": [
+        "HU-Notificar actualizacion de datos.txt"
+      ],
+      "contradicting_stories": [],
+      "traceability": [],
       "ownership_traceability": [],
       "dependency_traceability": [],
       "selected_operations": [],
@@ -653,30 +663,19 @@
       "evidence": {
         "estado": "CACHED_VERIFIED",
         "release": "14.0.0",
-        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerCase.yaml",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/FraudEvaluation.yaml",
         "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
-        "content_sha256": "40a52a85ccf4290500b928b1ac088dfa43cabb7d757afa690de99c6087ead671",
-        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\CustomerCase.json",
-        "recuperado_en": "2026-09-12T02:23:08.347613+00:00",
+        "content_sha256": "e95e7a21fc7a3956931f3cd54445f83114365b7227bcb1eee5c2ba5ef4e4f233",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\FraudEvaluation.json",
+        "recuperado_en": "2026-09-10T22:23:50.221564+00:00",
         "error": ""
       },
-      "rationale": "La historia se enfoca en enviar notificaciones de actualización de datos personales (celular/correo), mientras que Customer Case gestiona procedimientos de casos de servicio y resolución. No existe administración directa de notificaciones en este dominio."
+      "rationale": "No operation or schema in Fraud Evaluation matches notification of personal data changes."
     }
   ],
   "service_domains_omitidos": [],
   "reconciliacion": {
     "service_domains": [
-      {
-        "service_domain": "Party Reference Data Directory",
-        "functionality_role": "OWNED_CONTRACT",
-        "supporting_stories": [
-          "HU-Notificar actualizacion de datos.txt"
-        ],
-        "contradicting_stories": [],
-        "recommended_status": "SELECTED",
-        "reason_codes": [],
-        "rationale": "Soporta la propiedad directa de los datos personales en la historia analizada."
-      },
       {
         "service_domain": "Correspondence",
         "functionality_role": "OWNED_CONTRACT",
@@ -686,28 +685,47 @@
         "contradicting_stories": [],
         "recommended_status": "SELECTED",
         "reason_codes": [],
-        "rationale": "Administra las notificaciones de los cambios realizados segun la historia."
+        "rationale": "Ownership demonstrated by HU-Notificar actualizacion de datos."
       },
       {
-        "service_domain": "Operational Gateway",
+        "service_domain": "Party Reference Data Directory",
         "functionality_role": "CONSUMED_DEPENDENCY",
-        "supporting_stories": [],
+        "supporting_stories": [
+          "HU-Notificar actualizacion de datos.txt"
+        ],
         "contradicting_stories": [],
         "recommended_status": "UNRESOLVED",
         "reason_codes": [],
-        "rationale": "Actua exclusivamente como dependencia consumida en la historia."
+        "rationale": "Only consumed, no ownership demonstrated."
       },
       {
-        "service_domain": "Customer Case",
+        "service_domain": "Party Authentication",
         "functionality_role": "RELATED_NOT_OWNED",
-        "supporting_stories": [],
+        "supporting_stories": [
+          "HU-Notificar actualizacion de datos.txt"
+        ],
         "contradicting_stories": [],
-        "recommended_status": "REJECTED",
+        "recommended_status": "UNRESOLVED",
         "reason_codes": [],
-        "rationale": "Es marginal y no pertenece al ambito de propiedad de la funcionalidad."
+        "rationale": "Marginal, no ownership demonstrated."
+      },
+      {
+        "service_domain": "Fraud Evaluation",
+        "functionality_role": "RELATED_NOT_OWNED",
+        "supporting_stories": [
+          "HU-Notificar actualizacion de datos.txt"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "Marginal, no ownership demonstrated."
       }
     ],
-    "gaps": [],
+    "gaps": [
+      "Party Reference Data Directory",
+      "Party Authentication",
+      "Fraud Evaluation"
+    ],
     "blocking_codes": [],
     "metadatos": {
       "prompt_id": "mapeo.reconciliacion",
@@ -715,7 +733,7 @@
       "prompt_sha256": "cbd0bbd9c0440d5d3bfdbd376dc9e44c0d0fb372f77bc7454e22a3534ff0ddef",
       "nodo": "reconciliar_funcionalidad",
       "historia": "",
-      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
       "evidence_snapshot_id": ""
@@ -728,7 +746,7 @@
       "prompt_sha256": "cbd0bbd9c0440d5d3bfdbd376dc9e44c0d0fb372f77bc7454e22a3534ff0ddef",
       "nodo": "reconciliar_funcionalidad",
       "historia": "",
-      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
       "evidence_snapshot_id": ""
@@ -739,10 +757,10 @@
       "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
       "nodo": "evaluar_candidato",
       "historia": "HU-Notificar actualizacion de datos.txt",
-      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
-      "evidence_snapshot_id": "40a52a85ccf4290500b928b1ac088dfa43cabb7d757afa690de99c6087ead671"
+      "evidence_snapshot_id": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd"
     },
     {
       "prompt_id": "mapeo.evaluacion",
@@ -750,7 +768,7 @@
       "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
       "nodo": "evaluar_candidato",
       "historia": "HU-Notificar actualizacion de datos.txt",
-      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
       "evidence_snapshot_id": "955b0505dceed7a527c7ebbb1e956e447cbb133aee20c9c92ab6effed369c4f8"
@@ -761,10 +779,10 @@
       "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
       "nodo": "evaluar_candidato",
       "historia": "HU-Notificar actualizacion de datos.txt",
-      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
-      "evidence_snapshot_id": "e997bc841d763f3f992ee17b6a6fd967ad7e7a0631bac116cea005aba6a2e33e"
+      "evidence_snapshot_id": "e95e7a21fc7a3956931f3cd54445f83114365b7227bcb1eee5c2ba5ef4e4f233"
     },
     {
       "prompt_id": "mapeo.evaluacion",
@@ -772,7 +790,7 @@
       "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
       "nodo": "evaluar_candidato",
       "historia": "HU-Notificar actualizacion de datos.txt",
-      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
       "evidence_snapshot_id": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79"
@@ -783,7 +801,7 @@
       "prompt_sha256": "b1e294c51943a0c47a267c88004bcd3e7de5fb637db9ddcf4ccc0d1af0e02e73",
       "nodo": "extraer_intencion",
       "historia": "HU-Notificar actualizacion de datos.txt",
-      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
       "evidence_snapshot_id": ""
@@ -794,7 +812,7 @@
       "prompt_sha256": "7d4d518c2d49829ffa12bd93b4394183e0d2dd2ae3ab1f35ae8f16822ce343da",
       "nodo": "generar_candidatos",
       "historia": "HU-Notificar actualizacion de datos.txt",
-      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
       "evidence_snapshot_id": ""
@@ -805,7 +823,7 @@
       "prompt_sha256": "fec929070580b147946f02599086c294b14c4b22abc1b5acf9e5032a4b252f7d",
       "nodo": "revisar_adversarial",
       "historia": "HU-Notificar actualizacion de datos.txt",
-      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
       "evidence_snapshot_id": ""
@@ -816,7 +834,7 @@
       "prompt_sha256": "bbfd8e89cc9d01d63c0a001ae620ed67510fde6cf3c2702dbf09b79f69c6f664",
       "nodo": "revisar_completitud",
       "historia": "HU-Notificar actualizacion de datos.txt",
-      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
       "evidence_snapshot_id": ""
@@ -827,34 +845,25 @@
       "prompt_sha256": "2c6d36ec601bcb71224b4845157174311d989017997326673e7936a656bd5cde",
       "nodo": "seleccionar_operaciones",
       "historia": "HU-Notificar actualizacion de datos.txt",
-      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
       "temperature": 0.0,
       "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
       "evidence_snapshot_id": ""
     }
   ],
-  "incidencias": [
-    {
-      "historia": "HU-Notificar actualizacion de datos.txt",
-      "service_domain_propuesto": "Correspondence",
-      "resolucion": "MATCH",
-      "decision": "UNRESOLVED",
-      "motivo": "OWNERSHIP_CONFLICT_UNRESOLVED",
-      "detalle": "Correspondence está como OWNED_CONTRACT pero la historia solo consume la capacidad de envío de notificaciones."
-    }
-  ],
+  "incidencias": [],
   "metricas": {
     "candidate_drop_rate": 0.0,
     "candidatos_truncados": 0,
     "candidatos_evaluados": 4,
-    "ownership_conflict_rate": 1.0,
-    "ownership_promovidos": 0,
+    "ownership_conflict_rate": 0.0,
+    "ownership_promovidos": 1,
     "ownership_degradados": 0,
-    "ownership_sin_resolver": 1,
+    "ownership_sin_resolver": 0,
     "operation_grounding_rate": 1.0,
     "operaciones_ancladas": 1,
     "operation_id_no_resuelto": 0,
     "finalizados_por_operacion_solida": 0
   },
-  "generado_en": "2026-09-12T05:07:33.917358+00:00"
+  "generado_en": "2026-09-13T01:56:53.685890+00:00"
 }
