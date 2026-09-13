@@ -109,12 +109,13 @@ class MapeadorOperacionesLangChain(MapeadorOperacionesBianPort):
         temperature: float | None = None,
         catalog_sha256: str = "",
     ) -> None:
+        self._chat_model = chat_model
         self._cadena = SPEC_OPERACIONES.template | chat_model.with_structured_output(MapeoOperacionesLLM)
         self._modelo_desc = modelo_desc
         self._temperature = temperature
         self._catalog_sha256 = catalog_sha256
 
-    def _huella(self, historia: str) -> MetadatosPrompt:
+    def _huella(self, historia: str, uso=None) -> MetadatosPrompt:
         return MetadatosPrompt(
             prompt_id=SPEC_OPERACIONES.id,
             prompt_version=SPEC_OPERACIONES.version,
@@ -122,6 +123,9 @@ class MapeadorOperacionesLangChain(MapeadorOperacionesBianPort):
             nodo="seleccionar_operaciones",
             historia=historia,
             model=self._modelo_desc,
+            provider_used=uso.proveedor if uso else "",
+            model_used=uso.modelo if uso else "",
+            attempt=uso.intento if uso else None,
             temperature=self._temperature,
             catalog_sha256=self._catalog_sha256,
         )
@@ -148,6 +152,7 @@ class MapeadorOperacionesLangChain(MapeadorOperacionesBianPort):
                     "bom_por_sd": _formatear_bom(operaciones_por_sd, paquetes_por_sd),
                 }
             )
+            uso = self._chat_model.ultimo_uso() if hasattr(self._chat_model, "ultimo_uso") else None
         finally:
             logger.info("TIEMPO_LLM nodo=%s tardo=%.1fs", SPEC_OPERACIONES.id, time.monotonic() - inicio)
 
@@ -183,5 +188,7 @@ class MapeadorOperacionesLangChain(MapeadorOperacionesBianPort):
                 )
 
         return resultado.model_copy(update={
-            "operaciones": limpias, "bq_personalizados": bqs, "metadatos": self._huella(historia.archivo),
+            "operaciones": limpias,
+            "bq_personalizados": bqs,
+            "metadatos": self._huella(historia.archivo, uso),
         })

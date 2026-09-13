@@ -13,6 +13,7 @@ devuelve un `Runnable` — así las cadenas `PROMPT | chat.with_structured_outpu
 from __future__ import annotations
 
 import logging
+import threading
 import time
 from dataclasses import dataclass
 from typing import Protocol
@@ -63,6 +64,15 @@ class TodosLosModelosAgotados(RuntimeError):
     pass
 
 
+@dataclass(frozen=True)
+class UsoModelo:
+    """Modelo que resolvió la invocación actual del hilo."""
+
+    proveedor: str
+    modelo: str
+    intento: int
+
+
 @dataclass
 class EntradaModelo:
     proveedor: str
@@ -106,19 +116,35 @@ class ChatConFailover:
         self._reintentos = max(1, reintentos_transitorios)
         self._b0 = backoff_inicial_seg
         self._bmax = backoff_max_seg
+        # LangGraph puede evaluar candidatos en paralelo. Un valor global en la instancia
+        # mezclaría el modelo de llamadas concurrentes; thread-local mantiene cada huella ligada
+        # a la misma invocación síncrona que acaba de terminar.
+        self._uso_local = threading.local()
 
     @property
     def descripcion(self) -> str:
         return " -> ".join(e.etiqueta() for e in self._entradas)
 
+    def ultimo_uso(self) -> UsoModelo | None:
+        """Devuelve el modelo efectivo de la última llamada realizada en el hilo actual."""
+        return getattr(self._uso_local, "valor", None)
+
     def with_structured_output(self, schema, **kw) -> Runnable:  # noqa: N802 (compat LangChain)
         def _invocar(prompt_value, config=None):
+            self._uso_local.valor = None
             ultimo: BaseException | None = None
+            intento_total = 0
             for entrada in self._entradas:
                 runnable = entrada.structured(schema, **dict(kw))
                 for intento in range(1, self._reintentos + 1):
+                    intento_total += 1
                     try:
                         r = runnable.invoke(prompt_value, config=config)
+                        self._uso_local.valor = UsoModelo(
+                            proveedor=entrada.proveedor,
+                            modelo=entrada.modelo,
+                            intento=intento_total,
+                        )
                         if entrada is not self._entradas[0] or intento > 1:
                             logger.info("failover OK con %s", entrada.etiqueta())
                         return r

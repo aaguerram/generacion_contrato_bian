@@ -11,7 +11,7 @@ from src.adaptadores.salida.llm.estrategia import ConfiguracionProveedor
 from src.adaptadores.salida.mapeador_operaciones_langchain import MapeadorOperacionesLangChain
 from src.dominio.historias import FuncionalidadMacro, HistoriaUsuario
 
-DOCS = Path(__file__).resolve().parents[1] / "docs"
+DOCS = Path(__file__).resolve().parents[2] / "docs"
 OPS = str(DOCS / "bian-operation-catalogs.json")
 
 

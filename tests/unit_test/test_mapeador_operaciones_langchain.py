@@ -12,7 +12,7 @@ from src.adaptadores.salida.catalogo_bian_cache import CatalogoBianCache
 from src.adaptadores.salida.mapeador_operaciones_langchain import _formatear
 from src.dominio.historias import EvidenciaBian, PaqueteEvidenciaCandidato
 
-from support import DOCS
+from unit_test.support import DOCS
 
 _SD = "Party Reference Data Directory"
 

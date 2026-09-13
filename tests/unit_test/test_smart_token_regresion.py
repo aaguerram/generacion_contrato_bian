@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import unittest
 
-from support import DOCS
+from unit_test.support import DOCS
 
 from src.adaptadores.salida.catalogo_bian_cache import CatalogoBianCache
 from src.adaptadores.salida.catalogo_json import CatalogoJson
@@ -80,15 +80,17 @@ class TestSmartTokenRegresion(unittest.TestCase):
         self.assertEqual(fraude.dependency_kind, "RISK_INPUT")
 
     def test_owned_sin_evidencia_en_cache_queda_sin_resolver_no_rechazado(self):
-        # 'Customer Offer' no está entre los 9 SD cacheados -> sin evidencia oficial offline
-        g = self._clasificar([_prop("Customer Offer", "OWNED_CONTRACT", 3, 3)])
+        # 'Employee Benefits' no tiene Semantic API publicada en bian-official/public (confirmado
+        # contra el árbol real del repo) -> nunca va a tener evidencia oficial, a diferencia de un
+        # SD simplemente no descargado todavía (que `--actualizar-cache-bian` sí puede resolver).
+        g = self._clasificar([_prop("Employee Benefits", "OWNED_CONTRACT", 3, 3)])
         todos = [*g.candidatos_directos, *g.candidatos_tentativos, *g.candidatos_descartados]
         self.assertEqual(len(todos), 1)
         self.assertEqual(todos[0].decision_contractual, "UNRESOLVED")
         self.assertEqual(todos[0].motivo_decision, "NO_OFFICIAL_BIAN_EVIDENCE")
 
     def test_owned_score_bajo_es_out_of_scope_aunque_falte_evidencia(self):
-        g = self._clasificar([_prop("Customer Offer", "OWNED_CONTRACT", 0, 0)])
+        g = self._clasificar([_prop("Employee Benefits", "OWNED_CONTRACT", 0, 0)])
         todos = [*g.candidatos_directos, *g.candidatos_tentativos, *g.candidatos_descartados]
         self.assertEqual(todos[0].decision_contractual, "REJECTED")
         self.assertEqual(todos[0].motivo_decision, "OUT_OF_SCOPE")

@@ -68,6 +68,16 @@ class TestChatConFailover(unittest.TestCase):
             _entrada("b", "RESULTADO-B"),
         )
         self.assertEqual(ch.with_structured_output(object).invoke({}), "RESULTADO-B")
+        uso = ch.ultimo_uso()
+        self.assertIsNotNone(uso)
+        self.assertEqual((uso.proveedor, uso.modelo, uso.intento), ("b", "b", 2))
+
+    def test_registra_primer_modelo_como_intento_uno(self):
+        ch = self._ch(_entrada("a", "RESULTADO-A"), _entrada("b", "RESULTADO-B"))
+        ch.with_structured_output(object).invoke({})
+        uso = ch.ultimo_uso()
+        self.assertIsNotNone(uso)
+        self.assertEqual((uso.proveedor, uso.modelo, uso.intento), ("a", "a", 1))
 
     def test_reintenta_transitorio_y_luego_avanza(self):
         ch = self._ch(
@@ -88,6 +98,7 @@ class TestChatConFailover(unittest.TestCase):
         )
         with self.assertRaises(TodosLosModelosAgotados):
             ch.with_structured_output(object).invoke({})
+        self.assertIsNone(ch.ultimo_uso())
 
     def test_descripcion(self):
         ch = self._ch(_entrada("a", "x"), _entrada("b", "y"))

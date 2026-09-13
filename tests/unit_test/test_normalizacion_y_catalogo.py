@@ -9,7 +9,7 @@ from src.adaptadores.salida.catalogo_json import CatalogoJson
 from src.adaptadores.salida.recuperador_lexico import RecuperadorLexico
 from src.dominio.normalizacion import normalizar
 
-SD_JSON = Path(__file__).resolve().parents[1] / "docs" / "SD.json"
+SD_JSON = Path(__file__).resolve().parents[2] / "docs" / "SD.json"
 
 
 class TestNormalizacion(unittest.TestCase):

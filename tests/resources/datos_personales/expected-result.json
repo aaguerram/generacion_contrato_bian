@@ -1,0 +1,1323 @@
+{
+  "funcionalidad_macro": "Actualización de datos personales",
+  "detalle": "Permitir que el cliente actualice su número celular y correo electrónico desde la aplicación móvil, utilizando validaciones existentes y Smart Token como mecanismo de seguridad, asegurando trazabilidad y notificación de los cambios realizados.",
+  "total_historias": 1,
+  "parametros": {
+    "cadena_llm": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+    "esfuerzo": "low",
+    "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+    "evidencia_bian": "docs/SD.json + docs/bian-business-areas.json + docs/bian-operation-catalogs.json + docs/bian-cache",
+    "run_id": "ea804a10dd2f42ec9b8c490fa48942c7",
+    "umbral_directo": 0.9,
+    "umbral_tentativo": 0.63,
+    "concurrencia": 1,
+    "concurrencia_candidatos": 1,
+    "max_candidatos_hu": 14,
+    "paso2_operaciones": true,
+    "actualizar_cache_bian": false,
+    "top_n_omitidos": 5,
+    "retrieval_hibrido_activo": false,
+    "retrieval_top_k": 20,
+    "retrieval_max_inyectados": 5
+  },
+  "historias": [
+    {
+      "archivo": "HU-Crear pantalla de datos personales.txt",
+      "titulo": "Crear pantalla de datos personales",
+      "razonamiento": "Permitir al cliente autenticado visualizar su pantalla de datos personales y acceder a la edición de número celular y correo electrónico mediante validaciones y Smart Token, garantizando trazabilidad y notificación de los cambios.",
+      "capacidades_funcionales": [
+        "Acceder a la pantalla de datos personales",
+        "Visualizar información básica del cliente",
+        "Visualizar datos de contacto (celular y correo)",
+        "Navegar a la edición del número celular",
+        "Navegar a la edición del correo electrónico"
+      ],
+      "business_actions": [
+        "acceder",
+        "visualizar",
+        "editar"
+      ],
+      "business_objects": [
+        "pantalla de datos personales",
+        "información personal",
+        "información de contacto",
+        "número celular",
+        "correo electrónico",
+        "avatar del usuario",
+        "nombre completo",
+        "número de identificación"
+      ],
+      "outcomes": [
+        "Se muestra la pantalla de datos personales con título, botón retroceso, avatar, nombre completo y número de identificación",
+        "Se muestra la sección de información de contacto con número celular y correo electrónico y sus indicadores de edición"
+      ],
+      "external_dependencies": [
+        "autenticación de usuario",
+        "Smart Token como mecanismo de seguridad",
+        "validaciones existentes para celular y correo",
+        "trazabilidad de cambios",
+        "notificación de cambios"
+      ],
+      "traceability_ids": [
+        "HU-Crear pantalla de datos personales",
+        "HU-794525",
+        "HU-794679",
+        "SC-01"
+      ],
+      "assumptions": [
+        "El usuario ya está autenticado en la app",
+        "Existen validaciones predefinidas para formato de celular y correo",
+        "El mecanismo Smart Token está disponible y configurado",
+        "Las pantallas de edición de celular y correo existen y están enlazadas",
+        "Se asume que la acción de edición concreta (pantallas de actualización de celular HU 794525 y correo HU 794679) delegará la persistencia final a 'Party Reference Data Directory'.",
+        "Se asume que 'Party Authentication' y 'Transaction Authorization' cubren el mecanismo de 'Smart Token' mencionado en la intención funcional."
+      ],
+      "gaps": [
+        "No se especifican las reglas de validación exactas para celular y correo",
+        "No se detalla el contenido ni el canal de la notificación de cambios",
+        "No se describe el proceso de registro de trazabilidad (audit log)",
+        "La historia actual se enfoca en la visualización e ingreso a la pantalla; la lógica de negocio completa de modificación/edición se encuentra en las historias referenciadas HU 794525 y HU 794679."
+      ],
+      "unresolved_questions": [
+        "¿Cómo se transmite y verifica el Smart Token en la solicitud?",
+        "¿Qué ocurre si la validación falla al intentar editar?",
+        "¿Se requiere confirmación del usuario antes de aplicar el cambio?"
+      ],
+      "blocking_codes": [
+        "BIAN-SCOPE-002",
+        "CANDIDATO_OMITIDO",
+        "OBJETO_SIN_PROPIETARIO"
+      ],
+      "intencion": {
+        "resumen_funcional": "Permitir al cliente autenticado visualizar su pantalla de datos personales y acceder a la edición de número celular y correo electrónico mediante validaciones y Smart Token, garantizando trazabilidad y notificación de los cambios.",
+        "capacidades_funcionales": [
+          "Acceder a la pantalla de datos personales",
+          "Visualizar información básica del cliente",
+          "Visualizar datos de contacto (celular y correo)",
+          "Navegar a la edición del número celular",
+          "Navegar a la edición del correo electrónico"
+        ],
+        "business_actions": [
+          "acceder",
+          "visualizar",
+          "editar"
+        ],
+        "business_objects": [
+          "pantalla de datos personales",
+          "información personal",
+          "información de contacto",
+          "número celular",
+          "correo electrónico",
+          "avatar del usuario",
+          "nombre completo",
+          "número de identificación"
+        ],
+        "outcomes": [
+          "Se muestra la pantalla de datos personales con título, botón retroceso, avatar, nombre completo y número de identificación",
+          "Se muestra la sección de información de contacto con número celular y correo electrónico y sus indicadores de edición"
+        ],
+        "external_dependencies": [
+          "autenticación de usuario",
+          "Smart Token como mecanismo de seguridad",
+          "validaciones existentes para celular y correo",
+          "trazabilidad de cambios",
+          "notificación de cambios"
+        ],
+        "traceability_ids": [
+          "HU-Crear pantalla de datos personales",
+          "HU-794525",
+          "HU-794679",
+          "SC-01"
+        ],
+        "assumptions": [
+          "El usuario ya está autenticado en la app",
+          "Existen validaciones predefinidas para formato de celular y correo",
+          "El mecanismo Smart Token está disponible y configurado",
+          "Las pantallas de edición de celular y correo existen y están enlazadas"
+        ],
+        "gaps": [
+          "No se especifican las reglas de validación exactas para celular y correo",
+          "No se detalla el contenido ni el canal de la notificación de cambios",
+          "No se describe el proceso de registro de trazabilidad (audit log)"
+        ],
+        "unresolved_questions": [
+          "¿Cómo se transmite y verifica el Smart Token en la solicitud?",
+          "¿Qué ocurre si la validación falla al intentar editar?",
+          "¿Se requiere confirmación del usuario antes de aplicar el cambio?"
+        ],
+        "metadatos": {
+          "prompt_id": "mapeo.intencion",
+          "prompt_version": "1.0.0",
+          "prompt_sha256": "b1e294c51943a0c47a267c88004bcd3e7de5fb637db9ddcf4ccc0d1af0e02e73",
+          "nodo": "extraer_intencion",
+          "historia": "HU-Crear pantalla de datos personales.txt",
+          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+          "temperature": 0.0,
+          "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+          "evidence_snapshot_id": ""
+        }
+      },
+      "revision_completitud": {
+        "missing_candidates": [],
+        "unsupported_candidates": [],
+        "ownership_conflicts": [],
+        "duplicated_responsibilities": [],
+        "coverage_gaps": [],
+        "blocking_codes": [],
+        "review_summary": "Se ha evaluado la completitud de los candidatos propuestos frente a la historia de usuario e intencion funcional. Todos los Service Domains candidatos cuentan con evidencia disponible en el snapshot y cubren adecuadamente las capacidades requeridas sin vacios ni conflictos de ownership.",
+        "metadatos": {
+          "prompt_id": "mapeo.completitud",
+          "prompt_version": "1.0.0",
+          "prompt_sha256": "bbfd8e89cc9d01d63c0a001ae620ed67510fde6cf3c2702dbf09b79f69c6f664",
+          "nodo": "revisar_completitud",
+          "historia": "HU-Crear pantalla de datos personales.txt",
+          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+          "temperature": 0.0,
+          "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+          "evidence_snapshot_id": ""
+        }
+      },
+      "revision_adversarial": {
+        "hallazgos": [
+          {
+            "tipo": "DIRECTO_SIN_SERVICE_ROLE",
+            "service_domain": "Party Reference Data Directory",
+            "reason_codes": [
+              "BIAN-SCOPE-003"
+            ],
+            "detalle": "El Service Role describe mantenimiento de datos de referencia, no la acción de acceder y visualizar datos personales y de contacto."
+          },
+          {
+            "tipo": "OBJETO_SIN_PROPIETARIO",
+            "service_domain": "Party Reference Data Directory",
+            "reason_codes": [
+              "BIAN-SCOPE-002"
+            ],
+            "detalle": "El objeto central 'pantalla de datos personales' no tiene ningún Service Domain con rol OWNED."
+          },
+          {
+            "tipo": "CANDIDATO_OMITIDO",
+            "service_domain": "Customer Workbench",
+            "reason_codes": [],
+            "detalle": "El dominio 'Customer Workbench' podría cubrir la acción de acceder a la pantalla de datos personales pero está descartado."
+          }
+        ],
+        "blocking_codes": [
+          "OBJETO_SIN_PROPIETARIO"
+        ],
+        "resumen": "Se detectan inconsistencias: el Service Role de Party Reference Data Directory no coincide con la acción directa, falta un Service Domain que posea la pantalla de datos personales y se omitió evaluar Customer Workbench como candidato.",
+        "metadatos": {
+          "prompt_id": "mapeo.adversarial",
+          "prompt_version": "1.0.0",
+          "prompt_sha256": "fec929070580b147946f02599086c294b14c4b22abc1b5acf9e5032a4b252f7d",
+          "nodo": "revisar_adversarial",
+          "historia": "HU-Crear pantalla de datos personales.txt",
+          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+          "temperature": 0.0,
+          "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+          "evidence_snapshot_id": ""
+        }
+      },
+      "total_directos": 1,
+      "total_tentativos": 0,
+      "total_descartados": 6,
+      "service_domains": {
+        "candidatos_directos": [
+          {
+            "service_domain": "Party Reference Data Directory",
+            "resolucion": "MATCH",
+            "rol_contractual": "OWNED_CONTRACT",
+            "dependency_kind": null,
+            "confianza": 0.98,
+            "confianza_pct": 98,
+            "confianza_llm": 1.0,
+            "grupo": "directo",
+            "accion_objeto": "acceder y visualizar datos personales y de contacto",
+            "escenarios_hu": [
+              "HU-Crear pantalla de datos personales",
+              "SC-01"
+            ],
+            "justificacion": "La historia requiere recuperar y visualizar los datos de referencia y de contacto del usuario (celular, correo, nombre, identificación), lo cual coincide exactamente con la responsabilidad de administrar y proveer la entidad Reference en Party Reference Data Directory.",
+            "business_area": "Sales and Service",
+            "business_domain": "Customer Management",
+            "rol_bian": "The party reference data directory service domain maintains a potentially wide range of party reference data that might be used in any interaction between the bank and the party including relationship development, sales/marketing, servicing and product delivery. This can include general reference and contact details, party associations, demographic details and some servicing preferences. Different information may be maintained for different party types such as individuals, corporates, partners",
+            "patron_funcional": "Catalog",
+            "origen_candidato": "llm",
+            "operaciones_bian": [
+              {
+                "operation_id": "RetrieveReference",
+                "method": "GET",
+                "path": "/PartyReferenceDataDirectory/{partyreferencedatadirectoryid}/Reference/{referenceid}/Retrieve",
+                "tipo": "BQ",
+                "grupo": "Reference",
+                "escenarios_hu": [
+                  "Crear pantalla de datos personales"
+                ],
+                "justificacion": "Retrieve personal and contact info for display",
+                "action_term": "Retrieve",
+                "business_object": "Reference",
+                "bq_seed": "Número celular",
+                "traceability": [
+                  "HU-Crear pantalla de datos personales"
+                ],
+                "evidence_refs": [
+                  "eMailAddress",
+                  "CellPhoneNumber",
+                  "PartyLegalEntityReference",
+                  "PartyNameSalutation",
+                  "GovernmentIssuedIdentityReference"
+                ],
+                "reason_codes": [
+                  "REQUIRED_FIELDS"
+                ]
+              }
+            ],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyReferenceDataDirectory.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyReferenceDataDirectory.json",
+              "recuperado_en": "2026-09-10T22:19:40.014858+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 1.0,
+              "objeto_bom": 1.0,
+              "ownership_outcome": 1.0,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": -0.08,
+              "total": 0.98,
+              "retrieval_score": 0.0,
+              "operation_support_score": 1.0
+            },
+            "decision_contractual": "UNRESOLVED",
+            "motivo_decision": "TENTATIVE_SCORE",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [
+              "[adversarial] El Service Role describe mantenimiento de datos de referencia, no la acción de acceder y visualizar datos personales y de contacto.",
+              "[adversarial] El objeto central 'pantalla de datos personales' no tiene ningún Service Domain con rol OWNED."
+            ],
+            "ownership_traceability": [
+              "HU-Crear pantalla de datos personales",
+              "SC-01"
+            ],
+            "dependency_traceability": [],
+            "evidence_refs": [
+              "GET /PartyReferenceDataDirectory/{partyreferencedatadirectoryid}/Reference/{referenceid}/Retrieve",
+              "Reference",
+              "The party reference data directory service domain maintains a potentially wide range of party reference data... general reference and contact details"
+            ],
+            "reason_codes": [
+              "BIAN-SCOPE-003",
+              "BIAN-SCOPE-002"
+            ],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": [
+              "BIAN-SCOPE-003"
+            ]
+          }
+        ],
+        "candidatos_tentativos": [],
+        "candidatos_descartados": [
+          {
+            "service_domain": "Party Authentication",
+            "resolucion": "MATCH",
+            "rol_contractual": "CONSUMED_DEPENDENCY",
+            "dependency_kind": "SECURITY_GUARD",
+            "confianza": 0.46,
+            "confianza_pct": 46,
+            "confianza_llm": 0.25,
+            "grupo": "descartado",
+            "accion_objeto": "autenticar usuario",
+            "escenarios_hu": [
+              "HU-Crear pantalla de datos personales"
+            ],
+            "justificacion": "La historia requiere que el usuario esté autenticado como precondición de acceso a la pantalla de datos personales, pero la historia no administra ni evalúa la autenticación del usuario. Por tanto, Party Authentication es únicamente una dependencia consumida de seguridad.",
+            "business_area": "Sales and Service",
+            "business_domain": "Cross Channel",
+            "rol_bian": "Customer/party authentication is a cross-channel/device capability that provides identity confirmation for customers accessing the bank through any interactive channel. The service may use a combination of one or more mechanisms to authenticate including issued tokens/devices, virtual mechanisms such as passwords and biometrics such as voice/face recognition. Different levels of authentication may be determined to support different types of access and there may be access permissions associated with the authentication mechanism used",
+            "patron_funcional": "Assess",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyAuthentication.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyAuthentication.json",
+              "recuperado_en": "2026-09-10T22:23:59.281337+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.5,
+              "objeto_bom": 0.5,
+              "ownership_outcome": 0.55,
+              "trazabilidad_escenarios": 0.5,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": 0.0,
+              "total": 0.46,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "CONSUMED_DEPENDENCY",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [
+              "Revisar ownership: correspondencia fuerte con catalogo oficial."
+            ],
+            "ownership_traceability": [],
+            "dependency_traceability": [
+              "HU-Crear pantalla de datos personales"
+            ],
+            "evidence_refs": [
+              "Customer/party authentication is a cross-channel/device capability that provides identity confirmation for customers accessing the bank through any interactive channel."
+            ],
+            "reason_codes": [],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": []
+          },
+          {
+            "service_domain": "Customer Workbench",
+            "resolucion": "MATCH",
+            "rol_contractual": "RELATED_NOT_OWNED",
+            "dependency_kind": null,
+            "confianza": 0.29,
+            "confianza_pct": 29,
+            "confianza_llm": 0.4167,
+            "grupo": "descartado",
+            "accion_objeto": "acceder pantalla de datos personales",
+            "escenarios_hu": [
+              "Customer Workbench Session",
+              "CustomerWorkbenchOperatingSession",
+              "ProductandServiceAccess"
+            ],
+            "justificacion": "Customer Workbench se encarga del funcionamiento, sesiones y configuración de la aplicación/dispositivo cliente. La historia requiere consultar y presentar los datos personales y de contacto del cliente en pantalla, un objeto de negocio distinto a la gestión del entorno operativo del dispositivo.",
+            "business_area": "Sales and Service",
+            "business_domain": "Cross Channel",
+            "rol_bian": "This service domain handles the distribution and operation of a client device based/resident facility to support local working and access to the banks different products and services. It allows for the customer to maintain information and configuration settings remotely to govern their own access environment as necessary. The service domain operates outside the bank but is included in the landscape as it may run application capabilities that are either provided by or certified for use by the bank.",
+            "patron_funcional": "Operate",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerWorkbench.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "e491dfd95f6f142bd27a42d041b02a5bcc8e79bdacdb4c2ea27945aba638cb61",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\CustomerWorkbench.json",
+              "recuperado_en": "2026-09-10T22:23:47.880336+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.3333,
+              "objeto_bom": 0.0,
+              "ownership_outcome": 0.2,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": 0.0,
+              "total": 0.29,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "RELATED_NOT_OWNED",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [
+              "[adversarial] El dominio 'Customer Workbench' podría cubrir la acción de acceder a la pantalla de datos personales pero está descartado."
+            ],
+            "ownership_traceability": [],
+            "dependency_traceability": [],
+            "evidence_refs": [
+              "Customer Workbench Session",
+              "CustomerWorkbenchOperatingSession",
+              "ProductandServiceAccess"
+            ],
+            "reason_codes": [],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": []
+          },
+          {
+            "service_domain": "Transaction Authorization",
+            "resolucion": "MATCH",
+            "rol_contractual": "RELATED_NOT_OWNED",
+            "dependency_kind": null,
+            "confianza": 0.215,
+            "confianza_pct": 22,
+            "confianza_llm": 0.25,
+            "grupo": "descartado",
+            "accion_objeto": "visualizar datos personales",
+            "escenarios_hu": [
+              "InteractiveTransactionAssessment",
+              "Evaluate"
+            ],
+            "justificacion": "La historia de usuario describe la visualización y acceso a la edición de datos personales y de contacto en una pantalla de perfil. El Service Domain 'Transaction Authorization' se encarga de mitigar el riesgo de transacciones y autorizar accesos interactivos mediante análisis de fraude, lo cual no tiene relación directa ni de dependencia con la visualización de datos de perfil del cliente.",
+            "business_area": "Sales and Service",
+            "business_domain": "Cross Channel",
+            "rol_bian": "This service domain is used to mitigate transaction risk for interactive product and service access fulfillment and works in collaboration with customer identity authentication services. It analyses recent customer activity in order to detect possible out of pattern/fraudulent behavior and authorizes transactions accordingly. The authorization can be subject to obtaining increased levels of customer authentication by requiring the customer to provide additional proof of identity.",
+            "patron_funcional": "Assess",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/TransactionAuthorization.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "45c8b370304a4d43cda6d2f96bee2bb79a9f01ed615728c966747e4b68ecdf3a",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\TransactionAuthorization.json",
+              "recuperado_en": "2026-09-10T22:24:12.165980+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.0,
+              "objeto_bom": 0.0,
+              "ownership_outcome": 0.2,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.25,
+              "penalizacion": 0.0,
+              "total": 0.215,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "RELATED_NOT_OWNED",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [],
+            "ownership_traceability": [],
+            "dependency_traceability": [],
+            "evidence_refs": [
+              "InteractiveTransactionAssessment",
+              "Evaluate"
+            ],
+            "reason_codes": [],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": []
+          },
+          {
+            "service_domain": "Correspondence",
+            "resolucion": "MATCH",
+            "rol_contractual": "RELATED_NOT_OWNED",
+            "dependency_kind": null,
+            "confianza": 0.19,
+            "confianza_pct": 19,
+            "confianza_llm": 0.25,
+            "grupo": "descartado",
+            "accion_objeto": "acceder a pantalla de datos personales",
+            "escenarios_hu": [
+              "Retrieve",
+              "Update",
+              "Initiate"
+            ],
+            "justificacion": "La historia gestiona la visualización y edición de datos personales, mientras el dominio Correspondence se centra en la generación y gestión de correspondencia; no hay coincidencia de verbo ni de objeto de negocio en las operaciones o esquemas del paquete.",
+            "business_area": "Business Support",
+            "business_domain": "Document Management and Archive",
+            "rol_bian": "This service domain handles the automated generation of (batches of) pre-formatted correspondence. It also handles the tracking of expected responses to sent out mail requests and handles the matching of the response and the onward routing of these and all unsolicited inbound correspondence.",
+            "patron_funcional": "Operate",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/Correspondence.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "955b0505dceed7a527c7ebbb1e956e447cbb133aee20c9c92ab6effed369c4f8",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\Correspondence.json",
+              "recuperado_en": "2026-09-10T22:23:34.088935+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.0,
+              "objeto_bom": 0.0,
+              "ownership_outcome": 0.2,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": 0.0,
+              "total": 0.19,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "RELATED_NOT_OWNED",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [],
+            "ownership_traceability": [],
+            "dependency_traceability": [],
+            "evidence_refs": [
+              "Retrieve",
+              "Update",
+              "Initiate"
+            ],
+            "reason_codes": [
+              "NO_OFFICIAL_BIAN_EVIDENCE"
+            ],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": []
+          },
+          {
+            "service_domain": "Operations Log",
+            "resolucion": "MATCH",
+            "rol_contractual": "RELATED_NOT_OWNED",
+            "dependency_kind": null,
+            "confianza": 0.19,
+            "confianza_pct": 19,
+            "confianza_llm": 0.25,
+            "grupo": "descartado",
+            "accion_objeto": "acceder/visualizar datos personales",
+            "escenarios_hu": [
+              "Maintain a record of transactions and events related to Partners to support settlement, reconciliatin and performance tracking.",
+              "PartnerEventLog"
+            ],
+            "justificacion": "La historia solicita acceder y visualizar la pantalla de datos personales e información de contacto del usuario. 'Operations Log' administra registros de transacciones y eventos de Partners (PartnerEventLog), no teniendo relación funcional directa ni consumo de dependencias con la visualización de perfil personal.",
+            "business_area": "Reference Data",
+            "business_domain": "External Agency",
+            "rol_bian": "Maintain a record of transactions and events related to Partners to support settlement, reconciliatin and performance tracking.",
+            "patron_funcional": "Track",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/OperationsLog.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "ba2b3d5298a52c3547b9b6912412c74f07159c0e38f4a5b5499b55b2391b12b0",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\OperationsLog.json",
+              "recuperado_en": "2026-09-10T22:23:58.424618+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.0,
+              "objeto_bom": 0.0,
+              "ownership_outcome": 0.2,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": 0.0,
+              "total": 0.19,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "RELATED_NOT_OWNED",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [],
+            "ownership_traceability": [],
+            "dependency_traceability": [],
+            "evidence_refs": [
+              "Maintain a record of transactions and events related to Partners to support settlement, reconciliatin and performance tracking.",
+              "PartnerEventLog"
+            ],
+            "reason_codes": [],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": []
+          },
+          {
+            "service_domain": "Customer Access Entitlement",
+            "resolucion": "MATCH",
+            "rol_contractual": "RELATED_NOT_OWNED",
+            "dependency_kind": null,
+            "confianza": 0.0,
+            "confianza_pct": 0,
+            "confianza_llm": 0.0,
+            "grupo": "descartado",
+            "accion_objeto": "acceder pantalla de datos personales",
+            "escenarios_hu": [],
+            "justificacion": "No operations or schemas in Customer Access Entitlement match the story's verbs or objects.",
+            "business_area": "Sales and Service",
+            "business_domain": "Customer Management",
+            "rol_bian": "This profile is used for servicing and fulfillment controls covering products, services and channel/device usage entitlements. It is referenced for channel access control and utilization limits that may span multiple products. For example there can be a limit on total ATM withdrawals for a customer for all active products over a 24 hour period.",
+            "patron_funcional": "Agree Terms",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerAccessEntitlement.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "ce29e41d818e8294beb839eb993dbf8174d6751a5f1bb6e2d1a18899fcfb2036",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\CustomerAccessEntitlement.json",
+              "recuperado_en": "2026-09-10T22:23:40.808671+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.0,
+              "objeto_bom": 0.0,
+              "ownership_outcome": 0.2,
+              "trazabilidad_escenarios": 0.0,
+              "coherencia_jerarquia": 0.25,
+              "penalizacion": 0.13,
+              "total": 0.0,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "RELATED_NOT_OWNED",
+            "ambiguity": "HIGH",
+            "observaciones_adversariales": [
+              "Ambiguedad alta en la evaluacion del candidato."
+            ],
+            "ownership_traceability": [],
+            "dependency_traceability": [],
+            "evidence_refs": [],
+            "reason_codes": [
+              "NO_OFFICIAL_BIAN_EVIDENCE"
+            ],
+            "assumptions": [],
+            "gaps": [
+              "No evidence of entitlement operations related to personal data screen."
+            ],
+            "blocking_codes": []
+          }
+        ]
+      },
+      "service_domains_omitidos": [
+        {
+          "service_domain": "Customer Agreement",
+          "score_lexico": 0.5,
+          "business_area": "Sales and Service",
+          "business_domain": "Customer Management",
+          "rol_bian": "The Customer Agreement service domain captures and maintains the master legal terms of conditions in force for a customer (which as noted can be a complex multinational with many underlying product and service specific agreements).",
+          "señales": [
+            "customer"
+          ]
+        },
+        {
+          "service_domain": "Customer Billing",
+          "score_lexico": 0.5,
+          "business_area": "Operations and Execution",
+          "business_domain": "Operational Services",
+          "rol_bian": "This service domain provides a general customer billing service. The service domain is provided with the applicable fees and charges that are authorized for invoicing typically by a product or service fulfillment service domain. Processing can include verification and authorizations steps and the invoice could be issued as a single transaction or a schedule of transactions.",
+          "señales": [
+            "customer"
+          ]
+        },
+        {
+          "service_domain": "Customer Case",
+          "score_lexico": 0.5,
+          "business_area": "Sales and Service",
+          "business_domain": "Servicing",
+          "rol_bian": "Case resolution tasks follow specific procedures for the type of case involved. Case resolution can be quick by applying resolution rules and obtaining additional authorization as necessary, or they can be long living activities, for example where documentation is requested and has to be retrieved from merchants or other interested parties before the disputed issue can finally be ruled upon. A wide range of case types can be expected",
+          "señales": [
+            "customer"
+          ]
+        },
+        {
+          "service_domain": "Customer Consent",
+          "score_lexico": 0.5,
+          "business_area": "Sales and Service",
+          "business_domain": "Customer Management",
+          "rol_bian": "This service domain administers customer consents for their preferences and constraints on accepting direct debit collection requests, request to pay against their accounts held at the bank, or preferences for credit transfer (e.g. payment rail, preferred funding account, etc.)",
+          "señales": [
+            "customer"
+          ]
+        },
+        {
+          "service_domain": "Customer Offer",
+          "score_lexico": 0.5,
+          "business_area": "Sales and Service",
+          "business_domain": "Sales",
+          "rol_bian": "The Offer Management Service Domain can process offers for all types of customers and any allowed combination of product or service. It references the Product Directory for the product specific offer instructions it must follow. The offer process may combine the selection of product/service specific details (e.g. pricing & negotiation ranges, documentation/authorization/regulatory requirements, eligibility and declarations, credit and other customer details), customer specific details (e.g. credit standing, other classifications such as operational overhead/retention target/activity history, demographics and segmentation). The service domain orchestrates a potentially complex/multi-threaded/multi stage workflow to get the offer to the point where the product/service can be initiated.",
+          "señales": [
+            "customer"
+          ]
+        }
+      ]
+    }
+  ],
+  "service_domains_consolidados": [
+    {
+      "service_domain": "Party Reference Data Directory",
+      "decision": "UNRESOLVED",
+      "motivo": "TENTATIVE_SCORE",
+      "contract_role": "OWNED_CONTRACT",
+      "functionality_role": "OWNED_CONTRACT",
+      "grupo": "directo",
+      "score": 0.98,
+      "historias": [
+        "HU-Crear pantalla de datos personales.txt"
+      ],
+      "supporting_stories": [
+        "HU-Crear pantalla de datos personales"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "HU-Crear pantalla de datos personales",
+        "SC-01"
+      ],
+      "ownership_traceability": [
+        "HU-Crear pantalla de datos personales",
+        "SC-01"
+      ],
+      "dependency_traceability": [],
+      "selected_operations": [
+        "RetrieveReference",
+        "UpdateReference"
+      ],
+      "custom_bq_candidates": [],
+      "reason_codes": [
+        "BIAN-SCOPE-002",
+        "BIAN-SCOPE-003"
+      ],
+      "blocking_codes": [
+        "BIAN-SCOPE-003"
+      ],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyReferenceDataDirectory.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyReferenceDataDirectory.json",
+        "recuperado_en": "2026-09-10T22:19:40.014858+00:00",
+        "error": ""
+      },
+      "rationale": "La historia requiere recuperar y visualizar los datos de referencia y de contacto del usuario (celular, correo, nombre, identificación), lo cual coincide exactamente con la responsabilidad de administrar y proveer la entidad Reference en Party Reference Data Directory."
+    },
+    {
+      "service_domain": "Party Authentication",
+      "decision": "REJECTED",
+      "motivo": "CONSUMED_DEPENDENCY",
+      "contract_role": "CONSUMED_DEPENDENCY",
+      "functionality_role": "CONSUMED_DEPENDENCY",
+      "grupo": "descartado",
+      "score": 0.46,
+      "historias": [
+        "HU-Crear pantalla de datos personales.txt"
+      ],
+      "supporting_stories": [
+        "HU-Crear pantalla de datos personales"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "HU-Crear pantalla de datos personales"
+      ],
+      "ownership_traceability": [],
+      "dependency_traceability": [
+        "HU-Crear pantalla de datos personales"
+      ],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyAuthentication.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyAuthentication.json",
+        "recuperado_en": "2026-09-10T22:23:59.281337+00:00",
+        "error": ""
+      },
+      "rationale": "La historia requiere que el usuario esté autenticado como precondición de acceso a la pantalla de datos personales, pero la historia no administra ni evalúa la autenticación del usuario. Por tanto, Party Authentication es únicamente una dependencia consumida de seguridad."
+    },
+    {
+      "service_domain": "Customer Workbench",
+      "decision": "REJECTED",
+      "motivo": "RELATED_NOT_OWNED",
+      "contract_role": "RELATED_NOT_OWNED",
+      "functionality_role": "RELATED_NOT_OWNED",
+      "grupo": "descartado",
+      "score": 0.29,
+      "historias": [
+        "HU-Crear pantalla de datos personales.txt"
+      ],
+      "supporting_stories": [
+        "HU-Crear pantalla de datos personales"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "Customer Workbench Session",
+        "CustomerWorkbenchOperatingSession",
+        "ProductandServiceAccess"
+      ],
+      "ownership_traceability": [],
+      "dependency_traceability": [],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerWorkbench.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "e491dfd95f6f142bd27a42d041b02a5bcc8e79bdacdb4c2ea27945aba638cb61",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\CustomerWorkbench.json",
+        "recuperado_en": "2026-09-10T22:23:47.880336+00:00",
+        "error": ""
+      },
+      "rationale": "Customer Workbench se encarga del funcionamiento, sesiones y configuración de la aplicación/dispositivo cliente. La historia requiere consultar y presentar los datos personales y de contacto del cliente en pantalla, un objeto de negocio distinto a la gestión del entorno operativo del dispositivo."
+    },
+    {
+      "service_domain": "Transaction Authorization",
+      "decision": "REJECTED",
+      "motivo": "RELATED_NOT_OWNED",
+      "contract_role": "RELATED_NOT_OWNED",
+      "functionality_role": "RELATED_NOT_OWNED",
+      "grupo": "descartado",
+      "score": 0.215,
+      "historias": [
+        "HU-Crear pantalla de datos personales.txt"
+      ],
+      "supporting_stories": [
+        "HU-Crear pantalla de datos personales"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "Evaluate",
+        "InteractiveTransactionAssessment"
+      ],
+      "ownership_traceability": [],
+      "dependency_traceability": [],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/TransactionAuthorization.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "45c8b370304a4d43cda6d2f96bee2bb79a9f01ed615728c966747e4b68ecdf3a",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\TransactionAuthorization.json",
+        "recuperado_en": "2026-09-10T22:24:12.165980+00:00",
+        "error": ""
+      },
+      "rationale": "La historia de usuario describe la visualización y acceso a la edición de datos personales y de contacto en una pantalla de perfil. El Service Domain 'Transaction Authorization' se encarga de mitigar el riesgo de transacciones y autorizar accesos interactivos mediante análisis de fraude, lo cual no tiene relación directa ni de dependencia con la visualización de datos de perfil del cliente."
+    },
+    {
+      "service_domain": "Correspondence",
+      "decision": "REJECTED",
+      "motivo": "RELATED_NOT_OWNED",
+      "contract_role": "RELATED_NOT_OWNED",
+      "functionality_role": "RELATED_NOT_OWNED",
+      "grupo": "descartado",
+      "score": 0.19,
+      "historias": [
+        "HU-Crear pantalla de datos personales.txt"
+      ],
+      "supporting_stories": [
+        "HU-Crear pantalla de datos personales"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "Initiate",
+        "Retrieve",
+        "Update"
+      ],
+      "ownership_traceability": [],
+      "dependency_traceability": [],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [
+        "NO_OFFICIAL_BIAN_EVIDENCE"
+      ],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/Correspondence.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "955b0505dceed7a527c7ebbb1e956e447cbb133aee20c9c92ab6effed369c4f8",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\Correspondence.json",
+        "recuperado_en": "2026-09-10T22:23:34.088935+00:00",
+        "error": ""
+      },
+      "rationale": "La historia gestiona la visualización y edición de datos personales, mientras el dominio Correspondence se centra en la generación y gestión de correspondencia; no hay coincidencia de verbo ni de objeto de negocio en las operaciones o esquemas del paquete."
+    },
+    {
+      "service_domain": "Operations Log",
+      "decision": "REJECTED",
+      "motivo": "RELATED_NOT_OWNED",
+      "contract_role": "RELATED_NOT_OWNED",
+      "functionality_role": "RELATED_NOT_OWNED",
+      "grupo": "descartado",
+      "score": 0.19,
+      "historias": [
+        "HU-Crear pantalla de datos personales.txt"
+      ],
+      "supporting_stories": [
+        "HU-Crear pantalla de datos personales"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "Maintain a record of transactions and events related to Partners to support settlement, reconciliatin and performance tracking.",
+        "PartnerEventLog"
+      ],
+      "ownership_traceability": [],
+      "dependency_traceability": [],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/OperationsLog.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "ba2b3d5298a52c3547b9b6912412c74f07159c0e38f4a5b5499b55b2391b12b0",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\OperationsLog.json",
+        "recuperado_en": "2026-09-10T22:23:58.424618+00:00",
+        "error": ""
+      },
+      "rationale": "La historia solicita acceder y visualizar la pantalla de datos personales e información de contacto del usuario. 'Operations Log' administra registros de transacciones y eventos de Partners (PartnerEventLog), no teniendo relación funcional directa ni consumo de dependencias con la visualización de perfil personal."
+    },
+    {
+      "service_domain": "Customer Access Entitlement",
+      "decision": "REJECTED",
+      "motivo": "RELATED_NOT_OWNED",
+      "contract_role": "RELATED_NOT_OWNED",
+      "functionality_role": "RELATED_NOT_OWNED",
+      "grupo": "descartado",
+      "score": 0.0,
+      "historias": [
+        "HU-Crear pantalla de datos personales.txt"
+      ],
+      "supporting_stories": [
+        "HU-Crear pantalla de datos personales"
+      ],
+      "contradicting_stories": [],
+      "traceability": [],
+      "ownership_traceability": [],
+      "dependency_traceability": [],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [
+        "NO_OFFICIAL_BIAN_EVIDENCE"
+      ],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerAccessEntitlement.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "ce29e41d818e8294beb839eb993dbf8174d6751a5f1bb6e2d1a18899fcfb2036",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\CustomerAccessEntitlement.json",
+        "recuperado_en": "2026-09-10T22:23:40.808671+00:00",
+        "error": ""
+      },
+      "rationale": "No operations or schemas in Customer Access Entitlement match the story's verbs or objects."
+    }
+  ],
+  "service_domains_omitidos": [
+    {
+      "service_domain": "Customer Agreement",
+      "score_lexico": 0.5,
+      "business_area": "Sales and Service",
+      "business_domain": "Customer Management",
+      "rol_bian": "The Customer Agreement service domain captures and maintains the master legal terms of conditions in force for a customer (which as noted can be a complex multinational with many underlying product and service specific agreements).",
+      "señales": [
+        "customer"
+      ]
+    },
+    {
+      "service_domain": "Customer Billing",
+      "score_lexico": 0.5,
+      "business_area": "Operations and Execution",
+      "business_domain": "Operational Services",
+      "rol_bian": "This service domain provides a general customer billing service. The service domain is provided with the applicable fees and charges that are authorized for invoicing typically by a product or service fulfillment service domain. Processing can include verification and authorizations steps and the invoice could be issued as a single transaction or a schedule of transactions.",
+      "señales": [
+        "customer"
+      ]
+    },
+    {
+      "service_domain": "Customer Case",
+      "score_lexico": 0.5,
+      "business_area": "Sales and Service",
+      "business_domain": "Servicing",
+      "rol_bian": "Case resolution tasks follow specific procedures for the type of case involved. Case resolution can be quick by applying resolution rules and obtaining additional authorization as necessary, or they can be long living activities, for example where documentation is requested and has to be retrieved from merchants or other interested parties before the disputed issue can finally be ruled upon. A wide range of case types can be expected",
+      "señales": [
+        "customer"
+      ]
+    },
+    {
+      "service_domain": "Customer Consent",
+      "score_lexico": 0.5,
+      "business_area": "Sales and Service",
+      "business_domain": "Customer Management",
+      "rol_bian": "This service domain administers customer consents for their preferences and constraints on accepting direct debit collection requests, request to pay against their accounts held at the bank, or preferences for credit transfer (e.g. payment rail, preferred funding account, etc.)",
+      "señales": [
+        "customer"
+      ]
+    },
+    {
+      "service_domain": "Customer Offer",
+      "score_lexico": 0.5,
+      "business_area": "Sales and Service",
+      "business_domain": "Sales",
+      "rol_bian": "The Offer Management Service Domain can process offers for all types of customers and any allowed combination of product or service. It references the Product Directory for the product specific offer instructions it must follow. The offer process may combine the selection of product/service specific details (e.g. pricing & negotiation ranges, documentation/authorization/regulatory requirements, eligibility and declarations, credit and other customer details), customer specific details (e.g. credit standing, other classifications such as operational overhead/retention target/activity history, demographics and segmentation). The service domain orchestrates a potentially complex/multi-threaded/multi stage workflow to get the offer to the point where the product/service can be initiated.",
+      "señales": [
+        "customer"
+      ]
+    }
+  ],
+  "reconciliacion": {
+    "service_domains": [
+      {
+        "service_domain": "Party Reference Data Directory",
+        "functionality_role": "OWNED_CONTRACT",
+        "supporting_stories": [
+          "HU-Crear pantalla de datos personales"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "SELECTED",
+        "reason_codes": [],
+        "rationale": "La historia indica ownership directa del SD, por lo que la funcionalidad lo administra."
+      },
+      {
+        "service_domain": "Party Authentication",
+        "functionality_role": "CONSUMED_DEPENDENCY",
+        "supporting_stories": [
+          "HU-Crear pantalla de datos personales"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "Solo se consume para validar al cliente, sin evidencia de propiedad."
+      },
+      {
+        "service_domain": "Customer Workbench",
+        "functionality_role": "RELATED_NOT_OWNED",
+        "supporting_stories": [
+          "HU-Crear pantalla de datos personales"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "El SD aparece marginalmente y no se muestra como propiedad ni dependencia crítica."
+      },
+      {
+        "service_domain": "Transaction Authorization",
+        "functionality_role": "RELATED_NOT_OWNED",
+        "supporting_stories": [
+          "HU-Crear pantalla de datos personales"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "El SD está listado como no propio y sin evidencia de uso esencial."
+      },
+      {
+        "service_domain": "Correspondence",
+        "functionality_role": "RELATED_NOT_OWNED",
+        "supporting_stories": [
+          "HU-Crear pantalla de datos personales"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "El SD aparece sin relación directa con la actualización de datos personales."
+      },
+      {
+        "service_domain": "Operations Log",
+        "functionality_role": "RELATED_NOT_OWNED",
+        "supporting_stories": [
+          "HU-Crear pantalla de datos personales"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "El SD se menciona pero no se evidencia propiedad ni dependencia."
+      },
+      {
+        "service_domain": "Customer Access Entitlement",
+        "functionality_role": "RELATED_NOT_OWNED",
+        "supporting_stories": [
+          "HU-Crear pantalla de datos personales"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "El SD está catalogado como marginal sin evidencia de ownership."
+      }
+    ],
+    "gaps": [],
+    "blocking_codes": [],
+    "metadatos": {
+      "prompt_id": "mapeo.reconciliacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "cbd0bbd9c0440d5d3bfdbd376dc9e44c0d0fb372f77bc7454e22a3534ff0ddef",
+      "nodo": "reconciliar_funcionalidad",
+      "historia": "",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    }
+  },
+  "huellas_prompts": [
+    {
+      "prompt_id": "mapeo.reconciliacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "cbd0bbd9c0440d5d3bfdbd376dc9e44c0d0fb372f77bc7454e22a3534ff0ddef",
+      "nodo": "reconciliar_funcionalidad",
+      "historia": "",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Crear pantalla de datos personales.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": "45c8b370304a4d43cda6d2f96bee2bb79a9f01ed615728c966747e4b68ecdf3a"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Crear pantalla de datos personales.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Crear pantalla de datos personales.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": "955b0505dceed7a527c7ebbb1e956e447cbb133aee20c9c92ab6effed369c4f8"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Crear pantalla de datos personales.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": "ba2b3d5298a52c3547b9b6912412c74f07159c0e38f4a5b5499b55b2391b12b0"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Crear pantalla de datos personales.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": "ce29e41d818e8294beb839eb993dbf8174d6751a5f1bb6e2d1a18899fcfb2036"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Crear pantalla de datos personales.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": "e491dfd95f6f142bd27a42d041b02a5bcc8e79bdacdb4c2ea27945aba638cb61"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Crear pantalla de datos personales.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79"
+    },
+    {
+      "prompt_id": "mapeo.intencion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "b1e294c51943a0c47a267c88004bcd3e7de5fb637db9ddcf4ccc0d1af0e02e73",
+      "nodo": "extraer_intencion",
+      "historia": "HU-Crear pantalla de datos personales.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.candidatos",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "7d4d518c2d49829ffa12bd93b4394183e0d2dd2ae3ab1f35ae8f16822ce343da",
+      "nodo": "generar_candidatos",
+      "historia": "HU-Crear pantalla de datos personales.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.adversarial",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "fec929070580b147946f02599086c294b14c4b22abc1b5acf9e5032a4b252f7d",
+      "nodo": "revisar_adversarial",
+      "historia": "HU-Crear pantalla de datos personales.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.completitud",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "bbfd8e89cc9d01d63c0a001ae620ed67510fde6cf3c2702dbf09b79f69c6f664",
+      "nodo": "revisar_completitud",
+      "historia": "HU-Crear pantalla de datos personales.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.operaciones",
+      "prompt_version": "1.1.0",
+      "prompt_sha256": "2c6d36ec601bcb71224b4845157174311d989017997326673e7936a656bd5cde",
+      "nodo": "seleccionar_operaciones",
+      "historia": "HU-Crear pantalla de datos personales.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    }
+  ],
+  "incidencias": [],
+  "metricas": {
+    "candidate_drop_rate": 0.0,
+    "candidatos_truncados": 0,
+    "candidatos_evaluados": 7,
+    "ownership_conflict_rate": 0.0,
+    "ownership_promovidos": 0,
+    "ownership_degradados": 0,
+    "ownership_sin_resolver": 0,
+    "operation_grounding_rate": 1.0,
+    "operaciones_ancladas": 2,
+    "operation_id_no_resuelto": 0,
+    "finalizados_por_operacion_solida": 0
+  },
+  "generado_en": "2026-09-13T01:03:58.734733+00:00"
+}

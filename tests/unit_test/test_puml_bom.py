@@ -7,7 +7,7 @@ import unittest
 from src.adaptadores.salida.catalogo_bom_puml import CatalogoBomPuml, slug_service_domain
 from src.dominio.puml_bom import parsear_puml_bom
 
-from support import DOCS
+from unit_test.support import DOCS
 
 _PUML = """\
 @startuml

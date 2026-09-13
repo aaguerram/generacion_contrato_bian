@@ -155,6 +155,7 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
     def _huella(
         self, spec: PromptSpec, nodo: str, historia: str = "", evidence_snapshot_id: str = ""
     ) -> MetadatosPrompt:
+        uso = self._chat.ultimo_uso() if hasattr(self._chat, "ultimo_uso") else None
         return MetadatosPrompt(
             prompt_id=spec.id,
             prompt_version=spec.version,
@@ -162,6 +163,9 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
             nodo=nodo,
             historia=historia,
             model=self._modelo_desc,
+            provider_used=uso.proveedor if uso else "",
+            model_used=uso.modelo if uso else "",
+            attempt=uso.intento if uso else None,
             temperature=self._temperature,
             catalog_sha256=self._catalog_sha256,
             evidence_snapshot_id=evidence_snapshot_id,

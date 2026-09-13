@@ -208,7 +208,11 @@ class MetadatosPrompt(BaseModel):
     prompt_sha256: str
     nodo: str = ""
     historia: str = ""
+    # `model` conserva la cadena completa por compatibilidad y reproducibilidad.
     model: str = ""
+    provider_used: str = ""
+    model_used: str = ""
+    attempt: int | None = None
     temperature: float | None = None
     catalog_sha256: str = ""
     evidence_snapshot_id: str = ""

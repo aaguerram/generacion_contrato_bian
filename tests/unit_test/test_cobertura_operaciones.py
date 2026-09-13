@@ -18,7 +18,7 @@ from src.dominio.cobertura_operaciones import (
 )
 from src.dominio.historias import OperacionBian, OperacionPropuestaLLM
 
-from support import DOCS
+from unit_test.support import DOCS
 
 _SD = "Party Reference Data Directory"
 

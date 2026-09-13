@@ -11,7 +11,7 @@ import unittest
 from src.adaptadores.salida.catalogo_bian_cache import CatalogoBianCache
 from src.adaptadores.salida.formato_bom import formatear_schemas_bom
 
-from support import DOCS
+from unit_test.support import DOCS
 
 _SD = "Party Reference Data Directory"
 

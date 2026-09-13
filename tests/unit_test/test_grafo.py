@@ -9,7 +9,7 @@ from pathlib import Path
 
 from src.configuracion.contenedor import crear_caso_uso
 
-from support import config_test
+from unit_test.support import config_test
 
 
 class TestGrafo(unittest.TestCase):

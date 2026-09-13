@@ -34,7 +34,7 @@ from src.dominio.historias import (
     RevisionCompletitudLLM,
 )
 
-from support import DOCS, config_test
+from unit_test.support import DOCS, config_test
 
 
 def _entrada(tmp: str) -> tuple[str, str, str]:

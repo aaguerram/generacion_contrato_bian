@@ -7,7 +7,7 @@ import sys
 import unittest
 from pathlib import Path
 
-SRC = Path(__file__).resolve().parents[1] / "src"
+SRC = Path(__file__).resolve().parents[2] / "src"
 _STDLIB = set(sys.stdlib_module_names) | {"__future__"}
 
 # capa -> (prefijos "src.*" permitidos, terceros permitidos | None = cualquiera)

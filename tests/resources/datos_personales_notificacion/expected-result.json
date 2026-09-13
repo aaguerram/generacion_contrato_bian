@@ -1,0 +1,1103 @@
+{
+  "funcionalidad_macro": "Actualización de datos personales",
+  "detalle": "Permitir que el cliente actualice su número celular y correo electrónico desde la aplicación móvil, utilizando validaciones existentes y Smart Token como mecanismo de seguridad, asegurando trazabilidad y notificación de los cambios realizados.",
+  "total_historias": 1,
+  "parametros": {
+    "cadena_llm": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+    "esfuerzo": "low",
+    "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+    "evidencia_bian": "docs/SD.json + docs/bian-business-areas.json + docs/bian-operation-catalogs.json + docs/bian-cache",
+    "run_id": "f6cb5f9f4b424f4db562a85be056c65f",
+    "umbral_directo": 0.9,
+    "umbral_tentativo": 0.63,
+    "concurrencia": 1,
+    "concurrencia_candidatos": 1,
+    "max_candidatos_hu": 14,
+    "paso2_operaciones": true,
+    "actualizar_cache_bian": false,
+    "top_n_omitidos": 5,
+    "retrieval_hibrido_activo": false,
+    "retrieval_top_k": 20,
+    "retrieval_max_inyectados": 5
+  },
+  "historias": [
+    {
+      "archivo": "HU-Notificar actualizacion de datos.txt",
+      "titulo": "Notificar actualización de datos",
+      "razonamiento": "Envía notificaciones al cliente cuando actualiza su número de celular o correo electrónico, indicando los datos anteriores y los nuevos para prevenir fraudes.",
+      "capacidades_funcionales": [
+        "Actualizar datos personales del cliente",
+        "Notificar cambios de datos personales",
+        "Mantener el esquema de notificaciones existente",
+        "Validar cambios mediante Smart Token"
+      ],
+      "business_actions": [
+        "actualizar",
+        "registrar",
+        "enviar",
+        "generar",
+        "mantener"
+      ],
+      "business_objects": [
+        "número de celular",
+        "correo electrónico",
+        "notificación",
+        "registro de cambio",
+        "esquema de notificaciones"
+      ],
+      "outcomes": [
+        "Notificación enviada al celular o correo anterior",
+        "Notificación enviada al nuevo número de celular o correo",
+        "Notificaciones generadas para ambos cambios (celular y correo)",
+        "Esquema de notificaciones se mantiene sin alteraciones"
+      ],
+      "external_dependencies": [
+        "Mecanismos actuales de notificación (SMS, email, push)",
+        "Smart Token como mecanismo de seguridad",
+        "Sistema de trazabilidad/auditoría"
+      ],
+      "traceability_ids": [
+        "HU-Notificar actualización de datos",
+        "SC-01",
+        "SC-02",
+        "SC-03",
+        "SC-04"
+      ],
+      "assumptions": [
+        "El usuario está autenticado y posee un Smart Token válido",
+        "Los canales de notificación (SMS, email) están operativos",
+        "Las validaciones de formato y consistencia de datos ya existen",
+        "Se asume que la actualización de datos personales de contacto (celular y correo) reside operativamente en Party Reference Data Directory.",
+        "Se asume que la emisión efectiva de avisos por correo, SMS o push utiliza Correspondence como Service Domain emisor/generador de notificaciones."
+      ],
+      "gaps": [
+        "Formato y contenido exacto de la notificación no está especificado",
+        "Detalle de cómo se persiste el registro de cambio",
+        "Manejo de fallos en el envío de notificaciones",
+        "Comportamiento cuando el nuevo dato es idéntico al anterior",
+        "Falta detalle técnico en la historia sobre la integración directa con el proveedor del Smart Token y la plataforma de mensajería (SMS/Push)."
+      ],
+      "unresolved_questions": [
+        "¿Se debe notificar al canal anterior si el nuevo dato es idéntico al anterior?",
+        "¿Cuál es el tiempo máximo permitido para enviar la notificación?",
+        "¿Qué canales de notificación se consideran obligatorios?",
+        "¿Cómo se registra la auditoría de los cambios y notificaciones?"
+      ],
+      "blocking_codes": [
+        "OBJETO_SIN_PROPIETARIO"
+      ],
+      "intencion": {
+        "resumen_funcional": "Envía notificaciones al cliente cuando actualiza su número de celular o correo electrónico, indicando los datos anteriores y los nuevos para prevenir fraudes.",
+        "capacidades_funcionales": [
+          "Actualizar datos personales del cliente",
+          "Notificar cambios de datos personales",
+          "Mantener el esquema de notificaciones existente",
+          "Validar cambios mediante Smart Token"
+        ],
+        "business_actions": [
+          "actualizar",
+          "registrar",
+          "enviar",
+          "generar",
+          "mantener"
+        ],
+        "business_objects": [
+          "número de celular",
+          "correo electrónico",
+          "notificación",
+          "registro de cambio",
+          "esquema de notificaciones"
+        ],
+        "outcomes": [
+          "Notificación enviada al celular o correo anterior",
+          "Notificación enviada al nuevo número de celular o correo",
+          "Notificaciones generadas para ambos cambios (celular y correo)",
+          "Esquema de notificaciones se mantiene sin alteraciones"
+        ],
+        "external_dependencies": [
+          "Mecanismos actuales de notificación (SMS, email, push)",
+          "Smart Token como mecanismo de seguridad",
+          "Sistema de trazabilidad/auditoría"
+        ],
+        "traceability_ids": [
+          "HU-Notificar actualización de datos",
+          "SC-01",
+          "SC-02",
+          "SC-03",
+          "SC-04"
+        ],
+        "assumptions": [
+          "El usuario está autenticado y posee un Smart Token válido",
+          "Los canales de notificación (SMS, email) están operativos",
+          "Las validaciones de formato y consistencia de datos ya existen"
+        ],
+        "gaps": [
+          "Formato y contenido exacto de la notificación no está especificado",
+          "Detalle de cómo se persiste el registro de cambio",
+          "Manejo de fallos en el envío de notificaciones",
+          "Comportamiento cuando el nuevo dato es idéntico al anterior"
+        ],
+        "unresolved_questions": [
+          "¿Se debe notificar al canal anterior si el nuevo dato es idéntico al anterior?",
+          "¿Cuál es el tiempo máximo permitido para enviar la notificación?",
+          "¿Qué canales de notificación se consideran obligatorios?",
+          "¿Cómo se registra la auditoría de los cambios y notificaciones?"
+        ],
+        "metadatos": {
+          "prompt_id": "mapeo.intencion",
+          "prompt_version": "1.0.0",
+          "prompt_sha256": "b1e294c51943a0c47a267c88004bcd3e7de5fb637db9ddcf4ccc0d1af0e02e73",
+          "nodo": "extraer_intencion",
+          "historia": "HU-Notificar actualización de datos.txt",
+          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+          "temperature": 0.0,
+          "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+          "evidence_snapshot_id": ""
+        }
+      },
+      "revision_completitud": {
+        "missing_candidates": [],
+        "unsupported_candidates": [],
+        "ownership_conflicts": [],
+        "duplicated_responsibilities": [],
+        "coverage_gaps": [],
+        "blocking_codes": [],
+        "review_summary": "La lista de candidatos actuales cubre adecuadamente las acciones, objetos de negocio y dependencias externas identificados en la historia de usuario.",
+        "metadatos": {
+          "prompt_id": "mapeo.completitud",
+          "prompt_version": "1.0.0",
+          "prompt_sha256": "bbfd8e89cc9d01d63c0a001ae620ed67510fde6cf3c2702dbf09b79f69c6f664",
+          "nodo": "revisar_completitud",
+          "historia": "HU-Notificar actualización de datos.txt",
+          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+          "temperature": 0.0,
+          "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+          "evidence_snapshot_id": ""
+        }
+      },
+      "revision_adversarial": {
+        "hallazgos": [
+          {
+            "tipo": "ACCION_DIRECTA_COMO_DEPENDENCIA",
+            "service_domain": "Party Reference Data Directory",
+            "reason_codes": [
+              "BIAN-SCOPE-002"
+            ],
+            "detalle": "enviar notificación es una acción directa de la historia pero está clasificada como CONSUMED_DEPENDENCY"
+          },
+          {
+            "tipo": "OBJETO_SIN_PROPIETARIO",
+            "service_domain": "Correspondence",
+            "reason_codes": [],
+            "detalle": "el objeto de negocio 'notificación' no tiene ningún Service Domain con rol OWNED"
+          }
+        ],
+        "blocking_codes": [
+          "OBJETO_SIN_PROPIETARIO"
+        ],
+        "resumen": "Se encontraron inconsistencias: acción directa marcada como dependencia y falta de propietario para el objeto notificación.",
+        "metadatos": {
+          "prompt_id": "mapeo.adversarial",
+          "prompt_version": "1.0.0",
+          "prompt_sha256": "fec929070580b147946f02599086c294b14c4b22abc1b5acf9e5032a4b252f7d",
+          "nodo": "revisar_adversarial",
+          "historia": "HU-Notificar actualización de datos.txt",
+          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+          "temperature": 0.0,
+          "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+          "evidence_snapshot_id": ""
+        }
+      },
+      "total_directos": 0,
+      "total_tentativos": 1,
+      "total_descartados": 4,
+      "service_domains": {
+        "candidatos_directos": [],
+        "candidatos_tentativos": [
+          {
+            "service_domain": "Correspondence",
+            "resolucion": "MATCH",
+            "rol_contractual": "OWNED_CONTRACT",
+            "dependency_kind": null,
+            "confianza": 0.6733,
+            "confianza_pct": 67,
+            "confianza_llm": 0.6667,
+            "grupo": "tentativo",
+            "accion_objeto": "enviar notificación",
+            "escenarios_hu": [
+              "HU-Notificar actualización de datos",
+              "SC-01",
+              "SC-02",
+              "SC-03",
+              "SC-04"
+            ],
+            "justificacion": "La historia ejecuta directamente el verbo enviar sobre notificación; el Service Domain Correspondence provee operaciones (InitiateOutbound/UpdateOutbound) y el schema Outbound que representan la generación y envío de correspondencia, que incluye notificaciones. La evidencia de operaciones y Service Role es clara y completa.",
+            "business_area": "Business Support",
+            "business_domain": "Document Management and Archive",
+            "rol_bian": "This service domain handles the automated generation of (batches of) pre-formatted correspondence. It also handles the tracking of expected responses to sent out mail requests and handles the matching of the response and the onward routing of these and all unsolicited inbound correspondence.",
+            "patron_funcional": "Operate",
+            "origen_candidato": "llm",
+            "operaciones_bian": [
+              {
+                "operation_id": "InitiateOutbound",
+                "method": "POST",
+                "path": "/Correspondence/{correspondenceid}/Outbound/Initiate",
+                "tipo": "BQ",
+                "grupo": "Outbound",
+                "escenarios_hu": [
+                  "Escenario 1. Notificación al celular o  correo anterior",
+                  "Escenario 2. Notificación al celular o correo nuevo",
+                  "Escenario 3. Notificación al celular o correo nuevo",
+                  "Escenario 4. Mismo esquema de notificaciones"
+                ],
+                "justificacion": "Inicia el envío de una correspondencia/notificación saliente hacia el cliente para informar la actualización de sus datos personales (celular/correo) tanto nuevos como anteriores.",
+                "action_term": "Initiate",
+                "business_object": "Outbound Correspondence",
+                "bq_seed": "el sistema envía una notificación al nuevo número de celular o correo",
+                "traceability": [
+                  "HU-Notificar actualización de datos",
+                  "SC-1",
+                  "SC-2",
+                  "SC-3",
+                  "SC-4"
+                ],
+                "evidence_refs": [
+                  "CorrespondenceAddressee:Address",
+                  "CorrespondenceContent:string",
+                  "CorrespondenceRecord:Correspondence"
+                ],
+                "reason_codes": [
+                  "OPERATION_EVIDENCE_UNVERIFIED"
+                ]
+              }
+            ],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/Correspondence.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "955b0505dceed7a527c7ebbb1e956e447cbb133aee20c9c92ab6effed369c4f8",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\Correspondence.json",
+              "recuperado_en": "2026-09-10T22:23:34.088935+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.6667,
+              "objeto_bom": 0.3333,
+              "ownership_outcome": 1.0,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": -0.04,
+              "total": 0.6733,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0
+            },
+            "decision_contractual": "UNRESOLVED",
+            "motivo_decision": "TENTATIVE_SCORE",
+            "ambiguity": "LOW",
+            "observaciones_adversariales": [
+              "[adversarial] el objeto de negocio 'notificación' no tiene ningún Service Domain con rol OWNED"
+            ],
+            "ownership_traceability": [
+              "HU-Notificar actualización de datos",
+              "SC-01",
+              "SC-02",
+              "SC-03",
+              "SC-04"
+            ],
+            "dependency_traceability": [],
+            "evidence_refs": [
+              "InitiateOutbound",
+              "UpdateOutbound",
+              "Outbound",
+              "Service Role: automated generation of pre‑formatted correspondence"
+            ],
+            "reason_codes": [],
+            "assumptions": [
+              "Se asume que la operación InitiateOutbound corresponde al envío de una notificación."
+            ],
+            "gaps": [],
+            "blocking_codes": []
+          }
+        ],
+        "candidatos_descartados": [
+          {
+            "service_domain": "Party Reference Data Directory",
+            "resolucion": "MATCH",
+            "rol_contractual": "CONSUMED_DEPENDENCY",
+            "dependency_kind": "OTHER_DEPENDENCY",
+            "confianza": 0.4433,
+            "confianza_pct": 44,
+            "confianza_llm": 0.4167,
+            "grupo": "descartado",
+            "accion_objeto": "enviar notificación",
+            "escenarios_hu": [
+              "HU-Notificar actualización de datos",
+              "SC-01",
+              "SC-02",
+              "SC-03",
+              "SC-04"
+            ],
+            "justificacion": "La historia de usuario requiere enviar notificaciones al actualizar datos de contacto. Party Reference Data Directory almacena los datos de contacto (Reference: eMailAddress, CellPhoneNumber), pero no administra el envío ni la gestión del ciclo de vida de las notificaciones.",
+            "business_area": "Sales and Service",
+            "business_domain": "Customer Management",
+            "rol_bian": "The party reference data directory service domain maintains a potentially wide range of party reference data that might be used in any interaction between the bank and the party including relationship development, sales/marketing, servicing and product delivery. This can include general reference and contact details, party associations, demographic details and some servicing preferences. Different information may be maintained for different party types such as individuals, corporates, partners",
+            "patron_funcional": "Catalog",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyReferenceDataDirectory.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyReferenceDataDirectory.json",
+              "recuperado_en": "2026-09-10T22:19:40.014858+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.3333,
+              "objeto_bom": 0.3333,
+              "ownership_outcome": 0.55,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": 0.0,
+              "total": 0.4433,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "CONSUMED_DEPENDENCY",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [
+              "[adversarial] enviar notificación es una acción directa de la historia pero está clasificada como CONSUMED_DEPENDENCY"
+            ],
+            "ownership_traceability": [],
+            "dependency_traceability": [
+              "HU-Notificar actualización de datos",
+              "SC-01",
+              "SC-02",
+              "SC-03",
+              "SC-04"
+            ],
+            "evidence_refs": [
+              "Reference",
+              "UpdateReference"
+            ],
+            "reason_codes": [
+              "BIAN-SCOPE-002"
+            ],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": []
+          },
+          {
+            "service_domain": "Party Authentication",
+            "resolucion": "MATCH",
+            "rol_contractual": "RELATED_NOT_OWNED",
+            "dependency_kind": null,
+            "confianza": 0.19,
+            "confianza_pct": 19,
+            "confianza_llm": 0.25,
+            "grupo": "descartado",
+            "accion_objeto": "enviar notificación",
+            "escenarios_hu": [
+              "Party Authentication Assessment",
+              "Evaluate"
+            ],
+            "justificacion": "La historia solicita enviar notificaciones ante cambios en datos de contacto (celular/correo). Party Authentication gestiona la evaluación de autenticidad e identidad de clientes, sin ofrecer capacidades ni operaciones para el envío de notificaciones por eventos de actualización.",
+            "business_area": "Sales and Service",
+            "business_domain": "Cross Channel",
+            "rol_bian": "Customer/party authentication is a cross-channel/device capability that provides identity confirmation for customers accessing the bank through any interactive channel. The service may use a combination of one or more mechanisms to authenticate including issued tokens/devices, virtual mechanisms such as passwords and biometrics such as voice/face recognition. Different levels of authentication may be determined to support different types of access and there may be access permissions associated with the authentication mechanism used",
+            "patron_funcional": "Assess",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyAuthentication.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyAuthentication.json",
+              "recuperado_en": "2026-09-10T22:23:59.281337+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.0,
+              "objeto_bom": 0.0,
+              "ownership_outcome": 0.2,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": 0.0,
+              "total": 0.19,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "RELATED_NOT_OWNED",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [],
+            "ownership_traceability": [],
+            "dependency_traceability": [],
+            "evidence_refs": [
+              "Party Authentication Assessment",
+              "Evaluate"
+            ],
+            "reason_codes": [],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": []
+          },
+          {
+            "service_domain": "Operations Log",
+            "resolucion": "MATCH",
+            "rol_contractual": "RELATED_NOT_OWNED",
+            "dependency_kind": null,
+            "confianza": 0.045,
+            "confianza_pct": 4,
+            "confianza_llm": 0.0833,
+            "grupo": "descartado",
+            "accion_objeto": "enviar notificaciones",
+            "escenarios_hu": [
+              "PartnerEventLog"
+            ],
+            "justificacion": "No operation or schema matches sending notifications; service role describes logging, not notification.",
+            "business_area": "Reference Data",
+            "business_domain": "External Agency",
+            "rol_bian": "Maintain a record of transactions and events related to Partners to support settlement, reconciliatin and performance tracking.",
+            "patron_funcional": "Track",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/OperationsLog.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "ba2b3d5298a52c3547b9b6912412c74f07159c0e38f4a5b5499b55b2391b12b0",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\OperationsLog.json",
+              "recuperado_en": "2026-09-10T22:23:58.424618+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.0,
+              "objeto_bom": 0.0,
+              "ownership_outcome": 0.2,
+              "trazabilidad_escenarios": 0.5,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": 0.07,
+              "total": 0.045,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "RELATED_NOT_OWNED",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [
+              "Evidencia oficial disponible pero poco concluyente (evidence_quality=1)."
+            ],
+            "ownership_traceability": [],
+            "dependency_traceability": [],
+            "evidence_refs": [
+              "PartnerEventLog"
+            ],
+            "reason_codes": [],
+            "assumptions": [],
+            "gaps": [
+              "Missing operation for sending notifications"
+            ],
+            "blocking_codes": []
+          },
+          {
+            "service_domain": "Fraud Evaluation",
+            "resolucion": "MATCH",
+            "rol_contractual": "RELATED_NOT_OWNED",
+            "dependency_kind": null,
+            "confianza": 0.01,
+            "confianza_pct": 1,
+            "confianza_llm": 0.0,
+            "grupo": "descartado",
+            "accion_objeto": "",
+            "escenarios_hu": [],
+            "justificacion": "No operation or schema in Fraud Evaluation matches sending notifications for updated personal data.",
+            "business_area": "Operations and Execution",
+            "business_domain": "Account Management",
+            "rol_bian": "This service domain handles the structured execution of fraud detection tests/routines that are used to identify possible fraud by detecting out of pattern behaviors. The tests may run in-line with production or may access transaction logs as appropriate. Detected anomalies are passed for further analysis and resolution.",
+            "patron_funcional": "Assess",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/FraudEvaluation.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "e95e7a21fc7a3956931f3cd54445f83114365b7227bcb1eee5c2ba5ef4e4f233",
+              "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\FraudEvaluation.json",
+              "recuperado_en": "2026-09-10T22:23:50.221564+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.0,
+              "objeto_bom": 0.0,
+              "ownership_outcome": 0.2,
+              "trazabilidad_escenarios": 0.0,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": 0.03,
+              "total": 0.01,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "RELATED_NOT_OWNED",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [],
+            "ownership_traceability": [],
+            "dependency_traceability": [],
+            "evidence_refs": [],
+            "reason_codes": [],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": []
+          }
+        ]
+      },
+      "service_domains_omitidos": [
+        {
+          "service_domain": "Customer Agreement",
+          "score_lexico": 0.5,
+          "business_area": "Sales and Service",
+          "business_domain": "Customer Management",
+          "rol_bian": "The Customer Agreement service domain captures and maintains the master legal terms of conditions in force for a customer (which as noted can be a complex multinational with many underlying product and service specific agreements).",
+          "señales": [
+            "customer"
+          ]
+        },
+        {
+          "service_domain": "Customer Billing",
+          "score_lexico": 0.5,
+          "business_area": "Operations and Execution",
+          "business_domain": "Operational Services",
+          "rol_bian": "This service domain provides a general customer billing service. The service domain is provided with the applicable fees and charges that are authorized for invoicing typically by a product or service fulfillment service domain. Processing can include verification and authorizations steps and the invoice could be issued as a single transaction or a schedule of transactions.",
+          "señales": [
+            "customer"
+          ]
+        },
+        {
+          "service_domain": "Customer Case",
+          "score_lexico": 0.5,
+          "business_area": "Sales and Service",
+          "business_domain": "Servicing",
+          "rol_bian": "Case resolution tasks follow specific procedures for the type of case involved. Case resolution can be quick by applying resolution rules and obtaining additional authorization as necessary, or they can be long living activities, for example where documentation is requested and has to be retrieved from merchants or other interested parties before the disputed issue can finally be ruled upon. A wide range of case types can be expected",
+          "señales": [
+            "customer"
+          ]
+        },
+        {
+          "service_domain": "Customer Consent",
+          "score_lexico": 0.5,
+          "business_area": "Sales and Service",
+          "business_domain": "Customer Management",
+          "rol_bian": "This service domain administers customer consents for their preferences and constraints on accepting direct debit collection requests, request to pay against their accounts held at the bank, or preferences for credit transfer (e.g. payment rail, preferred funding account, etc.)",
+          "señales": [
+            "customer"
+          ]
+        },
+        {
+          "service_domain": "Customer Offer",
+          "score_lexico": 0.5,
+          "business_area": "Sales and Service",
+          "business_domain": "Sales",
+          "rol_bian": "The Offer Management Service Domain can process offers for all types of customers and any allowed combination of product or service. It references the Product Directory for the product specific offer instructions it must follow. The offer process may combine the selection of product/service specific details (e.g. pricing & negotiation ranges, documentation/authorization/regulatory requirements, eligibility and declarations, credit and other customer details), customer specific details (e.g. credit standing, other classifications such as operational overhead/retention target/activity history, demographics and segmentation). The service domain orchestrates a potentially complex/multi-threaded/multi stage workflow to get the offer to the point where the product/service can be initiated.",
+          "señales": [
+            "customer"
+          ]
+        }
+      ]
+    }
+  ],
+  "service_domains_consolidados": [
+    {
+      "service_domain": "Correspondence",
+      "decision": "UNRESOLVED",
+      "motivo": "TENTATIVE_SCORE",
+      "contract_role": "OWNED_CONTRACT",
+      "functionality_role": "OWNED_CONTRACT",
+      "grupo": "tentativo",
+      "score": 0.6733,
+      "historias": [
+        "HU-Notificar actualización de datos.txt"
+      ],
+      "supporting_stories": [
+        "HU HU-Notificar actualización de datos.txt"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "HU-Notificar actualización de datos",
+        "SC-01",
+        "SC-02",
+        "SC-03",
+        "SC-04"
+      ],
+      "ownership_traceability": [
+        "HU-Notificar actualización de datos",
+        "SC-01",
+        "SC-02",
+        "SC-03",
+        "SC-04"
+      ],
+      "dependency_traceability": [],
+      "selected_operations": [
+        "InitiateOutbound"
+      ],
+      "custom_bq_candidates": [],
+      "reason_codes": [],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/Correspondence.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "955b0505dceed7a527c7ebbb1e956e447cbb133aee20c9c92ab6effed369c4f8",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\Correspondence.json",
+        "recuperado_en": "2026-09-10T22:23:34.088935+00:00",
+        "error": ""
+      },
+      "rationale": "La historia ejecuta directamente el verbo enviar sobre notificación; el Service Domain Correspondence provee operaciones (InitiateOutbound/UpdateOutbound) y el schema Outbound que representan la generación y envío de correspondencia, que incluye notificaciones. La evidencia de operaciones y Service Role es clara y completa."
+    },
+    {
+      "service_domain": "Party Reference Data Directory",
+      "decision": "REJECTED",
+      "motivo": "CONSUMED_DEPENDENCY",
+      "contract_role": "CONSUMED_DEPENDENCY",
+      "functionality_role": "CONSUMED_DEPENDENCY",
+      "grupo": "descartado",
+      "score": 0.4433,
+      "historias": [
+        "HU-Notificar actualización de datos.txt"
+      ],
+      "supporting_stories": [
+        "HU HU-Notificar actualización de datos.txt"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "HU-Notificar actualización de datos",
+        "SC-01",
+        "SC-02",
+        "SC-03",
+        "SC-04"
+      ],
+      "ownership_traceability": [],
+      "dependency_traceability": [
+        "HU-Notificar actualización de datos",
+        "SC-01",
+        "SC-02",
+        "SC-03",
+        "SC-04"
+      ],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [
+        "BIAN-SCOPE-002"
+      ],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyReferenceDataDirectory.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyReferenceDataDirectory.json",
+        "recuperado_en": "2026-09-10T22:19:40.014858+00:00",
+        "error": ""
+      },
+      "rationale": "La historia de usuario requiere enviar notificaciones al actualizar datos de contacto. Party Reference Data Directory almacena los datos de contacto (Reference: eMailAddress, CellPhoneNumber), pero no administra el envío ni la gestión del ciclo de vida de las notificaciones."
+    },
+    {
+      "service_domain": "Party Authentication",
+      "decision": "REJECTED",
+      "motivo": "RELATED_NOT_OWNED",
+      "contract_role": "RELATED_NOT_OWNED",
+      "functionality_role": "RELATED_NOT_OWNED",
+      "grupo": "descartado",
+      "score": 0.19,
+      "historias": [
+        "HU-Notificar actualización de datos.txt"
+      ],
+      "supporting_stories": [
+        "HU HU-Notificar actualización de datos.txt"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "Evaluate",
+        "Party Authentication Assessment"
+      ],
+      "ownership_traceability": [],
+      "dependency_traceability": [],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyAuthentication.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\PartyAuthentication.json",
+        "recuperado_en": "2026-09-10T22:23:59.281337+00:00",
+        "error": ""
+      },
+      "rationale": "La historia solicita enviar notificaciones ante cambios en datos de contacto (celular/correo). Party Authentication gestiona la evaluación de autenticidad e identidad de clientes, sin ofrecer capacidades ni operaciones para el envío de notificaciones por eventos de actualización."
+    },
+    {
+      "service_domain": "Operations Log",
+      "decision": "REJECTED",
+      "motivo": "RELATED_NOT_OWNED",
+      "contract_role": "RELATED_NOT_OWNED",
+      "functionality_role": "RELATED_NOT_OWNED",
+      "grupo": "descartado",
+      "score": 0.045,
+      "historias": [
+        "HU-Notificar actualización de datos.txt"
+      ],
+      "supporting_stories": [
+        "HU HU-Notificar actualización de datos.txt"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "PartnerEventLog"
+      ],
+      "ownership_traceability": [],
+      "dependency_traceability": [],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/OperationsLog.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "ba2b3d5298a52c3547b9b6912412c74f07159c0e38f4a5b5499b55b2391b12b0",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\OperationsLog.json",
+        "recuperado_en": "2026-09-10T22:23:58.424618+00:00",
+        "error": ""
+      },
+      "rationale": "No operation or schema matches sending notifications; service role describes logging, not notification."
+    },
+    {
+      "service_domain": "Fraud Evaluation",
+      "decision": "REJECTED",
+      "motivo": "RELATED_NOT_OWNED",
+      "contract_role": "RELATED_NOT_OWNED",
+      "functionality_role": "RELATED_NOT_OWNED",
+      "grupo": "descartado",
+      "score": 0.01,
+      "historias": [
+        "HU-Notificar actualización de datos.txt"
+      ],
+      "supporting_stories": [
+        "HU HU-Notificar actualización de datos.txt"
+      ],
+      "contradicting_stories": [],
+      "traceability": [],
+      "ownership_traceability": [],
+      "dependency_traceability": [],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/FraudEvaluation.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "e95e7a21fc7a3956931f3cd54445f83114365b7227bcb1eee5c2ba5ef4e4f233",
+        "cache_path": "C:\\Users\\TL\\Documents\\Copia_Documentos\\produbanco\\NEW-VERSION-poc-bian-spec-feature-valdiacion\\generacion_contrato_ia_v2\\docs\\bian-cache\\release14.0.0\\FraudEvaluation.json",
+        "recuperado_en": "2026-09-10T22:23:50.221564+00:00",
+        "error": ""
+      },
+      "rationale": "No operation or schema in Fraud Evaluation matches sending notifications for updated personal data."
+    }
+  ],
+  "service_domains_omitidos": [
+    {
+      "service_domain": "Customer Agreement",
+      "score_lexico": 0.5,
+      "business_area": "Sales and Service",
+      "business_domain": "Customer Management",
+      "rol_bian": "The Customer Agreement service domain captures and maintains the master legal terms of conditions in force for a customer (which as noted can be a complex multinational with many underlying product and service specific agreements).",
+      "señales": [
+        "customer"
+      ]
+    },
+    {
+      "service_domain": "Customer Billing",
+      "score_lexico": 0.5,
+      "business_area": "Operations and Execution",
+      "business_domain": "Operational Services",
+      "rol_bian": "This service domain provides a general customer billing service. The service domain is provided with the applicable fees and charges that are authorized for invoicing typically by a product or service fulfillment service domain. Processing can include verification and authorizations steps and the invoice could be issued as a single transaction or a schedule of transactions.",
+      "señales": [
+        "customer"
+      ]
+    },
+    {
+      "service_domain": "Customer Case",
+      "score_lexico": 0.5,
+      "business_area": "Sales and Service",
+      "business_domain": "Servicing",
+      "rol_bian": "Case resolution tasks follow specific procedures for the type of case involved. Case resolution can be quick by applying resolution rules and obtaining additional authorization as necessary, or they can be long living activities, for example where documentation is requested and has to be retrieved from merchants or other interested parties before the disputed issue can finally be ruled upon. A wide range of case types can be expected",
+      "señales": [
+        "customer"
+      ]
+    },
+    {
+      "service_domain": "Customer Consent",
+      "score_lexico": 0.5,
+      "business_area": "Sales and Service",
+      "business_domain": "Customer Management",
+      "rol_bian": "This service domain administers customer consents for their preferences and constraints on accepting direct debit collection requests, request to pay against their accounts held at the bank, or preferences for credit transfer (e.g. payment rail, preferred funding account, etc.)",
+      "señales": [
+        "customer"
+      ]
+    },
+    {
+      "service_domain": "Customer Offer",
+      "score_lexico": 0.5,
+      "business_area": "Sales and Service",
+      "business_domain": "Sales",
+      "rol_bian": "The Offer Management Service Domain can process offers for all types of customers and any allowed combination of product or service. It references the Product Directory for the product specific offer instructions it must follow. The offer process may combine the selection of product/service specific details (e.g. pricing & negotiation ranges, documentation/authorization/regulatory requirements, eligibility and declarations, credit and other customer details), customer specific details (e.g. credit standing, other classifications such as operational overhead/retention target/activity history, demographics and segmentation). The service domain orchestrates a potentially complex/multi-threaded/multi stage workflow to get the offer to the point where the product/service can be initiated.",
+      "señales": [
+        "customer"
+      ]
+    }
+  ],
+  "reconciliacion": {
+    "service_domains": [
+      {
+        "service_domain": "Correspondence",
+        "functionality_role": "OWNED_CONTRACT",
+        "supporting_stories": [
+          "HU HU-Notificar actualización de datos.txt"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "SELECTED",
+        "reason_codes": [],
+        "rationale": "Classified as OWNED_CONTRACT with ownership indicated; no contradictory classification."
+      },
+      {
+        "service_domain": "Party Reference Data Directory",
+        "functionality_role": "CONSUMED_DEPENDENCY",
+        "supporting_stories": [
+          "HU HU-Notificar actualización de datos.txt"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "Only classified as CONSUMED_DEPENDENCY; no evidence of ownership."
+      },
+      {
+        "service_domain": "Party Authentication",
+        "functionality_role": "RELATED_NOT_OWNED",
+        "supporting_stories": [
+          "HU HU-Notificar actualización de datos.txt"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "Classified as RELATED_NOT_OWNED; marginal relevance."
+      },
+      {
+        "service_domain": "Operations Log",
+        "functionality_role": "RELATED_NOT_OWNED",
+        "supporting_stories": [
+          "HU HU-Notificar actualización de datos.txt"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "Classified as RELATED_NOT_OWNED; marginal relevance."
+      },
+      {
+        "service_domain": "Fraud Evaluation",
+        "functionality_role": "RELATED_NOT_OWNED",
+        "supporting_stories": [
+          "HU HU-Notificar actualización de datos.txt"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "Classified as RELATED_NOT_OWNED; marginal relevance."
+      }
+    ],
+    "gaps": [
+      "Party Reference Data Directory",
+      "Party Authentication",
+      "Operations Log",
+      "Fraud Evaluation"
+    ],
+    "blocking_codes": [],
+    "metadatos": {
+      "prompt_id": "mapeo.reconciliacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "cbd0bbd9c0440d5d3bfdbd376dc9e44c0d0fb372f77bc7454e22a3534ff0ddef",
+      "nodo": "reconciliar_funcionalidad",
+      "historia": "",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    }
+  },
+  "huellas_prompts": [
+    {
+      "prompt_id": "mapeo.reconciliacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "cbd0bbd9c0440d5d3bfdbd376dc9e44c0d0fb372f77bc7454e22a3534ff0ddef",
+      "nodo": "reconciliar_funcionalidad",
+      "historia": "",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Notificar actualización de datos.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Notificar actualización de datos.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": "955b0505dceed7a527c7ebbb1e956e447cbb133aee20c9c92ab6effed369c4f8"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Notificar actualización de datos.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": "ba2b3d5298a52c3547b9b6912412c74f07159c0e38f4a5b5499b55b2391b12b0"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Notificar actualización de datos.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": "e95e7a21fc7a3956931f3cd54445f83114365b7227bcb1eee5c2ba5ef4e4f233"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Notificar actualización de datos.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79"
+    },
+    {
+      "prompt_id": "mapeo.intencion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "b1e294c51943a0c47a267c88004bcd3e7de5fb637db9ddcf4ccc0d1af0e02e73",
+      "nodo": "extraer_intencion",
+      "historia": "HU-Notificar actualización de datos.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.candidatos",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "7d4d518c2d49829ffa12bd93b4394183e0d2dd2ae3ab1f35ae8f16822ce343da",
+      "nodo": "generar_candidatos",
+      "historia": "HU-Notificar actualización de datos.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.adversarial",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "fec929070580b147946f02599086c294b14c4b22abc1b5acf9e5032a4b252f7d",
+      "nodo": "revisar_adversarial",
+      "historia": "HU-Notificar actualización de datos.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.completitud",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "bbfd8e89cc9d01d63c0a001ae620ed67510fde6cf3c2702dbf09b79f69c6f664",
+      "nodo": "revisar_completitud",
+      "historia": "HU-Notificar actualización de datos.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.operaciones",
+      "prompt_version": "1.1.0",
+      "prompt_sha256": "2c6d36ec601bcb71224b4845157174311d989017997326673e7936a656bd5cde",
+      "nodo": "seleccionar_operaciones",
+      "historia": "HU-Notificar actualización de datos.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "temperature": 0.0,
+      "catalog_sha256": "4d8cd9bc904475853d5c8edb0d2972228ce4108d85fddf89b200594c3e65cd11",
+      "evidence_snapshot_id": ""
+    }
+  ],
+  "incidencias": [
+    {
+      "historia": "HU-Notificar actualización de datos.txt",
+      "service_domain_propuesto": "Party Reference Data Directory",
+      "resolucion": "MATCH",
+      "decision": "UNRESOLVED",
+      "motivo": "OWNERSHIP_CONFLICT_UNRESOLVED",
+      "detalle": "enviar notificación es una acción directa de la historia pero está clasificada como CONSUMED_DEPENDENCY"
+    }
+  ],
+  "metricas": {
+    "candidate_drop_rate": 0.0,
+    "candidatos_truncados": 0,
+    "candidatos_evaluados": 5,
+    "ownership_conflict_rate": 1.0,
+    "ownership_promovidos": 0,
+    "ownership_degradados": 0,
+    "ownership_sin_resolver": 1,
+    "operation_grounding_rate": 0.0,
+    "operaciones_ancladas": 1,
+    "operation_id_no_resuelto": 0,
+    "finalizados_por_operacion_solida": 0
+  },
+  "generado_en": "2026-09-13T01:26:59.264797+00:00"
+}
