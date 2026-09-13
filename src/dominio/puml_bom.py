@@ -1,6 +1,6 @@
 """Parser del PUML BOM BIAN -> `ModeloBomPuml` (clases + enums + asociaciones).
 
-Puro: stdlib + dominio. Los `.puml` viven en `generacion_contrato_ia_v2/docs/bian-puml/`
+Puro: stdlib + dominio. Los `.puml` viven en `generacion_contrato_ia_v2/docs/bian-diagrams/puml-bom/`
 (copiados de los diagramas BOM UML oficiales de BIAN R14, extracción SVG). El adaptador
 `CatalogoBomPuml` los lee; este módulo solo parsea texto.
 """

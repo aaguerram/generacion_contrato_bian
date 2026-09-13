@@ -1,4 +1,4 @@
-"""Parser del PUML BOM BIAN -> ModeloBomPuml + adaptador que lee docs/bian-puml/."""
+"""Parser del PUML BOM BIAN -> ModeloBomPuml + adaptador que lee docs/bian-diagrams/puml-bom/."""
 
 from __future__ import annotations
 
@@ -53,7 +53,7 @@ class TestCatalogoBomPuml(unittest.TestCase):
         self.assertEqual(slug_service_domain("Párty Authentication"), "party-authentication")
 
     def test_lee_puml_real_de_docs(self):
-        cat = CatalogoBomPuml(str(DOCS / "bian-puml"))
+        cat = CatalogoBomPuml(str(DOCS / "bian-diagrams" / "puml-bom"))
         m = cat.modelo_de("Transaction Authorization")
         self.assertIsNotNone(m)
         self.assertEqual(m.service_domain, "Transaction Authorization")

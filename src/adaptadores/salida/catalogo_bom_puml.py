@@ -1,4 +1,4 @@
-"""Adaptador: lee los PUML BOM de `docs/bian-puml/` y los parsea a `ModeloBomPuml`.
+"""Adaptador: lee los PUML BOM de `docs/bian-diagrams/puml-bom/` y los parsea a `ModeloBomPuml`.
 
 Slug = nombre del Service Domain en kebab-case (`Transaction Authorization` ->
 `transaction-authorization.puml`). Cache-first en memoria; sin red.

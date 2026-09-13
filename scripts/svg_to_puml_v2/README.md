@@ -3,15 +3,15 @@
 Genera, **desde cero**, un `.puml` por cada SVG de Control Record en
 [`docs/bian-diagrams/svg_control_record/`](../../docs/bian-diagrams/svg_control_record/)
 y lo deja en
-[`docs/bian-control-record-puml/`](../../docs/bian-control-record-puml/).
+[`docs/bian-diagrams/puml-control-record/`](../../docs/bian-diagrams/puml-control-record/).
 
 ## En que se diferencia de scripts/svg_to_puml
 
 `scripts/svg_to_puml` (v1) **enriquece** un `.puml` que ya existe (el de
-`docs/bian-puml/`, con sus clases/atributos/relaciones ya extraidos por otro
+`docs/bian-diagrams/puml-bom/`, con sus clases/atributos/relaciones ya extraidos por otro
 proceso) agregandole notas (`BQ`, `AssetType`, `HelperDiagram`, etc.).
 
-Para los Control Record no hay ningun `.puml` previo -- `docs/bian-puml/`
+Para los Control Record no hay ningun `.puml` previo -- `docs/bian-diagrams/puml-bom/`
 solo cubre el BOM completo de cada Service Domain, nunca su Control Record.
 `svg_to_puml_v2` no enriquece nada: **reconstruye el diagrama entero** leyendo
 directamente el SVG -- clases, `<<datatype>>`, enums (con sus literales),
@@ -60,7 +60,7 @@ y un par de `<ellipse>` decorativos en cada punta). El script:
    orden en que aparecen en el SVG.
 
 Esto reproduce exactamente la convencion que ya usan los `.puml` de
-`docs/bian-puml/` (por ejemplo `"Registered / Party / 0..1"`, donde
+`docs/bian-diagrams/puml-bom/` (por ejemplo `"Registered / Party / 0..1"`, donde
 "Registered" y "Party" eran dos `<text>` de una etiqueta de rol de dos
 lineas, y "0..1" la cardinalidad, las tres mas cerca de ese extremo).
 
@@ -143,7 +143,7 @@ python svg_to_puml_v2.py --only party-reference-data-directory
 # Dry-run de todo el corpus (271 SVG) + reporte JSON para revisar antes de escribir
 python svg_to_puml_v2.py --dry-run --report reporte.json
 
-# Generar todos los .puml (default: docs/bian-control-record-puml/)
+# Generar todos los .puml (default: docs/bian-diagrams/puml-control-record/)
 python svg_to_puml_v2.py
 ```
 

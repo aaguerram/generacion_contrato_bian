@@ -29,7 +29,7 @@ Point = Tuple[float, float]
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SVG_DIR = REPO_ROOT / "docs" / "bian-diagrams" / "svg_control_record"
-DEFAULT_PUML_DIR = REPO_ROOT / "docs" / "bian-control-record-puml"
+DEFAULT_PUML_DIR = REPO_ROOT / "docs" / "bian-diagrams" / "puml-control-record"
 DEFAULT_CATALOG = REPO_ROOT / "docs" / "bian-view-catalog.json"
 
 LEGEND = """' Annotation legend:
@@ -490,7 +490,7 @@ def parse_relationships(
         # UML_Association: gather every loose text in the edge's body and
         # split it between the two ends by which endpoint it sits closer to,
         # preserving document order at each end (matches the existing
-        # bian-puml convention, e.g. `"Registered / Party / 0..1"`).
+        # puml-bom convention, e.g. `"Registered / Party / 0..1"`).
         body = _edge_body(content, edge_id, edge_starts.get(edge_id, 0))
         from_tokens: List[str] = []
         to_tokens: List[str] = []

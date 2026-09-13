@@ -115,7 +115,7 @@ costo y restricciones de despliegue, no por leaderboard general." Eso sigue sin 
 ### Problema
 
 Hoy la evidencia BIAN vive en varios formatos ad-hoc dentro de `docs/` (`SD.json`,
-`bian-business-areas.json`, `bian-cache/*.json` con su propio `cache_version`, `bian-puml/*.puml`)
+`bian-business-areas.json`, `bian-cache/*.json` con su propio `cache_version`, `bian-diagrams/puml-bom/*.puml`)
 que cada adaptador (`CatalogoJson`, `CatalogoBianCache`, `CatalogoBomPuml`) parsea por su cuenta.
 Funciona, pero no hay un modelo de nodos/relaciones unificado sobre el que:
 - expandir por grafo (Fase 4: `HAS_BQ`, `HAS_OPERATION`, `MANAGES`, `DEPENDS_ON`);
@@ -146,7 +146,7 @@ Plan original, sección 5 (entidades: `ServiceDomain`, `BusinessCapability`, `Fu
    (ya existen en `src/dominio/historias.py`) en vez de crear un modelo paralelo — son subconjuntos
    parciales del mismo grafo, no algo distinto.
 2. `scripts/ingest_bian/` (README + `ingest.py`): parsea `SD.json` + `bian-business-areas.json` +
-   `bian-cache/*.json` + `bian-puml/*.puml`, resuelve identidades canónicas (ya existe
+   `bian-cache/*.json` + `bian-diagrams/puml-bom/*.puml`, resuelve identidades canónicas (ya existe
    `normalizar()` en `src/dominio/normalizacion.py` — reusar, no reinventar), valida referencias
    (BQ sin CR padre, operación sin schema, etc.) y genera un **manifiesto de errores** (nunca
    indexar una relación inválida en silencio). Idempotente: mismo input -> mismo output, upsert

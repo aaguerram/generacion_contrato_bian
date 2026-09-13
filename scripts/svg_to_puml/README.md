@@ -1,6 +1,6 @@
 # svg_to_puml
 
-Enriquece los `.puml` de `docs/bian-puml/` con la informacion que en el `.svg`
+Enriquece los `.puml` de `docs/bian-diagrams/puml-bom/` con la informacion que en el `.svg`
 fuente (`docs/bian-diagrams/svg_bom/`) esta representada visualmente pero la
 extraccion original a `.puml` no capturo como texto: notas turquesa/gris
 "pegadas" a una clase (**BQ** / Behavior Qualifier, **AssetType**,
@@ -11,7 +11,7 @@ extender o no (ver seccion "Extensible" mas abajo).
 
 ## Por que existe
 
-Los `.puml` en `docs/bian-puml/` son una extraccion semantica de los `.svg`
+Los `.puml` en `docs/bian-diagrams/puml-bom/` son una extraccion semantica de los `.svg`
 BIAN (mismo `bizzid` numerico como alias de clase, p.ej. `N199916`), pero esa
 extraccion original solo curo clases, atributos, enums y relaciones — dejo
 fuera las notas satelite que en el `.svg` cuelgan de cada clase mediante una
@@ -113,7 +113,7 @@ Las relaciones, enums y atributos originales del `.puml` nunca se tocan.
 ## Alcance real del corpus
 
 Esto aplica a los pares donde existen **ambos** archivos con el mismo nombre
-base en `docs/bian-diagrams/svg_bom/<nombre>.svg` y `docs/bian-puml/<nombre>.puml`
+base en `docs/bian-diagrams/svg_bom/<nombre>.svg` y `docs/bian-diagrams/puml-bom/<nombre>.puml`
 (hoy son 272 pares). Un numero de esos `.svg` son placeholders vacios (un
 canvas de 1x1 cm sin contenido, cuando el diagrama original solo existia como
 PNG de baja resolucion) — el script los detecta como "0 clases" y no toca su
@@ -126,7 +126,7 @@ generacion de contratos y queda fuera del alcance de este script.
 ## Como ejecutar
 
 Desde cualquier ubicacion (usa rutas por defecto relativas al repo:
-`docs/bian-diagrams/svg_bom` y `docs/bian-puml`):
+`docs/bian-diagrams/svg_bom` y `docs/bian-diagrams/puml-bom`):
 
 ```bash
 cd generacion_contrato_ia_v2/scripts/svg_to_puml

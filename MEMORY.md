@@ -26,7 +26,7 @@
 
 ### Proyecto generacion_contrato_ia_v2 (hexagonal + La...
 
-> Proyecto generacion_contrato_ia_v2 (hexagonal + LangGraph) tiene 2 casos de uso CLI: validar-sd y mapear-historias (python -m src mapear-historias --directorio-hu <dir> --funcionalidad <json> --directorio <out>). Evidencia BIAN offline en docs/: SD.json (341 SD), bian-business-areas.json, bian-operation-catalogs.json, bian-cache/ (cache_version 2 con schemas_detalle+parent_control_record), bian-puml/ (272 .puml BOM). Sin acceso a Internet en runtime normal.
+> Proyecto generacion_contrato_ia_v2 (hexagonal + LangGraph) tiene 2 casos de uso CLI: validar-sd y mapear-historias (python -m src mapear-historias --directorio-hu <dir> --funcionalidad <json> --directorio <out>). Evidencia BIAN offline en docs/: SD.json (341 SD), bian-business-areas.json, bian-operation-catalogs.json, bian-cache/ (cache_version 2 con schemas_detalle+parent_control_record), bian-diagrams/puml-bom/ (272 .puml BOM). Sin acceso a Internet en runtime normal.
 
 *Confidence: 0.9 | Status: active | Created: 2026-09-13T03:10:15*
 
@@ -68,7 +68,7 @@
 
 ### BOM extendido: CatalogoBianCache._normalizar usa c...
 
-> BOM extendido: CatalogoBianCache._normalizar usa cache_version:2 (request_schema/response_schema resueltos via $ref + parent_control_record en los BQ + schemas_detalle con el cuerpo real de cada schema). PUML BOM en docs/bian-puml/ (272 archivos, copia de architecture/BIAN_PUML/) parseado por src/dominio/puml_bom.py::parsear_puml_bom (puro) -> ModeloBomPuml; puerto CatalogoBomPort / adaptador CatalogoBomPuml. Regla de prompt fija: functional_object sale SIEMPRE del objeto de negocio real, nunca del wrapper Control Record.
+> BOM extendido: CatalogoBianCache._normalizar usa cache_version:2 (request_schema/response_schema resueltos via $ref + parent_control_record en los BQ + schemas_detalle con el cuerpo real de cada schema). PUML BOM en docs/bian-diagrams/puml-bom/ (272 archivos, copia de architecture/BIAN_PUML/) parseado por src/dominio/puml_bom.py::parsear_puml_bom (puro) -> ModeloBomPuml; puerto CatalogoBomPort / adaptador CatalogoBomPuml. Regla de prompt fija: functional_object sale SIEMPRE del objeto de negocio real, nunca del wrapper Control Record.
 
 *Confidence: 0.85 | Status: active | Created: 2026-09-13T03:10:18*
 

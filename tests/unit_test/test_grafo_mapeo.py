@@ -272,7 +272,7 @@ class TestGrafoMapeoSeleccionReal(unittest.TestCase):
             CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
                               "14.0.0", permitir_descargas=False),
             _MapeadorGuion(),
-            catalogo_bom=CatalogoBomPuml(str(DOCS / "bian-puml")),
+            catalogo_bom=CatalogoBomPuml(str(DOCS / "bian-diagrams" / "puml-bom")),
             umbrales=UmbralesMapeo(),
             concurrencia=1,
         )

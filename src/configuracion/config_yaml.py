@@ -87,7 +87,7 @@ class MapearHistoriasConfig:
     ruta_jerarquia: str = "docs/bian-business-areas.json"
     ruta_operaciones: str = "docs/bian-operation-catalogs.json"
     ruta_cache_bian: str = "docs/bian-cache"
-    ruta_bian_puml: str = "docs/bian-puml"
+    ruta_bian_puml: str = "docs/bian-diagrams/puml-bom"
     release_bian: str = "14.0.0"
     descargar_faltantes: bool = True
     bom_puml_habilitado: bool = True
@@ -232,7 +232,7 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
         ruta_jerarquia=str(mh.get("ruta_jerarquia", "docs/bian-business-areas.json")),
         ruta_operaciones=str(mh.get("ruta_operaciones", "docs/bian-operation-catalogs.json")),
         ruta_cache_bian=str(mh.get("ruta_cache_bian", "docs/bian-cache")),
-        ruta_bian_puml=str(mh.get("ruta_bian_puml", "docs/bian-puml")),
+        ruta_bian_puml=str(mh.get("ruta_bian_puml", "docs/bian-diagrams/puml-bom")),
         release_bian=str(mh.get("release_bian", "14.0.0")),
         descargar_faltantes=bool(mh.get("descargar_faltantes", True)),
         bom_puml_habilitado=bool(mh.get("bom_puml_habilitado", True)),

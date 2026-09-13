@@ -159,7 +159,7 @@ class AsociacionBom(BaseModel):
 
 class ModeloBomPuml(BaseModel):
     """Modelo estructural (clases/enums/asociaciones) de un Service Domain, extraído del PUML BOM
-    BIAN (`docs/bian-puml/<slug>.puml`). Complementa a los schemas de la Semantic API."""
+    BIAN (`docs/bian-diagrams/puml-bom/<slug>.puml`). Complementa a los schemas de la Semantic API."""
 
     service_domain: str
     source_url: str = ""

@@ -1,5 +1,5 @@
 """
-Enriquece los .puml de docs/bian-puml/ con las anotaciones (BQ, AssetType,
+Enriquece los .puml de docs/bian-diagrams/puml-bom/ con las anotaciones (BQ, AssetType,
 ControlRecord, GenericArtifact, HelperDiagram, BOMDiagram) que en el .svg
 fuente aparecen como notas turquesa/gris "pegadas" a una clase mediante una
 linea conectora (o, para los recuadros "<Clase> Helper/BOM Diagram", por
@@ -23,7 +23,7 @@ BBox = Tuple[float, float, float, float]
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SVG_DIR = REPO_ROOT / "docs" / "bian-diagrams" / "svg_bom"
-DEFAULT_PUML_DIR = REPO_ROOT / "docs" / "bian-puml"
+DEFAULT_PUML_DIR = REPO_ROOT / "docs" / "bian-diagrams" / "puml-bom"
 
 LEGEND = """' Annotation legend (notes linked to a class via an SVG connector line/geometry):
 '   Extensible: yes/no      -> from the class box border color in the SVG:

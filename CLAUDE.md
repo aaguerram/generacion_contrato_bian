@@ -10,7 +10,7 @@ proyecto hermano `architecture/`):
   (cuerpo: properties/`$ref`/enum values), `request_schema`/`response_schema` por operación,
   vista estructurada `catalog: {control_records, behavior_qualifiers}`, y `evidence`
   (`source_url` + `source_commit_sha` + `content_sha256` + `retrieved_at`).
-- `bian-puml/<slug>.puml` = 272 diagramas BOM UML BIAN R14 → modelo de clases (atributos tipados
+- `bian-diagrams/puml-bom/<slug>.puml` = 272 diagramas BOM UML BIAN R14 → modelo de clases (atributos tipados
   con cardinalidad, enums, asociaciones), complementa a los schemas de la API.
 
 El pipeline es cache-first: consulta la fuente oficial (`bian-official/public` en GitHub) solo
@@ -67,7 +67,7 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       `PaqueteEvidenciaCandidato` cerrado por SD**: Service Role + CR/BQ + operaciones (con
       `request_schema`/`response_schema` y `parent_control_record`) + `schemas_detalle` (cuerpo de
       cada schema de la Semantic API) + `bom_modelo` (clases/atributos/asociaciones del PUML
-      `docs/bian-puml/`, `CatalogoBomPuml`) + URL/commit/SHA-256. `deteccion_omitidos.py` corre
+      `docs/bian-diagrams/puml-bom/`, `CatalogoBomPuml`) + URL/commit/SHA-256. `deteccion_omitidos.py` corre
       sobre lo NO evaluado → `service_domains_omitidos` (solo reporta; el retrieval híbrido de
       abajo sí reinyecta).
 
@@ -413,5 +413,5 @@ depender de qué framing use la E2E.
   (`cache_version: 2`: operaciones CR+BQ con `parent_control_record`/`request_schema`/`response_schema`,
   `schemas_detalle` con cuerpo, `catalog` estructurado, `evidence` con commit+SHA-256). ~41 SD sembrados;
   `--actualizar-cache-bian` descarga/actualiza el resto de `bian-official/public`.
-  `docs/bian-puml/<slug>.puml` = 272 diagramas BOM UML BIAN R14 (semilla; modelo de clases/atributos).
+  `docs/bian-diagrams/puml-bom/<slug>.puml` = 272 diagramas BOM UML BIAN R14 (semilla; modelo de clases/atributos).
   **Nada de esto se lee de `../architecture/` en runtime — son copias semilla dentro de `docs/`.**

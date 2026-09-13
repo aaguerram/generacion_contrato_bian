@@ -1,6 +1,6 @@
 """Puerto driven: modelo estructural BOM (clases/enums/asociaciones) por Service Domain.
 
-Fuente: `generacion_contrato_ia_v2/docs/bian-puml/<slug>.puml` (diagramas BOM UML oficiales
+Fuente: `generacion_contrato_ia_v2/docs/bian-diagrams/puml-bom/<slug>.puml` (diagramas BOM UML oficiales
 de BIAN R14). Complementa a los schemas de la Semantic API: da atributos tipados con
 cardinalidad, enums y asociaciones que el OpenAPI no explicita. Sin red.
 """

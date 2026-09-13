@@ -230,7 +230,7 @@ y **un JSON de funcionalidad macro**, mapea cada HU a los BIAN Service Domains q
 | `bian-business-areas.json` | jerarquía **Business Area → Business Domain → Service Domain** (mismos 341) |
 | `bian-operation-catalogs.json` | operaciones oficiales (Control Record / Behavior Qualifier) de los Service Domains materializados |
 | `bian-cache/release14.0.0/` | caché **cache-first** del OpenAPI oficial por SD (CR + BQ + `schemas_detalle`, `cache_version: 2`) — solo se descarga lo ausente |
-| `bian-puml/` | **272 diagramas PlantUML** del modelo de clases BOM BIAN R14 (clases/atributos/enums/asociaciones), uno por Service Domain; complementa los schemas de la Semantic API y respalda la anti-alucinación de los **BQ personalizados** (`mapear_historias.bom_puml_habilitado`) |
+| `bian-diagrams/puml-bom/` | **272 diagramas PlantUML** del modelo de clases BOM BIAN R14 (clases/atributos/enums/asociaciones), uno por Service Domain; complementa los schemas de la Semantic API y respalda la anti-alucinación de los **BQ personalizados** (`mapear_historias.bom_puml_habilitado`) |
 
 Cada corrida escribe en `<--directorio>/<AAAA-MM-DD_HH-MM-SS>/` (para no pisar corridas previas);
 `--sin-timestamp` escribe directo en `<--directorio>`.
@@ -420,7 +420,7 @@ Un Control Record no se puede editar. Si una historia necesita un campo que **ni
 `campos_respuesta` de ningún CR/BQ oficial del SD expone, `seleccionar_operaciones` puede proponer
 una **operación no oficial dentro de un CR/BQ YA EXISTENTE** — nunca un grupo/tag nuevo — citando
 una clase/atributo real del BOM del Service Domain (`schemas_detalle` de la Semantic API, o el
-modelo de clases de `docs/bian-puml/`). El código (`_anclar_bq_personalizados`, determinista) ancla
+modelo de clases de `docs/bian-diagrams/puml-bom/`). El código (`_anclar_bq_personalizados`, determinista) ancla
 la propuesta solo si:
 
 1. `grupo_existente` **es realmente** un CR/BQ ya presente en el catálogo del SD (si no, se
@@ -578,7 +578,7 @@ src/
 │                       · adjudicador_langchain · publicador_json · embeddings_resiliente
 │                       · lector_historias_fs · clasificador_historias_langchain · publicador_mapeo_json
 │                       · catalogo_operaciones_bian_json · mapeador_operaciones_langchain
-│                       · catalogo_bom_puml (modelo de clases BOM desde docs/bian-puml/)
+│                       · catalogo_bom_puml (modelo de clases BOM desde docs/bian-diagrams/puml-bom/)
 │                       · prompts · prompts_mapeo
 │                       · llm/  gemini · openrouter · anthropic · openai · fake (Strategy)
 │                       ·       failover.py  (ChatConFailover: multi-proveedor / multi-modelo)
@@ -589,7 +589,7 @@ config.yaml             proveedores · modelos · orden de failover · umbrales 
 .env                    SOLO API keys                                                 (NO versionado)
 docs/                   SD.json · bian-business-areas.json · bian-operation-catalogs.json
                         · bian-cache/release14.0.0/ (OpenAPI oficial cache-first, CR+BQ+schemas)
-                        · bian-puml/ (272 PlantUML del modelo de clases BOM R14)             (evidencia BIAN local)
+                        · bian-diagrams/puml-bom/ (272 PlantUML del modelo de clases BOM R14) (evidencia BIAN local)
 ```
 
 El subcomando se enruta en `src/__main__.py`: `python -m src mapear-historias …` va a
