@@ -1,0 +1,61 @@
+@startuml
+title Business Unit Management Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Business Unit Management
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_31049.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Troubleshooting Instance Record" as N313904 {
+  + Business Unit Production Issue Record : Production Issue
+  + Business Unit Issue Analysis And Recommended Response : Object
+}
+
+class "Business Unit Management" as N313908 {
+}
+
+class "BQ Performance Instance Record" as N313921 {
+  + Business Unit Resource Utilization : Object
+  + Business Unit Output/Work Projections : Object
+  + Business Unit Performance Statistics : Object
+  + Business Unit Performance Statistic Type : Text
+  + Business Unit Performance Statistic Value : Amount
+  + Business Unit Performance Statistic Interpretation : Object
+  + Business Unit Performance Statistic Recommendation : Object
+}
+
+class "CR Business Unit Management Plan Instance Record" as N313929 {
+  + Business Unit Management Plan Period : DateTimePeriod
+  + Business Unit Usage Policies And Guidelines : Rule Set
+  + Business Unit Performance Goals : Goal
+  + Business Unit Operating Schedule : Schedule
+  + Business Unit Operating Organization : Organisation
+  + Business Unit Resource Plan : Business Unit Resource Plan
+  + Business Unit Training Plan : Business Unit Training Plan
+}
+
+' Relationships
+N313921 "0..* / 0..1" -- N313929
+N313904 "0..*" -- "0..1" N313929
+
+@enduml

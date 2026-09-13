@@ -1,0 +1,91 @@
+@startuml
+title Account Reconciliation Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Account Reconciliation
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_39897.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Account Resolution Instance Record" as N324288 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Account Reconciliation Procedure Reference : Procedure
+  + Account Resolution Workstep Reference : Workstep
+  + Account Resolution Workstep Type : Text
+}
+
+class "BQ Account Assessment Instance Record" as N324298 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Account Reconciliation Procedure Reference : Procedure
+  + Account Assessment Workstep Reference : Workstep
+  + Account Assessment Workstep Type : Text
+}
+
+class "CR Account Reconciliation Procedure Instance Record" as N324308 {
+  + Account Reconciliation Procedure Parameter Type : FeatureTypeValues
+  + Account Reconciliation Procedure Selected Option : Feature
+  + Account Reconciliation Procedure Request : Instruction
+  + Account Reconciliation Procedure Schedule : Schedule
+  + Account Reconciliation Procedure Status : Status
+  + Account Reconciliation Procedure Associated Party Reference : InvolvedParty
+  + Account Reconciliation Procedure Business Unit Reference : InvolvedParty
+  + Account Reconciliation Procedure Service Provider Reference : InvolvedParty
+  + Account Reconciliation Procedure Financial Facility Reference : Financial Facility
+  + Account Reconciliation Procedure Employee Reference : InvolvedParty
+  + Account Reconciliation Procedure Customer Reference : InvolvedParty
+  + Account Reconciliation Procedure Type : ProcedureType
+  + Account Reconciliation Procedure Service Provider Schedule : Schedule
+  + Account Reconciliation Procedure Service Type : ServiceType
+  + Account Reconciliation Procedure Product and Service Type : BankingProductType
+  + Account Reconciliation Procedure Product and Service Instance : Product
+  + Account Reconciliation Procedure Transaction Type : TransactionType
+  + Account Reconciliation Procedure Transaction : Transaction
+  + Account Reconciliation Procedure Financial Transaction Arrangement : Arrangement
+  + Account Reconciliation Procedure Customer Agreement Reference : Agreement
+  + Account Reconciliation Procedure Reference : Procedure
+  + Account Reconciliation Procedure Account Reference : Account
+  + Account Reconciliation Procedure Document Reference : Document
+  + Reconciliation Transaction Reference : Reconciliation Transaction
+  + Reconciliation Arrangement Reference : Transaction Reconciliation Arrangement
+  + Reconciliation Request Reference : Reconciliation Instruction
+  + Account Reconciliation Procedure System Reference : System
+}
+
+class "Account Reconciliation" as N324338 {
+}
+note right of N324338
+  BOMDiagram: Account Reconciliation BOM Diagram
+end note
+
+' Relationships
+N324308 "0..1" -- "0..1" N324298
+N324308 "0..1" -- "0..1" N324288
+
+@enduml

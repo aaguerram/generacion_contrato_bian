@@ -1,0 +1,72 @@
+@startuml
+title Customer Case Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Customer Case
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_45228.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Determination Instance Record" as N281482 {
+  + Customer Agreement Instance Reference : Identifier
+  + Customer Agreement : Customer Agreement
+  + Case Determination Work Product : WorkProduct
+  + Case Determination Work Task Result : Task
+}
+
+class "CR Customer Case Procedure Instance Record" as N281487 {
+  + Customer Case Type : CaseTypeValues
+  + Product Instance Reference : Product Agreement
+  + Customer Reference : InvolvedParty
+  + Customer Contact Record Reference : Customer Contact
+  + Product Transaction Reference : Transaction
+  + Product Transaction Record : Transaction
+  + Case Location : Address
+  + Date : DateTime
+  + Employee/Business Unit Reference : Business Unit
+  + Customer Case Resolution Schedule : Schedule
+}
+
+class "BQ Analysis Instance Record" as N281500 {
+  + Customer Contact Record : Customer Contact
+  + Case Analysis Work Product : WorkProduct
+  + Case Analysis Work Task Result : Task
+}
+
+class "BQ Resolution Instance Record" as N281504 {
+  + Correspondence Instance Reference : Identifier
+  + Correspondence Content : Text
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Document Content : Text
+  + Employee/Business Unit Reference : Business Unit
+  + Payment Order Reference : Payment Instruction
+}
+
+class "Customer Case" as N281512 {
+}
+
+' Relationships
+N281500 "0..*" -- "0..1" N281487
+N281482 "0..*" -- "0..1" N281487
+N281487 "0..1" -- "0..*" N281504
+
+@enduml

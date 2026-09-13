@@ -1,0 +1,72 @@
+@startuml
+title Credit Risk Models Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Credit Risk Models
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49794.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Testing Instance Record" as N320192 {
+  + Preconditions : Condition
+  + Specification Schedule : Schedule
+  + Version Number : Number
+  + Business Service : Business Service
+}
+
+class "CR Credit Risk Model Specification Instance Record" as N320198 {
+  + Credit Risk Model Specification Parameter Type : FeatureTypeValues
+  + Credit Risk Model Specification Selected Option : Feature
+  + Credit Risk Model Specification Description : Text
+  + Credit Risk Model Specification Version : Text
+  + Credit Risk Model Specification Status : Status
+  + Credit Risk Model Specification Usage Log : Log
+  + Credit Risk Model Specification Feedback : Object
+  + Credit Risk Model Specification Service Provider Reference : InvolvedParty
+}
+
+class "BQ Functional Requirements Instance Record" as N320209 {
+  + Preconditions : Condition
+  + Specification Schedule : Schedule
+  + Version Number : Number
+  + Business Service : Business Service
+}
+
+class "BQ Production Instance Record" as N320214 {
+  + Preconditions : Condition
+  + Specification Schedule : Schedule
+  + Version Number : Number
+  + Business Service : Business Service
+}
+
+class "Credit Risk Models" as N320219 {
+}
+note right of N320219
+  BOMDiagram: Credit Risk Models BOM Diagram
+end note
+
+' Relationships
+N320198 "0..1" -- "0..1" N320209
+N320198 "0..1" -- "0..1" N320214
+N320198 "0..1" -- "0..1" N320192
+
+@enduml

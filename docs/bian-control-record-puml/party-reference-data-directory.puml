@@ -1,0 +1,212 @@
+@startuml
+title Party Reference Data Directory Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Party Reference Data Directory
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_48517.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Party Reference Data Directory Entry Instance Record" as N322976 {
+  + Party Reference : Party
+  + Directory Entry Date Type : DirectoryEntryDateTypeValues
+  + Directory Entry Date : DateTime
+  + Party Type : PartyTypeValues
+}
+
+class "BQ Associations Instance Record" as N322981 {
+  + Employee Reference : InvolvedParty
+  + Associate Reference : InvolvedParty
+  + Associate Type : Party_PartyRelationshipTypeValues
+  + Associate Obligation or Dependency Description : Party Obligation or Entitlement
+  + Association Valid From/To Date : DateTimePeriod
+  + Product Instance Reference : Product Agreement
+  + Preferred Beneficiary : InvolvedParty
+  + Proxy/Representative/Power of Attorney Reference : Party_Party Relationship
+  + Product Instanse Involvement Reference : Product Agreement Involvement
+}
+
+class "BQ Demographics Instance Record" as N322991 {
+  + Socio-Economic Classification : Text
+  + Ethnicity/Religion : Text
+  + Employment : InvolvedParty
+  + Employment History : Text
+  + Education History : Text
+  + Servicing Constraints : Text
+}
+
+class "BQ Bank Relations Instance Record" as N322998 {
+  + Bank Relation Type : Text
+  + Business Unit/Employee Reference : InvolvedParty
+  + Bank Relation Reference : Party Relationship
+}
+
+class "BQ Reference Instance Record" as N323005 {
+  + Party Legal Entity Reference : Party
+  + Party Name/Salutation : Name
+  + Government Issued Identity Reference : PartyIdentification
+  + Government Issued Document Details : Party Document
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Residency Status : Status
+  + Date of Birth : DateTime
+  + Nationality : Country
+  + Residential Address : Postal Address
+  + eMail Address : Contact Point
+  + Cell/Phone Number : Contact Point
+  + Social Network Contacts : Contact Point
+  + Political Exposure Type : PoliticalExposureTypeValues
+  + Political Exposure Description Record : Text
+  + Corporate Customer Reference : InvolvedParty
+  + Corporate Customer Legal Entity Reference : InvolvedParty
+  + Corporate Address : Postal Address
+  + Company Officer Reference : InvolvedParty
+  + Company Officer Role : Party Role
+  + Customer Since Date : DateTime
+  + Party Full Legal Name : Name
+  + Party Legal Structure : PartyLegalStructureTypeValues
+  + Party Address : Postal Address
+  + Party Country Of Residence : Country
+}
+
+class "Party Reference Data Directory" as N323030 {
+}
+
+class "Product Agreement" as N323050 {
+  + Product Agreement Type : ProductAgreementTypeValues
+  + Product Agreement Identification : Identifier
+}
+note right of N323050
+  BianBom: yes
+end note
+
+class "Product Agreement Involvement" as N323052 {
+  + Involvement Type : ProductServiceAgreementInvolvementTypeValues
+  + Party Reference : Party
+  + Agreement Reference : Product Agreement
+}
+note right of N323052
+  BianBom: yes
+end note
+
+enum "Party_PartyRelationshipTypeValues" as N323054 {
+  Party is parent of Party
+  Party is subsidiary of Party
+  Party is certified by Party
+  Party is married to Party
+  Party acts on behalf of Party
+  Party is Contact Point for Party
+  Party is trusted by Party
+  Party is the Power of Attorney for Party
+  Party receives benefits from a Party
+}
+note right of N323054
+  BianBom: yes
+end note
+
+class "Postal Address" as N323056 {
+  + Address Type : PostalAddressTypeValues
+  + Address Line : Text
+  + Street Name : Name
+  + Building Number : Number
+  + Post Code : Identifier
+  + Town Name : Name
+  + Country Sub Division : GeographicalAreaTypeValues
+  + Country : Country
+  + Department : Text
+  + Sub Department : Text
+}
+note right of N323056
+  BianBom: yes
+end note
+
+enum "PartyLegalStructureTypeValues" as N323058 {
+  Individual
+  Community Interest Company
+  Charitable Incorporated Organisation
+  Co-operative
+  Charity
+  General Partnership
+  Limited Liability Partnership
+  Scottish Limited Partnership
+  Limited Partnership
+  Private Limited Company
+  Public Limited Company
+  Sole (sole trader)
+}
+note right of N323058
+  BianBom: yes
+end note
+
+class "InvolvedParty" as N323060 <<datatype>> {
+  + Party Reference : Text
+  + Involvement Reference : Text
+}
+note right of N323060
+  BianBom: yes
+end note
+
+enum "PostalAddressTypeValues" as N323061 {
+  Business
+  Correspondence
+  DeliveryTo
+  MailTo
+  POBox
+  Postal
+  Residential
+  Statement
+}
+note right of N323061
+  BianBom: yes
+end note
+
+enum "ProductServiceAgreementInvolvementTypeValues" as N323108 {
+  Principal
+  Secondary owner
+  Beneficiary
+  Power of attorney
+  Legal guardian
+  Custodian for minor
+  Successor on death
+  Administrator
+  Other party
+  Granter
+  Settlor
+  Senior managing official
+  Protector
+  Registered shareholder name
+}
+note right of N323108
+  BianBom: yes
+end note
+
+' Relationships
+N322976 "0..1" -- "0..*" N322998
+N322976 "0..1" -- "0..*" N322991
+N322981 "0..*" -- "0..1" N322976
+N322976 "0..1" -- "0..*" N323005
+N322981 -- N323054
+N322981 -- N323060
+N322981 -- N323050
+N323005 -- N323058
+N323005 -- N323056
+
+@enduml

@@ -1,0 +1,192 @@
+@startuml
+title Customer Financial Insights Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Customer Financial Insights
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_29337.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Customer Financial Insights" as N300790 {
+}
+note right of N300790
+  BOMDiagram: Customer Financial Insights BOM Diagram
+end note
+
+class "BQ Customer Financial Insight Instance Record" as N300792 {
+  + Insight Analysis Position Reference : Position[1..*]
+  + Insight Reference : Customer Insight
+  + Insight Analysis Work Product : WorkProduct[1..*]
+  + Insight Analysis Involved Party Reference : InvolvedParty[1..*]
+  + Insight Analysis Task : Task[1..*]
+  + Insight Analysis Report Reference : Report[1..*]
+  + Insight Analysis Model Reference : Model[1..*]
+  + Insight Analysis Document Reference : Document[1..*]
+  + Insight Analysis Log Reference : Log[1..*]
+  + Insight Analysis Reference : Analysis
+}
+
+class "BQ Customer Transactional Insight Instance Record" as N300805 {
+  + Insight Analysis Position Reference : Position[1..*]
+  + Insight Reference : Customer Insight
+  + Insight Analysis Work Product : WorkProduct[1..*]
+  + Insight Analysis Involved Party Reference : InvolvedParty[1..*]
+  + Insight Analysis Task : Task[1..*]
+  + Insight Analysis Report Reference : Report[1..*]
+  + Insight Analysis Model Reference : Model[1..*]
+  + Insight Analysis Document Reference : Document[1..*]
+  + Insight Analysis Log Reference : Log[1..*]
+  + Insight Analysis Reference : Analysis
+}
+
+class "CR Customer Financial Position Analysis Instance Record" as N300817 {
+  + Customer Reference : Customer Relationship
+  + Customer Financial Insights Analysis Record : Text
+  + Customer Financial Insight Analysis Schedule : Schedule
+  + Customer Insight Calculation Date : DateTime
+  + Customer Insight : Customer Insight
+  + Customer Insight Type : CustomerInsightTypeValues
+  + Customer Financial Insights Analysis : Customer Financial Insight Analysis
+  + Customer Financial Insights Analysis Model Reference : Model[1..*]
+  + Customer Financial Insights Analysis Report Reference : Report[1..*]
+  + Customer Financial Insights Analysis Document Reference : Document[1..*]
+  + Customer Financial Insights Analysis Log Reference : Log[1..*]
+  + Customer Financial Insights Analysis Position Reference : Position[1..*]
+}
+
+class "BQ Segmented Financial Performance Instance Record" as N300830 {
+  + Insight Analysis Document Reference : Document[1..*]
+  + Insight Analysis Report Reference : Report[1..*]
+  + Insight Analysis Task : Task[1..*]
+  + Insight Analysis Position Reference : Position[1..*]
+  + Insight Analysis Log Reference : Log[1..*]
+  + Insight Reference : Customer Insight
+  + Insight Analysis Involved Party Reference : InvolvedParty[1..*]
+  + Insight Analysis Model Reference : Model[1..*]
+  + Insight Analysis Work Product : WorkProduct[1..*]
+  + Insight Analysis Reference : Analysis
+}
+
+class "BQ Revenue per Customer Instance Record" as N300842 {
+  + Insight Analysis Document Reference : Document[1..*]
+  + Insight Analysis Report Reference : Report[1..*]
+  + Insight Analysis Task : Task[1..*]
+  + Insight Analysis Position Reference : Position[1..*]
+  + Insight Analysis Log Reference : Log[1..*]
+  + Insight Reference : Customer Insight
+  + Insight Analysis Involved Party Reference : InvolvedParty[1..*]
+  + Insight Analysis Model Reference : Model[1..*]
+  + Insight Analysis Work Product : WorkProduct[1..*]
+  + Insight Analysis Reference : Analysis
+}
+
+class "BQ Customer Acquisition Cost Instance Record" as N300853 {
+  + Insight Analysis Document Reference : Document[1..*]
+  + Insight Analysis Report Reference : Report[1..*]
+  + Insight Analysis Task : Task[1..*]
+  + Insight Analysis Position Reference : Position[1..*]
+  + Insight Analysis Log Reference : Log[1..*]
+  + Insight Reference : Customer Insight
+  + Insight Analysis Involved Party Reference : InvolvedParty[1..*]
+  + Insight Analysis Model Reference : Model[1..*]
+  + Insight Analysis Work Product : WorkProduct[1..*]
+  + Insight Analysis Reference : Analysis
+}
+
+class "BQ Discount and Promotion Impact Instance Record" as N300870 {
+  + Insight Analysis Document Reference : Document[1..*]
+  + Insight Analysis Report Reference : Report[1..*]
+  + Insight Analysis Task : Task[1..*]
+  + Insight Analysis Position Reference : Position[1..*]
+  + Insight Analysis Log Reference : Log[1..*]
+  + Insight Reference : Customer Insight
+  + Insight Analysis Involved Party Reference : InvolvedParty[1..*]
+  + Insight Analysis Model Reference : Model[1..*]
+  + Insight Analysis Work Product : WorkProduct[1..*]
+  + Insight Analysis Reference : Analysis
+}
+
+class "BQ Customer Lifetime Value Instance Record" as N300881 {
+  + Insight Analysis Document Reference : Document[1..*]
+  + Insight Analysis Report Reference : Report[1..*]
+  + Insight Analysis Task : Task[1..*]
+  + Insight Analysis Position Reference : Position[1..*]
+  + Insight Analysis Log Reference : Log[1..*]
+  + Insight Reference : Customer Insight
+  + Insight Analysis Involved Party Reference : InvolvedParty[1..*]
+  + Insight Analysis Model Reference : Model[1..*]
+  + Insight Analysis Work Product : WorkProduct[1..*]
+  + Insight Analysis Reference : Analysis
+}
+
+class "BQ Profitability Analysis Instance Record" as N300892 {
+  + Insight Analysis Document Reference : Document[1..*]
+  + Insight Analysis Report Reference : Report[1..*]
+  + Insight Analysis Task : Task[1..*]
+  + Insight Analysis Position Reference : Position[1..*]
+  + Insight Analysis Log Reference : Log[1..*]
+  + Insight Reference : Customer Insight
+  + Insight Analysis Involved Party Reference : InvolvedParty[1..*]
+  + Insight Analysis Model Reference : Model[1..*]
+  + Insight Analysis Work Product : WorkProduct[1..*]
+  + Insight Analysis Reference : Analysis
+}
+
+class "BQ Retention Cost Instance Record" as N300903 {
+  + Insight Analysis Document Reference : Document[1..*]
+  + Insight Analysis Report Reference : Report[1..*]
+  + Insight Analysis Task : Task[1..*]
+  + Insight Analysis Position Reference : Position[1..*]
+  + Insight Analysis Log Reference : Log[1..*]
+  + Insight Reference : Customer Insight
+  + Insight Analysis Involved Party Reference : InvolvedParty[1..*]
+  + Insight Analysis Model Reference : Model[1..*]
+  + Insight Analysis Work Product : WorkProduct[1..*]
+  + Insight Analysis Reference : Analysis
+}
+
+class "BQ Churn Cost Instance Record" as N300914 {
+  + Insight Analysis Document Reference : Document[1..*]
+  + Insight Analysis Report Reference : Report[1..*]
+  + Insight Analysis Task : Task[1..*]
+  + Insight Analysis Position Reference : Position[1..*]
+  + Insight Analysis Log Reference : Log[1..*]
+  + Insight Reference : Customer Insight
+  + Insight Analysis Involved Party Reference : InvolvedParty[1..*]
+  + Insight Analysis Model Reference : Model[1..*]
+  + Insight Analysis Work Product : WorkProduct[1..*]
+  + Insight Analysis Reference : Analysis
+}
+
+' Relationships
+N300817 "0..1" -- "0..1" N300853
+N300817 "0..1" -- "0..1" N300842
+N300817 "0..1" -- "0..1" N300792
+N300817 "0..1" -- "0..1" N300805
+N300817 "0..1" -- "0..1" N300892
+N300817 "0..1" -- "0..1" N300881
+N300817 "0..1" -- "0..1" N300903
+N300817 "0..1" -- "0..1" N300914
+N300817 "0..1" -- "0..1" N300870
+N300817 "0..1" -- "0..1" N300830
+
+@enduml

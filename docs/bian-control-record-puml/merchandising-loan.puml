@@ -1,0 +1,289 @@
+@startuml
+title Merchandising Loan Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Merchandising Loan
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49656.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Amount Block Instance Record" as N294900 {
+  + Amount Block Amount : Amount
+  + Amount Block Expiry Date : DateTime
+  + Amount Block Priority Number : Number
+  + Amount Block Reason : Text
+  + Amount Block Reference : Identifier
+  + Amount Block Processing Instructions : Instruction
+  + Amount Block Originator Reference : InvolvedParty
+  + Amount Block Type : Text
+  + Amount Block Status : Status
+  + Amount Block Start Date : DateTime
+}
+
+class "BQ Charge Instance Record" as N294916 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Merchandising Loan Facility Reference : Identifier
+  + Service Fee Reference : Identifier
+  + Service Fee Type : Text
+  + Fee Type : FeeTypeValues
+  + Fee Amount : Amount
+  + Fee Rate : Rate
+  + Fee Calculation Method : Service Modality
+  + Fee Calculation Method Type : FeeCalculationBasisTypeValues
+  + Charge Bearer Reference : InvolvedParty
+  + Charge Bearer Type : ChargeBearerTypeValues
+  + Accrual Fee Amount : Amount
+  + Fee Payment Method : Service Modality
+  + Fee Payment Method Type : FeePaymentMethodTypeValues
+  + Fee Debit Account : Account
+  + Accrued Credit Debit Indicator : DebitCreditIndicatortValues
+  + Fee Application Frequency : FeeApplicationFrequencyValues
+  + Fee Calculation Frequency : FeeCalculationFrequencyValues
+  + Fee Credit Account : Account
+  + Fee Application Amount : Amount[1..n]
+  + Fee Application Credit Debit Indicator : DebitCreditIndicatortValues[1..n]
+  + Fee Application Date : DateTime[1..n]
+}
+
+class "BQ Financial Status Tracking Instance Record" as N294942 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Merchandising Loan Facility Reference : Identifier
+  + Account Statement Reference : Identifier
+  + Account Statement Type : Text
+}
+
+class "CR Merchandising Loan Facility Instance Record" as N294950 {
+  + Merchandising Loan Facility Parameter Type : FeatureTypeValues
+  + Merchandising Loan Facility Selected Option : Feature
+  + Merchandising Loan Facility Type : LoanProductTypeValues
+  + Merchandising Loan Facility Reference : Loan Arrangement
+  + Merchandising Loan Facility Schedule : Schedule
+  + Merchandising Loan Facility Status : Status
+  + Merchandising Loan Facility Associated Party : Party
+  + Merchandising Loan Facility Currency : CurrencyCode
+  + Merchandising Loan Facility Regulation Reference : Rule Set
+  + Merchandising Loan Facility Regulation Type : RuleSetTypeValues
+  + Merchandising Loan Facility Jurisdiction : Jurisdiction
+  + Merchandising Loan Facility Booking Location : Location
+  + Merchandising Loan Facility Account Type : AccountTypeValues
+  + Merchandising Loan Facility Account Reference : Account
+}
+
+class "BQ Interest Instance Record" as N294966 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Merchandising Loan Facility Reference : Identifier
+  + Interest Reference : Identifier
+  + Interest Type : Text
+  + Interest Type : InterestTypeValues
+  + Interest Amount : Amount
+  + Interest Rate : Rate
+  + Interest Rate Type : InterestRateTypeValues
+  + Interest Period : DateTimePeriod
+  + Interest Tax : Tax Arrangement
+  + Interest Fee : Fee Arrangement
+  + Interest Date : DateTime
+  + Interest Credit Debit Indicator : DebitCreditIndicatortValues
+  + Interest Calculation Method : InterestCalculationMethodTypeValues
+  + Interest Calculation Frequency : Frequency
+  + Interest Calculation Date : DateTime
+  + Interest Payment Frequency : Frequency
+  + Interest Accrual Date : DateTime
+  + Interest Accrual Type : InterestTypeValues
+  + Interest Accrual Amount : Amount
+  + Interest Transaction : Interest Transaction
+  + Interest Rate Application Schedule : Schedule
+}
+
+class "BQ Collateral Allocation Instance Record" as N294992 {
+  + Collateral Amount : Amount
+  + Collateral Agreement : Collateral Agreement
+  + Collateral Valuation : Collateral Asset Valuation
+  + Collateral Balance : AccountBalance
+  + Collateral Asset Reference : Collateral Asset
+  + Collateral Account : Account
+  + Collateral Type : CollateralTypeValues
+  + Collateral Involved Party : Collateral Involvement
+  + Collateral Status : Status
+}
+
+class "BQ Debit and Credit Instance Record" as N295002 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Merchandising Loan Facility Reference : Identifier
+  + Withdrawal Reference : Identifier
+  + Withdrawal Type : Text
+  + Withdrawal Type : WithdrawalTypeValues
+  + Withdrawal Transaction Source Reference : Object
+  + Withdrawal Transaction Withdrawal Type : WithdrawalTypeValues
+  + Withdrawal Transaction Description : Text
+  + Withdrawal Transaction Amount : Amount
+  + Withdrawal Transaction Date : Date
+  + Withdrawal Transaction : Payment Transaction
+}
+
+class "BQ Sweep Instance Record" as N295018 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Merchandising Loan Facility Reference : Identifier
+  + Sweep Reference : Identifier
+  + Sweep Type : Text
+  + Sweep Type : Text
+  + Sweep Definition : Text
+  + Sweep Application Schedule : Schedule
+  + Sweep Configuration : Sweep Arrangement
+  + Sweep Target Account : Financial Facility
+  + Sweep Mandate : Mandate
+  + Sweep Processing Schedule : Schedule
+  + Sweep Application Record : Sweep Transaction
+  + Sweep Amount : Amount
+  + Sweep Execution Date : DateTime
+}
+
+class "BQ Billing Instance Record" as N295037 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Merchandising Loan Facility Reference : Identifier
+  + Billing Reference : Identifier
+  + Billing Type : Text
+}
+
+class "BQ Booking Instance Record" as N295045 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Merchandising Loan Facility Reference : Identifier
+  + Booking Reference : Identifier
+  + Booking Type : Text
+}
+
+class "BQ Issued Device Instance Record" as N295056 {
+  + Device Property Setting
+  + Device Associated Permissions : Arrangement
+  + Account External Account Number : Identifier
+  + Device Type : DeviceTypeValues
+  + Device Option Definition : Feature
+  + Device Status : IssuedDeviceStatusTypeValues
+  + Device Issue Date : DateTime
+  + Customer Reference : InvolvedParty
+  + Device Delivery Method : Text
+  + Device Property Type : Feature
+  + Device Option Setting : Arrangement
+  + Device Valid from Date : DateTime
+  + Device Customer Customization Reference : DeviceCustomizationTypeValues
+  + Device Valid to Date : DateTime
+  + Account Identifier : AccountIdentification
+  + Issued Device Administration Reference : Device
+  + Device Party Reference : InvolvedParty
+  + Device Collect Location : Branch
+  + Device Processing Guidelines and Rules : Rule Set
+}
+
+class "BQ Deposit Instance Record" as N295077 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Merchandising Loan Facility Reference : Identifier
+  + Deposit Reference : Identifier
+  + Deposit Type : Text
+  + Deposit Type : DepositTypeValues
+  + Deposit Transaction Source Reference : Object
+  + Deposit Transaction Deposit Type : DepositTypeValues
+  + Deposit Transaction Description : Text
+  + Deposit Transaction Amount : Amount
+  + Deposit Transaction Date : Date
+  + Deposit Transaction : Deposit Transaction
+}
+
+class "Merchandising Loan" as N295093 {
+}
+note right of N295093
+  BOMDiagram: Merchandising Loan BOM Diagram
+end note
+
+class "BQ Payment Instance Record" as N295148 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Merchandising Loan Facility Reference : Identifier
+  + Payment Reference : Identifier
+  + Payment Type : Text
+  + Payment Definition : Text
+  + Payment Type : PaymentTypeValues
+  + Bil Pay Mandate Settings : Bill Pay Mandate Facility Arrangement
+  + Payment Transaction Fee Charge : Amount
+  + Payment Transaction Payment Mechanism : Text
+  + Payment Transaction Date : DateTime[1..*]
+  + Bill Pay Mandate Reference : Bill Pay Mandate
+  + Payment Transaction Type : PaymentTypeValues
+  + Payment Transaction Bank Branch/Location Reference : Location
+  + Payment Transaction Amount : Amount
+  + Direct Debit Mandate Settings : Direct Debit Mandate Arrangement
+  + Payment Configuration : Payment Arrangement
+  + Payment Transaction Payee Reference : Payment Transaction Involvement
+  + Payment Transaction Fee Type : FeeTypeValues
+  + Payment Transaction : Payment Transaction
+  + Payment Processing Option Setting : Payment Processing Arrangement
+  + Payment Transaction Payment Purpose : PaymentPurposeValues
+  + Payment Transaction Status : PaymentTransactionStatusTypeValues
+  + Payment Transaction Payee Bank Reference : Payment Transaction Involvement
+  + Direct Debit Mandate Reference : Direct Debit Mandate
+  + Payment Schedule : Schedule
+  + Payment Processinng Option Definition : Payment Processing Arrangement
+  + Payment Transaction Payee Account Reference : Payment Transaction Account
+  + Payment Transaction Date Type : PaymentDateTimeTypeValues[1..*]
+  + Payment Involved Party Reference : Party
+  + Payment Involvement Type : PaymentInvolvementTypeValues
+}
+
+' Relationships
+N294950 "0..1" -- "0..1" N295056
+N294950 "0..1" -- "0..1" N295077
+N294950 "0..1" -- "0..1" N294966
+N294950 "0..1" -- "0..1" N295148
+N294950 "0..1" -- "0..1" N295037
+N294950 "0..1" -- "0..1" N294916
+N294950 "0..1" -- "0..1" N295018
+N294950 "0..1" -- "0..1" N294942
+N294950 "0..1" -- "0..1" N295045
+N294950 "0..1" -- "0..1" N295002
+N294950 "0..1" -- "0..1" N294900
+N294950 "0..1" -- "0..1" N294992
+
+@enduml

@@ -1,0 +1,124 @@
+@startuml
+title Public Offering Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Public Offering
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_42894.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Instrument Design Instance Record" as N274408 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Public Offering Facility Reference : Financial Facility
+  + Public Placement Instrument Specification Fulfillment Reference : Arrangement
+  + Public Placement Instrument Specification Fulfillment Type : Text
+}
+
+class "BQ Item Registration Instance Record" as N274416 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Public Offering Facility Reference : Financial Facility
+  + Public Placement Instrument Registration Fulfillment Reference : Arrangement
+  + Public Placement Instrument Registration Fulfillment Type : Text
+}
+
+class "BQ Prospectus Instance Record" as N274424 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Public Offering Facility Reference : Financial Facility
+  + Public Placement Prospectus Fulfillment Reference : Arrangement
+  + Public Placement Prospectus Fulfillment Type : Text
+}
+
+class "BQ Placement Instance Record" as N274432 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Public Offering Facility Reference : Financial Facility
+  + Public Placement Roadshow and Marketing Fulfillment Reference : Arrangement
+  + Public Placement Roadshow and Marketing Fulfillment Type : Text
+}
+
+class "CR Public Offering Facility Instance Record" as N274440 {
+  + Public Offering Facility Parameter Type : FeatureTypeValues
+  + Public Offering Facility Selected Option : Feature
+  + Public Offering Facility Type : BankingProductType
+  + Public Offering Facility Calendar Reference : Calendar
+  + Public Offering Facility Status : Status
+  + Public Offering Facility Associated Party : InvolvedParty
+  + Public Offering Facility Currency : CurrencyCode
+  + Public Offering Facility Regulation Reference : Rule Set
+  + Public Offering Facility Regulation Type : RuleSetType
+  + Public Offering Facility Jurisdiction : Jurisdiction
+  + Public Offering Facility Booking Location : Business Unit
+  + Public Offering Facility Account Type : AccountTypeValues
+  + Public Offering Facility Account Reference : Account
+  + Public Offering Facility Customer Reference : InvolvedParty
+  + Public Offering Facility Position : Position
+  + Public Offering Facility Product Reference : Product
+  + Public Offering Facility Position Limit : Limit Arrangement
+  + Public Offering Facility Reference : Financial Facility
+}
+
+class "BQ Compliance Instance Record" as N274459 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Public Offering Facility Reference : Financial Facility
+  + Public Placement Financial Assessment and Audit Fulfillment Reference : Arrangement
+  + Public Placement Financial Assessment and Audit Fulfillment Type : Text
+}
+
+class "Public Offering" as N274470 {
+}
+note right of N274470
+  BOMDiagram: Public Offering BOM Diagram
+end note
+
+class "BQ Underwriting Instance Record" as N274521 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Public Offering Facility Reference : Financial Facility
+  + Public Placement IPO and Underwriting Fulfillment Reference : Arrangement
+  + Public Placement IPO and Underwriting Fulfillment Type : Text
+}
+
+' Relationships
+N274440 "0..1" -- "0..1" N274521
+N274440 "0..1" -- "0..1" N274424
+N274440 "0..1" -- "0..1" N274432
+N274440 "0..1" -- "0..1" N274459
+N274440 "0..1" -- "0..1" N274408
+N274440 "0..1" -- "0..1" N274416
+
+@enduml

@@ -1,0 +1,79 @@
+@startuml
+title Production Release Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Production Release
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_43052.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Functional Risk Instance Record" as N315041 {
+  + Functional Risk System Test Type : Text
+  + Functional Risk System Test Description : Text
+  + Functional Risk System Test Work Product : WorkProduct
+  + Functional Risk System Test Result : Test
+}
+
+class "Production Release" as N315047 {
+}
+
+class "BQ Operational Risk Instance Record" as N315063 {
+  + Operational Risk System Test Type : Text
+  + Operational Risk System Test Description : Text
+  + Operational Risk System Test Work Product : WorkProduct
+  + Operational Risk System Test Result : Test
+}
+
+class "CR Production System Assessment Instance Record" as N315068 {
+  + Production Release Name : Name
+  + Employee or Business Unit Reference : InvolvedParty
+  + Production Release Type : Text
+  + Production Release Description : Text
+  + Production Release Test Profile : Profile
+  + Production Release Test Schedule : Schedule
+  + Production Release Consolidation Record : Text
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Date Type : DateTimeTypeValues
+  + Date : DateTime
+}
+
+class "BQ Production Risk Instance Record" as N315079 {
+  + Production Risk System Test Type : Text
+  + Production Risk System Test Description : Text
+  + Production Risk System Test Work Product : WorkProduct
+  + Production Risk System Test Result : Test
+}
+
+class "BQ Business Risk Instance Record" as N315085 {
+  + Business Risk System Test Type : Text
+  + Business Risk System Test Description : Text
+  + Business Risk Test Work Product : WorkProduct
+  + Business Risk Test Result : Test
+}
+
+' Relationships
+N315041 "0..* / 0..1" -- N315068
+N315079 "0..* / 0..1" -- N315068
+N315085 "0..*" -- "0..1" N315068
+N315063 "0..*" -- "0..1" N315068
+
+@enduml

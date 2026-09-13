@@ -1,0 +1,53 @@
+@startuml
+title Term Deposit Framework Agreement Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Term Deposit Framework Agreement
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_32890.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Term Deposit Framework Agreement Facility Instance Record" as N324500 {
+  + Term Deposit Framework Agreement Facility Parameter Type : FeatureTypeValues
+  + Term Deposit Framework Agreement Facility Selected Option : Feature
+  + Term Deposit Framework Agreement Facility Type : BankingProductType
+  + Term Deposit Framework Agreement Facility Calendar Reference : Calendar
+  + Term Deposit Framework Agreement Facility Status : Status
+  + Term Deposit Framework Agreement Facility Associated Party : InvolvedParty
+  + Term Deposit Framework Agreement Facility Currency : CurrencyCode
+  + Term Deposit Framework Agreement Facility Regulation Reference : Rule Set
+  + Term Deposit Framework Agreement Facility Regulation Type : RuleSetType
+  + Term Deposit Framework Agreement Facility Jurisdiction : Jurisdiction
+  + Term Deposit Framework Agreement Facility Booking Location : Business Unit
+  + Term Deposit Framework Agreement Facility Account Type : ActionType
+  + Term Deposit Framework Agreement Facility Account Reference : Account
+  + Term Deposit Framework Agreement Facility Customer Reference : InvolvedParty
+  + Term Deposit Framework Agreement Facility Position : Position
+  + Term Deposit Framework Agreement Facility Product Reference : Product
+  + Term Deposit Framework Agreement Facility Position Limit : Limit Arrangement
+  + Term Deposit Framework Agreement Facility Reference : Financial Facility
+}
+
+class "Term Deposit Framework Agreement" as N324540 {
+}
+
+@enduml

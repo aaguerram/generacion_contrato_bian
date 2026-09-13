@@ -1,0 +1,81 @@
+@startuml
+title Customer Workbench Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Customer Workbench
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_33873.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Browsing Instance Record" as N288708 {
+  + Customer URL : Object
+  + Bank Website URL : Object
+}
+
+class "BQ Contact Instance Record" as N288711 {
+  + Contact Start/End Time : DateTime
+  + Contact Activity Log : Log
+}
+
+class "CR Customer Workbench Operating Session Instance Record" as N288714 {
+  + Customer Reference : InvolvedParty
+  + Customer Workbench Device Type : DeviceTypeValues
+  + Customer Workbench Device Registration : Object
+  + Customer Workbench Device Manufacturer : Object
+  + Customer Workbench Device Operating System/Version Number : Number
+  + Customer Workbench Device Access Permissions : Arrangement
+  + Installed Bank Application Type : Text
+  + Installed Bank Application Version Number : Number
+  + Last Update Date and Time : Text
+}
+
+class "BQ ProductandService Access Instance Record" as N288727 {
+  + Customer Details/Preferences : Text
+  + ProductandService Menu : Object
+  + ProductandService Menu Access Log : Log
+  + Access Start/End Time : DateTime
+  + Customer Resident Files : Object
+}
+
+class "BQ SW Update Instance Record" as N288733 {
+  + SW Update Application : Text
+  + SW Update Version : Text
+  + SW Update Image : Text
+  + Date : DateTime
+}
+
+class "BQ Broadcast Instance Record" as N288738 {
+  + Customer Workbench Broadcast Record : Object
+  + Customer Workbench Broadcast Record Date and Time : DateTime
+}
+
+class "Customer Workbench" as N288743 {
+}
+
+' Relationships
+N288733 "0..*" -- "0..1" N288714
+N288738 "0..* / 0..1" -- N288714
+N288714 "0..1" -- "0..*" N288708
+N288714 "0..1" -- "0..*" N288711
+N288714 "0..1 / 0..*" -- N288727
+
+@enduml

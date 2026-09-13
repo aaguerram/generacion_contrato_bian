@@ -1,0 +1,91 @@
+@startuml
+title Private Placement Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Private Placement
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_29819.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Private Placement Facility Instance Record" as N278650 {
+  + Private Placement Facility Parameter Type : FeatureTypeValues
+  + Private Placement Facility Selected Option : Feature
+  + Private Placement Facility Type : BankingProductType
+  + Private Placement Facility Calendar Reference : Calendar
+  + Private Placement Facility Status : Status
+  + Private Placement Facility Associated Party : InvolvedParty
+  + Private Placement Facility Currency : CurrencyCode
+  + Private Placement Facility Regulation Reference : Rule Set
+  + Private Placement Facility Regulation Type : RuleSetType
+  + Private Placement Facility Jurisdiction : Jurisdiction
+  + Private Placement Facility Booking Location : Business Unit
+  + Private Placement Facility Account Type : AccountTypeValues
+  + Private Placement Facility Account Reference : Account
+  + Private Placement Facility Customer Reference : InvolvedParty
+  + Private Placement Facility Position : Position
+  + Private Placement Facility Product Reference : Product
+  + Private Placement Facility Position Limit : Limit Arrangement
+  + Private Placement Facility Reference : Financial Facility
+}
+
+class "Private Placement" as N278669 {
+}
+note right of N278669
+  BOMDiagram: Private Placement BOM Diagram
+end note
+
+class "BQ Maintenance Instance Record" as N278700 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Private Placement Facility Reference : Financial Facility
+  + Private Placement Instrument Maintenance Fulfillment Reference : Arrangement
+  + Private Placement Instrument Maintenance Fulfillment Type : Text
+}
+
+class "BQ Instrument Design Instance Record" as N278708 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Private Placement Facility Reference : Financial Facility
+  + Private Placement Instrument Specification Fulfillment Reference : Arrangement
+  + Private Placement Instrument Specification Fulfillment Type : Text
+}
+
+class "BQ Placement Instance Record" as N278717 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Private Placement Facility Reference : Financial Facility
+  + Private Placement Fulfillment Reference : Arrangement
+  + Private Placement Fulfillment Type : Text
+}
+
+' Relationships
+N278650 "0..1" -- "0..1" N278700
+N278650 "0..1" -- "0..1" N278717
+N278650 "0..1" -- "0..1" N278708
+
+@enduml

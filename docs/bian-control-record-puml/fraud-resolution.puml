@@ -1,0 +1,78 @@
+@startuml
+title Fraud Resolution Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Fraud Resolution
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_48224.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Case Resolution Instance Record" as N308794 {
+  + Fraud Case Resolution Record : Fraud Case Resolution
+  + Employee or Business Unit Reference : InvolvedParty
+  + Correspondence Reference : Correspondence
+  + Adjustment/Chargeback Reference : Fee Arrangement
+  + Consortia Reporting Instance Reference : Identifier
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Payment Order Reference : Payment Instruction
+}
+
+class "Fraud Resolution" as N308803 {
+}
+
+class "CR Fraud Resolution Procedure Instance Record" as N308814 {
+  + Fraud Case Type : CaseTypeValues
+  + Product Instance Reference : Product Agreement
+  + Customer Reference : InvolvedParty
+  + Merchant Reference : Merchant
+  + Intersted Party Reference : Party
+  + Contact Reference : Customer Contact
+  + Transaction Reference : Transaction
+  + Transaction Record : Transaction
+  + Case Location : Address
+  + Date : DateTime
+  + Employee/Business Unit Reference : Business Unit
+  + Fraud Case Work Products : WorkProduct
+  + Fraud Case Resolution Schedule : Schedule
+  + Fraud Case Status : Status
+}
+
+class "BQ Case Determination Instance Record" as N308830 {
+  + Customer Agreement Reference : Customer Agreement
+  + Customer Agreement : Customer Agreement
+  + Merchant Agreement Reference : Merchant Agreement
+  + Merchant Agreement : Merchant Agreement
+  + Interested Party Agreement Reference : Agreement
+  + Interested Party Agreement : Agreement
+  + Fraud Case Determination Record : Fraud Case Determination
+}
+
+class "BQ Case Analysis Instance Record" as N308838 {
+  + Fraud Case Root Cause : Case
+}
+
+' Relationships
+N308838 "0..*" -- "0..1" N308814
+N308830 "0..*" -- "0..1" N308814
+N308794 "0..*" -- "0..1" N308814
+
+@enduml

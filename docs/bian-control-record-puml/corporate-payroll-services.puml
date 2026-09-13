@@ -1,0 +1,73 @@
+@startuml
+title Corporate Payroll Services Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Corporate Payroll Services
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_47208.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Corporate Payroll Services" as N284414 {
+}
+note right of N284414
+  BOMDiagram: Corporate Payroll Services BOM Diagram
+end note
+
+class "BQ Issue Resolution Instance Record" as N284434 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Lock Box Facility Reference : Financial Facility
+  + Issue Resolution Reference : Object
+  + Issue Resolution Type : Text
+}
+
+class "BQ Transaction Batch Instance Record" as N284443 {
+}
+
+class "CR Employee Payment Services Facility Instance Record" as N284444 {
+  + Employee Payment Services Facility Parameter Type : FeatureTypeValues
+  + Employee Payment Services Facility Selected Option : Feature
+  + Employee Payment Services Facility Type : BankingProductType
+  + Employee Payment Services Facility Calendar Reference : Calendar
+  + Employee Payment Services Facility Status : Status
+  + Employee Payment Services Facility Associated Party : InvolvedParty
+  + Employee Payment Services Facility Currency : CurrencyCode
+  + Employee Payment Services Facility Regulation Reference : Rule Set
+  + Employee Payment Services Facility Regulation Type : RuleSetType
+  + Employee Payment Services Facility Jurisdiction : Jurisdiction
+  + Employee Payment Services Facility Booking Location : Business Unit
+  + Employee Payment Services Facility Account Type : AccountTypeValues
+  + Employee Payment Services Facility Account Reference : Account
+  + Employee Payment Services Facility Customer Reference : InvolvedParty
+  + Employee Payment Services Facility Position : Position
+  + Employee Payment Services Facility Product Reference : Product
+  + Employee Payment Services Facility Position Limit : Limit Arrangement
+  + Employee Payment Services Facility Reference : Financial Facility
+}
+
+' Relationships
+N284444 "0..1" -- "0..1" N284443
+N284444 "0..1" -- "0..1" N284434
+
+@enduml

@@ -1,0 +1,226 @@
+@startuml
+title Current Account Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Current Account
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_31263.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Booking Instance Record" as N305860 {
+  + Transaction Priority Number : Number
+  + Value Date : DateTime
+  + Authorization Result : Text
+  + Position Keeping Reference : Account Entry
+  + Booking Amount : Amount
+  + Authorization Rejection Reason : Text
+  + Account Reference : Account
+  + Booking Date : DateTime
+}
+
+class "BQ Payment Instance Record" as N305870 {
+  + Payment Type : PaymentTypeValues
+  + Payment Definition : Text
+  + Payment Processinng Option Definition : Payment Processing Arrangement
+  + Payment Processing Option Setting : Payment Processing Arrangement
+  + Payment Configuration : Payment Arrangement
+  + Payment Schedule : Schedule
+  + Direct Debit Mandate Reference : Direct Debit Mandate
+  + Direct Debit Mandate Settings : Direct Debit Mandate Arrangement
+  + Bill Pay Mandate Reference : Bill Pay Mandate
+  + Bil Pay Mandate Settings : Bill Pay Mandate Facility Arrangement
+  + Payment Transaction : Payment Transaction
+  + Payment Transaction Type : PaymentTypeValues
+  + Payment Transaction Payee Reference : InvolvedParty
+  + Payment Transaction Payee Account Reference : Account
+  + Payment Transaction Payee Bank Reference : InvolvedParty
+  + Payment Transaction Amount : Amount
+  + Payment Transaction Fee Type : FeeTypeValues
+  + Payment Transaction Fee Charge : Amount
+  + Payment Transaction Date : DateTime[1..*]
+  + Payment Transaction Payment Mechanism : Text
+  + Payment Transaction Payment Purpose : PaymentPurposeValues
+  + Payment Transaction Bank Branch/Location Reference : Location
+  + Payment Transaction Status : PaymentTransactionStatus
+  + Payment Transaction Date Type : PaymentDateTimeTypeValues[1..*]
+  + Payment Involved Party Reference : Party
+  + Payment Involvement Type : PaymentInvolvementTypeValues
+}
+
+class "BQ Deposit Instance Record" as N305899 {
+  + Deposit Type : DepositTypeValues
+  + Deposit Transaction : Deposit Transaction
+  + Deposit Transaction Source Reference : Object
+  + Deposit Transaction Deposit Type : DepositTypeValues
+  + Deposit Transaction Description : Text
+  + Deposit Transaction Amount : Amount
+  + Deposit Transaction Date : Date
+}
+
+class "BQ Sweep Instance Record" as N305909 {
+  + Sweep Type : Text
+  + Sweep Definition : Text
+  + Sweep Application Schedule : Schedule
+  + Sweep Configuration : Sweep Arrangement
+  + Target Account : Financial Facility
+  + Sweep Mandate : Mandate
+  + Sweep Processing Schedule : Schedule
+  + Sweep Application Record : Sweep Transaction
+  + Sweep Target Account : Financial Facility
+  + Sweep Amount : Amount
+  + Sweep Execution Date : DateTime
+}
+
+class "BQ Financial Status Tracking Instance Record" as N305922 {
+}
+
+class "BQ Charge Instance Record" as N305923 {
+  + Fee Credit Account : Account
+  + Fee Rate : Rate
+  + Fee Calculation Method : Service Modality
+  + Fee Payment Method Type : FeePaymentMethodTypeValues
+  + Charge Bearer Type : ChargeBearerTypeValues
+  + Fee Calculation Method Type : FeeCalculationBasisTypeValues
+  + Fee Type : FeeTypeValues
+  + Charge Bearer Reference : InvolvedParty
+  + Fee Payment Method : Service Modality
+  + Fee Application Date : DateTime[1..n]
+  + Fee Application Credit Debit Indicator : DebitCreditIndicatortValues[1..n]
+  + Accrued Credit Debit Indicator : DebitCreditIndicatortValues
+  + Fee Calculation Frequency : FeeCalculationFrequencyValues
+  + Fee Amount : Amount
+  + Fee Application Frequency : FeeApplicationFrequencyValues
+  + Fee Application Amount : Amount[1..n]
+  + Fee Debit Account : Account
+  + Accrual Fee Amount : Amount
+}
+
+class "BQ Debit and Credit Instance Record" as N305942 {
+  + Withdrawal Type : WithdrawalTypeValues
+  + Withdrawal Transaction : Payment Transaction
+  + Withdrawal Transaction Source Reference : Object
+  + Withdrawal Transaction Withdrawal Type : WithdrawalTypeValues
+  + Withdrawal Transaction Description : Text
+  + Wihdrawal Transaction Amount : Amount
+  + Withdrawal Transaction Date : Date
+}
+
+class "BQ Amount Block Instance Record" as N305950 {
+  + Amount Block Reference : Identifier
+  + Amount Block Type : Text
+  + Amount Block Priority Number : Number
+  + Amount Block Processing Instructions : Instruction
+  + Amount Block Reason : Text
+  + Amount Block Originator Reference : InvolvedParty
+  + Amount Block Amount : Amount
+  + Amount Block Start Date : DateTime
+  + Amount Block Expiry Date : DateTime
+  + Amount Block Status : Status
+}
+
+class "BQ Interest Instance Record" as N305962 {
+  + Interest Period : DateTimePeriod
+  + Interest Amount : Amount
+  + Interest Type : InterestTypeValues
+  + Interest Date : DateTime
+  + Interest Accrual Date : DateTime
+  + Interest Tax : Tax Arrangement
+  + Interest Calculation Date : DateTime
+  + Interest Calculation Method : InterestCalculationMethodTypeValues
+  + Interest Accrual Amount : Amount
+  + Interest Accrual Type : InterestTypeValues
+  + Interest Credit Debit Indicator : DebitCreditIndicatortValues
+  + Interest Transaction : Interest Transaction
+  + Interest Fee : Fee Arrangement
+  + Interest Rate : Rate
+  + Interest Rate Type : InterestRateTypeValues
+  + Interest Payment Frequency : Frequency
+  + Interest Calculation Frequency : Frequency
+  + Interest Rate Application Schedule : Schedule
+}
+
+class "CR Current Account Facility Instance Record" as N305982 {
+  + Product Instance Reference : Current Account Agreement
+  + Current Account Number : AccountIdentification
+  + Customer Reference : Item Inventory
+  + Bank Branch/Location Reference : Branch
+  + Account Type : CurrentAccountTypeValues
+  + Account Currency : AccountCurrency
+  + Tax Reference : Identifier
+  + Entitlement Option Definition : Party Obligation or Entitlement
+  + Entitlement Option Setting : Party Obligation or Entitlement
+  + Restriction Option Definition : Account Restriction
+  + Restriction Option Setting : Account Restriction
+  + Associations : Account Involvement
+  + Association Type : AccountInvolvementTypeValues
+  + Association Obligation or Entitlement : Party Obligation or Entitlement
+  + Association Reference : Party
+  + Linked Accounts : Account
+  + Link Type : Account_AccountRelationshipTypeValues
+  + Account Details : Account
+  + Limit Type : LimitTypeValues
+  + Limit Settings : Limit Arrangement
+  + Limit Value : Value
+  + Account Date Type : AccountDateTimeTypeValues
+  + Account Date : DateTime
+  + Account Balance : AccountBalance
+  + Account Status : AccountStatusTypeValues
+}
+
+class "BQ Issued Device Instance Record" as N306009 {
+  + Account Identifier : AccountIdentification
+  + Account External Account Number : Identifier
+  + Device Valid to Date : DateTime
+  + Device Valid from Date : DateTime
+  + Device Customer Customization Reference : DeviceCustomizationTypeValues
+  + Customer Reference : InvolvedParty
+  + Device Collect Location : Branch
+  + Device Party Reference : InvolvedParty
+  + Device Type : DeviceTypeValues
+  + Device Delivery Method : Text
+  + Device Issue Date : DateTime
+  + Device Associated Permissions : Arrangement
+  + Issued Device Administration Reference : Device
+  + Device Property Type : Feature
+  + Device Property Setting : Arrangement
+  + Device Option Setting : Arrangement
+  + Device Option Definition : Feature
+  + Device Status : IssuedDeviceStatusTypeValues
+  + Device Processing Guidelines and Rules : Rule Set
+}
+
+class "Current Account" as N306030 {
+}
+
+' Relationships
+N305870 "0..*" -- "0..1" N305982
+N305942 "0..*" -- "0..1" N305982
+N305909 "0..*" -- "0..1" N305982
+N305982 "0..1" -- "0..*" N305922
+N305962 "0..*" -- "0..1" N305982
+N306009 "0..*" -- "0..1" N305982
+N305982 "0..1" -- "0..1" N305860
+N305923 "0..*" -- "0..1" N305982
+N305982 "0..1" -- "0..*" N305950
+N305982 "0..1" -- "0..*" N305899
+
+@enduml

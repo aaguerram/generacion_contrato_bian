@@ -1,0 +1,67 @@
+@startuml
+title Channel Activity History Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Channel Activity History
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_35817.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Event Instance Record" as N297576 {
+  + Employee Reference : Employee
+  + Product Reference : Product
+  + Product Instance Reference : Product Agreement
+  + Customer Contact Record Reference : Customer Contact
+  + Customer Contact Record : Customer Contact
+  + Customer Contact Record Customer Reference : InvolvedParty
+  + Customer Contact Record Contact Device : Device
+  + Customer Contact Record Authentication Status : Status
+  + Customer Contact Record Routing Selection Status : Status
+  + Customer Contact Record Menu Selection : Text
+  + Customer Contact Record Servicing Request : Instruction
+  + Customer Contact Record Servicing Event History : Text
+  + Customer Contact Record Servicing Position Reference : Position
+  + Customer Contact Record Servicing Resource Reference : Servicing Resource
+  + Customer Contact Record Activity Record : Customer Event Log
+  + Customer Session Dialogue Reference : Dialogue Session
+  + Customer Session Dialogue Record : Dialogue Session
+  + Customer Contact Record Duration : Duration
+  + Customer Contact Activity Record : Customer Contact
+  + Customer Contact Result : Customer Contact
+  + Channel Activity History Report Reference : Report
+  + Channel Activity History Report From/to : DateTimePeriod
+  + Channel Activity History Report : Report
+  + Transaction Authorization Result : Transaction Authorization
+}
+
+class "CR Channel Activity Log Instance Record" as N297602 {
+  + Customer Reference : InvolvedParty
+  + Date : DateTime
+}
+
+class "Channel Activity History" as N297605 {
+}
+
+' Relationships
+N297602 "0..1" -- "0..*" N297576
+
+@enduml

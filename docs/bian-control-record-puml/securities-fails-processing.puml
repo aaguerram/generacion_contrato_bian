@@ -1,0 +1,85 @@
+@startuml
+title Securities Fails Processing Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Securities Fails Processing
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_41332.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Securities Fails Processing" as N318668 {
+}
+note right of N318668
+  BOMDiagram: Securities Fails Processing BOM Diagram
+end note
+
+class "BQ Securities Fail Analysis Instance Record" as N318691 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Security Trading Fails Procedure Reference : Procedure
+  + Securities Fail Analysis Workstep Reference : Workstep
+  + Securities Fail Analysis Workstep Type : Text
+}
+
+class "BQ Securities Fail Determination Instance Record" as N318700 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Security Trading Fails Procedure Reference : Procedure
+  + Securities Fail Determination Workstep Reference : Workstep
+  + Securities Fail Determination Workstep Type : Text
+}
+
+class "CR Security Trading Fails Procedure Instance Record" as N318709 {
+  + Security Trading Fails Procedure Parameter Type : FeatureTypeValues
+  + Security Trading Fails Procedure Selected Option : Feature
+  + Security Trading Fails Procedure Request : Instruction
+  + Security Trading Fails Procedure Schedule : Schedule
+  + Security Trading Fails Procedure Status : Status
+  + Security Trading Fails Procedure Associated Party Reference : InvolvedParty
+  + Security Trading Fails Procedure Business Unit Reference : InvolvedParty
+  + Security Trading Fails Procedure Service Provider Reference : InvolvedParty
+  + Security Trading Fails Procedure Financial Facility Reference : Financial Facility
+  + Security Trading Fails Procedure Employee Reference : InvolvedParty
+  + Security Trading Fails Procedure Customer Reference : InvolvedParty
+  + Security Trading Fails Procedure Type : ProcedureType
+  + Security Trading Fails Procedure Service Provider Schedule : Schedule
+  + Security Trading Fails Procedure Service Type : ServiceType
+  + Security Trading Fails Procedure Product and Service Type : BankingProductType
+  + Security Trading Fails Procedure Product and Service Instance : Product
+  + Security Trading Fails Procedure Transaction Type : TransactionType
+  + Security Trading Fails Procedure Transaction : Transaction
+  + Security Trading Fails Procedure Financial Transaction Arrangement : Arrangement
+  + Security Trading Fails Procedure Customer Agreement Reference : Agreement
+  + Security Trading Fails Procedure Reference : Procedure
+}
+
+' Relationships
+N318709 "0..1" -- "0..1" N318700
+N318709 "0..1" -- "0..1" N318691
+
+@enduml

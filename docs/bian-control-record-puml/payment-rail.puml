@@ -1,0 +1,90 @@
+@startuml
+title Payment Rail Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Payment Rail
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_50907.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Outbound Transaction Instance Record" as N328762 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Payment Rail Operating Session Reference : Session
+  + Outbound Transaction Function Reference : Function
+  + Outbound Transaction Function Type : Text
+}
+
+class "BQ Payment Account Reconciliation Instance Record" as N328770 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Payment Rail Operating Session Reference : Session
+  + Payment Account Reconciliation Function Reference : Function
+  + Payment Account Reconciliation Function Type : Text
+}
+
+class "BQ Inbound Transaction Instance Record" as N328777 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Payment Rail Operating Session Reference : Session
+  + Inbound Transaction Function Reference : Function
+  + Inbound Transaction Function Type : Text
+}
+
+class "Payment Rail" as N328784 {
+}
+note right of N328784
+  BOMDiagram: Payment Rail BOM Diagram
+end note
+
+class "CR Payment Rail Operating Session Instance Record" as N328821 {
+  + Payment Rail Operating Session Schedule : Schedule
+  + Payment Rail Operating Session Status : Status
+  + Payment Rail Operating Session Usage Log : Log
+  + Payment Rail Operating Session Associated Party Reference : InvolvedParty
+  + Payment Rail Operating Session Service Provider Reference : InvolvedParty
+  + Payment Rail Operating Session Type : SessionType
+  + Payment Rail Operating Session Service Provider Schedule : Schedule
+  + Payment Rail Operating Session Service Type : ServiceType
+  + Payment Rail Operating Session Service Configuration : System Configuration Option
+  + Payment Rail Operating Session Reference : Session
+}
+
+class "BQ Payment Clearing and Settlement Instance Record" as N328832 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Payment Rail Operating Session Reference : Session
+  + Payment Clearing and Settlement Function Reference : Function
+  + Payment Clearing and Settlement Function Type : Text
+}
+
+' Relationships
+N328821 "0..1" -- "0..1" N328832
+N328821 "0..1" -- "0..1" N328770
+N328821 "0..1" -- "0..1" N328777
+N328821 "0..1" -- "0..1" N328762
+
+@enduml

@@ -1,0 +1,158 @@
+@startuml
+title Hedge Fund Administration Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Hedge Fund Administration
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_46080.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Fund Investor, Middle and Back Office Service Instance Record" as N300455 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Hedge Fund Administrative Plan Reference : Plan
+  + Fund Investor, Middle and Back Office Service Routine Reference : Planned Action
+  + Fund Investor, Middle and Back Office Service Routine Type : Text
+}
+
+class "BQ Fund Enrolment Certification Instance Record" as N300464 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Hedge Fund Administrative Plan Reference : Plan
+  + Fund Enrolment Certification Routine Reference : Planned Action
+  + Fund Enrolment Certification Routine Type : Text
+}
+
+class "BQ Fund Tax Administration Instance Record" as N300473 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Hedge Fund Administrative Plan Reference : Plan
+  + Fund Tax Administration Routine Reference : Planned Action
+  + Fund Tax Administration Routine Type : Text
+}
+
+class "Hedge Fund Administration" as N300484 {
+}
+note right of N300484
+  BOMDiagram: Hedge Fund Administration BOM Diagram
+end note
+
+class "BQ Fund Inflows and Outflow Instance Record" as N300547 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Hedge Fund Administrative Plan Reference : Plan
+  + Fund Inflows and Outflow Routine Reference : Planned Action
+  + Fund Inflows and Outflow Routine Type : Text
+}
+
+class "CR Hedge Fund Administrative Plan Instance Record" as N300557 {
+  + Hedge Fund Administrative Plan Budget Type : BudgetType
+  + Hedge Fund Administrative Plan Budget : Amount
+  + Hedge Fund Administrative Plan Assignment : Assignment
+  + Hedge Fund Administrative Plan Duty : Arrangement
+  + Hedge Fund Administrative Plan Associated Party : InvolvedParty
+  + Hedge Fund Administrative Plan Budget Balance : AccountBalance
+  + Hedge Fund Administrative Plan Subject Matter : Object
+  + Hedge Fund Administrative Plan Type : PlanType
+  + Hedge Fund Administrative Plan Reference : Plan
+  + Hedge Fund Administrative Plan Description : Text
+}
+
+class "BQ Fund Accounting Instance Record" as N300569 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Hedge Fund Administrative Plan Reference : Plan
+  + Fund Accounting Routine Reference : Planned Action
+  + Fund Accounting Routine Type : Text
+}
+
+class "BQ Fund Performance Fee Instance Record" as N300578 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Hedge Fund Administrative Plan Reference : Plan
+  + Fund Performance Fee Routine Reference : Planned Action
+  + Fund Performance Fee Routine Type : Text
+}
+
+class "BQ Fund Financial Reporting Instance Record" as N300589 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Hedge Fund Administrative Plan Reference : Plan
+  + Fund Financial Reporting Routine Reference : Planned Action
+  + Fund Financial Reporting Routine Type : Text
+}
+
+class "BQ Fund Management Instance Record" as N300598 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Hedge Fund Administrative Plan Reference : Plan
+  + Fund Management Routine Reference : Planned Action
+  + Fund Management Routine Type : Text
+}
+
+class "BQ Fund Development Instance Record" as N300608 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Hedge Fund Administrative Plan Reference : Plan
+  + Fund Development Routine Reference : Planned Action
+  + Fund Development Routine Type : Text
+}
+
+' Relationships
+N300557 "0..1" -- "0..1" N300455
+N300557 "0..1" -- "0..1" N300547
+N300557 "0..1" -- "0..1" N300589
+N300557 "0..1" -- "0..1" N300608
+N300557 "0..1" -- "0..1" N300473
+N300557 "0..1" -- "0..1" N300464
+N300557 "0..1" -- "0..1" N300569
+N300557 "0..1" -- "0..1" N300578
+N300557 "0..1" -- "0..1" N300598
+
+@enduml

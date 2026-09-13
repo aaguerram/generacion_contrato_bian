@@ -1,0 +1,55 @@
+@startuml
+title Customer Product And Service Eligibility Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Customer Product And Service Eligibility
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_39363.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Customer Product And Service Eligibility" as N273113 {
+}
+
+class "BQ Eligibility Check Instance Record" as N273125 {
+  + Customer Product and Service Eligibility Assessment Result : Customer Product Profile Assessment
+}
+
+class "CR Customer Eligibility Assessment Instance Record" as N273127 {
+  + Customer Reference : InvolvedParty
+  + Customer Product and Service Profile : Customer Product and Service Profile
+  + Product and Service Type : CustomerProductServiceProfileTypeValues
+  + Customer Product and Service Type Eligibility : Arrangement
+  + Customer Product and Service Type Usage : Product Usage
+  + Date : Date
+}
+
+class "BQ Next Best Instance Record" as N273134 {
+  + Requested Product and Service Properties : Product Feature
+  + Product Service Type : BankingProductType
+  + Customer ProductandService Next Best Assessment Result : Assessment
+}
+
+' Relationships
+N273125 "0..*" -- "0..1" N273127
+N273134 "0..*" -- "0..1" N273127
+
+@enduml

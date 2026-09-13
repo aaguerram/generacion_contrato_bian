@@ -1,0 +1,64 @@
+@startuml
+title Securities Position Keeping Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Securities Position Keeping
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_43214.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Securities Position Keeping" as N303392 {
+}
+
+class "CR Securities Position Log Instance Record" as N303400 {
+  + Securities Transaction Log Type : Text
+  + Product Instance Reference : Product Agreement
+  + Customer Reference : InvolvedParty
+  + Counterparty Reference : Object
+  + Securities Position Log Instrument Profile : Object
+  + Securities Position Log Instrument Record : Object
+  + Securities Instrument Type : Text
+  + Securities Instrument Reference : Object
+  + Securities Position Limits : Object
+  + Securities Position Limit Type : LimitTypeValues
+  + Securities Position Limit Settings : Object
+  + Securities Position Limit Value : Amount
+  + Securities Amount Block : Object
+  + Securities Amount Block Type : Text
+  + Priority : Object
+  + Amount : Amount
+  + Date Type : DateTimeTypeValues
+  + Date : DateTime
+  + Initiation Date : DateTime
+  + Status : Status
+}
+
+class "BQ Securities Transaction Capture Instance Record" as N303421 {
+  + Securities Posting Type : Text
+  + Securities Posting Transaction : Transaction
+  + Securities Posting Value Date : DateTime
+}
+
+' Relationships
+N303421 "0..*" -- "0..1" N303400
+
+@enduml

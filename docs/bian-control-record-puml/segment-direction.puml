@@ -1,0 +1,61 @@
+@startuml
+title Segment Direction Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Segment Direction
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_33585.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Segment Strategy Instance Record" as N318583 {
+  + Segment Strategy Period : DateTimePeriod
+  + Segment Strategy Policies And Guidelines : Rule Set
+  + Segment Strategy Organization : InvolvedParty
+  + Segment Strategy Budget : Budget Arrangement
+  + Segment Strategy Schedule : Schedule
+  + Segment Goal Record : Text
+  + Segment Goal Type : GoalTypeValues
+  + Segment Goal Definition : Text
+  + Segment Goal Organization : InvolvedParty
+  + Segment Goal Result : Text
+}
+
+class "BQ Initiative Instance Record" as N318605 {
+  + Segment Initiative Business Unit Reference : Business Unit
+  + Segment Initiative Type : BusinessInitiativeTypeValues
+  + Segment Initiative Description : Text
+  + Segment Initiative Schedule : Schedule
+  + Segment Initiative Work Products : WorkProduct
+  + Segment Initiative Result : Text
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Correspondence Instance Reference : Correspondence
+  + Segment Initiative Date Type : ProjectDateTime
+  + Segment Initiative Date : DateTime
+}
+
+class "Segment Direction" as N318631 {
+}
+
+' Relationships
+N318605 "0..*" -- "0..1" N318583
+
+@enduml

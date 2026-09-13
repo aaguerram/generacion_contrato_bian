@@ -1,0 +1,97 @@
+@startuml
+title Card Clearing Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Card Clearing
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_29644.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Matching Instance Record" as N275302 {
+  + Matching Task Result : Test
+}
+
+class "BQ Reconciliation Instance Record" as N275304 {
+  + Reconciliation Task Result : Test
+}
+
+class "BQ FX Conversion Instance Record" as N275306 {
+  + FX Conversion Rates and Fees : Fee Arrangement
+  + FX Conversion Task Result : Task
+}
+
+class "BQ Charge Instance Record" as N275311 {
+  + Intercharge Fees : Fee Arrangement
+  + Fee Task Result : Test
+}
+
+class "BQ Routing Instance Record" as N275314 {
+  + Routing Task Result : Test
+}
+
+class "CR Card Clearing Procedure Instance Record" as N275316 {
+  + Network Reference : Card Network
+  + Participant Acquirer Bank Reference : InvolvedParty
+  + Participant Acquirer Bank Clearing and Settlement Terms : Card Clearing Arrangement
+  + Participant Issuer Bank Reference : InvolvedParty
+  + Participant Issuer Bank Clearing and Settlement Terms : Card Clearing Arrangement
+  + Card Clearing Process Type : CardClearingTypeValues
+  + Card Clearing Process Date and Time
+  + Card Clearing Service Schedule : Schedule
+}
+
+class "BQ Capture Instance Record" as N275326 {
+  + Card Transaction Record Reference : InvolvedParty
+  + Card Transaction Product Instance Reference : Product Agreement
+  + Card Transaction Network Reference : Card Network
+  + Card Transaction Issuing Bank Reference : InvolvedParty
+  + Card Transaction Merchant Acquiring Bank Reference : InvolvedParty
+  + Card Transaction Type : TransactionTypeValues
+  + Card Transaction Currency : CurrencyCode
+  + Card Transaction Amount Type : AmountTypeValues
+  + Card Transaction Amount : Amount
+  + Card Transaction Merchant Reference : Card Payment Transaction Involvement
+  + Card Transaction Location Reference : Location
+  + Card Transaction Product and Service Reference : Product
+  + Card Transaction Date and Time
+  + Card Transaction FX Conversion Charge : Fee Arrangement
+  + Card Transaction Intercharge Fee : Fee Arrangement
+  + Card Transaction Authorization Record : Card Payment Authorization
+}
+
+class "BQ Addressing Instance Record" as N275345 {
+  + Addressing Task Result : Test
+}
+
+class "Card Clearing" as N275347 {
+}
+
+' Relationships
+N275326 "0..*" -- "0..1" N275316
+N275345 "0..*" -- "0..1" N275316
+N275306 "0..*" -- "0..1" N275316
+N275311 "0..*" -- "0..1" N275316
+N275316 "0..1" -- "0..*" N275302
+N275304 "0..*" -- "0..1" N275316
+N275314 "0..*" -- "0..1" N275316
+
+@enduml

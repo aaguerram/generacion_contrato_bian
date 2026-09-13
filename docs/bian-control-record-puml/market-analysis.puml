@@ -1,0 +1,137 @@
+@startuml
+title Market Analysis Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Market Analysis
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_42629.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Pricing Behavior Analsysis Instance Record" as N282135 {
+  + Analysis Task : Task
+  + Analysis Model Reference : Analysis Model
+  + Analysis Involved Party Reference : InvolvedParty
+  + Analysis Type : AnalysisTypeValues
+  + Analysis Log Reference : Log
+  + Analysis Work Product : WorkProduct
+  + Analysis Report Reference : Analysis Report
+  + Analysis Document Reference : Document
+  + Analysis Reference : Analysis
+  + Analysis Criteria Reference : Rule Set
+}
+
+class "BQ Market Segmentation Analysis Instance Record" as N282148 {
+  + Analysis Task : Task
+  + Analysis Model Reference : Analysis Model
+  + Analysis Involved Party Reference : InvolvedParty
+  + Analysis Type : AnalysisTypeValues
+  + Analysis Log Reference : Log
+  + Analysis Work Product : WorkProduct
+  + Analysis Report Reference : Analysis Report
+  + Analysis Document Reference : Document
+  + Analysis Reference : Analysis
+  + Analysis Criteria Reference : Rule Set
+}
+
+class "Market Analysis" as N282161 {
+}
+note right of N282161
+  BOMDiagram: Market Analysis BOM Diagram
+end note
+
+class "BQ Market Forecasting Instance Record" as N282167 {
+  + Analysis Task : Task
+  + Analysis Model Reference : Analysis Model
+  + Analysis Involved Party Reference : InvolvedParty
+  + Analysis Type : AnalysisTypeValues
+  + Analysis Log Reference : Log
+  + Analysis Work Product : WorkProduct
+  + Analysis Report Reference : Analysis Report
+  + Analysis Document Reference : Document
+  + Analysis Reference : Analysis
+  + Analysis Criteria Reference : Rule Set
+}
+
+class "BQ Customer Need Analysis Instance Record" as N282178 {
+  + Analysis Task : Task
+  + Analysis Model Reference : Analysis Model
+  + Analysis Involved Party Reference : InvolvedParty
+  + Analysis Type : AnalysisTypeValues
+  + Analysis Log Reference : Log
+  + Analysis Work Product : WorkProduct
+  + Analysis Report Reference : Analysis Report
+  + Analysis Document Reference : Document
+  + Analysis Reference : Analysis
+  + Analysis Criteria Reference : Rule Set
+}
+
+class "BQ Channel Distribution Analysis Instance Record" as N282189 {
+  + Analysis Task : Task
+  + Analysis Model Reference : Analysis Model
+  + Analysis Involved Party Reference : InvolvedParty
+  + Analysis Type : AnalysisTypeValues
+  + Analysis Log Reference : Log
+  + Analysis Work Product : WorkProduct
+  + Analysis Report Reference : Analysis Report
+  + Analysis Document Reference : Document
+  + Analysis Reference : Analysis
+  + Analysis Criteria Reference : Rule Set
+}
+
+class "CR General Market Research Analysis Instance Record" as N282201 {
+  + General Market Research Analysis Type : MarketResearchAnalysisTypeValues
+  + General Market Research Analysis Specification : Text
+  + General Market Research Analysis Guidance : Rule Set
+  + General Market Research Analysis Algorithm Reference : Algorithm
+  + General Market Research Analysis Request Record : Text
+  + General Market Research Analysis Request : Market Research Analysis Request
+  + Employee/Business Unit Reference : InvolvedParty
+  + General Market Research Analysis Request Work Products : WorkProduct
+  + General Market Research Analysis Request Result : Text
+  + General Market Research Analysis Usage Record : Text
+  + General Market Research Analysis Usage : Text
+  + General Market Research Analysis Impact : Text
+  + General Market Research Analysis Reference : Analysis
+}
+
+class "BQ Competitive Analysis Instance Record" as N282216 {
+  + Analysis Task : Task
+  + Analysis Model Reference : Analysis Model
+  + Analysis Involved Party Reference : InvolvedParty
+  + Analysis Type : AnalysisTypeValues
+  + Analysis Log Reference : Log
+  + Analysis Work Product : WorkProduct
+  + Analysis Report Reference : Analysis Report
+  + Analysis Document Reference : Document
+  + Analysis Reference : Analysis
+  + Analysis Criteria Reference : Rule Set
+}
+
+' Relationships
+N282201 "0..1" -- "0..1" N282167
+N282201 "0..1" -- "0..1" N282135
+N282201 "0..1" -- "0..1" N282216
+N282201 "0..1" -- "0..1" N282148
+N282201 "0..1" -- "0..1" N282189
+N282201 "0..1" -- "0..1" N282178
+
+@enduml

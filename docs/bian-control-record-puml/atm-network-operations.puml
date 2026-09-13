@@ -1,0 +1,100 @@
+@startuml
+title ATM Network Operations Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: ATM Network Operations
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49747.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Cash Distribution Instance Record" as N319103 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + ATM Network Operating Session Reference : Session
+  + Cash Distribution Reference : Function
+  + Cash Distribution Type : Text
+}
+
+class "BQ Network Operation Instance Record" as N319112 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + ATM Network Operating Session Reference : Session
+  + Network Operation Reference : Function
+  + Network Operation Type : Text
+}
+
+class "ATM Network Operations" as N319122 {
+}
+note right of N319122
+  BOMDiagram: ATM Network Operations BOM Diagram
+end note
+
+class "CR ATM Network Operating Session Instance Record" as N319151 {
+  + ATM Network Operating Session Schedule : Schedule
+  + ATM Network Operating Session Status : Status
+  + ATM Network Operating Session Usage Log : Log
+  + ATM Network Operating Session Associated Party Reference : InvolvedParty
+  + ATM Network Operating Session Service Provider Reference : InvolvedParty
+  + ATM Network Operating Session Type : SessionType
+  + ATM Network Operating Session Service Provider Schedule : Schedule
+  + ATM Network Operating Session Service Type : ServiceType
+  + ATM Network Operating Session Service Configuration : System Configuration Option
+  + ATM Network Operating Session Reference : Session
+}
+
+class "BQ Financial Transaction Capture Instance Record" as N319162 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + ATM Network Operating Session Reference : Session
+  + Financial Transaction Capture Reference : Function
+  + Financial Transaction Capture Type : Text
+}
+
+class "BQ Financial Document Handling Instance Record" as N319170 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + ATM Network Operating Session Reference : Session
+  + Financial Document Handling Reference : Function
+  + Financial Document Handling Type : Text
+}
+
+class "BQ Device Tracking Instance Record" as N319178 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + ATM Network Operating Session Reference : Session
+  + Device Tracking Reference : Function
+  + Device Tracking Type : Text
+}
+
+' Relationships
+N319151 "0..1" -- "0..1" N319112
+N319151 "0..1" -- "0..1" N319178
+N319151 "0..1" -- "0..1" N319103
+N319151 "0..1" -- "0..1" N319170
+N319151 "0..1" -- "0..1" N319162
+
+@enduml

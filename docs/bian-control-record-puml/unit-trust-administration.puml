@@ -1,0 +1,122 @@
+@startuml
+title Unit Trust Administration Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Unit Trust Administration
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_32481.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Fund Financial Reporting Instance Record" as N280532 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Unit Trust Administrative Plan Reference : Plan
+  + Fund Financial Reporting Routine Reference : Planned Action
+  + Fund Financial Reporting Routine Type : Text
+}
+
+class "BQ Fund Accounting Instance Record" as N280542 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Unit Trust Administrative Plan Reference : Plan
+  + Fund Accounting Routine Reference : Planned Action
+  + Fund Accounting Routine Type : Text
+}
+
+class "BQ Fund Investor, Middle and Back Office Service Instance Record" as N280552 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Unit Trust Administrative Plan Reference : Plan
+  + Fund Investor, Middle and Back Office Service Routine Reference : Planned Action
+  + Fund Investor, Middle and Back Office Service Routine Type : Text
+}
+
+class "BQ Fund Enrolment Instance Record" as N280562 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Unit Trust Administrative Plan Reference : Plan
+  + Fund Enrolment Routine Reference : Planned Action
+  + Fund Enrolment Routine Type : Text
+}
+
+class "BQ Fund Management Fee Instance Record" as N280571 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Unit Trust Administrative Plan Reference : Plan
+  + Fund Management Fee Routine Reference : Planned Action
+  + Fund Management Fee Routine Type : Text
+}
+
+class "CR Unit Trust Administrative Plan Instance Record" as N280581 {
+  + Unit Trust Administrative Plan Budget Type : BudgetType
+  + Unit Trust Administrative Plan Budget : Amount
+  + Unit Trust Administrative Plan Assignment : Assignment
+  + Unit Trust Administrative Plan Duty : Arrangement
+  + Unit Trust Administrative Plan Associated Party : InvolvedParty
+  + Unit Trust Administrative Plan Budget Balance : AccountBalance
+  + Unit Trust Administrative Plan Subject Matter : Object
+  + Unit Trust Administrative Plan Type : PlanType
+  + Unit Trust Administrative Plan Reference : Plan
+  + Unit Trust Administrative Plan Description : Text
+}
+
+class "BQ Fund Tax Administration Instance Record" as N280592 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Unit Trust Administrative Plan Reference : Plan
+  + Fund Tax Administration Routine Reference : Planned Action
+  + Fund Tax Administration Routine Type : Text
+}
+
+class "Unit Trust Administration" as N280602 {
+}
+note right of N280602
+  BOMDiagram: Unit Trust Administration BOM Diagram
+end note
+
+' Relationships
+N280581 "0..1" -- "0..1" N280532
+N280581 "0..1" -- "0..1" N280552
+N280581 "0..1" -- "0..1" N280562
+N280581 "0..1" -- "0..1" N280592
+N280581 "0..1" -- "0..1" N280542
+N280581 "0..1" -- "0..1" N280571
+
+@enduml

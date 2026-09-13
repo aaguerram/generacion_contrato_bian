@@ -1,0 +1,100 @@
+@startuml
+title Party Authentication Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Party Authentication
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_37245.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Party Authentication Assessment Instance Record" as N290119 {
+  + Customer Reference : InvolvedParty
+  + Party Reference : InvolvedParty
+  + Party Authentication Assessment Profile : Party Authentication
+  + Authentication Type : AuthenticationTypeValues
+  + Party Authentication Consolidation Record : Text
+  + Customer Contact Authentication Level : AuthenticationLevelTypeValues
+  + Authorisation Token Reference : Token
+  + Refresh Token Reference : Token
+}
+
+class "BQ Password Instance Record" as N290137 {
+  + Authentication Reference Data Reference : Object
+  + Authentication Reference Data Type : Text
+  + Authentication Reference Data Value : Value
+  + Authentication Password Reference : Password
+  + Authentication Password Template : Text
+  + Authentication Password Stored Value : Value
+  + Authentication Password Valid From/To Date : DateTimePeriod
+  + Authentication Password Presented Value : Value
+  + Authentication Password Test Result : Test
+}
+
+class "BQ Question Instance Record" as N290157 {
+  + Authentication Secret Question Reference : Secret Question
+  + Authentication Secret Question Template : Text
+  + Authentication Secret Question Value : Value
+  + Secret Question Test Result : Test
+}
+
+class "BQ Document Instance Record" as N290167 {
+  + Authentication Document Reference : Document
+  + Authentication Document Content : Text
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Document Content : Text
+  + Authentication Document Comparison Test Result : Test
+}
+
+class "BQ Device Instance Record" as N290179 {
+  + Authentication Device Reference : Device
+  + Authentication Device Property Value : Value
+  + Issued Device Instance Reference : Issued Device
+  + Issued Device Property Value : Value
+  + Device Test Result : Test
+}
+
+class "BQ Biometric Instance Record" as N290191 {
+  + Authentication Biometric Type : BiometricDataTypeValues
+  + Authentication Biometric Record : Biometric Data
+  + Registered Biometric Instance Reference : Biometric Data
+  + Biometric Test Result : Test
+}
+
+class "BQ Behavior Instance Record" as N290201 {
+  + Authentication Behavior Type : Text
+  + Authentication Behavior Record : Behavioral Data
+  + Registered Behavior Instance Reference : Behavioral Data
+  + Behavior Test Result : Test
+}
+
+class "Party Authentication" as N290225 {
+}
+
+' Relationships
+N290119 "0..1" -- "0..*" N290137
+N290157 "0..*" -- "0..1" N290119
+N290179 "1..* / 0..1" -- N290119
+N290167 "0..*" -- "0..1" N290119
+N290191 "0..*" -- "0..1" N290119
+N290201 "0..*" -- "0..1" N290119
+
+@enduml

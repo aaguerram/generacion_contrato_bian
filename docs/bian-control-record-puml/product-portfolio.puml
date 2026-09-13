@@ -1,0 +1,59 @@
+@startuml
+title Product Portfolio Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Product Portfolio
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_30353.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Product Portfolio Analysis Instance Record" as N279470 {
+  + Product Portfolio Make-up : Object
+  + Product Type : ProductTypeValues
+  + Product Type Definition : Text
+  + Product Portfolio Performance Goals : Goal
+  + Product Portfolio Analysis Schedule : Schedule
+  + Product Portfolio Analysis Report : Report
+  + Product Analysis Type : AnalysisTypeValues
+  + Product Analysis Result : Analysis
+  + Product Analysis Reporting Date : DateTime
+  + Document Directory Entry Instance Reference : Document Directory Entry
+}
+
+class "BQ Performance Analysis Instance Record" as N279492 {
+  + Product Performance Analysis Type : AnalysisTypeValues
+  + Product Performance Analysis Task : Task
+  + Product Performance Request Specification : Text
+  + Product Performance Model Reference : Model
+  + Product Performance ProductandService Activity Report : Report
+  + Product Performance Financial Market Research Report : Report
+  + Product Performance Work Products : WorkProduct
+  + Product Performance Request Result : Object
+}
+
+class "Product Portfolio" as N279514 {
+}
+
+' Relationships
+N279492 "0..*" -- "0..1" N279470
+
+@enduml

@@ -1,0 +1,67 @@
+@startuml
+title Payment Order Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Payment Order
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_39935.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Payment Order Procedure Instance Record" as N305413 {
+  + Payment Transaction Initiator Reference : InvolvedParty
+  + Payer Reference : Payment Instruction Involvement
+  + Payer Bank Reference : Payment Instruction Involvement
+  + Payer Account Reference : Payment Instruction Account
+  + Payee Reference : Payment Instruction Involvement
+  + Payee Bank Reference : Payment Instruction Involvement
+  + Payee Account Reference : Payment Instruction Account
+  + Amount : Amount[1..*]
+  + Currency : CurrencyCode
+  + Date : PaymentDateTime[1..*]
+  + Payment Mechanism Type : PaymentMechanismTypeValues
+  + Payment Instructions : Payment Instruction
+  + Interested Parties : InvolvedParty
+  + Product Type : ProductAgreementTypeValues
+  + Settlement Instructions : Settlement Instruction
+  + Payment Processing Configuration : Payment Processing Arrangement
+}
+
+class "Payment Order" as N305430 {
+}
+
+class "BQ Order Confirmation Instance Record" as N305438 {
+  + Payment Order Compliance Check Type : Text
+  + Payment Order Compliance Check Result : Text
+  + Order Confirmation Task Result : Workstep
+}
+
+class "BQ Execution Initiation Instance Record" as N305442 {
+  + Payment Execution Procedure Instance Reference : Payment Execution Procedure
+  + Payment Execution Procedure Instance Status : Status
+  + Execution Initiation Task Result : Workstep
+}
+
+' Relationships
+N305442 "0..*" -- "0..1" N305413
+N305438 "0..*" -- "0..1" N305413
+
+@enduml

@@ -1,0 +1,74 @@
+@startuml
+title Prospect Campaign Execution Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Prospect Campaign Execution
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_30446.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Prospect Campaign Execution" as N327881 {
+}
+
+class "CR Prospect Campaign Procedure Instance Record" as N327901 {
+  + Prospect Campaign Type : CampaignTypeValues
+  + Prospect Campaign Description : Text
+  + Employee or Business Unit Reference : InvolvedParty
+  + Prospect Campaign Procedure Set-up : Object
+  + Prospect Campaign Procedure Version Number : Number
+  + Prospect Campaign Schedule : Schedule
+  + Prospect Campaign Consumables Inventory : Item Inventory
+  + Prospect Campaign Consumable Type : Text
+  + Prospect Campaign Consumable Holding : ItemInventoryTypeValues
+  + Date Type : DateTimeTypeValues
+  + Date : DateTime
+  + Prospect Campaign Procedure Result : Prospect Campaign Procedure
+  + Prospect Campaign Procedure Prospect Identification : Prospect
+  + Party Lifecycle Management Procedure Instance Reference : Identifier
+}
+
+class "BQ Execution Instance Record" as N327916 {
+  + Prospect Campaign Procedure Work Task Type : Text
+  + Prospect Campaign Procedure Work Task Description : Text
+  + Prospect Campaign Procedure Work Task Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Prospect Campaign Procedure Work Task Result : Task
+  + Prospect Campaign Procedure Work Task Date and Time : Date Time
+}
+
+class "BQ Candidate Selection Instance Record" as N327923 {
+  + Prospect Campaign Selection Criteria : Rule Set
+  + Prospect Campaign Candidate Employee/Business Unit Reference : InvolvedParty
+  + Prospect Campaign Candidate Reference : Text
+}
+
+class "BQ Analysis Feedback Instance Record" as N327928 {
+  + Prospect Campaign Procedure Analysis Result : Analysis
+  + Prospect Campaign Procedure Analysis Feedback Result : Object
+}
+
+' Relationships
+N327923 "0..*" -- "0..1" N327901
+N327916 "0..*" -- "0..1" N327901
+N327928 "0..*" -- "0..1" N327901
+
+@enduml

@@ -1,0 +1,98 @@
+@startuml
+title Product Service Agency Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Product Service Agency
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_46309.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Legal Term Instance Record" as N325246 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Service Provider Agreement Reference : Agreement
+  + Legal Term Reference : Arrangement
+  + Legal Term Type : Text
+  + Jurisdiction : String
+  + Applicable Law Reference : Object
+  + Applicable Law Interpretation : String
+}
+
+class "Product Service Agency" as N325256 {
+}
+note right of N325256
+  BOMDiagram: Product Service Agency BOM Diagram
+end note
+
+class "BQ Policy Term Instance Record" as N325284 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Service Provider Agreement Reference : Agreement
+  + Policy Term Reference : Arrangement
+  + Policy Term Type : Text
+  + Bank Policy-Rule Type : String
+  + Applicable Bank Policy-Rule Reference : Object
+  + Applicable Bank Policy- Rule Interpretation : String
+}
+
+class "BQ Regulatory Term Instance Record" as N325295 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Service Provider Agreement Reference : Agreement
+  + Regulatory Term Reference : Arrangement
+  + Regulatory Term Type : Text
+  + Regulatory Authority : String
+  + Applicable Regulation Reference : Object
+  + Applicable Regulation Interpretation : String
+}
+
+class "CR Service Provider Agreement Instance Record" as N325307 {
+  + Service Provider Agreement Parameter Type : FeatureTypeValues
+  + Service Provider Agreement Selected Option : Feature
+  + Service Provider Agreement Type : AgreementTypeValues
+  + Service Provider Agreement Reference : Agreement
+  + Service Provider Agreement Discharge Request : Instruction
+  + Service Provider Agreement Discharge Schedule : Schedule
+  + Service Provider Agreement Status : AgreementStatus
+  + Service Provider Agreement Associated Party : InvolvedParty
+  + Service Provider Agreement Customer Reference : InvolvedParty
+  + Service Provider Agreement Obligation : Arrangement
+  + Service Provider Agreement Entitlement : Arrangement
+  + Service Provider Agreement Regulation Reference : Rule Set[1..*]
+  + Service Provider Agreement Regulation Type : RuleSetType
+  + Service Provider Agreement Jurisdiction : Jurisdiction
+  + Service Provider Agreement Account Reference : Account
+  + Service Provider Agreement Subject Matter : Object
+  + Service Provider Agreement Product Reference : Product
+  + Service Provider Agreement Calendar Reference : Calendar
+  + Service Provider Agreement Associated Agreement Reference : Agreement
+}
+
+' Relationships
+N325307 "0..1" -- "0..1" N325284
+N325307 "0..1" -- "0..1" N325295
+N325307 "0..1" -- "0..1" N325246
+
+@enduml

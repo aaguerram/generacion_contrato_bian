@@ -1,0 +1,122 @@
+@startuml
+title Branch Location Operations Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Branch Location Operations
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_31677.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Non-cash Inventory Handling Instance Record" as N289563 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Branch Location Administrative Plan Reference : Plan
+  + Non-cash Inventory Handling Reference : Planned Action
+  + Non-cash Inventory Handling Type : Text
+}
+
+class "BQ Location Security Administration Instance Record" as N289572 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Branch Location Administrative Plan Reference : Plan
+  + Location Security Administration Reference : Planned Action
+  + Location Security Administration Type : Text
+}
+
+class "Branch Location Operations" as N289581 {
+}
+note right of N289581
+  BOMDiagram: Branch Location Operations BOM Diagram
+end note
+
+class "BQ Staff Assignment Instance Record" as N289598 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Branch Location Administrative Plan Reference : Plan
+  + Staff Assignment Reference : Planned Action
+  + Staff Assignment Type : Text
+}
+
+class "BQ Safe Custody Operations Instance Record" as N289608 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Branch Location Administrative Plan Reference : Plan
+  + Safe Custody Operations Reference : Planned Action
+  + Safe Custody Operations Type : Text
+}
+
+class "BQ Workforce Administration Instance Record" as N289618 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Branch Location Administrative Plan Reference : Plan
+  + Workforce Administration Reference : Planned Action
+  + Workforce AdministrationType : Text
+}
+
+class "BQ Cash Inventory Handling Instance Record" as N289628 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Branch Location Administration Plan Reference : Plan
+  + Cash Inventory Handling Reference : Planned Action
+  + Cash Inventory Handling Type : Text
+}
+
+class "CR Branch Location Administrative Plan Instance Record" as N289640 {
+  + Branch Location Administrative Plan Budget Type : BudgetType
+  + Branch Location Administrative Plan Budget : Amount
+  + Branch Location Administrative Plan Assignment : Assignment
+  + Branch Location Administrative Plan Duty : Arrangement
+  + Branch Location Administrative Plan Associated Party : InvolvedParty
+  + Branch Location Administrative Plan Budget Balance : AccountBalance
+  + Branch Location Administrative Plan Subject Matter : Branch Location
+  + Branch Location Administrative Plan Type : PlanType
+  + Branch Location Administrative Plan Reference : Plan
+  + Branch Location Administrative Plan Description : Text
+}
+
+' Relationships
+N289640 "0..1" -- "0..1" N289598
+N289640 "0..1" -- "0..1" N289628
+N289640 "0..1" -- "0..1" N289563
+N289640 "0..1" -- "0..1" N289608
+N289640 "0..1" -- "0..1" N289572
+N289640 "0..1" -- "0..1" N289618
+
+@enduml

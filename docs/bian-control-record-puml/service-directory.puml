@@ -1,0 +1,148 @@
+@startuml
+title Service Directory Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Service Directory
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_50742.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "InvolvedParty" as N297031 <<datatype>> {
+  + Party Reference : Text
+  + Involvement Reference : Text
+}
+
+class "BQ Service Delivery Servicing Instance Record" as N297034 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Service Directory Entry Reference : Identifier
+  + Service Delivery Servicing Reference : Identifier
+  + Service Delivery Servicing Type : Text
+}
+
+class "BQ Relationship Servicing Instance Record" as N297043 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Service Directory Entry Reference : Identifier
+  + Relationship Servicing Reference : Identifier
+  + Relationship Servicing Type : Text
+}
+
+class "BQ Product Access Servicing Instance Record" as N297052 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Service Directory Entry Reference : Identifier
+  + Product Access Servicing Reference : Identifier
+  + Product Access Servicing Type : Text
+}
+
+class "CR Service Directory Entry Instance Record" as N297060 {
+  + Service Directory Entry Description : Text
+  + Service Directory Entry Schedule : Schedule
+  + Service Directory Entry Version : Number
+  + Service Directory Entry Status : Status
+  + Service Directory Entry Usage Log : Log
+  + Service Directory Entry Update Log : Log
+  + Service Directory Entry Service Configuration : Text
+  + Service Directory Entry Reference : Directory Entry
+  + Customer Reference : InvolvedParty
+  + Service Reference : Service
+}
+
+class "BQ Sales Servicing Instance Record" as N297073 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Service Directory Entry Reference : Identifier
+  + Sales Servicing Reference : Identifier
+  + Sales Servicing Properties Type : Text
+}
+
+class "Service Directory" as N297081 {
+}
+note right of N297081
+  BOMDiagram: Service Directory BOM Diagram
+end note
+
+class "BQ Access Control Servicing Instance Record" as N297125 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Service Directory Entry Reference : Identifier
+  + Access Control Servicing Reference : Identifier
+  + Access Control Servicing Properties Type : Text
+}
+
+class "BQ Arrangement Servicing Instance Record" as N297134 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Service Directory Entry Reference : Identifier
+  + Arrangement Servicing Reference : Identifier
+  + Arrangement Servicing Type : Text
+}
+
+class "Service" as N297144 {
+  + Service Name : Name
+  + Service Description : Text
+  + Service Type : ServiceTypeValues
+  + Service Identification : Identifier
+  + Service Lifecycle Status : Status
+  + Service Feature : Feature[1..*]
+}
+note right of N297144
+  BianBom: yes
+end note
+
+enum "ServiceTypeValues" as N297152 {
+  IT Service
+  Administrative Service
+  System Service
+  Financial Service
+  Information Service
+  Business Service
+}
+note right of N297152
+  BianBom: yes
+end note
+
+' Relationships
+N297144 -- N297152
+N297060 "0..1" -- "0..1" N297043
+N297060 "0..1" -- "0..1" N297052
+N297060 "0..1" -- "0..1" N297134
+N297060 "0..1" -- "0..1" N297034
+N297060 "0..1" -- "0..1" N297125
+N297060 "0..1" -- "0..1" N297073
+N297060 -- N297144
+N297060 -- N297031
+
+@enduml

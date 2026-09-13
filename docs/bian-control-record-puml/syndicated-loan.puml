@@ -1,0 +1,97 @@
+@startuml
+title Syndicated Loan Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Syndicated Loan
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49824.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Syndicate Instance Record" as N321401 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Syndicated Loan Facility Reference : Identifier
+  + Syndicate Reference : Identifier
+  + Syndicate Type : Text
+}
+
+class "BQ Origination Instance Record" as N321411 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Syndicated Loan Facility Reference : Identifier
+  + Origination Reference : Identifier
+  + Origination Type : Text
+}
+
+class "BQ Fulfillment Instance Record" as N321419 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Syndicated Loan Facility Reference : Identifier
+  + Fulfillment Reference : Identifier
+  + Fulfillment Type : Text
+}
+
+class "Syndicated Loan" as N321428 {
+}
+note right of N321428
+  BOMDiagram: Syndicated Loan BOM Diagram
+end note
+
+class "BQ Instrument Design Instance Record" as N321453 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Syndicated Loan Facility Reference : Identifier
+  + Specification Reference : Identifier
+  + Specification Type : Text
+}
+
+class "CR Syndicated Loan Facility Instance Record" as N321462 {
+  + Syndicated Loan Facility Parameter Type : FeatureTypeValues
+  + Syndicated Loan Facility Selected Option : Feature
+  + Syndicated Loan Facility Type : LoanProductTypeValues
+  + Syndicated Loan Facility Reference : Loan Arrangement
+  + Syndicated Loan Facility Schedule : Schedule
+  + Syndicated Loan Facility Status : Status
+  + Syndicated Loan Facility Currency : CurrencyCode
+  + Syndicated Loan Facility Regulation Reference : Regulation
+  + Syndicated Loan Facility Regulation Type : RuleSetTypeValues
+  + Syndicated Loan Facility Jurisdiction : Jurisdiction
+  + Syndicated Loan Facility Booking Location : Text
+  + Syndicated Loan Facility Account Type : AccountTypeValues
+  + Syndicated Loan Facility Account Reference : Account
+}
+
+' Relationships
+N321462 "0..1" -- "0..1" N321411
+N321462 "0..1" -- "0..1" N321401
+N321462 "0..1" -- "0..1" N321453
+N321462 "0..1" -- "0..1" N321419
+
+@enduml

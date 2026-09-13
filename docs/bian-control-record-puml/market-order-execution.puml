@@ -1,0 +1,79 @@
+@startuml
+title Market Order Execution Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Market Order Execution
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_30729.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Market Trade Transaction Instance Record" as N274915 {
+  + Market Order Transaction Instance Reference : Identifier
+  + Customer Reference : InvolvedParty
+  + Employee or Business Unit Reference : InvolvedParty
+  + Customer Market Order Processing Instruction : Instruction
+  + Market Order Transaction : Market Order Transaction
+  + Investment Account Arrangement Instance Reference : Identifier
+  + Current Account Arrangement Instance Reference : Identifier
+  + Market Order Type : Text
+  + Security Type : SecurityTypeValues
+  + Amount : Amount
+  + Date Type : DateTimeTypeValues
+  + Date : DateTime
+  + Market Order Trade Initiation Instance Reference : Identifier
+}
+
+class "BQ Trade Initiation Instance Record" as N274930 {
+  + Wholesale Trade Reference : Object
+  + Market Trade Transaction Instance Processing Status : Status
+  + Market Trade Initiation Task Result : Task
+}
+
+class "Market Order Execution" as N274935 {
+}
+
+class "BQ Position Instance Record" as N274952 {
+  + Bank Security Position Security Type : SecurityTypeValues
+  + Position Market Order Trade Initiation Instance Reference : Identifier
+  + Bank Security Position Security PAndL Record : Object
+  + Wholesale Trade : Object
+  + Wholesale Trade Security Type : SecurityTypeValues
+  + Wholesale Trade Volume : Object
+  + Wholesale Trade Price : Object
+  + Wholesale Trade Clearing and Settlement Terms : Arrangement
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Correspondence Instance Reference : Identifier
+  + Wholesale Trade Status : Status
+}
+
+class "BQ Quote Instance Record" as N274965 {
+  + Quote Security Type : SecurityTypeValues
+  + Quote Type : Text
+  + Quote : Quote
+}
+
+' Relationships
+N274965 "0..*" -- "0..1" N274915
+N274930 "0..*" -- "0..1" N274915
+N274952 "0..*" -- "0..1" N274915
+
+@enduml

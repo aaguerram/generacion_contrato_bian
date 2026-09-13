@@ -1,0 +1,129 @@
+@startuml
+title Customer Offer Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Customer Offer
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_38978.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Collateral Allocation Instance Record" as N291412 {
+  + Collateral Requirement : Collateral Asset Arrangement
+  + Collateral Earmark Reference : Payment Warranty Arrangement
+  + Collateral Asset Reference : Collateral Asset
+  + Collateral Asset Allocation Reference : Collateral Asset Allocation
+}
+
+class "BQ Product Initialization Instance Record" as N291417 {
+  + Product Instance Reference : Product Agreement
+}
+
+class "BQ Audit Instance Record" as N291420 {
+  + Guideline Compliance Check Type : ComplianceCheckTypeValues
+  + Guideline Compliance Check Requirement : Requirement
+  + Guideline Compliance Check Submission : Text
+  + Guideline Compliance Adjustment Requirement : Requirement
+  + Guideline Compliance Check Assessment
+}
+
+class "BQ Booking Instance Record" as N291427 {
+  + Business Unit Reference : Business Unit
+  + Asset/Liability Type : FinancialInstrumentTypeValues
+  + Amount : Amount
+}
+
+class "BQ Agreement Instance Record" as N291431 {
+  + Customer Agreement Instance Reference : Customer Agreement
+  + Sales Product Agreement Instance Reference : Product Agreement
+}
+
+class "CR Customer Offer Procedure Instance Record" as N291434 {
+  + Customer Reference : Customer Relationship
+  + Party Reference : Party
+  + Product and Service Type : ProductAgreementTypeValues
+  + Customer Offer Processing Schedule : Schedule
+  + Customer Offer Processing Task : Workstep
+  + Customer Offer Processing Task Type : WorkstepTypeValues
+  + Employee/Business Unit Reference : InvolvedParty
+  + Customer Offer Processing Task Work Products : WorkProduct
+  + Customer Offer Processing Task Result : Text
+  + Customer Offer Involved Party : Customer Offer Involvement[0..*]
+  + Customer Offer Reference : Customer Offer
+  + Product Agreement Reference : Product Agreement
+  + Product and Service Reference : Product
+}
+
+class "BQ Disclosures Instance Record" as N291448 {
+  + Disclosure Type : Disclosure
+  + Disclosure Text/Description : Text
+  + Customer Acceptance Indicator : Boolean
+  + Document Reference : Document
+}
+
+class "BQ Facility Application Instance Record" as N291453 {
+  + Facility Option : Feature
+  + Facility Option Description : Text
+  + Facility Option Setting : Arrangement
+  + Facility Pricing : Fee Arrangement
+  + Negotiation Guidelines/Rules : Rule Set
+  + Agreed Pricing : Fee Arrangement
+  + Pricing Adjustments : Fee Arrangement
+  + Facility Schedule : Schedule
+}
+
+class "Customer Offer" as N291463 {
+}
+
+class "BQ Credit Instance Record" as N291498 {
+  + Customer Credit Rating : Customer Rating
+  + Credit Authorization Decision Reference : Customer Credit Rating Assessment
+  + Credit Authorization Decision : Text
+}
+
+class "BQ Compliance Instance Record" as N291502 {
+  + Regulatory Compliance Check Type : ComplianceCheckTypeValues
+  + Regulatory Compliance Check Requirement : Requirement
+  + Regulatory Compliance Check Submission : Text
+  + Regulatory Compliance Adjustment Requirement : Requirement
+  + Regulatory Compliance Check Assessment
+}
+
+class "BQ Underwriting Instance Record" as N291510 {
+  + Customer Income Statement : Statement
+  + Customer Debt Statement : Statement
+  + Customer Asset Statement : Statement
+  + Underwriting Assessment Reference : Underwriting Assessment
+}
+
+' Relationships
+N291431 "0..*" -- "0..1" N291434
+N291453 "0..* / 0..1" -- N291434
+N291434 -- "0..1 / 0..*" N291510
+N291434 "0..*" -- "0..1" N291420
+N291448 "0..* / 0..1" -- N291434
+N291498 "0..*" -- "0..1" N291434
+N291502 "0..*" -- "0..1" N291434
+N291434 "0..1" -- "0..*" N291417
+N291427 "0..*" -- "0..1" N291434
+N291412 "0..*" -- "0..1" N291434
+
+@enduml

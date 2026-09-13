@@ -1,0 +1,193 @@
+@startuml
+title Market Research Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Market Research
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_39229.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Technology and Innovation Instance Record" as N282372 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Technology and Innovation Reference : Object
+  + Technology and Innovation Type : Text
+}
+
+class "BQ Product or Service Analysis Instance Record" as N282379 {
+  + Schedule : Schedule
+  + Version Number : Text
+  + Product or Service Analysis Reference : Market Research Report
+  + Product or Service Analysis Type : ProductServiceAnalysisTypeValues
+}
+
+class "BQ Pricing Analysis Instance Record" as N282385 {
+  + Schedule : Schedule
+  + Version Number : Text
+  + Pricing Analysis Reference : Market Research Report
+  + Pricing Analysis Type : PricingTypeValues
+}
+
+class "BQ Forecasting and Future Outlook Instance Record" as N282390 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : String
+  + Business Service : Business Service
+  + Forecasting and Future Outlook Reference : Object
+  + Forecasting and Future Outlook Type : Text
+}
+
+class "BQ Target Market and Segmentation Instance Record" as N282399 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Target Market and Segmentation Reference : Object
+  + Target Market and Segmentation Type : Text
+}
+
+class "Market Research" as N282408 {
+}
+note right of N282408
+  BOMDiagram: Market Research BOM Diagram
+end note
+
+class "BQ Regulatory and Environmental Factors Instance Record" as N282414 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Regulatory and Environmental Factors Reference : Object
+  + Regulatory and Environmental Factors Type : Text
+}
+
+class "BQ Market Size and Trends Instance Record" as N282422 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Market Size and Trends Reference : Object
+  + Market Size and Trends Type : Text
+}
+
+class "BQ Consumer Behavior Instance Record" as N282429 {
+  + Schedule : Schedule
+  + Version Number : Text
+  + Consumer Behavior Reference : Customer Behavior Insight Analysis
+  + Consumer Behavior Type : CustomerBehaviorTypeValues
+}
+
+class "BQ Branding and Positioning Instance Record" as N282434 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Branding and Positioning Reference : Object
+  + Branding and Positioning Type : Text
+}
+
+class "BQ Marketing and Advertising Instance Record" as N282441 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Marketing and Advertising Reference : Object
+  + Marketing and Advertising Type : Text
+}
+
+class "BQ Market Entry and Expansion Instance Record" as N282448 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Market Entry and Expansion Reference : Object
+  + Market Entry and Expansion Type : Text
+}
+
+class "BQ Competitive Analysis Instance Record" as N282455 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Competitive Analysis Reference : Analysis
+  + Competitive Analysis Type : AnalysisTypeValues
+}
+
+class "BQ Distribution Channels Instance Record" as N282462 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Distribution Channels Reference : Object
+  + Distribution Channels Type : Text
+}
+
+class "BQ Customer Demographics and Psychographics Instance Record" as N282469 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Customer Demographics and Psychographics Reference : Object
+  + Customer Demographics and Psychographics Type : Text
+}
+
+class "BQ Customer Journey and Experience Instance Record" as N282477 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Customer Journey and Experience Reference : Object
+  + Customer Journey and Experience Type : Text
+}
+
+class "CR General Market Research Directory Entry Instance Record" as N282488 {
+  + General Market Research Viewpoint Type : MarketResearchViewpointTypeValues
+  + General Market Research Viewpoint Description : Text
+  + Referenced Market Research Record : Market Research
+  + Market Research Report Type : MarketResearchReportTypeValues
+  + Market Research Report Type Definition : Text
+  + Market Research Report Version/Period : DateTimePeriod
+  + Market Research Report Reference : Market Research Report
+  + Market Research Report Request : Report Request
+  + Employee or Business Unit Reference : InvolvedParty
+}
+
+' Relationships
+N282488 "0..1" -- "0..1" N282429
+N282488 "0..1" -- "0..1" N282434
+N282488 "0..1" -- "0..1" N282477
+N282488 "0..1" -- "0..1" N282372
+N282488 "0..1" -- "0..1" N282414
+N282488 "0..1" -- "0..1" N282399
+N282488 "0..1" -- "0..1" N282448
+N282488 "0..1" -- "0..1" N282422
+N282488 "0..1" -- "0..1" N282469
+N282488 "0..1" -- "0..1" N282455
+N282488 "0..1" -- "0..1" N282462
+N282488 "0..1" -- "0..1" N282379
+N282488 "0..1" -- "0..1" N282385
+N282488 "0..1" -- "0..1" N282390
+N282488 "0..1" -- "0..1" N282441
+
+@enduml

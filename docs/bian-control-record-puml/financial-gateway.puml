@@ -1,0 +1,68 @@
+@startuml
+title Financial Gateway Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Financial Gateway
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_41588.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Financial Gateway" as N330203 {
+}
+
+class "BQ Inbound Instance Record" as N330213 {
+  + Financial Gateway Inbound Message Type : MessageTypeValues
+  + Financial Gateway Inbound Message Record : Message
+  + Financial Gateway Inbound Message Receiver : InvolvedParty
+  + Financial Gateway Inbound Message Status : Status
+}
+
+class "BQ Outbound Instance Record" as N330219 {
+  + Financial Gateway Outbound Message Type : MessageTypeValues
+  + Financial Gateway Outbound Message Record : Message
+  + Financial Gateway Outbound Message Sender : InvolvedParty
+  + Financial Gateway Outbound Message Receiver : InvolvedParty
+  + Financial Gateway Outbound Message Status : Status
+}
+
+class "CR Financial Gateway Operating Session Instance Record" as N330225 {
+  + Financial Gateway Service Type : ServiceTypeValues
+  + Financial Gateway Service Session Statistics : Object
+  + Financial Gateway Service Session Report Type : ReportTypeValues
+  + Financial Gateway Service Session Report : Report
+  + Financial Gateway Service Session Date : DateTime
+  + Financial Gateway Service Session Issue Record : Session Issue
+  + Employee or Business Unit Reference : InvolvedParty
+  + Message Reference : Message
+  + Production Issue Type : Text
+  + Production Issue Description : Text
+  + Production Issue Diagnosis : Assessment
+  + Production Issue Resolution Task : Task
+  + Production Issue Record : Production Issue
+  + Production Issue Status : Status
+}
+
+' Relationships
+N330213 "0..* / 0..1" -- N330225
+N330219 "0..* / 0..1" -- N330225
+
+@enduml

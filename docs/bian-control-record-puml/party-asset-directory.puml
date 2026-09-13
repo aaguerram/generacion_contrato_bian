@@ -1,0 +1,119 @@
+@startuml
+title Party Asset Directory Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Party Asset Directory
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_35509.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Asset Maintenance Instance Record" as N298031 {
+  + Asset Maintenance Fee Amount : Amount
+  + Asset Maintenance Fee Type : FeeTypeValues
+  + Asset Verification and Compliance Record Description : Text
+  + Asset Maintenance Task Type Name : Name
+  + Asset Maintenance Task End Date : DateTime
+  + Asset Maintenance Task Start Date : DateTime
+  + Asset Maintenance Service Provider Reference : InvolvedParty
+  + Asset Maintenance Schedule : Schedule
+  + Asset Maintenance Reference : Identifier
+}
+
+class "CR Party Asset Directory Entry Instance Record" as N298042 {
+  + Party Asset Directory Entry Description : Text
+  + Party Asset Directory Entry Schedule : Schedule
+  + Party Asset Directory Entry Version : Number
+  + Party Asset Directory Entry Status : Status
+  + Party Asset Directory Entry Usage Log : Log
+  + Party Asset Directory Entry Update Log : Log
+  + Party Asset Directory Entry Service Configuration : Text
+  + Party Asset Directory Entry Reference : Identifier
+  + Party Asset Reference : Asset
+}
+
+class "BQ Asset Properties Instance Record" as N298053 {
+  + Asset Interested Party Reference : InvolvedParty
+  + Asset Party Interest Type : Text
+  + Asset Description : Text
+  + Asset Document Reference : Document
+  + Asset Type : AssetTypeValues
+  + Asset Owning Party Reference : InvolvedParty
+  + Asset Taxes Paid Description : Text
+  + Asset Location : Location
+  + Asset Status : Status
+  + Asset Register Date : DateTime
+  + Asset Maturity Date : DateTime
+  + Asset Title Name : Name
+  + Asset Risk Profile Description : Text
+  + Asset Jurisdiction : Jurisdiction
+  + Party Asset Reference : Identifier
+}
+
+class "BQ Asset Title Ownership Instance Record" as N298070 {
+}
+
+class "BQ Asset Location or Jurisdiction Instance Record" as N298071 {
+}
+
+class "BQ Asset Insurance Instance Record" as N298073 {
+  + Asset Insurance Reference : Identifier
+  + Asset Insurance Name : Name
+  + Asset Insurance Premium Payment Date : DateTime
+  + Asset Insurance History Description : Text
+  + Asset Insurance Premium Amount : Amount
+  + Asset Insurance Premium Payment Periodicity : DateTimePeriod
+  + Asset Insurance Start Date : DateTime
+  + Asset Insurance Amount : Amount
+  + Asset Insurance Company Reference : Organisation
+  + Asset Insurance Document Reference : Document
+  + Asset Insurance End Date : DateTime
+}
+
+class "BQ Asset Type Classification Instance Record" as N298087 {
+}
+
+class "BQ Asset Estimated Value Instance Record" as N298088 {
+  + Asset Remaining Value To Pledge Amount : Amount
+  + Asset Current Value Amount : Amount
+  + Asset Valuation Date : DateTime
+  + Asset Valuation Amount : Amount
+  + Asset Valuation Type : AssetValuationTypeValues
+  + Asset Valuation Service Reference : Organisation
+  + Asset Initial Value Amount : Amount
+  + Asset Valuation Schedule : Schedule
+  + Asset Valuation History Description : Text
+  + Asset Valuation Reference : Identifier
+}
+
+class "Party Asset Directory" as N298099 {
+}
+
+' Relationships
+N298042 "0..1" -- "0..1" N298087
+N298042 "0..1" -- "0..1" N298071
+N298042 "0..1" -- "0..1" N298070
+N298042 "0..1" -- "0..*" N298053
+N298042 "0..1" -- "0..*" N298073
+N298042 "0..1" -- "0..*" N298088
+N298042 "0..1" -- "0..1" N298031
+
+@enduml

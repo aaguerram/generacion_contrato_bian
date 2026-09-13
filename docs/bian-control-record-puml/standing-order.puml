@@ -1,0 +1,78 @@
+@startuml
+title Standing Order Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Standing Order
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49150.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Standing Order Payment Instance Record" as N327297 {
+  + Standing Order Payment Preconditions : Condition
+  + Standing Order Payment Feature Schedule : Schedule
+  + Business Service : Business Service
+  + Standing Order Payment Postconditions : Condition
+  + Standing Order Payment Service Type : PaymentServiceTypeValues
+  + Standing Order Payment Service Description : Text
+  + Standing Order Payment Service Inputs and Ouputs : Text
+  + Standing Order Payment Service Work Product : WorkProduct
+  + Standing Order Payment Service Name : Name
+  + Standing Order Execution Date : DateTime
+  + Standing Order Execution Result Type : Text
+  + Standing Order Execution Not Executed Reason Description : Text
+  + Standing Order Execution Principal Amount : Amount
+  + Standing Order Execution Fee Amount : Amount
+}
+
+class "Standing Order" as N327314 {
+}
+note right of N327314
+  BOMDiagram: Standing Order BOM Diagram
+end note
+
+class "CR Standing Order Facility Instance Record" as N327326 {
+  + Standing Order Regulation Reference : Rule Set
+  + Standing Order Regulation Type : RuleSetTypeValues
+  + Standing Order Jurisdiction : Jurisdiction
+  + Standing Order Product Reference : Product Agreement
+  + Standing Order Amount : Amount[1..*]
+  + Standing Order Frequency : Frequency
+  + Standing Order Identification : Identifier
+  + Standing Order Status : Status
+  + Standing Order Schedule : Schedule
+  + Standing Order Creditor Agent : InvolvedParty
+  + Standing Order Creditor Account : Account
+  + Standing Order Debtor Account : Account
+  + Standing Order Creditor : InvolvedParty
+  + Standing Order Debtor : InvolvedParty
+  + Standing Order Amount Currency : CurrencyCode[1..*]
+  + Standing Order Validity Period : DateTimePeriod
+  + Standing Order Type : StandingOrderTypeValues
+  + Number of Payments : Number
+  + Standing Order Account Reference : Account
+  + Standing Order Payment Transaction Reference : Payment Transaction
+}
+
+' Relationships
+N327326 "0..1" -- "0..1" N327297
+
+@enduml

@@ -1,0 +1,60 @@
+@startuml
+title Mergers and Acquisitions Advisory Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Mergers and Acquisitions Advisory
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_43597.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Merger and Acquisition Instance Record" as N283875 {
+  + Mergers And Acquisition Advice Reference : Object
+  + M&A Candidate Selection and Evaluation Reference : Object
+  + M&A Candidate Selection and Evaluation Type : Text
+  + Business Service : Business Service
+  + Business Unit or Employee Reference : InvolvedParty
+  + Postconditions : Condition
+  + Preconditions : Condition
+  + Schedule : Schedule
+}
+
+class "Mergers and Acquisitions Advisory" as N283884 {
+}
+note right of N283884
+  BOMDiagram: Mergers and Acquisitions Advisory BOM Diagram
+end note
+
+class "CR Mergers And Acquisition Advice Instance Record" as N283900 {
+  + Mergers And Acquisition Advice Subject Area Type : Text
+  + Mergers And Acquisition Advice Parameter Type : FeatureTypeValues
+  + Mergers And Acquisition Advice Selected Option : Feature
+  + Mergers And Acquisition Advice Request : Instruction
+  + Mergers And Acquisition Advice Usage Log : Log
+  + Mergers And Acquisition Advice Feedback : Text
+  + Mergers And Acquisition Advice Type : ActionType
+  + Mergers And Acquisition Advice Reference : Object
+}
+
+' Relationships
+N283900 "0..1" -- "0..1" N283875
+
+@enduml

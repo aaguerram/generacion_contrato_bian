@@ -1,0 +1,86 @@
+@startuml
+title System Development Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: System Development
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_37831.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR IT System Development Instance Record" as N330943 {
+  + System Development Project Name : Name
+  + System Development Project Type : Text
+  + System Development Project Description : Text
+  + System Development Implementation Plan : Object
+  + System Development Budget : Object
+  + System Development Project Organization : Object
+  + System Development Project Schedule : Schedule
+  + Date Type : DateTimeTypeValues
+  + Date : DateTime
+}
+
+class "BQ Testing Specification Instance Record" as N330953 {
+  + Testing Specification Task Definition : Text
+  + Testing Specification Task Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + System Testing Specification : Text
+}
+
+class "BQ Functional Specification Instance Record" as N330958 {
+  + Functional Specification Task Definition : Text
+  + Functional Specification Task Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + System Functional Specification : Text
+}
+
+class "BQ Usage Specification Instance Record" as N330965 {
+  + Usage Specification Task Definition : Text
+  + Usage Specification Task Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + System Functional Specification : Text
+}
+
+class "BQ Technical Specification Instance Record" as N330971 {
+  + Technical Specification Task Definition : Text
+  + Technical Specification Task Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + System Technical Specification : Text
+}
+
+class "BQ Software and Data Specification Instance Record" as N330976 {
+  + Software and Data Specification Task Definition : Text
+  + Software and Data Specification Task Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + System Software and Data Specification : Text
+}
+
+class "System Development" as N330982 {
+}
+
+' Relationships
+N330958 "0..*" -- "0..1" N330943
+N330971 "0..*" -- "0..1" N330943
+N330976 "0..*" -- "0..1" N330943
+N330953 "0..*" -- "0..1" N330943
+N330943 "0..1" -- "0..*" N330965
+
+@enduml

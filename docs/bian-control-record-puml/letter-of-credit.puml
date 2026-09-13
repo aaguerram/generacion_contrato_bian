@@ -1,0 +1,193 @@
+@startuml
+title Letter of Credit Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Letter of Credit
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_29506.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Customer Collateral Allocation Instance Record" as N277010 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Letter Of Credit Transaction Reference : Transaction
+  + Customer Collateral Allocation Task Reference : Task
+  + Customer Collateral Allocation Task Type : Text
+}
+
+class "BQ Letter of Credit Definition and Pricing Instance Record" as N277021 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Letter Of Credit Transaction Reference : Transaction
+  + Letter of Credit Definition and Pricing Task Reference : Task
+  + Letter of Credit Definition and Pricing Task Type : Text
+}
+
+class "BQ Letter of Credit Demand Payment Instance Record" as N277029 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Letter Of Credit Transaction Reference : Transaction
+  + Letter of Credit Payout Task Reference : Task
+  + Letter of Credit Payout Task Type : Text
+  + Demand Amount : Amount
+  + Confirmer Reference Number : Identifier
+  + Advising Party Reference Number : Identifier
+  + Settlement Account : Account
+  + Demand Documentation : Document
+  + Demand Type : UndertakingDemandTypeValues
+  + Presentation Details : Correspondence
+  + Additional Information : Text
+  + Demand Identification : Identifier
+  + Undertaking Reference : Undertaking
+  + Demand Payment Instruction : Payment Instruction
+  + Second Advising Party Reference Number : Identifier
+  + Demand Payment Transaction Type : ActionTypeValues
+  + Demand Payment Transaction : Payment Transaction
+  + Requested Expiry Date : DateTime
+  + Demand Payment Terms and Conditions : Undertaking Demand Payment Arrangement
+}
+
+class "BQ Seller Obligation Confirmation Instance Record" as N277054 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Letter Of Credit Transaction Reference : Transaction
+  + Seller Obligation Confirmation Task Reference : Task
+  + Seller Obligation Confirmation Task Type : Text
+}
+
+class "BQ Letter of Credit Amendment Instance Record" as N277063 {
+  + Amendment Identification : Identifier
+  + Amendment Sequence Number : Text
+  + Amendment Issuance Date : DateTime
+  + Undertaking Amount Adjustment : Amount
+  + Advising Party : InvolvedParty
+  + Second Advising Party : InvolvedParty
+  + Termination Details : Undertaking Termination Arrangement
+  + New Expiry Details : Undertaking Expiry Arrangement
+  + New Beneficiary : InvolvedParty
+  + New Undertaking Terms And Conditions : Undertaking Arrangement
+  + Local Undertaking : Undertaking
+  + Beneficiary Consent Request Indicator : YesNoIndicator
+  + Delivery Channel : Communication Channel
+  + Enclosed File : Document
+  + Additional Information : Text
+  + Amendment Terms and Conditions : Undertaking Amendment Arrangement
+  + Amendment Instruction : Instruction
+  + Amendment Transaction : Transaction
+  + Amendment Transaction Type : ActionTypeValues
+}
+
+class "BQ Letter of Credit Issuance Instance Record" as N277083 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Letter Of Credit Transaction Reference : Transaction
+  + Letter of Credit Issuance and Booking Task Reference : Task
+  + Letter of Credit Issuance and Booking Task Type : Text
+  + Place of Issue : Address
+  + Date of Issuance : DateTime
+  + Issuance Term and Conditions : Undertaking Issuance Arrangement
+  + Undertaking Reference : Undertaking
+  + Issuance Transaction Type : ActionTypeValues
+  + Issuance Transaction : Transaction
+  + Issuance Instruction : Instruction
+  + Issuance Type : UndertakingIssuanceTypeValues
+}
+
+class "Letter of Credit" as N277100 {
+}
+note right of N277100
+  BOMDiagram: Letter of Credit BOM Diagram
+end note
+
+class "BQ Customer Payment Instance Record" as N277153 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Letter Of Credit Transaction Reference : Transaction
+  + Customer Payment Task Reference : Task
+  + Customer Payment Task Type : Text
+}
+
+class "BQ Letter of Credit Termination Instance Record" as N277163 {
+  + Termination Effective Date : DateTime
+  + Termination Reason : Text
+  + Termination Term and Condition : Undertaking Termination Arrangement
+  + Undertaking Reference : Undertaking
+  + Termination Transaction : Transaction
+  + Termination Instruction : Instruction
+  + Termination Transaction Type : ActionTypeValues
+}
+
+class "CR Letter Of Credit Transaction Instance Record" as N277171 {
+  + Letter Of Credit Transaction Parameter Type : FeatureTypeValues
+  + Letter Of Credit Transaction Selected Option : Service
+  + Letter Of Credit Transaction Status : TransactionStatus
+  + Letter Of Credit Transaction Type : UndertakingTransactionTypeValues
+  + Letter Of Credit Transaction Reference : Undertaking Transaction
+  + Letter Of Credit Agreement Reference : Undertaking
+  + Letter Of Credit Additional Involved Party Reference : Undertaking Involvement[1..*]
+  + Letter Of Credit Involvement Type : UndertakingInvolvementTypeValues
+  + Letter Of Credit Arrangement Reference : Undertaking Arrangement
+  + Letter of Credit Financial Instrument Reference : Letter of Credit
+  + Letter of Credit Identification : Identifier
+  + Letter of Credit Name : Name
+  + Letter of Credit Purpose : Text
+  + Letter of Credit Type : LetterOfCreditTypeValues
+  + Letter of Credit Amount : Amount
+  + Letter of Credit Expiry Terms and Conditions : Undertaking Expiry Arrangement[1..*]
+  + Letter of Credit Governance Rules and Law : Rule Set[1..*]
+  + Letter of Credit Underlying Transaction : Transaction
+  + Letter of Credit Presentation Details : Correspondence[1..*]
+  + Letter of Credit Enclosed File : Document[1..*]
+  + Letter of Credit Involved Account Reference : Account[1..*]
+  + Letter of Credit Obligor : InvolvedParty
+  + Letter of Credit Applicant : InvolvedParty
+  + Letter of Credit Issuer : InvolvedParty
+  + Letter of Credit Beneficiary : InvolvedParty
+  + Letter of Credit Advising Party : InvolvedParty
+  + Letter of Credit Termination Terms and Conditions : Undertaking Termination Arrangement[1..*]
+  + Letter of Credit Issuance Terms and Conditions : Undertaking Issuance Arrangement[1..*]
+  + Letter of Credit Delivery Channel : Communication Channel
+}
+
+' Relationships
+N277171 "0..1" -- "0..1" N277054
+N277171 "0..1" -- "0..1" N277010
+N277171 "0..1" -- "0..1" N277153
+N277171 "0..1" -- "0..*" N277063
+N277171 "0..1" -- "0..*" N277163
+N277171 "0..1" -- "0..*" N277029
+N277171 "0..1" -- "0..1" N277083
+N277171 "0..1" -- "0..1" N277021
+
+@enduml

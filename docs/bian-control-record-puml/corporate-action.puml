@@ -1,0 +1,125 @@
+@startuml
+title Corporate Action Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Corporate Action
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_41099.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Corporate Action" as N326259 {
+}
+note right of N326259
+  BOMDiagram: Corporate Action BOM Diagram
+end note
+
+class "CR Corporate Action Procedure Instance Record" as N326305 {
+  + Corporate Action Procedure Parameter Type : FeatureTypeValues
+  + Corporate Action Procedure Selected Option : Feature
+  + Corporate Action Procedure Request : Instruction
+  + Corporate Action Procedure Schedule : Schedule
+  + Corporate Action Procedure Status : Status
+  + Corporate Action Procedure Associated Party Reference : InvolvedParty
+  + Corporate Action Procedure Business Unit Reference : InvolvedParty
+  + Corporate Action Procedure Service Provider Reference : InvolvedParty
+  + Corporate Action Procedure Financial Facility Reference : Financial Facility
+  + Corporate Action Procedure Employee Reference : InvolvedParty
+  + Corporate Action Procedure Customer Reference : InvolvedParty
+  + Corporate Action Procedure Type : ProcedureType
+  + Corporate Action Procedure Service Provider Schedule : Schedule
+  + Corporate Action Procedure Service Type : ServiceType
+  + Corporate Action Procedure Product and Service Type : BankingProductType
+  + Corporate Action Procedure Product and Service Instance : Product
+  + Corporate Action Procedure Transaction Type : TransactionType
+  + Corporate Action Procedure Transaction : Transaction
+  + Corporate Action Procedure Financial Transaction Arrangement : Arrangement
+  + Corporate Action Procedure Customer Agreement Reference : Agreement
+  + Corporate Action Procedure Reference : Procedure
+  + Corporate Action Reference : Corporate Action
+  + Corporate Action Arrangement Reference : Corporate Action Arrangement
+  + Corporate Action Involved Party Reference : InvolvedParty[1..*]
+  + Corporate Action Involvement Type : CorporateActionInvolvementTypeValues
+}
+
+class "BQ Security Dividend Payment Instance Record" as N326331 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Corporate Action Procedure Reference : Procedure
+  + Security Dividend Payment Workstep Reference : Workstep
+  + Security Dividend Payment Workstep Type : Text
+}
+
+class "BQ Security Rights Issue Action Instance Record" as N326340 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Corporate Action Procedure Reference : Procedure
+  + Security Rights Issue Action Workstep Reference : Workstep
+  + Security Rights Issue Action Workstep Type : Text
+}
+
+class "BQ Stock Split or Reversal Action Instance Record" as N326350 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Corporate Action Procedure Reference : Procedure
+  + Stock Split or Reversal Action Workstep Reference : Workstep
+  + Stock Split or Reversal Action Workstep Type : Text
+}
+
+class "BQ Security Spin-Off Action Instance Record" as N326359 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Corporate Action Procedure Reference : Procedure
+  + Security Spin-Off Action Workstep Reference : Workstep
+  + Security Spin-Off Action Workstep Type : Text
+}
+
+class "BQ Security Mergers and Acquisition Action Instance Record" as N326370 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Corporate Action Procedure Reference : Procedure
+  + Security Mergers and Acquisition Action Workstep Reference : Workstep
+  + Security Mergers and Acquisition Action Workstep Type : Text
+}
+
+' Relationships
+N326305 "0..1" -- "0..1" N326359
+N326305 "0..1" -- "0..1" N326340
+N326305 "0..1" -- "0..1" N326370
+N326305 "0..1" -- "0..1" N326331
+N326305 "0..1" -- "0..1" N326350
+
+@enduml

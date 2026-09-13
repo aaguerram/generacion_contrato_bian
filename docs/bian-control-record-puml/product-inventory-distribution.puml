@@ -1,0 +1,98 @@
+@startuml
+title Product Inventory Distribution Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Product Inventory Distribution
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49607.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Provisioning Instance Record" as N327771 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Product Inventory Distribution Administrative Plan Reference : Plan
+  + Provisioning Reference : Planned Action
+  + Provisioning Type : Text
+}
+
+class "BQ Oversight Instance Record" as N327783 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Product Inventory Distribution Administrative Plan Reference : Plan
+  + Oversight Reference : Planned Action
+  + Oversight Type : Text
+}
+
+class "Product Inventory Distribution" as N327794 {
+}
+note right of N327794
+  BOMDiagram: Product Inventory Distribution BOM Diagram
+end note
+
+class "BQ Mailing Instance Record" as N327820 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Product Inventory Distribution Administrative Plan Reference : Plan
+  + Mailing Reference : Planned Action
+  + Mailing Type : Text
+}
+
+class "CR Product Inventory Distribution Administrative Plan Instance Record" as N327829 {
+  + Product Inventory Distribution Administrative Plan Budget Type : BudgetType
+  + Product Inventory Distribution Administrative Plan Budget : Amount
+  + Product Inventory Distribution Administrative Plan Assignment : Assignment
+  + Product Inventory Distribution Administrative Plan Duty : Arrangement
+  + Product Inventory Distribution Administrative Plan Associated Party : InvolvedParty
+  + Product Inventory Distribution Administrative Plan Budget Balance : AccountBalance
+  + Product Inventory Distribution Administrative Plan Subject Matter : Object
+  + Product Inventory Distribution Administrative Plan Type : PlanType
+  + Product Inventory Distribution Administrative Plan Reference : Plan
+  + Product Inventory Distribution Administrative Plan Description : Text
+}
+
+class "BQ Distribution Instance Record" as N327840 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Product Inventory Distribution Administrative Plan Reference : Plan
+  + Distribution Reference : Planned Action
+  + Distribution Type : Text
+}
+
+' Relationships
+N327829 "0..1" -- "0..1" N327771
+N327829 "0..1" -- "0..1" N327783
+N327829 "0..1" -- "0..1" N327840
+N327829 "0..1" -- "0..1" N327820
+
+@enduml

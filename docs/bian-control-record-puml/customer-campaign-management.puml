@@ -1,0 +1,127 @@
+@startuml
+title Customer Campaign Management Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Customer Campaign Management
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_44107.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Competitive Assessment Instance Record" as N305767 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Customer Campaign Portfolio Management Plan Reference : Plan
+  + Competitive Assessment Reference : Planned Action
+  + Competitive Assessment Type : Text
+}
+
+class "CR Customer Campaign Portfolio Management Plan Instance Record" as N305777 {
+  + Customer Campaign Portfolio : Customer Campaign Portfolio
+  + Customer Campaign Type : CustomerCampaignTypeValues
+  + Customer Campaign Description : Text
+  + Customer Campaign Metrics : Customer Campaign Metric
+  + Customer Campaign Metric Definition : Text
+  + Customer Campaign Metric Goal : Goal
+  + Customer Campaign Performance Record : Text
+  + Customer Campaign Procedure Instance Reference : Customer Campaign Procedure
+  + Employee/Business Unit Reference : InvolvedParty
+  + Customer Campaign Procedure Set-up : Arrangement
+  + Customer Campaign Procedure Version Number : Text
+  + Customer Campaign Procedure Result : Text
+}
+
+class "BQ Market Tracking Instance Record" as N305791 {
+  + Market Tracking Work Task Type : Text
+  + Market Tracking Work Task : Task
+  + General Market Research Directory Entry Instance Reference : Market Research
+  + Competitor Analysis Instance Reference : Competitor Analysis
+  + Customer Survey Procedure Instance Reference : Customer Survey
+  + Market Tracking Work Task Work Products : WorkProduct
+  + Market Tracking Work Task Result : Text
+  + Market Tracking Work Task Date and Time : DateTime
+}
+
+class "BQ Capability Oversight Instance Record" as N305801 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Customer Campaign Portfolio Management Plan Reference : Plan
+  + Capability Oversight Reference : Planned Action
+  + Capability Oversight Type : Text
+}
+
+class "BQ Performance Assessment Instance Record" as N305812 {
+  + Performance Assessment Work Task Type : Text
+  + Performance Assessment Work Task : Task
+  + Performance Assessment Work Task Work Products : WorkProduct
+  + Performance Assessment Work Task Result : Text
+  + Performance Assessment Work Task Date and Time : DateTime
+}
+
+class "Customer Campaign Management" as N305818 {
+}
+note right of N305818
+  BOMDiagram: Customer Campaign Management BOM Diagram
+end note
+
+class "BQ Coverage Planning Instance Record" as N305838 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Customer Campaign Portfolio Management Plan Reference : Plan
+  + Coverage Planning Reference : Planned Action
+  + Coverage Planning Type : Text
+}
+
+class "BQ Impact Assessment Instance Record" as N305848 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Customer Campaign Portfolio Management Plan Reference : Plan
+  + Impact Assessment Reference : Planned Action
+  + Impact Assessment Type : Text
+}
+
+class "BQ Campaign Direction Instance Record" as N305857 {
+  + Customer Campaign Development Schedule : Schedule
+  + Customer Campaign Execution Schedule : Schedule
+}
+
+' Relationships
+N305777 "0..1" -- "0..1" N305767
+N305777 "0..1" -- "0..1" N305848
+N305777 "0..1" -- "0..1" N305801
+N305777 "0..1" -- "0..1" N305838
+N305777 "0..1" -- "0..1" N305791
+N305777 "0..1" -- "0..1" N305812
+N305777 "0..1" -- "0..1" N305857
+
+@enduml

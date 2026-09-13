@@ -1,0 +1,90 @@
+@startuml
+title Card Transaction Capture Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Card Transaction Capture
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49717.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Card Financial Capture Transaction Instance Record" as N310395 {
+  + Card Financial Capture Transaction Parameter Type : FeatureTypeValues
+  + Card Financial Capture Transaction Selected Option : Feature
+  + Card Financial Capture Transaction Status : Status
+  + Card Financial Capture Transaction Type : TransactionTypeValues
+  + Card Financial Capture Transaction Transaction Type : TransactionTypeValues
+  + Card Financial Capture Transaction : Transaction
+}
+
+class "Card Transaction Capture" as N310403 {
+}
+note right of N310403
+  BOMDiagram: Card Transaction Capture BOM Diagram
+end note
+
+class "BQ Transaction Authorization Instance Record" as N310426 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Card Financial Capture Transaction Reference : Transaction
+  + Transaction Authorization Reference : Task
+  + Transaction Authorization Type : Text
+}
+
+class "BQ Transaction Capture Instance Record" as N310434 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Card Financial Capture Transaction Reference : Transaction
+  + Transaction Capture Reference : Task
+  + Transaction Capture Type : Text
+}
+
+class "BQ Transaction Consolidation Instance Record" as N310444 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Card Financial Capture Transaction Reference : Transaction
+  + Transaction Consolidation Reference : Task
+  + Transaction Consolidation Type : Text
+}
+
+class "BQ Transaction Reversal Instance Record" as N310452 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Card Financial Capture Transaction Reference : Transaction
+  + Transaction Reversal Reference : Task
+  + Transaction Reversal Type : Text
+}
+
+' Relationships
+N310395 "0..1" -- "0..1" N310452
+N310395 "0..1" -- "0..1" N310426
+N310395 "0..1" -- "0..1" N310444
+N310395 "0..1" -- "0..1" N310434
+
+@enduml

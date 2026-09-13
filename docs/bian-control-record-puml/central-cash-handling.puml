@@ -1,0 +1,71 @@
+@startuml
+title Central Cash Handling Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Central Cash Handling
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49864.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Tracking and Allocation Instance Record" as N293623 {
+  + Preconditions : Condition
+  + Allocation Schedule : Schedule
+  + Business Service : Business Service
+}
+
+class "Central Cash Handling" as N293627 {
+}
+note right of N293627
+  BOMDiagram: Central Cash Handling BOM Diagram
+end note
+
+class "BQ Projection and Allocation Instance Record" as N293647 {
+  + Preconditions : Condition
+  + Allocation Schedule : Schedule
+  + Business Service : Business Service
+}
+
+class "CR Central Cash Allocation Instance Record" as N293653 {
+  + Central Cash Allocation Parameter Type : FeatureTypeValues
+  + Central Cash Allocation Selected Option : Feature
+  + Central Cash Allocation <Subject Area> Type : Text
+  + Central Cash Allocation Description : Text
+  + Central Cash Allocation Request : Instruction
+  + Central Cash Allocation Schedule : Schedule
+  + Central Cash Allocation Status : Status
+  + Central Cash Allocation Reference : Cash Allocation
+  + Central Cash Allocation Customer Reference : InvolvedParty
+  + Central Cash Allocation Currency : CurrencyCode
+  + Central Cash Allocation Regulation Reference : Regulation
+  + Central Cash Allocation Regulation Type : RuleSetTypeValues
+  + Central Cash Allocation Jurisdiction : Jurisdiction
+  + Central Cash Allocation Booking Location : Address
+  + Central Cash Allocation Account Type : AccountTypeValues
+  + Central Cash Allocation Account Reference : Account
+  + Central Cash Allocation Instance : Allocation
+}
+
+' Relationships
+N293653 "0..1" -- "0..1" N293647
+N293653 "0..1" -- "0..1" N293623
+
+@enduml

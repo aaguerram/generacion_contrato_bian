@@ -1,0 +1,77 @@
+@startuml
+title Customer Billing Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Customer Billing
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_31542.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Customer Billing" as N275249 {
+}
+
+class "BQ Payment Instance Record" as N275265 {
+  + Payment Transaction Reference : Payment Transaction
+  + Payment Transaction : Payment Transaction
+}
+
+class "BQ Invoicing Instance Record" as N275268 {
+  + Customer Invoice Record : Invoice
+  + Invoice Date : DateTime
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Correspondence Instance Reference : Identifier
+  + Invoice : Invoice
+  + Invoicing Work Product : WorkProduct
+}
+
+class "CR Customer Billing Procedure Instance Record" as N275277 {
+  + Customer Billing Transaction Type : TransactionTypeValues
+  + Customer Billing Transaction Description : Text
+  + Customer Reference : InvolvedParty
+  + Product Instance Reference : Product Agreement
+  + Customer Agreement Reference : Customer Agreement
+  + Customer Billing ProductandService/Action Description : Text
+  + Customer Billing Party : Party
+  + Customer Billing Address : Address
+  + Customer Billing Period : DateTimePeriod
+  + Customer Billing Statement : Statement
+  + Customer Billing Amount : Amount
+  + Customer Billing Payment Due Date : DateTime
+  + Customer Billing Payment Details : Text
+  + Customer Billing Payment Schedule : Schedule
+}
+
+class "BQ Tracking and Reminders Instance Record" as N275293 {
+  + Customer Reminder Contact Record : Customer Contact
+  + Contact Message : Message
+  + Contact Date : DateTime
+  + Contact Result : Text
+  + Tracking and Reminders Result : Text
+  + Tracking and Reminders Work Product : WorkProduct
+}
+
+' Relationships
+N275268 "0..*" -- "0..1" N275277
+N275293 "0..*" -- "0..1" N275277
+N275265 "0..*" -- "0..1" N275277
+
+@enduml

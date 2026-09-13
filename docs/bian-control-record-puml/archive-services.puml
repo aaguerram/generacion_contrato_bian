@@ -1,0 +1,81 @@
+@startuml
+title Archive Services Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Archive Services
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_43551.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Document Retrieval Instance Record" as N311264 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Archive Operating Session Reference : Session
+  + Document Retrieval Function Reference : Function
+  + Document Retrieval Function Type : Text
+}
+
+class "CR Archive Operating Session Instance Record" as N311274 {
+  + Archive Operating Session Schedule : Schedule
+  + Archive Operating Session Status : Status
+  + Archive Operating Session Usage Log : Log
+  + Archive Operating Session Associated Party Reference : InvolvedParty
+  + Archive Operating Session Service Provider Reference : InvolvedParty
+  + Archive Operating Session Type : SessionTypeValues
+  + Archive Operating Session Service Provider Schedule : Schedule
+  + Archive Operating Session Service Type : ServiceType
+  + Archive Operating Session Service Configuration : System Configuration Option
+  + Archive Operating Session Reference : Session
+  + Archive Operating Session Document Reference : Document
+}
+
+class "Archive Services" as N311286 {
+}
+note right of N311286
+  BOMDiagram: Archive Services BOM Diagram
+end note
+
+class "BQ Document Maintenance Instance Record" as N311316 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Archive Operating Session Reference : Session
+  + Document Maintenance Function Reference : Function
+  + Document Maintenance Function Type : Text
+}
+
+class "BQ Document Capture Instance Record" as N311323 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Archive Operating Session Reference : Session
+  + Document Capture Function Reference : Function
+  + Document Capture Function Type : Text
+}
+
+' Relationships
+N311274 "0..1" -- "0..1" N311264
+N311274 "0..1" -- "0..1" N311323
+N311274 "0..1" -- "0..1" N311316
+
+@enduml

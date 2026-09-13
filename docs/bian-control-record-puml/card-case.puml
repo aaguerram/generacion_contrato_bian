@@ -1,0 +1,105 @@
+@startuml
+title Card Case Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Card Case
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_45111.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Card Case Procedure Instance Record" as N328139 {
+  + Card Case Type : CardCaseTypeValues
+  + Product Instance Reference : Product Agreement
+  + Customer Reference : InvolvedParty
+  + Customer Contact Record Reference : Customer Contact
+  + Case Location : Location
+  + Date : Date Time
+  + Employee/Business Unit Reference : Business Unit
+  + Card Transaction Reference : Card Payment Transaction
+  + Card Transaction Record : Card Payment Transaction
+  + Card Transaction Product Instance Reference : Product Agreement
+  + Card Holder Reference : InvolvedParty
+  + Card Transaction Issued Device Reference : Issued Device
+  + Card Transaction Network Reference : Card Network
+  + Card Transaction Issuing Bank Reference : InvolvedParty
+  + Card Transaction Merchant Acquiring Bank Reference : InvolvedParty
+  + Card Transaction Type : TransactionTypeValues
+  + Card Transaction Currency : CurrencyCode
+  + Card Transaction Amount Type : AmountTypeValues
+  + Card Transaction Amount : Amount
+  + Card Transaction Merchant Reference : InvolvedParty
+  + Card Transaction Location Reference : Location
+  + Card Transaction ProductandService Reference : Product Agreement
+  + Card Transaction Date and Time : Date Time
+  + Card Transaction FX Conversion Charge : Fee Arrangement
+  + Card Transaction Intercharge Fee : Fee Arrangement
+  + Card Transaction Authorization Record : Authorization
+  + Card Case Resolution Schedule : Schedule
+}
+
+class "BQ Consolidation Instance Record" as N328195 {
+  + Consolidation Card Transaction Record Reference : Card Payment Transaction
+  + Consolidation Task Record : Task
+  + Consolidation Instruction : Card Payment Instruction
+  + Correspondence Reference : Document
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Consolidation Task Work Products : WorkProduct
+  + Consolidation Task Result : Text
+}
+
+class "BQ Chargeback Instance Record" as N328213 {
+  + Chargeback Card Transaction Record Reference : Card Payment Transaction
+  + Chargeback Instruction : Chargeback Instruction
+}
+
+class "BQ Arbitration Instance Record" as N328221 {
+  + Arbitration Card Transaction Record Reference : Card Payment Transaction
+  + Network Participant Network Service Request Reference : Card Network Particpant Service
+  + Network Participant Network Service Request Record : Card Network Particpant Service
+  + Network Participant Service Type : ServiceTypeValues
+  + Network Participant Service Date and Time : Date Time
+  + Network Participant Service Result : Text
+}
+
+class "BQ Resolution Instance Record" as N328237 {
+  + Resolution Card Transaction Record Reference : Card Payment Transaction
+  + Resolution Task Record : Task
+  + Correspondence Instance Reference : Correspondence
+  + Correspondence Content : Correspondence
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Document Content : Document
+  + Employee/Business Unit Reference : Business Unit
+  + Payment Order Reference : Card Payment Case Resolution
+  + Resolution Task Work Products : WorkProduct
+  + Resolution Task Result : Text
+}
+
+class "Card Case" as N328263 {
+}
+
+' Relationships
+N328195 "0..*" -- "0..1" N328139
+N328213 "0..*" -- "0..1" N328139
+N328221 "0..*" -- "0..1" N328139
+N328237 "0..*" -- "0..1" N328139
+
+@enduml

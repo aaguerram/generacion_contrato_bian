@@ -1,0 +1,108 @@
+@startuml
+title Branch Currency Distribution Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Branch Currency Distribution
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49591.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Cash Distribution Procedure Instance Record" as N329964 {
+  + Cash Distribution Procedure Parameter Type : FeatureTypeValues
+  + Cash Distribution Procedure Selected Option : Feature
+  + Cash Distribution Procedure Request : Instruction
+  + Cash Distribution Procedure Schedule : Schedule
+  + Cash Distribution Procedure Status : Status
+  + Cash Distribution Procedure Reference : Cash Distribution Procedure
+  + Cash Distribution Procedure Business Unit Reference : Business Unit
+  + Cash Distribution Procedure Service Provider Reference : InvolvedParty
+  + Cash Distribution Procedure Financial Facility Reference : Financial Facility
+  + Cash Distribution Procedure Employee Reference : Employee
+  + Cash Distribution Procedure Customer Reference : InvolvedParty
+  + Cash Distribution Procedure Type : ProcedureTypeValues
+  + Cash Distribution Procedure Service Provider Schedule : Schedule
+  + Cash Distribution Procedure Service Type : ServiceTypeValues
+  + Cash Distribution Procedure Product and Service Type : BankingProductTypeValues
+  + Cash Distribution Procedure Product and Service Instance : Product
+  + Cash Distribution Procedure Transaction Type : TransactionTypeValues
+  + Cash Distribution Procedure Transaction : Transaction
+  + Cash Distribution Procedure Financial Transaction Arrangement : Financial Transaction Arrangement
+  + Cash Distribution Procedure Customer Agreement Reference : Customer Agreement
+}
+
+class "Branch Currency Distribution" as N329990 {
+}
+note right of N329990
+  BOMDiagram: Branch Currency Distribution BOM Diagram
+end note
+
+class "BQ Inventory Distribution Oversight Instance Record" as N330012 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Cash Distribution Procedure Reference : Procedure
+  + Inventory Distribution Oversight Reference : Workstep
+  + Inventory Distribution Oversight Type : Text
+}
+
+class "BQ Distribution Vehicle Administration Instance Record" as N330021 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Cash Distribution Procedure Reference : Procedure
+  + Distribution Vehicle Administration Reference : Workstep
+  + Distribution Vehicle Administration Type : Text
+}
+
+class "BQ Inventory Provisioning Instance Record" as N330030 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Cash Distribution Procedure Reference : Procedure
+  + Inventory Provisioning Reference : Workstep
+  + Inventory Provisioning Type : Text
+}
+
+class "BQ Distribution Planning Instance Record" as N330039 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Cash Distribution Procedure Reference : Procedure
+  + Distribution Planning Reference : Workstep
+  + Distribution Planning Type : Text
+}
+
+' Relationships
+N329964 "0..1" -- "0..1" N330012
+N329964 "0..1" -- "0..1" N330030
+N329964 "0..1" -- "0..1" N330021
+N329964 "0..1" -- "0..1" N330039
+
+@enduml

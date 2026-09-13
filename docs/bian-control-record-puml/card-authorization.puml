@@ -1,0 +1,107 @@
+@startuml
+title Card Authorization Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Card Authorization
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_46061.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Credit Card Authorization Assessment Instance Record" as N315640 {
+  + Network Reference : Card Network
+  + Participant Acquirer Bank Reference : InvolvedParty
+  + Participant Issuer Bank Reference : InvolvedParty
+  + Card Transaction Record : Card Payment Transaction
+  + Card Transaction Product Instance Reference : Product Agreement
+  + Card Holder Reference : InvolvedParty
+  + Card Transaction Issued Device Reference : Device
+  + Card Transaction Network Reference : Card Network
+  + Card Transaction Issuing Bank Reference : Card Payment Transaction Involvement
+  + Card Transaction Merchant Acquiring Bank Reference : Card Payment Transaction Involvement
+  + Card Transaction Type : Card Payment Transaction
+  + Card Transaction Currency : CurrencyCode
+  + Card Transaction Amount Type : AmountTypeValues
+  + Card Transaction Amount : Amount
+  + Card Transaction Merchant Reference : Card Payment Transaction Involvement
+  + Card Transaction Location Reference : Location
+  + Card Transaction Product and Service Reference : Product
+  + Card Transaction Date and Time
+  + Card Transaction FX Conversion Charge : Fee Arrangement
+  + Card Transaction Intercharge Fee : Fee Arrangement
+  + Card Transaction Authorization Record : Card Payment Authorization
+}
+
+class "BQ Device Check Instance Record" as N315684 {
+  + Issued Device Security Code : Text
+  + Issued Device Cryptogram : Text
+  + Issued Device CVV : Text
+  + Issued Device BIN : Text
+  + Issued Device Check Digit : Test
+  + Issued Device Valid Through : Test
+  + Issued Device Check Result : Test
+}
+
+class "BQ Authentication Instance Record" as N315700 {
+  + Card Transaction Product Instance Reference : Card Payment Agreement
+  + Card Holder Account Password : Number
+  + Issued Device PIN : Device
+  + Authentication Secret Question Reference : Card Payment Authentication
+  + Authentication Secret Question Template : Text
+  + Authentication Secret Question Value : Value
+  + Authentication Check Result : AuthenticationResultTypeValues
+}
+
+class "BQ Credit Check Instance Record" as N315720 {
+  + Card Account available balance check result : Test
+}
+
+class "BQ Fraud Check Instance Record" as N315726 {
+  + Fraud Check Result : Test
+}
+
+class "BQ Stand In Instance Record" as N315732 {
+  + Negative File Reference : Object
+  + Card Account StandIn Authorization Result : Authorization
+}
+
+class "Card Authorization" as N315742 {
+}
+
+class "BQ Authorization Instance Record" as N315780 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Number
+  + Business Service : Business Service
+  + Credit Card Authorization Assessment Reference : Assessment
+  + Authorization Reference : Authorization
+  + Authorization Type : Text
+}
+
+' Relationships
+N315684 "0..*" -- "0..1" N315640
+N315700 "0..*" -- "0..1" N315640
+N315720 "0..*" -- "0..1" N315640
+N315726 "0..*" -- "0..1" N315640
+N315732 "0..*" -- "0..1" N315640
+N315640 "0..1" -- "0..*" N315780
+
+@enduml

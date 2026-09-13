@@ -1,0 +1,132 @@
+@startuml
+title Bank Guarantee Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Bank Guarantee
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_36051.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Bank Guarantee Definition and Pricing Instance Record" as N315258 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Bank Guarantee Transaction Reference : Transaction
+  + Bank Guarantee Definition and Pricing Task Reference : Task
+  + Bank Guarantee Definition and Pricing Task Type : Text
+}
+
+class "BQ Customer Payment Instance Record" as N315268 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Bank Guarantee Transaction Reference : Transaction
+  + Customer Payment Task Reference : Task
+  + Customer Payment Task Type : Text
+}
+
+class "BQ Bank Guarantee Payout Instance Record" as N315279 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Bank Guarantee Transaction Reference : Transaction
+  + Bank Guarantee Payout Task Reference : Task
+  + Bank Guarantee Payout Task Type : Text
+}
+
+class "BQ Bank Guarantee Issuance and Booking Instance Record" as N315287 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Bank Guarantee Transaction Reference : Transaction
+  + Bank Guarantee Issuance and Booking Task Reference : Task
+  + Bank Guarantee Issuance and Booking Task Type : Text
+}
+
+class "BQ Customer Collateral Allocation Instance Record" as N315295 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Bank Guarantee Transaction Reference : Transaction
+  + Customer Collateral Allocation Task Reference : Task
+  + Customer Collateral Allocation Task Type : Text
+}
+
+class "CR Bank Guarantee Transaction Instance Record" as N315304 {
+  + Bank Guarantee Customer Reference : InvolvedParty
+  + Bank Guarantee Customer Name : Name
+  + Bank Guarantee Customer Branch Reference : Branch
+  + Bank Guarantee Beneficiary Reference : InvolvedParty
+  + Bank Guarantee Beneficiary Name : Name
+  + Bank Guarantee Beneficiary Bank Reference : InvolvedParty
+  + Bank Guarantee Start Date : DateTime
+  + Bank Guarantee Expiry Date : DateTime
+  + Customer Tax Identifier : Identifier
+  + Bank Guarantee Amount : Amount
+  + Bank Guarantee Currency Reference : CurrencyCode
+  + Bank Guarantee Purpose : Text
+  + Credit Facility Reference : Credit Facility
+  + Collateral Allocation Management Reference : Collateral Asset Allocation
+  + SWIFT Message ID : Identifier
+  + Document Directory Reference : Document Directory
+  + Sales Product Agreement Reference : Bank Guarantee Agreement
+  + Entitlement Option Definition : Party Obligation or Entitlement
+  + Entitlement Option Setting : Party Obligation or Entitlement
+  + Restriction Option Definition : Account Restriction
+  + Restriction Option Setting : Account Restriction
+  + Customer Commentary : Text
+  + Association Type : BankGuaranteeInvolvementTypeValues
+  + Association Obligation : Party Obligation or Entitlement
+  + Association Reference : Party
+  + Bank Guarantee Status : Status
+}
+
+class "BQ Collection Instance Record" as N315331 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Bank Guarantee Transaction Reference : Transaction
+  + Bank Guarantee Collections Task Reference : Task
+  + Bank Guarantee Collections Task Type : Text
+}
+
+class "Bank Guarantee" as N315339 {
+}
+note right of N315339
+  BOMDiagram: Bank Guarantee BOM Diagram
+end note
+
+' Relationships
+N315304 "0..1" -- "0..1" N315331
+N315304 "0..1" -- "0..1" N315287
+N315304 "0..1" -- "0..1" N315279
+N315304 "0..1" -- "0..1" N315268
+N315304 "0..1" -- "0..1" N315295
+N315304 "0..1" -- "0..1" N315258
+
+@enduml

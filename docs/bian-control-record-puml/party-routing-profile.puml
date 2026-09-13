@@ -1,0 +1,62 @@
+@startuml
+title Party Routing Profile Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Party Routing Profile
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_44978.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Status Instance Record" as N316487 {
+  + Customer Relationship Status Type : Text
+  + Customer Relationship Status : Customer Relationship Status
+  + Customer Relationship Status Narrative : Text
+  + Customer Relationship Status Valid From/To Date : DateTime
+}
+
+class "Party Routing Profile" as N316493 {
+}
+
+class "CR Party State Instance Record" as N316512 {
+  + Customer Reference : InvolvedParty
+}
+
+class "BQ Alert Instance Record" as N316516 {
+  + Customer Relationship Alert Type : Text
+  + Customer Relationship Alert : Customer Relationship Alert
+  + Customer Relationship Alert Narrative : Text
+  + Customer Relationship Alert Valid From/To Date : DateTime
+}
+
+class "BQ Rating Instance Record" as N316521 {
+  + Customer Relationship Rating Type : Text
+  + Customer Relationship Rating : Text
+  + Customer Relationship Rating Narrative : Text
+  + Customer Relationship Rating Valid From/To Date : DateTime
+}
+
+' Relationships
+N316487 "0..*" -- "0..1" N316512
+N316512 "0..1" -- "0..*" N316521
+N316512 "0..1" -- "0..*" N316516
+
+@enduml

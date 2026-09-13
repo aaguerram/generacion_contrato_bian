@@ -1,0 +1,139 @@
+@startuml
+title Document Directory Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Document Directory
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_41041.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Document Amendment Properties Instance Record" as N299588 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Number
+  + Business Service : Business Service
+  + Document Directory Entry Reference : Document Directory Entry
+  + Document Amendment Properties Reference : Document Service
+  + Document Amendment Properties Type : Text
+}
+
+class "CR Document Directory Entry Instance Record" as N299596 {
+  + Document Name : Name
+  + Location Reference : Location
+  + Business Unit or Employee Reference : InvolvedParty
+  + Product and Service Reference : Product
+  + Product and Service Action Reference : Action
+  + Document Creation Date : DateTime
+  + Document Capture Date and Time : Text
+  + Document Type/Description : DocumentTypeValues
+  + Document Content : Text
+  + Document Provisioning History : Document Service
+  + Document Provisioning Request : Instruction
+  + Document Provisioning Schedule : Schedule
+  + Document Provisioning Result : Object
+  + Document Version History : Document Service
+  + Document Version : Text
+  + Document Version Date : DateTime
+  + Document Verification History : Document Service
+  + Document Verification Task Description : Text
+  + Document Verification Service Provider Reference : InvolvedParty
+  + Document Verification Task Result : Task
+  + Document Amendment History : Document Service
+  + Document Amendment Description : Text
+  + Document Amendment Result : Text
+  + Document Update History : Text
+  + Document Update Description : Text
+  + Document Update Result : Text
+  + Document Archiving History : Document Service
+  + Document Archiving Action : Action
+  + Document Archive Reference : Log
+  + Document Media/Format : Document
+  + Document Subject Reference : Subject
+  + Document Location : Document Location
+  + Document Status : Status
+}
+
+class "BQ Document Archiving Properties Instance Record" as N299632 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Number
+  + Business Service : Business Service
+  + Document Directory Entry Reference : Document Directory Entry
+  + Document Archiving Properties Reference : Document Service
+  + Document Archiving Properties Type : Text
+}
+
+class "BQ Document Version Properties Instance Record" as N299640 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Number
+  + Business Service : Business Service
+  + Document Directory Entry Reference : Document Directory Entry
+  + Document Version Properties Reference : Document Service
+  + Document Version Properties Type : Text
+}
+
+class "BQ Document Update History Properties Instance Record" as N299650 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Number
+  + Business Service : Business Service
+  + Document Directory Entry Reference : Document Directory Entry
+  + Document Update History Properties Reference : Document Service
+  + Document Update History Properties Type : Text
+}
+
+class "BQ Document Reference Properties Instance Record" as N299658 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Number
+  + Business Service : Business Service
+  + Document Directory Entry Reference : Document Directory Entry
+  + Document Reference Properties Reference : Document Service
+  + Document Reference Properties Type : Text
+}
+
+class "BQ Document Verification Properties Instance Record" as N299668 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Number
+  + Business Service : Business Service
+  + Document Directory Entry Reference : Document Directory Entry
+  + Document Verification Properties Reference : Document Service
+  + Document Verification Properties Type : Text
+}
+
+class "Document Directory" as N299676 {
+}
+note right of N299676
+  BOMDiagram: Document Directory BOM Diagram
+end note
+
+' Relationships
+N299596 "0..1" -- "0..1" N299650
+N299596 "0..1" -- "0..1" N299632
+N299596 "0..1" -- "0..1" N299640
+N299596 "0..1" -- "0..1" N299658
+N299596 "0..1" -- "0..1" N299588
+N299596 "0..1" -- "0..1" N299668
+
+@enduml

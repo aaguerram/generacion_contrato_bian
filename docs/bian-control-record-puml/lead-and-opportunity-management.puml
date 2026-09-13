@@ -1,0 +1,59 @@
+@startuml
+title Lead and Opportunity Management Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Lead and Opportunity Management
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_38061.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Development Instance Record" as N323123 {
+  + Employee/Business Unit Reference : Business Unit
+  + Customer Contact Record Reference : Customer Contact
+  + Correspondence Instance Reference : Identifier
+  + Correspondence Content : Text
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Document Content : Text
+  + Lead Development Work Products : WorkProduct
+  + Lead Development Task Result : Task
+  + Date/Time/Location : Text
+}
+
+class "Lead and Opportunity Management" as N323134 {
+}
+
+class "CR Lead and Opportunity Procedure Instance Record" as N323145 {
+  + Customer Reference : InvolvedParty
+  + Customer Campaign Reference : Customer Campaign
+  + Customer Campaign Type : CustomerCampaignTypeValues
+  + Customer Campaign Version Number : Number
+  + ProductandService Type : Text
+  + Product Instance Reference : Product Agreement
+  + Employee/Business Unit Reference : Business Unit
+  + Lead and Opportunity Description : Text
+  + Date/Time/Location : Text
+}
+
+' Relationships
+N323123 "0..*" -- "0..1" N323145
+
+@enduml

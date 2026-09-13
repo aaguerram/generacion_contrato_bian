@@ -1,0 +1,86 @@
+@startuml
+title Correspondent Bank Relationship Management Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Correspondent Bank Relationship Management
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_37557.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Relationship Reciprocity Assessment Instance Record" as N300708 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Correpondent Bank Relationship Management Plan Reference : Plan
+  + Relationship Reciprocity Assessment Duty Reference : Planned Action
+  + Relationship Reciprocity Assessment Duty Type : Text
+}
+
+class "BQ Incident Troubleshooting Oversight Instance Record" as N300719 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Correpondent Bank Relationship Management Plan Reference : Plan
+  + Incident Troubleshooting Oversight Duty Reference : Planned Action
+  + Incident Troubleshooting Oversight Duty Type : Text
+}
+
+class "CR Correpondent Bank Relationship Management Plan Instance Record" as N300728 {
+  + Correpondent Bank Relationship Management Plan Type : PlanType
+  + Correpondent Bank Relationship Management Plan Reference : Plan
+  + Correpondent Bank Relationship Management Plan Budget Type : BudgetType
+  + Correpondent Bank Relationship Management Plan Budget : Amount
+  + Correpondent Bank Relationship Management Plan Assignment : Assignment
+  + Correpondent Bank Relationship Management Plan Duty : Arrangement
+  + Correpondent Bank Relationship Management Plan Description : Text
+  + Correpondent Bank Relationship Management Plan BudgetBalance : AccountBalance
+  + Correpondent Bank Relationship Management Plan Associated Party : InvolvedParty
+  + Correpondent Bank Relationship Management Plan Subject Matter : Object
+}
+
+class "Correspondent Bank Relationship Management" as N300739 {
+}
+note right of N300739
+  BOMDiagram: Correspondent Bank Relationship Management BOM Diagram
+end note
+
+class "BQ Relationship Development Instance Record" as N300766 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Correpondent Bank Relationship Management Plan Reference : Plan
+  + Relationship Development Duty Reference : Planned Action
+  + Relationship Development Duty Type : Text
+}
+
+' Relationships
+N300728 "0..1" -- "0..1" N300719
+N300728 "0..1" -- "0..1" N300766
+N300728 "0..1" -- "0..1" N300708
+
+@enduml

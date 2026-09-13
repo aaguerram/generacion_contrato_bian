@@ -1,0 +1,90 @@
+@startuml
+title eTrading Workbench Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: eTrading Workbench
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_38237.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Investment Portfolio Valuation Instance Record" as N324686 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + eTrading Workbench Operating Session Reference : Session
+  + Investment Portfolio Valuation Function Reference : Function
+  + Investment Portfolio Valuation Function Type : Text
+}
+
+class "BQ Market Order Quotation Instance Record" as N324693 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + eTrading Workbench Operating Session Reference : Session
+  + Market Order Quotation Function Reference : Function
+  + Market Order Quotation Function Type : Text
+}
+
+class "eTrading Workbench" as N324700 {
+}
+note right of N324700
+  BOMDiagram: eTrading Workbench BOM Diagram
+end note
+
+class "BQ Market Price Analysis Instance Record" as N324737 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + eTrading Workbench Operating Session Reference : Session
+  + Market Price Analysis Function Reference : Function
+  + Market Price Analysis Function Type : Text
+}
+
+class "BQ Market Order Initiation Instance Record" as N324744 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + eTrading Workbench Operating Session Reference : Session
+  + Market Order Initiation Function Reference : Function
+  + Market Order Initiation Function Type : Text
+}
+
+class "CR eTrading Workbench Operating Session Instance Record" as N324753 {
+  + eTrading Workbench Operating Session Schedule : Schedule
+  + eTrading Workbench Operating Session Status : Status
+  + eTrading Workbench Operating Session Usage Log : Log
+  + eTrading Workbench Operating Session Associated Party Reference : InvolvedParty
+  + eTrading Workbench Operating Session Service Provider Reference : InvolvedParty
+  + eTrading Workbench Operating Session Type : SessionType
+  + eTrading Workbench Operating Session Service Provider Schedule : Schedule
+  + eTrading Workbench Operating Session Service Type : ServiceType
+  + eTrading Workbench Operating Session Service Configuration : System Configuration Option
+  + eTrading Workbench Operating Session Reference : Session
+}
+
+' Relationships
+N324753 "0..1" -- "0..1" N324693
+N324753 "0..1" -- "0..1" N324744
+N324753 "0..1" -- "0..1" N324737
+N324753 "0..1" -- "0..1" N324686
+
+@enduml

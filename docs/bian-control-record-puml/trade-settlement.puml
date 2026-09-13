@@ -1,0 +1,97 @@
+@startuml
+title Trade Settlement Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Trade Settlement
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_50945.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Trade Settlement Procedure Instance Record" as N302682 {
+  + Trade Settlement Procedure Parameter Type : FeatureTypeValues
+  + Trade Settlement Procedure Selected Option : Feature
+  + Trade Settlement Procedure Request : Instruction
+  + Trade Settlement Procedure Schedule : Schedule
+  + Trade Settlement Procedure Status : Status
+  + Trade Settlement Procedure Associated Party Reference : InvolvedParty
+  + Trade Settlement Procedure Business Unit Reference : InvolvedParty
+  + Trade Settlement Procedure Service Provider Reference : InvolvedParty
+  + Trade Settlement Procedure Financial Facility Reference : Financial Facility
+  + Trade Settlement Procedure Employee Reference : InvolvedParty
+  + Trade Settlement Procedure Customer Reference : InvolvedParty
+  + Trade Settlement Procedure Type : ProcedureType
+  + Trade Settlement Procedure Service Provider Schedule : Schedule
+  + Trade Settlement Procedure Service Type : ServiceType
+  + Trade Settlement Procedure Product and Service Type : BankingProductType
+  + Trade Settlement Procedure Product and Service Instance : Product
+  + Trade Settlement Procedure Transaction Type : TransactionType
+  + Trade Settlement Procedure Transaction : Transaction
+  + Trade Settlement Procedure Financial Transaction Arrangement : Arrangement
+  + Trade Settlement Procedure Customer Agreement Reference : Agreement
+  + Trade Settlement Procedure Reference : Procedure
+}
+
+class "BQ Market Trade Cash Settlement Instance Record" as N302704 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Trade Settlement Procedure Reference : Procedure
+  + Market Trade Cash Settlement Workstep Reference : Workstep
+  + Market Trade Cash Settlement Workstep Type : Text
+}
+
+class "BQ Market Trade Securities Settlement Instance Record" as N302714 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Trade Settlement Procedure Reference : Procedure
+  + Market Trade Securities Settlement Workstep Reference : Workstep
+  + Market Trade Securities Settlement Workstep Type : Text
+}
+
+class "BQ Market Trade Settlement Confirmation Instance Record" as N302725 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Trade Settlement Procedure Reference : Procedure
+  + Market Trade Settlement Confirmation Workstep Reference : Workstep
+  + Market Trade Settlement Confirmation Workstep Type : Text
+}
+
+class "Trade Settlement" as N302735 {
+}
+note right of N302735
+  BOMDiagram: Trade Settlement BOM Diagram
+end note
+
+' Relationships
+N302682 "0..1" -- "0..1" N302714
+N302682 "0..1" -- "0..1" N302725
+N302682 "0..1" -- "0..1" N302704
+
+@enduml

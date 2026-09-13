@@ -1,0 +1,146 @@
+@startuml
+title Customer Position Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Customer Position
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_48673.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Cashflow Instance Record" as N298380 {
+  + Product Instance Reference : Product Agreement
+  + Product Arrangement Instance Report Type : ReportTypeValues
+  + Product Arrangement Instance Report : Report
+  + Report Options/Selection Criteria : Reporting Arrangement
+  + Report Period : DateTimePeriod
+  + Report Format/Template : Text
+  + Report : Report
+  + Customer Cashflow Position Analysis Record : Analysis
+  + Customer Product Type : ProductAgreementTypeValues
+  + Customer Account Balance : AccountBalance
+}
+
+class "CR Customer Position State Instance Record" as N298394 {
+  + Customer Reference : InvolvedParty
+  + Customer Positio Reference : Customer Position
+  + Account Reference : Product Agreement[1..*]
+  + Customer Position State Reference : Identifier
+}
+
+class "Customer Position" as N298399 {
+}
+
+class "BQ Collateral Allocation Instance Record" as N298419 {
+  + Customer Reference : InvolvedParty
+  + Collateral Asset Type : AssetTypeValues
+  + Collateral Asset Reference : Collateral Asset
+  + Collateral Asset Description : Text
+  + Collateral Asset Administration Instance Reference : Collateral Asset Administrative Plan
+  + Collateral Asset Status : CollateralAssetStatusTypeValues
+  + Collateral Asset Valuation : Asset Valuation
+  + Collateral Asset Allocation Profile : Collateral Asset Allocation
+  + Collateral Asset Valuation Date : DateTime
+  + Collateral Asset Loan to Value Ratio : Text
+  + Customer Collateral Position Analysis Record : Analysis
+}
+
+class "BQ Credit Instance Record" as N298431 {
+  + Customer Credit Rating Assessment : Customer Credit Rating Assessment
+  + Customer Credit Rating Assessment Type : CreditRatingAssessmentType
+  + Customer Credit Rating Narrative : Text
+  + Customer Credit Position Analysis Record : Analysis
+}
+
+enum "ProductAgreementTypeValues" as N298437 {
+  Current Account Agreement
+  Savings Account Agreement
+  Brokered Product Agreement
+  Consumer Loan Agreement
+  Mortgage Loan Agreement
+  Direct Debit Service Agreement
+  Term Deposit Agreement
+}
+
+class "Product Agreement" as N298439 {
+  + Product Agreement Type : ProductAgreementTypeValues
+  + Product Agreement Identification : Identifier
+}
+
+class "InvolvedParty" as N298441 <<datatype>> {
+  + Party Reference : Text
+  + Involvement Reference : Text
+}
+
+class "AccountBalance" as N298443 <<datatype>> {
+  + Balance Amount : Amount
+  + Balance Type : BalanceTypeValues
+  + Balance Value Date : DateTime
+  + Balance Indicator : DebitCreditIndicatortValues
+  + Balance Counterparty Type : BalanceCounterpartyTypeValues
+  + Balance Calculation Date : DateTime
+  + Balance Sub Type : BalanceSubTypeValues
+}
+
+class "Customer Position" as N298463 {
+  + Position Type : PositionTypeValues
+  + Event Reference
+}
+
+enum "PositionTypeValues" as N298466 {
+  Balance/Cashflow
+  Credit Position
+  Collateral Position
+  Security Position
+}
+
+enum "BalanceTypeValues" as N298471 {
+  Opening Balance
+  Closing Balance
+  Current Balance
+  Available Balance
+  Ledger Balance
+  Reserve Balance
+  Free Balance
+  Principal Balance
+  Closing Available
+  Closing Booked
+  Forward Available
+  Information
+  Interim Available
+  Interim Booked
+  Opening Available
+  Opening Booked
+  Previously Closed Booked
+  Expected
+}
+
+' Relationships
+N298394 "0..1" -- "0..1" N298380
+N298431 "0..1" -- "0..1" N298394
+N298394 "0..1" -- "0..1" N298419
+N298394 -- N298441
+N298394 -- N298439
+N298380 -- N298437
+N298380 -- N298443
+N298380 -- N298439
+
+@enduml

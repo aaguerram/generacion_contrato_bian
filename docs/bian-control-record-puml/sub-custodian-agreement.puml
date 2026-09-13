@@ -1,0 +1,98 @@
+@startuml
+title Sub Custodian Agreement Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Sub Custodian Agreement
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_39816.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Sub Custodian Agreement Instance Record" as N301808 {
+  + Sub Custodian Agreement Parameter Type : FeatureTypeValues
+  + Sub Custodian Agreement Selected Option : Feature
+  + Sub Custodian Agreement Type : AgreementTypeValues
+  + Sub Custodian Agreement Reference : Agreement
+  + Sub Custodian Agreement Discharge Request : Instruction
+  + Sub Custodian Agreement Discharge Schedule : Schedule
+  + Sub Custodian Agreement Status : AgreementStatus
+  + Sub Custodian Agreement Associated Party : InvolvedParty
+  + Sub Custodian Agreement Customer Reference : InvolvedParty
+  + Sub Custodian Agreement Obligation : Arrangement
+  + Sub Custodian Agreement Entitlement : Arrangement
+  + Sub Custodian Agreement Regulation Reference : Rule Set[1..*]
+  + Sub Custodian Agreement Regulation Type : RuleSetType
+  + Sub Custodian Agreement Jurisdiction : Jurisdiction
+  + Sub Custodian Agreement Account Reference : Account
+  + Sub Custodian Agreement Subject Matter : Object
+  + Sub Custodian Agreement Product Reference : Product
+  + Sub Custodian Agreement Calendar Reference : Calendar
+  + Sub Custodian Agreement Associated Agreement Reference : Agreement
+}
+
+class "BQ Regulatory Term Instance Record" as N301828 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Sub Custodian Agreement Reference : Agreement
+  + Regulatory Term Reference : Arrangement
+  + Regulatory Term Type : Text
+  + Regulatory Authority : String
+  + Applicable Regulation Reference : Object
+  + Applicable Regulation Interpretation : String
+}
+
+class "BQ Policy Term Instance Record" as N301838 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Sub Custodian Agreement Reference : Agreement
+  + Policy Term Reference : Arrangement
+  + Policy Term Type : Text
+  + Bank Policy-Rule Type : String
+  + Applicable Bank Policy-Rule Reference : Object
+  + Applicable Bank Policy- Rule Interpretation : String
+}
+
+class "Sub Custodian Agreement" as N301848 {
+}
+note right of N301848
+  BOMDiagram: Sub Custodian Agreement BOM Diagram
+end note
+
+class "BQ Legal Term Instance Record" as N301875 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Sub Custodian Agreement Reference : Agreement
+  + Legal Term Reference : Arrangement
+  + Legal Term Type : Text
+  + Jurisdiction : String
+  + Applicable Law Reference : Object
+  + Applicable Law Interpretation : String
+}
+
+' Relationships
+N301808 "0..1" -- "0..1" N301838
+N301808 "0..1" -- "0..1" N301828
+N301808 "0..1" -- "0..1" N301875
+
+@enduml

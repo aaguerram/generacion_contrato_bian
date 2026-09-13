@@ -1,0 +1,123 @@
+@startuml
+title Financial Instrument Reference Data Management Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Financial Instrument Reference Data Management
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_46468.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Financial Instrument Reference Data Management" as N310226 {
+}
+note right of N310226
+  BOMDiagram: Financial Instrument Reference Data Management BOM Diagram
+end note
+
+class "BQ Debt Instrument Instance Record" as N310268 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Financial Instrument Directory Entry Reference : Directory Entry
+  + Debt Instrument property Reference : Object
+  + Debt Instrument property Type : Text
+}
+
+class "BQ Option Instance Record" as N310278 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Financial Instrument Directory Entry Reference : Directory Entry
+  + Option Instrument property Reference : Object
+  + Option Instrument property Type : Text
+}
+
+class "BQ Equity Instance Record" as N310287 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Financial Instrument Directory Entry Reference : Directory Entry
+  + Equity Instrument property Reference : Object
+  + Equity Instrument property Type : Text
+}
+
+class "BQ Currency Instance Record" as N310295 {
+  + Identifier : Identifier
+  + Currency Name : Name
+  + Currency Alphabetic Code : CurrencyCode
+  + Currency Numerical Code : CurrencyCode
+  + Currency Symbol : Text
+  + Currency Country : Country
+  + Currency Decimal Positions : Text
+  + Currency Banknote Denomination : Text
+  + Currency Coin Denomination : Text
+  + Currency Cash Accepted Indicator : YesNoIndicator
+  + Currency Banknote Picture : Text
+  + Currency Banknote Authentication Method : Text
+  + Maximum Amount in Cash : Amount
+  + Minimum Amount in Cash : Amount
+}
+
+class "BQ Warrant Instance Record" as N310313 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Financial Instrument Directory Entry Reference : Directory Entry
+  + Warrant Instrument property Reference : Object
+  + Warrant Instrument property Type : Text
+}
+
+class "BQ Futures Instance Record" as N310321 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Version Number : Text
+  + Business Service : Business Service
+  + Financial Instrument Directory Entry Reference : Directory Entry
+  + Futures Instrument property Reference : Object
+  + Futures Instrument property Type : Text
+}
+
+class "CR Financial Instrument Directory Entry Instance Record" as N310329 {
+  + Financial Instrument Directory Entry Description : Text
+  + Financial Instrument Directory Entry Schedule : Schedule
+  + Financial Instrument Directory Entry Version : Number
+  + Financial Instrument Directory Entry Status : Status
+  + Financial Instrument Directory Entry Usage Log : Log
+  + Financial Instrument Directory Entry Update Log : Log
+  + Financial Instrument Directory Entry Service Configuration : Text
+  + Financial Instrument Directory Entry Reference : Directory Entry
+  + Financial Instrument Reference : Financial Instrument
+  + Financial Market Reference : Financial Market
+}
+
+' Relationships
+N310329 "0..1" -- "0..1" N310313
+N310329 "0..1" -- "0..1" N310321
+N310329 "0..1" -- "0..1" N310278
+N310329 "0..1" -- "0..1" N310287
+N310329 "0..1" -- "0..1" N310268
+N310329 "0..1" -- "0..1" N310295
+
+@enduml

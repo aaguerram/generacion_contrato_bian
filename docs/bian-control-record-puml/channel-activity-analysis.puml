@@ -1,0 +1,85 @@
+@startuml
+title Channel Activity Analysis Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Channel Activity Analysis
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_47927.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Bot Instance Record" as N276926 {
+  + Channel Activity Bot Detection Analysis Algorithm Specification : Text
+  + Channel Activity Bot Detection Analysis Reference : Analysis
+  + Channel Activity Bot Detection Analysis Result : Analysis
+}
+
+class "CR Channel Activity Analysis Instance Record" as N276933 {
+  + Channel Type : ChannelTypeValues
+  + Channel Activity Analysis Period : DateTimePeriod
+  + Channel Activity Analysis Type : AnalysisTypeValues
+  + Channel Activity Analysis Result : Channel Activity Analysis
+  + Channel Activity Analysis Record : Channel Activity Analysis
+  + Channel Activity History Report : Report
+}
+
+class "Channel Activity Analysis" as N276940 {
+}
+
+class "BQ Device Error Instance Record" as N276957 {
+  + Channel Activity Device Error Detection Analysis Algorithm Specification : Text
+  + Channel Activity Device Error Detection Analysis Reference : Analysis
+  + Channel Activity Device Error Detection Analysis Result : Analysis
+}
+
+class "BQ Merchant Fraud Instance Record" as N276962 {
+  + Channel Activity Merchant Fraud Analysis Algorithm Specification : Text
+  + Channel Activity Merchant Fraud Analysis Reference : Analysis
+  + Channel Activity Merchant Fraud Analysis Result : Analysis
+}
+
+class "BQ Customer Fraud Instance Record" as N276966 {
+  + Channel Activity Customer Fraud Analysis Algorithm Specification : Text
+  + Channel Activity Customer Fraud Analysis Reference : Analysis
+  + Channel Activity Customer Fraud Analysis Result : Analysis
+}
+
+class "BQ Customer Behavior Instance Record" as N276971 {
+  + Channel Activity Customer Behavior Analysis Algorithm Specification : Text
+  + Channel Activity Customer Behavior Analysis Reference : Analysis
+  + Channel Activity Customer Behavior Analysis Result : Analysis
+}
+
+class "BQ Merchant Behavior Instance Record" as N276975 {
+  + Channel Activity Merchant Behavior Analysis Algorithm Specification : Text
+  + Channel Activity Merchant Behavior Analysis Reference : Analysis
+  + Channel Activity Merchant Behavior Analysis Result : Analysis
+}
+
+' Relationships
+N276966 "0..*" -- "0..1" N276933
+N276962 "0..* / 0..1" -- N276933
+N276971 "0..*" -- "0..1" N276933
+N276933 "0..1" -- "0..*" N276975
+N276926 "0..*" -- "0..1" N276933
+N276957 "0..*" -- "0..1" N276933
+
+@enduml

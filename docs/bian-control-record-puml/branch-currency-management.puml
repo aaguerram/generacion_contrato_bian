@@ -1,0 +1,64 @@
+@startuml
+title Branch Currency Management Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Branch Currency Management
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49663.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Branch Cash Allocation Instance Record" as N296639 {
+  + Branch Cash Allocation Parameter Type : FeatureTypeValues
+  + Branch Cash Allocation Selected Option : Feature
+  + Branch Cash Allocation <Subject Area> Type : Text
+  + Branch Cash Allocation Description : Text
+  + Branch Cash Allocation Request : Instruction
+  + Branch Cash Allocation Schedule : Schedule
+  + Branch Cash Allocation Status : Status
+  + Branch Cash Allocation Reference : Cash Allocation
+  + Branch Cash Allocation Customer Reference : InvolvedParty
+  + Branch Cash Allocation Currency : CurrencyCode
+  + Branch Cash Allocation Regulation Reference : Regulation
+  + Branch Cash Allocation Regulation Type : RuleSetTypeValues
+  + Branch Cash Allocation Jurisdiction : Jurisdiction
+  + Branch Cash Allocation Booking Location : Address
+  + Branch Cash Allocation Account Type : AccountTypeValues
+  + Branch Cash Allocation Account Reference : Account
+  + Branch Cash Allocation Instance : Cash Allocation
+}
+
+class "Branch Currency Management" as N296658 {
+}
+note right of N296658
+  BOMDiagram: Branch Currency Management BOM Diagram
+end note
+
+class "BQ Inventory Allocation Instance Record" as N296671 {
+  + Preconditions : Condition
+  + Allocation Schedule : Schedule
+  + Business Service : Business Service
+}
+
+' Relationships
+N296639 "0..1" -- "0..1" N296671
+
+@enduml

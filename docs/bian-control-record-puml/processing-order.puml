@@ -1,0 +1,59 @@
+@startuml
+title Processing Order Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Processing Order
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_30125.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Processing Order Procedure Instance Record" as N277757 {
+  + Processing Order Procedure Parameter Type : Text
+  + Processing Order Procedure Selected Option : Feature
+  + Processing Order Procedure Request : Instruction
+  + Processing Order Procedure Schedule : Schedule
+  + Processing Order Procedure Status : Status
+  + Processing Order Procedure Associated Party Reference : InvolvedParty
+  + Processing Order Procedure Business Unit Reference : InvolvedParty
+  + Processing Order Procedure Service Provider Reference : InvolvedParty
+  + Processing Order Procedure Financial Facility Reference : Financial Facility
+  + Processing Order Procedure Employee Reference : InvolvedParty
+  + Processing Order Procedure Customer Reference : InvolvedParty
+  + Processing Order ProcedureType : ProcedureType
+  + Processing Order Procedure Service Provider Schedule : Schedule
+  + Processing Order Procedure Service Type : ServiceType
+  + Processing Order Procedure Product and Service Type : BankingProductType
+  + Processing Order Procedure Product and Service Instance : Product
+  + Processing Order ProcedureTransaction Type : TransactionType
+  + Processing Order ProcedureTransaction : Transaction
+  + Processing Order Procedure Financial Transaction Arrangement : Arrangement
+  + Processing Order Procedure Customer Agreement Reference : Agreement
+  + Processing Order Procedure Reference : Procedure
+}
+
+class "Processing Order" as N277809 {
+}
+note right of N277809
+  BOMDiagram: Processing Order BOM Diagram
+end note
+
+@enduml

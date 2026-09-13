@@ -1,0 +1,102 @@
+@startuml
+title Product Deployment Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Product Deployment
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_37756.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR ProductandService Deployment Development Instance Record" as N308494 {
+  + ProductandService Deployment Project Name : Name
+  + ProductandService Deployment Project Type : Text
+  + ProductandService Deployment Project Description : Text
+  + ProductandService Deployment Implementation Plan : Plan
+  + ProductandService Deployment Budget : Budget Arrangement
+  + ProductandService Deployment Organization : Organisation
+  + ProductandService Deployment Schedule : Schedule
+  + Date Type : DateTimeTypeValues
+  + Date : DateTime
+}
+
+class "BQ Systems Instance Record" as N308514 {
+  + ProductandService Deployment Systems Requirements : Requirement
+  + ProductandService Deployment Systems Requirements Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + ProductandService Deployment Systems Requirements Task Specification : Text
+}
+
+class "BQ IT Operations Instance Record" as N308526 {
+  + ProductandService Deployment IT Operations Requirements : Requirement
+  + ProductandService Deployment IT Operations Requirements Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + ProductandService Deployment IT Operations Requirements Task Specification : Text
+}
+
+class "BQ HR Operations Instance Record" as N308538 {
+  + ProductandService Deployment HR Operations Requirements : Requirement
+  + ProductandService Deployment HR Operations Requirements Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + ProductandService Deployment HR Operations Requirements Task Specification : Text
+}
+
+class "BQ Sales and Marketing Instance Record" as N308550 {
+  + ProductandService Deployment Sales and Marketing Requirements : Requirement
+  + ProductandService Deployment Sales and Marketing Requirements Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + ProductandService Deployment Sales and Marketing Requirements Task Specification : Text
+}
+
+class "BQ Servicing Instance Record" as N308562 {
+  + ProductandService Deployment Servicing Requirements : Requirement
+  + ProductandService Deployment Servicing Requirements Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + ProductandService Deployment Servicing Requirements Task Specification : Text
+}
+
+class "BQ Production Instance Record" as N308574 {
+  + ProductandService Deployment Production Requirements : Requirement
+  + ProductandService Deployment Production Requirements Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + ProductandService Deployment Production Requirements Task Specification : Text
+}
+
+class "BQ Production Support Instance Record" as N308586 {
+  + ProductandService Deployment Production Support Requirements : Requirement
+  + ProductandService Deployment Production Support Requirements Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + ProductandService Deployment Production Support Requirements Task Specification : Text
+}
+
+class "Product Deployment" as N308600 {
+}
+
+' Relationships
+N308514 "0..*" -- "0..1" N308494
+N308526 "0..*" -- "0..1" N308494
+N308538 "0..*" -- "0..1" N308494
+N308550 "0..*" -- "0..1" N308494
+N308494 "0..1" -- "0..*" N308562
+N308494 "0..1" -- "0..*" N308574
+N308586 "0..1" -- "0..1" N308494
+
+@enduml

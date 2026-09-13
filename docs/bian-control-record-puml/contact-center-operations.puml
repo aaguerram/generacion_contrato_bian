@@ -1,0 +1,70 @@
+@startuml
+title Contact Center Operations Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Contact Center Operations
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49347.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Contact Center Administrative Plan Instance Record" as N276062 {
+  + Contact Center Service Operating Configuration : Arrangement
+  + Customer Servicing Representative Allocation Schedule : Schedule
+  + Customer Servicing Representative Reference : InvolvedParty
+  + Customer Servicing Representative Record : InvolvedParty
+  + Customer Servicing Representative Qualification Profile : Profile
+  + Customer Servicing Representative Location : Address
+  + Customer Servicing Representative Availability Schedule : Schedule
+  + Customer Servicing Representative Status : Status
+  + Customer Servicing Representative Assignment Record : Assignment
+}
+
+class "BQ Assignment Instance Record" as N276082 {
+  + Assignment Customer Servicing Representative : InvolvedParty
+  + Assignment Customer Servicing Position Reference : Position
+  + Assignment Customer Servicing Position Profile : Profile
+  + Assignment Customer Servicing Position Schedule : Schedule
+  + Customer Contact Session Procedure Instance Reference : Identifier
+}
+
+class "BQ Peak Load Instance Record" as N276096 {
+  + Contact Center Service Statistics : Object
+  + Contact Center Service Statistic Type : Text
+  + Peak Load Response Task : Task
+  + Peak Load Response Task Type : Text
+  + Peak Load Response Description : Text
+}
+
+class "BQ Troubleshooting Instance Record" as N276110 {
+  + Contact Center Production Issue Record : Production Issue
+  + Contact Center Issue Analysis And Recommended Response : Object
+}
+
+class "Contact Center Operations" as N276120 {
+}
+
+' Relationships
+N276082 "0..*" -- "0..1" N276062
+N276096 "0..*" -- "0..1" N276062
+N276110 "0..*" -- "0..1" N276062
+
+@enduml

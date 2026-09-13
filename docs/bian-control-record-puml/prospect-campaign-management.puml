@@ -1,0 +1,76 @@
+@startuml
+title Prospect Campaign Management Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Prospect Campaign Management
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_31106.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Campaign Direction Instance Record" as N292163 {
+  + Prospect Campaign Development Schedule : Schedule
+  + Prospect Campaign Execution Schedule : Schedule
+}
+
+class "CR Prospect Campaign Portfolio Management Plan Instance Record" as N292166 {
+  + Prospect Campaign Portfolio : Portfolio
+  + Prospect Campaign Type : CampaignTypeValues
+  + Prospect Campaign Description : Text
+  + Prospect Campaign Metrics : Metric
+  + Prospect Campaign Metric Definition : Text
+  + Prospect Campaign Metric Goal : Goal
+  + Prospect Campaign Performance Record : Prospect Campaign Assessment
+  + Prospect Campaign Procedure Instance Reference : Identifier
+  + Employee or Business Unit Reference : InvolvedParty
+  + Prospect Campaign Procedure Set-up : Arrangement
+  + Prospect Campaign Procedure Version Number : Number
+  + Prospect Campaign Procedure Result : Prospect Campaign Procedure
+}
+
+class "BQ Performance Assessment Instance Record" as N292179 {
+  + Performance Assessment Work Task Type : Text
+  + Performance Assessment Work Task : Task
+  + Performance Assessment Work Task Work Products : WorkProduct
+  + Performance Assessment Work Task Result : Task
+  + Performance Assessment Work Task Date-Time : Text
+}
+
+class "Prospect Campaign Management" as N292186 {
+}
+
+class "BQ Market Tracking Instance Record" as N292205 {
+  + Market Tracking Work Task Type : Text
+  + Market Tracking Work Task : Task
+  + General Market Research Directory Entry Instance Reference : Identifier
+  + Competitor Analysis Instance Reference : Identifier
+  + Customer Survey Procedure Instance Reference : Identifier
+  + Market Tracking Work Task Work Products : WorkProduct
+  + Market Tracking Work Task Result : Task
+  + Market Tracking Work Task Date and Time : Date Time
+}
+
+' Relationships
+N292205 "0..*" -- "0..1" N292166
+N292179 "0..*" -- "0..1" N292166
+N292163 "0..*" -- "0..1" N292166
+
+@enduml

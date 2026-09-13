@@ -1,0 +1,108 @@
+@startuml
+title Accounts Receivable Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Accounts Receivable
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49754.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Customer Negotiation Instance Record" as N320600 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Accounts Receivable Procedure Reference : Procedure
+  + Customer Negotiation Reference : Workstep
+  + Customer Negotiation Type : Text
+}
+
+class "BQ Receivables Evaluation Instance Record" as N320611 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Accounts Receivable Procedure Reference : Procedure
+  + Receivables Evaluation Reference : Workstep
+  + Receivables Evaluation Type : Text
+}
+
+class "BQ Payment Instance Record" as N320621 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Accounts Receivable Procedure Reference : Procedure
+  + Payment Reference : Workstep
+  + Payment Type : Text
+}
+
+class "CR Accounts Receivable Procedure Instance Record" as N320630 {
+  + Accounts Receivable Procedure Parameter Type : FeatureTypeValues
+  + Accounts Receivable Procedure Selected Option : Feature
+  + Accounts Receivable Procedure Request : Instruction
+  + Accounts Receivable Procedure Schedule : Schedule
+  + Accounts Receivable Procedure Status : Status
+  + Accounts Receivable Procedure Reference : Accounts Receivable Procedure
+  + Accounts Receivable Procedure Business Unit Reference : Business Unit
+  + Accounts Receivable Procedure Service Provider Reference : Object
+  + Accounts Receivable Procedure Financial Facility Reference : Financial Facility
+  + Accounts Receivable Procedure Employee Reference : Employee
+  + Accounts Receivable Procedure Customer Reference : InvolvedParty
+  + Accounts Receivable Procedure Type : ProcedureTypeValues
+  + Accounts Receivable Procedure Service Provider Schedule : Schedule
+  + Accounts Receivable Procedure Service Type : ServiceTypeValues
+  + Accounts Receivable Procedure Product and Service Type : BankingProductTypeValues
+  + Accounts Receivable Procedure Product and Service Instance : Product
+  + Accounts Receivable Procedure Transaction Type : TransactionTypeValues
+  + Accounts Receivable Procedure Transaction : Transaction
+  + Accounts Receivable Procedure Financial Transaction Arrangement : Arrangement
+  + Accounts Receivable Procedure Customer Agreement Reference : Customer Agreement
+}
+
+class "Accounts Receivable" as N320652 {
+}
+note right of N320652
+  BOMDiagram: Accounts Receivable BOM Diagram
+end note
+
+class "BQ Resolution Instance Record" as N320676 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Accounts Receivable Procedure Reference : Procedure
+  + Resolution Reference : Workstep
+  + Resolution Type : Text
+}
+
+' Relationships
+N320630 "0..1" -- "0..1" N320676
+N320630 "0..1" -- "0..1" N320600
+N320630 "0..1" -- "0..1" N320621
+N320630 "0..1" -- "0..1" N320611
+
+@enduml

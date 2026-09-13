@@ -1,0 +1,65 @@
+@startuml
+title Investment Portfolio Management Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Investment Portfolio Management
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_40547.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Managed Investment Portfolio Facility Instance Record" as N313647 {
+  + Investment Portfolio Trading Policies : Rule Set
+  + Investment Portfolio Policy Type : PolicyTypeValues
+  + Investment Portfolio Policy Description : Text
+  + Investment Portfolio Policy Limits and Constraints : Object
+  + Investment Portfolio Instance Reference : Identifier
+  + Investment Portfolio Holdings : Asset Holding
+  + Investment Portfolio Security Type : SecurityTypeValues
+  + Investment Portfolio Security Holding : Asset Holding
+}
+
+class "BQ Opportunity Instance Record" as N313665 {
+  + Market Opportunity Description : Text
+  + Securities Comparison : Object
+}
+
+class "BQ Trade Instance Record" as N313673 {
+  + Investment Portfolio Trade Request : Instruction
+  + Investment Portfolio Trade Security Type : SecurityTypeValues
+  + Investment Portfolio Trade Security Trade Description : Text
+}
+
+class "BQ Financial Status Tracking Instance Record" as N313683 {
+  + Investment Portfolio Security Sensitivity : Object
+  + Projected Valuation : Object
+  + Projected Portfolio Impact : Object
+}
+
+class "Investment Portfolio Management" as N313695 {
+}
+
+' Relationships
+N313665 "0..*" -- "0..1" N313647
+N313673 "0..*" -- "0..1" N313647
+N313683 "0..*" -- "0..1" N313647
+
+@enduml

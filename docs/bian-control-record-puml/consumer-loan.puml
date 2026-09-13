@@ -1,0 +1,236 @@
+@startuml
+title Consumer Loan Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Consumer Loan
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_30431.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Interest Instance Record" as N303559 {
+  + Interest Payment Frequency : Frequency
+  + Interest Accrual Date : DateTime
+  + Interest Rate : Rate
+  + Interest Calculation Frequency : Frequency
+  + Interest Fee : Fee Arrangement
+  + Interest Type : InterestTypeValues
+  + Interest Calculation Method : InterestCalculationMethodTypeValues
+  + Interest Calculation Date : DateTime
+  + Interest Accrual Amount : Amount
+  + Interest Period : DateTimePeriod
+  + Interest Amount : Amount
+  + Interest Rate Type : InterestRateTypeValues
+  + Interest Credit Debit Indicator : DebitCreditIndicatortValues
+  + Interest Transaction : Interest Transaction
+  + Interest Accrual Type : InterestTypeValues
+  + Interest Rate Application Schedule : Schedule
+  + Interest Tax : Tax Arrangement
+  + Interest Date : DateTime
+}
+
+class "BQ Amount Block Instance Record" as N303579 {
+  + Amount Block Reference : Identifier
+  + Amount Block Type : Text
+  + Amount Block Priority Number : Number
+  + Amount Block Reason : Text
+  + Amount Block Originator Reference : InvolvedParty
+  + Amount Block Amount : Amount
+  + Amount Block Start Date : DateTime
+  + Amount Block Expiry Date : DateTime
+  + Amount Block Status : Status
+  + Amount Block End Date : DateTime
+}
+
+class "BQ Booking Instance Record" as N303590 {
+  + Account Reference : Account
+  + Booking Amount : Amount
+  + Booking Date : DateTime
+  + Position Keeping Reference : Account Entry
+  + Transaction Priority Number : Number
+  + Value Date : DateTime
+  + Authorization Result : Text
+  + Authorization Rejection Reason : Text
+}
+
+class "BQ Charge Instance Record" as N303601 {
+  + Fee Credit Account : Account
+  + Fee Rate : Rate
+  + Fee Calculation Method : Service Modality
+  + Fee Payment Method Type : FeePaymentMethodTypeValues
+  + Charge Bearer Type : ChargeBearerTypeValues
+  + Fee Calculation Method Type : FeeCalculationBasisTypeValues
+  + Fee Type : FeeTypeValues
+  + Charge Bearer Reference : InvolvedParty
+  + Fee Payment Method : Service Modality
+  + Fee Application Date : DateTime[1..n]
+  + Fee Application Credit Debit Indicator : DebitCreditIndicatortValues[1..n]
+  + Accrued Credit Debit Indicator : DebitCreditIndicatortValues
+  + Fee Calculation Frequency : FeeCalculationFrequencyValues
+  + Fee Amount : Amount
+  + Fee Application Frequency : FeeApplicationFrequencyValues
+  + Fee Application Amount : Amount[1..n]
+  + Fee Debit Account : Account
+  + Accrual Fee Amount : Amount
+}
+
+class "BQ Debit and Credit Instance Record" as N303620 {
+  + Withdrawal Transaction Source Reference : Object
+  + Withdrawal Transaction Description : Text
+  + Withdrawal Transaction Amount : Amount
+  + Withdrawal Type : WithdrawalTypeValues
+  + Withdrawal Transaction Withdrawal Type : WithdrawalTypeValues
+  + Withdrawal Transaction Date : Date
+  + Withdrawal Transaction : Payment Transaction
+}
+
+class "BQ Issued Device Instance Record" as N303628 {
+  + Account External Account Number : Identifier
+  + Device Issue Date : DateTime
+  + Device Type : DeviceTypeValues
+  + Device Valid from Date : DateTime
+  + Device Valid to Date : DateTime
+  + Device Collect Location : Branch
+  + Device Option Definition : Feature
+  + Customer Reference : InvolvedParty
+  + Device Associated Permissions : Arrangement
+  + Device Customer Customization Reference : DeviceCustomizationTypeValues
+  + Device Delivery Method : Text
+  + Device Option Setting : Arrangement
+  + Device Party Reference : InvolvedParty
+  + Device Property Type : Feature
+  + Device Property Setting
+  + Device Status : IssuedDeviceStatusTypeValues
+  + Issued Device Administration Reference : Device
+  + Account Identifier : AccountIdentification
+  + Device Processing Guidelines and Rules : Rule Set
+}
+
+class "BQ Financial Status Tracking Instance Record" as N303648 {
+}
+
+class "BQ Disbursement Instance Record" as N303649 {
+  + Disbursement Payee Reference : InvolvedParty
+  + Disbursement Payee Product Instance Reference : Account
+  + Disbursement Payee Bank Reference : InvolvedParty
+  + Disbursement Amount : Amount
+  + Disbursement Currency : CurrencyCode
+  + Disbursement Value Date : Date
+}
+
+class "BQ Collateral Allocation Instance Record" as N303656 {
+  + Collateral Amount : Amount
+  + Collateral Type : CollateralTypeValues
+  + Collateral Balance : AccountBalance
+  + Collateral Account : Account
+  + Collateral Involved Party : Collateral Involvement
+  + Collateral Status : Status
+  + Collateral Agreement : Collateral Agreement
+  + Collateral Valuation : Collateral Asset Valuation
+  + Collateral Asset Reference : Collateral Asset
+}
+
+class "BQ Repayment Instance Record" as N303668 {
+  + Repayment Transaction Type : PaymentTypeValues
+  + Repayment Transaction Payer Reference : InvolvedParty
+  + Repayment Transaction Payer Product Instance Reference : Account
+  + Repayment Transaction Payer Bank Reference : InvolvedParty
+  + Repayment Transaction Amount : Amount
+  + Repayment Transaction Currency : CurrencyCode
+  + Repayment Transaction Value Date : Date
+}
+
+class "CR Consumer Loan Facility Instance Record" as N303678 {
+  + Product Instance Reference : Loan Product
+  + Consumer Loan Number : AccountIdentification
+  + Customer Reference : InvolvedParty
+  + Party Reference : InvolvedParty
+  + Customer Agreement Reference : Customer Agreement
+  + Customer Credit Assessment Reference : Customer Credit Rating Assessment
+  + Insurance Reference : Object
+  + Delinquency/Collection Reference : Object
+  + Bank Branch/Location Reference : Branch Location
+  + Bank Accounting Unit Reference : Object
+  + Loan Type : LoanProductTypeValues
+  + Loan Amount : Amount
+  + Loan Currency : CurrencyCode
+  + Loan Rate Type : RateTypeValues
+  + Loan Applicable Rate : Rate
+  + Repayment Type : PaymentTypeValues
+  + Interest Type : InterestTypeValues
+  + Interest Accrual Method : Interest Calculation Arrangement Modality
+  + Loan Origination Date : Date
+  + Loan Maturity Date : Date
+  + Collateral Reference : Collateral Asset
+  + Collateral Allocation : Collateral Asset Allocation
+  + Tax Reference : InvolvedParty
+  + Loan Access Terms : Access Arrangement
+  + Entitlement Option Definition : Party Obligation or Entitlement
+  + Entitlement Option Setting : Party Obligation or Entitlement
+  + Restriction Option Definition : Account Restriction
+  + Restriction Option Setting : Account Restriction
+  + Associations : Account Involvement
+  + Association Type : AccountInvolvementTypeValues
+  + Association Obligation/Entitlement : Party Obligation or Entitlement
+  + Association Reference : Party
+  + Loan Repayment Schedule : Schedule
+  + Staged Repayment Statement : Statement
+  + Customer Commentary : Correspondence
+  + Loan Outstanding Balance : AccountBalance
+  + Account Date Type : AccountDateTimeTypeValues
+  + Account Date : DateTime
+}
+
+class "BQ Modification Instance Record" as N303720 {
+  + Modification Date : DateTime
+  + Modification Task : Task
+  + Modification Evaluation : Assessment
+  + Modification Write Down : Text
+  + Identifier : Identifier
+}
+
+class "Consumer Loan" as N303728 {
+}
+
+class "BQ Maintenance Instance Record" as N303759 {
+  + Maintenance Report Type : ReportTypeValues
+  + Loan Tax Report : Report
+  + Loan Fee Type : FeeType
+  + Loan Fees : Fee Arrangement
+  + Penalties : Fee Arrangement
+  + Collateral Valuation : Collateral Asset Valuation
+}
+
+' Relationships
+N303678 "0..1" -- "0..*" N303649
+N303678 "0..1" -- "0..*" N303759
+N303668 "0..*" -- "0..1" N303678
+N303678 "0..1" -- "0..1" N303648
+N303678 "0..1" -- "0..1" N303579
+N303678 "0..1" -- "0..1" N303590
+N303678 "0..1" -- "0..*" N303559
+N303678 "0..1" -- "0..*" N303620
+N303678 "0..1" -- "0..1" N303628
+N303678 "0..1" -- "0..*" N303601
+N303720 "0..1" -- "0..1" N303678
+N303656 "0..*" -- "0..1" N303678
+
+@enduml

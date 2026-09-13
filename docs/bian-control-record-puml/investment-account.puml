@@ -1,0 +1,124 @@
+@startuml
+title Investment Account Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Investment Account
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_34252.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Charge Instance Record" as N293113 {
+  + Fee Type : FeeTypeValues
+  + Fee Payment Method Type : FeePaymentMethodTypeValues
+  + Fee Credit Account : Account
+  + Fee Calculation Method : Service Modality
+  + Fee Rate : Rate
+  + Fee Amount : Amount
+  + Accrued Credit Debit Indicator : DebitCreditIndicatortValues
+  + Fee Application Frequency : FeeApplicationFrequencyValues
+  + Fee Application Amount : Amount[1..n]
+  + Fee Application Credit Debit Indicator : DebitCreditIndicatortValues[1..n]
+  + Fee Application Date : DateTime[1..n]
+  + Charge Bearer Type : ChargeBearerTypeValues
+  + Charge Bearer Reference : InvolvedParty
+  + Fee Calculation Frequency : FeeCalculationFrequencyValues
+  + Accrual Fee Amount : Amount
+  + Fee Payment Method : Service Modality
+  + Fee Calculation Method Type : FeeCalculationBasisTypeValues
+  + Fee Debit Account : Account
+}
+
+class "BQ Debit and Credit Instance Record" as N293133 {
+  + Wihdrawal Transaction Amount : Amount
+  + Withdrawal Transaction Source Reference : Object
+  + Withdrawal Type : WithdrawalTypeValues
+  + Withdrawal Transaction Description : Text
+  + Withdrawal Transaction : Payment Transaction
+  + Withdrawal Transaction Withdrawal Type : WithdrawalTypeValues
+  + Account Limit Breach Response : Text
+  + Withdrawal Transaction Date : Date
+}
+
+class "CR Investment Account Facility Instance Record" as N293143 {
+  + Product Instance Reference : Investment Account Agreement
+  + Investment Account Number : AccountIdentification
+  + Customer Reference : InvolvedParty
+  + Bank Branch/Location Reference : Branch
+  + Linked Cash Account : Account
+  + Link Type : Account_AccountRelationshipTypeValues
+  + Account Details : Account
+  + Investment Account Type : AccountTypeValues
+  + Investment Account Instrument Profile : Profile
+  + Investment Account Instrument Record : Text
+  + Instrument Type : InstrumentType
+  + Instrument Reference : InstrumentType
+  + Trading Marketplace Reference : Market
+  + Instrument Processing Schedule : Schedule
+  + Instrument Event Type : Event Involvement
+  + Instrument Event Description : Description
+  + Instrument Event Date : Date
+  + Tax Reference : Identifier
+  + Entitlement Option Definition : Party Obligation or Entitlement
+  + Entitlement Option Setting : Party Obligation or Entitlement
+  + Restriction Option Definition : Account Restructuring
+  + Restriction Option Setting : Account Restructuring
+  + Linked Accounts : Account
+  + Date Type : AccountDateTimeTypeValues
+  + Date : Date Time
+  + Limit Type : LimitTypeValues
+  + Limit Value : Value
+  + Limit Settings : Limit Arrangement
+}
+
+class "BQ Deposit Instance Record" as N293172 {
+  + Deposit Transaction Amount : Amount
+  + Deposit Transaction Source Reference : Object
+  + Deposit Transaction Date : Date
+  + Deposit Transaction Deposit Type : DepositTypeValues
+  + Deposit Transaction Description : Text
+  + Deposit Transaction : Deposit Transaction
+  + Deposit Type : DepositTypeValues
+}
+
+class "Investment Account" as N293180 {
+}
+
+class "BQ Corporate Action Instance Record" as N293206 {
+  + Corporate Action Type : CorporateActionTypeValues
+  + Corporate Action Application Schedule : Schedule
+  + Corporate Action Instrument Type : Text
+  + Corporate Action Transaction : Corporate Action
+  + Corporate Action Transaction Type : CorporateActionTypeValues
+  + Corporate Action Transaction Description : Text
+  + Corporate Action Work Products : WorkProduct
+  + Document Directory Entry Instance Reference : Document Directory Entry
+  + Corporate Action Transaction Result : Corporate Action
+  + Corporate Action Transaction Date : DateTime
+}
+
+' Relationships
+N293206 "0..*" -- "0..1" N293143
+N293133 "0..*" -- "0..1" N293143
+N293113 "0..*" -- "0..1" N293143
+N293143 "0..1" -- "0..*" N293172
+
+@enduml

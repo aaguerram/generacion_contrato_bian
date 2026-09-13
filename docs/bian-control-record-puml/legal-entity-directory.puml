@@ -1,0 +1,77 @@
+@startuml
+title Legal Entity Directory Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Legal Entity Directory
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_36905.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Legal Entity Directory Entry Instance Record" as N324606 {
+  + Legal Entity Reference : Organisation
+  + Party Reference : Party
+  + Directory Entry Date Type : DateTimeTypeValues
+  + Directory Entry Date : DateTime
+}
+
+class "Legal Entity Directory" as N324611 {
+}
+
+class "BQ Associations Instance Record" as N324625 {
+  + Legal Entity Association Reference : Party
+  + Legal Entity Association Type : Text
+  + Legal Entity Association Obligation : Arrangement
+  + Parent Legal Entity Reference : Organisation
+  + Subsidiary Legal Entity Reference : Organisation
+  + Shareholding Profile : Shareholding Profile
+}
+
+class "BQ Reference Instance Record" as N324632 {
+  + Legal Entity Official Name : Name
+  + Legal Entity Type : Text
+  + Sectors of Operation : Organisation
+  + Registered Address : Address
+  + Headquarters Location : Address
+  + Date of Incorporation : Text
+  + Jurisdiction of Incorporation : Jurisdiction
+  + Registration Authority : InvolvedParty
+  + Primary Regulator : InvolvedParty
+  + Tax Reference : Identifier
+  + Contact Role : Object
+  + Contact Address/Details : Text
+}
+
+class "BQ Profile Instance Record" as N324648 {
+  + Organization Capitalization : Text
+  + Organization Debt Level : Text
+  + Organization Economic Intent : Text
+  + Organization Growth Rate : Rate
+  + Organization Profitability/Stocks : Text
+  + Organization Revenue/Turnover : Text
+}
+
+' Relationships
+N324648 "0..*" -- "0..1" N324606
+N324625 "0..*" -- "0..1" N324606
+N324632 "0..*" -- "0..1" N324606
+
+@enduml

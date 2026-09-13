@@ -1,0 +1,120 @@
+@startuml
+title Collections Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Collections
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49691.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Debt Factoring Instance Record" as N325951 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Collateral Asset Liquidation Procedure Reference : Procedure
+  + Debt Factoring Reference : Workstep
+  + Debt Factoring Type : Text
+}
+
+class "BQ Collateral Valuation Instance Record" as N325965 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Collateral Asset Liquidation Procedure Reference : Procedure
+  + Collateral Valuation Reference : Workstep
+  + Collateral Valuation Type : Text
+}
+
+class "BQ Collateral Liquidation Instance Record" as N325974 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Collateral Asset Liquidation Procedure Reference : Procedure
+  + Collateral Liquidation Reference : Workstep
+  + Collateral Liquidation Type : Text
+}
+
+class "BQ Collections Assessment Instance Record" as N325983 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Collateral Asset Liquidation Procedure Reference : Procedure
+  + Collections Assessment Reference : Workstep
+  + Collections Assessment Type : Text
+}
+
+class "Collections" as N325992 {
+}
+note right of N325992
+  BOMDiagram: Collections BOM Diagram
+end note
+
+class "CR Collateral Asset Liquidation Procedure Instance Record" as N326017 {
+  + Collateral Asset Liquidation Procedure Parameter Type : FeatureTypeValues
+  + Collateral Asset Liquidation Procedure Selected Option : Feature
+  + Collateral Asset Liquidation Procedure Request : Instruction
+  + Collateral Asset Liquidation Procedure Schedule : Schedule
+  + Collateral Asset Liquidation Procedure Status : Status
+  + Collateral Asset Liquidation Procedure Reference : Collateral Asset Liquidation Procedure
+  + Collateral Asset Liquidation Procedure Business Unit Reference : Business Unit
+  + Collateral Asset Liquidation Procedure ServiceProvider Reference : Object
+  + Collateral Asset Liquidation Procedure Financial Facility Reference : Financial Facility
+  + Collateral Asset Liquidation Procedure Employee Reference : Employee
+  + Collateral Asset Liquidation Procedure Customer Reference : InvolvedParty
+  + Collateral Asset Liquidation Procedure Type : ProcedureTypeValues
+  + Collateral Asset Liquidation Procedure Service Provider Schedule : Schedule
+  + Collateral Asset Liquidation Procedure Service Type : ServiceTypeValues
+  + Collateral Asset Liquidation Procedure Product and Service Type : ServiceTypeValues
+  + Collateral Asset Liquidation Procedure Product and Service Instance : Product
+  + Collateral Asset Liquidation Procedure Transaction Type : TransactionTypeValues
+  + Collateral Asset Liquidation Procedure Transaction : Transaction
+  + Collateral Asset Liquidation Procedure Financial Transaction Arrangement : Arrangement
+  + Collateral Asset Liquidation Procedure Customer Agreement Reference : Customer Agreement
+}
+
+class "BQ Collections Account Update Instance Record" as N326039 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Collateral Asset Liquidation Procedure Reference : Procedure
+  + Collections Account Update Reference : Workstep
+  + Collections Account Update Type : Text
+}
+
+' Relationships
+N326017 "0..1" -- "0..1" N325951
+N326017 "0..1" -- "0..1" N325965
+N326017 "0..1" -- "0..1" N325974
+N326017 "0..1" -- "0..1" N325983
+N326017 "0..1" -- "0..1" N326039
+
+@enduml

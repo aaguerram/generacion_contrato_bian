@@ -1,0 +1,161 @@
+@startuml
+title Brokered Product Proxy Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Brokered Product Proxy
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_37639.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Brokered Product" as N298588 {
+}
+note right of N298588
+  BOMDiagram: Brokered Product Proxy BOM Diagram
+end note
+
+class "subBQ Account Information Service Instance Record" as N298599 {
+  + Service Type : AccountInformationServiceTypeValues
+  + Document Reference : Document
+  + Open Banking Standard : OpenBankingStandardTypeValues
+}
+
+class "subBQ Payment Initiation Service Instance Record" as N298606 {
+  + Service Type : PaymentInitiationServiceTypeValues
+  + Document Reference : Document
+  + Open Banking Standard : OpenBankingStandardTypeValues
+}
+
+class "CR Brokered Product Facility Instance Record" as N298610 {
+  + Consent Reference : Account Access Consent
+  + Active Access Token Reference : Token
+  + Brokered Product Facility Reference : Identifier
+  + Service Provider Reference : InvolvedParty
+  + Service User Reference : InvolvedParty
+  + Third Party Provider Reference : InvolvedParty
+}
+
+class "subBQ Open Data Service Instance Record" as N298617 {
+  + Service Type : OpenDataServiceTypeValues
+  + Document Reference : Document
+  + Opan Banking Standard : OpenBankingStandardTypeValues
+}
+
+class "BQ Service Access Instance Record" as N298621 {
+  + Service Access Identifier : Identifier
+  + Service Access Type : Text
+}
+
+class "InvolvedParty" as N298628 <<datatype>> {
+  + Party Reference : Text
+  + Involvement Reference : Text
+}
+note right of N298628
+  BianBom: yes
+end note
+
+enum "PaymentInitiationServiceTypeValues" as N298630 {
+  Single payments
+  Scheduled payments
+  Standing orders
+  File payments
+  Future dated single payments
+  Bulk payments
+  Recurring payments
+  Payment cancellation
+}
+note right of N298630
+  BianBom: yes
+end note
+
+enum "OpenBankingStandardTypeValues" as N298632 {
+  UK Open Banking
+  EU Berlin Group
+}
+note right of N298632
+  BianBom: yes
+end note
+
+class "Token" as N298634 {
+  + Token Identification : Identifier
+  + Token Status : TokenStatusTypeValues
+  + Token Identification and Verification Method : TokenIdentificationAndVerificationMethodTypeValues
+  + Token Status Date : DateTime
+  + Token Device Reference : Device
+  + Token Request Reference : Token Request
+  + Token Protection Method : TokenProtectionMethodTypeValues
+  + Token Storage Location : TokenStorageLocationTypeValues
+  + Token Type : TokenTypeValues
+}
+note right of N298634
+  BianBom: yes
+end note
+
+class "Account Access Consent" as N298636 {
+  + Identification : Identifier
+  + Status : ConsentStatusTypeValues
+  + Expiration Date Time : DateTime
+  + Creation Date Time : DateTime
+  + Consent Account : Product Agreement[1..*]
+}
+note right of N298636
+  BianBom: yes
+end note
+
+enum "AccountInformationServiceTypeValues" as N298637 {
+  Beneficiaries
+  Accounts
+  Balances
+  Transactions
+  Direct Debits
+  Standing Orders
+  Offers
+  Scheduled Payments
+  Statements
+  Parties
+  Products
+}
+note right of N298637
+  BianBom: yes
+end note
+
+enum "OpenDataServiceTypeValues" as N298660 {
+  Personal current accounts
+  Business current accounts
+  Business (SME) loans
+  Credit cards
+}
+note right of N298660
+  BianBom: yes
+end note
+
+' Relationships
+N298599 -- N298632
+N298621 "0..1" -- "0..1" N298599
+N298621 "0..1" -- "0..1" N298617
+N298621 "0..1" -- "0..1" N298606
+N298606 -- N298630
+N298610 -- N298636
+N298610 -- N298634
+N298610 -- N298628
+N298610 "0..1" -- "0..1" N298621
+
+@enduml

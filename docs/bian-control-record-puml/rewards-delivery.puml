@@ -1,0 +1,59 @@
+@startuml
+title Rewards Delivery Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Rewards Delivery
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49910.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Rewards Delivery Procedure Instance Record" as N327605 {
+  + Rewards Delivery Procedure Parameter Type : FeatureTypeValues
+  + Rewards Delivery Procedure Selected Option : Feature
+  + Rewards Delivery Procedure Request : Instruction
+  + Rewards Delivery Procedure Schedule : Schedule
+  + Rewards Delivery Procedure Status : Status
+  + Rewards Delivery Procedure Associated Party Reference : InvolvedParty
+  + Rewards Delivery Procedure Business Unit Reference : InvolvedParty
+  + Rewards Delivery Procedure Service Provider Reference : InvolvedParty
+  + Rewards Delivery Procedure Financial Facility Reference : Financial Facility
+  + Rewards Delivery Procedure Employee Reference : InvolvedParty
+  + Rewards Delivery Procedure Customer Reference : InvolvedParty
+  + Rewards Delivery Procedure Type : ProcedureType
+  + Rewards Delivery Procedure Service Provider Schedule : Schedule
+  + Rewards Delivery Procedure Service Type : ServiceType
+  + Rewards Delivery Procedure Product and Service Type : BankingProductType
+  + Rewards Delivery Procedure Product and Service Instance : Product
+  + Rewards Delivery Procedure Transaction Type : TransactionType
+  + Rewards Delivery Procedure Transaction : Transaction
+  + Rewards Delivery Procedure Financial Transaction Arrangement : Arrangement
+  + Rewards Delivery Procedure Customer Agreement Reference : Agreement
+  + Rewards Delivery Procedure Reference : Procedure
+}
+
+class "Rewards Delivery" as N327628 {
+}
+note right of N327628
+  BOMDiagram: Rewards Delivery BOM Diagram
+end note
+
+@enduml

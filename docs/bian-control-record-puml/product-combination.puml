@@ -1,0 +1,86 @@
+@startuml
+title Product Combination Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Product Combination
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49670.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Product Combination Facility Instance Record" as N315799 {
+  + Product Combination Facility Parameter Type : FeatureTypeValues
+  + Product Combination Facility Selected Option : Feature
+  + Product Combination Facility Type : Text
+  + Product Combination Facility Reference : Financial Facility
+  + Product Combination Facility Schedule : Schedule
+  + Product Combination Facility Status : Status
+  + Product Combination Facility Currency : CurrencyCode
+  + Product Combination Facility Regulation Reference : Regulation
+  + Product Combination Facility Regulation Type : RuleSetTypeValues
+  + Product Combination Facility Jurisdiction : Jurisdiction
+  + Product Combination Facility Booking Location : Address
+  + Product Combination Facility Account Type : AccountTypeValues
+  + Product Combination Facility Account Reference : Account
+}
+
+class "BQ Fulfillment Instance Record" as N315814 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Product Combination Facility Reference : Identifier
+  + Fulfillment Reference : Identifier
+  + Fulfillment Type : Text
+}
+
+class "BQ Support Facility Instance Record" as N315822 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Product Combination Facility Reference : Identifier
+  + Support Facility Reference : Identifier
+  + Support Facility Type : Text
+}
+
+class "BQ Transfer Pricing Instance Record" as N315832 {
+  + Preconditions : Condition
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Product Combination Facility Reference : Identifier
+  + Transfer Pricing Reference : Identifier
+  + Transfer Pricing Type : Text
+}
+
+class "Product Combination" as N315840 {
+}
+note right of N315840
+  BOMDiagram: Product Combination BOM Diagram
+end note
+
+' Relationships
+N315799 "0..1" -- "0..1" N315822
+N315799 "0..1" -- "0..1" N315832
+N315799 "0..1" -- "0..1" N315814
+
+@enduml

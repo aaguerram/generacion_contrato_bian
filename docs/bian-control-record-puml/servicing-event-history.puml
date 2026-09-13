@@ -1,0 +1,77 @@
+@startuml
+title Servicing Event History Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Servicing Event History
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_45943.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Issue Instance Record" as N326631 {
+  + Servicing Position Reference : Position
+  + Servicing Position Session Reference : Session
+  + Employee or Business Unit Reference : InvolvedParty
+  + Production Issue Type : Text
+  + Production Issue Description : Text
+  + Production Issue Diagnosis : Assessment
+  + Production Issue Resolution Task : Task
+}
+
+class "BQ Servicing Facility Instance Record" as N326640 {
+  + Servicing Facility Type : Text
+  + Servicing Facility Instance Reference : Identifier
+}
+
+class "CR Servicing Event Log Instance Record" as N326644 {
+  + Servicing Position Reference : Position
+  + Employee or Business Unit Reference : InvolvedParty
+}
+
+class "BQ Assignment Instance Record" as N326647 {
+  + Date/Time/Location : Text
+  + Servicing Position Activity Report : Report
+  + Servicing Position Activity Statistics : Object
+}
+
+class "Servicing Event History" as N326653 {
+}
+
+class "BQ Session Instance Record" as N326670 {
+  + Session Start/End Time : DateTime
+  + Customer Contact Reference : Customer Contact
+  + Session Mechanism : Session
+  + Servicing Facility Type : Text
+  + Session Dialogue Record : Session
+  + Session Dialogue Type : Text
+  + Session Dialogue Script : Session
+  + Session Dialogue Log Reference : Session Dialogue Log
+  + Session Dialogue Log : Session Dialogue Log
+  + Session Dialogue Result : Session
+}
+
+' Relationships
+N326640 "0..*" -- "0..1" N326644
+N326670 "0..*" -- "0..1" N326644
+N326647 "0..*" -- "0..1" N326644
+N326644 "0..1" -- "0..*" N326631
+
+@enduml

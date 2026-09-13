@@ -1,0 +1,183 @@
+@startuml
+title Business Development Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Business Development
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_43322.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Business Development Strategy Instance Record" as N290940 {
+  + Business Development Strategy Period : DateTimePeriod
+  + Business Development Strategy Policies And Guidelines : Rule Set
+  + Business Development Strategy Organization : InvolvedParty
+  + Business Development Strategy Budget : Budget Arrangement
+  + Business Development Strategy Schedule : Schedule
+  + Business Development Goal Reference : Business Development Goal[1..*]
+  + Business Development Goal Organization : InvolvedParty[1..*]
+  + Business Development Goal Result : Text
+  + Business Development Strategy Reference : Business Development Strategy
+  + Business Development Strategy Planned Action : Planned Action[1..*]
+  + Survey Reference : Survey[1..*]
+  + Market Research Reference : Market Research[1..*]
+}
+
+class "BQ Customer Relationship Instance Record" as N290953 {
+  + Business Development Strategy Instance Reference : Identifier
+  + Customer Relationship Goal Instance Reference : Identifier
+  + Customer Relationship Goal Name : Name
+  + Customer Relationship Goal Definition : Text
+  + Customer Relationship Goal Type : GoalTypeValues
+  + Customer Relationship Goal Date and Time : GoalDateTime
+  + Customer Relationship Goal Status : GoalStatus
+  + Customer Relationship Goal Involved Party : InvolvedParty
+  + Customer Relationship Goal Planned Action : Planned Action
+  + Customer Relationship Goal Planned Action Schedule : Schedule
+}
+
+class "BQ Marketing Instance Record" as N290964 {
+  + Business Development Strategy Instance Reference : Identifier
+  + Marketing Goal Instance Reference : Identifier
+  + Marketing Goal Name : Name
+  + Marketing Goal Definition : Text
+  + Marketing Goal Type : GoalTypeValues
+  + Marketing Goal Date and Time : GoalDateTime
+  + Marketing Goal Status : GoalStatus
+  + Marketing Goal Involved Party : InvolvedParty
+  + Marketing Goal Planned Action : Planned Action
+  + Marketing Goal Planned Action Schedule : Schedule
+}
+
+class "BQ Operational Efficiency Instance Record" as N290976 {
+  + Business Development Strategy Instance Reference : Identifier
+  + Operational Efficiency Goal Instance Reference : Identifier
+  + Operational Efficiency Goal Name : Name
+  + Operational Efficiency Goal Definition : Text
+  + Operational Efficiency Goal Type : GoalTypeValues
+  + Operational Efficiency Goal Date and Time : GoalDateTime
+  + Operational Efficiency Goal Status : GoalStatus
+  + Operational Efficiency Goal Involved Party : InvolvedParty
+  + Operational Efficiency Goal Planned Action : Planned Action
+  + Operational Efficiency Goal Planned Action Schedule : Schedule
+}
+
+class "BQ Sustainability and Corporate Social Responsibility Instance Record" as N290990 {
+  + Business Development Strategy Instance Reference : Identifier
+  + Organizational Responsiveness and Flexibility Goal Instance Reference : Identifier
+  + Organizational Responsiveness and Flexibility Goal Name : Name
+  + Organizational Responsiveness and Flexibility Goal Definition : Text
+  + Organizational Responsiveness and Flexibility Goal Type : GoalTypeValues
+  + Organizational Responsiveness and Flexibility Goal Date and Time : GoalDateTime
+  + Organizational Responsiveness and Flexibility Goal Status : GoalStatus
+  + Organizational Responsiveness and Flexibility Goal Involved Party : InvolvedParty
+  + Organizational Responsiveness and Flexibility Goal Planned Action : Planned Action
+  + Organizational Responsiveness and Flexibility Goal Planned Action Schedule : Schedule
+}
+
+class "BQ Organizational Responsiveness and Flexibility Instance Record" as N291002 {
+  + Business Development Strategy Instance Reference : Identifier
+  + Organizational Responsiveness and Flexibility Goal Instance Reference : Identifier
+  + Organizational Responsiveness and Flexibility Goal Name : Name
+  + Organizational Responsiveness and Flexibility Goal Definition : Text
+  + Organizational Responsiveness and Flexibility Goal Type : GoalTypeValues
+  + Organizational Responsiveness and Flexibility Goal Date and Time : GoalDateTime
+  + Organizational Responsiveness and Flexibility Goal Status : GoalStatus
+  + Organizational Responsiveness and Flexibility Goal Involved Party : InvolvedParty
+  + Organizational Responsiveness and Flexibility Goal Planned Action : Planned Action
+  + Organizational Responsiveness and Flexibility Goal Planned Action Schedule : Schedule
+}
+
+class "BQ Employee Development Instance Record" as N291013 {
+  + Business Development Strategy Instance Reference : Identifier
+  + Employee Development Goal Instance Reference : Identifier
+  + Employee Development Goal Name : Name
+  + Employee Development Goal Definition : Text
+  + Employee Development Goal Type : GoalTypeValues
+  + Employee Development Goal Date and Time : GoalDateTime
+  + Employee Development Goal Status : GoalStatus
+  + Employee Development Goal Involved Party : InvolvedParty
+  + Employee Development Goal Planned Action : Planned Action
+  + Employee Development Goal Planned Action Schedule : Schedule
+}
+
+class "BQ Organization Instance Record" as N291025 {
+  + Business Development Strategy Instance Reference : Identifier
+  + Organization Goal Instance Reference : Identifier
+  + Organization Goal Name : Name
+  + Organization Goal Definition : Text
+  + Organization Goal Type : GoalTypeValues
+  + Organization Goal Date and Time : GoalDateTime
+  + Organization Goal Status : GoalStatus
+  + Organization Goal Involved Party : InvolvedParty
+  + Organization Goal Planned Action : Planned Action
+  + Organization Goal Planned Action Schedule : Schedule
+}
+
+class "BQ Product Delivery Capacity Instance Record" as N291036 {
+  + Product Delivery Capacity Strategy Instance Reference : Identifier
+  + Product Delivery Capacity Goal Instance Reference : Identifier
+  + Product Delivery Capacity Goal Name : Name
+  + Product Delivery Capacity Goal Definition : Text
+  + Product Delivery Capacity Goal Type : GoalTypeValues
+  + Product Delivery Capacity Goal Date and Time : GoalDateTime
+  + Product Delivery Capacity Goal Status : GoalStatus
+  + Product Delivery Capacity Goal Involved Party : InvolvedParty
+  + Product Delivery Capacity Goal Planned Action : Planned Action
+  + Product Delivery Capacity Goal Planned Action Schedule : Schedule
+  + Product Reference : Product
+  + Customer Campaign Reference : Customer Campaign
+}
+
+class "Market Research" as N291050 {
+  + Market Research Source : Object
+  + Market Research Viewpoint : MarketResearchViewpointTypeValues
+  + Market Research Approach : Text
+  + Market Research Period : DateTimePeriod
+  + Researched Market : Market
+  + Market Research Aspect Type : MarketResearchAspectTypeValues[1..*]
+  + Market Research Description : Text
+  + Market Research Date and Time : DateTime
+}
+
+class "Survey" as N291059 {
+  + Survey Type : SurveyTypeValues
+  + Survey Description : Text
+  + Survey Date and Time : DateTime
+  + Survey Version : Text
+  + Survey Aspect Type : SurveyAspectTypeValues
+  + Servey Criteria : Rule Set[1..*]
+}
+
+class "Business Development" as N291066 {
+}
+
+' Relationships
+N290940 "0..1" -- "0..*" N290964
+N290940 "0..1" -- "0..*" N290976
+N290940 "0..1" -- "0..*" N291013
+N290940 "0..1" -- "0..*" N290990
+N290940 "0..1" -- "0..*" N290953
+N290940 "0..1" -- "0..*" N291036
+N290940 "0..1" -- "0..*" N291025
+N290940 "0..1" -- "0..*" N291002
+
+@enduml

@@ -1,0 +1,84 @@
+@startuml
+title Card eCommerce Gateway Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Card eCommerce Gateway
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_39085.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Card Payment Instance Record" as N296205 {
+  + Product Instance Reference : Product
+  + Customer Reference : InvolvedParty
+  + Card expiration date : Date
+  + Card CVV : Number
+  + Card Issuing Bank Reference : InvolvedParty
+  + Merchant Acquiring Bank Reference : InvolvedParty
+  + eCommerce Transaction Type : TransactionTypeValues
+  + eCommerce Transaction Currency : CurrencyCode
+  + eCommerce Transaction Amount Type : AmountTypeValues
+  + eCommerce Transaction Amount : Amount
+  + eCommerce Transaction Merchant Reference : InvolvedParty
+  + eCommerce Transaction Location Reference : Location
+  + eCommerce Transaction ProductandService Reference : Product
+  + eCommerce Transaction Date and Time : Date Time
+}
+
+class "BQ Transaction Batch Instance Record" as N296235 {
+  + eCommerce Batch Transaction Date and Time : Date Time
+  + Transaction Merchant Reference : InvolvedParty
+  + eCommerce Batch Transaction Record : Transaction Batch
+}
+
+class "BQ Card Authentication Instance Record" as N296246 {
+  + eCommerce Transaction Instance Reference : Card Payment Transaction
+  + eCommerce Transaction Authentication Response : Authentication
+}
+
+class "BQ Transaction Authorization Instance Record" as N296254 {
+  + eCommerce Transaction Instance Reference : Card Payment Transaction
+  + eCommerce Transaction Authorization Response : Authentication
+}
+
+class "Card eCommerce Gateway" as N296264 {
+}
+
+class "CR eCommerce Gateway Operating Session Instance Record" as N296293 {
+  + eCommerce Gateway Operating Session Reference : Session
+  + eCommerce Gateway Operating Session Schedule : Schedule
+  + eCommerce Gateway Operating Session Status : Status
+  + eCommerce Gateway Operating Session Usage Log : Log
+  + eCommerce Gateway Operating Session Associated Party Reference : InvolvedParty
+  + eCommerce Gateway Operating Session Service Provider Reference : InvolvedParty
+  + eCommerce Gateway Operating Session Service Configuration : System Configuration Option
+  + eCommerce Gateway Operating Session Service Provider Schedule : Schedule
+  + eCommerce Gateway Operating Session Service Type : ServiceType
+  + eCommerce Gateway Operating Session Type : SessionType
+}
+
+' Relationships
+N296235 "0..*" -- "0..1" N296293
+N296246 "0..*" -- "0..1" N296293
+N296254 "0..*" -- "0..1" N296293
+N296293 "0..1" -- "0..*" N296205
+
+@enduml

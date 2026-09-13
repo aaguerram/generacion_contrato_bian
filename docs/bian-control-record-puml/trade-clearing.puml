@@ -1,0 +1,121 @@
+@startuml
+title Trade Clearing Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Trade Clearing
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_48252.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Market Trade Out Trade Resolution Instance Record" as N329585 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Trade Clearing Procedure Reference : Procedure
+  + Market Trade Out Trade Resolution Workstep Reference : Workstep
+  + Market Trade Out Trade Resolution Workstep Type : Text
+}
+
+class "Trade Clearing" as N329594 {
+}
+note right of N329594
+  BOMDiagram: Trade Clearing BOM Diagram
+end note
+
+class "CR Trade Clearing Procedure Instance Record" as N329638 {
+  + Trade Clearing Procedure Parameter Type : FeatureTypeValues
+  + Trade Clearing Procedure Selected Option : Feature
+  + Trade Clearing Procedure Request : Instruction
+  + Trade Clearing Procedure Schedule : Schedule
+  + Trade Clearing Procedure Status : Status
+  + Trade Clearing Procedure Associated Party Reference : InvolvedParty
+  + Trade Clearing Procedure Business Unit Reference : InvolvedParty
+  + Trade Clearing Procedure Service Provider Reference : InvolvedParty
+  + Trade Clearing Procedure Financial Facility Reference : Financial Facility
+  + Trade Clearing Procedure Employee Reference : InvolvedParty
+  + Trade Clearing Procedure Customer Reference : InvolvedParty
+  + Trade Clearing Procedure Type : ProcedureType
+  + Trade Clearing Procedure Service Provider Schedule : Schedule
+  + Trade Clearing Procedure Service Type : ServiceType
+  + Trade Clearing Procedure Product and Service Type : BankingProductType
+  + Trade Clearing Procedure Product and Service Instance : Product
+  + Trade Clearing Procedure Transaction Type : TransactionType
+  + Trade Clearing Procedure Transaction : Transaction
+  + Trade Clearing Procedure Financial Transaction Arrangement : Arrangement
+  + Trade Clearing Procedure Customer Agreement Reference : Agreement
+  + Trade Clearing Procedure Reference : Procedure
+}
+
+class "BQ Market Trade Matching Instance Record" as N329662 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Trade Clearing Procedure Reference : Procedure
+  + Market Trade Matching Workstep Reference : Workstep
+  + Market Trade Matching Workstep Type : Text
+}
+
+class "BQ Market Trade Settlement Initiation Instance Record" as N329671 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Trade Clearing Procedure Reference : Procedure
+  + Market Trade Settlement Initiation Workstep Reference : Workstep
+  + Market Trade Settlement Initiation Workstep Type : Text
+}
+
+class "BQ Market Trade Funds and Security Availability Assurance Instance Record" as N329681 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Trade Clearing Procedure Reference : Procedure
+  + Market Trade Funds and Security Availability Assurance Workstep Reference : Workstep
+  + Market Trade Funds and Security Availability Assurance Workstep Type : Text
+}
+
+class "BQ Market Trade Confirmation Instance Record" as N329692 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Trade Clearing Procedure Reference : Procedure
+  + Market Trade Confirmation Workstep Reference : Workstep
+  + Market Trade Confirmation Workstep Type : Text
+}
+
+' Relationships
+N329638 "0..1" -- "0..1" N329671
+N329638 "0..1" -- "0..1" N329681
+N329638 "0..1" -- "0..1" N329585
+N329638 "0..1" -- "0..1" N329692
+N329638 "0..1" -- "0..1" N329662
+
+@enduml

@@ -1,0 +1,97 @@
+@startuml
+title Account Recovery Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Account Recovery
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_42680.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "Account Recovery" as N297613 {
+}
+
+class "BQ Modification Instance Record" as N297631 {
+  + Account Recovery Restructuring Schedule : Schedule
+  + Account Recovery Case Restructuring Task Record : Task
+}
+
+class "CR Account Recovery Procedure Instance Record" as N297635 {
+  + Account Recovery Case Type : CaseTypeValues
+  + Product Instance Reference : Product Agreement
+  + Linked Product Instance Reference : Product Agreement
+  + Customer Reference : InvolvedParty
+  + Employee/Business Unit Reference : Business Unit
+  + Account Number : Number
+  + Bank Branch/Location Reference : Branch Location
+  + Date Type : DateTimeTypeValues
+  + Date : DateTime
+  + Involved Party Reference : Party
+  + Involved Party Obligation/Entitlement : Arrangement
+  + Account Type : AccountTypeValues
+  + Account Currency : CurrencyCode
+  + Account Limit Type : LimitTypeValues
+  + Account Limit : Limit Arrangement
+  + Allowed Access : Access Arrangement
+  + Tax Reference : Identifier
+  + Account Status : Status
+  + Collateral Asset Allocation Profile : Profile
+  + Collateral Type : CollateralTypeValues
+  + Collateral Asset Description : Text
+  + Transaction Record : Transaction
+  + Account Recovery Case Work Products : WorkProduct
+  + Document Reference : Document
+  + Customer Commentary : Object
+  + Account Recovery Case Resolution Schedule : Schedule
+  + Account Recovery Case Status : Status
+}
+
+class "BQ Negotiation Instance Record" as N297663 {
+  + Account Recovery Guidelines : Rule Set
+  + Correspondence Reference : Correspondence
+  + Correspondence Content : Text
+  + Document Reference : Document
+  + Document Content : Text
+  + Account Recovery Case Negotiation Task Record : Task
+}
+
+class "BQ Assessment Instance Record" as N297671 {
+  + Account Recovery Case Assessment Task Record : Task
+}
+
+class "BQ Writedown Instance Record" as N297673 {
+  + Account write-down transaction : Transaction
+  + Account Recovery Case Write-down Task Record : Task
+}
+
+class "BQ Planning Instance Record" as N297676 {
+  + Account Recovery Plan : Account Recovery Plan
+  + Account Recovery Case Planning Task Record : Task
+}
+
+' Relationships
+N297671 "0..*" -- "0..1" N297635
+N297676 "0..*" -- "0..1" N297635
+N297673 "0..*" -- "0..1" N297635
+N297663 "0..*" -- "0..1" N297635
+N297631 "0..*" -- "0..1" N297635
+
+@enduml

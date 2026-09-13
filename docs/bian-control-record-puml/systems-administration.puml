@@ -1,0 +1,98 @@
+@startuml
+title Systems Administration Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Systems Administration
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49843.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Configuration Instance Record" as N282907 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + IT System Administrative Plan Reference : Plan
+  + Configuration Reference : Planned Action
+  + Configuration Type : Text
+}
+
+class "CR IT System Administrative Plan Instance Record" as N282919 {
+  + IT System Administrative Plan Budget Type : BudgetType
+  + IT System Administrative Plan Budget : Amount
+  + IT System Administrative Plan Assignment : Assignment
+  + IT System Administrative Plan Duty : Arrangement
+  + IT System Administrative Plan Associated Party : InvolvedParty
+  + IT System Administrative Plan Budget Balance : AccountBalance
+  + IT System Administrative Plan Subject Matter : Subject
+  + IT System Administrative Plan Type : PlanType
+  + IT System Administrative Plan Reference : Plan
+  + IT System Administrative Plan Description : Text
+}
+
+class "BQ Capacity Planning and Resilience Instance Record" as N282930 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + IT System Administrative Plan Reference : Plan
+  + Capacity Planningand Resilience Reference : Planned Action
+  + Capacity Planningand Resilience Type : Text
+}
+
+class "Systems Administration" as N282939 {
+}
+note right of N282939
+  BOMDiagram: Systems Administration BOM Diagram
+end note
+
+class "BQ Assurance Instance Record" as N282965 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + IT System Administrative Plan Reference : Plan
+  + Assurance Reference : Planned Action
+  + Assurance Type : Text
+}
+
+class "BQ Inventory Instance Record" as N282974 {
+  + Preconditions : Condition
+  + Business Unit/Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + IT System Administrative Plan Reference : Plan
+  + Inventory Reference : Planned Action
+  + Inventory Type : Text
+}
+
+' Relationships
+N282919 "0..1" -- "0..1" N282930
+N282919 "0..1" -- "0..1" N282974
+N282919 "0..1" -- "0..1" N282907
+N282919 "0..1" -- "0..1" N282965
+
+@enduml

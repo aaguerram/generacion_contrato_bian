@@ -1,0 +1,147 @@
+@startuml
+title Claim Administration Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Claim Administration
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_49919.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Negotiation Instance Record" as N272320 {
+  + Negotiation Identification : Identifier
+  + Claim Reference : Text
+  + Policy Reference : Text
+  + Negotiation Type : Text
+  + Negotiation Initiator Reference : InvolvedParty
+  + Negotiation Counterparty Reference : InvolvedParty
+  + Negotiation Status : Status
+  + Negotiation Timestamp : DateTime
+  + Negotiation Outcome : Text
+  + Negotiation Linked Transaction : Transaction
+  + Supporting Document Reference : Text
+  + Claim Processing Administrative Plan Instance Record Identification : Text
+  + Negotiation Instance Record Identification : Text
+}
+
+class "BQ Communication Instance Record" as N272355 {
+  + Communication Identification : Identifier
+  + Claim Reference : Text
+  + Communication Type : Text
+  + Communication Direction : Text
+  + Communication Sender or Receiver Reference : InvolvedParty
+  + Communication Channel : Communication Channel
+  + Communication Content or Subject : Text
+  + Communication Timestamp : DateTime
+  + Communication Status : Status
+  + Communication Linked Transaction : Transaction
+  + Claim Processing Administrative Plan Instance Record Identification : Text
+  + Communication Instance Record Identification : Text
+}
+note right of N272355
+  BOMDiagram: Correspondence BOM Diagram
+end note
+
+class "BQ Administration Instance Record" as N272388 {
+  + Administrative Transaction Identification : Identifier
+  + Claim Reference : Text
+  + Policy Reference : Text
+  + Administrative Transaction Type : AdministrativeClaimTransactionTypeValues
+  + Administrative Transaction Initiator : InvolvedParty
+  + Administrative Transaction Timestamp : DateTime
+  + Administrative Transaction Status : Status
+  + Administrative Transaction Outcome or Result : Text
+  + Administrative Related Transaction : Transaction
+  + Administrative Transaction Description : Text
+  + Claim Processing Administrative Plan Instance Record Identification : Text
+  + Administration Instance Record Identification : Text
+}
+note right of N272388
+  HelperDiagram: Transaction Helper Diagram
+end note
+
+class "Claim Administration" as N272422 {
+}
+note right of N272422
+  BOMDiagram: Claim Administration BOM Diagram
+end note
+
+class "BQ Documentation Instance Record" as N272424 {
+  + Document Identification : Identifier
+  + Claim Reference : Text
+  + Document Type : DocumentTypeValues
+  + Document Source or Provider Reference : InvolvedParty
+  + Document Status : Status
+  + Document Timestamp : DateTime
+  + Document Owner Reference : InvolvedParty
+  + Document Linked Transaction : Transaction
+  + Document Storage Location or Reference : Text
+  + Claim Processing Administrative Plan Instance Record Identification : Text
+  + Documentation Instance Record Identification : Text
+}
+note right of N272424
+  HelperDiagram: Document Helper Diagram
+end note
+
+class "BQ Disbursement Instance Record" as N272458 {
+  + Disbursement Identification : Identifier
+  + Claim Reference : Text
+  + Policy Reference : Text
+  + Beneficiary or Payee Reference : InvolvedParty
+  + Disbursement Amount : Amount
+  + Disbursement Type : Text
+  + Payment Method : PaymentMethodTypeValues
+  + Payment Instruction Reference : Text
+  + Disbursement Transaction Status : Status
+  + Disbursement Execution Timestamp : DateTime
+  + Settlement Confirmation : Text
+  + Claim Processing Administrative Plan Instance Record Identification : Text
+  + Disbursement Instance Record Identification : Text
+}
+note right of N272458
+  HelperDiagram: Disbursement Helper Diagram
+end note
+
+class "CR Claim Processing Administrative Plan Instance Record" as N272494 {
+  + Claim Administration Identification : Identifier
+  + Claim Reference : Text
+  + Policy Reference : Text
+  + Product Type : FuneralPolicyProductTypeValues
+  + Claimant Reference : InvolvedParty
+  + Beneficiary or Payee Reference : InvolvedParty
+  + Service Provider Reference : InvolvedParty
+  + Internal Actor Reference : InvolvedParty
+  + Claim Administration Status : Status
+  + Claim Stage : Text
+  + Start Date : DateTime
+  + Last Updated Date : DateTime
+  + SLA or Processing Timeline : DateTime
+  + Claim Processing Administrative Plan Instance Record Identification : Text
+}
+
+' Relationships
+N272494 "0..1" -- "0..1" N272388
+N272494 "0..1" -- "0..1" N272424
+N272494 "0..1" -- "0..1" N272320
+N272494 "0..1" -- "0..1" N272355
+N272494 "0..1" -- "0..1" N272458
+
+@enduml

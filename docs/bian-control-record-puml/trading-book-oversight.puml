@@ -1,0 +1,74 @@
+@startuml
+title Trading Book Oversight Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Trading Book Oversight
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_33770.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Trading Position Management Plan Instance Record" as N328958 {
+  + Trading Position Management Plan Type : PlanType
+  + Trading Position Management Plan Reference : Plan
+  + Trading Position Management Plan Budget Type : BudgetType
+  + Trading Position Management Plan Budget : Amount
+  + Trading Position Management Plan Assignment : Assignment
+  + Trading Position Management Plan Duty : Arrangement
+  + Trading Position Management Plan Description : Text
+  + Trading Position Management Plan BudgetBalance : AccountBalance
+  + Trading Position Management Plan Associated Party : InvolvedParty
+  + Trading Position Management Plan Subject Matter : Object
+}
+
+class "BQ Trading Book Risk Mitigation Instance Record" as N328969 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Trading Position Management Plan Reference : Plan
+  + Trading Book Risk Mitigation Duty Reference : Planned Action
+  + Trading Book Risk Mitigation Duty Type : Text
+}
+
+class "BQ Trading Book Analysis and Reporting Instance Record" as N328980 {
+  + Preconditions : Condition
+  + Business Unit or Employee Reference : InvolvedParty
+  + Schedule : Schedule
+  + Business Service : Business Service
+  + Postconditions : Condition
+  + Trading Position Management Plan Reference : Plan
+  + Trading Book Analysis and Reporting Duty Reference : Planned Action
+  + Trading Book Analysis and Reporting Duty Type : Text
+}
+
+class "Trading Book Oversight" as N328991 {
+}
+note right of N328991
+  BOMDiagram: Trading Book Oversight BOM Diagram
+end note
+
+' Relationships
+N328958 "0..1" -- "0..1" N328969
+N328958 "0..1" -- "0..1" N328980
+
+@enduml

@@ -1,0 +1,142 @@
+@startuml
+title Service Provider Operations Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Service Provider Operations
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_48971.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+enum "ConsentStatusTypeValues" as N328668 {
+  Authorised
+  Awaiting Authorization
+  Rejected
+  Revoked
+}
+
+class "BQ Customer Requests Instance Record" as N328673 {
+  + Customer Request Identification : Identifier
+}
+
+class "CR Service Provider Registration Operating Session Instance Record" as N328675 {
+  + Service Provider Registration Reference : Service Provider Registration
+  + Service Provider Registration Operating Session Reference : Identifier
+  + Service Provider Reference : InvolvedParty
+  + TPP Reference : InvolvedParty
+}
+
+class "BQ Tokens Instance Record" as N328681 {
+  + Token Device Reference : Device
+  + Token Identification : Identifier
+  + Token Identification and Verification Method : TokenIdentificationAndVerificationMethodTypeValues
+  + Token Request : Token Request
+  + Token Status Date : DateTime
+  + Token Storage Location : TokenStorageLocationTypeValues
+  + Token Protection Method : TokenProtectionMethodTypeValues
+  + Token Status : TokenStatusTypeValues
+  + Consent ID : Identifier
+  + Token Type : TokenTypeValues
+}
+
+class "BQ Data Sharing Consents Instance Recoed" as N328694 {
+  + Consent ID : Identifier
+  + Creation Date Time : DateTime
+  + Transaction To Date Time : DateTime
+  + Status : ConsentStatusTypeValues
+  + Expiration Date Time : DateTime
+  + Risk : Text
+  + Transaction From Date Time : DateTime
+  + Status Update DateTime : DateTime
+  + Permissions : OBAccountAccessPermissionTypeValues[1..n]
+}
+
+class "Service Provider Registration" as N328705 {
+  + Identification : Identifier
+  + Method : Text
+  + Status : Status
+  + DateTime : DateTime[1..*]
+  + Involved Party : InvolvedParty[2..2]
+  + Validity Period : DateTimePeriod
+}
+
+class "InvolvedParty" as N328708 <<datatype>> {
+  + Party Reference : Text
+  + Involvement Reference : Text
+}
+
+enum "OBAccountAccessPermissionTypeValues" as N328710 {
+  ReadAccountsBasic
+  ReadAccountsDetail
+  ReadBalances
+  ReadBeneficiariesBasic
+  ReadBeneficiariesDetail
+  ReadDirectDebits
+  ReadOffers
+  ReadPAN
+  ReadParty
+  ReadPartyPSU
+  ReadProducts
+  ReadScheduledPaymentsBasic
+  ReadScheduledPaymentsDetail
+  ReadStandingOrdersBasic
+  ReadStandingOrdersDetail
+  ReadStatementsBasic
+  ReadStatementsDetail
+  ReadTransactionsBasic
+  ReadTransactionsCredits
+  ReadTransactionsDebits
+  ReadTransactionsDetail
+}
+
+enum "TokenTypeValues" as N328712 {
+  Refresh Token
+  Access Token
+  Security Token
+  Authentication Token
+}
+
+class "Service Provider Operations" as N328713 {
+}
+
+enum "TokenStatusTypeValues" as N328721 {
+  Active
+  Expired
+  Cancelled
+  Generated
+  Stored
+  Mapped
+  Routed
+  Suspension
+  Updated
+}
+
+' Relationships
+N328675 "0..1" -- "0..*" N328681
+N328675 "0..1" -- "0..1" N328694
+N328675 "0..1" -- "0..1" N328673
+N328675 -- N328705
+N328675 -- N328708
+N328694 -- N328710
+N328694 -- N328668
+N328681 -- N328712
+
+@enduml

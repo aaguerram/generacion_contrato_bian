@@ -1,0 +1,69 @@
+@startuml
+title Location Data Management Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Location Data Management
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_31573.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Location Directory Entry Instance Record" as N324902 {
+  + Location Reference : Location
+  + Directory Entry Date Type : DirectoryEntryDateTypeValues
+  + Directory Entry Date : DateTime
+}
+
+class "BQ Use Instance Record" as N324906 {
+  + Location Zoning Type : Text
+  + Location Usage : Location Usage
+}
+
+class "BQ Occupancy Instance Record" as N324909 {
+  + Customer Reference : InvolvedParty
+  + Location Owner/Title : InvolvedParty
+  + Location Value : Value
+  + Location Occupier Type : Text
+  + Location Occupier Reference : InvolvedParty
+  + Location Occupier Terms : Location Arrangement
+  + Alliance Partner Reference : InvolvedParty
+}
+
+class "Location Data Management" as N324919 {
+}
+
+class "BQ Location Instance Record" as N324934 {
+  + Location Type : LocationTypeValues
+  + Location Address : Address
+  + Location Coordinates : Text
+  + Location Description : Text
+  + Location Construction Type : Text
+  + Location Capacity : Text
+  + Location Status : Status
+  + Location Neighborhood Type : Text
+}
+
+' Relationships
+N324909 "0..*" -- "0..1" N324902
+N324906 "0..*" -- "0..1" N324902
+N324934 "0..*" -- "0..1" N324902
+
+@enduml

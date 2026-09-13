@@ -1,0 +1,99 @@
+@startuml
+title Customer Campaign Design Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Customer Campaign Design
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_47849.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "BQ Execution Approach Instance Record" as N277375 {
+  + Design Specification Involved Party Type : DesignSpecificationInvolvementTypeValues
+  + Design Specification Involved Party : InvolvedParty
+  + Design Specification Reference : Design Specification
+  + Design Specification Aspect Reference : Design Specification Aspect
+  + Customer Campaign Reference : Customer Campaign
+}
+
+class "BQ Engagement Model Instance Record" as N277381 {
+  + Design Specification Involved Party Type : DesignSpecificationInvolvementTypeValues
+  + Design Specification Involved Party : InvolvedParty
+  + Design Specification Reference : Design Specification
+  + Design Specification Aspect Reference : Design Specification Aspect
+  + Customer Campaign Reference : Customer Campaign
+}
+
+class "Customer Campaign Design" as N277387 {
+}
+note right of N277387
+  BOMDiagram: Customer Campaign Design BOM Diagram
+end note
+
+class "BQ Requirements Definition Instance Record" as N277397 {
+  + Design Specification Involved Party Type : DesignSpecificationInvolvementTypeValues
+  + Design Specification Involved Party : InvolvedParty
+  + Design Specification Reference : Design Specification
+  + Design Specification Aspect Reference : Design Specification Aspect
+  + Customer Campaign Reference : Customer Campaign
+}
+
+class "CR Customer Campaign Specification Instance Record" as N277406 {
+  + Customer Campaign Type : CustomerCampaignTypeValues
+  + Customer Campaign Description : Text
+  + Customer Campaign Metrics : Customer Campaign Metric
+  + Customer Campaign Metric Definition : Text
+  + Customer Campaign Metric Goal : Goal
+  + Customer Campaign Specification : Campaign Design Specification
+  + Customer Campaign Product and Service Usage : Product Usage
+  + Customer Campaign Product and Service Type : BankingProductTypeValues
+  + Product and Service Campaign Engagement Description : Customer Campaign Arrangement
+  + Product and Service Campaign Transfer Pricing Arrangement : Customer Campaign Management
+  + Customer Campaign Execution Guidelines : Customer Campaign Rule Set
+  + Customer Campaign Eligibility : Customer Campaign Rule Set
+  + Customer Campaign Qualifications : Customer Campaign Requirement
+  + Customer Campaign Interaction Guide : Customer Campaign Rule Set
+  + Customer Campaign Consumables : Item Inventory
+  + Customer Campaign Consumable Type : Text
+  + Customer Campaign Consumable Description : Text
+  + Customer Campaign Performance Record : Text
+  + Customer Campaign Procedure Instance Reference : Customer Campaign Procedure
+  + Employee/Business Unit Reference : InvolvedParty
+  + Customer Campaign Procedure Set-up : Arrangement
+  + Customer Campaign Procedure Version Number : Text
+  + Customer Campaign Procedure Result : Text
+}
+
+class "BQ Support Capabilities Instance Record" as N277430 {
+  + Design Specification Involved Party Type : DesignSpecificationInvolvementTypeValues
+  + Design Specification Involved Party : InvolvedParty
+  + Design Specification Reference : Design Specification
+  + Design Specification Aspect Reference : Design Specification Aspect
+  + Customer Campaign Reference : Customer Campaign
+}
+
+' Relationships
+N277406 "0..1" -- "0..1" N277381
+N277406 "0..1" -- "0..1" N277375
+N277406 "0..1" -- "0..1" N277430
+N277406 "0..1" -- "0..1" N277397
+
+@enduml

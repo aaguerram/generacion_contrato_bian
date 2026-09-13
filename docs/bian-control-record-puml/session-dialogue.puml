@@ -1,0 +1,101 @@
+@startuml
+title Session Dialogue Control Record - BIAN UML
+' Generated from BIAN Control Record diagram for machine-readable context
+' Service Domain: Session Dialogue
+' Source: https://bian.org/servicelandscape-14-0-0/views/view_30257.html
+' Extraction: SVG semantic extraction (svg_to_puml_v2)
+' Annotation legend:
+'   <<datatype>>            -> the SVG marks this shape as UML_DataType (not a plain class)
+'   BianBom: yes            -> this class/enum/datatype sits inside the SVG's
+'                              dashed "BIAN BOM" grouping box
+'   Extensible: yes/no      -> from the class box border color in the SVG:
+'                              red border only (fill #eae8e8 / stroke #c47474) = yes,
+'                              this class's attributes MAY be pulled into this
+'                              diagram from its owning Service Domain if needed;
+'                              fully red (fill #ff8080 / stroke #d91616) = no,
+'                              extending it is not allowed. Absent = plain
+'                              class (fill #ffffff / stroke #d9d9d9), not part
+'                              of this distinction.
+'   BQ: <name>              -> Behavior Qualifier note linked to this class
+'   AssetType: <name>       -> AssetType note linked to this class
+'   ControlRecord: <name>   -> ControlRecord note linked to this class
+'   GenericArtifact: <name> -> GenericArtifact note linked to this class
+'   HelperDiagram: <name>   -> local BOM helper-diagram box named "<Class> Helper Diagram"
+'   BOMDiagram: <name>      -> cross-service-domain BOM diagram box named "<Class> BOM Diagram"
+hide methods
+skinparam classAttributeIconSize 0
+left to right direction
+
+class "CR Customer Contact Session Procedure Instance Record" as N308170 {
+  + Customer Reference : InvolvedParty
+  + Employee Reference : Employee
+  + Servicing Position Reference : Position
+  + Session Mechanism : Session
+  + Session Start/End Time : DateTime
+  + Session Dialogue Record : Session
+  + Session Dialogue Type : Text
+  + Session Dialogue Script : Object
+  + Session Dialogue Log Reference : Session Dialogue Log
+  + Session Dialogue Log : Session Dialogue Log
+  + Session Dialogue Result : Session
+}
+
+class "BQ Query Instance Record" as N308194 {
+  + Query Type : Text
+  + Query Task Result : Task
+}
+
+class "BQ Sales Instance Record" as N308200 {
+  + ProductandService Type : Text
+  + ProductandService Properties : Feature
+  + Sales Task Result : Task
+}
+
+class "BQ Offer Instance Record" as N308208 {
+  + ProductandService Type : Text
+  + Offer Task Result : Task
+}
+
+class "BQ Product or Service Instance Record" as N308214 {
+  + Product Instance Reference : Product Agreement
+  + Product and Service Task Result : Task
+}
+
+class "BQ Case Instance Record" as N308220 {
+  + Product Instance Reference : Product Agreement
+  + Customer Case Type : CaseTypeValues
+  + Case Task Result : Task
+}
+
+class "BQ Order Instance Record" as N308228 {
+  + Order Type : Text
+  + Order Task Record : Task
+  + Order Task Work Products : WorkProduct
+  + Order Task Work Result : Text
+}
+
+class "BQ Intelligence Instance Record" as N308238 {
+  + BQ Intelligence Record : Object
+  + Customer Insight Type : CustomerInsightTypeValues
+  + Customer Insight : Customer Insight
+  + Insight Task Result : Task
+}
+
+class "BQ History Instance Record" as N308248 {
+  + History Task Result : Task
+}
+
+class "Session Dialogue" as N308270 {
+}
+
+' Relationships
+N308170 "0..1" -- "0..*" N308194
+N308238 "0..*" -- "0..1" N308170
+N308248 "0..*" -- "0..1" N308170
+N308170 "0..1" -- "0..*" N308200
+N308208 "0..*" -- "0..1" N308170
+N308214 "0..*" -- "0..1" N308170
+N308220 "0..*" -- "0..1" N308170
+N308228 "0..*" -- "0..1" N308170
+
+@enduml
