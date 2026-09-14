@@ -186,5 +186,16 @@ mapear_historias:
   # al fan-out en corridas existentes -- encenderlo es una decisión de producto respaldada por el
   # benchmark de recall de Fase 3, no un default silencioso.
   retrieval_hibrido_habilitado: false
+  # Graph RAG y reranker son flags SEPARADOS del híbrido: se activan por separado para poder
+  # medir qué aporta cada uno (canary/shadow) en vez de encenderlo todo a la vez.
+  graph_rag_habilitado: false    # expande candidatos por relaciones verificadas del BOM BIAN
+  graph_rag_max_inyectados: 3    # tope de candidatos NUEVOS que puede añadir el grafo por HU
+  ruta_grafo_bian: docs/bian-graph/release14.0.0/grafo.json   # lo genera scripts/ingest_bian/
+  vector_store: memoria          # memoria (InMemoryVectorStore) | qdrant (infra/retrieval/)
+  qdrant_url: http://localhost:6333
+  qdrant_coleccion: bian_service_domains
+  reranker_habilitado: false     # reordena antes del recorte por max_candidatos_hu
+  reranker_modelo: BAAI/bge-reranker-v2-m3   # cross-encoder local; sin sentence-transformers degrada a léxico
+  presupuesto_segundos_hu: 0     # 0 = sin límite; >0 corta el retrieval opcional si se pasa
   retrieval_top_k: 20            # top-k que pide cada recuperador (léxico y vectorial) antes de fusionar
   retrieval_max_inyectados: 5    # tope de candidatos NUEVOS que el retrieval híbrido puede añadir por HU

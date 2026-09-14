@@ -1,0 +1,86 @@
+# Corpus dorado de recuperación BIAN.
+#
+# Cada entrada es una consulta (el texto de una HU o su intención) con el Service Domain que DEBE
+# recuperarse, y los `hard_negatives` que el pipeline ha propuesto de verdad en corridas reales y
+# que NO son la respuesta. Los negativos importan tanto como el positivo: el problema de este
+# dominio no es que falte recall, es que sobran candidatos plausibles.
+#
+# Procedencia de cada caso (nada inventado):
+#   - `tests/resources/*/`: los dos casos E2E, con su `expected-result.json` curado.
+#   - `HU - copia/`: historias reales de la funcionalidad "Actualización de datos personales".
+#   Los `hard_negatives` salen de los `candidatos_descartados` de corridas reales registradas.
+#
+# AVISO sobre el tamaño: 7 consultas NO son un corpus dorado estadísticamente útil. Sirven como
+# regresión (detectan que algo empeoró) y como esqueleto para crecer. Cualquier conclusión sobre
+# "qué modelo de embeddings es mejor" con esta muestra sería ruido; ver el README.
+version: 1
+release_bian: "14.0.0"
+
+casos:
+  - id: crear-pantalla-datos-personales
+    hu: "Crear pantalla de datos personales"
+    consulta: "consultar y mostrar los datos personales del cliente, número de celular y correo electrónico"
+    positivo: "Party Reference Data Directory"
+    hard_negatives:
+      - "Customer Workbench"
+      - "Party Authentication"
+      - "Transaction Authorization"
+    procedencia: "tests/resources/datos_personales/"
+
+  - id: notificar-actualizacion-datos
+    hu: "Notificar actualización de datos"
+    consulta: "notificar al cliente por correo y SMS que sus datos de contacto fueron actualizados"
+    positivo: "Correspondence"
+    hard_negatives:
+      - "Party Reference Data Directory"
+      - "Fraud Evaluation"
+      - "Internal Audit"
+      - "Party Authentication"
+      - "Customer Access Entitlement"
+    procedencia: "tests/resources/datos_personales_notificacion/"
+
+  - id: actualizar-correo-electronico
+    hu: "Actualizar correo electrónico"
+    consulta: "actualizar la dirección de correo electrónico registrada del cliente"
+    positivo: "Party Reference Data Directory"
+    hard_negatives:
+      - "Customer Workbench"
+      - "Party Authentication"
+    procedencia: "HU - copia/HU-Actualizar correo electrónico.txt"
+
+  - id: actualizar-numero-celular
+    hu: "Actualizar número celular"
+    consulta: "actualizar el número de teléfono celular de contacto del cliente"
+    positivo: "Party Reference Data Directory"
+    hard_negatives:
+      - "Customer Workbench"
+      - "Session Dialogue"
+    procedencia: "HU - copia/HU-Actualizar número celular.txt"
+
+  - id: confirmar-con-smart-token
+    hu: "Confirmar actualización del número celular y correo con Smart Token"
+    consulta: "confirmar con segundo factor de autenticación antes de aplicar el cambio de contacto"
+    positivo: "Party Authentication"
+    hard_negatives:
+      - "Party Reference Data Directory"
+      - "Customer Access Entitlement"
+      - "Transaction Authorization"
+    procedencia: "HU - copia/HU-Confirmar actualización del número celular y correo con Smart Token.txt"
+
+  - id: actualizar-cuentas-menores
+    hu: "Actualizar cuentas de menores"
+    consulta: "actualizar los datos de contacto en cuentas de titulares menores de edad y su representante"
+    positivo: "Party Reference Data Directory"
+    hard_negatives:
+      - "Legal Entity Directory"
+      - "Customer Relationship Management"
+    procedencia: "HU - copia/HU-Actualizar cuentas de menores.txt"
+
+  - id: validar-nombre-sd-exacto
+    hu: "(validar-sd) nombre canónico exacto"
+    consulta: "Current Account"
+    positivo: "Current Account"
+    hard_negatives:
+      - "Current Account Facility"
+      - "Savings Account"
+    procedencia: "caso de uso validar-sd: la recuperación por nombre no debe degradarse"

@@ -17,6 +17,7 @@ from src.adaptadores.salida.catalogo_bom_puml import CatalogoBomPuml
 from src.adaptadores.salida.catalogo_json import CatalogoJson
 from src.adaptadores.salida.embeddings_failover import EmbeddingsConFailover
 from src.adaptadores.salida.embeddings_resiliente import EmbeddingsResiliente
+from src.adaptadores.salida.grafo_bian_json import GrafoBianJson
 from src.adaptadores.salida.lector_historias_fs import LectorHistoriasFilesystem
 from src.adaptadores.salida.llm.estrategia import ConfiguracionProveedor
 from src.adaptadores.salida.llm.factory import crear_estrategia
@@ -25,7 +26,9 @@ from src.adaptadores.salida.mapeador_operaciones_langchain import MapeadorOperac
 from src.adaptadores.salida.publicador_json import PublicadorJson
 from src.adaptadores.salida.publicador_mapeo_json import PublicadorMapeoJson
 from src.adaptadores.salida.recuperador_lexico import RecuperadorLexico
+from src.adaptadores.salida.recuperador_qdrant import RecuperadorQdrant
 from src.adaptadores.salida.recuperador_vectorial import RecuperadorVectorial
+from src.adaptadores.salida.reranker_local import RerankerCrossEncoder
 from src.aplicacion.puertos.entrada import ValidarServiceDomainUseCase
 from src.aplicacion.puertos.entrada_mapeo import MapearHistoriasUseCase
 from src.aplicacion.puertos.recuperador import RecuperadorSemanticoPort
@@ -169,7 +172,18 @@ def _recuperadores_hibridos(
     recuperadores: list[RecuperadorSemanticoPort] = [RecuperadorLexico(catalogo)]
     try:
         emb, modelo_emb = _embeddings(config, proveedor)
-        recuperadores.append(RecuperadorVectorial(catalogo, emb, modelo_embeddings=modelo_emb))
+        if config.mapear_historias.vector_store == "qdrant":
+            # El índice externo NO reemplaza al léxico: se suma como otro recuperador, igual que
+            # el vectorial en memoria, y si Qdrant no responde ese canal devuelve vacío.
+            recuperadores.append(
+                RecuperadorQdrant(
+                    emb,
+                    url=config.mapear_historias.qdrant_url,
+                    coleccion=config.mapear_historias.qdrant_coleccion,
+                )
+            )
+        else:
+            recuperadores.append(RecuperadorVectorial(catalogo, emb, modelo_embeddings=modelo_emb))
     except RuntimeError as exc:
         logger.warning(
             "retrieval híbrido: sin proveedor de embeddings utilizable (%s); sigo solo con "
@@ -238,4 +252,8 @@ def crear_caso_uso_mapeo(
         recuperadores=recuperadores,
         retrieval_top_k=mh.retrieval_top_k,
         retrieval_max_inyectados=mh.retrieval_max_inyectados,
+        grafo=GrafoBianJson(config.ruta_grafo_bian) if mh.graph_rag_habilitado else None,
+        graph_rag_max_inyectados=mh.graph_rag_max_inyectados,
+        reranker=RerankerCrossEncoder(mh.reranker_modelo) if mh.reranker_habilitado else None,
+        presupuesto_segundos_hu=mh.presupuesto_segundos_hu,
     )

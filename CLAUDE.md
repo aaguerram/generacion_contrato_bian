@@ -28,10 +28,17 @@ para candidatos ausentes; no usa Internet ni memoria del modelo como evidencia d
 2. **`mapear-historias`** (`python -m src mapear-historias ...`): mapea un lote de HU a sus SD.
    (detalle abajo)
 
-Trabajo pendiente (Fases 3-5 del plan de recuperación híbrida: modelo canónico + ingestión, ADR
-Qdrant/pgvector, reranker, Graph RAG, endurecimiento operativo) documentado con problema/ventaja/
-justificación/pasos en [`implementacion_pendiente.md`](implementacion_pendiente.md) — léelo antes
-de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
+- `bian-graph/release14.0.0/grafo.json` = **modelo canónico** (26.044 nodos / 58.226 aristas con
+  procedencia) que genera `scripts/ingest_bian/`; lo consume la expansión Graph RAG.
+
+Retrieval avanzado, todo **OFF por defecto** y con flags INDEPENDIENTES en `config.yaml`
+(`retrieval_hibrido_habilitado`, `graph_rag_habilitado`, `reranker_habilitado`, `vector_store`):
+Graph RAG (`GrafoBianPort`), reranker cross-encoder local (`RerankerPort`) e índice Qdrant
+(`infra/retrieval/`, volumen persistente). Antes de encender cualquiera, medir con
+`scripts/evaluate_retrieval/` (benchmark + canary) — el estado real, lo que la medición desmintió
+del plan original y lo que queda pendiente están en
+[`implementacion_pendiente.md`](implementacion_pendiente.md) §0 y §9. Decisión del backend
+vectorial: [`docs/adr/0001-vector-store.md`](docs/adr/0001-vector-store.md).
 
 ## Configuración: `config.yaml` + `.env`
 

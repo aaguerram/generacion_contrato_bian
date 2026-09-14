@@ -5,6 +5,11 @@ __pycache__/
 openrouter.md
 claves_api.md
 .cache/
+
+# Modelo canónico BIAN: artefacto DERIVADO de docs/ (19 MB, 26k nodos). Se regenera con
+# `scripts/ingest_bian/ingest_bian.py`, así que no se versiona: cada regeneración añadiría otro
+# blob de 19 MB al historial sin aportar nada que las fuentes no tengan ya.
+docs/bian-graph/
 *.vectorstore.*.json
 .pytest_cache/
 

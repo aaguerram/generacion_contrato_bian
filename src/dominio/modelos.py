@@ -6,6 +6,11 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
+# Tope del texto indexado por Service Domain. Con 1200 chars entra el 100% de nombre + jerarquía
+# + clasificación + rol + ejemplo de uso + features (la parte con vocabulario de negocio) en los
+# 341 SD, y se recorta solo la cola de `documentation`, que repite el rol.
+_MAX_CHARS_INDICE = 1200
+
 MetodoValidacion = Literal[
     "coincidencia_exacta",  # el nombre está en el Landscape salvo forma  (determinista, existe=True)
     "similitud_alta",  # similitud léxica del nombre >= umbral alto   (determinista, existe=True)
@@ -33,16 +38,40 @@ class EntradaCatalogo(BaseModel):
     registration_status: str | None = None
     business_area: str | None = None
     business_domain: str | None = None
+    documentation: str | None = None
 
-    def texto_para_indexar(self) -> str:
-        """Texto compacto para el índice RAG (nombre + clasificación + rol, recortado)."""
+    def texto_para_indexar(self, *, max_chars: int = _MAX_CHARS_INDICE) -> str:
+        """Texto del SD para el índice semántico.
+
+        Incluye TODO lo que el Service Landscape dice del Service Domain, no solo su nombre y su
+        rol: una historia de usuario rara vez repite el rol formal, pero sí menciona el escenario
+        (`examples_of_use`) o una capacidad concreta (`features`). Indexar solo nombre +
+        clasificación + rol dejaba fuera la mitad del vocabulario con el que la historia habla.
+
+        El orden va de lo más discriminante a lo más redundante, porque el recorte se aplica al
+        final: nombre, jerarquía y clasificación (términos cortos y únicos), rol, ejemplo de uso,
+        features, resumen ejecutivo y, si queda sitio, la documentación -que repite el rol al
+        principio, así que es la primera en sobrar-.
+        """
         clasif = " / ".join(
             p for p in (self.functional_pattern, self.asset_type, self.generic_artifact_type) if p
         )
-        rol = (self.service_role or "").strip()
-        if len(rol) > 320:
-            rol = rol[:320].rsplit(" ", 1)[0] + "…"
-        return f"{self.service_domain}. {clasif}. {rol}".strip()
+        jerarquia = " / ".join(p for p in (self.business_area, self.business_domain) if p)
+        partes = (
+            self.service_domain,
+            jerarquia,
+            clasif,
+            self.control_record,
+            self.service_role,
+            self.examples_of_use,
+            self.features,
+            self.executive_summary,
+            self.documentation,
+        )
+        texto = ". ".join(" ".join(str(p).split()) for p in partes if p and str(p).strip())
+        if len(texto) <= max_chars:
+            return texto
+        return texto[:max_chars].rsplit(" ", 1)[0] + "…"
 
 
 class CandidatoSD(BaseModel):

@@ -5,7 +5,38 @@
 > documenta lo que **falta**, con el contexto necesario para no tener que re-descubrirlo: qué
 > problema resuelve, qué ventaja aporta, por qué se decidió así y cómo implementarlo paso a paso.
 
-## 0. Qué ya está resuelto (no reabrir sin motivo)
+## 0. Estado al 2026-09-14 (leer esto primero)
+
+Las Fases 3-5 se implementaron en esta iteración. Lo que sigue pendiente está al final, en la
+sección 9, y es bastante distinto de lo que este documento suponía: **medir cambió el plan**.
+
+| Pieza | Estado |
+|---|---|
+| Corpus dorado + benchmark | ✅ `scripts/evaluate_retrieval/` (7 consultas, con procedencia) |
+| Modelo canónico BIAN | ✅ `src/dominio/grafo_bian.py` + `scripts/ingest_bian/` (26.044 nodos, 58.226 aristas) |
+| Reconstrucción/migración de índice | ✅ `scripts/rebuild_index/`, `scripts/migrate_index/` |
+| ADR vector store | ✅ `docs/adr/0001-vector-store.md` — gana `memoria`; Qdrant implementado y probado |
+| Adaptador Qdrant | ✅ `src/adaptadores/salida/recuperador_qdrant.py` + volumen persistente |
+| Reranker | ✅ `RerankerPort` + cross-encoder local con degradación segura |
+| Graph RAG | ✅ expansión acotada por especificidad, con puentes auditables |
+| Endurecimiento operativo | ✅ flags separados, presupuesto por HU, cache de reranking, canary |
+| Texto indexado enriquecido | ✅ `texto_para_indexar()` pasa de ~370 a ~1.195 chars |
+
+### Lo que la medición desmintió de este documento
+
+1. **El gate "Recall@10 ≥ 0.95" no sirve como criterio único.** Se aprueba solo: en el caso real
+   el SD correcto se recuperaba SIEMPRE como top-1 y la corrida terminaba en `UNRESOLVED` porque
+   el revisor adversarial lo bloqueaba. El cuello no estaba en recuperar, sino en decidir.
+2. **La fusión RRF empeora el recall** (0.71) frente al vectorial solo (0.86): mete el canal
+   léxico —que en lenguaje natural acierta 0.29— con el mismo peso. Encender
+   `retrieval_hibrido_habilitado` sin más sería una regresión.
+3. **Un vector store externo no compra calidad** a esta escala: Qdrant da exactamente el mismo
+   recall que el `InMemoryVectorStore`.
+4. **La expansión por grafo ingenua es inservible**: 157 de 341 SD alcanzables en dos saltos,
+   porque `Party` la modelan 125 SD. Hubo que filtrar por especificidad del nodo puente.
+5. **Un reranker malo es peor que ninguno**: el respaldo léxico hundía Recall@10 de 0.71 a 0.14.
+
+## 0-bis. Qué ya estaba resuelto antes de esta iteración (no reabrir sin motivo)
 
 Del plan original de "recuperación y decisión BIAN híbrida", esto ya está implementado, probado y
 en `main` (Fases 0-2 + una versión mínima de Fase 3):
@@ -331,3 +362,23 @@ No avanzar de fase sin:
 | Reranker | nuevo `RerankerPort` | ❌ pendiente — sección 4 |
 | Graph RAG | expansión sobre modelo canónico | ❌ pendiente, requiere sección 2 — sección 4 |
 | Endurecimiento operativo | cache/circuit breakers/canary | ❌ pendiente — sección 5 |
+
+
+## 9. Pendiente de verdad (2026-09-14)
+
+Ninguno de estos es código que falte escribir: son decisiones que necesitan datos o cuota.
+
+1. **Ponderar la fusión o elegir canales por caso de uso.** Hoy RRF trata igual al léxico y al
+   vectorial, y eso baja el recall en `mapear-historias`. El léxico sigue siendo el correcto para
+   `validar-sd`. Medir con pesos antes de encender el híbrido por defecto.
+2. **Ampliar el corpus dorado a ~100 consultas etiquetadas.** Con 7 no se puede comparar modelos
+   de embeddings ni justificar un default; solo detectar regresiones.
+3. **Correr el canary con LLM real** (`scripts/evaluate_retrieval/canary.py --proveedor ollama`)
+   para cada flag por separado, y solo entonces cambiar un default.
+4. **Encadenar el enriquecedor del landscape a `scripts/generate_matrix_view/`**, que hoy lo
+   pisaría al regenerar.
+5. **`ownership_conflict_rate`** mete en el denominador hallazgos sobre SD ya descartados: con uno
+   solo salta a 1.0.
+6. **Entrenar un modelo propio** sigue descartado: 6 HU etiquetadas. El corpus dorado del punto 2
+   es el prerrequisito.
+7. **pgvector** no se implementa mientras la ADR no cambie.

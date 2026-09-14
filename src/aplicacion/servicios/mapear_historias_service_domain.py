@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import logging
 import re
+import time
 import uuid
 
 from langgraph.graph import END, START, StateGraph
@@ -44,10 +45,12 @@ from src.aplicacion.puertos.catalogo import CatalogoServiceDomainsPort
 from src.aplicacion.puertos.catalogo_bom import CatalogoBomPort
 from src.aplicacion.puertos.catalogo_operaciones_bian import CatalogoOperacionesBianPort
 from src.aplicacion.puertos.entrada_mapeo import MapearHistoriasUseCase
+from src.aplicacion.puertos.grafo_bian import GrafoBianPort
 from src.aplicacion.puertos.lector_historias import LectorHistoriasPort
 from src.aplicacion.puertos.mapeador_operaciones import MapeadorOperacionesBianPort
 from src.aplicacion.puertos.publicador_mapeo import PublicadorMapeoPort
 from src.aplicacion.puertos.recuperador import RecuperadorSemanticoPort
+from src.aplicacion.puertos.reranker import RerankerPort
 from src.aplicacion.servicios.estado_historia import EstadoHistoria
 from src.aplicacion.servicios.estado_mapeo import EstadoMapeo
 from src.dominio.clasificacion_historias import (
@@ -119,6 +122,35 @@ _RETRY = RetryPolicy(
     max_interval=20.0,
     retry_on=_es_transitorio,
 )
+
+
+class _Presupuesto:
+    """Reloj compartido por las etapas OPCIONALES de recuperación de una historia.
+
+    No aborta nada a media ejecución -cortar un embedding por la mitad no ahorra nada y deja
+    estado raro-: comprueba ANTES de cada etapa si queda tiempo, y si no, la salta dejándolo en
+    el log. Con `segundos <= 0` no hay límite, que es el comportamiento histórico.
+    """
+
+    def __init__(self, segundos: float, historia: str) -> None:
+        self._limite = segundos
+        self._historia = historia
+        self._inicio = time.monotonic()
+
+    def queda(self, etapa: str) -> bool:
+        if self._limite <= 0:
+            return True
+        usado = time.monotonic() - self._inicio
+        if usado < self._limite:
+            return True
+        logger.warning(
+            "HU '%s': presupuesto de retrieval agotado (%.1fs de %.1fs); se omite %s",
+            self._historia,
+            usado,
+            self._limite,
+            etapa,
+        )
+        return False
 
 
 def _huellas(*modelos) -> list[MetadatosPrompt]:
@@ -221,6 +253,10 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         recuperadores: list[RecuperadorSemanticoPort] | None = None,
         retrieval_top_k: int = 20,
         retrieval_max_inyectados: int = 5,
+        grafo: GrafoBianPort | None = None,
+        graph_rag_max_inyectados: int = 3,
+        reranker: RerankerPort | None = None,
+        presupuesto_segundos_hu: float = 0.0,
     ) -> None:
         self._catalogo = catalogo
         self._lector = lector
@@ -242,6 +278,15 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         self._recuperadores = list(recuperadores or [])
         self._retrieval_top_k = max(1, retrieval_top_k)
         self._retrieval_max_inyectados = max(0, retrieval_max_inyectados)
+        self._grafo_bian = grafo
+        self._graph_rag_max_inyectados = max(0, graph_rag_max_inyectados)
+        self._reranker = reranker
+        # Presupuesto para el retrieval OPCIONAL (híbrido + grafo + reranker) de cada historia.
+        # No cubre las llamadas LLM: esas ya tienen su propio failover con reintentos. Cubre justo
+        # lo que se añadió después y puede colgarse sin que nadie lo note -un proveedor de
+        # embeddings lento, un índice externo que no responde, un modelo que tarda en cargar-.
+        # 0 = sin límite.
+        self._presupuesto_segundos_hu = max(0.0, presupuesto_segundos_hu)
         self._subgrafo = self._compilar_subgrafo()
         self._grafo = self._compilar()
 
@@ -390,6 +435,81 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             fusionados.append((nombre, "retrieval_hibrido", []))
         return fusionados, puntajes
 
+    def _candidatos_graph_rag(
+        self, estado: EstadoHistoria, propuestos: list[str], ya_normalizados: set[str]
+    ) -> tuple[list[tuple[str, str, list[str]]], dict[str, float]]:
+        """Expande por el grafo canónico BIAN a partir de los candidatos ya propuestos.
+
+        Encuentra lo que ningún canal textual puede encontrar: un SD relacionado por el propio BOM
+        de BIAN, no por parecerse a las palabras de la historia. Solo aristas verificadas y con
+        fuente (ver `GrafoBianPort`), tope propio (`graph_rag_max_inyectados`) y nunca reemplaza un
+        candidato del LLM, de completitud o del retrieval híbrido: solo rellena.
+        """
+        if self._grafo_bian is None or not self._graph_rag_max_inyectados or not propuestos:
+            return [], {}
+        expandidos = self._grafo_bian.expandir(propuestos, tope=self._graph_rag_max_inyectados * 2)
+        salida: list[tuple[str, str, list[str]]] = []
+        scores: dict[str, float] = {}
+        for c in expandidos:
+            clave = normalizar(c.service_domain)
+            scores[clave] = c.score
+            if len(salida) >= self._graph_rag_max_inyectados or clave in ya_normalizados:
+                continue
+            ya_normalizados.add(clave)
+            # Los puentes viajan como "intent" para que la evidencia de POR QUÉ entró este
+            # candidato llegue al prompt de evaluación, igual que el supporting_intent del LLM.
+            salida.append((c.service_domain, "graph_rag", [f"BOM: {p}" for p in c.puentes[:3]]))
+        if salida:
+            logger.info(
+                "Graph RAG inyectó %d candidato(s): %s",
+                len(salida),
+                ", ".join(n for n, _, _ in salida),
+            )
+        return salida, scores
+
+    def _reordenar_candidatos(
+        self, estado: EstadoHistoria, resueltos: list[tuple[EntradaCatalogo, str, list[str]]]
+    ) -> tuple[list[tuple[EntradaCatalogo, str, list[str]]], dict[str, float]]:
+        """Reordena los candidatos resueltos por relevancia antes del recorte por `max_candidatos_hu`.
+
+        Aquí es donde un reranker paga: lo que quede fuera del tope NO se evalúa, y cada candidato
+        evaluado cuesta una llamada LLM con ~16k tokens de evidencia. Sin reranker el corte es por
+        orden de llegada (LLM, completitud, retrieval, grafo), que no dice nada sobre relevancia.
+
+        El reranker solo ORDENA: no elimina candidatos ni decide ownership. Lo que cae fuera del
+        tope sigue registrándose como incidencia `TRUNCATED_BY_MAX_CANDIDATOS_HU`, igual que antes.
+        """
+        if self._reranker is None or len(resueltos) <= 1:
+            return resueltos, {}
+        intencion = estado.get("intencion")
+        if intencion is None:
+            return resueltos, {}
+        consulta = " ".join(
+            [
+                *intencion.business_actions,
+                *intencion.business_objects,
+                *intencion.capacidades_funcionales,
+                *intencion.outcomes,
+            ]
+        ).strip()
+        if not consulta:
+            return resueltos, {}
+
+        por_clave = {normalizar(e.service_domain): (e, o, i) for e, o, i in resueltos}
+        documentos = [(clave, e.texto_para_indexar()) for clave, (e, _, _) in por_clave.items()]
+        try:
+            ranking = self._reranker.reordenar(consulta, documentos, tope=len(documentos))
+        except Exception as exc:  # un reranker caído no puede tumbar la corrida
+            logger.warning("Reranker falló (%s); se mantiene el orden de llegada", exc)
+            return resueltos, {}
+
+        scores = {clave: round(float(score), 6) for clave, score in ranking}
+        ordenados = [por_clave[clave] for clave, _ in ranking if clave in por_clave]
+        # Cualquiera que el reranker no devolviera conserva su posición relativa al final.
+        vistos = {clave for clave, _ in ranking}
+        ordenados += [v for k, v in por_clave.items() if k not in vistos]
+        return ordenados, scores
+
     def _h_preparar(self, estado: EstadoHistoria) -> dict:
         catalogo = estado["catalogo"]
         indice = {normalizar(e.service_domain): e for e in catalogo}
@@ -399,10 +519,23 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             (c.service_domain, "llm", list(c.supporting_intent))
             for c in estado["candidatos"].candidatos
         ] + [(n, "completitud", []) for n in comp.missing_candidates]
-        inyectados, retrieval_scores = self._candidatos_retrieval_hibrido(
-            estado, {normalizar(n) for n, _, _ in propuestos}
+        # Todo el retrieval opcional comparte un presupuesto de tiempo: si se agota, se sigue con
+        # lo que ya se tenga en vez de dejar la historia colgada de un proveedor lento.
+        reloj = _Presupuesto(self._presupuesto_segundos_hu, estado["historia"].archivo)
+        inyectados, retrieval_scores = (
+            self._candidatos_retrieval_hibrido(estado, {normalizar(n) for n, _, _ in propuestos})
+            if reloj.queda("retrieval híbrido")
+            else ([], {})
         )
         propuestos += inyectados
+        expandidos, graph_scores = (
+            self._candidatos_graph_rag(
+                estado, [n for n, _, _ in propuestos], {normalizar(n) for n, _, _ in propuestos}
+            )
+            if reloj.queda("graph rag")
+            else ([], {})
+        )
+        propuestos += expandidos
 
         incidencias: list[dict] = []
         resueltos: dict[str, tuple[EntradaCatalogo, str, list[str]]] = {}
@@ -424,8 +557,13 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 normalizar(entrada.service_domain), (entrada, origen, list(intent))
             )
 
-        seleccion = list(resueltos.values())[: self._max_candidatos_hu]
-        truncados = list(resueltos.values())[self._max_candidatos_hu :]
+        ordenados, rerank_scores = (
+            self._reordenar_candidatos(estado, list(resueltos.values()))
+            if reloj.queda("reranker")
+            else (list(resueltos.values()), {})
+        )
+        seleccion = ordenados[: self._max_candidatos_hu]
+        truncados = ordenados[self._max_candidatos_hu :]
         for entrada, origen, _intent in truncados:
             # nunca desaparece en silencio: queda visible como incidencia no bloqueante (Fase 0)
             incidencias.append(
@@ -476,6 +614,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             "omitidos": omitidos,
             "incidencias": incidencias,
             "retrieval_scores": retrieval_scores,
+            "graph_scores": graph_scores,
+            "rerank_scores": rerank_scores,
         }
 
     def _fan_out_candidatos(self, estado: EstadoHistoria):
@@ -621,18 +761,22 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         bloqueos = list(estado.get("bloqueos_hu", []))
         omitidos = estado.get("omitidos", [])
 
-        retrieval_scores = estado.get("retrieval_scores") or {}
-        if retrieval_scores:
+        # Scores de recuperación (aditivos: trazan POR QUÉ llegó el candidato, no deciden nada).
+        extras = {
+            "retrieval_score": estado.get("retrieval_scores") or {},
+            "graph_score": estado.get("graph_scores") or {},
+            "rerank_score": estado.get("rerank_scores") or {},
+        }
+        if any(extras.values()):
             for a in (
                 *grupos.candidatos_directos,
                 *grupos.candidatos_tentativos,
                 *grupos.candidatos_descartados,
             ):
-                puntaje = retrieval_scores.get(normalizar(a.service_domain))
-                if puntaje is not None:
-                    a.desglose_score = a.desglose_score.model_copy(
-                        update={"retrieval_score": puntaje}
-                    )
+                clave = normalizar(a.service_domain)
+                update = {c: m[clave] for c, m in extras.items() if m.get(clave) is not None}
+                if update:
+                    a.desglose_score = a.desglose_score.model_copy(update=update)
 
         n_ops = sum(len(a.operaciones_bian) for a in grupos.candidatos_directos)
         logger.info(

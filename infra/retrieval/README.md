@@ -1,57 +1,59 @@
-# Infra de retrieval (OPCIONAL, diferida a Fase 3)
+# infra/retrieval — índice vectorial externo (opcional)
 
-Este directorio existe para cuando el plan de recuperación híbrida llegue a la fase de
-`KnowledgeIndexPort` con un backend externo. **Hoy no hace falta arrancar nada de esto**: el
-falso negativo de "Notificar actualización de datos" (Correspondence descartado por
-`CONSUMED_DEPENDENCY`) es un bug de reglas de ownership/scoring, no de recall — el candidato ya
-se recupera y evalúa correctamente con el `RecuperadorLexico` / `RecuperadorVectorial`
-(`InMemoryVectorStore` en memoria, persistido a disco) que ya existen en
-`src/adaptadores/salida/`.
+Levanta el motor del índice de recuperación. **No hace falta para operar**: por defecto el
+pipeline usa un `InMemoryVectorStore` que se reconstruye en la propia corrida
+(`mapear_historias.vector_store: memoria`). Ver [`docs/adr/0001-vector-store.md`](../../docs/adr/0001-vector-store.md):
+medido sobre el corpus dorado, Qdrant da **exactamente el mismo recall** que el índice en memoria
+a esta escala (341 Service Domains).
 
-## Cuándo usar esto
+Nada arranca con `docker compose up` a secas: cada motor vive en su propio perfil.
 
-Solo tras:
-1. Construir el corpus canónico completo (SD + CR + BQ + operaciones + schemas + campos) — Fase 2.
-2. Correr `scripts/evaluate_retrieval/` contra el `InMemoryVectorStore` actual con la tabla dorada
-   de consultas (positivos + hard negatives).
-3. Que el benchmark muestre que el índice en memoria no alcanza (recall, latencia de carga en
-   frío, o tamaño de corpus) para justificar operar un servicio externo.
-4. Una ADR corta que registre esa decisión (no las dos a la vez — ver plan, sección 6.4).
-
-Si el benchmark pasa con el índice en memoria, **no se levanta nada de aquí** y este directorio
-se puede borrar.
-
-## Uso
+## Qdrant (el implementado)
 
 ```bash
-# Elegir UN perfil (nunca los dos en la primera entrega):
-docker compose -f infra/retrieval/docker-compose.yml --profile qdrant up -d
-docker compose -f infra/retrieval/docker-compose.yml --profile pgvector up -d
-
-# Apagar y borrar el volumen (reindexar desde cero):
-docker compose -f infra/retrieval/docker-compose.yml --profile qdrant down -v
-docker compose -f infra/retrieval/docker-compose.yml --profile pgvector down -v
+cd infra/retrieval
+docker compose --profile qdrant up -d          # levanta el motor
 ```
 
-Qdrant queda en `http://localhost:6333` (dashboard en `/dashboard`). Postgres+pgvector queda en
-`localhost:5432` (`bian_knowledge_index` / `bian_rag` / `bian_rag_local_only` — solo para uso
-local; estas credenciales nunca deben copiarse a un `.env` real).
+La data **vive en un volumen nombrado** (`retrieval_qdrant_data`), así que sobrevive a parar y
+volver a levantar el contenedor — comprobado: tras `down` + `up` la colección seguía con sus 341
+puntos, sin reindexar. Solo se pierde con `down -v`, que es justo lo que hay que usar para
+reindexar desde cero.
 
-## Por qué no ambos, y por qué no ahora
+Poblar el índice (desde el host, donde están el venv y el proveedor de embeddings):
 
-- El proyecto es hoy 100% offline / sin servidor (CLI batch + caché en `docs/`, ver
-  `CLAUDE.md` del repo). Añadir un servicio externo es un cambio de naturaleza operativa, no
-  solo de código: introduce arranque, red, volúmenes y un modo de fallo nuevo (`GEN-RUN-LOCK-001`
-  no tiene equivalente aquí — habría que definir qué pasa si el índice no responde).
-- `requirements.txt` no tiene `qdrant-client` ni `psycopg`/`pgvector` — son dependencias nuevas,
-  no algo que ya esté a medio instalar.
-- El corpus es pequeño para estándares de vector DB (341 Service Domains; incluso expandido a
-  CR+BQ+operaciones+schemas+campos son unos pocos miles de nodos). Un `InMemoryVectorStore`
-  cacheado en disco por modelo de embeddings (patrón ya usado en `validar-sd`) es routinariamente
-  suficiente a ese tamaño.
-- Mantener ambos adaptadores desde el día uno duplica trabajo de implementación y de pruebas de
-  integración sin evidencia de que se necesite ninguno todavía.
+```bash
+cd ../..
+.venv/bin/python scripts/rebuild_index/rebuild.py --backend qdrant
+```
 
-`src/aplicacion/puertos/` seguirá definiendo `KnowledgeIndexPort` de forma agnóstica al backend,
-así que activar uno de estos servicios más adelante es añadir un adaptador nuevo, no reabrir el
-dominio.
+Y apuntar el pipeline al índice externo en `config.yaml`:
+
+```yaml
+mapear_historias:
+  vector_store: qdrant
+  qdrant_url: http://localhost:6333
+  qdrant_coleccion: bian_service_domains
+```
+
+Si Qdrant está apagado o la colección vacía, el adaptador **no rompe la corrida**: avisa una vez y
+ese canal devuelve vacío, igual que el vectorial cuando no hay proveedor de embeddings.
+
+Dashboard: <http://localhost:6333/dashboard>. Solo escucha en `127.0.0.1`.
+
+```bash
+docker compose --profile qdrant down       # parar conservando la data
+docker compose --profile qdrant down -v    # parar y BORRAR el volumen (reindexar desde cero)
+```
+
+## pgvector (no implementado)
+
+El perfil existe y levanta Postgres+pgvector, pero **no hay adaptador**: la ADR decidió no
+mantener dos backends sin evidencia de que ninguno haga falta. Si algún día la plataforma ya opera
+Postgres, el puerto es el mismo (`RecuperadorSemanticoPort`) y el adaptador es del tamaño del de
+Qdrant (`src/adaptadores/salida/recuperador_qdrant.py`, ~100 líneas).
+
+## Versiones
+
+`qdrant/qdrant:v1.15.1` — alineada con el `qdrant-client` del venv; una diferencia de más de una
+minor hace que el cliente avise de incompatibilidad.

@@ -33,6 +33,7 @@ _RENOMBRES = {
 }
 _IGUALES = (
     "executive_summary",
+    "documentation",
     "functional_pattern",
     "asset_type",
     "generic_artifact_type",

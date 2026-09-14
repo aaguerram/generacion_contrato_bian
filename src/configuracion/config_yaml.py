@@ -91,6 +91,20 @@ class MapearHistoriasConfig:
     paso2_operaciones: bool = True
     rol_max_chars: int = 240
     top_n_omitidos: int = 5
+    # Flags de retrieval, INDEPENDIENTES: se puede tener híbrido sin grafo, grafo sin reranker,
+    # o los tres. Un solo interruptor que mezclara las tres cosas impediría aislar qué aporta cada
+    # una cuando se comparan corridas.
+    graph_rag_habilitado: bool = False
+    graph_rag_max_inyectados: int = 3
+    # `memoria` = InMemoryVectorStore (por defecto, sin infraestructura); `qdrant` = índice
+    # externo de infra/retrieval/docker-compose.yml. Ver docs/adr/0001-vector-store.md.
+    vector_store: str = "memoria"
+    qdrant_url: str = "http://localhost:6333"
+    qdrant_coleccion: str = "bian_service_domains"
+    reranker_habilitado: bool = False
+    reranker_modelo: str = "BAAI/bge-reranker-v2-m3"
+    ruta_grafo_bian: str = "docs/bian-graph/release14.0.0/grafo.json"
+    presupuesto_segundos_hu: float = 0.0  # 0 = sin límite
     ruta_operaciones: str = "docs/bian-operation-catalogs.json"
     ruta_cache_bian: str = "docs/bian-cache"
     ruta_bian_puml: str = "docs/bian-diagrams/puml-bom"
@@ -124,6 +138,10 @@ class Config:
     @property
     def ruta_catalogo_bian(self) -> str:
         return self._abs(self.validar_sd.ruta_catalogo_bian)
+
+    @property
+    def ruta_grafo_bian(self) -> str:
+        return self._abs(self.mapear_historias.ruta_grafo_bian)
 
     @property
     def ruta_operaciones(self) -> str:
@@ -242,6 +260,15 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
         paso2_operaciones=bool(mh.get("paso2_operaciones", True)),
         rol_max_chars=int(mh.get("rol_max_chars", 240)),
         top_n_omitidos=int(mh.get("top_n_omitidos", 5)),
+        graph_rag_habilitado=bool(mh.get("graph_rag_habilitado", False)),
+        graph_rag_max_inyectados=int(mh.get("graph_rag_max_inyectados", 3)),
+        vector_store=str(mh.get("vector_store", "memoria")).strip().lower(),
+        qdrant_url=str(mh.get("qdrant_url", "http://localhost:6333")),
+        qdrant_coleccion=str(mh.get("qdrant_coleccion", "bian_service_domains")),
+        reranker_habilitado=bool(mh.get("reranker_habilitado", False)),
+        reranker_modelo=str(mh.get("reranker_modelo", "BAAI/bge-reranker-v2-m3")),
+        ruta_grafo_bian=str(mh.get("ruta_grafo_bian", "docs/bian-graph/release14.0.0/grafo.json")),
+        presupuesto_segundos_hu=float(mh.get("presupuesto_segundos_hu", 0.0)),
         ruta_operaciones=str(mh.get("ruta_operaciones", "docs/bian-operation-catalogs.json")),
         ruta_cache_bian=str(mh.get("ruta_cache_bian", "docs/bian-cache")),
         ruta_bian_puml=str(mh.get("ruta_bian_puml", "docs/bian-diagrams/puml-bom")),

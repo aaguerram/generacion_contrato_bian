@@ -55,7 +55,7 @@ EstadoEvaluacion = Literal["DIRECTO", "TENTATIVO", "DESCARTADO", "NO_RESUELTO"]
 NivelAmbiguedad = Literal["NONE", "LOW", "HIGH"]
 
 # Origen de un candidato en la lista unificada a evaluar.
-OrigenCandidato = Literal["llm", "omitido", "completitud", "retrieval_hibrido"]
+OrigenCandidato = Literal["llm", "omitido", "completitud", "retrieval_hibrido", "graph_rag"]
 
 # Motivo de la decisión contractual (sub-taxonomía del diagrama de dos ejes).
 MotivoDecision = Literal[
@@ -209,6 +209,16 @@ class DesgloseScore(BaseModel):
         default=0.0,
         description="Fracción de las operaciones ancladas de este SD con evidencia verificable "
         "(sin OPERATION_EVIDENCE_UNVERIFIED). 0.0 si no se ancló ninguna operación todavía.",
+    )
+    graph_score: float = Field(
+        default=0.0,
+        description="Especificidad de la conexión por el grafo canónico BIAN si el SD fue "
+        "alcanzado por expansión (1/nº de SD que comparten el nodo puente). 0.0 = no aplica.",
+    )
+    rerank_score: float = Field(
+        default=0.0,
+        description="Score del reranker sobre la intención de la historia, si se aplicó. "
+        "Ordena el recorte previo al fan-out; no participa en `total`.",
     )
 
 

@@ -18,7 +18,7 @@
 
 services:
   qdrant:
-    image: qdrant/qdrant:v1.11.3
+    image: qdrant/qdrant:v1.15.1
     profiles: ["qdrant"]
     ports:
       - "127.0.0.1:6333:6333"   # REST + dashboard (http://localhost:6333/dashboard)

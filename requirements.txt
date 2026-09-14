@@ -14,3 +14,10 @@ numpy                 # RAG vectorial opcional (InMemoryVectorStore)
 
 # Proveedor LLM opcional (se instala solo si se usa):
 # langchain-anthropic
+
+# ── Dependencias OPCIONALES (el pipeline funciona sin ellas y degrada con aviso) ──
+# Instalar solo si se activa la pieza correspondiente en config.yaml:
+#   mapear_historias.vector_store: qdrant     -> qdrant-client
+#   mapear_historias.reranker_habilitado: true -> sentence-transformers (arrastra torch, ~3 GB)
+# qdrant-client
+# sentence-transformers
