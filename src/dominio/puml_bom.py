@@ -24,13 +24,13 @@ _RE_REL = re.compile(
 
 
 def parsear_puml_bom(texto: str, *, service_domain: str = "", slug: str = "") -> ModeloBomPuml:
-    alias: dict[str, str] = {}          # Nxxxx -> nombre legible
+    alias: dict[str, str] = {}  # Nxxxx -> nombre legible
     clases: dict[str, ClaseBom] = {}
     enums: dict[str, EnumBom] = {}
     asociaciones: list[AsociacionBom] = []
     sd, src = service_domain, ""
 
-    actual_tipo: str | None = None      # "class" | "enum" mientras estamos dentro de un bloque {}
+    actual_tipo: str | None = None  # "class" | "enum" mientras estamos dentro de un bloque {}
     actual_nombre: str | None = None
     en_relaciones = False
 
@@ -51,10 +51,10 @@ def parsear_puml_bom(texto: str, *, service_domain: str = "", slug: str = "") ->
                 actual_tipo = actual_nombre = None
                 continue
             if actual_tipo == "class":
-                if (m := _RE_ATRIBUTO.match(cruda)):
+                if m := _RE_ATRIBUTO.match(cruda):
                     tipo_raw = m.group(2)
                     card = ""
-                    if (mc := _RE_CARD.match(tipo_raw)):
+                    if mc := _RE_CARD.match(tipo_raw):
                         tipo_raw, card = mc.group(1).strip(), mc.group(2).strip()
                     clases[actual_nombre].attributes.append(
                         AtributoBom(name=m.group(1).strip(), type=tipo_raw, cardinality=card)
@@ -65,7 +65,7 @@ def parsear_puml_bom(texto: str, *, service_domain: str = "", slug: str = "") ->
                     enums[actual_nombre].values.append(m.group(1).strip())
             continue
 
-        if (m := _RE_BLOQUE.match(cruda)):
+        if m := _RE_BLOQUE.match(cruda):
             kind, nombre, ident = m.group(1), m.group(2).strip(), m.group(3)
             alias[ident] = nombre
             if kind == "class":
@@ -81,9 +81,9 @@ def parsear_puml_bom(texto: str, *, service_domain: str = "", slug: str = "") ->
             a, la, flecha, lb, b = m.groups()
             na, nb = alias.get(a, a), alias.get(b, b)
             etiqueta = " / ".join(p for p in (la, lb) if p)
-            if flecha in ("<|--", "<.."):        # b hereda de a
+            if flecha in ("<|--", "<.."):  # b hereda de a
                 asociaciones.append(AsociacionBom(origen=nb, destino=na, tipo="herencia"))
-            elif flecha in ("--|>", "..>"):      # a hereda de b
+            elif flecha in ("--|>", "..>"):  # a hereda de b
                 asociaciones.append(AsociacionBom(origen=na, destino=nb, tipo="herencia"))
             else:
                 asociaciones.append(

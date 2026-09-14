@@ -13,7 +13,9 @@ from src.dominio.historias import EvidenciaBian, OperacionBian, SchemaBom
 
 
 class CatalogoOperacionesBianPort(ABC):
-    def asegurar(self, service_domains: list[str], *, actualizar: bool = False) -> dict[str, EvidenciaBian]:
+    def asegurar(
+        self, service_domains: list[str], *, actualizar: bool = False
+    ) -> dict[str, EvidenciaBian]:
         return {sd: self.evidencia_de(sd) for sd in service_domains}
 
     def evidencia_de(self, service_domain: str) -> EvidenciaBian:

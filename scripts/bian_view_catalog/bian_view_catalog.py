@@ -12,10 +12,8 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import sys
 import urllib.request
 from pathlib import Path
-from typing import Dict, Optional
 
 BASE = "https://bian.org/servicelandscape-14-0-0"
 VIEWS_DATA_URL = f"{BASE}/data/all_objects_on_views.js"
@@ -31,7 +29,7 @@ SUFFIXES = {
 }
 
 
-def fetch_insite_views(source: Optional[Path]) -> Dict[str, dict]:
+def fetch_insite_views(source: Path | None) -> dict[str, dict]:
     """Returns {view_id: {"id": view_id, "name": "<title>"}} for every view
     published on the BIAN 14.0.0 service landscape site."""
 
@@ -51,8 +49,8 @@ def fetch_insite_views(source: Optional[Path]) -> Dict[str, dict]:
     return json.loads(m.group(1))
 
 
-def build_catalog(insite_views: Dict[str, dict]) -> list:
-    by_kind: Dict[str, Dict[str, str]] = {kind: {} for kind in SUFFIXES}
+def build_catalog(insite_views: dict[str, dict]) -> list:
+    by_kind: dict[str, dict[str, str]] = {kind: {} for kind in SUFFIXES}
     for view_id, entry in insite_views.items():
         name = entry.get("name", "")
         for kind, suffix in SUFFIXES.items():

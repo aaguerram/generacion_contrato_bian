@@ -10,7 +10,6 @@ import unittest
 
 from src.adaptadores.salida.catalogo_bian_cache import CatalogoBianCache
 from src.adaptadores.salida.formato_bom import formatear_schemas_bom
-
 from unit_test.support import DOCS
 
 _SD = "Party Reference Data Directory"
@@ -25,10 +24,16 @@ def _tiene_schema(texto: str, nombre: str) -> bool:
 
 class TestFormatearSchemasBomPriorizado(unittest.TestCase):
     def setUp(self):
-        cache = CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
-                                   "14.0.0", permitir_descargas=False)
+        cache = CatalogoBianCache(
+            str(DOCS / "bian-operation-catalogs.json"),
+            str(DOCS / "bian-cache"),
+            "14.0.0",
+            permitir_descargas=False,
+        )
         self.schemas = cache.schemas_detalle_de(_SD)
-        self.assertGreater(len(self.schemas), 22, "el fixture debe tener más de 22 schemas para probar el corte")
+        self.assertGreater(
+            len(self.schemas), 22, "el fixture debe tener más de 22 schemas para probar el corte"
+        )
 
     def test_sin_priorizar_el_corte_alfabetico_deja_fuera_reference_y_demographics(self):
         texto = formatear_schemas_bom(self.schemas)

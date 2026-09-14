@@ -23,8 +23,7 @@ class TestDirectorioRun(unittest.TestCase):
 
     def test_dos_ejecuciones_distinto_segundo_no_colisionan(self):
         a = _directorio_run(self.BASE, sin_timestamp=False, ahora=self.AHORA)
-        b = _directorio_run(self.BASE, sin_timestamp=False,
-                            ahora=self.AHORA.replace(second=4))
+        b = _directorio_run(self.BASE, sin_timestamp=False, ahora=self.AHORA.replace(second=4))
         self.assertNotEqual(a, b)
 
 

@@ -36,8 +36,8 @@ from langgraph.graph import END, START, StateGraph
 try:
     from langgraph.types import RetryPolicy, Send
 except ImportError:  # pragma: no cover
-    from langgraph.pregel import RetryPolicy  # type: ignore
     from langgraph.constants import Send  # type: ignore
+    from langgraph.pregel import RetryPolicy  # type: ignore
 
 from src.aplicacion.puertos.analista_mapeo import AnalistaMapeoBianPort
 from src.aplicacion.puertos.catalogo import CatalogoServiceDomainsPort
@@ -103,18 +103,27 @@ _TRANSITORIOS = ("503", "429", "UNAVAILABLE", "RESOURCE_EXHAUSTED", "INTERNAL", 
 def _es_transitorio(exc: Exception) -> bool:
     t = str(exc).upper()
     # el failover multi-modelo ya agotó todo -> no tiene sentido reintentar el nodo entero
-    if "TODOSLOSMODELOSAGOTADOS" in type(exc).__name__.upper() or "SE AGOTARON TODOS LOS MODELOS" in t:
+    if (
+        "TODOSLOSMODELOSAGOTADOS" in type(exc).__name__.upper()
+        or "SE AGOTARON TODOS LOS MODELOS" in t
+    ):
         return False
     return any(m in t for m in _TRANSITORIOS)
 
 
 _RETRY = RetryPolicy(
-    max_attempts=3, initial_interval=2.0, backoff_factor=2.0, max_interval=20.0, retry_on=_es_transitorio
+    max_attempts=3,
+    initial_interval=2.0,
+    backoff_factor=2.0,
+    max_interval=20.0,
+    retry_on=_es_transitorio,
 )
 
 
 def _huellas(*modelos) -> list[MetadatosPrompt]:
-    return [m.metadatos for m in modelos if m is not None and getattr(m, "metadatos", None) is not None]
+    return [
+        m.metadatos for m in modelos if m is not None and getattr(m, "metadatos", None) is not None
+    ]
 
 
 def _paquete_de(
@@ -148,7 +157,17 @@ def _paquete_de(
 
 
 # Vocabulario BIAN de verbos de operación (Control Record y Behavior Qualifier).
-_VERBOS_BIAN = {"Initiate", "Update", "Retrieve", "Control", "Request", "Execute", "Exchange", "Grant", "Register"}
+_VERBOS_BIAN = {
+    "Initiate",
+    "Update",
+    "Retrieve",
+    "Control",
+    "Request",
+    "Execute",
+    "Exchange",
+    "Grant",
+    "Register",
+}
 
 
 def _pascal(texto: str) -> str:
@@ -247,7 +266,9 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         catalogo = self._catalogo.cargar()
         logger.info(
             "cargado: %d historias | funcionalidad='%s' | catalogo=%d SD | SD con operaciones=%d",
-            len(historias), funcionalidad.funcionalidad_macro, len(catalogo),
+            len(historias),
+            funcionalidad.funcionalidad_macro,
+            len(catalogo),
             len(self._catalogo_operaciones.service_domains_con_catalogo()),
         )
         return {
@@ -259,11 +280,14 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
 
     def _fan_out(self, estado: EstadoMapeo) -> list:
         return [
-            Send("procesar_historia", {
-                "historia": h,
-                "funcionalidad": estado["funcionalidad"],
-                "catalogo": estado["catalogo"],
-            })
+            Send(
+                "procesar_historia",
+                {
+                    "historia": h,
+                    "funcionalidad": estado["funcionalidad"],
+                    "catalogo": estado["catalogo"],
+                },
+            )
             for h in estado["historias"]
         ]
 
@@ -319,8 +343,11 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                     entrada.service_domain
                 ).estado
         rev = self._analista.revisar_completitud(
-            estado["historia"], estado["intencion"], estado["candidatos"],
-            estado["catalogo"], disponibilidad,
+            estado["historia"],
+            estado["intencion"],
+            estado["candidatos"],
+            estado["catalogo"],
+            disponibilidad,
         )
         return {"revision_completitud": rev, "huellas": _huellas(rev)}
 
@@ -337,10 +364,14 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         intencion = estado.get("intencion")
         if intencion is None:
             return [], {}
-        consulta = " ".join([
-            *intencion.business_actions, *intencion.business_objects,
-            *intencion.capacidades_funcionales, *intencion.outcomes,
-        ]).strip()
+        consulta = " ".join(
+            [
+                *intencion.business_actions,
+                *intencion.business_objects,
+                *intencion.capacidades_funcionales,
+                *intencion.outcomes,
+            ]
+        ).strip()
         if not consulta:
             return [], {}
         rankings = [
@@ -364,7 +395,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         comp = estado.get("revision_completitud") or RevisionCompletitudLLM()
 
         propuestos: list[tuple[str, str, list[str]]] = [
-            (c.service_domain, "llm", list(c.supporting_intent)) for c in estado["candidatos"].candidatos
+            (c.service_domain, "llm", list(c.supporting_intent))
+            for c in estado["candidatos"].candidatos
         ] + [(n, "completitud", []) for n in comp.missing_candidates]
         inyectados, retrieval_scores = self._candidatos_retrieval_hibrido(
             estado, {normalizar(n) for n, _, _ in propuestos}
@@ -376,52 +408,72 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         for nombre, origen, intent in propuestos:
             entrada, resol = resolver_nombre_sd(nombre, indice)
             if entrada is None or resol != "MATCH":
-                incidencias.append({
-                    "historia": estado["historia"].archivo,
-                    "service_domain_propuesto": nombre,
-                    "resolucion": resol,
-                    "decision": "REJECTED",
-                    "motivo": "NAME_UNRESOLVED",
-                    "detalle": "Nombre no resoluble contra el catalogo BIAN R14",
-                })
+                incidencias.append(
+                    {
+                        "historia": estado["historia"].archivo,
+                        "service_domain_propuesto": nombre,
+                        "resolucion": resol,
+                        "decision": "REJECTED",
+                        "motivo": "NAME_UNRESOLVED",
+                        "detalle": "Nombre no resoluble contra el catalogo BIAN R14",
+                    }
+                )
                 continue
-            resueltos.setdefault(normalizar(entrada.service_domain), (entrada, origen, list(intent)))
+            resueltos.setdefault(
+                normalizar(entrada.service_domain), (entrada, origen, list(intent))
+            )
 
         seleccion = list(resueltos.values())[: self._max_candidatos_hu]
-        truncados = list(resueltos.values())[self._max_candidatos_hu:]
+        truncados = list(resueltos.values())[self._max_candidatos_hu :]
         for entrada, origen, _intent in truncados:
             # nunca desaparece en silencio: queda visible como incidencia no bloqueante (Fase 0)
-            incidencias.append({
-                "historia": estado["historia"].archivo,
-                "service_domain_propuesto": entrada.service_domain,
-                "resolucion": "MATCH",
-                "decision": "NOT_EVALUATED",
-                "motivo": "TRUNCATED_BY_MAX_CANDIDATOS_HU",
-                "detalle": f"origen={origen}; recortado por max_candidatos_hu={self._max_candidatos_hu}",
-            })
+            incidencias.append(
+                {
+                    "historia": estado["historia"].archivo,
+                    "service_domain_propuesto": entrada.service_domain,
+                    "resolucion": "MATCH",
+                    "decision": "NOT_EVALUATED",
+                    "motivo": "TRUNCATED_BY_MAX_CANDIDATOS_HU",
+                    "detalle": f"origen={origen}; recortado por max_candidatos_hu={self._max_candidatos_hu}",
+                }
+            )
         nombres = [e.service_domain for e, _, _ in seleccion]
-        evidencias = self._catalogo_operaciones.asegurar(nombres, actualizar=self._actualizar_cache_bian)
+        evidencias = self._catalogo_operaciones.asegurar(
+            nombres, actualizar=self._actualizar_cache_bian
+        )
 
         a_evaluar: list[PaqueteEvidenciaCandidato] = []
         for entrada, origen, intent in seleccion:
             ops = self._catalogo_operaciones.operaciones_de(entrada.service_domain) or []
             esq = self._catalogo_operaciones.esquemas_de(entrada.service_domain)
             det = self._catalogo_operaciones.schemas_detalle_de(entrada.service_domain)
-            bom = self._catalogo_bom.modelo_de(entrada.service_domain) if self._catalogo_bom else None
-            a_evaluar.append(_paquete_de(
-                entrada, evidencias.get(entrada.service_domain, EvidenciaBian()),
-                ops, esq, origen=origen, supporting_intent=intent,
-                schemas_detalle=det, bom_modelo=bom,
-            ))
+            bom = (
+                self._catalogo_bom.modelo_de(entrada.service_domain) if self._catalogo_bom else None
+            )
+            a_evaluar.append(
+                _paquete_de(
+                    entrada,
+                    evidencias.get(entrada.service_domain, EvidenciaBian()),
+                    ops,
+                    esq,
+                    origen=origen,
+                    supporting_intent=intent,
+                    schemas_detalle=det,
+                    bom_modelo=bom,
+                )
+            )
         a_evaluar.sort(key=lambda p: p.service_domain.lower())
 
         ya = {normalizar(p.service_domain) for p in a_evaluar}
         omitidos = (
             detectar_omitidos(estado["intencion"], catalogo, ya, top_n=self._top_n_omitidos)
-            if self._top_n_omitidos else []
+            if self._top_n_omitidos
+            else []
         )
         return {
-            "a_evaluar": a_evaluar, "omitidos": omitidos, "incidencias": incidencias,
+            "a_evaluar": a_evaluar,
+            "omitidos": omitidos,
+            "incidencias": incidencias,
             "retrieval_scores": retrieval_scores,
         }
 
@@ -442,10 +494,14 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         )
         return {"evaluaciones": [ev], "huellas": _huellas(ev)}
 
-    def _reclasificar(self, estado: EstadoHistoria, propuestos_por_sd: dict[str, ServiceDomainPropuestoLLM]):
+    def _reclasificar(
+        self, estado: EstadoHistoria, propuestos_por_sd: dict[str, ServiceDomainPropuestoLLM]
+    ):
         paquetes = {p.service_domain: p for p in estado.get("a_evaluar", [])}
         return clasificar_service_domains(
-            list(propuestos_por_sd.values()), estado["catalogo"], self._umbrales,
+            list(propuestos_por_sd.values()),
+            estado["catalogo"],
+            self._umbrales,
             operaciones_por_sd={n: p.operations for n, p in paquetes.items()},
             evidencias_por_sd={n: p.evidencia for n, p in paquetes.items()},
             esquemas_por_sd={n: p.schemas for n, p in paquetes.items()},
@@ -491,13 +547,17 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 logger.info(
                     "HU '%s': %d SD promovido(s) CONSUMED_DEPENDENCY -> OWNED_CONTRACT por "
                     "evidencia adversarial fuerte: %s",
-                    estado["historia"].titulo, len(promovidos), ", ".join(sorted(promovidos)),
+                    estado["historia"].titulo,
+                    len(promovidos),
+                    ", ".join(sorted(promovidos)),
                 )
             if degradados:
                 logger.info(
                     "HU '%s': %d SD degradado(s) OWNED_CONTRACT -> CONSUMED_DEPENDENCY: la acción "
                     "citada no coincide con ninguna acción propia de la historia: %s",
-                    estado["historia"].titulo, len(degradados), ", ".join(sorted(degradados)),
+                    estado["historia"].titulo,
+                    len(degradados),
+                    ", ".join(sorted(degradados)),
                 )
 
         grupos, bloqueos = aplicar_hallazgos_adversariales(
@@ -514,7 +574,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 "resolucion": "MATCH",
                 "decision": "UNRESOLVED",
                 "motivo": "OWNERSHIP_CONFLICT_UNRESOLVED",
-                "detalle": h.detalle or f"{h.tipo} sin evidencia determinista suficiente para "
+                "detalle": h.detalle
+                or f"{h.tipo} sin evidencia determinista suficiente para "
                 "reclasificar automáticamente; revisar manualmente.",
             }
             for h in revision.hallazgos
@@ -524,14 +585,19 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             and normalizar(h.service_domain) not in degradados
         ]
         return {
-            "grupos": grupos, "bloqueos_hu": bloqueos, "propuestos_por_sd": propuestos_por_sd,
+            "grupos": grupos,
+            "bloqueos_hu": bloqueos,
+            "propuestos_por_sd": propuestos_por_sd,
             "incidencias": incidencias,
         }
 
     def _h_operaciones(self, estado: EstadoHistoria) -> dict:
         elegibles = candidatos_operacion_elegibles(estado["grupos"])
         huella, incidencias = self._asignar_operaciones(
-            estado["historia"], estado["funcionalidad"], elegibles, estado.get("a_evaluar", []),
+            estado["historia"],
+            estado["funcionalidad"],
+            elegibles,
+            estado.get("a_evaluar", []),
         )
         # Recién ahora hay operaciones ancladas: un OWNED_CONTRACT con evidencia BIAN verificada y
         # una operación oficial concreta y verificada pesa más que el score léxico agregado (ver
@@ -540,7 +606,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # este cubre "el LLM ya lo clasificó bien pero con rúbricas de acción/objeto bajas").
         grupos = finalizar_por_operacion_solida(estado["grupos"])
         return {
-            "grupos": grupos, "huellas": [huella] if huella is not None else [],
+            "grupos": grupos,
+            "huellas": [huella] if huella is not None else [],
             "incidencias": incidencias,
         }
 
@@ -555,17 +622,27 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
 
         retrieval_scores = estado.get("retrieval_scores") or {}
         if retrieval_scores:
-            for a in (*grupos.candidatos_directos, *grupos.candidatos_tentativos, *grupos.candidatos_descartados):
+            for a in (
+                *grupos.candidatos_directos,
+                *grupos.candidatos_tentativos,
+                *grupos.candidatos_descartados,
+            ):
                 puntaje = retrieval_scores.get(normalizar(a.service_domain))
                 if puntaje is not None:
-                    a.desglose_score = a.desglose_score.model_copy(update={"retrieval_score": puntaje})
+                    a.desglose_score = a.desglose_score.model_copy(
+                        update={"retrieval_score": puntaje}
+                    )
 
         n_ops = sum(len(a.operaciones_bian) for a in grupos.candidatos_directos)
         logger.info(
             "HU '%s' -> candidatos=%d directos=%d tentativos=%d descartados=%d | operaciones=%d | omitidos=%d",
-            historia.titulo, len(estado.get("a_evaluar", [])),
-            len(grupos.candidatos_directos), len(grupos.candidatos_tentativos),
-            len(grupos.candidatos_descartados), n_ops, len(omitidos),
+            historia.titulo,
+            len(estado.get("a_evaluar", [])),
+            len(grupos.candidatos_directos),
+            len(grupos.candidatos_tentativos),
+            len(grupos.candidatos_descartados),
+            n_ops,
+            len(omitidos),
         )
         resultado = HistoriaConServiceDomains(
             archivo=historia.archivo,
@@ -577,10 +654,16 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             outcomes=intencion.outcomes,
             external_dependencies=intencion.external_dependencies,
             traceability_ids=intencion.traceability_ids,
-            assumptions=list(dict.fromkeys([*intencion.assumptions, *estado["candidatos"].assumptions])),
-            gaps=list(dict.fromkeys([*intencion.gaps, *estado["candidatos"].gaps, *comp.coverage_gaps])),
+            assumptions=list(
+                dict.fromkeys([*intencion.assumptions, *estado["candidatos"].assumptions])
+            ),
+            gaps=list(
+                dict.fromkeys([*intencion.gaps, *estado["candidatos"].gaps, *comp.coverage_gaps])
+            ),
             unresolved_questions=list(intencion.unresolved_questions),
-            blocking_codes=list(dict.fromkeys([*bloqueos, *comp.blocking_codes, *adv.blocking_codes])),
+            blocking_codes=list(
+                dict.fromkeys([*bloqueos, *comp.blocking_codes, *adv.blocking_codes])
+            ),
             intencion=intencion,
             revision_completitud=comp,
             revision_adversarial=adv,
@@ -613,9 +696,15 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             return None, []
 
         nombres_elegibles = {normalizar(sd.service_domain) for sd in elegibles}
-        paquetes_por_sd = {p.service_domain: p for p in a_evaluar if normalizar(p.service_domain) in nombres_elegibles}
+        paquetes_por_sd = {
+            p.service_domain: p
+            for p in a_evaluar
+            if normalizar(p.service_domain) in nombres_elegibles
+        }
 
-        mapeo = self._mapeador_operaciones.mapear(historia, funcionalidad, operaciones_por_sd, paquetes_por_sd)
+        mapeo = self._mapeador_operaciones.mapear(
+            historia, funcionalidad, operaciones_por_sd, paquetes_por_sd
+        )
         por_sd_norm = {sd.service_domain.casefold(): sd for sd in elegibles}
         # Indexado por nombre NORMALIZADO (no el string crudo): una diferencia de capitalización o
         # acentos entre lo que devuelve el LLM y el nombre canónico del SD no debe hacer que la
@@ -639,15 +728,17 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 # "InitiateOutbound"); `resolver_operation_id` ya intentó reconstruirlo desde el
                 # path/method reales. Si ni así resuelve, no se descarta en silencio (mismo
                 # principio que `OPERATION_EVIDENCE_UNVERIFIED`): queda visible para revisión.
-                incidencias.append({
-                    "historia": historia.archivo,
-                    "service_domain_propuesto": op.service_domain,
-                    "resolucion": "NOT_FOUND",
-                    "decision": "NOT_EVALUATED",
-                    "motivo": "OPERATION_ID_UNRESOLVED",
-                    "detalle": f"operationId propuesto '{op.operation_id}' no resuelve contra el "
-                    "catálogo real de ese Service Domain (ni exacto ni por path/method).",
-                })
+                incidencias.append(
+                    {
+                        "historia": historia.archivo,
+                        "service_domain_propuesto": op.service_domain,
+                        "resolucion": "NOT_FOUND",
+                        "decision": "NOT_EVALUATED",
+                        "motivo": "OPERATION_ID_UNRESOLVED",
+                        "detalle": f"operationId propuesto '{op.operation_id}' no resuelve contra el "
+                        "catálogo real de ese Service Domain (ni exacto ni por path/method).",
+                    }
+                )
                 continue
             clave = (normalizar(asignado.service_domain), fuente.operation_id)
             if clave not in por_grupo:
@@ -665,7 +756,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 logger.info(
                     "HU '%s': operationId propuesto no calzaba exacto en al menos una cita; "
                     "reconstruido a '%s' desde method+path reales del catálogo",
-                    historia.titulo, fuente.operation_id,
+                    historia.titulo,
+                    fuente.operation_id,
                 )
             paquete = paquetes_por_sd.get(asignado.service_domain)
             if paquete is not None and not operacion_evidencia_verificable(
@@ -677,40 +769,53 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 logger.warning(
                     "HU '%s': operación %s/%s sin evidence_refs verificable contra el response_schema "
                     "'%s'; anclada igual, marcada OPERATION_EVIDENCE_UNVERIFIED",
-                    historia.titulo, asignado.service_domain, fuente.operation_id, fuente.response_schema,
+                    historia.titulo,
+                    asignado.service_domain,
+                    fuente.operation_id,
+                    fuente.response_schema,
                 )
-            asignado.operaciones_bian.append(OperacionBianAplicada(
-                operation_id=fuente.operation_id,
-                method=fuente.method,
-                path=fuente.path,
-                tipo=fuente.tipo,
-                grupo=fuente.grupo,
-                escenarios_hu=op.escenarios_hu,
-                justificacion=op.justificacion,
-                action_term=op.action_term,
-                business_object=op.business_object,
-                bq_seed=op.bq_seed,
-                traceability=op.traceability,
-                evidence_refs=op.evidence_refs,
-                reason_codes=list(dict.fromkeys(reason_codes)),
-            ))
+            asignado.operaciones_bian.append(
+                OperacionBianAplicada(
+                    operation_id=fuente.operation_id,
+                    method=fuente.method,
+                    path=fuente.path,
+                    tipo=fuente.tipo,
+                    grupo=fuente.grupo,
+                    escenarios_hu=op.escenarios_hu,
+                    justificacion=op.justificacion,
+                    action_term=op.action_term,
+                    business_object=op.business_object,
+                    bq_seed=op.bq_seed,
+                    traceability=op.traceability,
+                    evidence_refs=op.evidence_refs,
+                    reason_codes=list(dict.fromkeys(reason_codes)),
+                )
+            )
         for sd in elegibles:
             sd.operaciones_bian.sort(key=lambda o: (o.tipo, o.grupo, o.operation_id))
             if sd.operaciones_bian:
                 verificadas = sum(
-                    1 for o in sd.operaciones_bian if "OPERATION_EVIDENCE_UNVERIFIED" not in o.reason_codes
+                    1
+                    for o in sd.operaciones_bian
+                    if "OPERATION_EVIDENCE_UNVERIFIED" not in o.reason_codes
                 )
                 sd.desglose_score = sd.desglose_score.model_copy(
-                    update={"operation_support_score": round(verificadas / len(sd.operaciones_bian), 4)}
+                    update={
+                        "operation_support_score": round(verificadas / len(sd.operaciones_bian), 4)
+                    }
                 )
 
-        self._anclar_bq_personalizados(mapeo.bq_personalizados, por_sd_norm, paquetes_por_sd, historia.titulo)
+        self._anclar_bq_personalizados(
+            mapeo.bq_personalizados, por_sd_norm, paquetes_por_sd, historia.titulo
+        )
         return mapeo.metadatos, incidencias
 
     @staticmethod
     def _anclar_bq_personalizados(
-        propuestos, por_sd_norm: dict[str, ServiceDomainAsignado],
-        paquetes_por_sd: dict[str, PaqueteEvidenciaCandidato], historia_titulo: str,
+        propuestos,
+        por_sd_norm: dict[str, ServiceDomainAsignado],
+        paquetes_por_sd: dict[str, PaqueteEvidenciaCandidato],
+        historia_titulo: str,
     ) -> None:
         """Determinista: una operación personalizada SOLO se ancla si (a) `grupo_existente` es
         realmente un CR/BQ YA existente del Service Domain -nunca crea un grupo/tag nuevo-, (b) el
@@ -721,35 +826,52 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         for p in propuestos:
             asignado = por_sd_norm.get(p.service_domain.casefold())
             paquete = paquetes_por_sd.get(p.service_domain) or next(
-                (v for k, v in paquetes_por_sd.items() if k.casefold() == p.service_domain.casefold()), None
+                (
+                    v
+                    for k, v in paquetes_por_sd.items()
+                    if k.casefold() == p.service_domain.casefold()
+                ),
+                None,
             )
             if asignado is None or paquete is None:
                 continue
-            grupos_existentes = {normalizar(g) for g in (*paquete.control_records, *paquete.behavior_qualifiers)}
+            grupos_existentes = {
+                normalizar(g) for g in (*paquete.control_records, *paquete.behavior_qualifiers)
+            }
             if normalizar(p.grupo_existente) not in grupos_existentes:
                 logger.warning(
                     "HU '%s': operación personalizada cita un grupo '%s' que NO es un CR/BQ existente "
                     "de %s (no se crean tags nuevos); descartada",
-                    historia_titulo, p.grupo_existente, p.service_domain,
+                    historia_titulo,
+                    p.grupo_existente,
+                    p.service_domain,
                 )
                 continue
             ya_cubierto = normalizar(p.campo_no_cubierto) and any(
-                normalizar(p.campo_no_cubierto) in normalizar(f"{o.operation_id} {o.summary} {o.description}")
-                or normalizar(p.campo_no_cubierto) in campos_alcanzables(o.response_schema, paquete.schemas_detalle)
+                normalizar(p.campo_no_cubierto)
+                in normalizar(f"{o.operation_id} {o.summary} {o.description}")
+                or normalizar(p.campo_no_cubierto)
+                in campos_alcanzables(o.response_schema, paquete.schemas_detalle)
                 for o in paquete.operations
             )
             if ya_cubierto:
                 logger.info(
                     "HU '%s': campo '%s' ya cubierto por una operación oficial de %s; operación "
                     "personalizada descartada",
-                    historia_titulo, p.campo_no_cubierto, p.service_domain,
+                    historia_titulo,
+                    p.campo_no_cubierto,
+                    p.service_domain,
                 )
                 continue
             if not _bom_respalda(paquete, p.clase_bom, p.atributo_bom):
                 logger.warning(
                     "HU '%s': operación personalizada en grupo '%s' para %s cita clase/atributo BOM "
                     "no verificable ('%s'.'%s'); descartada",
-                    historia_titulo, p.grupo_existente, p.service_domain, p.clase_bom, p.atributo_bom,
+                    historia_titulo,
+                    p.grupo_existente,
+                    p.service_domain,
+                    p.clase_bom,
+                    p.atributo_bom,
                 )
                 continue
 
@@ -759,26 +881,32 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             if operation_id_en_uso(operation_id, paquete.operations):
                 logger.info(
                     "HU '%s': operación personalizada '%s' ya existe como operación oficial de %s; descartada",
-                    historia_titulo, operation_id, p.service_domain,
+                    historia_titulo,
+                    operation_id,
+                    p.service_domain,
                 )
                 continue
             path_propuesto = derivar_path_grupo(p.grupo_existente, verbo, paquete.operations)
             if path_propuesto is None:
                 continue
-            asignado.bq_personalizados_propuestos.append(BqPersonalizadoAplicado(
-                service_domain=asignado.service_domain,
-                grupo_existente=grupo_pascal,
-                operation_id=operation_id,
-                verbo=verbo,
-                path_propuesto=path_propuesto,
-                parent_control_record=(paquete.control_records[0] if paquete.control_records else ""),
-                campo_no_cubierto=p.campo_no_cubierto.strip(),
-                clase_bom=p.clase_bom.strip(),
-                atributo_bom=p.atributo_bom.strip(),
-                escenarios_hu=[s.strip() for s in p.escenarios_hu if s and s.strip()],
-                justificacion=p.justificacion.strip(),
-                reason_codes=list(dict.fromkeys(p.reason_codes)),
-            ))
+            asignado.bq_personalizados_propuestos.append(
+                BqPersonalizadoAplicado(
+                    service_domain=asignado.service_domain,
+                    grupo_existente=grupo_pascal,
+                    operation_id=operation_id,
+                    verbo=verbo,
+                    path_propuesto=path_propuesto,
+                    parent_control_record=(
+                        paquete.control_records[0] if paquete.control_records else ""
+                    ),
+                    campo_no_cubierto=p.campo_no_cubierto.strip(),
+                    clase_bom=p.clase_bom.strip(),
+                    atributo_bom=p.atributo_bom.strip(),
+                    escenarios_hu=[s.strip() for s in p.escenarios_hu if s and s.strip()],
+                    justificacion=p.justificacion.strip(),
+                    reason_codes=list(dict.fromkeys(p.reason_codes)),
+                )
+            )
         for asignado in por_sd_norm.values():
             asignado.bq_personalizados_propuestos.sort(key=lambda b: b.operation_id)
 
@@ -803,7 +931,11 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                     "ownership_traceability": a.ownership_traceability,
                     "dependency_traceability": a.dependency_traceability,
                 }
-                for a in (*g.candidatos_directos, *g.candidatos_tentativos, *g.candidatos_descartados)
+                for a in (
+                    *g.candidatos_directos,
+                    *g.candidatos_tentativos,
+                    *g.candidatos_descartados,
+                )
             ],
         }
 
@@ -832,7 +964,13 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         }
         huellas = sorted(
             estado.get("huellas_prompts", []),
-            key=lambda m: (m.historia, m.nodo, m.prompt_id, m.evidence_snapshot_id, m.prompt_sha256),
+            key=lambda m: (
+                m.historia,
+                m.nodo,
+                m.prompt_id,
+                m.evidence_snapshot_id,
+                m.prompt_sha256,
+            ),
         )
         return ResultadoMapeoHistorias(
             funcionalidad_macro=funcionalidad.funcionalidad_macro if funcionalidad else "",
@@ -856,29 +994,44 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         todos = [
             a
             for h in procesadas
-            for a in (*h.service_domains.candidatos_directos, *h.service_domains.candidatos_tentativos,
-                      *h.service_domains.candidatos_descartados)
+            for a in (
+                *h.service_domains.candidatos_directos,
+                *h.service_domains.candidatos_tentativos,
+                *h.service_domains.candidatos_descartados,
+            )
         ]
         total_evaluados = len(todos)
-        truncados = sum(1 for i in incidencias if i.get("motivo") == "TRUNCATED_BY_MAX_CANDIDATOS_HU")
+        truncados = sum(
+            1 for i in incidencias if i.get("motivo") == "TRUNCATED_BY_MAX_CANDIDATOS_HU"
+        )
         base_drop = total_evaluados + truncados
         candidate_drop_rate = round(truncados / base_drop, 4) if base_drop else 0.0
 
         promovidos = sum(1 for a in todos if PROMOTED_REASON_CODE in a.reason_codes)
         degradados_count = sum(1 for a in todos if DEMOTED_REASON_CODE in a.reason_codes)
-        sin_resolver = sum(1 for i in incidencias if i.get("motivo") == "OWNERSHIP_CONFLICT_UNRESOLVED")
+        sin_resolver = sum(
+            1 for i in incidencias if i.get("motivo") == "OWNERSHIP_CONFLICT_UNRESOLVED"
+        )
         base_ownership = promovidos + degradados_count + sin_resolver
         ownership_conflict_rate = round(sin_resolver / base_ownership, 4) if base_ownership else 0.0
-        finalizados_por_operacion = sum(1 for a in todos if OPERATION_FINALIZED_REASON_CODE in a.reason_codes)
+        finalizados_por_operacion = sum(
+            1 for a in todos if OPERATION_FINALIZED_REASON_CODE in a.reason_codes
+        )
 
         elegibles = [
-            a for h in procesadas
-            for a in (*h.service_domains.candidatos_directos, *h.service_domains.candidatos_tentativos)
+            a
+            for h in procesadas
+            for a in (
+                *h.service_domains.candidatos_directos,
+                *h.service_domains.candidatos_tentativos,
+            )
         ]
         ops = [o for a in elegibles for o in a.operaciones_bian]
         verificadas = sum(1 for o in ops if "OPERATION_EVIDENCE_UNVERIFIED" not in o.reason_codes)
         operation_grounding_rate = round(verificadas / len(ops), 4) if ops else 1.0
-        operation_id_no_resuelto = sum(1 for i in incidencias if i.get("motivo") == "OPERATION_ID_UNRESOLVED")
+        operation_id_no_resuelto = sum(
+            1 for i in incidencias if i.get("motivo") == "OPERATION_ID_UNRESOLVED"
+        )
 
         return {
             "candidate_drop_rate": candidate_drop_rate,
@@ -913,8 +1066,12 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             asignados = [a for _, a in usos]
             mejor = max(asignados, key=lambda a: a.confianza)
             seleccionado = next(
-                (a for a in asignados
-                 if a.rol_contractual == "OWNED_CONTRACT" and a.decision_contractual == "SELECTED"),
+                (
+                    a
+                    for a in asignados
+                    if a.rol_contractual == "OWNED_CONTRACT"
+                    and a.decision_contractual == "SELECTED"
+                ),
                 None,
             )
             if seleccionado is not None:
@@ -926,37 +1083,52 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 base, decision = mejor, "REJECTED"
 
             r = consejo.get(normalizar(sd))
-            salida.append(DecisionServiceDomainConsolidada(
-                service_domain=sd,
-                decision=decision,  # type: ignore[arg-type]
-                motivo=base.motivo_decision,
-                contract_role=base.rol_contractual,
-                functionality_role=(r.functionality_role if r else ""),
-                grupo=base.grupo,
-                score=base.confianza,
-                historias=sorted({h.archivo for h, _ in usos}),
-                supporting_stories=sorted(r.supporting_stories) if r else [],
-                contradicting_stories=sorted(r.contradicting_stories) if r else [],
-                traceability=sorted({t for a in asignados for t in a.escenarios_hu}),
-                ownership_traceability=sorted({t for a in asignados for t in a.ownership_traceability}),
-                dependency_traceability=sorted({t for a in asignados for t in a.dependency_traceability}),
-                selected_operations=sorted({o.operation_id for a in asignados for o in a.operaciones_bian}),
-                custom_bq_candidates=sorted(
-                    {b.operation_id: b for a in asignados for b in a.bq_personalizados_propuestos}.values(),
-                    key=lambda b: b.operation_id,
-                ),
-                reason_codes=sorted({
-                    c for a in asignados for c in a.reason_codes
-                } | (set(r.reason_codes) if r else set())),
-                blocking_codes=sorted({c for a in asignados for c in a.blocking_codes}),
-                evidence=base.evidencia_bian,
-                rationale=base.justificacion,
-            ))
+            salida.append(
+                DecisionServiceDomainConsolidada(
+                    service_domain=sd,
+                    decision=decision,  # type: ignore[arg-type]
+                    motivo=base.motivo_decision,
+                    contract_role=base.rol_contractual,
+                    functionality_role=(r.functionality_role if r else ""),
+                    grupo=base.grupo,
+                    score=base.confianza,
+                    historias=sorted({h.archivo for h, _ in usos}),
+                    supporting_stories=sorted(r.supporting_stories) if r else [],
+                    contradicting_stories=sorted(r.contradicting_stories) if r else [],
+                    traceability=sorted({t for a in asignados for t in a.escenarios_hu}),
+                    ownership_traceability=sorted(
+                        {t for a in asignados for t in a.ownership_traceability}
+                    ),
+                    dependency_traceability=sorted(
+                        {t for a in asignados for t in a.dependency_traceability}
+                    ),
+                    selected_operations=sorted(
+                        {o.operation_id for a in asignados for o in a.operaciones_bian}
+                    ),
+                    custom_bq_candidates=sorted(
+                        {
+                            b.operation_id: b
+                            for a in asignados
+                            for b in a.bq_personalizados_propuestos
+                        }.values(),
+                        key=lambda b: b.operation_id,
+                    ),
+                    reason_codes=sorted(
+                        {c for a in asignados for c in a.reason_codes}
+                        | (set(r.reason_codes) if r else set())
+                    ),
+                    blocking_codes=sorted({c for a in asignados for c in a.blocking_codes}),
+                    evidence=base.evidencia_bian,
+                    rationale=base.justificacion,
+                )
+            )
         prioridad = {"SELECTED": 0, "UNRESOLVED": 1, "REJECTED": 2}
         return sorted(salida, key=lambda x: (prioridad[x.decision], -x.score, x.service_domain))
 
     @staticmethod
-    def _consolidar_omitidos(historias: list[HistoriaConServiceDomains]) -> list[ServiceDomainOmitido]:
+    def _consolidar_omitidos(
+        historias: list[HistoriaConServiceDomains],
+    ) -> list[ServiceDomainOmitido]:
         mejor: dict[str, ServiceDomainOmitido] = {}
         for h in historias:
             for o in h.service_domains_omitidos:

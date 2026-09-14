@@ -7,7 +7,6 @@ respuesta) viven en tests, nunca en los prompts productivos
 
 from __future__ import annotations
 
-import re
 import unittest
 
 from src.adaptadores.salida.prompts import PROMPT_ADJUDICADOR
@@ -16,8 +15,13 @@ from src.dominio.historias import EvaluacionCandidatoLLM, ServiceDomainPropuesto
 
 # Nombres de funcionalidad / feature concretos que NO pueden aparecer en un prompt productivo.
 _PROHIBIDO = [
-    "smart token", "smarttoken", "one-time password", "one time password",
-    " otp ", "segundo factor smart", "activar smart",
+    "smart token",
+    "smarttoken",
+    "one-time password",
+    "one time password",
+    " otp ",
+    "segundo factor smart",
+    "activar smart",
 ]
 
 
@@ -26,7 +30,9 @@ class TestAgnosticismoPrompts(unittest.TestCase):
         for nombre, spec in SPECS.items():
             low = f" {spec.texto.lower()} "
             hits = [p for p in _PROHIBIDO if p in low]
-            self.assertEqual(hits, [], f"prompt '{nombre}' contiene hardcode de funcionalidad: {hits}")
+            self.assertEqual(
+                hits, [], f"prompt '{nombre}' contiene hardcode de funcionalidad: {hits}"
+            )
 
     def test_prompt_adjudicador_sin_razonamiento_paso_a_paso(self):
         texto = " ".join(m.prompt.template for m in PROMPT_ADJUDICADOR.messages).lower()
@@ -46,9 +52,14 @@ class TestAgnosticismoPrompts(unittest.TestCase):
 class TestProyeccionEvaluacion(unittest.TestCase):
     def test_desde_evaluacion_separa_ownership_de_dependency(self):
         ev = EvaluacionCandidatoLLM(
-            service_domain="X", rol_contractual="OWNED_CONTRACT",
-            match_action=3, match_business_object=2, match_service_role=3, evidence_quality=3,
-            ownership_traceability=["HU-1/SC-03", "BR-012"], dependency_traceability=["HU-1/SC-09"],
+            service_domain="X",
+            rol_contractual="OWNED_CONTRACT",
+            match_action=3,
+            match_business_object=2,
+            match_service_role=3,
+            evidence_quality=3,
+            ownership_traceability=["HU-1/SC-03", "BR-012"],
+            dependency_traceability=["HU-1/SC-09"],
             accion_objeto="verbo objeto",
         )
         p = ServiceDomainPropuestoLLM.desde_evaluacion(ev, service_domain_canonico="X canónico")
@@ -60,7 +71,9 @@ class TestProyeccionEvaluacion(unittest.TestCase):
 
     def test_dependencia_no_arrastra_dependency_kind_si_es_owned(self):
         ev = EvaluacionCandidatoLLM(
-            service_domain="X", rol_contractual="OWNED_CONTRACT", dependency_kind="RISK_INPUT",
+            service_domain="X",
+            rol_contractual="OWNED_CONTRACT",
+            dependency_kind="RISK_INPUT",
         )
         p = ServiceDomainPropuestoLLM.desde_evaluacion(ev, service_domain_canonico="X")
         self.assertIsNone(p.dependency_kind)

@@ -18,7 +18,6 @@ import time
 import urllib.error
 import urllib.request
 from pathlib import Path
-from typing import Optional
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CATALOG = REPO_ROOT / "docs" / "bian-view-catalog.json"
@@ -44,7 +43,7 @@ def slugify(name: str) -> str:
     return s.strip("-")
 
 
-def extract_svg(html: str) -> Optional[str]:
+def extract_svg(html: str) -> str | None:
     """The BIAN view pages are NOT rendered client-side for the diagram
     itself (only the site chrome/navigation is Backbone+Handlebars) -- the
     actual diagram is a complete, standalone <svg>...</svg> tree sitting
@@ -79,8 +78,14 @@ def fetch(url: str, timeout: float = 30.0, retries: int = 3) -> str:
                 # Rate-limited: back off much longer than a normal retry,
                 # honoring Retry-After when bian.org sends one.
                 retry_after = e.headers.get("Retry-After") if e.headers else None
-                wait = float(retry_after) if retry_after and retry_after.isdigit() else 20.0 * (attempt + 1)
-                print(f"    (429 rate limit, esperando {wait:.0f}s antes de reintentar)", flush=True)
+                wait = (
+                    float(retry_after)
+                    if retry_after and retry_after.isdigit()
+                    else 20.0 * (attempt + 1)
+                )
+                print(
+                    f"    (429 rate limit, esperando {wait:.0f}s antes de reintentar)", flush=True
+                )
                 time.sleep(wait)
                 continue
             if attempt < retries:
@@ -94,9 +99,15 @@ def fetch(url: str, timeout: float = 30.0, retries: int = 3) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--catalog", type=Path, default=DEFAULT_CATALOG, help="Ruta a bian-view-catalog.json")
-    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR, help="Carpeta donde guardar los .svg")
-    parser.add_argument("--only", help="Procesar solo el Service Domain cuyo nombre coincida exactamente")
+    parser.add_argument(
+        "--catalog", type=Path, default=DEFAULT_CATALOG, help="Ruta a bian-view-catalog.json"
+    )
+    parser.add_argument(
+        "--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR, help="Carpeta donde guardar los .svg"
+    )
+    parser.add_argument(
+        "--only", help="Procesar solo el Service Domain cuyo nombre coincida exactamente"
+    )
     parser.add_argument("--force", action="store_true", help="Redescargar aunque el .svg ya exista")
     parser.add_argument(
         "--delay",
@@ -113,11 +124,17 @@ def main() -> int:
     if args.only:
         entries = [c for c in entries if c["service_domain"] == args.only]
         if not entries:
-            print(f"'{args.only}' no tiene control_record_diagram_url en el catalogo.", file=sys.stderr)
+            print(
+                f"'{args.only}' no tiene control_record_diagram_url en el catalogo.",
+                file=sys.stderr,
+            )
             return 1
 
     skipped_no_url = sum(1 for c in catalog if not c.get("control_record_diagram_url"))
-    print(f"{len(entries)} Service Domains con Control Record Diagram ({skipped_no_url} sin URL, se omiten)", flush=True)
+    print(
+        f"{len(entries)} Service Domains con Control Record Diagram ({skipped_no_url} sin URL, se omiten)",
+        flush=True,
+    )
 
     ok, skipped_existing, failed = 0, 0, []
     for i, entry in enumerate(entries, 1):

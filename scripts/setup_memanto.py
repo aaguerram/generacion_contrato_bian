@@ -104,9 +104,7 @@ def configure_backend() -> None:
     memanto_section["backend"] = "on-prem"
     data["memanto"] = memanto_section
 
-    config_file.write_text(
-        yaml.dump(data, default_flow_style=False, sort_keys=False)
-    )
+    config_file.write_text(yaml.dump(data, default_flow_style=False, sort_keys=False))
     print(f"[ok] backend on-prem escrito en {config_file}")
 
 
@@ -196,8 +194,10 @@ def main() -> None:
     sync_memory_snapshot()
     print()
     print("Listo. Prueba con:")
-    print('  memanto remember "..." --type fact --confidence 1.0 '
-          '--provenance explicit_statement --source claude-code')
+    print(
+        '  memanto remember "..." --type fact --confidence 1.0 '
+        "--provenance explicit_statement --source claude-code"
+    )
     print('  memanto recall "..."')
     print('  memanto answer "..."')
 

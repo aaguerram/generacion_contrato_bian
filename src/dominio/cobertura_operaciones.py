@@ -72,7 +72,9 @@ def operation_id_en_uso(operation_id: str, operaciones: list[OperacionBian]) -> 
 _METODOS_HTTP = {"GET", "POST", "PUT", "PATCH", "DELETE"}
 
 
-def resolver_operation_id(id_propuesto: str, operaciones: list[OperacionBian]) -> OperacionBian | None:
+def resolver_operation_id(
+    id_propuesto: str, operaciones: list[OperacionBian]
+) -> OperacionBian | None:
     """Ancla un `operationId` propuesto por el LLM contra el catálogo REAL de `operaciones` de un
     Service Domain (ya filtrado a ese SD por el llamador).
 
@@ -106,7 +108,9 @@ def resolver_operation_id(id_propuesto: str, operaciones: list[OperacionBian]) -
     return None
 
 
-def fusionar_propuestas_de_operacion(propuestas: list[OperacionPropuestaLLM]) -> OperacionPropuestaLLM:
+def fusionar_propuestas_de_operacion(
+    propuestas: list[OperacionPropuestaLLM],
+) -> OperacionPropuestaLLM:
     """Fusiona 2+ propuestas que YA se sabe que resuelven a la MISMA operación oficial (mismo
     Service Domain + mismo `operationId` real tras `resolver_operation_id`) en una sola.
 
@@ -138,13 +142,15 @@ def fusionar_propuestas_de_operacion(propuestas: list[OperacionPropuestaLLM]) ->
         reason_codes.extend(p.reason_codes)
         action_term = action_term or p.action_term.strip()
         business_object = business_object or p.business_object.strip()
-    return propuestas[0].model_copy(update={
-        "escenarios_hu": list(dict.fromkeys(escenarios)),
-        "justificacion": "; ".join(dict.fromkeys(justificaciones)),
-        "bq_seed": "; ".join(dict.fromkeys(bq_seeds)),
-        "action_term": action_term,
-        "business_object": business_object,
-        "traceability": list(dict.fromkeys(traceability)),
-        "evidence_refs": list(dict.fromkeys(evidence_refs)),
-        "reason_codes": list(dict.fromkeys(reason_codes)),
-    })
+    return propuestas[0].model_copy(
+        update={
+            "escenarios_hu": list(dict.fromkeys(escenarios)),
+            "justificacion": "; ".join(dict.fromkeys(justificaciones)),
+            "bq_seed": "; ".join(dict.fromkeys(bq_seeds)),
+            "action_term": action_term,
+            "business_object": business_object,
+            "traceability": list(dict.fromkeys(traceability)),
+            "evidence_refs": list(dict.fromkeys(evidence_refs)),
+            "reason_codes": list(dict.fromkeys(reason_codes)),
+        }
+    )

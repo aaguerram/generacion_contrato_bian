@@ -6,8 +6,8 @@ import unittest
 from pathlib import Path
 
 from src.adaptadores.salida.catalogo_operaciones_bian_json import CatalogoOperacionesBianJson
-from src.adaptadores.salida.llm.fake import FakeStrategy
 from src.adaptadores.salida.llm.estrategia import ConfiguracionProveedor
+from src.adaptadores.salida.llm.fake import FakeStrategy
 from src.adaptadores.salida.mapeador_operaciones_langchain import MapeadorOperacionesLangChain
 from src.dominio.historias import FuncionalidadMacro, HistoriaUsuario
 
@@ -16,7 +16,9 @@ OPS = str(DOCS / "bian-operation-catalogs.json")
 
 
 def _fake_chat():
-    cfg = ConfiguracionProveedor(chat_model="fake", embeddings_model="fake", api_key=None, temperature=0.0, esfuerzo="low")
+    cfg = ConfiguracionProveedor(
+        chat_model="fake", embeddings_model="fake", api_key=None, temperature=0.0, esfuerzo="low"
+    )
     return FakeStrategy(cfg).crear_chat_model()
 
 
@@ -25,7 +27,9 @@ class TestCatalogoOperaciones(unittest.TestCase):
         self.cat = CatalogoOperacionesBianJson(OPS)
 
     def test_resuelve_nombre_con_espacios(self):
-        ops = self.cat.operaciones_de("Party Authentication")  # SD.json usa espacios; el JSON, compacto
+        ops = self.cat.operaciones_de(
+            "Party Authentication"
+        )  # SD.json usa espacios; el JSON, compacto
         self.assertIsNotNone(ops)
         ids = {o.operation_id for o in ops}
         self.assertIn("Evaluate", ids)
@@ -52,7 +56,9 @@ class TestMapeadorOperaciones(unittest.TestCase):
         ops = cat.operaciones_de("Transaction Authorization")
         mapeador = MapeadorOperacionesLangChain(_fake_chat())
         historia = HistoriaUsuario(
-            archivo="HU-x.txt", titulo="x", contenido="Escenario 1. Autorizar transacción con Smart Token"
+            archivo="HU-x.txt",
+            titulo="x",
+            contenido="Escenario 1. Autorizar transacción con Smart Token",
         )
         r = mapeador.mapear(
             historia,

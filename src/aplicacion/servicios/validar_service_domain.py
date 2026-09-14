@@ -14,7 +14,6 @@ Depende SOLO de: dominio, puertos y `langgraph`.
 
 from __future__ import annotations
 
-import json
 import logging
 
 from langgraph.graph import END, START, StateGraph
@@ -44,7 +43,11 @@ def _es_transitorio(exc: Exception) -> bool:
 
 
 _RETRY = RetryPolicy(
-    max_attempts=3, initial_interval=1.5, backoff_factor=2.0, max_interval=8.0, retry_on=_es_transitorio
+    max_attempts=3,
+    initial_interval=1.5,
+    backoff_factor=2.0,
+    max_interval=8.0,
+    retry_on=_es_transitorio,
 )
 
 

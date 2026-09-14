@@ -71,8 +71,8 @@ class TestRecuperadorLexico(unittest.TestCase):
     def test_nombre_incompleto_similitud_baja(self):
         top = self.rec.recuperar("saving", 6)
         m = next((c for c in top if c.service_domain == "Savings Account"), None)
-        self.assertIsNotNone(m)              # WRatio lo mete en el shortlist
-        self.assertLess(m.similitud_nombre, 0.60)   # pero estricta -> baja
+        self.assertIsNotNone(m)  # WRatio lo mete en el shortlist
+        self.assertLess(m.similitud_nombre, 0.60)  # pero estricta -> baja
 
     def test_devuelve_k_candidatos(self):
         self.assertEqual(len(self.rec.recuperar("cualquier cosa rara", 4)), 4)

@@ -8,7 +8,7 @@ declaradas por cada proveedor.
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 
 import yaml
@@ -22,19 +22,25 @@ class ProveedorConfig:
     nombre: str
     enabled: bool
     api_key_env: str
-    api_key: str | None            # resuelta desde el entorno / .env
+    api_key: str | None  # resuelta desde el entorno / .env
     base_url: str | None
-    structured_method: str | None   # "json_schema" | "function_calling" | "json_mode" | None
+    structured_method: str | None  # "json_schema" | "function_calling" | "json_mode" | None
     llm_models: tuple[str, ...]
     embedding_models: tuple[str, ...]
 
     @property
     def usable_llm(self) -> bool:
-        return self.enabled and bool(self.llm_models) and (self.nombre == "fake" or bool(self.api_key))
+        return (
+            self.enabled and bool(self.llm_models) and (self.nombre == "fake" or bool(self.api_key))
+        )
 
     @property
     def usable_embedding(self) -> bool:
-        return self.enabled and bool(self.embedding_models) and (self.nombre == "fake" or bool(self.api_key))
+        return (
+            self.enabled
+            and bool(self.embedding_models)
+            and (self.nombre == "fake" or bool(self.api_key))
+        )
 
 
 @dataclass(frozen=True)
@@ -142,9 +148,13 @@ class Config:
     def orden_embedding(self, proveedor_forzado: str | None = None) -> list[ProveedorConfig]:
         return self._orden(self.routing.embedding_priority, "usable_embedding", proveedor_forzado)
 
-    def _orden(self, prioridad: tuple[str, ...], attr: str, forzado: str | None) -> list[ProveedorConfig]:
+    def _orden(
+        self, prioridad: tuple[str, ...], attr: str, forzado: str | None
+    ) -> list[ProveedorConfig]:
         if forzado:
-            nombres = [forzado]  # `--proveedor X` restringe la cadena a X (con failover entre SUS modelos)
+            nombres = [
+                forzado
+            ]  # `--proveedor X` restringe la cadena a X (con failover entre SUS modelos)
         else:
             nombres = list(prioridad)
             # proveedores habilitados no listados en el priority, al final
@@ -203,7 +213,8 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
 
     oc = raw.get("observabilidad") or {}
     observabilidad = ObservabilidadConfig(
-        langsmith_tracing=str(oc.get("langsmith_tracing", "")).strip().lower() in ("1", "true", "yes")
+        langsmith_tracing=str(oc.get("langsmith_tracing", "")).strip().lower()
+        in ("1", "true", "yes")
         or oc.get("langsmith_tracing") is True,
         langsmith_project=str(oc.get("langsmith_project", "generacion-contrato-ia-v2")),
         langsmith_endpoint=oc.get("langsmith_endpoint") or None,

@@ -43,20 +43,26 @@ class TestClasificacionErrores(unittest.TestCase):
         self.assertFalse(es_transitorio(RuntimeError("429 RESOURCE_EXHAUSTED")))
 
     def test_degradar(self):
-        for msg in ("429 Too Many Requests", "402 Payment Required", "quota exceeded",
-                    "bogus is not a valid model ID", "No endpoints found",
-                    "model `x` does not exist or you do not have access to it",
-                    "Request too large for model `x`",
-                    "This model does not support response format `json_schema`",
-                    "Failed to validate JSON. Please adjust your prompt"):
+        for msg in (
+            "429 Too Many Requests",
+            "402 Payment Required",
+            "quota exceeded",
+            "bogus is not a valid model ID",
+            "No endpoints found",
+            "model `x` does not exist or you do not have access to it",
+            "Request too large for model `x`",
+            "This model does not support response format `json_schema`",
+            "Failed to validate JSON. Please adjust your prompt",
+        ):
             self.assertTrue(degradar_a_siguiente(RuntimeError(msg)), msg)
         self.assertFalse(degradar_a_siguiente(RuntimeError("KeyError: 'foo'")))
 
 
 class TestChatConFailover(unittest.TestCase):
     def _ch(self, *entradas):
-        return ChatConFailover(list(entradas), reintentos_transitorios=2,
-                               backoff_inicial_seg=0.0, backoff_max_seg=0.0)
+        return ChatConFailover(
+            list(entradas), reintentos_transitorios=2, backoff_inicial_seg=0.0, backoff_max_seg=0.0
+        )
 
     def test_primer_modelo_ok(self):
         ch = self._ch(_entrada("a", "RESULTADO-A"), _entrada("b", "RESULTADO-B"))

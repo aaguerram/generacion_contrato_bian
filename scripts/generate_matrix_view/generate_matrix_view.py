@@ -64,7 +64,6 @@ import re
 import zipfile
 from collections import defaultdict
 from pathlib import Path
-from typing import Dict, List, Optional
 from xml.etree import ElementTree as ET
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -104,12 +103,14 @@ def _col_to_idx(cell_ref: str) -> int:
     return idx - 1
 
 
-def _load_shared_strings(zf: zipfile.ZipFile) -> List[str]:
+def _load_shared_strings(zf: zipfile.ZipFile) -> list[str]:
     try:
         root = ET.fromstring(zf.read("xl/sharedStrings.xml"))
     except KeyError:
         return []
-    return ["".join(t.text or "" for t in si.findall(".//m:t", _NS)) for si in root.findall("m:si", _NS)]
+    return [
+        "".join(t.text or "" for t in si.findall(".//m:t", _NS)) for si in root.findall("m:si", _NS)
+    ]
 
 
 def _sheet_target_path(zf: zipfile.ZipFile, sheet_name: str) -> str:
@@ -128,7 +129,7 @@ def _sheet_target_path(zf: zipfile.ZipFile, sheet_name: str) -> str:
     raise ValueError(f"No se resolvio el r:id '{rid}' de la hoja '{sheet_name}'")
 
 
-def read_sheet_as_dicts(xlsm_path: Path, sheet_name: str, header_row_index: int = 1) -> List[dict]:
+def read_sheet_as_dicts(xlsm_path: Path, sheet_name: str, header_row_index: int = 1) -> list[dict]:
     """Fila 0 = titulo, fila 1 = encabezados, fila 2+ = datos (mismo layout
     que las demas hojas de este workbook y de BIANBOM4XMI.xlsx)."""
 
@@ -137,9 +138,9 @@ def read_sheet_as_dicts(xlsm_path: Path, sheet_name: str, header_row_index: int 
         target = _sheet_target_path(zf, sheet_name)
         root = ET.fromstring(zf.read(target))
 
-    rows: List[List[Optional[str]]] = []
+    rows: list[list[str | None]] = []
     for row_el in root.find("m:sheetData", _NS).findall("m:row", _NS):
-        cells: Dict[int, Optional[str]] = {}
+        cells: dict[int, str | None] = {}
         max_idx = -1
         for c in row_el.findall("m:c", _NS):
             idx = _col_to_idx(c.get("r"))
@@ -154,11 +155,13 @@ def read_sheet_as_dicts(xlsm_path: Path, sheet_name: str, header_row_index: int 
     header = rows[header_row_index]
     dicts = []
     for row in rows[header_row_index + 1 :]:
-        dicts.append({h: (row[i] if h is not None and i < len(row) else None) for i, h in enumerate(header)})
+        dicts.append(
+            {h: (row[i] if h is not None and i < len(row) else None) for i, h in enumerate(header)}
+        )
     return dicts
 
 
-def _clean(value: Optional[str]) -> Optional[str]:
+def _clean(value: str | None) -> str | None:
     if value is None:
         return None
     value = value.strip()
@@ -174,7 +177,7 @@ def _clean(value: Optional[str]) -> Optional[str]:
 # ---------------------------------------------------------------------------
 
 
-def load_object_catalog_section(path: Path, section: str) -> Dict[str, dict]:
+def load_object_catalog_section(path: Path, section: str) -> dict[str, dict]:
     if not path.exists():
         return {}
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -218,8 +221,16 @@ UNCLASSIFIED_AREA = "(Sin Business Area de modelo — solo clasificado por vista
 # filas, este diccionario queda sin efecto (nunca se usa si la fila ya trae
 # `mBusiness Area`/`mBusiness Domain`).
 KNOWN_MODEL_GAPS = {
-    "Trade Settlement": {"area": "Operations and Execution", "parent_domain": "Product Specific Fulfillment", "domain": "Market Operations"},
-    "Prospect Campaign Management": {"area": "Sales and Service", "parent_domain": None, "domain": "Marketing"},
+    "Trade Settlement": {
+        "area": "Operations and Execution",
+        "parent_domain": "Product Specific Fulfillment",
+        "domain": "Market Operations",
+    },
+    "Prospect Campaign Management": {
+        "area": "Sales and Service",
+        "parent_domain": None,
+        "domain": "Marketing",
+    },
 }
 
 # Secciones numeradas que trae la pagina de objeto de un Service Domain en
@@ -263,7 +274,7 @@ SD_JSON_FIELD_MAP = {
 }
 
 
-def load_sd_metadata(path: Path) -> Dict[str, dict]:
+def load_sd_metadata(path: Path) -> dict[str, dict]:
     if not path.exists():
         return {}
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -272,7 +283,9 @@ def load_sd_metadata(path: Path) -> Dict[str, dict]:
         name = row.get("Service Domain")
         if not name:
             continue
-        result[name] = {slug: row.get(sd_json_key) for sd_json_key, slug in SD_JSON_FIELD_MAP.items()}
+        result[name] = {
+            slug: row.get(sd_json_key) for sd_json_key, slug in SD_JSON_FIELD_MAP.items()
+        }
     return result
 
 
@@ -294,7 +307,7 @@ def load_sd_metadata(path: Path) -> Dict[str, dict]:
 DIAGRAM_INFO_FIELDS = ("puml_path", "svg_path", "bian_source_url")
 
 
-def load_sd_diagram_info(path: Path) -> Dict[str, dict]:
+def load_sd_diagram_info(path: Path) -> dict[str, dict]:
     """{Service Domain -> {"bom": {...}|None, "control_record": {...}|None, "sd_overview_url": ...}}.
 
     `bom`/`control_record` solo cubren los 272 Service Domains que tienen
@@ -305,14 +318,16 @@ def load_sd_diagram_info(path: Path) -> Dict[str, dict]:
     if not path.exists():
         return {}
     data = json.loads(path.read_text(encoding="utf-8"))
-    result: Dict[str, dict] = {}
+    result: dict[str, dict] = {}
     for entity in data.get("entities", {}).values():
         for occ in entity.get("occurrences", []):
             sd = occ.get("service_domain")
             dt = occ.get("diagram_type")
             if not sd or dt not in ("bom", "control_record"):
                 continue
-            by_sd = result.setdefault(sd, {"bom": None, "control_record": None, "sd_overview_url": None})
+            by_sd = result.setdefault(
+                sd, {"bom": None, "control_record": None, "sd_overview_url": None}
+            )
             if by_sd[dt] is None:
                 by_sd[dt] = {field: occ.get(field) for field in DIAGRAM_INFO_FIELDS}
             if by_sd["sd_overview_url"] is None:
@@ -327,11 +342,11 @@ def load_sd_diagram_info(path: Path) -> Dict[str, dict]:
 
 def build_matrix_tree(
     xlsm_path: Path,
-    business_area_objects: Optional[Dict[str, dict]] = None,
-    business_domain_objects: Optional[Dict[str, dict]] = None,
-    service_domain_objects: Optional[Dict[str, dict]] = None,
-    sd_metadata: Optional[Dict[str, dict]] = None,
-    sd_diagram_info: Optional[Dict[str, dict]] = None,
+    business_area_objects: dict[str, dict] | None = None,
+    business_domain_objects: dict[str, dict] | None = None,
+    service_domain_objects: dict[str, dict] | None = None,
+    sd_metadata: dict[str, dict] | None = None,
+    sd_diagram_info: dict[str, dict] | None = None,
 ) -> dict:
     rows = read_sheet_as_dicts(xlsm_path, SHEET_NAME)
     if rows and not REQUIRED_COLUMNS.issubset(rows[0].keys()):
@@ -341,8 +356,10 @@ def build_matrix_tree(
         )
 
     # area -> dominio_raiz -> dominio_padre_o_None -> set(service domains)
-    tree: Dict[str, Dict[str, Dict[Optional[str], set]]] = defaultdict(lambda: defaultdict(lambda: defaultdict(set)))
-    unclassified_in_model: List[dict] = []
+    tree: dict[str, dict[str, dict[str | None, set]]] = defaultdict(
+        lambda: defaultdict(lambda: defaultdict(set))
+    )
+    unclassified_in_model: list[dict] = []
     skipped_no_sd = 0
 
     for row in rows:
@@ -358,12 +375,20 @@ def build_matrix_tree(
         if not area or not domain:
             gap_fix = KNOWN_MODEL_GAPS.get(service_domain)
             if gap_fix:
-                area, domain, parent_domain = gap_fix["area"], gap_fix["domain"], gap_fix["parent_domain"]
+                area, domain, parent_domain = (
+                    gap_fix["area"],
+                    gap_fix["domain"],
+                    gap_fix["parent_domain"],
+                )
             else:
                 view_area = _clean(row.get("vBusiness Area"))
                 view_domain = _clean(row.get("vBusinessDomain"))
                 unclassified_in_model.append(
-                    {"service_domain": service_domain, "view_business_area": view_area, "view_business_domain": view_domain}
+                    {
+                        "service_domain": service_domain,
+                        "view_business_area": view_area,
+                        "view_business_domain": view_domain,
+                    }
                 )
                 area = UNCLASSIFIED_AREA
                 domain = view_domain or view_area or "(sin clasificar)"
@@ -425,7 +450,7 @@ def build_matrix_tree(
         node["control_record_diagram"] = diagrams.get("control_record")
         return node
 
-    def bd_node(name: str, nested: List[dict], service_domains: List[str]) -> dict:
+    def bd_node(name: str, nested: list[dict], service_domains: list[str]) -> dict:
         obj = (business_domain_objects or {}).get(name)
         return {
             "name": name,
@@ -459,11 +484,14 @@ def build_matrix_tree(
         )
 
     total_service_domains = sum(
-        len(bd["service_domains"]) + sum(len(nd["service_domains"]) for nd in bd["business_domains"])
+        len(bd["service_domains"])
+        + sum(len(nd["service_domains"]) for nd in bd["business_domains"])
         for ba in business_areas
         for bd in ba["business_domains"]
     )
-    total_nested_domains = sum(len(bd["business_domains"]) for ba in business_areas for bd in ba["business_domains"])
+    total_nested_domains = sum(
+        len(bd["business_domains"]) for ba in business_areas for bd in ba["business_domains"]
+    )
     total_root_domains = sum(len(ba["business_domains"]) for ba in business_areas)
 
     return {
@@ -483,7 +511,9 @@ def build_matrix_tree(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     parser.add_argument("--xlsm", type=Path, default=DEFAULT_XLSM, help=f"default: {DEFAULT_XLSM}")
     parser.add_argument(
         "--object-catalog",
@@ -512,7 +542,9 @@ def main() -> int:
             f"con las rutas .puml/.svg y URLs de bian.org de cada Service Domain) (default: {DEFAULT_ENTITY_JSON})"
         ),
     )
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help=f"default: {DEFAULT_OUTPUT}")
+    parser.add_argument(
+        "--output", type=Path, default=DEFAULT_OUTPUT, help=f"default: {DEFAULT_OUTPUT}"
+    )
     args = parser.parse_args()
 
     business_area_objects = load_object_catalog_section(args.object_catalog, "business_areas")
@@ -525,39 +557,60 @@ def main() -> int:
             f"{len(service_domain_objects)} Service Domains con URL+documentacion) ..."
         )
     else:
-        print(f"  {args.object_catalog} no existe (opcional) -> todo quedara sin 'object_url'/'documentation'")
+        print(
+            f"  {args.object_catalog} no existe (opcional) -> todo quedara sin 'object_url'/'documentation'"
+        )
 
     sd_metadata = load_sd_metadata(args.sd_json)
     if args.sd_json.exists():
         print(f"Leyendo metadatos de {args.sd_json} ({len(sd_metadata)} Service Domains) ...")
     else:
-        print(f"  {args.sd_json} no existe (opcional) -> los Service Domains quedaran sin functional_pattern/asset_type/etc.")
+        print(
+            f"  {args.sd_json} no existe (opcional) -> los Service Domains quedaran sin functional_pattern/asset_type/etc."
+        )
 
     sd_diagram_info = load_sd_diagram_info(args.entity_json)
     if args.entity_json.exists():
-        print(f"Leyendo diagramas de {args.entity_json} ({len(sd_diagram_info)} Service Domains con bom_diagram/control_record_diagram) ...")
+        print(
+            f"Leyendo diagramas de {args.entity_json} ({len(sd_diagram_info)} Service Domains con bom_diagram/control_record_diagram) ..."
+        )
     else:
-        print(f"  {args.entity_json} no existe (opcional) -> los Service Domains quedaran sin bom_diagram/control_record_diagram")
+        print(
+            f"  {args.entity_json} no existe (opcional) -> los Service Domains quedaran sin bom_diagram/control_record_diagram"
+        )
 
     print(f"Leyendo hoja '{SHEET_NAME}' de {args.xlsm} ...")
     result = build_matrix_tree(
-        args.xlsm, business_area_objects, business_domain_objects, service_domain_objects, sd_metadata, sd_diagram_info
+        args.xlsm,
+        business_area_objects,
+        business_domain_objects,
+        service_domain_objects,
+        sd_metadata,
+        sd_diagram_info,
     )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
 
     stats = result["stats"]
-    print(f"  {stats['business_areas']} Business Areas (incluye el bucket '{UNCLASSIFIED_AREA}' si aplica)")
+    print(
+        f"  {stats['business_areas']} Business Areas (incluye el bucket '{UNCLASSIFIED_AREA}' si aplica)"
+    )
     print(f"  {stats['root_business_domains']} Business Domains de primer nivel")
     print(f"  {stats['nested_business_domains']} Business Domains anidados (escenario 1)")
     print(f"  {stats['service_domains']} Service Domains en total")
     if result["unclassified_in_model"]:
-        print(f"  {len(result['unclassified_in_model'])} sin Business Area/Domain de MODELO (agrupados aparte, ver 'unclassified_in_model'):")
+        print(
+            f"  {len(result['unclassified_in_model'])} sin Business Area/Domain de MODELO (agrupados aparte, ver 'unclassified_in_model'):"
+        )
         for item in result["unclassified_in_model"]:
-            print(f"    - {item['service_domain']} (vista: {item['view_business_area']} / {item['view_business_domain']})")
+            print(
+                f"    - {item['service_domain']} (vista: {item['view_business_area']} / {item['view_business_domain']})"
+            )
     if stats["service_domains_skipped"]:
-        print(f"  ADVERTENCIA: {stats['service_domains_skipped']} filas sin ningun Service Domain resoluble")
+        print(
+            f"  ADVERTENCIA: {stats['service_domains_skipped']} filas sin ningun Service Domain resoluble"
+        )
     print(f"Escrito en {args.output}")
     return 0
 

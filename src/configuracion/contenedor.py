@@ -12,10 +12,9 @@ from pathlib import Path
 
 from src.adaptadores.salida.adjudicador_langchain import AdjudicadorLangChain
 from src.adaptadores.salida.analista_mapeo_langchain import AnalistaMapeoBianLangChain
-from src.adaptadores.salida.catalogo_json import CatalogoJson
-from src.adaptadores.salida.catalogo_operaciones_bian_json import CatalogoOperacionesBianJson
 from src.adaptadores.salida.catalogo_bian_cache import CatalogoBianCache
 from src.adaptadores.salida.catalogo_bom_puml import CatalogoBomPuml
+from src.adaptadores.salida.catalogo_json import CatalogoJson
 from src.adaptadores.salida.embeddings_failover import EmbeddingsConFailover
 from src.adaptadores.salida.embeddings_resiliente import EmbeddingsResiliente
 from src.adaptadores.salida.lector_historias_fs import LectorHistoriasFilesystem
@@ -41,7 +40,9 @@ from src.dominio.decision_similitud import Umbrales
 logger = logging.getLogger("generacion_contrato_ia_v2.contenedor")
 
 
-def _cfg_proveedor(config: Config, prov: ProveedorConfig, modelo: str, modelo_emb: str) -> ConfiguracionProveedor:
+def _cfg_proveedor(
+    config: Config, prov: ProveedorConfig, modelo: str, modelo_emb: str
+) -> ConfiguracionProveedor:
     return ConfiguracionProveedor(
         chat_model=modelo,
         embeddings_model=modelo_emb,
@@ -72,8 +73,12 @@ def _entradas_llm(config: Config, proveedor_forzado: str | None) -> list[Entrada
 def crear_chat_failover(config: Config, *, proveedor: str | None = None) -> ChatConFailover:
     nombre = (proveedor or "").strip().lower()
     if nombre == "fake":
-        cfg = ConfiguracionProveedor("fake", "fake", None, config.llm.temperature, config.llm.esfuerzo)
-        return ChatConFailover([EntradaModelo("fake", "fake", crear_estrategia("fake", cfg).crear_chat_model())])
+        cfg = ConfiguracionProveedor(
+            "fake", "fake", None, config.llm.temperature, config.llm.esfuerzo
+        )
+        return ChatConFailover(
+            [EntradaModelo("fake", "fake", crear_estrategia("fake", cfg).crear_chat_model())]
+        )
 
     entradas = _entradas_llm(config, nombre or None)
     if not entradas:
@@ -90,7 +95,9 @@ def crear_chat_failover(config: Config, *, proveedor: str | None = None) -> Chat
     )
 
 
-def _candidatos_embedding(config: Config, proveedor: str | None) -> list[tuple[str, str, EmbeddingsResiliente]]:
+def _candidatos_embedding(
+    config: Config, proveedor: str | None
+) -> list[tuple[str, str, EmbeddingsResiliente]]:
     """Lista ordenada por precisión: proveedores de `embedding_priority` × sus `embedding.models`."""
     salida: list[tuple[str, str, EmbeddingsResiliente]] = []
     for prov in config.orden_embedding(proveedor):
@@ -115,7 +122,9 @@ def _embeddings(config: Config, proveedor: str | None):
         )
     failover = EmbeddingsConFailover(candidatos)
     prov, modelo = failover.resolver()  # fija el modelo activo (probe) antes de tocar la caché
-    logger.info("embeddings activo: %s:%s  (cadena por precisión: %s)", prov, modelo, failover.descripcion)
+    logger.info(
+        "embeddings activo: %s:%s  (cadena por precisión: %s)", prov, modelo, failover.descripcion
+    )
     return failover, modelo
 
 
@@ -164,33 +173,45 @@ def _recuperadores_hibridos(
     except RuntimeError as exc:
         logger.warning(
             "retrieval híbrido: sin proveedor de embeddings utilizable (%s); sigo solo con "
-            "recuperación léxica (rapidfuzz)", exc,
+            "recuperación léxica (rapidfuzz)",
+            exc,
         )
     return recuperadores
 
 
-def crear_caso_uso_mapeo(config: Config, *, proveedor: str | None = None,
-                         actualizar_cache_bian: bool = False) -> MapearHistoriasUseCase:
+def crear_caso_uso_mapeo(
+    config: Config, *, proveedor: str | None = None, actualizar_cache_bian: bool = False
+) -> MapearHistoriasUseCase:
     mh = config.mapear_historias
     chat = crear_chat_failover(config, proveedor=proveedor)
     catalog_sha = _sha256_archivo(config.ruta_sd_json)
 
     catalogo = CatalogoJson(config.ruta_sd_json, config.ruta_jerarquia)
     catalogo_operaciones = CatalogoBianCache(
-        config.ruta_operaciones, config.ruta_cache_bian, mh.release_bian,
+        config.ruta_operaciones,
+        config.ruta_cache_bian,
+        mh.release_bian,
         permitir_descargas=mh.descargar_faltantes,
     )
     catalogo_bom = CatalogoBomPuml(config.ruta_bian_puml) if mh.bom_puml_habilitado else None
     recuperadores = (
-        _recuperadores_hibridos(config, catalogo, proveedor) if mh.retrieval_hibrido_habilitado else []
+        _recuperadores_hibridos(config, catalogo, proveedor)
+        if mh.retrieval_hibrido_habilitado
+        else []
     )
 
     analista = AnalistaMapeoBianLangChain(
-        chat, modelo_desc=chat.descripcion, temperature=config.llm.temperature,
-        catalog_sha256=catalog_sha, rol_max_chars=mh.rol_max_chars,
+        chat,
+        modelo_desc=chat.descripcion,
+        temperature=config.llm.temperature,
+        catalog_sha256=catalog_sha,
+        rol_max_chars=mh.rol_max_chars,
     )
     mapeador = MapeadorOperacionesLangChain(
-        chat, modelo_desc=chat.descripcion, temperature=config.llm.temperature, catalog_sha256=catalog_sha,
+        chat,
+        modelo_desc=chat.descripcion,
+        temperature=config.llm.temperature,
+        catalog_sha256=catalog_sha,
     )
 
     return MapearHistoriasServiceDomainsService(

@@ -45,7 +45,6 @@ import json
 import re
 import zipfile
 from pathlib import Path
-from typing import Dict, List, Optional
 from xml.etree import ElementTree as ET
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -81,14 +80,13 @@ def _col_to_idx(cell_ref: str) -> int:
     return idx - 1
 
 
-def _load_shared_strings(zf: zipfile.ZipFile) -> List[str]:
+def _load_shared_strings(zf: zipfile.ZipFile) -> list[str]:
     try:
         root = ET.fromstring(zf.read("xl/sharedStrings.xml"))
     except KeyError:
         return []
     return [
-        "".join(t.text or "" for t in si.findall(".//m:t", _NS))
-        for si in root.findall("m:si", _NS)
+        "".join(t.text or "" for t in si.findall(".//m:t", _NS)) for si in root.findall("m:si", _NS)
     ]
 
 
@@ -109,7 +107,7 @@ def _sheet_target_path(zf: zipfile.ZipFile, sheet_name: str) -> str:
     raise ValueError(f"No se resolvio el r:id '{rid}' de la hoja '{sheet_name}'")
 
 
-def read_sheet_as_dicts(xlsx_path: Path, sheet_name: str, header_row_index: int = 1) -> List[dict]:
+def read_sheet_as_dicts(xlsx_path: Path, sheet_name: str, header_row_index: int = 1) -> list[dict]:
     """Lee una hoja completa como lista de dicts {encabezado: valor}.
 
     Todas las hojas de BIANBOM4XMI.xlsx comparten el mismo layout: fila 0 =
@@ -122,16 +120,20 @@ def read_sheet_as_dicts(xlsx_path: Path, sheet_name: str, header_row_index: int 
         target = _sheet_target_path(zf, sheet_name)
         root = ET.fromstring(zf.read(target))
 
-    rows: List[List[Optional[str]]] = []
+    rows: list[list[str | None]] = []
     for row_el in root.find("m:sheetData", _NS).findall("m:row", _NS):
-        cells: Dict[int, Optional[str]] = {}
+        cells: dict[int, str | None] = {}
         max_idx = -1
         for c in row_el.findall("m:c", _NS):
             idx = _col_to_idx(c.get("r"))
             v = c.find("m:v", _NS)
             if v is None:
                 inline = c.find("m:is", _NS)
-                value = "".join(t.text or "" for t in inline.findall(".//m:t", _NS)) if inline is not None else None
+                value = (
+                    "".join(t.text or "" for t in inline.findall(".//m:t", _NS))
+                    if inline is not None
+                    else None
+                )
             else:
                 value = v.text
                 if c.get("t") == "s" and value is not None:
@@ -143,7 +145,9 @@ def read_sheet_as_dicts(xlsx_path: Path, sheet_name: str, header_row_index: int 
     header = rows[header_row_index]
     dicts = []
     for row in rows[header_row_index + 1 :]:
-        dicts.append({h: (row[i] if h is not None and i < len(row) else None) for i, h in enumerate(header)})
+        dicts.append(
+            {h: (row[i] if h is not None and i < len(row) else None) for i, h in enumerate(header)}
+        )
     return dicts
 
 
@@ -167,7 +171,7 @@ REQUIRED_COLUMNS = {
 _URL_IN_PARENS_RE = re.compile(r"\((https?://[^)]+)\)\s*$")
 
 
-def _clean_text(value: Optional[str]) -> Optional[str]:
+def _clean_text(value: str | None) -> str | None:
     if value is None:
         return None
     # `_x000D_` es como Excel escapa un CR suelto dentro de un inline string.
@@ -176,7 +180,7 @@ def _clean_text(value: Optional[str]) -> Optional[str]:
     return value or None
 
 
-def _extract_reference(row: dict) -> Optional[dict]:
+def _extract_reference(row: dict) -> dict | None:
     ref_type = _clean_text(row.get("Reference Type"))
     aspect = _clean_text(row.get("Referenced Aspect"))
     ref_name = _clean_text(row.get("Reference Name"))
@@ -193,7 +197,7 @@ def _extract_reference(row: dict) -> Optional[dict]:
     return {"type": ref_type, "referenced_aspect": aspect, "reference_name": ref_name, "url": url}
 
 
-def build_bian_bom_catalog(xlsx_path: Path) -> Dict[str, dict]:
+def build_bian_bom_catalog(xlsx_path: Path) -> dict[str, dict]:
     """{nombre BIAN BOM -> {kind, description, reference, properties[], enum_values[]}}.
 
     Se agrupa por nombre (columna "Business Object"), no por UID: es lo que
@@ -214,14 +218,20 @@ def build_bian_bom_catalog(xlsx_path: Path) -> Dict[str, dict]:
             f"(faltan: {sorted(missing)}). El layout del xlsx pudo haber cambiado."
         )
 
-    catalog: Dict[str, dict] = {}
+    catalog: dict[str, dict] = {}
     for row in rows:
         name = _clean_text(row.get("Business Object"))
         if not name:
             continue
         entry = catalog.setdefault(
             name,
-            {"kind": None, "description": None, "reference": None, "_properties": {}, "_enum_values": {}},
+            {
+                "kind": None,
+                "description": None,
+                "reference": None,
+                "_properties": {},
+                "_enum_values": {},
+            },
         )
         uml_type = row.get("UML Type")
         feature = _clean_text(row.get("Feature"))
@@ -272,10 +282,12 @@ _TITLE_RE = re.compile(r"^title\s+(.+?)\s*$", re.MULTILINE)
 # solo con el stereotype, p.ej. `class "Corporate Card" as AT <<AssetType>>`)
 _ENTITY_DECL_RE = re.compile(
     r'^(?P<kind>class|enum)\s+"(?P<name>(?:[^"\\]|\\.)*)"\s+as\s+(?P<alias>\S+?)'
-    r'(?:\s+<<(?P<stereotype>\w+)>>)?\s*(?P<has_body>\{)?\s*$',
+    r"(?:\s+<<(?P<stereotype>\w+)>>)?\s*(?P<has_body>\{)?\s*$",
     re.MULTILINE,
 )
-_NOTE_RE = re.compile(r"^note (?:right|left|top|bottom) of (\S+)\s*\n(.*?)\nend note", re.DOTALL | re.MULTILINE)
+_NOTE_RE = re.compile(
+    r"^note (?:right|left|top|bottom) of (\S+)\s*\n(.*?)\nend note", re.DOTALL | re.MULTILINE
+)
 _NOTE_KV_RE = re.compile(r"^\s*([A-Za-z]+):\s*(.+?)\s*$", re.MULTILINE)
 _ATTRIBUTE_RE = re.compile(r"^\s*[+\-#~]\s*(.+?)\s*:\s*(.+?)\s*$")
 
@@ -292,8 +304,8 @@ def _extract_body(text: str, start_pos: int) -> (str, int):
     return body, start_pos + end_match.end()
 
 
-def _parse_notes(text: str) -> Dict[str, dict]:
-    notes: Dict[str, dict] = {}
+def _parse_notes(text: str) -> dict[str, dict]:
+    notes: dict[str, dict] = {}
     for alias, body in _NOTE_RE.findall(text):
         kv = {k: v for k, v in _NOTE_KV_RE.findall(body)}
         if kv:
@@ -318,8 +330,8 @@ def parse_puml_file(path: Path) -> dict:
         alias = m.group("alias")
         stereotype = m.group("stereotype")
 
-        attributes: List[dict] = []
-        enum_values: List[str] = []
+        attributes: list[dict] = []
+        enum_values: list[str] = []
         if m.group("has_body"):
             body, _ = _extract_body(text, m.end())
             for line in body.splitlines():
@@ -357,7 +369,7 @@ def parse_puml_file(path: Path) -> dict:
 # ---------------------------------------------------------------------------
 
 
-def load_view_catalog(path: Path) -> Dict[str, dict]:
+def load_view_catalog(path: Path) -> dict[str, dict]:
     if not path.exists():
         return {}
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -373,7 +385,7 @@ def load_view_catalog(path: Path) -> Dict[str, dict]:
 # ---------------------------------------------------------------------------
 
 
-def load_object_catalog(path: Path) -> Dict[str, Dict[str, dict]]:
+def load_object_catalog(path: Path) -> dict[str, dict[str, dict]]:
     if not path.exists():
         return {"service_domains": {}, "bian_bom_classes": {}}
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -404,11 +416,11 @@ def build_entities(
     cr_puml_dir: Path,
     bom_svg_dir: Path,
     cr_svg_dir: Path,
-    bian_bom_catalog: Dict[str, dict],
-    view_catalog: Dict[str, dict],
-    object_catalog: Dict[str, Dict[str, dict]],
-) -> Dict[str, dict]:
-    entities: Dict[str, dict] = {}
+    bian_bom_catalog: dict[str, dict],
+    view_catalog: dict[str, dict],
+    object_catalog: dict[str, dict[str, dict]],
+) -> dict[str, dict]:
+    entities: dict[str, dict] = {}
     sd_objects = object_catalog.get("service_domains", {})
     class_objects = object_catalog.get("bian_bom_classes", {})
 
@@ -426,7 +438,11 @@ def build_entities(
             is_new = ent["name"] not in entities
             record = entities.setdefault(
                 ent["name"],
-                {"name": ent["name"], "bian_bom": bian_bom_catalog.get(ent["name"]), "occurrences": []},
+                {
+                    "name": ent["name"],
+                    "bian_bom": bian_bom_catalog.get(ent["name"]),
+                    "occurrences": [],
+                },
             )
             if is_new and record["bian_bom"] is not None:
                 class_object = class_objects.get(ent["name"])
@@ -455,15 +471,33 @@ def build_entities(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--xlsx", type=Path, default=DEFAULT_XLSX, help=f"Ruta a BIANBOM4XMI.xlsx (default: {DEFAULT_XLSX})")
-    parser.add_argument(
-        "--view-catalog", type=Path, default=DEFAULT_VIEW_CATALOG, help=f"Ruta a bian-view-catalog.json (default: {DEFAULT_VIEW_CATALOG})"
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument("--bom-puml-dir", type=Path, default=BOM_PUML_DIR, help=f"default: {BOM_PUML_DIR}")
-    parser.add_argument("--cr-puml-dir", type=Path, default=CR_PUML_DIR, help=f"default: {CR_PUML_DIR}")
-    parser.add_argument("--bom-svg-dir", type=Path, default=BOM_SVG_DIR, help=f"default: {BOM_SVG_DIR}")
-    parser.add_argument("--cr-svg-dir", type=Path, default=CR_SVG_DIR, help=f"default: {CR_SVG_DIR}")
+    parser.add_argument(
+        "--xlsx",
+        type=Path,
+        default=DEFAULT_XLSX,
+        help=f"Ruta a BIANBOM4XMI.xlsx (default: {DEFAULT_XLSX})",
+    )
+    parser.add_argument(
+        "--view-catalog",
+        type=Path,
+        default=DEFAULT_VIEW_CATALOG,
+        help=f"Ruta a bian-view-catalog.json (default: {DEFAULT_VIEW_CATALOG})",
+    )
+    parser.add_argument(
+        "--bom-puml-dir", type=Path, default=BOM_PUML_DIR, help=f"default: {BOM_PUML_DIR}"
+    )
+    parser.add_argument(
+        "--cr-puml-dir", type=Path, default=CR_PUML_DIR, help=f"default: {CR_PUML_DIR}"
+    )
+    parser.add_argument(
+        "--bom-svg-dir", type=Path, default=BOM_SVG_DIR, help=f"default: {BOM_SVG_DIR}"
+    )
+    parser.add_argument(
+        "--cr-svg-dir", type=Path, default=CR_SVG_DIR, help=f"default: {CR_SVG_DIR}"
+    )
     parser.add_argument(
         "--object-catalog",
         type=Path,
@@ -473,7 +507,12 @@ def main() -> int:
             f"si no existe se omiten los links de objeto) (default: {DEFAULT_OBJECT_CATALOG})"
         ),
     )
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help=f"Ruta del JSON de salida (default: {DEFAULT_OUTPUT})")
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=DEFAULT_OUTPUT,
+        help=f"Ruta del JSON de salida (default: {DEFAULT_OUTPUT})",
+    )
     args = parser.parse_args()
 
     print(f"Leyendo catalogo BIAN BOM de {args.xlsx} ...")
@@ -492,8 +531,10 @@ def main() -> int:
             f"{len(object_catalog['bian_bom_classes'])} clases BIAN BOM con link de objeto en bian.org"
         )
     else:
-        print("  no existe (opcional) -> las entidades quedaran sin 'object_url'/'sd_object_url'; "
-              "correr scripts/bian_object_catalog/ para generarlo")
+        print(
+            "  no existe (opcional) -> las entidades quedaran sin 'object_url'/'sd_object_url'; "
+            "correr scripts/bian_object_catalog/ para generarlo"
+        )
 
     print(f"Recorriendo diagramas .puml en {args.bom_puml_dir} y {args.cr_puml_dir} ...")
     entities = build_entities(
@@ -508,10 +549,22 @@ def main() -> int:
 
     total_occurrences = sum(len(e["occurrences"]) for e in entities.values())
     with_bian_bom = sum(1 for e in entities.values() if e["bian_bom"] is not None)
-    with_object_url = sum(1 for e in entities.values() if e["bian_bom"] and e["bian_bom"].get("object_url"))
-    only_bom = sum(1 for e in entities.values() if {o["diagram_type"] for o in e["occurrences"]} == {"bom"})
-    only_cr = sum(1 for e in entities.values() if {o["diagram_type"] for o in e["occurrences"]} == {"control_record"})
-    both = sum(1 for e in entities.values() if {o["diagram_type"] for o in e["occurrences"]} == {"bom", "control_record"})
+    with_object_url = sum(
+        1 for e in entities.values() if e["bian_bom"] and e["bian_bom"].get("object_url")
+    )
+    only_bom = sum(
+        1 for e in entities.values() if {o["diagram_type"] for o in e["occurrences"]} == {"bom"}
+    )
+    only_cr = sum(
+        1
+        for e in entities.values()
+        if {o["diagram_type"] for o in e["occurrences"]} == {"control_record"}
+    )
+    both = sum(
+        1
+        for e in entities.values()
+        if {o["diagram_type"] for o in e["occurrences"]} == {"bom", "control_record"}
+    )
 
     output = {
         "release": "14.0.0",
@@ -520,7 +573,9 @@ def main() -> int:
             "puml_control_record_dir": _relative(args.cr_puml_dir),
             "bian_bom_xlsx": _relative(args.xlsx),
             "view_catalog": _relative(args.view_catalog) if args.view_catalog.exists() else None,
-            "object_catalog": _relative(args.object_catalog) if args.object_catalog.exists() else None,
+            "object_catalog": _relative(args.object_catalog)
+            if args.object_catalog.exists()
+            else None,
         },
         "stats": {
             "total_entities": len(entities),
@@ -538,7 +593,9 @@ def main() -> int:
     args.output.write_text(json.dumps(output, indent=2, ensure_ascii=False), encoding="utf-8")
 
     print(f"\n{len(entities)} entidades distintas ({total_occurrences} apariciones en total)")
-    print(f"  {with_bian_bom} con ficha BIAN BOM (descripcion + propiedades), {with_object_url} de ellas con link de objeto en bian.org")
+    print(
+        f"  {with_bian_bom} con ficha BIAN BOM (descripcion + propiedades), {with_object_url} de ellas con link de objeto en bian.org"
+    )
     print(f"  {only_bom} solo en diagramas BOM, {only_cr} solo en Control Record, {both} en ambos")
     print(f"Escrito en {args.output}")
     return 0

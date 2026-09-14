@@ -14,21 +14,24 @@ from __future__ import annotations
 
 import unittest
 
-from unit_test.support import DOCS
-
 from src.adaptadores.salida.catalogo_bian_cache import CatalogoBianCache
 from src.adaptadores.salida.catalogo_json import CatalogoJson
 from src.dominio.clasificacion_historias import UmbralesMapeo, clasificar_service_domains
 from src.dominio.historias import ServiceDomainPropuestoLLM
+from unit_test.support import DOCS
 
 
 def _prop(nombre, rol, msr, mon, dep=None):
     return ServiceDomainPropuestoLLM(
-        service_domain=nombre, rol_contractual=rol, dependency_kind=dep,
+        service_domain=nombre,
+        rol_contractual=rol,
+        dependency_kind=dep,
         accion_objeto=f"administrar {nombre.lower()}",
-        match_service_role=msr, match_objeto_negocio=mon,
+        match_service_role=msr,
+        match_objeto_negocio=mon,
         escenarios_hu=["Escenario 1. Solicitud", "Escenario 2. Activación"],
-        justificacion="Trazado a los UC/BR de Smart Token.", confianza=0.9,
+        justificacion="Trazado a los UC/BR de Smart Token.",
+        confianza=0.9,
     )
 
 
@@ -39,26 +42,32 @@ class TestSmartTokenRegresion(unittest.TestCase):
             str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")
         ).cargar()
         cls.ops = CatalogoBianCache(
-            str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
-            "14.0.0", permitir_descargas=False,
+            str(DOCS / "bian-operation-catalogs.json"),
+            str(DOCS / "bian-cache"),
+            "14.0.0",
+            permitir_descargas=False,
         )
 
     def _clasificar(self, propuestos):
         nombres = [p.service_domain for p in propuestos]
         return clasificar_service_domains(
-            propuestos, self.catalogo, UmbralesMapeo(),
+            propuestos,
+            self.catalogo,
+            UmbralesMapeo(),
             operaciones_por_sd={n: (self.ops.operaciones_de(n) or []) for n in nombres},
             evidencias_por_sd=self.ops.asegurar(nombres),
             esquemas_por_sd={n: self.ops.esquemas_de(n) for n in nombres},
         )
 
     def test_tres_owned_seleccionados_y_fraude_rechazado(self):
-        g = self._clasificar([
-            _prop("Issued Device Administration", "OWNED_CONTRACT", 3, 3),
-            _prop("Party Authentication", "OWNED_CONTRACT", 3, 3),
-            _prop("Transaction Authorization", "OWNED_CONTRACT", 3, 3),
-            _prop("Fraud Evaluation", "CONSUMED_DEPENDENCY", 1, 0, dep="RISK_INPUT"),
-        ])
+        g = self._clasificar(
+            [
+                _prop("Issued Device Administration", "OWNED_CONTRACT", 3, 3),
+                _prop("Party Authentication", "OWNED_CONTRACT", 3, 3),
+                _prop("Transaction Authorization", "OWNED_CONTRACT", 3, 3),
+                _prop("Fraud Evaluation", "CONSUMED_DEPENDENCY", 1, 0, dep="RISK_INPUT"),
+            ]
+        )
 
         directos = {a.service_domain for a in g.candidatos_directos}
         self.assertEqual(
@@ -72,7 +81,9 @@ class TestSmartTokenRegresion(unittest.TestCase):
             self.assertTrue(a.evidencia_bian.content_sha256)
 
         fraude = next(
-            a for grp in (g.candidatos_tentativos, g.candidatos_descartados) for a in grp
+            a
+            for grp in (g.candidatos_tentativos, g.candidatos_descartados)
+            for a in grp
             if a.service_domain == "Fraud Evaluation"
         )
         self.assertEqual(fraude.decision_contractual, "REJECTED")

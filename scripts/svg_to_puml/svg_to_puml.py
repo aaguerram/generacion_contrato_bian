@@ -17,9 +17,8 @@ import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
 
-BBox = Tuple[float, float, float, float]
+BBox = tuple[float, float, float, float]
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SVG_DIR = REPO_ROOT / "docs" / "bian-diagrams" / "svg_bom"
@@ -64,10 +63,10 @@ class ExtractionReport:
     classes: int = 0
     annotated_classes: int = 0
     tag_lines: int = 0
-    unmatched_notes: List[str] = field(default_factory=list)
-    unclassified_notes: List[str] = field(default_factory=list)
-    unclassified_diagram_boxes: List[str] = field(default_factory=list)
-    proximity_matches: List[str] = field(default_factory=list)
+    unmatched_notes: list[str] = field(default_factory=list)
+    unclassified_notes: list[str] = field(default_factory=list)
+    unclassified_diagram_boxes: list[str] = field(default_factory=list)
+    proximity_matches: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return self.__dict__
@@ -77,12 +76,13 @@ class ExtractionReport:
 # SVG parsing
 # --------------------------------------------------------------------------
 
-def _pts_from_path_d(d: str) -> List[Tuple[float, float]]:
+
+def _pts_from_path_d(d: str) -> list[tuple[float, float]]:
     nums = re.findall(r"(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)", d)
     return [(float(a), float(b)) for a, b in nums]
 
 
-def _bbox_from_points(pts: List[Tuple[float, float]]) -> BBox:
+def _bbox_from_points(pts: list[tuple[float, float]]) -> BBox:
     xs = [p[0] for p in pts]
     ys = [p[1] for p in pts]
     return (min(xs), min(ys), max(xs), max(ys))
@@ -92,7 +92,11 @@ def _clean_label(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def parse_svg(svg_text: str) -> Tuple[Dict[str, SvgNode], Dict[str, SvgNode], Dict[str, SvgNode], Dict[str, List[Tuple[float, float]]]]:
+def parse_svg(
+    svg_text: str,
+) -> tuple[
+    dict[str, SvgNode], dict[str, SvgNode], dict[str, SvgNode], dict[str, list[tuple[float, float]]]
+]:
     """Returns (classes, notes, diagram_boxes, edges), all keyed by bizzid."""
 
     # A label block is always <g bizzid="label{id}"><g font-family=...>
@@ -105,13 +109,13 @@ def parse_svg(svg_text: str) -> Tuple[Dict[str, SvgNode], Dict[str, SvgNode], Di
     label_block_re = re.compile(
         r'<g bizzid="label(\d+)"[^>]*>\s*<g[^>]*>((?:\s*<text[^>]*>[^<]*</text>\s*)+)</g>\s*</g>'
     )
-    labels: Dict[str, str] = {}
+    labels: dict[str, str] = {}
     for m in label_block_re.finditer(svg_text):
         bizzid, block = m.groups()
         texts = re.findall(r"<text[^>]*>([^<]*)</text>", block)
         labels[bizzid] = _clean_label("".join(texts))
 
-    classes: Dict[str, SvgNode] = {}
+    classes: dict[str, SvgNode] = {}
     class_re = re.compile(
         r'<g bizzid="(\d+)" bizzsemantic="[^"]*" bizzconcept="UML_Class" bizztype="node" bizzsymbol="rectangle">\s*'
         r'<g>\s*<g class="object\1">\s*<rect x="(-?[\d.]+)" y="(-?[\d.]+)" width="(-?[\d.]+)" height="(-?[\d.]+)"'
@@ -121,16 +125,18 @@ def parse_svg(svg_text: str) -> Tuple[Dict[str, SvgNode], Dict[str, SvgNode], Di
         x, y, w, h = float(x), float(y), float(w), float(h)
         classes[bizzid] = SvgNode(bizzid, labels.get(bizzid, "?"), (x, y, x + w, y + h))
 
-    notes: Dict[str, SvgNode] = {}
+    notes: dict[str, SvgNode] = {}
     dogear_re = re.compile(
         r'<g bizzid="(\d+)" bizzsemantic="\1" bizzconcept="ViewGraphic" bizztype="node" bizzsymbol="dogear">\s*'
         r'<g class="object\1">\s*<path[^>]*d="([^"]+)"'
     )
     for m in dogear_re.finditer(svg_text):
         bizzid, d = m.groups()
-        notes[bizzid] = SvgNode(bizzid, labels.get(bizzid, "?"), _bbox_from_points(_pts_from_path_d(d)))
+        notes[bizzid] = SvgNode(
+            bizzid, labels.get(bizzid, "?"), _bbox_from_points(_pts_from_path_d(d))
+        )
 
-    diagram_boxes: Dict[str, SvgNode] = {}
+    diagram_boxes: dict[str, SvgNode] = {}
     diag_re = re.compile(
         r'<g bizzid="(\d+)" bizzsemantic="[^"]*" bizzconcept="UML_ClassDiagram" bizztype="node" bizzsymbol="rectangle">\s*'
         r'<g class="object\1">\s*<rect x="(-?[\d.]+)" y="(-?[\d.]+)" width="(-?[\d.]+)" height="(-?[\d.]+)"'
@@ -140,7 +146,7 @@ def parse_svg(svg_text: str) -> Tuple[Dict[str, SvgNode], Dict[str, SvgNode], Di
         x, y, w, h = float(x), float(y), float(w), float(h)
         diagram_boxes[bizzid] = SvgNode(bizzid, labels.get(bizzid, "?"), (x, y, x + w, y + h))
 
-    edges: Dict[str, List[Tuple[float, float]]] = {}
+    edges: dict[str, list[tuple[float, float]]] = {}
     edge_re = re.compile(
         r'<g bizzid="(\d+)" bizzconcept="ViewEdge" bizztype="relation" bizzsymbol="link">\s*'
         r'<g>\s*<g class="object\1">\s*<path[^>]*d="([^"]+)"'
@@ -152,7 +158,7 @@ def parse_svg(svg_text: str) -> Tuple[Dict[str, SvgNode], Dict[str, SvgNode], Di
     return classes, notes, diagram_boxes, edges
 
 
-def parse_class_styles(svg_text: str) -> Dict[str, Tuple[Optional[str], Optional[str]]]:
+def parse_class_styles(svg_text: str) -> dict[str, tuple[str | None, str | None]]:
     """Returns bizzid -> (fill, stroke) parsed from the <style>.object{id}{...}
     CSS rules. Only fill/stroke are read; other properties (stroke-width,
     dasharray, fill-opacity) don't matter for the extend/no-extend distinction.
@@ -162,7 +168,7 @@ def parse_class_styles(svg_text: str) -> Dict[str, Tuple[Optional[str], Optional
     fill_re = re.compile(r"fill:\s*(#[0-9a-fA-F]{6})")
     stroke_re = re.compile(r"stroke:\s*(#[0-9a-fA-F]{6})")
 
-    styles: Dict[str, Tuple[Optional[str], Optional[str]]] = {}
+    styles: dict[str, tuple[str | None, str | None]] = {}
     for m in style_re.finditer(svg_text):
         bizzid, body = m.groups()
         fill_m = fill_re.search(body)
@@ -175,14 +181,14 @@ def parse_class_styles(svg_text: str) -> Dict[str, Tuple[Optional[str], Optional
 
 
 def classify_class_styles(
-    classes: Dict[str, SvgNode], styles: Dict[str, Tuple[Optional[str], Optional[str]]]
-) -> Dict[str, List[Tuple[str, str]]]:
+    classes: dict[str, SvgNode], styles: dict[str, tuple[str | None, str | None]]
+) -> dict[str, list[tuple[str, str]]]:
     """Returns class_bizzid -> [("Extensible", "yes"/"no")], only for classes
     whose border marks them as extensible or sealed; plain classes get
     nothing (that distinction doesn't apply to them).
     """
 
-    result: Dict[str, List[Tuple[str, str]]] = {}
+    result: dict[str, list[tuple[str, str]]] = {}
     for bizzid in classes:
         style = styles.get(bizzid)
         if style == EXTENSIBLE_STYLE:
@@ -196,13 +202,16 @@ def classify_class_styles(
 # Geometry helpers
 # --------------------------------------------------------------------------
 
-def _point_near_bbox(pt: Tuple[float, float], bbox: BBox, tol: float = 15.0) -> bool:
+
+def _point_near_bbox(pt: tuple[float, float], bbox: BBox, tol: float = 15.0) -> bool:
     x, y = pt
     x0, y0, x1, y1 = bbox
     return (x0 - tol) <= x <= (x1 + tol) and (y0 - tol) <= y <= (y1 + tol)
 
 
-def _closest_class(pt: Tuple[float, float], classes: Dict[str, SvgNode]) -> Tuple[Optional[str], float]:
+def _closest_class(
+    pt: tuple[float, float], classes: dict[str, SvgNode]
+) -> tuple[str | None, float]:
     best, best_d = None, None
     for bizzid, node in classes.items():
         x0, y0, x1, y1 = node.bbox
@@ -226,7 +235,7 @@ NOTE_KIND_PATTERNS = [
 ]
 
 
-def classify_note(label: str) -> Optional[Tuple[str, str]]:
+def classify_note(label: str) -> tuple[str, str] | None:
     for kind, pattern in NOTE_KIND_PATTERNS:
         m = pattern.match(label)
         if m:
@@ -235,14 +244,14 @@ def classify_note(label: str) -> Optional[Tuple[str, str]]:
 
 
 def match_notes_to_classes(
-    notes: Dict[str, SvgNode],
-    classes: Dict[str, SvgNode],
-    edges: Dict[str, List[Tuple[float, float]]],
+    notes: dict[str, SvgNode],
+    classes: dict[str, SvgNode],
+    edges: dict[str, list[tuple[float, float]]],
     report: ExtractionReport,
-) -> Dict[str, List[Tuple[str, str]]]:
+) -> dict[str, list[tuple[str, str]]]:
     """Returns class_bizzid -> list[(kind, value)]."""
 
-    result: Dict[str, List[Tuple[str, str]]] = {}
+    result: dict[str, list[tuple[str, str]]] = {}
     for note_id, note in notes.items():
         classified = classify_note(note.label)
         if classified is None:
@@ -273,11 +282,11 @@ def match_notes_to_classes(
 
 
 def match_diagram_boxes_to_classes(
-    diagram_boxes: Dict[str, SvgNode],
-    classes: Dict[str, SvgNode],
+    diagram_boxes: dict[str, SvgNode],
+    classes: dict[str, SvgNode],
     report: ExtractionReport,
-) -> Dict[str, List[Tuple[str, str]]]:
-    result: Dict[str, List[Tuple[str, str]]] = {}
+) -> dict[str, list[tuple[str, str]]]:
+    result: dict[str, list[tuple[str, str]]] = {}
     name_lookup = {node.label.strip().lower(): bizzid for bizzid, node in classes.items()}
 
     for box_id, box in diagram_boxes.items():
@@ -311,19 +320,27 @@ def match_diagram_boxes_to_classes(
     return result
 
 
-def merge_tags(*maps: Dict[str, List[Tuple[str, str]]]) -> Dict[str, List[Tuple[str, str]]]:
-    merged: Dict[str, List[Tuple[str, str]]] = {}
+def merge_tags(*maps: dict[str, list[tuple[str, str]]]) -> dict[str, list[tuple[str, str]]]:
+    merged: dict[str, list[tuple[str, str]]] = {}
     for m in maps:
         for class_id, tags in m.items():
             merged.setdefault(class_id, []).extend(tags)
     return merged
 
 
-KIND_ORDER = ["Extensible", "BQ", "AssetType", "ControlRecord", "GenericArtifact", "HelperDiagram", "BOMDiagram"]
+KIND_ORDER = [
+    "Extensible",
+    "BQ",
+    "AssetType",
+    "ControlRecord",
+    "GenericArtifact",
+    "HelperDiagram",
+    "BOMDiagram",
+]
 
 
-def render_tag_lines(tags: List[Tuple[str, str]]) -> List[str]:
-    def sort_key(t: Tuple[str, str]) -> Tuple[int, str]:
+def render_tag_lines(tags: list[tuple[str, str]]) -> list[str]:
+    def sort_key(t: tuple[str, str]) -> tuple[int, str]:
         kind, value = t
         return (KIND_ORDER.index(kind) if kind in KIND_ORDER else len(KIND_ORDER), value)
 
@@ -349,10 +366,10 @@ def ensure_legend(puml_text: str) -> str:
     return puml_text.replace(marker, LEGEND + marker, 1)
 
 
-def inject_notes(puml_text: str, class_tags: Dict[str, List[str]]) -> str:
+def inject_notes(puml_text: str, class_tags: dict[str, list[str]]) -> str:
     """class_tags is keyed by the PUML alias, e.g. 'N199916'."""
 
-    out: List[str] = []
+    out: list[str] = []
     cursor = 0
     for m in CLASS_DECL_RE.finditer(puml_text):
         alias = m.group(1)
@@ -381,7 +398,8 @@ def inject_notes(puml_text: str, class_tags: Dict[str, List[str]]) -> str:
 # Orchestration
 # --------------------------------------------------------------------------
 
-def process_pair(svg_path: Path, puml_path: Path) -> Tuple[str, ExtractionReport]:
+
+def process_pair(svg_path: Path, puml_path: Path) -> tuple[str, ExtractionReport]:
     svg_text = svg_path.read_text(encoding="utf-8")
     puml_text = puml_path.read_text(encoding="utf-8")
 
@@ -411,7 +429,7 @@ def process_pair(svg_path: Path, puml_path: Path) -> Tuple[str, ExtractionReport
     return new_puml, report
 
 
-def find_pairs(svg_dir: Path, puml_dir: Path, only: Optional[str]) -> List[Tuple[Path, Path]]:
+def find_pairs(svg_dir: Path, puml_dir: Path, only: str | None) -> list[tuple[Path, Path]]:
     pairs = []
     for svg_path in sorted(svg_dir.glob("*.svg")):
         stem = svg_path.stem
@@ -432,9 +450,16 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--svg-dir", type=Path, default=DEFAULT_SVG_DIR)
     parser.add_argument("--puml-dir", type=Path, default=DEFAULT_PUML_DIR)
-    parser.add_argument("--only", help="Procesar solo el par cuyo nombre base (sin extension) coincida, p.ej. party-reference-data-directory")
-    parser.add_argument("--dry-run", action="store_true", help="No escribe cambios; solo reporta lo que haria")
-    parser.add_argument("--report", type=Path, help="Ruta opcional para volcar un resumen JSON de la corrida")
+    parser.add_argument(
+        "--only",
+        help="Procesar solo el par cuyo nombre base (sin extension) coincida, p.ej. party-reference-data-directory",
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true", help="No escribe cambios; solo reporta lo que haria"
+    )
+    parser.add_argument(
+        "--report", type=Path, help="Ruta opcional para volcar un resumen JSON de la corrida"
+    )
     args = parser.parse_args()
 
     pairs = find_pairs(args.svg_dir, args.puml_dir, args.only)
@@ -455,9 +480,13 @@ def main() -> int:
         if report.unmatched_notes:
             print(f"    notas sin clase asociada: {report.unmatched_notes}")
         if report.unclassified_notes:
-            print(f"    notas con texto no reconocido (BQ/AssetType/ControlRecord/GenericArtifact): {report.unclassified_notes}")
+            print(
+                f"    notas con texto no reconocido (BQ/AssetType/ControlRecord/GenericArtifact): {report.unclassified_notes}"
+            )
         if report.unclassified_diagram_boxes:
-            print(f"    recuadros de diagrama sin patron Helper/BOM: {report.unclassified_diagram_boxes}")
+            print(
+                f"    recuadros de diagrama sin patron Helper/BOM: {report.unclassified_diagram_boxes}"
+            )
         if report.proximity_matches:
             print(f"    asociados por cercania geometrica (revisar): {report.proximity_matches}")
 
@@ -465,7 +494,9 @@ def main() -> int:
             puml_path.write_text(new_puml, encoding="utf-8")
 
     if args.report:
-        args.report.write_text(json.dumps(all_reports, indent=2, ensure_ascii=False), encoding="utf-8")
+        args.report.write_text(
+            json.dumps(all_reports, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
         print(f"Reporte JSON escrito en {args.report}")
 
     return 0

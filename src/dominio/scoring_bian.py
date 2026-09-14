@@ -11,22 +11,69 @@ from __future__ import annotations
 import re
 import unicodedata
 
-from src.dominio.historias import DesgloseScore, EvidenciaBian, OperacionBian, ServiceDomainPropuestoLLM
+from src.dominio.historias import (
+    DesgloseScore,
+    EvidenciaBian,
+    OperacionBian,
+    ServiceDomainPropuestoLLM,
+)
 from src.dominio.modelos import EntradaCatalogo
 
 _EQUIVALENCIAS = {
-    "autorizar": "authorization", "autoriza": "authorization", "autorizacion": "authorization",
-    "transaccion": "transaction", "transacciones": "transaction", "evaluar": "evaluate",
-    "evaluacion": "evaluate", "actualizar": "update", "consultar": "retrieve", "recuperar": "retrieve",
-    "ejecutar": "execute", "solicitar": "request", "conceder": "grant", "cliente": "customer",
-    "cuenta": "account", "pago": "payment", "dispositivo": "device", "token": "token",
-    "autenticar": "authentication", "autenticacion": "authentication", "activar": "activate",
-    "activacion": "activate", "enrolar": "enroll", "enrolamiento": "enroll", "permiso": "entitlement",
-    "permisos": "entitlement", "sesion": "session", "notificar": "notify", "notificacion": "notify",
-    "auditoria": "audit", "fraude": "fraud", "riesgo": "risk", "factor": "factor",
+    "autorizar": "authorization",
+    "autoriza": "authorization",
+    "autorizacion": "authorization",
+    "transaccion": "transaction",
+    "transacciones": "transaction",
+    "evaluar": "evaluate",
+    "evaluacion": "evaluate",
+    "actualizar": "update",
+    "consultar": "retrieve",
+    "recuperar": "retrieve",
+    "ejecutar": "execute",
+    "solicitar": "request",
+    "conceder": "grant",
+    "cliente": "customer",
+    "cuenta": "account",
+    "pago": "payment",
+    "dispositivo": "device",
+    "token": "token",
+    "autenticar": "authentication",
+    "autenticacion": "authentication",
+    "activar": "activate",
+    "activacion": "activate",
+    "enrolar": "enroll",
+    "enrolamiento": "enroll",
+    "permiso": "entitlement",
+    "permisos": "entitlement",
+    "sesion": "session",
+    "notificar": "notify",
+    "notificacion": "notify",
+    "auditoria": "audit",
+    "fraude": "fraud",
+    "riesgo": "risk",
+    "factor": "factor",
 }
-_STOP = {"una", "uno", "unos", "unas", "del", "las", "los", "para", "por", "con", "que", "and",
-         "the", "for", "from", "this", "that", "una", "sus", "the"}
+_STOP = {
+    "una",
+    "uno",
+    "unos",
+    "unas",
+    "del",
+    "las",
+    "los",
+    "para",
+    "por",
+    "con",
+    "que",
+    "and",
+    "the",
+    "for",
+    "from",
+    "this",
+    "that",
+    "sus",
+}
 
 
 def _split_camel(texto: str) -> str:
@@ -37,7 +84,11 @@ def _split_camel(texto: str) -> str:
 
 
 def _tokens(texto: str) -> set[str]:
-    plano = unicodedata.normalize("NFKD", _split_camel(texto).lower()).encode("ascii", "ignore").decode()
+    plano = (
+        unicodedata.normalize("NFKD", _split_camel(texto).lower())
+        .encode("ascii", "ignore")
+        .decode()
+    )
     return {
         _EQUIVALENCIAS.get(t, t)
         for t in re.findall(r"[a-z0-9]+", plano)
@@ -59,11 +110,15 @@ def calcular_score(
 ) -> tuple[DesgloseScore, list[str]]:
     rol = entrada.service_role or ""
     grupos_ops = " ".join(o.grupo for o in operaciones)
-    texto_ops = " ".join(f"{o.operation_id} {o.summary} {o.description} {o.grupo}" for o in operaciones)
+    texto_ops = " ".join(
+        f"{o.operation_id} {o.summary} {o.description} {o.grupo}" for o in operaciones
+    )
     texto_bom = " ".join(objetos_bom)
 
     # 30% correspondencia con la ACCION oficial (Service Role + operationId/summary/description/grupo)
-    accion_lexico = max(_sim(propuesta.accion_objeto, rol), _sim(propuesta.accion_objeto, texto_ops))
+    accion_lexico = max(
+        _sim(propuesta.accion_objeto, rol), _sim(propuesta.accion_objeto, texto_ops)
+    )
     accion = max(accion_lexico, propuesta.match_service_role / 3.0, propuesta.match_action / 3.0)
 
     # 25% correspondencia con el OBJETO / schema BOM (grupos CR/BQ + nombres de schema + Service Role)
@@ -76,8 +131,10 @@ def calcular_score(
 
     # 20% ownership / outcome
     ownership = (
-        1.0 if propuesta.rol_contractual == "OWNED_CONTRACT"
-        else 0.55 if propuesta.rol_contractual == "CONSUMED_DEPENDENCY"
+        1.0
+        if propuesta.rol_contractual == "OWNED_CONTRACT"
+        else 0.55
+        if propuesta.rol_contractual == "CONSUMED_DEPENDENCY"
         else 0.2
     )
 
@@ -91,14 +148,18 @@ def calcular_score(
     verificada = evidencia.estado in ("VERIFIED", "CACHED_VERIFIED")
     penalizacion, bonificacion, observaciones = 0.0, 0.0, []
     if verificada:
-        bonificacion += 0.05  # premia tener evidencia BOM oficial verificable (simétrico a la penalización)
+        bonificacion += (
+            0.05  # premia tener evidencia BOM oficial verificable (simétrico a la penalización)
+        )
     if evidencia.estado == "BIAN_EVIDENCE_UNAVAILABLE":
         penalizacion += 0.20
         observaciones.append("No existe evidencia BOM oficial verificable; decision sin resolver.")
     # calidad de la evidencia (rúbrica 0-3 del evaluador; 0 = no puntuada -> neutral)
     if propuesta.evidence_quality == 1 and verificada:
         penalizacion += 0.04
-        observaciones.append("Evidencia oficial disponible pero poco concluyente (evidence_quality=1).")
+        observaciones.append(
+            "Evidencia oficial disponible pero poco concluyente (evidence_quality=1)."
+        )
     if propuesta.evidence_quality >= 3 and verificada:
         bonificacion += 0.03
     # ambigüedad residual de la evaluación aislada del candidato
@@ -109,15 +170,32 @@ def calcular_score(
         penalizacion += 0.04
     if propuesta.rol_contractual != "OWNED_CONTRACT":
         penalizacion += 0.08
-    if propuesta.rol_contractual == "OWNED_CONTRACT" and operaciones and accion < 0.08 and objeto < 0.08:
+    if (
+        propuesta.rol_contractual == "OWNED_CONTRACT"
+        and operaciones
+        and accion < 0.08
+        and objeto < 0.08
+    ):
         penalizacion += 0.18
-        observaciones.append("OWNED_CONTRACT sin correspondencia suficiente accion/objeto-operacion oficial.")
+        observaciones.append(
+            "OWNED_CONTRACT sin correspondencia suficiente accion/objeto-operacion oficial."
+        )
     if propuesta.rol_contractual != "OWNED_CONTRACT" and max(accion, objeto) >= 0.35:
         observaciones.append("Revisar ownership: correspondencia fuerte con catalogo oficial.")
 
-    total = max(0.0, min(1.0,
-        0.30 * accion + 0.25 * objeto + 0.20 * ownership + 0.15 * traza + 0.10 * jerarquia
-        + bonificacion - penalizacion))
+    total = max(
+        0.0,
+        min(
+            1.0,
+            0.30 * accion
+            + 0.25 * objeto
+            + 0.20 * ownership
+            + 0.15 * traza
+            + 0.10 * jerarquia
+            + bonificacion
+            - penalizacion,
+        ),
+    )
 
     desglose = DesgloseScore(
         accion_oficial=round(accion, 4),

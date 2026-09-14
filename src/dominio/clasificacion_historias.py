@@ -55,8 +55,7 @@ from src.dominio.historias import (
 )
 from src.dominio.modelos import EntradaCatalogo
 from src.dominio.normalizacion import normalizar
-from src.dominio.scoring_bian import _sim
-from src.dominio.scoring_bian import calcular_score
+from src.dominio.scoring_bian import _sim, calcular_score
 
 _EPS = 0.001  # margen para dejar un SD topado justo por debajo del umbral directo
 
@@ -91,9 +90,7 @@ def resolver_nombre_sd(
     if exacto is not None:
         return exacto, "MATCH"
     contiene = [
-        entrada
-        for k, entrada in indice.items()
-        if len(clave) >= 4 and (clave in k or k in clave)
+        entrada for k, entrada in indice.items() if len(clave) >= 4 and (clave in k or k in clave)
     ]
     if len(contiene) == 1:
         return contiene[0], "MATCH"
@@ -114,7 +111,11 @@ def _decidir(
     if not es_owned:
         # una dependencia consumida / relación temática NUNCA genera contrato: contractualmente
         # es REJECTED. El grupo/score sigue reflejando lo requerida que está la dependencia.
-        motivo = "CONSUMED_DEPENDENCY" if rol_contractual == "CONSUMED_DEPENDENCY" else "RELATED_NOT_OWNED"
+        motivo = (
+            "CONSUMED_DEPENDENCY"
+            if rol_contractual == "CONSUMED_DEPENDENCY"
+            else "RELATED_NOT_OWNED"
+        )
         return "REJECTED", motivo
 
     if grupo == "descartado":
@@ -211,8 +212,12 @@ def clasificar_service_domains(
                 motivo_decision=motivo,  # type: ignore[arg-type]
                 ambiguity=p.ambiguity,
                 observaciones_adversariales=observaciones,
-                ownership_traceability=[s.strip() for s in p.ownership_traceability if s and s.strip()],
-                dependency_traceability=[s.strip() for s in p.dependency_traceability if s and s.strip()],
+                ownership_traceability=[
+                    s.strip() for s in p.ownership_traceability if s and s.strip()
+                ],
+                dependency_traceability=[
+                    s.strip() for s in p.dependency_traceability if s and s.strip()
+                ],
                 evidence_refs=[s.strip() for s in p.evidence_refs if s and s.strip()],
                 reason_codes=list(dict.fromkeys(p.reason_codes)),
                 assumptions=list(p.assumptions),
@@ -227,7 +232,9 @@ def clasificar_service_domains(
     return ServiceDomainsDeHistoria(
         candidatos_directos=sorted((a for a in asignados if a.grupo == "directo"), key=_orden),
         candidatos_tentativos=sorted((a for a in asignados if a.grupo == "tentativo"), key=_orden),
-        candidatos_descartados=sorted((a for a in asignados if a.grupo == "descartado"), key=_orden),
+        candidatos_descartados=sorted(
+            (a for a in asignados if a.grupo == "descartado"), key=_orden
+        ),
     )
 
 
@@ -290,7 +297,11 @@ def determinar_promociones(
 
     todos = {
         normalizar(a.service_domain): a
-        for a in (*grupos.candidatos_directos, *grupos.candidatos_tentativos, *grupos.candidatos_descartados)
+        for a in (
+            *grupos.candidatos_directos,
+            *grupos.candidatos_tentativos,
+            *grupos.candidatos_descartados,
+        )
     }
 
     promovidos: set[str] = set()
@@ -325,12 +336,16 @@ def propuestos_promovidos(
         p = salida.get(clave)
         if p is None:
             continue
-        salida[clave] = p.model_copy(update={
-            "rol_contractual": "OWNED_CONTRACT",
-            "dependency_kind": None,
-            "ownership_traceability": list(dict.fromkeys([*p.ownership_traceability, *p.dependency_traceability])),
-            "dependency_traceability": [],
-        })
+        salida[clave] = p.model_copy(
+            update={
+                "rol_contractual": "OWNED_CONTRACT",
+                "dependency_kind": None,
+                "ownership_traceability": list(
+                    dict.fromkeys([*p.ownership_traceability, *p.dependency_traceability])
+                ),
+                "dependency_traceability": [],
+            }
+        )
     return salida
 
 
@@ -378,7 +393,11 @@ def determinar_degradaciones(
 
     todos = {
         normalizar(a.service_domain): a
-        for a in (*grupos.candidatos_directos, *grupos.candidatos_tentativos, *grupos.candidatos_descartados)
+        for a in (
+            *grupos.candidatos_directos,
+            *grupos.candidatos_tentativos,
+            *grupos.candidatos_descartados,
+        )
     }
 
     degradados: set[str] = set()
@@ -412,12 +431,16 @@ def propuestos_degradados(
         p = salida.get(clave)
         if p is None:
             continue
-        salida[clave] = p.model_copy(update={
-            "rol_contractual": "CONSUMED_DEPENDENCY",
-            "dependency_kind": "SUPPORTING_LOOKUP",
-            "dependency_traceability": list(dict.fromkeys([*p.dependency_traceability, *p.ownership_traceability])),
-            "ownership_traceability": [],
-        })
+        salida[clave] = p.model_copy(
+            update={
+                "rol_contractual": "CONSUMED_DEPENDENCY",
+                "dependency_kind": "SUPPORTING_LOOKUP",
+                "dependency_traceability": list(
+                    dict.fromkeys([*p.dependency_traceability, *p.ownership_traceability])
+                ),
+                "ownership_traceability": [],
+            }
+        )
     return salida
 
 
@@ -431,7 +454,8 @@ def candidatos_operacion_elegibles(grupos: ServiceDomainsDeHistoria) -> list[Ser
     `CONSUMED_DEPENDENCY`/`RELATED_NOT_OWNED`: eso seguiría mezclando "operación referenciada" con
     "operación contratada", que es exactamente lo que este desacople evita."""
     return [
-        a for a in (*grupos.candidatos_directos, *grupos.candidatos_tentativos)
+        a
+        for a in (*grupos.candidatos_directos, *grupos.candidatos_tentativos)
         if a.rol_contractual == "OWNED_CONTRACT"
     ]
 
@@ -486,7 +510,9 @@ def finalizar_por_operacion_solida(
             a.rol_contractual == "OWNED_CONTRACT"
             and a.evidencia_bian.estado in ("VERIFIED", "CACHED_VERIFIED")
             and a.desglose_score.objeto_bom >= objeto_bom_minimo
-            and any("OPERATION_EVIDENCE_UNVERIFIED" not in o.reason_codes for o in a.operaciones_bian)
+            and any(
+                "OPERATION_EVIDENCE_UNVERIFIED" not in o.reason_codes for o in a.operaciones_bian
+            )
         ):
             a.reason_codes = list(dict.fromkeys([*a.reason_codes, OPERATION_FINALIZED_REASON_CODE]))
             _finalizar_como_directo(a, directos, tentativos, descartados)
@@ -543,9 +569,14 @@ def aplicar_hallazgos_adversariales(
     bloqueos_hu: list[str] = []
 
     for h in revision.hallazgos:
-        codigos = list(dict.fromkeys([*h.reason_codes, *(
-            [_DEGRADA_SELECTED[h.tipo]] if h.tipo in _DEGRADA_SELECTED else []
-        )]))
+        codigos = list(
+            dict.fromkeys(
+                [
+                    *h.reason_codes,
+                    *([_DEGRADA_SELECTED[h.tipo]] if h.tipo in _DEGRADA_SELECTED else []),
+                ]
+            )
+        )
         if h.tipo in ("CANDIDATO_OMITIDO", "OBJETO_SIN_PROPIETARIO", "EXCESO_DE_CONTRATOS"):
             bloqueos_hu.extend(codigos or [h.tipo])
         objetivo = por_sd.get(normalizar(h.service_domain)) if h.service_domain else None
@@ -554,7 +585,8 @@ def aplicar_hallazgos_adversariales(
         objetivo.reason_codes = list(dict.fromkeys([*objetivo.reason_codes, *codigos]))
         if h.detalle:
             objetivo.observaciones_adversariales = [
-                *objetivo.observaciones_adversariales, f"[adversarial] {h.detalle}"
+                *objetivo.observaciones_adversariales,
+                f"[adversarial] {h.detalle}",
             ]
         if h.tipo in _DEGRADA_SELECTED and objetivo.decision_contractual == "SELECTED":
             objetivo.decision_contractual = "UNRESOLVED"

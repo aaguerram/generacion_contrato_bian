@@ -6,7 +6,6 @@ Nodo 1 del pipeline: valida si el Service Domain existe en SD.json (exacto -> RA
 from __future__ import annotations
 
 import argparse
-import json
 import logging
 import sys
 from pathlib import Path
@@ -32,7 +31,9 @@ def _parse(argv: list[str] | None) -> argparse.Namespace:
         prog="validar-sd",
         description="Valida si un BIAN Service Domain existe en SD.json (LangGraph + RAG + LLM).",
     )
-    p.add_argument("--service-domain", "--sd", required=True, help="Nombre del Service Domain a validar.")
+    p.add_argument(
+        "--service-domain", "--sd", required=True, help="Nombre del Service Domain a validar."
+    )
     p.add_argument(
         "--directorio",
         "--dir",
@@ -46,7 +47,12 @@ def _parse(argv: list[str] | None) -> argparse.Namespace:
         help=f"Fuerza un único proveedor LLM ({', '.join(estrategias_disponibles())}); "
         "por defecto usa el failover de routing.llm_priority en config.yaml.",
     )
-    p.add_argument("--config", default=None, type=Path, help="Ruta a config.yaml (por defecto: raíz del paquete).")
+    p.add_argument(
+        "--config",
+        default=None,
+        type=Path,
+        help="Ruta a config.yaml (por defecto: raíz del paquete).",
+    )
     p.add_argument("--esfuerzo", default=None, choices=["low", "medium", "high"])
     p.add_argument("-v", "--verbose", action="store_true")
     return p.parse_args(argv)
@@ -67,7 +73,9 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     ls = configurar_langsmith(config)
-    print(f"LangSmith: {'activo — proyecto ' + config.observabilidad.langsmith_project if ls else 'inactivo'}")
+    print(
+        f"LangSmith: {'activo — proyecto ' + config.observabilidad.langsmith_project if ls else 'inactivo'}"
+    )
 
     try:
         caso_uso = crear_caso_uso(config, proveedor=args.proveedor)

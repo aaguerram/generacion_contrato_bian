@@ -15,17 +15,24 @@ class TestLeerHistorias(unittest.TestCase):
     def test_lee_txt_ordenado_y_deriva_titulo(self):
         with tempfile.TemporaryDirectory() as tmp:
             d = Path(tmp)
-            (d / "HU-Actualizar correo electrónico.txt").write_text("Como usuario...", encoding="utf-8")
-            (d / "HU 794525 Actualizar número celular.txt").write_text("Como usuario...", encoding="utf-8")
+            (d / "HU-Actualizar correo electrónico.txt").write_text(
+                "Como usuario...", encoding="utf-8"
+            )
+            (d / "HU 794525 Actualizar número celular.txt").write_text(
+                "Como usuario...", encoding="utf-8"
+            )
             (d / "notas.docx").write_text("ignorar", encoding="utf-8")
             (d / "vacia.txt").write_text("   ", encoding="utf-8")
 
             historias = LectorHistoriasFilesystem().leer_historias(str(d))
 
-        self.assertEqual([h.archivo for h in historias], [
-            "HU 794525 Actualizar número celular.txt",
-            "HU-Actualizar correo electrónico.txt",
-        ])
+        self.assertEqual(
+            [h.archivo for h in historias],
+            [
+                "HU 794525 Actualizar número celular.txt",
+                "HU-Actualizar correo electrónico.txt",
+            ],
+        )
         self.assertEqual(historias[0].titulo, "Actualizar número celular")
         self.assertEqual(historias[1].titulo, "Actualizar correo electrónico")
 
@@ -43,14 +50,14 @@ class TestLeerFuncionalidad(unittest.TestCase):
                 encoding="utf-8",
             )
             f = LectorHistoriasFilesystem().leer_funcionalidad(str(ruta))
-        self.assertEqual(f, FuncionalidadMacro(funcionalidad_macro="Datos personales", detalle="contexto"))
+        self.assertEqual(
+            f, FuncionalidadMacro(funcionalidad_macro="Datos personales", detalle="contexto")
+        )
 
     def test_alias(self):
         with tempfile.TemporaryDirectory() as tmp:
             ruta = Path(tmp) / "f.json"
-            ruta.write_text(
-                json.dumps({"nombre": "X", "descripcion": "Y"}), encoding="utf-8"
-            )
+            ruta.write_text(json.dumps({"nombre": "X", "descripcion": "Y"}), encoding="utf-8")
             f = LectorHistoriasFilesystem().leer_funcionalidad(str(ruta))
         self.assertEqual((f.funcionalidad_macro, f.detalle), ("X", "Y"))
 

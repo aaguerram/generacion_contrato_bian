@@ -22,7 +22,12 @@ from __future__ import annotations
 
 import unittest
 
-from e2e.shared.e2e_common import cargar_esperado, ejecutar_caso, requiere_e2e, verificar_candidatos_y_operaciones
+from e2e.shared.e2e_common import (
+    cargar_esperado,
+    ejecutar_caso,
+    requiere_e2e,
+    verificar_candidatos_y_operaciones,
+)
 
 _CARPETA = "datos_personales"
 

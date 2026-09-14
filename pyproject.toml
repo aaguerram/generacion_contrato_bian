@@ -31,3 +31,18 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 include = ["src*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [".venv", "docs", "salida", "graphify-out"]
+
+[tool.ruff.lint]
+# E501 (line-too-long) queda fuera a propósito: el formatter ya corta lo que puede,
+# y lo que no (URLs, strings de prompt) no debe ensuciar el diagnóstico del editor.
+select = ["E4", "E7", "E9", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.isort]
+# `unit_test`/`e2e` son los nombres con que se importan los tests entre sí
+# (unittest discover -s tests inserta `tests/` como top_level_dir).
+known-first-party = ["src", "tests", "unit_test", "e2e"]

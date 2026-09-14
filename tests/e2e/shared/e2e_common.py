@@ -54,7 +54,11 @@ from pathlib import Path
 
 from src.configuracion.contenedor import crear_caso_uso_mapeo
 from src.configuracion.settings import cargar_settings
-from src.dominio.historias import HistoriaConServiceDomains, ResultadoMapeoHistorias, ServiceDomainAsignado
+from src.dominio.historias import (
+    HistoriaConServiceDomains,
+    ResultadoMapeoHistorias,
+    ServiceDomainAsignado,
+)
 from src.dominio.normalizacion import normalizar
 
 RESOURCES = Path(__file__).resolve().parents[2] / "resources"
@@ -146,7 +150,8 @@ def verificar_candidatos_y_operaciones(
     esperadas_por_hu = {normalizar(h.archivo): h for h in esperado.historias}
     actuales_por_hu = {normalizar(h.archivo): h for h in resultado.historias}
     testcase.assertEqual(
-        set(actuales_por_hu), set(esperadas_por_hu),
+        set(actuales_por_hu),
+        set(esperadas_por_hu),
         "el conjunto de historias procesadas no coincide con el esperado",
     )
 

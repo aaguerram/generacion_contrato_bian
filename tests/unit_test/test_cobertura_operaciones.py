@@ -17,15 +17,18 @@ from src.dominio.cobertura_operaciones import (
     resolver_operation_id,
 )
 from src.dominio.historias import OperacionBian, OperacionPropuestaLLM
-
 from unit_test.support import DOCS
 
 _SD = "Party Reference Data Directory"
 
 
 def _cache() -> CatalogoBianCache:
-    return CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
-                              "14.0.0", permitir_descargas=False)
+    return CatalogoBianCache(
+        str(DOCS / "bian-operation-catalogs.json"),
+        str(DOCS / "bian-cache"),
+        "14.0.0",
+        permitir_descargas=False,
+    )
 
 
 def _operacion(operation_id: str, operaciones: list[OperacionBian]) -> OperacionBian:
@@ -86,7 +89,8 @@ class TestDerivarPathGrupo(unittest.TestCase):
     def test_reusa_el_prefijo_real_del_grupo(self):
         path = derivar_path_grupo("Reference", "Register", self.operaciones)
         self.assertEqual(
-            path, "/PartyReferenceDataDirectory/{partyreferencedatadirectoryid}/Reference/{referenceid}/Register"
+            path,
+            "/PartyReferenceDataDirectory/{partyreferencedatadirectoryid}/Reference/{referenceid}/Register",
         )
 
     def test_grupo_inexistente_devuelve_none(self):
@@ -113,8 +117,10 @@ class TestResolverOperationId(unittest.TestCase):
 
     def setUp(self):
         self.operaciones = CatalogoBianCache(
-            str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
-            "14.0.0", permitir_descargas=False,
+            str(DOCS / "bian-operation-catalogs.json"),
+            str(DOCS / "bian-cache"),
+            "14.0.0",
+            permitir_descargas=False,
         ).operaciones_de("Correspondence")
         self.assertTrue(self.operaciones, "fixture real de Correspondence debe existir")
 
@@ -155,8 +161,10 @@ class TestResolverOperationId(unittest.TestCase):
     def test_nunca_cruza_a_otro_service_domain(self):
         # un path real de OTRO SD no debe resolver contra el catálogo de Correspondence
         otras = CatalogoBianCache(
-            str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
-            "14.0.0", permitir_descargas=False,
+            str(DOCS / "bian-operation-catalogs.json"),
+            str(DOCS / "bian-cache"),
+            "14.0.0",
+            permitir_descargas=False,
         ).operaciones_de("Party Reference Data Directory")
         ajena = next(o for o in otras if o.operation_id == "RetrieveReference")
         self.assertIsNone(resolver_operation_id(f"{ajena.method} {ajena.path}", self.operaciones))
@@ -170,29 +178,45 @@ class TestFusionarPropuestasDeOperacion(unittest.TestCase):
 
     def _propuesta(self, **overrides) -> OperacionPropuestaLLM:
         base = dict(
-            service_domain="Correspondence", operation_id="InitiateOutbound",
-            escenarios_hu=["SC-01"], justificacion="Envia notificacion",
-            action_term="Notificar", business_object="Correspondence",
-            bq_seed="el sistema envie una notificacion", traceability=["HU-Notificar"],
+            service_domain="Correspondence",
+            operation_id="InitiateOutbound",
+            escenarios_hu=["SC-01"],
+            justificacion="Envia notificacion",
+            action_term="Notificar",
+            business_object="Correspondence",
+            bq_seed="el sistema envie una notificacion",
+            traceability=["HU-Notificar"],
             evidence_refs=["CorrespondenceAddressee"],
         )
         base.update(overrides)
         return OperacionPropuestaLLM(**base)
 
     def test_fusiona_escenarios_traceability_y_evidence_refs_sin_duplicar(self):
-        p1 = self._propuesta(escenarios_hu=["SC-01"], justificacion="Notifica al contacto anterior",
-                              bq_seed="notificar al contacto anterior", traceability=["HU-Notificar", "SC-01"],
-                              evidence_refs=["CorrespondenceAddressee"])
-        p2 = self._propuesta(escenarios_hu=["SC-02"], justificacion="Notifica al contacto nuevo",
-                              bq_seed="notificar al contacto nuevo", traceability=["HU-Notificar", "SC-02"],
-                              evidence_refs=["CorrespondenceAddressee", "CorrespondenceContent"])
+        p1 = self._propuesta(
+            escenarios_hu=["SC-01"],
+            justificacion="Notifica al contacto anterior",
+            bq_seed="notificar al contacto anterior",
+            traceability=["HU-Notificar", "SC-01"],
+            evidence_refs=["CorrespondenceAddressee"],
+        )
+        p2 = self._propuesta(
+            escenarios_hu=["SC-02"],
+            justificacion="Notifica al contacto nuevo",
+            bq_seed="notificar al contacto nuevo",
+            traceability=["HU-Notificar", "SC-02"],
+            evidence_refs=["CorrespondenceAddressee", "CorrespondenceContent"],
+        )
         fusion = fusionar_propuestas_de_operacion([p1, p2])
 
         self.assertEqual(fusion.service_domain, "Correspondence")
         self.assertEqual(fusion.operation_id, "InitiateOutbound")
         self.assertEqual(fusion.escenarios_hu, ["SC-01", "SC-02"])
-        self.assertEqual(fusion.justificacion, "Notifica al contacto anterior; Notifica al contacto nuevo")
-        self.assertEqual(fusion.bq_seed, "notificar al contacto anterior; notificar al contacto nuevo")
+        self.assertEqual(
+            fusion.justificacion, "Notifica al contacto anterior; Notifica al contacto nuevo"
+        )
+        self.assertEqual(
+            fusion.bq_seed, "notificar al contacto anterior; notificar al contacto nuevo"
+        )
         # "HU-Notificar" aparece en ambas -> no se duplica
         self.assertEqual(fusion.traceability, ["HU-Notificar", "SC-01", "SC-02"])
         self.assertEqual(fusion.evidence_refs, ["CorrespondenceAddressee", "CorrespondenceContent"])
@@ -205,14 +229,21 @@ class TestFusionarPropuestasDeOperacion(unittest.TestCase):
 
     def test_cuatro_propuestas_del_caso_real_se_fusionan_en_una(self):
         propuestas = [
-            self._propuesta(escenarios_hu=[f"SC-0{i}"], justificacion=f"Justificacion {i}",
-                             bq_seed=f"seed {i}", traceability=[f"SC-0{i}"])
+            self._propuesta(
+                escenarios_hu=[f"SC-0{i}"],
+                justificacion=f"Justificacion {i}",
+                bq_seed=f"seed {i}",
+                traceability=[f"SC-0{i}"],
+            )
             for i in range(1, 5)
         ]
         fusion = fusionar_propuestas_de_operacion(propuestas)
         self.assertEqual(fusion.escenarios_hu, ["SC-01", "SC-02", "SC-03", "SC-04"])
         self.assertEqual(fusion.traceability, ["SC-01", "SC-02", "SC-03", "SC-04"])
-        self.assertEqual(fusion.justificacion, "Justificacion 1; Justificacion 2; Justificacion 3; Justificacion 4")
+        self.assertEqual(
+            fusion.justificacion,
+            "Justificacion 1; Justificacion 2; Justificacion 3; Justificacion 4",
+        )
 
     def test_action_term_y_business_object_toman_el_primero_no_vacio(self):
         p1 = self._propuesta(action_term="", business_object="")

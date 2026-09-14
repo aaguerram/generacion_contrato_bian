@@ -5,8 +5,6 @@ from __future__ import annotations
 import unittest
 
 from src.dominio.clasificacion_historias import (
-    DEMOTED_REASON_CODE,
-    PROMOTED_REASON_CODE,
     UmbralesMapeo,
     aplicar_hallazgos_adversariales,
     candidatos_operacion_elegibles,
@@ -17,13 +15,13 @@ from src.dominio.clasificacion_historias import (
     propuestos_promovidos,
     resolver_nombre_sd,
 )
-from src.dominio.historias import ServiceDomainPropuestoLLM
 from src.dominio.historias import (
     EvidenciaBian,
     HallazgoAdversarial,
     IntencionHistoriaLLM,
     OperacionBian,
     RevisionAdversarialLLM,
+    ServiceDomainPropuestoLLM,
 )
 from src.dominio.modelos import EntradaCatalogo
 from src.dominio.normalizacion import normalizar
@@ -91,7 +89,9 @@ class TestResolver(unittest.TestCase):
         self.assertEqual(r, "NOT_FOUND")
 
     def test_ambiguo(self):
-        idx = {normalizar(e.service_domain): e for e in _cat("Authentication A", "Authentication B")}
+        idx = {
+            normalizar(e.service_domain): e for e in _cat("Authentication A", "Authentication B")
+        }
         _, r = resolver_nombre_sd("authentication", idx)
         self.assertEqual(r, "AMBIGUOUS")
 
@@ -99,21 +99,37 @@ class TestResolver(unittest.TestCase):
 class TestClasificar(unittest.TestCase):
     def test_score_oficial_puede_seleccionar_owned_directo(self):
         propuesta = _p("Transaction Authorization", 0.97)
-        propuesta = propuesta.model_copy(update={
-            "accion_objeto": "autorizar una transaccion",
-            "escenarios_hu": ["Autorizar transaccion", "Registrar resultado"],
-        })
-        op = OperacionBian(operation_id="Evaluate", method="POST", path="/Evaluate", tipo="CR",
-                           grupo="Transaction Authorization", summary="Evaluate transaction authorization")
+        propuesta = propuesta.model_copy(
+            update={
+                "accion_objeto": "autorizar una transaccion",
+                "escenarios_hu": ["Autorizar transaccion", "Registrar resultado"],
+            }
+        )
+        op = OperacionBian(
+            operation_id="Evaluate",
+            method="POST",
+            path="/Evaluate",
+            tipo="CR",
+            grupo="Transaction Authorization",
+            summary="Evaluate transaction authorization",
+        )
         r = clasificar_service_domains(
-            [propuesta], self.CAT, self.U,
+            [propuesta],
+            self.CAT,
+            self.U,
             operaciones_por_sd={"Transaction Authorization": [op]},
-            evidencias_por_sd={"Transaction Authorization": EvidenciaBian(
-                estado="CACHED_VERIFIED", source_url="https://example.invalid", source_commit_sha="abc",
-                content_sha256="def")},
+            evidencias_por_sd={
+                "Transaction Authorization": EvidenciaBian(
+                    estado="CACHED_VERIFIED",
+                    source_url="https://example.invalid",
+                    source_commit_sha="abc",
+                    content_sha256="def",
+                )
+            },
         )
         self.assertEqual(r.candidatos_directos[0].decision_contractual, "SELECTED")
         self.assertGreaterEqual(r.candidatos_directos[0].desglose_score.total, 0.90)
+
     U = UmbralesMapeo(directo=0.90, tentativo=0.63)
     CAT = _cat("Party Authentication", "Transaction Authorization", "Customer Event History")
 
@@ -144,11 +160,18 @@ class TestClasificar(unittest.TestCase):
 
     def test_evidencia_ausente_con_score_alto_es_no_official_evidence(self):
         p = _p("Transaction Authorization", 0.97)
-        p = p.model_copy(update={"match_service_role": 3, "match_objeto_negocio": 3,
-                                 "accion_objeto": "autorizar una transaccion",
-                                 "escenarios_hu": ["Autorizar transaccion", "Registrar resultado"]})
+        p = p.model_copy(
+            update={
+                "match_service_role": 3,
+                "match_objeto_negocio": 3,
+                "accion_objeto": "autorizar una transaccion",
+                "escenarios_hu": ["Autorizar transaccion", "Registrar resultado"],
+            }
+        )
         r = clasificar_service_domains(
-            [p], self.CAT, self.U,
+            [p],
+            self.CAT,
+            self.U,
             operaciones_por_sd={"Transaction Authorization": []},
             evidencias_por_sd={"Transaction Authorization": EvidenciaBian()},  # UNAVAILABLE
         )
@@ -159,7 +182,9 @@ class TestClasificar(unittest.TestCase):
     def test_evidencia_ausente_con_score_bajo_es_out_of_scope(self):
         p = _p("Transaction Authorization", 0.40)  # sin rúbrica ni accion_objeto -> score bajo
         r = clasificar_service_domains(
-            [p], self.CAT, self.U,
+            [p],
+            self.CAT,
+            self.U,
             operaciones_por_sd={"Transaction Authorization": []},
             evidencias_por_sd={"Transaction Authorization": EvidenciaBian()},
         )
@@ -195,22 +220,38 @@ class TestAplicarAdversarial(unittest.TestCase):
 
     def _seleccionado(self):
         p = _p("Transaction Authorization", 0.97)
-        p = p.model_copy(update={"match_service_role": 3, "match_objeto_negocio": 3,
-                                 "accion_objeto": "autorizar una transaccion",
-                                 "escenarios_hu": ["Autorizar", "Registrar"]})
+        p = p.model_copy(
+            update={
+                "match_service_role": 3,
+                "match_objeto_negocio": 3,
+                "accion_objeto": "autorizar una transaccion",
+                "escenarios_hu": ["Autorizar", "Registrar"],
+            }
+        )
         return clasificar_service_domains(
-            [p], self.CAT, self.U,
+            [p],
+            self.CAT,
+            self.U,
             operaciones_por_sd={"Transaction Authorization": []},
-            evidencias_por_sd={"Transaction Authorization": EvidenciaBian(
-                estado="CACHED_VERIFIED", content_sha256="abc")},
+            evidencias_por_sd={
+                "Transaction Authorization": EvidenciaBian(
+                    estado="CACHED_VERIFIED", content_sha256="abc"
+                )
+            },
         )
 
     def test_dependencia_promovida_degrada_selected_a_unresolved(self):
         grupos = self._seleccionado()
         self.assertEqual(grupos.candidatos_directos[0].decision_contractual, "SELECTED")
-        rev = RevisionAdversarialLLM(hallazgos=[HallazgoAdversarial(
-            tipo="DEPENDENCIA_PROMOVIDA_A_CONTRATO", service_domain="Transaction Authorization",
-            detalle="la historia solo consulta la autorización")])
+        rev = RevisionAdversarialLLM(
+            hallazgos=[
+                HallazgoAdversarial(
+                    tipo="DEPENDENCIA_PROMOVIDA_A_CONTRATO",
+                    service_domain="Transaction Authorization",
+                    detalle="la historia solo consulta la autorización",
+                )
+            ]
+        )
         out, bloqueos = aplicar_hallazgos_adversariales(grupos, rev)
         a = out.candidatos_directos[0]
         self.assertEqual(a.decision_contractual, "UNRESOLVED")
@@ -219,8 +260,13 @@ class TestAplicarAdversarial(unittest.TestCase):
 
     def test_candidato_omitido_es_bloqueo_de_historia_no_toca_sd(self):
         grupos = self._seleccionado()
-        rev = RevisionAdversarialLLM(hallazgos=[HallazgoAdversarial(
-            tipo="CANDIDATO_OMITIDO", service_domain="", reason_codes=["BIAN-SCOPE-009"])])
+        rev = RevisionAdversarialLLM(
+            hallazgos=[
+                HallazgoAdversarial(
+                    tipo="CANDIDATO_OMITIDO", service_domain="", reason_codes=["BIAN-SCOPE-009"]
+                )
+            ]
+        )
         out, bloqueos = aplicar_hallazgos_adversariales(grupos, rev)
         self.assertIn("BIAN-SCOPE-009", bloqueos)
         self.assertEqual(out.candidatos_directos[0].decision_contractual, "SELECTED")
@@ -230,24 +276,38 @@ class TestAplicarAdversarial(unittest.TestCase):
         # acción directa quedó como dependencia, no una dependencia que se coló como contrato) --
         # nunca debe degradar un SELECTED existente.
         grupos = self._seleccionado()
-        rev = RevisionAdversarialLLM(hallazgos=[HallazgoAdversarial(
-            tipo="ACCION_DIRECTA_COMO_DEPENDENCIA", service_domain="Transaction Authorization",
-            reason_codes=["BIAN-SCOPE-002"])])
+        rev = RevisionAdversarialLLM(
+            hallazgos=[
+                HallazgoAdversarial(
+                    tipo="ACCION_DIRECTA_COMO_DEPENDENCIA",
+                    service_domain="Transaction Authorization",
+                    reason_codes=["BIAN-SCOPE-002"],
+                )
+            ]
+        )
         out, _ = aplicar_hallazgos_adversariales(grupos, rev)
         self.assertEqual(out.candidatos_directos[0].decision_contractual, "SELECTED")
 
-    def _tentativo_promovido(self, *, estado_evidencia: str) -> "ServiceDomainsDeHistoria":
+    def _tentativo_promovido(self, *, estado_evidencia: str) -> ServiceDomainsDeHistoria:
         # score deliberadamente bajo en objeto/jerarquía -- igual que Correspondence real (0.6733):
         # el LLM calificó esas rúbricas mientras todavía enmarcaba el candidato como dependencia.
         p = _p("Party Authentication", 0.60, dep="AUDIT_OR_NOTIFICATION")
-        p = p.model_copy(update={
-            "accion_objeto": "notificar algo", "match_service_role": 2, "match_objeto_negocio": 1,
-            "escenarios_hu": ["Escenario 1. Algo", "Escenario 2. Otro"],
-        })
+        p = p.model_copy(
+            update={
+                "accion_objeto": "notificar algo",
+                "match_service_role": 2,
+                "match_objeto_negocio": 1,
+                "escenarios_hu": ["Escenario 1. Algo", "Escenario 2. Otro"],
+            }
+        )
         return clasificar_service_domains(
-            [p], self.CAT, self.U,
+            [p],
+            self.CAT,
+            self.U,
             operaciones_por_sd={"Party Authentication": []},
-            evidencias_por_sd={"Party Authentication": EvidenciaBian(estado=estado_evidencia, content_sha256="x")},
+            evidencias_por_sd={
+                "Party Authentication": EvidenciaBian(estado=estado_evidencia, content_sha256="x")
+            },
         )
 
     def test_promocion_con_evidencia_verificada_finaliza_directo_selected(self):
@@ -273,7 +333,9 @@ class TestAplicarAdversarial(unittest.TestCase):
         )
         # se anota la promoción, pero sin evidencia oficial verificable no se inventa un "directo"
         self.assertEqual(out.candidatos_directos, [])
-        a = next(a for a in out.candidatos_descartados if a.service_domain == "Party Authentication")
+        a = next(
+            a for a in out.candidatos_descartados if a.service_domain == "Party Authentication"
+        )
         self.assertIn("OWNERSHIP_PROMOTED_BY_ADVERSARIAL", a.reason_codes)
         self.assertNotEqual(a.decision_contractual, "SELECTED")
 
@@ -290,41 +352,60 @@ class TestDeterminarPromociones(unittest.TestCase):
     U = UmbralesMapeo()
     CAT = _cat("Correspondence")
 
-    def _grupos(self, **overrides) -> "ServiceDomainsDeHistoria":
+    def _grupos(self, **overrides) -> ServiceDomainsDeHistoria:
         base = dict(
-            service_domain="Correspondence", rol_contractual="CONSUMED_DEPENDENCY",
-            dependency_kind="AUDIT_OR_NOTIFICATION", justificacion="consume Correspondence",
-            confianza=0.6667, dependency_traceability=["SC-01", "SC-02"],
+            service_domain="Correspondence",
+            rol_contractual="CONSUMED_DEPENDENCY",
+            dependency_kind="AUDIT_OR_NOTIFICATION",
+            justificacion="consume Correspondence",
+            confianza=0.6667,
+            dependency_traceability=["SC-01", "SC-02"],
             evidence_refs=["InitiateOutbound"],
         )
         base.update(overrides)
         propuesta = ServiceDomainPropuestoLLM(**base)
         return clasificar_service_domains(
-            [propuesta], self.CAT, self.U,
+            [propuesta],
+            self.CAT,
+            self.U,
             operaciones_por_sd={"Correspondence": []},
-            evidencias_por_sd={"Correspondence": EvidenciaBian(estado="CACHED_VERIFIED", content_sha256="x")},
+            evidencias_por_sd={
+                "Correspondence": EvidenciaBian(estado="CACHED_VERIFIED", content_sha256="x")
+            },
         )
 
     def _propuestos_de(self, grupos) -> dict[str, ServiceDomainPropuestoLLM]:
         """Reconstruye el dict que necesita `propuestos_promovidos` a partir del `ServiceDomainAsignado`
         ya clasificado (mismo patrón que usa el servicio real: `_h_clasificar` guarda este dict por
         separado; aquí se reconstruye a mano porque el test opera un nivel más abajo)."""
-        a = (*grupos.candidatos_directos, *grupos.candidatos_tentativos, *grupos.candidatos_descartados)[0]
-        return {normalizar(a.service_domain): ServiceDomainPropuestoLLM(
-            service_domain=a.service_domain, rol_contractual=a.rol_contractual,
-            dependency_kind=a.dependency_kind, justificacion=a.justificacion, confianza=a.confianza_llm,
-            dependency_traceability=a.dependency_traceability, evidence_refs=a.evidence_refs,
-        )}
+        a = (
+            *grupos.candidatos_directos,
+            *grupos.candidatos_tentativos,
+            *grupos.candidatos_descartados,
+        )[0]
+        return {
+            normalizar(a.service_domain): ServiceDomainPropuestoLLM(
+                service_domain=a.service_domain,
+                rol_contractual=a.rol_contractual,
+                dependency_kind=a.dependency_kind,
+                justificacion=a.justificacion,
+                confianza=a.confianza_llm,
+                dependency_traceability=a.dependency_traceability,
+                evidence_refs=a.evidence_refs,
+            )
+        }
 
     def _revision(self, tipos: list[str], *, sd: str = "Correspondence") -> RevisionAdversarialLLM:
-        return RevisionAdversarialLLM(hallazgos=[
-            HallazgoAdversarial(tipo=t, service_domain=sd) for t in tipos
-        ])
+        return RevisionAdversarialLLM(
+            hallazgos=[HallazgoAdversarial(tipo=t, service_domain=sd) for t in tipos]
+        )
 
     def test_promueve_con_evidencia_fuerte(self):
         # match_objeto_negocio=3 -> objeto_bom=1.0 (rúbrica del LLM sosteniendo el match real)
         grupos = self._grupos(match_objeto_negocio=3)
-        promovidos = determinar_promociones(grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        promovidos = determinar_promociones(
+            grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"])
+        )
         self.assertEqual(promovidos, frozenset({"correspondence"}))
 
         propuestos = self._propuestos_de(grupos)
@@ -340,7 +421,9 @@ class TestDeterminarPromociones(unittest.TestCase):
         # objeto_bom=0.0 (ninguna correspondencia léxica ni de rúbrica con el objeto de negocio).
         grupos = self._grupos()  # match_objeto_negocio por defecto = 0, sin operaciones/esquemas
         self.assertEqual(grupos.candidatos_descartados[0].desglose_score.objeto_bom, 0.0)
-        promovidos = determinar_promociones(grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        promovidos = determinar_promociones(
+            grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"])
+        )
         self.assertEqual(promovidos, frozenset())
 
     def test_no_promueve_sin_hallazgo(self):
@@ -356,19 +439,27 @@ class TestDeterminarPromociones(unittest.TestCase):
         # SECURITY_GUARD / SUPPORTING_LOOKUP / EXTERNAL_PROVIDER / RISK_INPUT: precondiciones
         # consultadas antes de actuar, no la salida que la historia produce -- nunca promueven.
         grupos = self._grupos(dependency_kind="SECURITY_GUARD", match_objeto_negocio=3)
-        promovidos = determinar_promociones(grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        promovidos = determinar_promociones(
+            grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"])
+        )
         self.assertEqual(promovidos, frozenset())
 
     def test_no_promueve_sin_trazabilidad_ni_evidencia(self):
         grupos = self._grupos(dependency_traceability=[], evidence_refs=[], match_objeto_negocio=3)
-        promovidos = determinar_promociones(grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        promovidos = determinar_promociones(
+            grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"])
+        )
         self.assertEqual(promovidos, frozenset())
 
     def test_no_promueve_related_not_owned(self):
         grupos = self._grupos(
-            rol_contractual="RELATED_NOT_OWNED", dependency_kind=None, match_objeto_negocio=3,
+            rol_contractual="RELATED_NOT_OWNED",
+            dependency_kind=None,
+            match_objeto_negocio=3,
         )
-        promovidos = determinar_promociones(grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"]))
+        promovidos = determinar_promociones(
+            grupos, self._revision(["ACCION_DIRECTA_COMO_DEPENDENCIA"])
+        )
         self.assertEqual(promovidos, frozenset())
 
 
@@ -383,22 +474,29 @@ class TestDeterminarDegradaciones(unittest.TestCase):
     U = UmbralesMapeo()
     CAT = _cat("Party Reference Data Directory")
 
-    def _grupos(self, **overrides) -> "ServiceDomainsDeHistoria":
+    def _grupos(self, **overrides) -> ServiceDomainsDeHistoria:
         base = dict(
-            service_domain="Party Reference Data Directory", rol_contractual="OWNED_CONTRACT",
+            service_domain="Party Reference Data Directory",
+            rol_contractual="OWNED_CONTRACT",
             accion_objeto="actualizar numero de celular o correo electronico",
-            justificacion="administra los datos de contacto", confianza=1.0,
+            justificacion="administra los datos de contacto",
+            confianza=1.0,
             escenarios_hu=["SC-01. Notificar", "SC-02. Notificar", "SC-03. Notificar"],
             ownership_traceability=["SC-01", "SC-02", "SC-03"],
-            match_action=3, match_objeto_negocio=3,
+            match_action=3,
+            match_objeto_negocio=3,
         )
         base.update(overrides)
         propuesta = ServiceDomainPropuestoLLM(**base)
         return clasificar_service_domains(
-            [propuesta], self.CAT, self.U,
+            [propuesta],
+            self.CAT,
+            self.U,
             operaciones_por_sd={"Party Reference Data Directory": []},
             evidencias_por_sd={
-                "Party Reference Data Directory": EvidenciaBian(estado="CACHED_VERIFIED", content_sha256="x"),
+                "Party Reference Data Directory": EvidenciaBian(
+                    estado="CACHED_VERIFIED", content_sha256="x"
+                ),
             },
         )
 
@@ -406,9 +504,12 @@ class TestDeterminarDegradaciones(unittest.TestCase):
         return IntencionHistoriaLLM(business_actions=acciones)
 
     def _revision(self, tipos: list[str]) -> RevisionAdversarialLLM:
-        return RevisionAdversarialLLM(hallazgos=[
-            HallazgoAdversarial(tipo=t, service_domain="Party Reference Data Directory") for t in tipos
-        ])
+        return RevisionAdversarialLLM(
+            hallazgos=[
+                HallazgoAdversarial(tipo=t, service_domain="Party Reference Data Directory")
+                for t in tipos
+            ]
+        )
 
     def test_degrada_cuando_la_accion_citada_no_es_ninguna_de_la_historia(self):
         grupos = self._grupos()
@@ -416,15 +517,19 @@ class TestDeterminarDegradaciones(unittest.TestCase):
         # real, donde solo el hallazgo adversarial + este chequeo evitan que se publique así).
         self.assertEqual(grupos.candidatos_directos[0].decision_contractual, "SELECTED")
         degradados = determinar_degradaciones(
-            grupos, self._intencion(["notificar", "registrar"]),
+            grupos,
+            self._intencion(["notificar", "registrar"]),
             self._revision(["DEPENDENCIA_PROMOVIDA_A_CONTRATO"]),
         )
         self.assertEqual(degradados, frozenset({"partyreferencedatadirectory"}))
 
-        propuestos = {"partyreferencedatadirectory": ServiceDomainPropuestoLLM(
-            service_domain="Party Reference Data Directory", rol_contractual="OWNED_CONTRACT",
-            ownership_traceability=["SC-01", "SC-02"],
-        )}
+        propuestos = {
+            "partyreferencedatadirectory": ServiceDomainPropuestoLLM(
+                service_domain="Party Reference Data Directory",
+                rol_contractual="OWNED_CONTRACT",
+                ownership_traceability=["SC-01", "SC-02"],
+            )
+        }
         nuevos = propuestos_degradados(propuestos, degradados)
         p = nuevos["partyreferencedatadirectory"]
         self.assertEqual(p.rol_contractual, "CONSUMED_DEPENDENCY")
@@ -434,7 +539,9 @@ class TestDeterminarDegradaciones(unittest.TestCase):
 
     def test_no_degrada_sin_hallazgo(self):
         grupos = self._grupos()
-        degradados = determinar_degradaciones(grupos, self._intencion(["notificar"]), self._revision([]))
+        degradados = determinar_degradaciones(
+            grupos, self._intencion(["notificar"]), self._revision([])
+        )
         self.assertEqual(degradados, frozenset())
 
     def test_no_degrada_si_la_accion_si_coincide_con_la_historia(self):
@@ -442,7 +549,8 @@ class TestDeterminarDegradaciones(unittest.TestCase):
         # independiente, no se reclasifica solo por el hallazgo del revisor.
         grupos = self._grupos()
         degradados = determinar_degradaciones(
-            grupos, self._intencion(["actualizar", "notificar"]),
+            grupos,
+            self._intencion(["actualizar", "notificar"]),
             self._revision(["DEPENDENCIA_PROMOVIDA_A_CONTRATO"]),
         )
         self.assertEqual(degradados, frozenset())
@@ -450,7 +558,8 @@ class TestDeterminarDegradaciones(unittest.TestCase):
     def test_no_degrada_si_no_es_owned(self):
         grupos = self._grupos(rol_contractual="RELATED_NOT_OWNED")
         degradados = determinar_degradaciones(
-            grupos, self._intencion(["notificar"]),
+            grupos,
+            self._intencion(["notificar"]),
             self._revision(["DEPENDENCIA_PROMOVIDA_A_CONTRATO"]),
         )
         self.assertEqual(degradados, frozenset())
@@ -460,7 +569,9 @@ class TestDeterminarDegradaciones(unittest.TestCase):
         # (conservador por defecto) en vez de reclasificar a ciegas.
         grupos = self._grupos()
         degradados = determinar_degradaciones(
-            grupos, self._intencion([]), self._revision(["DEPENDENCIA_PROMOVIDA_A_CONTRATO"]),
+            grupos,
+            self._intencion([]),
+            self._revision(["DEPENDENCIA_PROMOVIDA_A_CONTRATO"]),
         )
         self.assertEqual(degradados, frozenset())
 

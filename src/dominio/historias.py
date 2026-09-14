@@ -59,13 +59,13 @@ OrigenCandidato = Literal["llm", "omitido", "completitud", "retrieval_hibrido"]
 
 # Motivo de la decisión contractual (sub-taxonomía del diagrama de dos ejes).
 MotivoDecision = Literal[
-    "OWNED_SELECTED",             # OWNED_CONTRACT con score directo y evidencia oficial verificable
-    "TENTATIVE_SCORE",            # score en banda tentativa: aplica pero no alcanza el umbral directo
+    "OWNED_SELECTED",  # OWNED_CONTRACT con score directo y evidencia oficial verificable
+    "TENTATIVE_SCORE",  # score en banda tentativa: aplica pero no alcanza el umbral directo
     "NO_OFFICIAL_BIAN_EVIDENCE",  # score suficiente pero sin BOM oficial verificable -> sin resolver
-    "CONSUMED_DEPENDENCY",        # dependencia consumida (no se posee el ciclo de vida)
-    "RELATED_NOT_OWNED",          # relación temática, no necesaria para implementar la historia
-    "OUT_OF_SCOPE",               # score por debajo de la banda tentativa: no aplica
-    "NAME_UNRESOLVED",            # el nombre propuesto no resolvió contra el catálogo BIAN R14
+    "CONSUMED_DEPENDENCY",  # dependencia consumida (no se posee el ciclo de vida)
+    "RELATED_NOT_OWNED",  # relación temática, no necesaria para implementar la historia
+    "OUT_OF_SCOPE",  # score por debajo de la banda tentativa: no aplica
+    "NAME_UNRESOLVED",  # el nombre propuesto no resolvió contra el catálogo BIAN R14
 ]
 
 # alias tolerados en el JSON de entrada de la funcionalidad macro
@@ -80,7 +80,7 @@ class FuncionalidadMacro(BaseModel):
     detalle: str = Field(default="", description="Detalle / contexto de la funcionalidad macro.")
 
     @classmethod
-    def desde_dict(cls, datos: dict) -> "FuncionalidadMacro":
+    def desde_dict(cls, datos: dict) -> FuncionalidadMacro:
         """Construye desde un dict tolerando alias de claves (funcionalidad_macro/detalle y sinónimos)."""
         if not isinstance(datos, dict):
             raise ValueError("El archivo de funcionalidad debe contener un objeto JSON.")
@@ -98,8 +98,12 @@ class HistoriaUsuario(BaseModel):
     """Una Historia de Usuario leída de un archivo del directorio de entrada."""
 
     archivo: str = Field(description="Nombre del archivo de origen (con extensión).")
-    titulo: str = Field(description="Título legible de la historia (derivado del nombre de archivo).")
-    contenido: str = Field(description="Texto completo de la historia (Como/Quiero/Para + escenarios).")
+    titulo: str = Field(
+        description="Título legible de la historia (derivado del nombre de archivo)."
+    )
+    contenido: str = Field(
+        description="Texto completo de la historia (Como/Quiero/Para + escenarios)."
+    )
 
 
 class OperacionBian(BaseModel):
@@ -109,10 +113,16 @@ class OperacionBian(BaseModel):
     method: str
     path: str
     tipo: Literal["CR", "BQ"]
-    grupo: str = Field(description="Nombre del Control Record o Behavior Qualifier al que pertenece.")
+    grupo: str = Field(
+        description="Nombre del Control Record o Behavior Qualifier al que pertenece."
+    )
     parent_control_record: str | None = None
-    request_schema: str = Field(default="", description="Nombre del schema del requestBody (resuelto del $ref).")
-    response_schema: str = Field(default="", description="Nombre del schema de la respuesta 200 (resuelto del $ref).")
+    request_schema: str = Field(
+        default="", description="Nombre del schema del requestBody (resuelto del $ref)."
+    )
+    response_schema: str = Field(
+        default="", description="Nombre del schema de la respuesta 200 (resuelto del $ref)."
+    )
     summary: str = ""
     description: str = ""
 
@@ -121,7 +131,9 @@ class OperacionBian(BaseModel):
 class PropiedadSchema(BaseModel):
     name: str
     type: str = ""
-    ref: str = Field(default="", description="Nombre del schema referenciado si la propiedad es un $ref.")
+    ref: str = Field(
+        default="", description="Nombre del schema referenciado si la propiedad es un $ref."
+    )
 
 
 class SchemaBom(BaseModel):
@@ -224,8 +236,12 @@ class IntencionHistoriaLLM(BaseModel):
 
     resumen_funcional: str = ""
     capacidades_funcionales: list[str] = Field(default_factory=list)
-    business_actions: list[str] = Field(default_factory=list, description="Verbos de negocio concretos.")
-    business_objects: list[str] = Field(default_factory=list, description="Objetos de negocio administrados.")
+    business_actions: list[str] = Field(
+        default_factory=list, description="Verbos de negocio concretos."
+    )
+    business_objects: list[str] = Field(
+        default_factory=list, description="Objetos de negocio administrados."
+    )
     outcomes: list[str] = Field(default_factory=list)
     external_dependencies: list[str] = Field(default_factory=list)
     traceability_ids: list[str] = Field(
@@ -240,7 +256,9 @@ class IntencionHistoriaLLM(BaseModel):
 
 # ── Nodo 2: generación de candidatos (pista, no exhaustiva) ───────────────────
 class CandidatoServiceDomainLLM(BaseModel):
-    service_domain: str = Field(description="Nombre de un Service Domain del catálogo (copia literal).")
+    service_domain: str = Field(
+        description="Nombre de un Service Domain del catálogo (copia literal)."
+    )
     rationale: str = ""
     supporting_intent: list[str] = Field(
         default_factory=list, description="business_actions / business_objects que lo sugieren."
@@ -286,7 +304,8 @@ class PaqueteEvidenciaCandidato(BaseModel):
     operations: list[OperacionBian] = Field(default_factory=list)
     schemas: list[str] = Field(default_factory=list, description="Nombres de schema (compat).")
     schemas_detalle: list[SchemaBom] = Field(
-        default_factory=list, description="Schemas de la Semantic API con cuerpo (properties / enum values)."
+        default_factory=list,
+        description="Schemas de la Semantic API con cuerpo (properties / enum values).",
     )
     bom_modelo: ModeloBomPuml | None = Field(
         default=None, description="Modelo de clases del PUML BOM BIAN, si hay evidencia local."
@@ -300,15 +319,19 @@ class PaqueteEvidenciaCandidato(BaseModel):
 class EvaluacionCandidatoLLM(BaseModel):
     """Evaluación de UN candidato contra su paquete de evidencia. Señales ordinales, no confianza."""
 
-    service_domain: str = Field(description="Eco del nombre del paquete de evidencia (copia literal).")
+    service_domain: str = Field(
+        description="Eco del nombre del paquete de evidencia (copia literal)."
+    )
     estado: EstadoEvaluacion = "NO_RESUELTO"
     rol_contractual: RolContractual = "RELATED_NOT_OWNED"
     dependency_kind: DependencyKind | None = None
     accion_objeto: str = Field(
-        default="", description="verbo + objeto de negocio de la historia que empata con la evidencia."
+        default="",
+        description="verbo + objeto de negocio de la historia que empata con la evidencia.",
     )
     functional_object: str = Field(
-        default="", description="Objeto de negocio funcional real (NO el wrapper técnico del Control Record)."
+        default="",
+        description="Objeto de negocio funcional real (NO el wrapper técnico del Control Record).",
     )
     match_action: int = Field(default=0, ge=0, le=3)
     match_business_object: int = Field(default=0, ge=0, le=3)
@@ -316,16 +339,20 @@ class EvaluacionCandidatoLLM(BaseModel):
     evidence_quality: int = Field(default=0, ge=0, le=3)
     ambiguity: NivelAmbiguedad = "HIGH"
     ownership_traceability: list[str] = Field(
-        default_factory=list, description="HU-.../SC-..., BR-... que demuestran responsabilidad DIRECTA."
+        default_factory=list,
+        description="HU-.../SC-..., BR-... que demuestran responsabilidad DIRECTA.",
     )
     dependency_traceability: list[str] = Field(
-        default_factory=list, description="HU-.../SC-... que demuestran CONSUMO (nunca reusar como ownership)."
+        default_factory=list,
+        description="HU-.../SC-... que demuestran CONSUMO (nunca reusar como ownership).",
     )
     evidence_refs: list[str] = Field(
         default_factory=list, description="operationId / schema / Service Role citados del paquete."
     )
     reason_codes: list[str] = Field(default_factory=list)
-    justification: str = Field(default="", description="Justificación breve verificable (<=3 frases).")
+    justification: str = Field(
+        default="", description="Justificación breve verificable (<=3 frases)."
+    )
     assumptions: list[str] = Field(default_factory=list)
     gaps: list[str] = Field(default_factory=list)
     blocking_codes: list[str] = Field(default_factory=list)
@@ -334,12 +361,12 @@ class EvaluacionCandidatoLLM(BaseModel):
 
 # ── Nodo 5: revisión adversarial independiente (prompt distinto) ─────────────
 TipoHallazgo = Literal[
-    "ACCION_DIRECTA_COMO_DEPENDENCIA",   # un verbo+objeto directo quedó como CONSUMED_DEPENDENCY
-    "OBJETO_SIN_PROPIETARIO",            # un objeto funcional central sin SD OWNED
-    "DIRECTO_SIN_SERVICE_ROLE",          # SD directo sin Service Role compatible en la evidencia
+    "ACCION_DIRECTA_COMO_DEPENDENCIA",  # un verbo+objeto directo quedó como CONSUMED_DEPENDENCY
+    "OBJETO_SIN_PROPIETARIO",  # un objeto funcional central sin SD OWNED
+    "DIRECTO_SIN_SERVICE_ROLE",  # SD directo sin Service Role compatible en la evidencia
     "DEPENDENCIA_PROMOVIDA_A_CONTRATO",  # una dependencia consumida quedó como OWNED_CONTRACT
-    "CANDIDATO_OMITIDO",                 # falta evaluar un SD razonable
-    "EXCESO_DE_CONTRATOS",               # demasiados OWNED para el alcance de la historia
+    "CANDIDATO_OMITIDO",  # falta evaluar un SD razonable
+    "EXCESO_DE_CONTRATOS",  # demasiados OWNED para el alcance de la historia
 ]
 
 
@@ -402,19 +429,27 @@ class ServiceDomainPropuestoLLM(BaseModel):
         description="Verbo + objeto de negocio de la historia que empata con la evidencia oficial del SD.",
     )
     match_action: int = Field(
-        default=0, ge=0, le=3,
+        default=0,
+        ge=0,
+        le=3,
         description="Rúbrica 0-3: empate del verbo de la historia con un action term de una operación oficial.",
     )
     match_service_role: int = Field(
-        default=0, ge=0, le=3,
+        default=0,
+        ge=0,
+        le=3,
         description="Rúbrica 0-3: qué tan directamente el verbo+objeto coincide con el Service Role del SD.",
     )
     match_objeto_negocio: int = Field(
-        default=0, ge=0, le=3,
+        default=0,
+        ge=0,
+        le=3,
         description="Rúbrica 0-3: alineación del objeto que ADMINISTRA la historia con el objeto/asset del SD.",
     )
     evidence_quality: int = Field(
-        default=0, ge=0, le=3,
+        default=0,
+        ge=0,
+        le=3,
         description="Rúbrica 0-3: qué tan concluyente es la evidencia oficial disponible para este candidato.",
     )
     ambiguity: NivelAmbiguedad = Field(
@@ -436,22 +471,31 @@ class ServiceDomainPropuestoLLM(BaseModel):
         description="2-4 frases enlazando la capacidad concreta de la historia con el Service Role del SD.",
     )
     confianza: float = Field(
-        default=0.0, ge=0.0, le=1.0,
+        default=0.0,
+        ge=0.0,
+        le=1.0,
         description="Confianza cruda del LLM. NO entra al score; solo se conserva como confianza_llm.",
     )
 
     @classmethod
     def desde_evaluacion(
-        cls, ev: "EvaluacionCandidatoLLM", *, service_domain_canonico: str
-    ) -> "ServiceDomainPropuestoLLM":
+        cls, ev: EvaluacionCandidatoLLM, *, service_domain_canonico: str
+    ) -> ServiceDomainPropuestoLLM:
         """Proyecta la evaluación aislada de un candidato al registro de entrada del scoring."""
         es_owned = ev.rol_contractual == "OWNED_CONTRACT"
-        escenarios = list(dict.fromkeys(
-            [*ev.ownership_traceability, *ev.dependency_traceability] or ev.evidence_refs
-        ))
+        escenarios = list(
+            dict.fromkeys(
+                [*ev.ownership_traceability, *ev.dependency_traceability] or ev.evidence_refs
+            )
+        )
         # confianza cruda derivada de las señales ordinales (NO decide nada; auditoría)
         cruda = round(
-            (ev.match_action + ev.match_business_object + ev.match_service_role + ev.evidence_quality)
+            (
+                ev.match_action
+                + ev.match_business_object
+                + ev.match_service_role
+                + ev.evidence_quality
+            )
             / 12.0,
             4,
         )
@@ -466,8 +510,12 @@ class ServiceDomainPropuestoLLM(BaseModel):
             evidence_quality=ev.evidence_quality,
             ambiguity=ev.ambiguity,
             escenarios_hu=[s.strip() for s in escenarios if s and s.strip()],
-            ownership_traceability=[s.strip() for s in ev.ownership_traceability if s and s.strip()],
-            dependency_traceability=[s.strip() for s in ev.dependency_traceability if s and s.strip()],
+            ownership_traceability=[
+                s.strip() for s in ev.ownership_traceability if s and s.strip()
+            ],
+            dependency_traceability=[
+                s.strip() for s in ev.dependency_traceability if s and s.strip()
+            ],
             evidence_refs=[s.strip() for s in ev.evidence_refs if s and s.strip()],
             reason_codes=list(dict.fromkeys(ev.reason_codes)),
             assumptions=list(ev.assumptions),
@@ -496,16 +544,23 @@ class ServiceDomainOmitido(BaseModel):
 class OperacionPropuestaLLM(BaseModel):
     """Una operación oficial que el LLM asigna a una historia dentro de un Service Domain directo."""
 
-    service_domain: str = Field(description="Nombre exacto del Service Domain (de la lista provista).")
-    operation_id: str = Field(description="operationId EXACTO de la lista de operaciones provista para ese SD.")
+    service_domain: str = Field(
+        description="Nombre exacto del Service Domain (de la lista provista)."
+    )
+    operation_id: str = Field(
+        description="operationId EXACTO de la lista de operaciones provista para ese SD."
+    )
     escenarios_hu: list[str] = Field(
         default_factory=list, description="Escenarios de la historia que esta operación implementa."
     )
-    justificacion: str = Field(default="", description="1-2 frases: qué hace esta operación por la historia.")
+    justificacion: str = Field(
+        default="", description="1-2 frases: qué hace esta operación por la historia."
+    )
     action_term: str = ""
     business_object: str = ""
     bq_seed: str = Field(
-        default="", description="Fragmento único del use case (semilla BQ) que cubre esta operación."
+        default="",
+        description="Fragmento único del use case (semilla BQ) que cubre esta operación.",
     )
     traceability: list[str] = Field(
         default_factory=list, description="HU-.../SC-.../BR-... que esta operación cubre."
@@ -516,7 +571,15 @@ class OperacionPropuestaLLM(BaseModel):
 
 # Vocabulario de verbos BIAN para operaciones de Control Record / Behavior Qualifier.
 VerboBian = Literal[
-    "Initiate", "Update", "Retrieve", "Control", "Request", "Execute", "Exchange", "Grant", "Register"
+    "Initiate",
+    "Update",
+    "Retrieve",
+    "Control",
+    "Request",
+    "Execute",
+    "Exchange",
+    "Grant",
+    "Register",
 ]
 
 
@@ -534,7 +597,9 @@ class BqPersonalizadoPropuestoLLM(BaseModel):
     revisión BIAN.
     """
 
-    service_domain: str = Field(description="Nombre exacto del Service Domain (de la lista provista).")
+    service_domain: str = Field(
+        description="Nombre exacto del Service Domain (de la lista provista)."
+    )
     grupo_existente: str = Field(
         description=(
             "Nombre EXACTO de un Control Record o Behavior Qualifier YA EXISTENTE en "
@@ -553,10 +618,13 @@ class BqPersonalizadoPropuestoLLM(BaseModel):
         description="Nombre EXACTO de una clase citada en schemas_bom o modelo_bom_puml que tiene ese campo."
     )
     atributo_bom: str = Field(
-        default="", description="Nombre EXACTO del atributo/propiedad dentro de clase_bom que respalda el campo."
+        default="",
+        description="Nombre EXACTO del atributo/propiedad dentro de clase_bom que respalda el campo.",
     )
     escenarios_hu: list[str] = Field(default_factory=list)
-    justificacion: str = Field(default="", description="Por qué el CR y los BQ oficiales NO cubren este campo.")
+    justificacion: str = Field(
+        default="", description="Por qué el CR y los BQ oficiales NO cubren este campo."
+    )
     reason_codes: list[str] = Field(default_factory=list)
 
 
@@ -580,7 +648,9 @@ class BqPersonalizadoAplicado(BaseModel):
     `operaciones_bian` / `selected_operations` para que nunca se confunda con lo oficial."""
 
     service_domain: str
-    grupo_existente: str = Field(description="CR/BQ ya existente del Service Domain donde se añade la operación.")
+    grupo_existente: str = Field(
+        description="CR/BQ ya existente del Service Domain donde se añade la operación."
+    )
     operation_id: str = Field(
         description="Verbo+NombreDelGrupoExistente, siguiendo la convención BIAN (p.ej. 'RegisterReference')."
     )
@@ -621,22 +691,36 @@ class ServiceDomainAsignado(BaseModel):
     """Un Service Domain ya clasificado y enriquecido con evidencia de docs/ (SD.json + jerarquía)."""
 
     service_domain: str = Field(description="Nombre canónico exacto tal cual aparece en SD.json.")
-    resolucion: Resolucion = Field(description="Cómo resolvió el nombre propuesto contra el catálogo BIAN R14.")
+    resolucion: Resolucion = Field(
+        description="Cómo resolvió el nombre propuesto contra el catálogo BIAN R14."
+    )
     rol_contractual: RolContractual
     dependency_kind: DependencyKind | None = None
     confianza: float = Field(ge=0.0, le=1.0)
     confianza_pct: int = Field(ge=0, le=100)
     confianza_llm: float = Field(
-        ge=0.0, le=1.0, description="Confianza cruda del LLM antes de aplicar el tope por rol contractual."
+        ge=0.0,
+        le=1.0,
+        description="Confianza cruda del LLM antes de aplicar el tope por rol contractual.",
     )
     grupo: Grupo
     accion_objeto: str = ""
     escenarios_hu: list[str] = Field(default_factory=list)
-    justificacion: str = Field(default="", description="Justificación acotada al contexto de la historia.")
-    business_area: str | None = Field(default=None, description="Business Area BIAN R14 (jerarquía local).")
-    business_domain: str | None = Field(default=None, description="Business Domain BIAN R14 (jerarquía local).")
-    rol_bian: str | None = Field(default=None, description="Service Role del SD copiado de SD.json (evidencia).")
-    patron_funcional: str | None = Field(default=None, description="Functional Pattern del SD (SD.json).")
+    justificacion: str = Field(
+        default="", description="Justificación acotada al contexto de la historia."
+    )
+    business_area: str | None = Field(
+        default=None, description="Business Area BIAN R14 (jerarquía local)."
+    )
+    business_domain: str | None = Field(
+        default=None, description="Business Domain BIAN R14 (jerarquía local)."
+    )
+    rol_bian: str | None = Field(
+        default=None, description="Service Role del SD copiado de SD.json (evidencia)."
+    )
+    patron_funcional: str | None = Field(
+        default=None, description="Functional Pattern del SD (SD.json)."
+    )
     origen_candidato: OrigenCandidato = "llm"
     operaciones_bian: list[OperacionBianAplicada] = Field(
         default_factory=list,
@@ -731,12 +815,16 @@ class ResultadoMapeoHistorias(BaseModel):
     total_historias: int
     parametros: dict = Field(default_factory=dict)
     historias: list[HistoriaConServiceDomains] = Field(default_factory=list)
-    service_domains_consolidados: list[DecisionServiceDomainConsolidada] = Field(default_factory=list)
+    service_domains_consolidados: list[DecisionServiceDomainConsolidada] = Field(
+        default_factory=list
+    )
     service_domains_omitidos: list[ServiceDomainOmitido] = Field(
         default_factory=list,
         description="Unión de los candidatos omitidos por HU (segundo pase léxico), a nivel de funcionalidad.",
     )
-    reconciliacion: ReconciliacionFuncionalidadLLM = Field(default_factory=ReconciliacionFuncionalidadLLM)
+    reconciliacion: ReconciliacionFuncionalidadLLM = Field(
+        default_factory=ReconciliacionFuncionalidadLLM
+    )
     huellas_prompts: list[MetadatosPrompt] = Field(
         default_factory=list, description="Huella reproducible de cada llamada LLM del run."
     )

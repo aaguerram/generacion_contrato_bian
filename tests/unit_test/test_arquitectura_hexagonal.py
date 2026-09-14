@@ -74,8 +74,14 @@ def _permitido(objetivo: str, capa: str) -> bool:
 
 class TestArquitecturaHexagonal(unittest.TestCase):
     def test_capas_existen(self):
-        for r in ("dominio", "aplicacion/puertos", "aplicacion/servicios",
-                  "adaptadores/entrada", "adaptadores/salida/llm", "configuracion"):
+        for r in (
+            "dominio",
+            "aplicacion/puertos",
+            "aplicacion/servicios",
+            "adaptadores/entrada",
+            "adaptadores/salida/llm",
+            "configuracion",
+        ):
             self.assertTrue((SRC / r).is_dir(), f"falta src/{r}")
 
     def test_ningun_import_cruza_su_capa(self):
@@ -87,10 +93,18 @@ class TestArquitecturaHexagonal(unittest.TestCase):
             for obj in sorted(_objetivos(arbol, _paquete(f, modulo))):
                 if not _permitido(obj, capa):
                     fallos.append(f"{f.relative_to(SRC.parent).as_posix()}  [{capa}]  ->  '{obj}'")
-        self.assertEqual(fallos, [], "\n\nViolaciones (ver ARQUITECTURA.md):\n  - " + "\n  - ".join(fallos))
+        self.assertEqual(
+            fallos, [], "\n\nViolaciones (ver ARQUITECTURA.md):\n  - " + "\n  - ".join(fallos)
+        )
 
     def test_dominio_sin_frameworks(self):
-        prohibidos = {"langchain", "langchain_core", "langgraph", "langchain_google_genai", "langsmith"}
+        prohibidos = {
+            "langchain",
+            "langchain_core",
+            "langgraph",
+            "langchain_google_genai",
+            "langsmith",
+        }
         for f in sorted((SRC / "dominio").rglob("*.py")):
             arbol = ast.parse(f.read_text(encoding="utf-8"))
             raices = {o.split(".")[0] for o in _objetivos(arbol, _modulo(f))}

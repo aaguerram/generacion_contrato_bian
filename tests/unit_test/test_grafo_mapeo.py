@@ -16,14 +16,16 @@ from src.adaptadores.salida.publicador_mapeo_json import PublicadorMapeoJson
 from src.adaptadores.salida.recuperador_lexico import RecuperadorLexico
 from src.aplicacion.puertos.analista_mapeo import AnalistaMapeoBianPort
 from src.aplicacion.puertos.mapeador_operaciones import MapeadorOperacionesBianPort
-from src.aplicacion.servicios.mapear_historias_service_domain import MapearHistoriasServiceDomainsService
+from src.aplicacion.servicios.mapear_historias_service_domain import (
+    MapearHistoriasServiceDomainsService,
+)
 from src.configuracion.contenedor import crear_caso_uso_mapeo
 from src.dominio.clasificacion_historias import UmbralesMapeo
 from src.dominio.cobertura_operaciones import derivar_path_grupo
 from src.dominio.historias import (
     BqPersonalizadoPropuestoLLM,
-    CandidatosHistoriaLLM,
     CandidatoServiceDomainLLM,
+    CandidatosHistoriaLLM,
     EvaluacionCandidatoLLM,
     HallazgoAdversarial,
     IntencionHistoriaLLM,
@@ -33,7 +35,6 @@ from src.dominio.historias import (
     RevisionAdversarialLLM,
     RevisionCompletitudLLM,
 )
-
 from unit_test.support import DOCS, config_test
 
 
@@ -54,7 +55,9 @@ def _entrada(tmp: str) -> tuple[str, str, str]:
     )
     func = raiz / "func.json"
     func.write_text(
-        json.dumps({"funcionalidad_macro": "Gestión de datos personales", "detalle": "actualizar contacto"}),
+        json.dumps(
+            {"funcionalidad_macro": "Gestión de datos personales", "detalle": "actualizar contacto"}
+        ),
         encoding="utf-8",
     )
     return str(hu), str(func), str(raiz / "salida")
@@ -83,12 +86,17 @@ class TestGrafoMapeo(unittest.TestCase):
                     self.assertEqual(a.resolucion, "MATCH")
                 for a in g.candidatos_tentativos:
                     self.assertLess(a.confianza, 0.90)
-                for grupo in (g.candidatos_directos, g.candidatos_tentativos, g.candidatos_descartados):
+                for grupo in (
+                    g.candidatos_directos,
+                    g.candidatos_tentativos,
+                    g.candidatos_descartados,
+                ):
                     for a in grupo:
                         self.assertIsNotNone(a.business_area)
                         self.assertIsNotNone(a.business_domain)
                         self.assertIn(
-                            a.origen_candidato, ("llm", "completitud", "omitido", "retrieval_hibrido")
+                            a.origen_candidato,
+                            ("llm", "completitud", "omitido", "retrieval_hibrido"),
                         )
 
             # huella reproducible de cada llamada LLM (punto 12)
@@ -111,7 +119,9 @@ class TestGrafoMapeo(unittest.TestCase):
     def test_operaciones_atadas_al_catalogo_local(self):
         with tempfile.TemporaryDirectory() as tmp:
             hu, func, salida = _entrada(tmp)
-            ops_json = json.loads((DOCS / "bian-operation-catalogs.json").read_text(encoding="utf-8"))
+            ops_json = json.loads(
+                (DOCS / "bian-operation-catalogs.json").read_text(encoding="utf-8")
+            )
             validas = {
                 sd: {o["operation_id"] for o in cuerpo["operations"]}
                 for sd, cuerpo in ops_json["service_domains"].items()
@@ -135,8 +145,12 @@ class TestGrafoMapeo(unittest.TestCase):
     def test_determinista(self):
         with tempfile.TemporaryDirectory() as tmp:
             hu, func, salida = _entrada(tmp)
-            a = crear_caso_uso_mapeo(config_test(), proveedor="fake").ejecutar(hu, func, salida + "/a")
-            b = crear_caso_uso_mapeo(config_test(), proveedor="fake").ejecutar(hu, func, salida + "/b")
+            a = crear_caso_uso_mapeo(config_test(), proveedor="fake").ejecutar(
+                hu, func, salida + "/a"
+            )
+            b = crear_caso_uso_mapeo(config_test(), proveedor="fake").ejecutar(
+                hu, func, salida + "/b"
+            )
             # `parametros.run_id` es intencionalmente único por corrida (Fase 0: trazabilidad de
             # qué ejecución produjo qué resultado) -- todo lo demás debe ser bit a bit idéntico.
             da, db = a.model_dump(), b.model_dump()
@@ -158,13 +172,17 @@ class TestGrafoMapeo(unittest.TestCase):
     def test_retrieval_hibrido_desactivado_por_defecto_y_activable_por_config(self):
         with tempfile.TemporaryDirectory() as tmp:
             hu, func, salida = _entrada(tmp)
-            apagado = crear_caso_uso_mapeo(config_test(), proveedor="fake").ejecutar(hu, func, salida + "/off")
+            apagado = crear_caso_uso_mapeo(config_test(), proveedor="fake").ejecutar(
+                hu, func, salida + "/off"
+            )
             self.assertFalse(apagado.parametros["retrieval_hibrido_activo"])
 
             cfg = config_test(mapear_historias={"retrieval_hibrido_habilitado": True})
             # no debe reventar: léxico siempre disponible, vectorial cae a embeddings 'fake' de
             # config_test() (provider "fake" con embedding_models=("fake",)).
-            encendido = crear_caso_uso_mapeo(cfg, proveedor="fake").ejecutar(hu, func, salida + "/on")
+            encendido = crear_caso_uso_mapeo(cfg, proveedor="fake").ejecutar(
+                hu, func, salida + "/on"
+            )
             self.assertTrue(encendido.parametros["retrieval_hibrido_activo"])
 
     def test_omitidos_y_motivo_en_consolidados(self):
@@ -174,8 +192,15 @@ class TestGrafoMapeo(unittest.TestCase):
             for c in r.service_domains_consolidados:
                 self.assertIn(
                     c.motivo,
-                    {"OWNED_SELECTED", "TENTATIVE_SCORE", "NO_OFFICIAL_BIAN_EVIDENCE",
-                     "CONSUMED_DEPENDENCY", "RELATED_NOT_OWNED", "OUT_OF_SCOPE", "NAME_UNRESOLVED"},
+                    {
+                        "OWNED_SELECTED",
+                        "TENTATIVE_SCORE",
+                        "NO_OFFICIAL_BIAN_EVIDENCE",
+                        "CONSUMED_DEPENDENCY",
+                        "RELATED_NOT_OWNED",
+                        "OUT_OF_SCOPE",
+                        "NAME_UNRESOLVED",
+                    },
                 )
             for h in r.historias:
                 for a in h.service_domains.candidatos_descartados:
@@ -189,33 +214,51 @@ class _AnalistaGuion(AnalistaMapeoBianPort):
 
     def extraer_intencion(self, historia, funcionalidad):
         return IntencionHistoriaLLM(
-            resumen_funcional="guion", business_actions=["authorize"],
-            business_objects=["transaction"], traceability_ids=["SC-01", "SC-02"],
+            resumen_funcional="guion",
+            business_actions=["authorize"],
+            business_objects=["transaction"],
+            traceability_ids=["SC-01", "SC-02"],
         )
 
     def generar_candidatos(self, historia, funcionalidad, intencion, catalogo):
-        return CandidatosHistoriaLLM(candidatos=[
-            CandidatoServiceDomainLLM(service_domain="Transaction Authorization"),
-            CandidatoServiceDomainLLM(service_domain="Fraud Evaluation"),
-        ])
+        return CandidatosHistoriaLLM(
+            candidatos=[
+                CandidatoServiceDomainLLM(service_domain="Transaction Authorization"),
+                CandidatoServiceDomainLLM(service_domain="Fraud Evaluation"),
+            ]
+        )
 
-    def revisar_completitud(self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia):
+    def revisar_completitud(
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+    ):
         return RevisionCompletitudLLM()
 
     def evaluar_candidato(self, historia, funcionalidad, intencion, paquete):
         if paquete.service_domain == "Transaction Authorization":
             return EvaluacionCandidatoLLM(
-                service_domain=paquete.service_domain, estado="DIRECTO", rol_contractual="OWNED_CONTRACT",
-                accion_objeto="autorizar una transaccion", functional_object="transaction",
-                match_action=3, match_business_object=3, match_service_role=3, evidence_quality=3,
-                ambiguity="NONE", ownership_traceability=["SC-01", "SC-02"],
+                service_domain=paquete.service_domain,
+                estado="DIRECTO",
+                rol_contractual="OWNED_CONTRACT",
+                accion_objeto="autorizar una transaccion",
+                functional_object="transaction",
+                match_action=3,
+                match_business_object=3,
+                match_service_role=3,
+                evidence_quality=3,
+                ambiguity="NONE",
+                ownership_traceability=["SC-01", "SC-02"],
                 justification="La historia ejecuta la autorización de la transacción.",
             )
         return EvaluacionCandidatoLLM(
-            service_domain=paquete.service_domain, estado="DESCARTADO",
-            rol_contractual="CONSUMED_DEPENDENCY", dependency_kind="RISK_INPUT",
-            match_service_role=1, evidence_quality=2, ambiguity="LOW",
-            dependency_traceability=["SC-01"], justification="Solo consulta el riesgo.",
+            service_domain=paquete.service_domain,
+            estado="DESCARTADO",
+            rol_contractual="CONSUMED_DEPENDENCY",
+            dependency_kind="RISK_INPUT",
+            match_service_role=1,
+            evidence_quality=2,
+            ambiguity="LOW",
+            dependency_traceability=["SC-01"],
+            justification="Solo consulta el riesgo.",
         )
 
     def revisar_adversarial(self, historia, intencion, grupos):
@@ -230,33 +273,55 @@ class _MapeadorGuion(MapeadorOperacionesBianPort):
         ops = []
         for sd, lista in operaciones_por_sd.items():
             if lista:
-                ops.append(OperacionPropuestaLLM(
-                    service_domain=sd, operation_id=lista[0].operation_id,
-                    escenarios_hu=["Escenario 1"], justificacion="guion", traceability=["SC-01"],
-                ))
+                ops.append(
+                    OperacionPropuestaLLM(
+                        service_domain=sd,
+                        operation_id=lista[0].operation_id,
+                        escenarios_hu=["Escenario 1"],
+                        justificacion="guion",
+                        traceability=["SC-01"],
+                    )
+                )
         bqs = []
         if "Transaction Authorization" in operaciones_por_sd:
             # "Transaction Name" solo existe en el BOM PUML (no en el schema del CR) -> caso real
             # de la regla: campo no cubierto por CR/BQ oficiales pero respaldado por una clase del
             # BOM. `grupo_existente` cita el CR real de ese SD (InteractiveTransactionAssessment):
             # la operación nueva se añade DENTRO de ese grupo, nunca crea un tag nuevo.
-            bqs.append(BqPersonalizadoPropuestoLLM(
-                service_domain="Transaction Authorization", grupo_existente="InteractiveTransactionAssessment",
-                verbo="Register", campo_no_cubierto="etiqueta descriptiva de la transaccion",
-                clase_bom="Transaction", atributo_bom="Transaction Name", escenarios_hu=["Escenario 1"],
-                justificacion="guion: ni el CR ni ningun BQ oficial exponen el nombre de la transaccion.",
-            ))
+            bqs.append(
+                BqPersonalizadoPropuestoLLM(
+                    service_domain="Transaction Authorization",
+                    grupo_existente="InteractiveTransactionAssessment",
+                    verbo="Register",
+                    campo_no_cubierto="etiqueta descriptiva de la transaccion",
+                    clase_bom="Transaction",
+                    atributo_bom="Transaction Name",
+                    escenarios_hu=["Escenario 1"],
+                    justificacion="guion: ni el CR ni ningun BQ oficial exponen el nombre de la transaccion.",
+                )
+            )
             # cita inventada (la clase no existe en el BOM real) -> debe descartarse
-            bqs.append(BqPersonalizadoPropuestoLLM(
-                service_domain="Transaction Authorization", grupo_existente="InteractiveTransactionAssessment",
-                verbo="Initiate", campo_no_cubierto="campo inventado", clase_bom="ClaseQueNoExiste", atributo_bom="X",
-            ))
+            bqs.append(
+                BqPersonalizadoPropuestoLLM(
+                    service_domain="Transaction Authorization",
+                    grupo_existente="InteractiveTransactionAssessment",
+                    verbo="Initiate",
+                    campo_no_cubierto="campo inventado",
+                    clase_bom="ClaseQueNoExiste",
+                    atributo_bom="X",
+                )
+            )
             # grupo que no existe en el catalogo -> nunca se crea un tag nuevo, se descarta
-            bqs.append(BqPersonalizadoPropuestoLLM(
-                service_domain="Transaction Authorization", grupo_existente="GrupoQueNoExiste",
-                verbo="Update", campo_no_cubierto="otro campo", clase_bom="Transaction",
-                atributo_bom="Transaction Name",
-            ))
+            bqs.append(
+                BqPersonalizadoPropuestoLLM(
+                    service_domain="Transaction Authorization",
+                    grupo_existente="GrupoQueNoExiste",
+                    verbo="Update",
+                    campo_no_cubierto="otro campo",
+                    clase_bom="Transaction",
+                    atributo_bom="Transaction Name",
+                )
+            )
         return MapeoOperacionesLLM(operaciones=ops, bq_personalizados=bqs)
 
 
@@ -269,8 +334,12 @@ class TestGrafoMapeoSeleccionReal(unittest.TestCase):
             LectorHistoriasFilesystem(),
             _AnalistaGuion(),
             PublicadorMapeoJson(),
-            CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
-                              "14.0.0", permitir_descargas=False),
+            CatalogoBianCache(
+                str(DOCS / "bian-operation-catalogs.json"),
+                str(DOCS / "bian-cache"),
+                "14.0.0",
+                permitir_descargas=False,
+            ),
             _MapeadorGuion(),
             catalogo_bom=CatalogoBomPuml(str(DOCS / "bian-diagrams" / "puml-bom")),
             umbrales=UmbralesMapeo(),
@@ -283,9 +352,13 @@ class TestGrafoMapeoSeleccionReal(unittest.TestCase):
             (raiz / "HU").mkdir()
             (raiz / "HU" / "HU-01.txt").write_text(
                 "Como cliente quiero autorizar una transacción con Smart Token.\nEscenario 1. Autorización",
-                encoding="utf-8")
+                encoding="utf-8",
+            )
             func = raiz / "f.json"
-            func.write_text(json.dumps({"funcionalidad_macro": "Autorización de transacciones"}), encoding="utf-8")
+            func.write_text(
+                json.dumps({"funcionalidad_macro": "Autorización de transacciones"}),
+                encoding="utf-8",
+            )
             r = self._servicio().ejecutar(str(raiz / "HU"), str(func), str(raiz / "out"))
 
             sel = [c for c in r.service_domains_consolidados if c.decision == "SELECTED"]
@@ -303,21 +376,32 @@ class TestGrafoMapeoSeleccionReal(unittest.TestCase):
             self.assertEqual(candidato.grupo_existente, "InteractiveTransactionAssessment")
             self.assertEqual(candidato.operation_id, "RegisterInteractiveTransactionAssessment")
             operaciones_reales = CatalogoBianCache(
-                str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"), "14.0.0",
+                str(DOCS / "bian-operation-catalogs.json"),
+                str(DOCS / "bian-cache"),
+                "14.0.0",
                 permitir_descargas=False,
             ).operaciones_de("Transaction Authorization")
             self.assertEqual(
-                candidato.path_propuesto, derivar_path_grupo("InteractiveTransactionAssessment", "Register", operaciones_reales)
+                candidato.path_propuesto,
+                derivar_path_grupo(
+                    "InteractiveTransactionAssessment", "Register", operaciones_reales
+                ),
             )
             self.assertTrue(candidato.path_propuesto.startswith("/TransactionAuthorization/{"))
             self.assertEqual(candidato.clase_bom, "Transaction")
             self.assertEqual(candidato.estado, "CUSTOM_BQ_CANDIDATE")
             self.assertNotIn(candidato.operation_id, sel[0].selected_operations)
             # la cita inventada (clase inexistente) y el grupo inexistente se descartaron sin dejar rastro
-            self.assertTrue(all(c.clase_bom != "ClaseQueNoExiste" for c in sel[0].custom_bq_candidates))
-            self.assertTrue(all(c.grupo_existente != "GrupoQueNoExiste" for c in sel[0].custom_bq_candidates))
+            self.assertTrue(
+                all(c.clase_bom != "ClaseQueNoExiste" for c in sel[0].custom_bq_candidates)
+            )
+            self.assertTrue(
+                all(c.grupo_existente != "GrupoQueNoExiste" for c in sel[0].custom_bq_candidates)
+            )
 
-            fraude = next(c for c in r.service_domains_consolidados if c.service_domain == "Fraud Evaluation")
+            fraude = next(
+                c for c in r.service_domains_consolidados if c.service_domain == "Fraud Evaluation"
+            )
             self.assertEqual(fraude.decision, "REJECTED")
             self.assertEqual(fraude.motivo, "CONSUMED_DEPENDENCY")
             self.assertEqual(fraude.custom_bq_candidates, [])
@@ -331,25 +415,36 @@ class _AnalistaNotificacion(AnalistaMapeoBianPort):
 
     def extraer_intencion(self, historia, funcionalidad):
         return IntencionHistoriaLLM(
-            resumen_funcional="guion", business_actions=["notify"],
-            business_objects=["notification"], traceability_ids=["SC-01", "SC-02"],
+            resumen_funcional="guion",
+            business_actions=["notify"],
+            business_objects=["notification"],
+            traceability_ids=["SC-01", "SC-02"],
         )
 
     def generar_candidatos(self, historia, funcionalidad, intencion, catalogo):
-        return CandidatosHistoriaLLM(candidatos=[
-            CandidatoServiceDomainLLM(service_domain="Correspondence"),
-        ])
+        return CandidatosHistoriaLLM(
+            candidatos=[
+                CandidatoServiceDomainLLM(service_domain="Correspondence"),
+            ]
+        )
 
-    def revisar_completitud(self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia):
+    def revisar_completitud(
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+    ):
         return RevisionCompletitudLLM()
 
     def evaluar_candidato(self, historia, funcionalidad, intencion, paquete):
         return EvaluacionCandidatoLLM(
-            service_domain=paquete.service_domain, estado="DESCARTADO",
-            rol_contractual="CONSUMED_DEPENDENCY", dependency_kind="AUDIT_OR_NOTIFICATION",
+            service_domain=paquete.service_domain,
+            estado="DESCARTADO",
+            rol_contractual="CONSUMED_DEPENDENCY",
+            dependency_kind="AUDIT_OR_NOTIFICATION",
             accion_objeto="notificar actualizacion de datos personales",
             functional_object="outbound correspondence notification",
-            match_action=3, match_business_object=3, match_service_role=3, evidence_quality=3,
+            match_action=3,
+            match_business_object=3,
+            match_service_role=3,
+            evidence_quality=3,
             ambiguity="NONE",
             dependency_traceability=["SC-01", "SC-02"],
             evidence_refs=["InitiateOutbound"],
@@ -358,12 +453,17 @@ class _AnalistaNotificacion(AnalistaMapeoBianPort):
         )
 
     def revisar_adversarial(self, historia, intencion, grupos):
-        return RevisionAdversarialLLM(hallazgos=[HallazgoAdversarial(
-            tipo="ACCION_DIRECTA_COMO_DEPENDENCIA", service_domain="Correspondence",
-            reason_codes=["BIAN-SCOPE-002"],
-            detalle="La historia ejecuta directamente 'notificar actualizacion de datos' pero se "
-            "clasifico como CONSUMED_DEPENDENCY.",
-        )])
+        return RevisionAdversarialLLM(
+            hallazgos=[
+                HallazgoAdversarial(
+                    tipo="ACCION_DIRECTA_COMO_DEPENDENCIA",
+                    service_domain="Correspondence",
+                    reason_codes=["BIAN-SCOPE-002"],
+                    detalle="La historia ejecuta directamente 'notificar actualizacion de datos' pero se "
+                    "clasifico como CONSUMED_DEPENDENCY.",
+                )
+            ]
+        )
 
     def reconciliar_funcionalidad(self, funcionalidad, resumen_por_historia):
         return ReconciliacionFuncionalidadLLM()
@@ -380,11 +480,15 @@ class _MapeadorNotificacion(MapeadorOperacionesBianPort):
         for sd, lista in operaciones_por_sd.items():
             fuente = next((o for o in lista if o.operation_id == "InitiateOutbound"), None)
             if fuente is not None:
-                ops.append(OperacionPropuestaLLM(
-                    service_domain=sd, operation_id=f"{fuente.method} {fuente.path}",
-                    escenarios_hu=["SC-01"], justificacion="guion: envia la notificacion saliente.",
-                    traceability=["SC-01", "SC-02"],
-                ))
+                ops.append(
+                    OperacionPropuestaLLM(
+                        service_domain=sd,
+                        operation_id=f"{fuente.method} {fuente.path}",
+                        escenarios_hu=["SC-01"],
+                        justificacion="guion: envia la notificacion saliente.",
+                        traceability=["SC-01", "SC-02"],
+                    )
+                )
         return MapeoOperacionesLLM(operaciones=ops)
 
 
@@ -399,11 +503,16 @@ class _MapeadorNotificacionVerificada(MapeadorOperacionesBianPort):
         for sd, lista in operaciones_por_sd.items():
             fuente = next((o for o in lista if o.operation_id == "InitiateOutbound"), None)
             if fuente is not None:
-                ops.append(OperacionPropuestaLLM(
-                    service_domain=sd, operation_id=fuente.operation_id,
-                    escenarios_hu=["SC-01"], justificacion="guion: envia la notificacion saliente.",
-                    traceability=["SC-01", "SC-02"], evidence_refs=[fuente.operation_id],
-                ))
+                ops.append(
+                    OperacionPropuestaLLM(
+                        service_domain=sd,
+                        operation_id=fuente.operation_id,
+                        escenarios_hu=["SC-01"],
+                        justificacion="guion: envia la notificacion saliente.",
+                        traceability=["SC-01", "SC-02"],
+                        evidence_refs=[fuente.operation_id],
+                    )
+                )
         return MapeoOperacionesLLM(operaciones=ops)
 
 
@@ -420,12 +529,17 @@ class _MapeadorNotificacionMultiplesEscenarios(MapeadorOperacionesBianPort):
             if fuente is None:
                 continue
             for i in range(1, 5):
-                ops.append(OperacionPropuestaLLM(
-                    service_domain=sd, operation_id=fuente.operation_id,
-                    escenarios_hu=[f"Escenario {i}"], justificacion=f"guion: notificacion escenario {i}.",
-                    bq_seed=f"seed del escenario {i}", traceability=[f"SC-0{i}"],
-                    evidence_refs=[fuente.operation_id],
-                ))
+                ops.append(
+                    OperacionPropuestaLLM(
+                        service_domain=sd,
+                        operation_id=fuente.operation_id,
+                        escenarios_hu=[f"Escenario {i}"],
+                        justificacion=f"guion: notificacion escenario {i}.",
+                        bq_seed=f"seed del escenario {i}",
+                        traceability=[f"SC-0{i}"],
+                        evidence_refs=[fuente.operation_id],
+                    )
+                )
         return MapeoOperacionesLLM(operaciones=ops)
 
 
@@ -440,8 +554,12 @@ class TestGrafoMapeoOperacionesDuplicadas(unittest.TestCase):
             LectorHistoriasFilesystem(),
             _AnalistaNotificacionYaOwned(),
             PublicadorMapeoJson(),
-            CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
-                              "14.0.0", permitir_descargas=False),
+            CatalogoBianCache(
+                str(DOCS / "bian-operation-catalogs.json"),
+                str(DOCS / "bian-cache"),
+                "14.0.0",
+                permitir_descargas=False,
+            ),
             _MapeadorNotificacionMultiplesEscenarios(),
             umbrales=UmbralesMapeo(),
             concurrencia=1,
@@ -452,18 +570,27 @@ class TestGrafoMapeoOperacionesDuplicadas(unittest.TestCase):
             (raiz / "HU" / "HU-01.txt").write_text(
                 "Como cliente quiero recibir una notificacion cuando actualizo mis datos personales.\n"
                 "Escenario 1. Notificar cambio de correo\nEscenario 2. Notificar cambio de celular",
-                encoding="utf-8")
+                encoding="utf-8",
+            )
             func = raiz / "f.json"
-            func.write_text(json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
-                             encoding="utf-8")
+            func.write_text(
+                json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
+                encoding="utf-8",
+            )
             r = servicio.ejecutar(str(raiz / "HU"), str(func), str(raiz / "out"))
 
             hu = r.historias[0]
             asignado = next(
-                a for a in hu.service_domains.candidatos_directos if a.service_domain == "Correspondence"
+                a
+                for a in hu.service_domains.candidatos_directos
+                if a.service_domain == "Correspondence"
             )
-            ops_initiate = [o for o in asignado.operaciones_bian if o.operation_id == "InitiateOutbound"]
-            self.assertEqual(len(ops_initiate), 1, "InitiateOutbound quedó duplicado en operaciones_bian")
+            ops_initiate = [
+                o for o in asignado.operaciones_bian if o.operation_id == "InitiateOutbound"
+            ]
+            self.assertEqual(
+                len(ops_initiate), 1, "InitiateOutbound quedó duplicado en operaciones_bian"
+            )
             op = ops_initiate[0]
             self.assertEqual(
                 op.escenarios_hu, ["Escenario 1", "Escenario 2", "Escenario 3", "Escenario 4"]
@@ -489,8 +616,12 @@ class TestGrafoMapeoPromocionOwnership(unittest.TestCase):
             LectorHistoriasFilesystem(),
             _AnalistaNotificacion(),
             PublicadorMapeoJson(),
-            CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
-                              "14.0.0", permitir_descargas=False),
+            CatalogoBianCache(
+                str(DOCS / "bian-operation-catalogs.json"),
+                str(DOCS / "bian-cache"),
+                "14.0.0",
+                permitir_descargas=False,
+            ),
             _MapeadorNotificacion(),
             umbrales=UmbralesMapeo(),
             concurrencia=1,
@@ -503,10 +634,13 @@ class TestGrafoMapeoPromocionOwnership(unittest.TestCase):
             (raiz / "HU" / "HU-01.txt").write_text(
                 "Como cliente quiero recibir una notificacion cuando actualizo mis datos personales.\n"
                 "Escenario 1. Notificar cambio de correo\nEscenario 2. Notificar cambio de celular",
-                encoding="utf-8")
+                encoding="utf-8",
+            )
             func = raiz / "f.json"
-            func.write_text(json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
-                             encoding="utf-8")
+            func.write_text(
+                json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
+                encoding="utf-8",
+            )
             r = self._servicio().ejecutar(str(raiz / "HU"), str(func), str(raiz / "out"))
 
             correspondence = next(
@@ -522,7 +656,11 @@ class TestGrafoMapeoPromocionOwnership(unittest.TestCase):
 
             hu = r.historias[0]
             self.assertEqual(hu.total_directos, 1)
-            asignado = next(a for a in hu.service_domains.candidatos_directos if a.service_domain == "Correspondence")
+            asignado = next(
+                a
+                for a in hu.service_domains.candidatos_directos
+                if a.service_domain == "Correspondence"
+            )
             self.assertEqual(asignado.grupo, "directo")
             self.assertIn("OWNERSHIP_PROMOTED_BY_ADVERSARIAL", asignado.reason_codes)
             op = next(o for o in asignado.operaciones_bian if o.operation_id == "InitiateOutbound")
@@ -540,21 +678,29 @@ class TestGrafoMapeoPromocionOwnership(unittest.TestCase):
     def test_operation_id_irreconocible_no_se_pierde_en_silencio(self):
         class _MapeadorInventado(MapeadorOperacionesBianPort):
             def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
-                return MapeoOperacionesLLM(operaciones=[
-                    OperacionPropuestaLLM(
-                        service_domain=sd, operation_id="EnviarNotificacionYa",
-                        escenarios_hu=["SC-01"], justificacion="guion: operationId que no existe.",
-                    )
-                    for sd in operaciones_por_sd
-                ])
+                return MapeoOperacionesLLM(
+                    operaciones=[
+                        OperacionPropuestaLLM(
+                            service_domain=sd,
+                            operation_id="EnviarNotificacionYa",
+                            escenarios_hu=["SC-01"],
+                            justificacion="guion: operationId que no existe.",
+                        )
+                        for sd in operaciones_por_sd
+                    ]
+                )
 
         servicio = MapearHistoriasServiceDomainsService(
             CatalogoJson(str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")),
             LectorHistoriasFilesystem(),
             _AnalistaNotificacion(),
             PublicadorMapeoJson(),
-            CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
-                              "14.0.0", permitir_descargas=False),
+            CatalogoBianCache(
+                str(DOCS / "bian-operation-catalogs.json"),
+                str(DOCS / "bian-cache"),
+                "14.0.0",
+                permitir_descargas=False,
+            ),
             _MapeadorInventado(),
             umbrales=UmbralesMapeo(),
             concurrencia=1,
@@ -565,10 +711,13 @@ class TestGrafoMapeoPromocionOwnership(unittest.TestCase):
             (raiz / "HU" / "HU-01.txt").write_text(
                 "Como cliente quiero recibir una notificacion cuando actualizo mis datos personales.\n"
                 "Escenario 1. Notificar cambio de correo\nEscenario 2. Notificar cambio de celular",
-                encoding="utf-8")
+                encoding="utf-8",
+            )
             func = raiz / "f.json"
-            func.write_text(json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
-                             encoding="utf-8")
+            func.write_text(
+                json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
+                encoding="utf-8",
+            )
             r = servicio.ejecutar(str(raiz / "HU"), str(func), str(raiz / "out"))
 
             correspondence = next(
@@ -594,24 +743,35 @@ class _AnalistaNotificacionYaOwned(AnalistaMapeoBianPort):
 
     def extraer_intencion(self, historia, funcionalidad):
         return IntencionHistoriaLLM(
-            resumen_funcional="guion", business_actions=["notify"],
-            business_objects=["notification"], traceability_ids=["SC-01", "SC-02"],
+            resumen_funcional="guion",
+            business_actions=["notify"],
+            business_objects=["notification"],
+            traceability_ids=["SC-01", "SC-02"],
         )
 
     def generar_candidatos(self, historia, funcionalidad, intencion, catalogo):
-        return CandidatosHistoriaLLM(candidatos=[
-            CandidatoServiceDomainLLM(service_domain="Correspondence"),
-        ])
+        return CandidatosHistoriaLLM(
+            candidatos=[
+                CandidatoServiceDomainLLM(service_domain="Correspondence"),
+            ]
+        )
 
-    def revisar_completitud(self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia):
+    def revisar_completitud(
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+    ):
         return RevisionCompletitudLLM()
 
     def evaluar_candidato(self, historia, funcionalidad, intencion, paquete):
         return EvaluacionCandidatoLLM(
-            service_domain=paquete.service_domain, estado="TENTATIVO", rol_contractual="OWNED_CONTRACT",
+            service_domain=paquete.service_domain,
+            estado="TENTATIVO",
+            rol_contractual="OWNED_CONTRACT",
             accion_objeto="notificar actualizacion de datos personales",
             functional_object="outbound correspondence notification",
-            match_action=2, match_business_object=1, match_service_role=2, evidence_quality=3,
+            match_action=2,
+            match_business_object=1,
+            match_service_role=2,
+            evidence_quality=3,
             ambiguity="NONE",
             ownership_traceability=["SC-01", "SC-02"],
             evidence_refs=["InitiateOutbound"],
@@ -637,8 +797,12 @@ class TestGrafoMapeoFinalizacionPorOperacion(unittest.TestCase):
             LectorHistoriasFilesystem(),
             _AnalistaNotificacionYaOwned(),
             PublicadorMapeoJson(),
-            CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
-                              "14.0.0", permitir_descargas=False),
+            CatalogoBianCache(
+                str(DOCS / "bian-operation-catalogs.json"),
+                str(DOCS / "bian-cache"),
+                "14.0.0",
+                permitir_descargas=False,
+            ),
             _MapeadorNotificacionVerificada(),
             umbrales=UmbralesMapeo(),
             concurrencia=1,
@@ -649,17 +813,22 @@ class TestGrafoMapeoFinalizacionPorOperacion(unittest.TestCase):
             (raiz / "HU" / "HU-01.txt").write_text(
                 "Como cliente quiero recibir una notificacion cuando actualizo mis datos personales.\n"
                 "Escenario 1. Notificar cambio de correo\nEscenario 2. Notificar cambio de celular",
-                encoding="utf-8")
+                encoding="utf-8",
+            )
             func = raiz / "f.json"
-            func.write_text(json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
-                             encoding="utf-8")
+            func.write_text(
+                json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
+                encoding="utf-8",
+            )
             r = servicio.ejecutar(str(raiz / "HU"), str(func), str(raiz / "out"))
 
             hu = r.historias[0]
             # sin este mecanismo, quedaría en candidatos_tentativos con confianza 0.6733 (el
             # número exacto observado en la corrida real) -- nunca hubo nada que "promover".
             asignado = next(
-                a for a in hu.service_domains.candidatos_directos if a.service_domain == "Correspondence"
+                a
+                for a in hu.service_domains.candidatos_directos
+                if a.service_domain == "Correspondence"
             )
             self.assertEqual(asignado.grupo, "directo")
             self.assertEqual(asignado.decision_contractual, "SELECTED")
@@ -684,36 +853,53 @@ class _AnalistaActualizacionMalClasificada(AnalistaMapeoBianPort):
 
     def extraer_intencion(self, historia, funcionalidad):
         return IntencionHistoriaLLM(
-            resumen_funcional="guion", business_actions=["notify", "register"],
-            business_objects=["notification"], traceability_ids=["SC-01", "SC-02", "SC-03"],
+            resumen_funcional="guion",
+            business_actions=["notify", "register"],
+            business_objects=["notification"],
+            traceability_ids=["SC-01", "SC-02", "SC-03"],
         )
 
     def generar_candidatos(self, historia, funcionalidad, intencion, catalogo):
-        return CandidatosHistoriaLLM(candidatos=[
-            CandidatoServiceDomainLLM(service_domain="Party Reference Data Directory"),
-        ])
+        return CandidatosHistoriaLLM(
+            candidatos=[
+                CandidatoServiceDomainLLM(service_domain="Party Reference Data Directory"),
+            ]
+        )
 
-    def revisar_completitud(self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia):
+    def revisar_completitud(
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+    ):
         return RevisionCompletitudLLM()
 
     def evaluar_candidato(self, historia, funcionalidad, intencion, paquete):
         return EvaluacionCandidatoLLM(
-            service_domain=paquete.service_domain, estado="DIRECTO", rol_contractual="OWNED_CONTRACT",
+            service_domain=paquete.service_domain,
+            estado="DIRECTO",
+            rol_contractual="OWNED_CONTRACT",
             accion_objeto="actualizar numero de celular o correo electronico",
             functional_object="reference contact data",
-            match_action=3, match_business_object=3, match_service_role=2, evidence_quality=3,
-            ambiguity="NONE", ownership_traceability=["SC-01", "SC-02", "SC-03"],
+            match_action=3,
+            match_business_object=3,
+            match_service_role=2,
+            evidence_quality=3,
+            ambiguity="NONE",
+            ownership_traceability=["SC-01", "SC-02", "SC-03"],
             evidence_refs=["UpdateReference", "RetrieveReference"],
             justification="(guion) evaluación aislada equivocada: confunde la precondición de "
             "actualización con la acción propia de esta historia.",
         )
 
     def revisar_adversarial(self, historia, intencion, grupos):
-        return RevisionAdversarialLLM(hallazgos=[HallazgoAdversarial(
-            tipo="DEPENDENCIA_PROMOVIDA_A_CONTRATO", service_domain="Party Reference Data Directory",
-            reason_codes=["BIAN-SCOPE-002"],
-            detalle="La historia solo consume la actualización, pero se clasificó OWNED_CONTRACT.",
-        )])
+        return RevisionAdversarialLLM(
+            hallazgos=[
+                HallazgoAdversarial(
+                    tipo="DEPENDENCIA_PROMOVIDA_A_CONTRATO",
+                    service_domain="Party Reference Data Directory",
+                    reason_codes=["BIAN-SCOPE-002"],
+                    detalle="La historia solo consume la actualización, pero se clasificó OWNED_CONTRACT.",
+                )
+            ]
+        )
 
     def reconciliar_funcionalidad(self, funcionalidad, resumen_por_historia):
         return ReconciliacionFuncionalidadLLM()
@@ -732,8 +918,12 @@ class TestGrafoMapeoDegradacionOwnership(unittest.TestCase):
             LectorHistoriasFilesystem(),
             _AnalistaActualizacionMalClasificada(),
             PublicadorMapeoJson(),
-            CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
-                              "14.0.0", permitir_descargas=False),
+            CatalogoBianCache(
+                str(DOCS / "bian-operation-catalogs.json"),
+                str(DOCS / "bian-cache"),
+                "14.0.0",
+                permitir_descargas=False,
+            ),
             _MapeadorNotificacionVerificada(),
             umbrales=UmbralesMapeo(),
             concurrencia=1,
@@ -744,14 +934,18 @@ class TestGrafoMapeoDegradacionOwnership(unittest.TestCase):
             (raiz / "HU" / "HU-01.txt").write_text(
                 "Como admin quiero notificar cuando un usuario actualiza su celular o correo.\n"
                 "Escenario 1. Notificar dato anterior\nEscenario 2. Notificar dato nuevo",
-                encoding="utf-8")
+                encoding="utf-8",
+            )
             func = raiz / "f.json"
-            func.write_text(json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
-                             encoding="utf-8")
+            func.write_text(
+                json.dumps({"funcionalidad_macro": "Notificar actualizacion de datos"}),
+                encoding="utf-8",
+            )
             r = servicio.ejecutar(str(raiz / "HU"), str(func), str(raiz / "out"))
 
             prdd = next(
-                c for c in r.service_domains_consolidados
+                c
+                for c in r.service_domains_consolidados
                 if c.service_domain == "Party Reference Data Directory"
             )
             self.assertEqual(prdd.contract_role, "CONSUMED_DEPENDENCY")
@@ -760,7 +954,9 @@ class TestGrafoMapeoDegradacionOwnership(unittest.TestCase):
 
             hu = r.historias[0]
             asignado = next(
-                a for a in hu.service_domains.candidatos_descartados + hu.service_domains.candidatos_tentativos
+                a
+                for a in hu.service_domains.candidatos_descartados
+                + hu.service_domains.candidatos_tentativos
                 if a.service_domain == "Party Reference Data Directory"
             )
             self.assertIn("OWNERSHIP_DEMOTED_BY_ADVERSARIAL", asignado.reason_codes)
@@ -778,21 +974,32 @@ class _AnalistaSinCandidatos(AnalistaMapeoBianPort):
 
     def extraer_intencion(self, historia, funcionalidad):
         return IntencionHistoriaLLM(
-            resumen_funcional="guion", business_actions=["authorize"], business_objects=["transaction"],
+            resumen_funcional="guion",
+            business_actions=["authorize"],
+            business_objects=["transaction"],
         )
 
     def generar_candidatos(self, historia, funcionalidad, intencion, catalogo):
         return CandidatosHistoriaLLM(candidatos=[])
 
-    def revisar_completitud(self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia):
+    def revisar_completitud(
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+    ):
         return RevisionCompletitudLLM()
 
     def evaluar_candidato(self, historia, funcionalidad, intencion, paquete):
         return EvaluacionCandidatoLLM(
-            service_domain=paquete.service_domain, estado="DIRECTO", rol_contractual="OWNED_CONTRACT",
-            accion_objeto="autorizar una transaccion", functional_object="transaction",
-            match_action=3, match_business_object=3, match_service_role=3, evidence_quality=3,
-            ambiguity="NONE", ownership_traceability=["SC-01"],
+            service_domain=paquete.service_domain,
+            estado="DIRECTO",
+            rol_contractual="OWNED_CONTRACT",
+            accion_objeto="autorizar una transaccion",
+            functional_object="transaction",
+            match_action=3,
+            match_business_object=3,
+            match_service_role=3,
+            evidence_quality=3,
+            ambiguity="NONE",
+            ownership_traceability=["SC-01"],
             justification="(guion) recuperado por retrieval hibrido, nunca propuesto por el LLM.",
         )
 
@@ -815,8 +1022,12 @@ class TestGrafoMapeoRetrievalHibrido(unittest.TestCase):
             LectorHistoriasFilesystem(),
             _AnalistaSinCandidatos(),
             PublicadorMapeoJson(),
-            CatalogoBianCache(str(DOCS / "bian-operation-catalogs.json"), str(DOCS / "bian-cache"),
-                              "14.0.0", permitir_descargas=False),
+            CatalogoBianCache(
+                str(DOCS / "bian-operation-catalogs.json"),
+                str(DOCS / "bian-cache"),
+                "14.0.0",
+                permitir_descargas=False,
+            ),
             _MapeadorNotificacion(),  # no se usa (paso2 no encuentra nada que mapear en este guion)
             umbrales=UmbralesMapeo(),
             concurrencia=1,
@@ -828,15 +1039,21 @@ class TestGrafoMapeoRetrievalHibrido(unittest.TestCase):
             (raiz / "HU").mkdir()
             (raiz / "HU" / "HU-01.txt").write_text(
                 "Como cliente quiero autorizar una transaccion con mi cuenta.\nEscenario 1. Autorizacion",
-                encoding="utf-8")
+                encoding="utf-8",
+            )
             func = raiz / "f.json"
-            func.write_text(json.dumps({"funcionalidad_macro": "Autorizacion de transacciones"}),
-                             encoding="utf-8")
+            func.write_text(
+                json.dumps({"funcionalidad_macro": "Autorizacion de transacciones"}),
+                encoding="utf-8",
+            )
             r = servicio.ejecutar(str(raiz / "HU"), str(func), str(raiz / "out"))
 
             hu = r.historias[0]
-            todos = (*hu.service_domains.candidatos_directos, *hu.service_domains.candidatos_tentativos,
-                     *hu.service_domains.candidatos_descartados)
+            todos = (
+                *hu.service_domains.candidatos_directos,
+                *hu.service_domains.candidatos_tentativos,
+                *hu.service_domains.candidatos_descartados,
+            )
             self.assertTrue(todos, "el retrieval híbrido no reinyectó ningún candidato")
             self.assertTrue(all(a.origen_candidato == "retrieval_hibrido" for a in todos))
             ta = next(a for a in todos if a.service_domain == "Transaction Authorization")

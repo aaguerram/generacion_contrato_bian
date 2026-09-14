@@ -24,7 +24,9 @@ def _asegurar_env() -> None:
         _ENV_CARGADO = True
 
 
-def cargar_settings(*, ruta_config: str | Path | None = None, esfuerzo: str | None = None) -> Config:
+def cargar_settings(
+    *, ruta_config: str | Path | None = None, esfuerzo: str | None = None
+) -> Config:
     """Carga la configuración efectiva. `esfuerzo` (opcional) pisa `llm.esfuerzo` del yaml."""
     _asegurar_env()
     config = cargar_config(ruta_config)

@@ -8,7 +8,6 @@ import unittest
 from pathlib import Path
 
 from src.configuracion.contenedor import crear_caso_uso
-
 from unit_test.support import config_test
 
 
@@ -24,7 +23,9 @@ class TestGrafo(unittest.TestCase):
             self.assertEqual(r.confianza, 1.0)
             self.assertEqual(r.candidatos, [])  # no se activó el RAG
 
-            doc = json.loads((Path(tmp) / "validacion-service-domain.json").read_text(encoding="utf-8"))
+            doc = json.loads(
+                (Path(tmp) / "validacion-service-domain.json").read_text(encoding="utf-8")
+            )
             self.assertTrue(doc["existe"])
             self.assertIn("generado_en", doc)
 

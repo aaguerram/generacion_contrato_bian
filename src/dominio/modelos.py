@@ -8,9 +8,9 @@ from pydantic import BaseModel, Field
 
 MetodoValidacion = Literal[
     "coincidencia_exacta",  # el nombre está en SD.json salvo forma       (determinista, existe=True)
-    "similitud_alta",       # similitud léxica del nombre >= umbral alto   (determinista, existe=True)
-    "similitud_baja",       # similitud léxica del nombre <  umbral bajo   (determinista, existe=False)
-    "rag_llm",              # franja gris: lo decidió el LLM adjudicador   (existe True o False)
+    "similitud_alta",  # similitud léxica del nombre >= umbral alto   (determinista, existe=True)
+    "similitud_baja",  # similitud léxica del nombre <  umbral bajo   (determinista, existe=False)
+    "rag_llm",  # franja gris: lo decidió el LLM adjudicador   (existe True o False)
 ]
 
 
@@ -67,7 +67,8 @@ class VeredictoLLM(BaseModel):
     """
 
     evidence: str = Field(
-        default="", description="Evidencia CONCRETA de que la consulta designa un candidato (1-2 frases)."
+        default="",
+        description="Evidencia CONCRETA de que la consulta designa un candidato (1-2 frases).",
     )
     counter_evidence: str = Field(
         default="", description="Evidencia CONCRETA en contra / de ambigüedad (1-2 frases)."

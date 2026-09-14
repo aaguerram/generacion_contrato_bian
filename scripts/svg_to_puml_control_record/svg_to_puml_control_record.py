@@ -22,10 +22,9 @@ import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
 
-BBox = Tuple[float, float, float, float]
-Point = Tuple[float, float]
+BBox = tuple[float, float, float, float]
+Point = tuple[float, float]
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SVG_DIR = REPO_ROOT / "docs" / "bian-diagrams" / "svg_control_record"
@@ -62,6 +61,7 @@ CARDINALITY_RE = re.compile(r"^\*$|^\d+$|^\d+\.\.(\d+|\*)$")
 # Data model
 # --------------------------------------------------------------------------
 
+
 @dataclass
 class Element:
     """A UML_Class, UML_DataType or UML_Enumeration shape."""
@@ -70,9 +70,11 @@ class Element:
     label: str
     bbox: BBox
     kind: str  # "class" | "datatype" | "enum"
-    attributes: List[Tuple[str, str, str]] = field(default_factory=list)  # (name, type, card)
-    literals: List[str] = field(default_factory=list)
-    tags: List[Tuple[str, str]] = field(default_factory=list)  # (kind, value) e.g. ("BQ","Reference")
+    attributes: list[tuple[str, str, str]] = field(default_factory=list)  # (name, type, card)
+    literals: list[str] = field(default_factory=list)
+    tags: list[tuple[str, str]] = field(
+        default_factory=list
+    )  # (kind, value) e.g. ("BQ","Reference")
 
 
 @dataclass
@@ -100,11 +102,11 @@ class ExtractionReport:
     attributes: int = 0
     relationships: int = 0
     bian_bom_elements: int = 0
-    unmatched_notes: List[str] = field(default_factory=list)
-    unclassified_notes: List[str] = field(default_factory=list)
-    unclassified_diagram_boxes: List[str] = field(default_factory=list)
-    unresolved_edges: List[str] = field(default_factory=list)
-    proximity_matches: List[str] = field(default_factory=list)
+    unmatched_notes: list[str] = field(default_factory=list)
+    unclassified_notes: list[str] = field(default_factory=list)
+    unclassified_diagram_boxes: list[str] = field(default_factory=list)
+    unresolved_edges: list[str] = field(default_factory=list)
+    proximity_matches: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return self.__dict__
@@ -114,12 +116,13 @@ class ExtractionReport:
 # Low-level SVG parsing helpers
 # --------------------------------------------------------------------------
 
-def _pts_from_path_d(d: str) -> List[Point]:
+
+def _pts_from_path_d(d: str) -> list[Point]:
     nums = re.findall(r"(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)", d)
     return [(float(a), float(b)) for a, b in nums]
 
 
-def _bbox_from_points(pts: List[Point]) -> BBox:
+def _bbox_from_points(pts: list[Point]) -> BBox:
     xs = [p[0] for p in pts]
     ys = [p[1] for p in pts]
     return (min(xs), min(ys), max(xs), max(ys))
@@ -143,7 +146,7 @@ def _strip_stereotype(text: str) -> str:
     return STEREOTYPE_PREFIX_RE.sub("", text).strip()
 
 
-def _find_body(content: str, bizzid: str, start: int) -> Tuple[int, int]:
+def _find_body(content: str, bizzid: str, start: int) -> tuple[int, int]:
     """Returns (body_start, body_end) for the node opened at `start`, bounded
     by that same node's own "#object{bizzid}-lvl" closing marker. Every
     nested child (attribute, literal, or another shape geometrically inside
@@ -166,8 +169,8 @@ LABEL_BLOCK_RE = re.compile(
 )
 
 
-def parse_labels(content: str) -> Dict[str, str]:
-    labels: Dict[str, str] = {}
+def parse_labels(content: str) -> dict[str, str]:
+    labels: dict[str, str] = {}
     for m in LABEL_BLOCK_RE.finditer(content):
         bizzid, block = m.groups()
         texts = re.findall(r"<text[^>]*>([^<]*)</text>", block)
@@ -195,16 +198,23 @@ LITERAL_HEADER_RE = re.compile(
 ATTR_TEXT_RE = re.compile(r"^(?P<name>.+?)\s*:\s*(?P<type>[^\[]+?)(?:\[(?P<card>[^\]]*)\])?$")
 
 
-def parse_elements(content: str, labels: Dict[str, str]) -> Tuple[Dict[str, Element], Dict[str, int]]:
-    elements: Dict[str, Element] = {}
-    starts: Dict[str, int] = {}
+def parse_elements(
+    content: str, labels: dict[str, str]
+) -> tuple[dict[str, Element], dict[str, int]]:
+    elements: dict[str, Element] = {}
+    starts: dict[str, int] = {}
     kind_map = {"UML_Class": "class", "UML_DataType": "datatype", "UML_Enumeration": "enum"}
 
     for m in SHAPE_HEADER_RE.finditer(content):
         bizzid, concept, x, y, w, h = m.groups()
         x, y, w, h = float(x), float(y), float(w), float(h)
         kind = kind_map[concept]
-        el = Element(bizzid=bizzid, label=_strip_stereotype(labels.get(bizzid, "?")), bbox=(x, y, x + w, y + h), kind=kind)
+        el = Element(
+            bizzid=bizzid,
+            label=_strip_stereotype(labels.get(bizzid, "?")),
+            bbox=(x, y, x + w, y + h),
+            kind=kind,
+        )
         starts[bizzid] = m.start()
 
         body_start, body_end = _find_body(content, bizzid, m.start())
@@ -222,7 +232,13 @@ def parse_elements(content: str, labels: Dict[str, str]) -> Tuple[Dict[str, Elem
                     continue
                 tm = ATTR_TEXT_RE.match(raw)
                 if tm:
-                    el.attributes.append((tm.group("name").strip(), tm.group("type").strip(), (tm.group("card") or "").strip()))
+                    el.attributes.append(
+                        (
+                            tm.group("name").strip(),
+                            tm.group("type").strip(),
+                            (tm.group("card") or "").strip(),
+                        )
+                    )
                 else:
                     el.attributes.append((raw, "", ""))
 
@@ -240,7 +256,12 @@ GROUP_BOX_RE = re.compile(
 )
 
 
-def mark_bian_bom(content: str, elements: Dict[str, Element], element_starts: Dict[str, int], labels: Dict[str, str]) -> None:
+def mark_bian_bom(
+    content: str,
+    elements: dict[str, Element],
+    element_starts: dict[str, int],
+    labels: dict[str, str],
+) -> None:
     """A "BIAN BOM" box is a plain ViewGraphic rectangle that -- unlike a BQ
     dogear note or a Helper/BOM Diagram box, both of which merely *point* at
     a class via a separate connector line -- literally *nests* the classes
@@ -263,11 +284,12 @@ def mark_bian_bom(content: str, elements: Dict[str, Element], element_starts: Di
 # Class border color -> Extensible tag (same convention as scripts/svg_to_puml)
 # --------------------------------------------------------------------------
 
-def parse_class_styles(content: str) -> Dict[str, Tuple[Optional[str], Optional[str]]]:
+
+def parse_class_styles(content: str) -> dict[str, tuple[str | None, str | None]]:
     style_re = re.compile(r"\.object(\d+)\s*\{([^}]*)\}")
     fill_re = re.compile(r"fill:\s*(#[0-9a-fA-F]{6})")
     stroke_re = re.compile(r"stroke:\s*(#[0-9a-fA-F]{6})")
-    styles: Dict[str, Tuple[Optional[str], Optional[str]]] = {}
+    styles: dict[str, tuple[str | None, str | None]] = {}
     for m in style_re.finditer(content):
         bizzid, body = m.groups()
         fill_m = fill_re.search(body)
@@ -279,7 +301,9 @@ def parse_class_styles(content: str) -> Dict[str, Tuple[Optional[str], Optional[
     return styles
 
 
-def apply_extensible_tags(elements: Dict[str, Element], styles: Dict[str, Tuple[Optional[str], Optional[str]]]) -> None:
+def apply_extensible_tags(
+    elements: dict[str, Element], styles: dict[str, tuple[str | None, str | None]]
+) -> None:
     for eid, el in elements.items():
         style = styles.get(eid)
         if style == EXTENSIBLE_STYLE:
@@ -317,7 +341,7 @@ NOTE_KIND_PATTERNS = [
 ]
 
 
-def classify_note(label: str) -> Optional[Tuple[str, str]]:
+def classify_note(label: str) -> tuple[str, str] | None:
     for kind, pattern in NOTE_KIND_PATTERNS:
         m = pattern.match(label)
         if m:
@@ -331,7 +355,7 @@ def _point_near_bbox(pt: Point, bbox: BBox, tol: float = 15.0) -> bool:
     return (x0 - tol) <= x <= (x1 + tol) and (y0 - tol) <= y <= (y1 + tol)
 
 
-def _closest_element(pt: Point, elements: Dict[str, Element]) -> Tuple[Optional[str], float]:
+def _closest_element(pt: Point, elements: dict[str, Element]) -> tuple[str | None, float]:
     best, best_d = None, None
     for eid, el in elements.items():
         x0, y0, x1, y1 = el.bbox
@@ -343,13 +367,17 @@ def _closest_element(pt: Point, elements: Dict[str, Element]) -> Tuple[Optional[
     return best, (best_d if best_d is not None else float("inf"))
 
 
-def parse_notes_and_boxes(content: str, labels: Dict[str, str]) -> Tuple[Dict[str, SvgNode], Dict[str, SvgNode]]:
-    notes: Dict[str, SvgNode] = {}
+def parse_notes_and_boxes(
+    content: str, labels: dict[str, str]
+) -> tuple[dict[str, SvgNode], dict[str, SvgNode]]:
+    notes: dict[str, SvgNode] = {}
     for m in DOGEAR_RE.finditer(content):
         bizzid, d = m.groups()
-        notes[bizzid] = SvgNode(bizzid, labels.get(bizzid, "?"), _bbox_from_points(_pts_from_path_d(d)))
+        notes[bizzid] = SvgNode(
+            bizzid, labels.get(bizzid, "?"), _bbox_from_points(_pts_from_path_d(d))
+        )
 
-    boxes: Dict[str, SvgNode] = {}
+    boxes: dict[str, SvgNode] = {}
     for m in DIAGRAM_BOX_RE.finditer(content):
         bizzid, x, y, w, h = m.groups()
         x, y, w, h = float(x), float(y), float(w), float(h)
@@ -359,10 +387,10 @@ def parse_notes_and_boxes(content: str, labels: Dict[str, str]) -> Tuple[Dict[st
 
 
 def apply_note_and_box_tags(
-    elements: Dict[str, Element],
-    notes: Dict[str, SvgNode],
-    boxes: Dict[str, SvgNode],
-    edges: List[Tuple[str, str, List[Point]]],
+    elements: dict[str, Element],
+    notes: dict[str, SvgNode],
+    boxes: dict[str, SvgNode],
+    edges: list[tuple[str, str, list[Point]]],
     report: ExtractionReport,
 ) -> set:
     """Resolves BQ/AssetType/ControlRecord/GenericArtifact notes and
@@ -415,7 +443,9 @@ def apply_note_and_box_tags(
             eid, dist = _closest_element(((x0 + x1) / 2, y1), elements)
             if eid is None:
                 continue
-            report.proximity_matches.append(f"{box_id} {label!r} -> {elements[eid].label!r} (dist={dist:.1f})")
+            report.proximity_matches.append(
+                f"{box_id} {label!r} -> {elements[eid].label!r} (dist={dist:.1f})"
+            )
         elements[eid].tags.append((kind, label))
 
     return consumed
@@ -425,12 +455,13 @@ def apply_note_and_box_tags(
 # Relationships: UML_Association / UML_Generalization / class-to-class ViewEdge
 # --------------------------------------------------------------------------
 
+
 def _edge_body(content: str, bizzid: str, start: int) -> str:
     body_start, body_end = _find_body(content, bizzid, start)
     return content[body_start:body_end]
 
 
-def _loose_texts(body: str) -> List[Tuple[str, Point]]:
+def _loose_texts(body: str) -> list[tuple[str, Point]]:
     """Every free-floating <text x="X" y="Y">value</text> directly inside an
     edge's own body (role names and cardinality labels sit here as plain
     siblings, not inside their own bizzid-tagged sub-element)."""
@@ -451,12 +482,12 @@ def _dist(a: Point, b: Point) -> float:
 
 def parse_relationships(
     content: str,
-    elements: Dict[str, Element],
-    edges: List[Tuple[str, str, List[Point]]],
+    elements: dict[str, Element],
+    edges: list[tuple[str, str, list[Point]]],
     consumed: set,
     report: ExtractionReport,
-) -> List[Relationship]:
-    rels: List[Relationship] = []
+) -> list[Relationship]:
+    rels: list[Relationship] = []
     edge_starts = {}
     for m in EDGE_RE.finditer(content):
         edge_starts[m.group(1)] = m.start()
@@ -492,8 +523,8 @@ def parse_relationships(
         # preserving document order at each end (matches the existing
         # puml-bom convention, e.g. `"Registered / Party / 0..1"`).
         body = _edge_body(content, edge_id, edge_starts.get(edge_id, 0))
-        from_tokens: List[str] = []
-        to_tokens: List[str] = []
+        from_tokens: list[str] = []
+        to_tokens: list[str] = []
         for text, pt in _loose_texts(body):
             if _dist(pt, start) <= _dist(pt, end):
                 from_tokens.append(text)
@@ -515,7 +546,7 @@ def parse_relationships(
     # the source SVG. Rendering both adds no information, so collapse exact
     # duplicates while keeping first-seen order.
     seen = set()
-    deduped: List[Relationship] = []
+    deduped: list[Relationship] = []
     for r in rels:
         key = (r.kind, r.from_id, r.to_id, r.from_label, r.to_label)
         if key in seen:
@@ -529,11 +560,20 @@ def parse_relationships(
 # PlantUML rendering
 # --------------------------------------------------------------------------
 
-KIND_ORDER = ["BianBom", "Extensible", "BQ", "AssetType", "ControlRecord", "GenericArtifact", "HelperDiagram", "BOMDiagram"]
+KIND_ORDER = [
+    "BianBom",
+    "Extensible",
+    "BQ",
+    "AssetType",
+    "ControlRecord",
+    "GenericArtifact",
+    "HelperDiagram",
+    "BOMDiagram",
+]
 
 
-def render_tag_lines(tags: List[Tuple[str, str]]) -> List[str]:
-    def sort_key(t: Tuple[str, str]) -> Tuple[int, str]:
+def render_tag_lines(tags: list[tuple[str, str]]) -> list[str]:
+    def sort_key(t: tuple[str, str]) -> tuple[int, str]:
         kind, value = t
         return (KIND_ORDER.index(kind) if kind in KIND_ORDER else len(KIND_ORDER), value)
 
@@ -547,7 +587,12 @@ def render_attribute(name: str, type_: str, card: str) -> str:
     return f"  + {name} : {type_}{suffix}"
 
 
-def render_puml(service_domain: str, source_url: Optional[str], elements: Dict[str, Element], rels: List[Relationship]) -> str:
+def render_puml(
+    service_domain: str,
+    source_url: str | None,
+    elements: dict[str, Element],
+    rels: list[Relationship],
+) -> str:
     lines = ["@startuml", f"title {service_domain} Control Record - BIAN UML"]
     lines.append("' Generated from BIAN Control Record diagram for machine-readable context")
     lines.append(f"' Service Domain: {service_domain}")
@@ -604,7 +649,10 @@ def render_puml(service_domain: str, source_url: Optional[str], elements: Dict[s
 # Orchestration
 # --------------------------------------------------------------------------
 
-def process_svg(svg_path: Path, service_domain: str, source_url: Optional[str]) -> Tuple[str, ExtractionReport]:
+
+def process_svg(
+    svg_path: Path, service_domain: str, source_url: str | None
+) -> tuple[str, ExtractionReport]:
     content = svg_path.read_text(encoding="utf-8")
     report = ExtractionReport(svg_file=svg_path.name)
 
@@ -615,7 +663,7 @@ def process_svg(svg_path: Path, service_domain: str, source_url: Optional[str]) 
     apply_extensible_tags(elements, styles)
 
     notes, boxes = parse_notes_and_boxes(content, labels)
-    edges: List[Tuple[str, str, List[Point]]] = []
+    edges: list[tuple[str, str, list[Point]]] = []
     for m in EDGE_RE.finditer(content):
         bizzid, concept, d = m.groups()
         edges.append((bizzid, concept, _pts_from_path_d(d)))
@@ -628,13 +676,15 @@ def process_svg(svg_path: Path, service_domain: str, source_url: Optional[str]) 
     report.enums = sum(1 for e in elements.values() if e.kind == "enum")
     report.attributes = sum(len(e.attributes) for e in elements.values())
     report.relationships = len(rels)
-    report.bian_bom_elements = sum(1 for e in elements.values() if any(k == "BianBom" for k, _ in e.tags))
+    report.bian_bom_elements = sum(
+        1 for e in elements.values() if any(k == "BianBom" for k, _ in e.tags)
+    )
 
     puml = render_puml(service_domain, source_url, elements, rels)
     return puml, report
 
 
-def load_catalog(catalog_path: Path) -> Dict[str, dict]:
+def load_catalog(catalog_path: Path) -> dict[str, dict]:
     if not catalog_path.exists():
         return {}
     data = json.loads(catalog_path.read_text(encoding="utf-8"))
@@ -652,8 +702,15 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--svg-dir", type=Path, default=DEFAULT_SVG_DIR)
     parser.add_argument("--puml-dir", type=Path, default=DEFAULT_PUML_DIR)
-    parser.add_argument("--catalog", type=Path, default=DEFAULT_CATALOG, help="bian-view-catalog.json, para resolver nombre de SD y URL fuente")
-    parser.add_argument("--only", help="Procesar solo el archivo cuyo nombre base (sin extension) coincida")
+    parser.add_argument(
+        "--catalog",
+        type=Path,
+        default=DEFAULT_CATALOG,
+        help="bian-view-catalog.json, para resolver nombre de SD y URL fuente",
+    )
+    parser.add_argument(
+        "--only", help="Procesar solo el archivo cuyo nombre base (sin extension) coincida"
+    )
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--report", type=Path)
     args = parser.parse_args()
@@ -696,7 +753,9 @@ def main() -> int:
         if report.unclassified_notes:
             print(f"    notas con texto no reconocido: {report.unclassified_notes}")
         if report.unclassified_diagram_boxes:
-            print(f"    recuadros de diagrama sin patron Helper/BOM: {report.unclassified_diagram_boxes}")
+            print(
+                f"    recuadros de diagrama sin patron Helper/BOM: {report.unclassified_diagram_boxes}"
+            )
         if report.proximity_matches:
             print(f"    asociados por cercania geometrica (revisar): {report.proximity_matches}")
 
@@ -704,7 +763,9 @@ def main() -> int:
             (args.puml_dir / f"{slug}.puml").write_text(puml, encoding="utf-8")
 
     if args.report:
-        args.report.write_text(json.dumps(all_reports, indent=2, ensure_ascii=False), encoding="utf-8")
+        args.report.write_text(
+            json.dumps(all_reports, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
         print(f"Reporte JSON escrito en {args.report}")
 
     return 0
