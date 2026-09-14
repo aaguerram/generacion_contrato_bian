@@ -22,12 +22,15 @@ once campos de SD.json ya tienen equivalente (coincidencia de valor entre 94% y 
 Si en el futuro un campo de SD.json no empareja con ninguno, se añade con su nombre en
 snake_case y el script lo reporta: nunca se duplica un dato bajo dos nombres.
 
-Regla de valores — solo se completa lo que falta
-------------------------------------------------
-- Landscape vacío y SD.json con valor  -> se completa.
-- Landscape truncado (SD.json lo contiene literalmente) -> se completa con el texto entero.
-- Ambos con valor y textos distintos   -> NO se toca: manda el landscape, y queda anotado como
-  incidencia para que la discrepancia sea visible en vez de resolverse en silencio.
+Regla de valores — en los campos emparejados manda SD.json
+-----------------------------------------------------------
+El NOMBRE es el del landscape; el VALOR lo pone SD.json siempre que tenga algo que decir (es la
+fuente del `BIANv14.xlsm`, con la documentación estructurada "** 1. Role ** ..."). Si SD.json no
+trae valor para ese campo, se respeta el del landscape. Todo reemplazo sobre un valor que ya
+existía queda listado en `valores_sobrescritos`.
+
+Además se comprueba que ningún valor quede repetido en dos atributos del mismo Service Domain
+(`valores_repetidos_entre_atributos`): si dos campos dicen lo mismo, uno no aporta nada.
 
 Idempotente: correrlo dos veces no cambia nada. Deja constancia en el bloque `enrichment` de la
 raíz del documento (fuentes con sha256, qué se completó y qué discrepa).
@@ -117,7 +120,7 @@ def enriquecer(doc: dict, sd_json: dict[str, dict]) -> dict:
     mapa = emparejar_campos(landscape_sd, sd_json)
 
     completados: dict[str, int] = {}
-    discrepancias: list[dict] = []
+    sobrescritos: list[dict] = []
     campos_nuevos = sorted(set(mapa.values()) - {k for v in landscape_sd.values() for k in v})
 
     for nombre, sd in landscape_sd.items():
@@ -127,25 +130,22 @@ def enriquecer(doc: dict, sd_json: dict[str, dict]) -> dict:
         for cabecera, campo in mapa.items():
             nuevo = _texto(fila.get(cabecera))
             if not nuevo:
-                continue
+                continue  # SD.json no aporta: se respeta lo que tenga el landscape
             actual = _texto(sd.get(campo))
+            if actual == nuevo:
+                continue
+            sd[campo] = nuevo
             if not actual:
-                sd[campo] = nuevo  # hueco: se completa
                 completados[campo] = completados.get(campo, 0) + 1
-            elif actual != nuevo:
-                if nuevo.startswith(actual) or actual in nuevo:
-                    sd[campo] = nuevo  # el landscape estaba truncado: se completa entero
-                    completados[campo] = completados.get(campo, 0) + 1
-                else:
-                    # Textos distintos: manda el landscape. Se anota para que se vea.
-                    discrepancias.append(
-                        {
-                            "service_domain": nombre,
-                            "campo": campo,
-                            "chars_landscape": len(actual),
-                            "chars_sd_json": len(nuevo),
-                        }
-                    )
+            else:
+                sobrescritos.append(
+                    {
+                        "service_domain": nombre,
+                        "campo": campo,
+                        "chars_landscape": len(actual),
+                        "chars_sd_json": len(nuevo),
+                    }
+                )
 
     doc["enrichment"] = {
         "enriquecido_por": "scripts/enrich_service_landscape/enrich_service_landscape.py",
@@ -154,9 +154,53 @@ def enriquecer(doc: dict, sd_json: dict[str, dict]) -> dict:
         "mapeo_de_campos": mapa,
         "campos_agregados": campos_nuevos,
         "valores_completados": dict(sorted(completados.items())),
-        "discrepancias_no_aplicadas": discrepancias,
+        "valores_sobrescritos": sobrescritos,
+        "valores_repetidos_entre_atributos": _valores_repetidos(landscape_sd),
     }
     return doc["enrichment"]
+
+
+# Campos de TEXTO descriptivo: si dos de ellos dicen exactamente lo mismo, uno no aporta nada.
+# Los de clasificación (`asset_type`, `control_record`, `functional_pattern`,
+# `generic_artifact_type`, `registration_status`) quedan fuera a propósito: son identificadores
+# cortos y BIAN los hace coincidir legítimamente — el Control Record se nombra
+# `<AssetType><ArtifactType>`, así que en "Legal Advisory" (asset type "Legal Advice", artifact
+# type "Advice") el CR se llama "Legal Advice", igual que su asset type. Eso viene idéntico en las
+# DOS fuentes oficiales; "corregirlo" sería inventar un dato que BIAN no publica.
+_CAMPOS_DE_TEXTO = (
+    "role_definition",
+    "example_of_use",
+    "executive_summary",
+    "key_features",
+    "documentation",
+)
+
+
+def _valores_repetidos(landscape_sd: dict[str, dict]) -> list[dict]:
+    """Un texto descriptivo no debe aparecer en dos atributos del mismo Service Domain.
+
+    Si `documentation` y `role_definition` acaban con el mismo texto, uno de los dos no aporta
+    nada y el catálogo aparenta saber más de lo que sabe. Se reporta en vez de resolverse solo:
+    cuál sobra es una decisión de contenido.
+    """
+    repetidos = []
+    for nombre, sd in landscape_sd.items():
+        vistos: dict[str, str] = {}
+        for campo in _CAMPOS_DE_TEXTO:
+            valor = _texto(sd.get(campo))
+            if not valor:
+                continue
+            if valor in vistos:
+                repetidos.append(
+                    {
+                        "service_domain": nombre,
+                        "campos": [vistos[valor], campo],
+                        "chars": len(valor),
+                    }
+                )
+            else:
+                vistos[valor] = campo
+    return repetidos
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -174,7 +218,6 @@ def main(argv: list[str] | None = None) -> int:
         for f in json.loads(SD_JSON.read_text(encoding="utf-8"))
         if str(f.get("Service Domain", "")).strip()
     }
-    antes = json.dumps(doc, ensure_ascii=False, sort_keys=True)
     informe = enriquecer(doc, sd_json)
     texto = json.dumps(doc, ensure_ascii=False, indent=2) + "\n"
 
@@ -183,24 +226,34 @@ def main(argv: list[str] | None = None) -> int:
         f"campos agregados       : {informe['campos_agregados'] or 'ninguno (todos ya existían)'}"
     )
     print(f"valores completados    : {informe['valores_completados'] or 'ninguno'}")
-    if informe["discrepancias_no_aplicadas"]:
-        print(f"discrepancias (manda el landscape): {len(informe['discrepancias_no_aplicadas'])}")
-        for d in informe["discrepancias_no_aplicadas"][:5]:
+    if informe["valores_sobrescritos"]:
+        print(f"valores sobrescritos   : {len(informe['valores_sobrescritos'])} (manda SD.json)")
+        for d in informe["valores_sobrescritos"][:5]:
             print(
-                f"   - {d['service_domain']}.{d['campo']}: {d['chars_landscape']} vs {d['chars_sd_json']} chars"
+                f"   - {d['service_domain']}.{d['campo']}: "
+                f"{d['chars_landscape']} -> {d['chars_sd_json']} chars"
             )
+    repetidos = informe["valores_repetidos_entre_atributos"]
+    print(f"valores repetidos entre atributos: {len(repetidos) or 'ninguno'}")
+    for r in repetidos[:5]:
+        print(
+            f"   - {r['service_domain']}: {r['campos'][0]} == {r['campos'][1]} ({r['chars']} chars)"
+        )
 
     if args.verificar:
-        cambio = json.dumps(doc, ensure_ascii=False, sort_keys=True) != antes
-        # `enrichment` se reescribe siempre (lleva la fecha): lo que importa es si cambió algún SD.
-        pendientes = sum(informe["valores_completados"].values())
+        # `enrichment` se reescribe siempre (lleva la fecha): lo que importa es si quedó algo por
+        # aplicar sobre los Service Domain o si hay valores repetidos entre atributos.
+        pendientes = sum(informe["valores_completados"].values()) + len(
+            informe["valores_sobrescritos"]
+        )
         if pendientes:
-            print(
-                f"PENDIENTE: {pendientes} valores por completar; correr el script sin --verificar"
-            )
+            print(f"PENDIENTE: {pendientes} valores por aplicar; correr el script sin --verificar")
             return 1
-        print("OK: el landscape no tiene huecos que SD.json pueda completar")
-        return 0 if not cambio or not pendientes else 1
+        if repetidos:
+            print("PENDIENTE: hay valores repetidos entre atributos (ver arriba)")
+            return 1
+        print("OK: el landscape está al día con SD.json y sin valores repetidos")
+        return 0
 
     LANDSCAPE.write_text(texto, encoding="utf-8")
     print(f"escrito {LANDSCAPE.relative_to(RAIZ)} ({len(texto) / 1024:.0f} KB)")

@@ -1299,7 +1299,7 @@
               "sd_overview_url": "https://bian.org/servicelandscape-14-0-0/views/view_53278.html",
               "role_definition": "Provide customers and bank employees with advice on legal aspects of product sales and servicing as well as on planned and executed transactions. The advice can take the form of an evaluation but it can also result in a legally correct document or a contract for the provisioning of a complex service or a product. Quite often legal advice is not a separately chargeable service that a bank provides to a customer. Rather it is part of a sales proces for a product or service or part of a servicing process for an existing product.",
               "example_of_use": "- Preparing a draft agreement for the fiduciary transfer of ownership of equipment and inventory to the bank as part of the opening of a corporate loan\n- Provide advice on the consequences of inter-company loans in the case of opening a corporate sweep agreement",
-              "executive_summary": "'The role of the Service Domain is to provide customers and bank employees with advice on legal aspects of product sales and servicing as well as on planned and executed transactions.",
+              "executive_summary": "The role of the Service Domain is to provide customers and bank employees with advice on legal aspects of product sales and servicing as well as on planned and executed transactions.",
               "key_features": "- Evaluate impact of customer-specific situations on the sale of a product or service\n- Provide a legally binding document for a complex sale process of a product or service",
               "documentation": "** 1. Role **\nProvide customers and bank employees with advice on legal aspects of product sales and servicing as well as on planned and executed transactions. The advice can take the form of an evaluation but it can also result in a legally correct document or a contract for the provisioning of a complex service or a product. Quite often legal advice is not a separately chargeable service that a bank provides to a customer. Rather it is part of a sales proces for a product or service or part of a servicing process for an existing product.\n\n** 2. Examples of use **\n- Preparing a draft agreement for the fiduciary transfer of ownership of equipment and inventory to the bank as part of the opening of a corporate loan\n- Provide advice on the consequences of inter-company loans in the case of opening a corporate sweep agreement\n\n** 3.Executive Summary **\n'The role of the Service Domain is to provide customers and bank employees with advice on legal aspects of product sales and servicing as well as on planned and executed transactions. \n\n** 4. Key Features **\n- Evaluate impact of customer-specific situations on the sale of a product or service\n- Provide a legally binding document for a complex sale process of a product or service\n\n** General comment **",
               "functional_pattern": "Advise",
@@ -1564,7 +1564,7 @@
                   "role_definition": "Maintain a log of financial transactions, monetary or value transactions, and entitlements, for management information, tracking and reconciliation purposes.  It can offer utilities that enable it to maintain balances/positions, to calculate interest and charges, and to support transaction reconciliation activities.",
                   "example_of_use": "Any product fulfillment domain, current account, savings account, credit card, incentive account, etc, delegates transaction posting/tracking to the Position Keeping service domain.",
                   "executive_summary": "This service domain maintains a log of monetary or value transactions and entitlements log posted to product facilities. Reconciled financial transactions are subsequently used for posting to the accounting systems.",
-                  "key_features": "'- Configure the transaction log for recording services (including transaction attributes)\n- Post transactions (including financial, monetary, value driven incentive points, entitlements)\n- Repair/update transactions\n- Maintain/update transaction status (e.g., matched, reversed, unbilled, billed, accrued, vested, redeemed, expired, forfeited, etc.)\n- Maintain positions as configured (includes limits and blocks)\n- Provide simple accounting services (e.g. interest accruals)\n- Provide transaction reporting and alert services",
+                  "key_features": "- Configure the transaction log for recording services (including transaction attributes) - Post transactions (including financial, monetary, value driven incentive points, entitlements) - Repair/update transactions - Maintain/update transaction status (e.g., matched, reversed, unbilled, billed, accrued, vested, redeemed, expired, forfeited, etc.) - Maintain positions as configured (includes limits and blocks) - Provide simple accounting services (e.g. interest accruals) - Provide transaction reporting and alert services",
                   "documentation": "** 1. Role **\nMaintain a log of financial transactions, monetary or value transactions, and entitlements, for management information, tracking and reconciliation purposes.  It can offer utilities that enable it to maintain balances/positions, to calculate interest and charges, and to support transaction reconciliation activities.\n\n** 2. Examples of use **\nAny product fulfillment domain, current account, savings account, credit card, incentive account, etc, delegates transaction posting/tracking to the Position Keeping service domain.\n\n** 3.Executive Summary **\nThis service domain maintains a log of monetary or value transactions and entitlements log posted to product facilities. Reconciled financial transactions are subsequently used for posting to the accounting systems.\n\n** 4. Key Features **\n'- Configure the transaction log for recording services (including transaction attributes)\n- Post transactions (including financial, monetary, value driven incentive points, entitlements)\n- Repair/update transactions \n- Maintain/update transaction status (e.g., matched, reversed, unbilled, billed, accrued, vested, redeemed, expired, forfeited, etc.)\n- Maintain positions as configured (includes limits and blocks) \n- Provide simple accounting services (e.g. interest accruals) \n- Provide transaction reporting and alert services \n\n** General comment **",
                   "functional_pattern": "Track",
                   "asset_type": "Financial Position",
@@ -2005,7 +2005,7 @@
                   "role_definition": "The Incentive Account service domain orchestrates the fulfillment of all service obligations for one or more Incentive Programs into which a Customer's products are enrolled. This includes maintaining enrollment status, accruing value driven incentives such as points or cashback, accruing service driven incentives such as product or relationship incentives, handling and orchestrating incentive redemptions requests, maintaing balance and status of accrued incentives, and managing their expiration and forfeiture.",
                   "example_of_use": "Look up both value driven incentives, including points and cashback, as well as service driven entitlements, such as coupons, that are available for redemption by a customer.",
                   "executive_summary": "This service domain orchestrates the scheduled maintenance and transactional activities associated with Incentive Program fulfillment, including enrollment, accrual and redemption.",
-                  "key_features": "'- Perform and record enrollment of customer products into eligible Incentive Programs\n- Process transactions and events received from Product Fulfillment (e.g., Card or Current Account) to determine and accrue incentives\n- Track accrued value driven incentives (points/cashback) and service driven entitlements\n- Accrue applicable bonus incentives\n- Process linkage of Incentive Account with Partner Loyalty Accounts\n- Fulfill Incentive redemption request\n- Handling expiration and forfeiture of accrued incentives\n- Handle points transfer requests to linked Partner Loyalty programs\n- Process Consumer Charges/Fees associated with enrollment, accrual or redemption\n- Handle Points or Cashback reversal",
+                  "key_features": "- Perform and record enrollment of customer products into eligible Incentive Programs - Process transactions and events received from Product Fulfillment (e.g., Card or Current Account) to determine and accrue incentives - Track accrued value driven incentives (points/cashback) and service driven entitlements - Accrue applicable bonus incentives - Process linkage of Incentive Account with Partner Loyalty Accounts - Fulfill Incentive redemption request - Handling expiration and forfeiture of accrued incentives - Handle points transfer requests to linked Partner Loyalty programs - Process Consumer Charges/Fees associated with enrollment, accrual or redemption - Handle Points or Cashback reversal",
                   "documentation": "** 1. Role **\nThe Incentive Account service domain orchestrates the fulfillment of all service obligations for one or more Incentive Programs into which a Customer's products are enrolled. This includes maintaining enrollment status, accruing value driven incentives such as points or cashback, accruing service driven incentives such as product or relationship incentives, handling and orchestrating incentive redemptions requests, maintaing balance and status of accrued incentives, and managing their expiration and forfeiture.\n\n** 2. Examples of use **\nLook up both value driven incentives, including points and cashback, as well as service driven entitlements, such as coupons, that are available for redemption by a customer. \n\n** 3.Executive Summary **\nThis service domain orchestrates the scheduled maintenance and transactional activities associated with Incentive Program fulfillment, including enrollment, accrual and redemption. \n\n** 4. Key Features **\n'- Perform and record enrollment of customer products into eligible Incentive Programs\n- Process transactions and events received from Product Fulfillment (e.g., Card or Current Account) to determine and accrue incentives\n- Track accrued value driven incentives (points/cashback) and service driven entitlements\n- Accrue applicable bonus incentives\n- Process linkage of Incentive Account with Partner Loyalty Accounts\n- Fulfill Incentive redemption request\n- Handling expiration and forfeiture of accrued incentives\n- Handle points transfer requests to linked Partner Loyalty programs\n- Process Consumer Charges/Fees associated with enrollment, accrual or redemption\n- Handle Points or Cashback reversal\n\n** General comment **",
                   "functional_pattern": "Fulfill",
                   "asset_type": "Incentive Account",
@@ -2030,7 +2030,7 @@
                   "role_definition": "The Incentive Program Directory service domain maintains a comprehensive directory of Incentive Progams and their specifications and is referenced for enorllment of a customer product into an incentive program, for accruing value driven or service driven incentives, and for redeeming incentives.",
                   "example_of_use": "Obtain the rules for determining if a transaction is elibile for points and for the number of points to be awarded.",
                   "executive_summary": "This service domain maintains specifications of the various Incentive Programs that are on offerr to customers.",
-                  "key_features": "'- Maintain Incentive Program specifications or characteristics\n- Provide list of applicable Incentive Programs based on context\n- Provide eligibility conditions and rules for enrollment\n- Provide elibilitlity conditions and rules for incentive accrual\n- Provide eligibility conditions and rules for incentive redemption\n- Provide list of associated Rewards Menus from which rewards may be selected for redemption\n- Provide rules for expiration and forfeiture of accrued incentives",
+                  "key_features": "- Maintain Incentive Program specifications or characteristics - Provide list of applicable Incentive Programs based on context - Provide eligibility conditions and rules for enrollment - Provide elibilitlity conditions and rules for incentive accrual - Provide eligibility conditions and rules for incentive redemption - Provide list of associated Rewards Menus from which rewards may be selected for redemption - Provide rules for expiration and forfeiture of accrued incentives",
                   "documentation": "** 1. Role **\nThe Incentive Program Directory service domain maintains a comprehensive directory of Incentive Progams and their specifications and is referenced for enorllment of a customer product into an incentive program, for accruing value driven or service driven incentives, and for redeeming incentives. \n\n** 2. Examples of use **\nObtain the rules for determining if a transaction is elibile for points and for the number of points to be awarded. \n\n** 3.Executive Summary **\nThis service domain maintains specifications of the various Incentive Programs that are on offerr to customers.\n\n** 4. Key Features **\n'- Maintain Incentive Program specifications or characteristics\n- Provide list of applicable Incentive Programs based on context \n- Provide eligibility conditions and rules for enrollment\n- Provide elibilitlity conditions and rules for incentive accrual\n- Provide eligibility conditions and rules for incentive redemption\n- Provide list of associated Rewards Menus from which rewards may be selected for redemption\n- Provide rules for expiration and forfeiture of accrued incentives\n\n** General comment **",
                   "functional_pattern": "Catalog",
                   "asset_type": "Incentive Program",
@@ -2080,7 +2080,7 @@
                   "role_definition": "The Issued Certificate Directory service domain maintains details of all Rewards Certificates issued to customers, provides necessary information to facilitate certificate redemption, and records updates related to redemption and expiration.",
                   "example_of_use": "The information about a Reward Certificate issued to a customer, including any secret authentication codes, is used by the Rewards Partner at the time of delivery of the reward to the customer.",
                   "executive_summary": "This service domain faciliatates the issuance of Rewards Certificates and their redemption.",
-                  "key_features": "'- Record issued certificates and their details\n- Provide certificate authentication information\n- Record redemption status\n- Track the number of redemptions\n- Handle certificate expiration",
+                  "key_features": "- Record issued certificates and their details - Provide certificate authentication information - Record redemption status - Track the number of redemptions - Handle certificate expiration",
                   "documentation": "** 1. Role **\nThe Issued Certificate Directory service domain maintains details of all Rewards Certificates issued to customers, provides necessary information to facilitate certificate redemption, and records updates related to redemption and expiration. \n\n** 2. Examples of use **\nThe information about a Reward Certificate issued to a customer, including any secret authentication codes, is used by the Rewards Partner at the time of delivery of the reward to the customer.\n\n** 3.Executive Summary **\nThis service domain faciliatates the issuance of Rewards Certificates and their redemption.\n\n** 4. Key Features **\n'- Record issued certificates and their details\n- Provide certificate authentication information\n- Record redemption status\n- Track the number of redemptions \n- Handle certificate expiration\n\n** General comment **",
                   "functional_pattern": "Catalog",
                   "asset_type": "Issued Certificate",
@@ -2255,7 +2255,7 @@
                   "role_definition": "The Rewards Delivery service domain orchestrates the entire end-to-end  process for delivering a redeemed reward, from ascertaining availability, allocating the reward and  informing the partner, issuing a reward certificate or providing delivery instructions to the partner, and following through until completion of delivery.",
                   "example_of_use": "The hotel is informed of the hotel room nights awarded to a customer so that the hotel reserves the room and a reward certificate is sent to the customer to be presented at the hotel at the time of check-in.",
                   "executive_summary": "The service domain orchestrates the entire end-to-end  process for delivering a redeemed reward.",
-                  "key_features": "'- Verify availability of requested reward, ascertaining selection preference and request allocation\n- Inform Rewards Partner of allocation\n- Determining delivery method\n- Issue Reward Certificate\n- Provide delivery instructions to the partner\n- Update delivery status and recording feedback.",
+                  "key_features": "- Verify availability of requested reward, ascertaining selection preference and request allocation - Inform Rewards Partner of allocation - Determining delivery method - Issue Reward Certificate - Provide delivery instructions to the partner - Update delivery status and recording feedback.",
                   "documentation": "** 1. Role **\nThe Rewards Delivery service domain orchestrates the entire end-to-end  process for delivering a redeemed reward, from ascertaining availability, allocating the reward and  informing the partner, issuing a reward certificate or providing delivery instructions to the partner, and following through until completion of delivery.\n\n** 2. Examples of use **\nThe hotel is informed of the hotel room nights awarded to a customer so that the hotel reserves the room and a reward certificate is sent to the customer to be presented at the hotel at the time of check-in.\n\n** 3.Executive Summary **\nThe service domain orchestrates the entire end-to-end  process for delivering a redeemed reward.\n\n** 4. Key Features **\n'- Verify availability of requested reward, ascertaining selection preference and request allocation\n- Inform Rewards Partner of allocation\n- Determining delivery method\n- Issue Reward Certificate\n- Provide delivery instructions to the partner\n- Update delivery status and recording feedback.\n\n** General comment **",
                   "functional_pattern": "Process",
                   "asset_type": "Rewards Delivery",
@@ -2280,7 +2280,7 @@
                   "role_definition": "The Rewards Inventory service domain maintains the inventory of available and allocated individual rewards and orchestrates their availability, allocation and redemption status. The inventory for a particular reward may need to be managed by specific partitions (e.g., peroids and/or geographic locations).",
                   "example_of_use": "Presents and allocates from a set of theater tickets requested by the customer for rewards redemption.",
                   "executive_summary": "The service domain handles the allocation of rewards from available inventory.",
-                  "key_features": "'- Configure rewards inventory for different reward categories\n- Maintain inventory of rewards by specified partitions (e.g., location, date, etc.)\n- Provide context sensitive list of rewards available for allocation\n- Allocate reward using specified criteria for each reward type\n- Enforce specified restrictions (e.g. blackout periods)\n- Record allocation instance with associated details\n- Update allocation instance for redemption, expiration, etc.",
+                  "key_features": "- Configure rewards inventory for different reward categories - Maintain inventory of rewards by specified partitions (e.g., location, date, etc.) - Provide context sensitive list of rewards available for allocation - Allocate reward using specified criteria for each reward type - Enforce specified restrictions (e.g. blackout periods) - Record allocation instance with associated details - Update allocation instance for redemption, expiration, etc.",
                   "documentation": "** 1. Role **\nThe Rewards Inventory service domain maintains the inventory of available and allocated individual rewards and orchestrates their availability, allocation and redemption status. The inventory for a particular reward may need to be managed by specific partitions (e.g., peroids and/or geographic locations). \n\n** 2. Examples of use **\nPresents and allocates from a set of theater tickets requested by the customer for rewards redemption.\n\n** 3.Executive Summary **\nThe service domain handles the allocation of rewards from available inventory.\n\n** 4. Key Features **\n'- Configure rewards inventory for different reward categories\n- Maintain inventory of rewards by specified partitions (e.g., location, date, etc.)\n- Provide context sensitive list of rewards available for allocation\n- Allocate reward using specified criteria for each reward type\n- Enforce specified restrictions (e.g. blackout periods)\n- Record allocation instance with associated details\n- Update allocation instance for redemption, expiration, etc.\n\n** General comment **",
                   "functional_pattern": "Allocate",
                   "asset_type": "Rewards Inventory",
@@ -2305,7 +2305,7 @@
                   "role_definition": "The Rewards Menu service domain handles the context sensitive presentation and selection of rewards associated with an Incentive Program, that a customer may redeem. The rewards are grouped into Menus which are associated with one or more Incentive Programs. A comprehensive set of attributes associated with each reward is presented, including a reference to the partners involved in providing and delivering the reward and a reference to the corresponding Rewards Inventory instance.",
                   "example_of_use": "The customer is presented with options available for redemption for the indicated number of points. Of the available options, the customer selects two rewards: one for transfer or points to an Airline frequent flyer account, and the second for a free hotel room on specific dates.",
                   "executive_summary": "The service domain presents a set of eligible rewards a customer can select from.",
-                  "key_features": "'- Configure Rewards menu attributes for different types of rewards that may be used for either value driven incentives or service driven incentives\n- Maintain rewards attributes such as redemption eligibility requirements, redemption qualification criteria, and redemption rules.\n- Reference associated partners and provide partner compensation rate for the reward\n- Provide points conversion rate for transfers to partner loyalty programs\n- Provide redemption terms to be displayed to customers\n- Provide alerts for rewards that are low on inventory or are due to expire\n- Support ongoing maintenance of rewards comprising a Rewards Menu, including addition, sunsetting, renewal, etc.",
+                  "key_features": "- Configure Rewards menu attributes for different types of rewards that may be used for either value driven incentives or service driven incentives - Maintain rewards attributes such as redemption eligibility requirements, redemption qualification criteria, and redemption rules. - Reference associated partners and provide partner compensation rate for the reward - Provide points conversion rate for transfers to partner loyalty programs - Provide redemption terms to be displayed to customers - Provide alerts for rewards that are low on inventory or are due to expire - Support ongoing maintenance of rewards comprising a Rewards Menu, including addition, sunsetting, renewal, etc.",
                   "documentation": "** 1. Role **\nThe Rewards Menu service domain handles the context sensitive presentation and selection of rewards associated with an Incentive Program, that a customer may redeem. The rewards are grouped into Menus which are associated with one or more Incentive Programs. A comprehensive set of attributes associated with each reward is presented, including a reference to the partners involved in providing and delivering the reward and a reference to the corresponding Rewards Inventory instance.\n\n** 2. Examples of use **\nThe customer is presented with options available for redemption for the indicated number of points. Of the available options, the customer selects two rewards: one for transfer or points to an Airline frequent flyer account, and the second for a free hotel room on specific dates.\n\n** 3.Executive Summary **\nThe service domain presents a set of eligible rewards a customer can select from. \n\n** 4. Key Features **\n'- Configure Rewards menu attributes for different types of rewards that may be used for either value driven incentives or service driven incentives\n- Maintain rewards attributes such as redemption eligibility requirements, redemption qualification criteria, and redemption rules.\n- Reference associated partners and provide partner compensation rate for the reward\n- Provide points conversion rate for transfers to partner loyalty programs\n- Provide redemption terms to be displayed to customers\n- Provide alerts for rewards that are low on inventory or are due to expire\n- Support ongoing maintenance of rewards comprising a Rewards Menu, including addition, sunsetting, renewal, etc.\n\n** General comment **",
                   "functional_pattern": "Catalog",
                   "asset_type": "Rewards Option",
@@ -2547,7 +2547,7 @@
                   "role_definition": "This Service Domain handles the operational interface with one or more external payment services or 'payment rails'. This includes formatting outbound messages, ensuring compliance with rules and standards defined by external payment services, adherance to defined payment service schedules, supporting store and forward of payments for clearing and settlement purposes, and extracting and mapping inbound message content for internal processing during the scheduled operating sessions of the payment service.This Service Domain will interact with a paired Holding Account Service Domain to handle the underlying recording and movement of funds between the bank and service provider.\nThe Service Domain also handles reconciliation and settlement with Payment Schemes and Counterparties. While this is particularly relevant for schemes that use deferred and batched processing, it could also be used for end of day reconciliation and settlement of fees/charges for real-time payment schemes.",
                   "example_of_use": "The bank receives a payment notification for one of its customers from the payment service. Once lower level message security checks have been performed the interpreted message is passed to the Payment Order Instruction Service Domains for further processing.",
                   "executive_summary": "This Service Domain handles the operational interface with payment service providers, formatting outbound transactions and onward routing inbound transactions during scheduled operating sessions. It also links to holding account facilities for net payment handling",
-                  "key_features": "'Handle outbound payment transactions\nHandle inbound payment transactions\nHandle transaction warehousing (delayed send)\nHandle transaction update, repair\nHandle holding account access and reconciliation\nHandle scheme and counterparty liquidity risk management\nHandle interbank or scheme fees and charges\nHandle interbank settlement through Payment Authority\nHandle service configuration and operational controls",
+                  "key_features": "Handle outbound payment transactions Handle inbound payment transactions Handle transaction warehousing (delayed send) Handle transaction update, repair Handle holding account access and reconciliation Handle scheme and counterparty liquidity risk management Handle interbank or scheme fees and charges Handle interbank settlement through Payment Authority Handle service configuration and operational controls",
                   "documentation": "** 1. Role **\nThis Service Domain handles the operational interface with one or more external payment services or 'payment rails'. This includes formatting outbound messages, ensuring compliance with rules and standards defined by external payment services, adherance to defined payment service schedules, supporting store and forward of payments for clearing and settlement purposes, and extracting and mapping inbound message content for internal processing during the scheduled operating sessions of the payment service.This Service Domain will interact with a paired Holding Account Service Domain to handle the underlying recording and movement of funds between the bank and service provider.\nThe Service Domain also handles reconciliation and settlement with Payment Schemes and Counterparties. While this is particularly relevant for schemes that use deferred and batched processing, it could also be used for end of day reconciliation and settlement of fees/charges for real-time payment schemes. \n\n** 2. Examples of use **\nThe bank receives a payment notification for one of its customers from the payment service. Once lower level message security checks have been performed the interpreted message is passed to the Payment Order Instruction Service Domains for further processing.\n\n** 3.Executive Summary **\nThis Service Domain handles the operational interface with payment service providers, formatting outbound transactions and onward routing inbound transactions during scheduled operating sessions. It also links to holding account facilities for net payment handling\n\n** 4. Key Features **\n'Handle outbound payment transactions \nHandle inbound payment transactions \nHandle transaction warehousing (delayed send) \nHandle transaction update, repair \nHandle holding account access and reconciliation\nHandle scheme and counterparty liquidity risk management\nHandle interbank or scheme fees and charges\nHandle interbank settlement through Payment Authority\nHandle service configuration and operational controls\n\n** General comment **",
                   "functional_pattern": "Operate",
                   "asset_type": "Payment Rail",
@@ -2863,7 +2863,7 @@
                   "role_definition": "The Claim Administration Service handles the one-off and scheduled tasks required to comply with the insurance policy obligations as confirmed by the claim assessment. This will include task specific and recurring payments and other non financial obligations committed to in the policy.",
                   "example_of_use": "Initiate one-off and repeating payments",
                   "executive_summary": "The claim administration Service Domain implements the payment and support obligations of the policy in respect to a verified claim",
-                  "key_features": "'Administer the schedule of tasks associated with fulfilling the claim\nProcess payments both one-off and recurring\nHandle documentation and communications\nResolve claim processing issues and related requests",
+                  "key_features": "Administer the schedule of tasks associated with fulfilling the claim Process payments both one-off and recurring Handle documentation and communications Resolve claim processing issues and related requests",
                   "documentation": "** 1. Role **\nThe Claim Administration Service handles the one-off and scheduled tasks required to comply with the insurance policy obligations as confirmed by the claim assessment. This will include task specific and recurring payments and other non financial obligations committed to in the policy\n\n** 2. Examples of use **\nInitiate one-off and repeating payments\n\n** 3.Executive Summary **\nThe claim administration Service Domain implements the payment and support obligations of the policy in respect to a verified claim\n\n** 4. Key Features **\n'Administer the schedule of tasks associated with fulfilling the claim\nProcess payments both one-off and recurring\nHandle documentation and communications\nResolve claim processing issues and related requests\n\n** General comment **",
                   "functional_pattern": "Administer",
                   "asset_type": "Claim Processing",
@@ -3712,7 +3712,7 @@
                   "role_definition": "A Virtual Account is a bank account that is defined on an underlying real account. It can receive and send payments for the underlying account while behaving towards the outside as a separate account. In a light version it does not have a balance; it can be seen as only a funnel through which funds can move into and out of the underlying account. In a more full version it can have its own balance, but all incoming and outgoing transactions will be mirrored in the underlying real account. A real account can have many Virtual Accounts defined on it.",
                   "example_of_use": "Virtual Accounts based on a Corporate Current Account can for instance mirror the internal accounts of a group parent-subsidiaries structure. Typically the management of the Virtual Accounts is left to the (parent)\ncustomer. This implies that the customer will be able to open Virtual Accounts, once it has a Virtual Account agreement with the bank. The bank will be responsible for the correct execution of the customer’s instructions, for the correct validation (including AML and KYC) and for the reporting to the customer and government and central bank.",
                   "executive_summary": "A Virtual Account is a bank account that is defined on an underlying real account. It can receive and send payments for the underlying account while behaving towards the outside as a separate account.",
-                  "key_features": "• Open Virtual Accounts\n• Allow incoming and outgoing credit transfers (the latter is Payment On Behalf Of)\n• Allow incoming direct debits (Collections On Behalf Of) and outgoing direct debits\n• Handle Standing Orders\n• Apply Interest (if a full Virtual Account)\n• Apply fees\n• Provide Statements",
+                  "key_features": "• Open Virtual Accounts• Allow incoming and outgoing credit transfers (the latter is Payment On Behalf Of)• Allow incoming direct debits (Collections On Behalf Of) and outgoing direct debits• Handle Standing Orders• Apply Interest (if a full Virtual Account)• Apply fees• Provide Statements",
                   "documentation": "** 1. Role **\nA Virtual Account is a bank account that is defined on an underlying real account. It can receive and send payments for the underlying account while behaving towards the outside as a separate account. In a light version it does not have a balance; it can be seen as only a funnel through which funds can move into and out of the underlying account. In a more full version it can have its own balance, but all incoming and outgoing transactions will be mirrored in the underlying real account. A real account can have many Virtual Accounts defined on it.\n\n** 2. Examples of use **\nVirtual Accounts based on a Corporate Current Account can for instance mirror the internal accounts of a group parent-subsidiaries structure. Typically the management of the Virtual Accounts is left to the (parent)\ncustomer. This implies that the customer will be able to open Virtual Accounts, once it has a Virtual Account agreement with the bank. The bank will be responsible for the correct execution of the customer’s instructions, for the correct validation (including AML and KYC) and for the reporting to the customer and government and central bank.\n\n** 3.Executive Summary **\nA Virtual Account is a bank account that is defined on an underlying real account. It can receive and send payments for the underlying account while behaving towards the outside as a separate account. \n\n** 4. Key Features **•\n Open Virtual Accounts• \nAllow incoming and outgoing credit transfers (the latter is Payment On Behalf Of)• \nAllow incoming direct debits (Collections On Behalf Of) and outgoing direct debits• \nHandle Standing Orders• \nApply Interest (if a full Virtual Account)• \nApply fees• \nProvide Statements\n\n** General comment **",
                   "functional_pattern": "Fulfill",
                   "asset_type": "Virtual Account",
@@ -4855,8 +4855,8 @@
               "sd_overview_url": "https://bian.org/servicelandscape-14-0-0/views/view_53386.html",
               "role_definition": "Maintain a record of transactions and events related to Partners to support settlement, reconciliatin and performance tracking.",
               "example_of_use": "Points transfer activity is recorded for subsequent settlement with the Airline.",
-              "executive_summary": "'This service domain handle the day-to-day operations of a collaborative partner related services.",
-              "key_features": "'- Configure transaction and event log information\n- Log transactions and events\n- Update logged transactions and events\n- Retrieve and summarize log entries",
+              "executive_summary": "This service domain handle the day-to-day operations of a collaborative partner related services.",
+              "key_features": "- Configure transaction and event log information - Log transactions and events - Update logged transactions and events - Retrieve and summarize log entries",
               "documentation": "** 1. Role **\nMaintain a record of transactions and events related to Partners to support settlement, reconciliatin and performance tracking.\n\n** 2. Examples of use **\nPoints transfer activity is recorded for subsequent settlement with the Airline.\n\n** 3.Executive Summary **\n'This service domain handle the day-to-day operations of a collaborative partner related services.\n\n** 4. Key Features **\n'- Configure transaction and event log information\n- Log transactions and events\n- Update logged transactions and events\n- Retrieve and summarize log entries\n\n** General comment **",
               "functional_pattern": "Track",
               "asset_type": "Partner Event",
@@ -4881,7 +4881,7 @@
               "role_definition": "The Partner Administration service domain handles all aspects of collaboration with a Partner, including the setup and implementation, coordination of services, settlement, reconciliation and issue resolution.",
               "example_of_use": "A customer's rewards redemption request is fulfilled by transferring points to an Airline Frequent Flyer account with the airline being compensated based on agreed terms.",
               "executive_summary": "This service domain handle the day-to-day operations of a collaborative partner related services.",
-              "key_features": "'- Partner setup and implementation\n- Coordination of services\n- Monitoring Performance Agreements\n- Partner settlement and reconciliation\n- Issue resolution\n- Reporting",
+              "key_features": "- Partner setup and implementation - Coordination of services - Monitoring Performance Agreements - Partner settlement and reconciliation - Issue resolution - Reporting",
               "documentation": "** 1. Role **\nThe Partner Administration service domain handles all aspects of collaboration with a Partner, including the setup and implementation, coordination of services, settlement, reconciliation and issue resolution.\n\n** 2. Examples of use **\nA customer's rewards redemption request is fulfilled by transferring points to an Airline Frequent Flyer account with the airline being compensated based on agreed terms.\n\n** 3.Executive Summary **\nThis service domain handle the day-to-day operations of a collaborative partner related services.\n\n** 4. Key Features **\n'- Partner setup and implementation\n- Coordination of services\n- Monitoring Performance Agreements\n- Partner settlement and reconciliation\n- Issue resolution\n- Reporting\n\n** General comment **",
               "functional_pattern": "Administer",
               "asset_type": "Partner",
@@ -4932,7 +4932,7 @@
               "example_of_use": "The relationship with an Airline Rewards Parter is continually tracked to ensure mutually advantageous relationship.",
               "executive_summary": "This service domain handles strategic management of collaborative partners including partner development, performance and relationship tracking.",
               "key_features": "- Partner relationship management - Partner performance and profitability review - Renegotiation and renewal of terms",
-              "documentation": "Ability to establish, control, predict, process, organize an individual, or other legal entity, that has, plans to have, or has an agreement with the organization with the intent to exchange monetary and / or non-monetary value in the provisioning of products and services other means of assistance  to a customer.",
+              "documentation": "** 1. Role ** The Partner Management service domain handles the development and negotiation of collaborative partners and their continued relationship. ** 2. Examples of use ** The relationship with an Airline Rewards Parter is continually tracked to ensure mutually advantageous relationship. ** 3.Executive Summary ** This service domain handles strategic management of collaborative partners including partner development, performance and relationship tracking. ** 4. Key Features ** '- Partner relationship management - Partner performance and profitability review - Renegotiation and renewal of terms ** General comment **",
               "functional_pattern": "Manage",
               "asset_type": "Partner Releationship",
               "generic_artifact_type": "Management Plan",
@@ -7489,7 +7489,7 @@
               "example_of_use": "Product design seeks input from the brand management unit to factor the brand into the product marketing materials and ensure alignment",
               "executive_summary": "Respond to events that potentially damage the brand or provide an opportunity to strengthen/leverage brand awareness",
               "key_features": "Brand definition Review business development impact and leverage of the brand Troubleshoot production issues that might impact the brand",
-              "documentation": "Ability to establish, develop, analyze, administer, and report on all aspects of a market’s perception of the business (or part), its  products, services, experience and culture often represented by unique names, symbols, marks, colours or logo.",
+              "documentation": "** 1. Role ** Define and develop the enterprise brand, including providing advice and guidance to marketing and product/service development activities that leverage the brand. Respond to events that potentially damage the brand or provide an opportunity to strengthen/leverage brand awareness ** 2. Examples of use ** Product design seeks input from the brand management unit to factor the brand into the product marketing materials and ensure alignment ** 3.Executive Summary ** Respond to events that potentially damage the brand or provide an opportunity to strengthen/leverage brand awareness ** 4. Key Features ** Brand definition Review business development impact and leverage of the brand Troubleshoot production issues that might impact the brand ** General comment **",
               "functional_pattern": "Manage",
               "asset_type": "Brand",
               "generic_artifact_type": "Management Plan",
@@ -8146,7 +8146,7 @@
               "role_definition": "This service domain supports payment services for consumer and business customers by capturing the payment instruction and forwarding it to Payment Orchestration to handle different types of payment transactions, both within the bank as well as with other banks through different payment schemes. The service domain can support single transactions, or manage scheduled payments if requested.",
               "example_of_use": "An established customer transfers an amount from their current account to an overseas account for a family member. As this is a recurring transaction, the details are maintained and updated as necessary",
               "executive_summary": "This service domain provides a customer payment service. It captures the payer and payee details and other key properties of the payment and initiates the orchestration of the transaction. It provides support for repeating/scheduled payments.",
-              "key_features": "'Capture payment instruction details (individual)\nParse Payment Instruction (Credit Transfer, Direct Debit, Request to Pay, etc.)\nVerify/validate payment transaction (check funds available)\nEnrich Payment Information (e.g., Purchase Order Info)\nIdentify payor/payee bank/acct\nConfirm Fees/FX rates\nInitiation payment order processing\nManage scheduled payments (Payment Warehousing)",
+              "key_features": "Capture payment instruction details (individual) Parse Payment Instruction (Credit Transfer, Direct Debit, Request to Pay, etc.) Verify/validate payment transaction (check funds available) Enrich Payment Information (e.g., Purchase Order Info) Identify payor/payee bank/acct Confirm Fees/FX rates Initiation payment order processing Manage scheduled payments (Payment Warehousing)",
               "documentation": "** 1. Role **\nThis service domain supports payment services for consumer and business customers by capturing the payment instruction and forwarding it to Payment Orchestration to handle different types of payment transactions, both within the bank as well as with other banks through different payment schemes. The service domain can support single transactions, or manage scheduled payments if requested.\n\n** 2. Examples of use **\nAn established customer transfers an amount from their current account to an overseas account for a family member. As this is a recurring transaction, the details are maintained and updated as necessary\n\n** 3.Executive Summary **\nThis service domain provides a customer payment service. It captures the payer and payee details and other key properties of the payment and initiates the orchestration of the transaction. It provides support for repeating/scheduled payments.\n\n** 4. Key Features **\n'Capture payment instruction details (individual)\nParse Payment Instruction (Credit Transfer, Direct Debit, Request to Pay, etc.)\nVerify/validate payment transaction (check funds available) \nEnrich Payment Information (e.g., Purchase Order Info)\nIdentify payor/payee bank/acct\nConfirm Fees/FX rates\nInitiation payment order processing \nManage scheduled payments (Payment Warehousing)\n\n** General comment **",
               "functional_pattern": "Transact",
               "asset_type": "Payment Order Initiation",
@@ -8268,116 +8268,8 @@
       "Service Role": "role_definition"
     },
     "campos_agregados": [],
-    "valores_completados": {
-      "documentation": 4,
-      "example_of_use": 2,
-      "executive_summary": 2,
-      "key_features": 2,
-      "role_definition": 2
-    },
-    "discrepancias_no_aplicadas": [
-      {
-        "service_domain": "Legal Advisory",
-        "campo": "executive_summary",
-        "chars_landscape": 183,
-        "chars_sd_json": 182
-      },
-      {
-        "service_domain": "Position Keeping",
-        "campo": "key_features",
-        "chars_landscape": 527,
-        "chars_sd_json": 526
-      },
-      {
-        "service_domain": "Incentive Account",
-        "campo": "key_features",
-        "chars_landscape": 703,
-        "chars_sd_json": 702
-      },
-      {
-        "service_domain": "Incentive Program Directory",
-        "campo": "key_features",
-        "chars_landscape": 481,
-        "chars_sd_json": 480
-      },
-      {
-        "service_domain": "Issued Certificate Directory",
-        "campo": "key_features",
-        "chars_landscape": 189,
-        "chars_sd_json": 188
-      },
-      {
-        "service_domain": "Rewards Delivery",
-        "campo": "key_features",
-        "chars_landscape": 292,
-        "chars_sd_json": 291
-      },
-      {
-        "service_domain": "Rewards Inventory",
-        "campo": "key_features",
-        "chars_landscape": 452,
-        "chars_sd_json": 451
-      },
-      {
-        "service_domain": "Rewards Menu",
-        "campo": "key_features",
-        "chars_landscape": 686,
-        "chars_sd_json": 685
-      },
-      {
-        "service_domain": "Payment Rail",
-        "campo": "key_features",
-        "chars_landscape": 411,
-        "chars_sd_json": 410
-      },
-      {
-        "service_domain": "Claim Administration",
-        "campo": "key_features",
-        "chars_landscape": 207,
-        "chars_sd_json": 206
-      },
-      {
-        "service_domain": "Virtual Account",
-        "campo": "key_features",
-        "chars_landscape": 296,
-        "chars_sd_json": 290
-      },
-      {
-        "service_domain": "Operations Log",
-        "campo": "executive_summary",
-        "chars_landscape": 98,
-        "chars_sd_json": 97
-      },
-      {
-        "service_domain": "Operations Log",
-        "campo": "key_features",
-        "chars_landscape": 157,
-        "chars_sd_json": 156
-      },
-      {
-        "service_domain": "Partner Administration",
-        "campo": "key_features",
-        "chars_landscape": 169,
-        "chars_sd_json": 168
-      },
-      {
-        "service_domain": "Partner Management",
-        "campo": "documentation",
-        "chars_landscape": 313,
-        "chars_sd_json": 627
-      },
-      {
-        "service_domain": "Brand Management",
-        "campo": "documentation",
-        "chars_landscape": 244,
-        "chars_sd_json": 777
-      },
-      {
-        "service_domain": "Payment Order Initiation",
-        "campo": "key_features",
-        "chars_landscape": 381,
-        "chars_sd_json": 380
-      }
-    ]
+    "valores_completados": {},
+    "valores_sobrescritos": [],
+    "valores_repetidos_entre_atributos": []
   }
 }

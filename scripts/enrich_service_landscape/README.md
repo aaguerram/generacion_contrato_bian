@@ -31,19 +31,33 @@ ya tienen equivalente (coincidencia de valor del 94% al 100%):
 Por eso la última corrida reporta **`campos agregados: ninguno`**. Si en el futuro apareciera un
 campo sin equivalente, se añadiría con su nombre en snake_case y el script lo diría.
 
-## Regla de valores: solo se completa lo que falta
+## Regla de valores: en los campos emparejados manda SD.json
 
-| Situación | Qué hace |
-|---|---|
-| Landscape vacío, SD.json con valor | completa |
-| Landscape truncado (SD.json lo contiene literalmente) | completa con el texto entero |
-| Ambos con valor y textos distintos | **no toca**: manda el landscape, y lo anota como discrepancia |
+El **nombre** es el del landscape; el **valor** lo pone SD.json siempre que tenga algo que decir
+—es la fuente del `BIANv14.xlsm`, con la documentación estructurada `** 1. Role ** …`—. Si SD.json
+no trae valor para ese campo, se respeta el del landscape. Cada reemplazo sobre un valor que ya
+existía queda listado en `valores_sobrescritos`.
 
-Última corrida: 12 valores completados (`documentation` 4, `example_of_use` 2,
-`executive_summary` 2, `key_features` 2, `role_definition` 2) y 17 discrepancias respetadas —
-15 son diferencias de un carácter (un espacio final) y 2 son textos genuinamente distintos
-(`Partner Management` y `Brand Management`, donde el landscape define la capability y SD.json trae
-la documentación estructurada `** 1. Role ** …`).
+En total se aplicaron 29 valores: 12 huecos que el landscape tenía vacíos o truncados
+(`Brand Management` y `Partner Management` estaban sin `role_definition`, `example_of_use`,
+`executive_summary` ni `key_features`; `Financial Accounting`, `Collateral Asset Administration`,
+`Bank Guarantee` y `Service Directory` tenían la `documentation` cortada) y 17 sobrescrituras
+—14 diferencias de un espacio final, `Virtual Account.key_features`, y las dos `documentation`
+de `Partner Management` y `Brand Management`, donde el landscape traía una definición de
+capability en vez de la documentación del Service Domain—.
+
+## Valores repetidos entre atributos
+
+El script comprueba que ningún **texto descriptivo** (`role_definition`, `example_of_use`,
+`executive_summary`, `key_features`, `documentation`) se repita en dos atributos del mismo Service
+Domain: si dos campos dicen lo mismo, uno no aporta nada. Hoy: ninguno.
+
+Los campos de **clasificación** quedan fuera de esa comprobación a propósito. BIAN los hace
+coincidir de forma legítima: el Control Record se nombra `<AssetType><ArtifactType>`, así que en
+`Legal Advisory` (asset type "Legal Advice", artifact type "Advice") el CR se llama "Legal Advice",
+igual que su asset type. Pasa en 4 SD (`Legal Advisory`, `Consumer Advisory Services`,
+`Corporate Tax Advisory`, `Sales Product Agreement`) y viene **idéntico en las dos fuentes
+oficiales** — "corregirlo" sería inventar un dato que BIAN no publica.
 
 ## Uso
 

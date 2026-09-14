@@ -10,8 +10,9 @@ Este test fija lo que hace segura esa consolidación:
 1. Cobertura: los 341 Service Domains, con la clasificación funcional (`functional_pattern` llega
    al prompt de evaluación y al recuperador léxico; `asset_type`, al paquete de evidencia) y con
    la jerarquía Business Area / Business Domain.
-2. Un dato, un nombre: ningún campo del landscape duplica a otro con distinto nombre, y el
-   landscape no tiene huecos que SD.json pudiera llenar (si los tuviera, falta correr el script).
+2. Un dato, un nombre y un valor: ningún texto descriptivo se repite en dos atributos del mismo
+   Service Domain, y el landscape está al día con SD.json — que manda en el VALOR de los campos
+   emparejados (si no lo estuviera, falta correr el enriquecedor).
 3. Un solo parser: el formato de SD.json (lista plana) no se acepta en silencio.
 
 Sin red y sin LLM.
@@ -83,21 +84,52 @@ class TestCatalogoBianUnico(unittest.TestCase):
                     f"'{a}' y '{b}' llevan el mismo dato en {iguales}/{len(pares)} SD",
                 )
 
-    def test_sin_huecos_que_sd_json_pueda_completar(self):
-        """Si SD.json tiene algo donde el landscape no, falta correr el enriquecedor."""
+    def test_ningun_texto_se_repite_en_dos_atributos_del_mismo_sd(self):
+        """Si `documentation` y `role_definition` dicen lo mismo, uno de los dos no aporta nada.
+
+        Los campos de clasificación quedan fuera: BIAN los hace coincidir legítimamente (el
+        Control Record se nombra `<AssetType><ArtifactType>`, así que en "Legal Advisory" el CR se
+        llama igual que su asset type, y así viene en las DOS fuentes oficiales).
+        """
+        campos = (
+            "role_definition",
+            "example_of_use",
+            "executive_summary",
+            "key_features",
+            "documentation",
+        )
+        repetidos = []
+        for nombre, sd in self.crudos.items():
+            vistos = {}
+            for campo in campos:
+                valor = " ".join(str(sd.get(campo) or "").split())
+                if not valor or valor == "None":
+                    continue
+                if valor in vistos:
+                    repetidos.append(f"{nombre}: {vistos[valor]} == {campo}")
+                vistos.setdefault(valor, campo)
+        self.assertEqual(repetidos, [], "textos duplicados entre atributos del mismo SD")
+
+    def test_el_valor_de_sd_json_manda_en_los_campos_emparejados(self):
+        """SD.json es autoritativo en el valor; el landscape solo aporta el nombre del campo."""
         sd_json = {
             str(f.get("Service Domain", "")).strip(): f
             for f in json.loads((DOCS / "SD.json").read_text(encoding="utf-8"))
         }
         mapeo = self.doc["enrichment"]["mapeo_de_campos"]
-        huecos = [
+
+        def t(v):
+            return "" if _vacio(v) else " ".join(str(v).split())
+
+        desalineados = [
             f"{nombre}.{campo}"
             for nombre, sd in self.crudos.items()
             for cabecera, campo in mapeo.items()
-            if _vacio(sd.get(campo)) and not _vacio(sd_json.get(nombre, {}).get(cabecera))
+            if t(sd_json.get(nombre, {}).get(cabecera))
+            and t(sd.get(campo)) != t(sd_json[nombre][cabecera])
         ]
         self.assertEqual(
-            huecos,
+            desalineados,
             [],
             "correr scripts/enrich_service_landscape/enrich_service_landscape.py",
         )
