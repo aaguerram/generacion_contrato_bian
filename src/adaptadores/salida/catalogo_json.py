@@ -1,85 +1,94 @@
-"""Adaptador: carga el catálogo desde SD.json (columnas L..V) y lo enriquece con la
-jerarquía BIAN R14 (`bian-business-areas.json`) — Business Area / Business Domain por SD.
+"""Adaptador: carga los Service Domains desde la fuente ÚNICA del runtime,
+`docs/BIAN_Service_Landscape_V14.0_Matrix_View.json` (341 SD de la release 14).
 
-Ambos archivos viven en `docs/` y traen los mismos 341 Service Domains de la release 14.
+Ese archivo trae, por Service Domain, los textos (`role_definition`, `example_of_use`,
+`executive_summary`, `key_features`, `documentation`), la clasificación funcional
+(`functional_pattern`, `asset_type`, `generic_artifact_type`, `control_record`,
+`registration_status`) y la jerarquía Business Area / Business Domain, que aquí se resuelve
+aplanando el árbol. Antes esto salía de dos archivos que este adaptador cruzaba en cada carga
+(`SD.json` + `bian-business-areas.json`); hoy SD.json solo sirve para completarle huecos al
+landscape fuera de línea (`scripts/enrich_service_landscape/`) y ninguno de los dos se lee en
+tiempo de ejecución.
+
+Los nombres del landscape mandan en el archivo; el mapeo a los campos de `EntradaCatalogo` vive
+aquí y solo aquí, que es lo que le toca a un adaptador.
 """
 
 from __future__ import annotations
 
 import json
-import logging
 from pathlib import Path
+from typing import Any, Iterator
 
 from src.aplicacion.puertos.catalogo import CatalogoServiceDomainsPort
 from src.dominio.modelos import EntradaCatalogo
 from src.dominio.normalizacion import construir_indice_exacto, normalizar
 
-logger = logging.getLogger(__name__)
-
-# clave del JSON (cabecera de la hoja Excel)  ->  campo del modelo
-_MAPEO = {
-    "Service Domain": "service_domain",
-    "Service Role": "service_role",
-    "Examples of Use": "examples_of_use",
-    "Executive Summary": "executive_summary",
-    "Features": "features",
-    "Functional Pattern": "functional_pattern",
-    "Asset Type": "asset_type",
-    "Generic Artifact Type": "generic_artifact_type",
-    "Control Record <AssetType><ArtifactType>": "control_record",
-    "Registration Status": "registration_status",
+# campo en el landscape -> campo de EntradaCatalogo (los que no aparecen se llaman igual)
+_RENOMBRES = {
+    "name": "service_domain",
+    "role_definition": "service_role",
+    "example_of_use": "examples_of_use",
+    "key_features": "features",
 }
+_IGUALES = (
+    "executive_summary",
+    "functional_pattern",
+    "asset_type",
+    "generic_artifact_type",
+    "control_record",
+    "registration_status",
+)
 
-_JERARQUIA_POR_DEFECTO = "bian-business-areas.json"
+
+def _texto(valor: Any) -> str | None:
+    """Los vacíos del landscape ("", "None", null) se normalizan a None."""
+    if valor is None:
+        return None
+    s = str(valor).strip()
+    return None if s in ("", "None") else s
 
 
 class CatalogoJson(CatalogoServiceDomainsPort):
-    def __init__(
-        self, ruta_sd_json: str | Path, ruta_jerarquia: str | Path | None = None
-    ) -> None:
-        self._ruta = Path(ruta_sd_json)
-        self._ruta_jerarquia = (
-            Path(ruta_jerarquia)
-            if ruta_jerarquia is not None
-            else self._ruta.parent / _JERARQUIA_POR_DEFECTO
-        )
+    def __init__(self, ruta_catalogo: str | Path) -> None:
+        self._ruta = Path(ruta_catalogo)
         self._entradas: list[EntradaCatalogo] | None = None
         self._indice: dict[str, str] = {}
         self._por_nombre: dict[str, EntradaCatalogo] = {}
 
-    def _jerarquia(self) -> dict[str, tuple[str, str]]:
-        """{ nombre_normalizado -> (business_area, business_domain) }."""
-        if not self._ruta_jerarquia.is_file():
-            logger.warning("Jerarquía BIAN no encontrada en %s; SD sin Business Area/Domain", self._ruta_jerarquia)
-            return {}
-        crudo = json.loads(self._ruta_jerarquia.read_text(encoding="utf-8"))
-        salida: dict[str, tuple[str, str]] = {}
-        for area in crudo.get("businessAreas", []):
-            an = str(area.get("name", ""))
-            for dominio in area.get("businessDomains", []):
-                dn = str(dominio.get("name", ""))
-                for sd in dominio.get("serviceDomains", []):
-                    nombre = str(sd.get("name", ""))
-                    if nombre:
-                        salida[normalizar(nombre)] = (an, dn)
-        return salida
+    def _aplanar(
+        self, nodos: list[dict], area: str | None = None, dominio: str | None = None
+    ) -> Iterator[tuple[dict, str | None, str | None]]:
+        """Recorre Business Area -> Business Domain (anidable) -> Service Domain."""
+        for nodo in nodos:
+            nombre = _texto(nodo.get("name"))
+            for hijo in nodo.get("business_domains", []):
+                yield from self._aplanar([hijo], area or nombre, _texto(hijo.get("name")))
+            for sd in nodo.get("service_domains", []):
+                yield sd, area or nombre, dominio or nombre
 
     def _cargar(self) -> None:
         if self._entradas is not None:
             return
         if not self._ruta.is_file():
-            raise FileNotFoundError(f"No se encontró SD.json en {self._ruta}")
+            raise FileNotFoundError(f"No se encontró el catálogo BIAN en {self._ruta}")
         crudo = json.loads(self._ruta.read_text(encoding="utf-8"))
-        jerarquia = self._jerarquia()
+        if not isinstance(crudo, dict) or "business_areas" not in crudo:
+            raise ValueError(
+                f"{self._ruta} no es el BIAN Service Landscape Matrix View "
+                "({release, business_areas: [...]}), que es la única fuente de Service Domains."
+            )
+
         entradas: list[EntradaCatalogo] = []
-        for fila in crudo:
-            datos = {campo: fila.get(clave) for clave, campo in _MAPEO.items()}
-            if not datos.get("service_domain"):
+        for sd, area, dominio in self._aplanar(crudo["business_areas"]):
+            datos = {destino: _texto(sd.get(origen)) for origen, destino in _RENOMBRES.items()}
+            if not datos["service_domain"]:
                 continue
-            area, dominio = jerarquia.get(normalizar(datos["service_domain"]), (None, None))
+            datos.update({campo: _texto(sd.get(campo)) for campo in _IGUALES})
             datos["business_area"] = area
             datos["business_domain"] = dominio
             entradas.append(EntradaCatalogo(**datos))
+
         self._entradas = entradas
         self._por_nombre = {e.service_domain: e for e in entradas}
         self._indice = construir_indice_exacto([e.service_domain for e in entradas])

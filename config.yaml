@@ -150,7 +150,9 @@ validar_sd:
   rag_top_k: 6
   rag_umbral_alto: 0.90          # similitud_nombre >= alto -> coincide (determinista, 0 API)
   rag_umbral_bajo: 0.60          # similitud_nombre <  bajo -> no coincide (determinista, 0 API)
-  ruta_sd_json: docs/SD.json
+  # Fuente ÚNICA de Service Domains (341: textos + clasificación + jerarquía).
+  # Sus huecos se completan con SD.json vía scripts/enrich_service_landscape/.
+  ruta_catalogo_bian: docs/BIAN_Service_Landscape_V14.0_Matrix_View.json
 
 # ═══════════════════════════════════════════════════════════════════════════════
 #  mapear-historias   (python -m src mapear-historias --hu <dir> --func <f.json> --dir <out>)
@@ -169,7 +171,6 @@ mapear_historias:
   paso2_operaciones: true        # paso 6: mapear SD directos -> operaciones oficiales CR/BQ
   rol_max_chars: 240             # recorte del Service Role al armar el catálogo del prompt
   top_n_omitidos: 5             # 2º pase léxico: nº de SD "posibles omitidos" a reportar por HU (0 = off)
-  ruta_jerarquia: docs/bian-business-areas.json
   ruta_operaciones: docs/bian-operation-catalogs.json
   ruta_cache_bian: docs/bian-cache        # cache-first del OpenAPI oficial (CR + BQ + schemas con cuerpo)
   ruta_bian_puml: docs/bian-diagrams/puml-bom          # 272 diagramas BOM UML BIAN R14 (clases/atributos/asociaciones)

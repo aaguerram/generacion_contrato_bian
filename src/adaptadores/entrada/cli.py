@@ -1,6 +1,7 @@
 """CLI:  validar-sd --service-domain "<nombre>" --directorio <ruta>
 
-Nodo 1 del pipeline: valida si el Service Domain existe en SD.json (exacto -> RAG -> LLM).
+Nodo 1 del pipeline: valida si el Service Domain existe en el BIAN Service Landscape
+(exacto -> RAG -> LLM).
 """
 
 from __future__ import annotations
@@ -29,7 +30,7 @@ def _forzar_utf8() -> None:
 def _parse(argv: list[str] | None) -> argparse.Namespace:
     p = argparse.ArgumentParser(
         prog="validar-sd",
-        description="Valida si un BIAN Service Domain existe en SD.json (LangGraph + RAG + LLM).",
+        description="Valida si un BIAN Service Domain existe en el Service Landscape (LangGraph + RAG + LLM).",
     )
     p.add_argument(
         "--service-domain", "--sd", required=True, help="Nombre del Service Domain a validar."

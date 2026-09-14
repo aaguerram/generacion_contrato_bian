@@ -77,7 +77,8 @@ class ValidarSdConfig:
     rag_top_k: int = 6
     rag_umbral_alto: float = 0.90
     rag_umbral_bajo: float = 0.60
-    ruta_sd_json: str = "docs/SD.json"
+    # Documento BIAN ÚNICO del runtime (generado por scripts/build_bian_landscape/).
+    ruta_catalogo_bian: str = "docs/BIAN_Service_Landscape_V14.0_Matrix_View.json"
 
 
 @dataclass(frozen=True)
@@ -90,7 +91,6 @@ class MapearHistoriasConfig:
     paso2_operaciones: bool = True
     rol_max_chars: int = 240
     top_n_omitidos: int = 5
-    ruta_jerarquia: str = "docs/bian-business-areas.json"
     ruta_operaciones: str = "docs/bian-operation-catalogs.json"
     ruta_cache_bian: str = "docs/bian-cache"
     ruta_bian_puml: str = "docs/bian-diagrams/puml-bom"
@@ -122,12 +122,8 @@ class Config:
         return str(p if p.is_absolute() else _RAIZ / p)
 
     @property
-    def ruta_sd_json(self) -> str:
-        return self._abs(self.validar_sd.ruta_sd_json)
-
-    @property
-    def ruta_jerarquia(self) -> str:
-        return self._abs(self.mapear_historias.ruta_jerarquia)
+    def ruta_catalogo_bian(self) -> str:
+        return self._abs(self.validar_sd.ruta_catalogo_bian)
 
     @property
     def ruta_operaciones(self) -> str:
@@ -227,7 +223,13 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
         rag_top_k=int(vs.get("rag_top_k", 6)),
         rag_umbral_alto=float(vs.get("rag_umbral_alto", 0.90)),
         rag_umbral_bajo=float(vs.get("rag_umbral_bajo", 0.60)),
-        ruta_sd_json=str(vs.get("ruta_sd_json", "docs/SD.json")),
+        # `ruta_sd_json` era la clave de cuando el catálogo eran dos archivos cruzados:
+        # se sigue aceptando para no romper configs viejas, pero apunta al documento único.
+        ruta_catalogo_bian=str(
+            vs.get("ruta_catalogo_bian")
+            or vs.get("ruta_sd_json")
+            or "docs/BIAN_Service_Landscape_V14.0_Matrix_View.json"
+        ),
     )
 
     mh = raw.get("mapear_historias") or {}
@@ -240,7 +242,6 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
         paso2_operaciones=bool(mh.get("paso2_operaciones", True)),
         rol_max_chars=int(mh.get("rol_max_chars", 240)),
         top_n_omitidos=int(mh.get("top_n_omitidos", 5)),
-        ruta_jerarquia=str(mh.get("ruta_jerarquia", "docs/bian-business-areas.json")),
         ruta_operaciones=str(mh.get("ruta_operaciones", "docs/bian-operation-catalogs.json")),
         ruta_cache_bian=str(mh.get("ruta_cache_bian", "docs/bian-cache")),
         ruta_bian_puml=str(mh.get("ruta_bian_puml", "docs/bian-diagrams/puml-bom")),

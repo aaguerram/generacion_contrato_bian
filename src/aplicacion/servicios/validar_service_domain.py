@@ -100,7 +100,7 @@ class ValidarServiceDomainService(ValidarServiceDomainUseCase):
                 "service_domain_canonico": entrada.service_domain,
                 "confianza": 1.0,
                 "metodo": "coincidencia_exacta",
-                "razonamiento": "Coincidencia exacta en SD.json tras normalizar el nombre.",
+                "razonamiento": "Coincidencia exacta en el Service Landscape tras normalizar el nombre.",
                 "candidatos": [],
             }
         return {"existe": False}

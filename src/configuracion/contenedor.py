@@ -131,7 +131,7 @@ def _embeddings(config: Config, proveedor: str | None):
 # ── validar-sd ──────────────────────────────────────────────────────────────
 def crear_caso_uso(config: Config, *, proveedor: str | None = None) -> ValidarServiceDomainUseCase:
     vs = config.validar_sd
-    catalogo = CatalogoJson(config.ruta_sd_json)
+    catalogo = CatalogoJson(config.ruta_catalogo_bian)
 
     recuperador: RecuperadorSemanticoPort
     if vs.rag_estrategia == "vectorial":
@@ -184,9 +184,9 @@ def crear_caso_uso_mapeo(
 ) -> MapearHistoriasUseCase:
     mh = config.mapear_historias
     chat = crear_chat_failover(config, proveedor=proveedor)
-    catalog_sha = _sha256_archivo(config.ruta_sd_json)
+    catalog_sha = _sha256_archivo(config.ruta_catalogo_bian)
 
-    catalogo = CatalogoJson(config.ruta_sd_json, config.ruta_jerarquia)
+    catalogo = CatalogoJson(config.ruta_catalogo_bian)
     catalogo_operaciones = CatalogoBianCache(
         config.ruta_operaciones,
         config.ruta_cache_bian,
@@ -231,7 +231,7 @@ def crear_caso_uso_mapeo(
             "cadena_llm": chat.descripcion,
             "esfuerzo": config.llm.esfuerzo,
             "catalog_sha256": catalog_sha,
-            "evidencia_bian": "docs/SD.json + docs/bian-business-areas.json + docs/bian-operation-catalogs.json + docs/bian-cache",
+            "evidencia_bian": "docs/BIAN_Service_Landscape_V14.0_Matrix_View.json + docs/bian-operation-catalogs.json + docs/bian-cache",
         },
         actualizar_cache_bian=actualizar_cache_bian,
         top_n_omitidos=mh.top_n_omitidos,

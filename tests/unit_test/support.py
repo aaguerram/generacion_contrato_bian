@@ -57,7 +57,7 @@ def config_test(
                 "rag_top_k": 6,
                 "rag_umbral_alto": 0.90,
                 "rag_umbral_bajo": 0.60,
-                "ruta_sd_json": str(DOCS / "SD.json"),
+                "ruta_catalogo_bian": str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json"),
                 **(validar_sd or {}),
             }
         ),
@@ -69,7 +69,6 @@ def config_test(
                 "paso2_operaciones": True,
                 "rol_max_chars": 240,
                 "top_n_omitidos": 5,
-                "ruta_jerarquia": str(DOCS / "bian-business-areas.json"),
                 "ruta_operaciones": str(DOCS / "bian-operation-catalogs.json"),
                 "ruta_cache_bian": str(DOCS / "bian-cache"),
                 "descargar_faltantes": False,

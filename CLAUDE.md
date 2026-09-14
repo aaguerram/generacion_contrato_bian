@@ -3,7 +3,13 @@
 Dos casos de uso sobre BIAN Service Domains (**LangGraph + LLM multi-proveedor**, arquitectura hexagonal).
 **Toda la evidencia BIAN vive dentro de `generacion_contrato_ia_v2/docs/`** (nunca se lee del
 proyecto hermano `architecture/`):
-- `SD.json` = 341 SD del Service Landscape v14 · `bian-business-areas.json` = jerarquía Business Area/Domain
+- `BIAN_Service_Landscape_V14.0_Matrix_View.json` = **fuente ÚNICA de Service Domains** (341 SD):
+  textos (`role_definition`/`example_of_use`/`executive_summary`/`key_features`/`documentation`),
+  clasificación (`functional_pattern`/`asset_type`/`generic_artifact_type`/`control_record`/
+  `registration_status`) y jerarquía Business Area/Domain, todo en un archivo y un parser
+  (`CatalogoJson`). `SD.json` y `bian-business-areas.json` YA NO se leen en runtime: SD.json
+  solo sirve para completarle huecos al landscape con `scripts/enrich_service_landscape/`
+  (empareja por VALOR, así que si un dato ya existe con otro nombre manda el del landscape).
 - `bian-operation-catalogs.json` = fallback legado (9 SD con operaciones CR/BQ)
 - `bian-cache/release14.0.0/<SD>.json` = **cache-first del OpenAPI oficial** por SD (`cache_version: 2`):
   operaciones CR **y** BQ (`parent_control_record`), `schemas` (nombres) + `schemas_detalle`
@@ -17,7 +23,7 @@ El pipeline es cache-first: consulta la fuente oficial (`bian-official/public` e
 para candidatos ausentes; no usa Internet ni memoria del modelo como evidencia directa.
 `--actualizar-cache-bian` refresca entradas existentes (y sube `.json` de shape viejo a `cache_version: 2`).
 
-1. **`validar-sd`** (`python -m src --service-domain ...`): ¿un nombre de SD existe en SD.json?
+1. **`validar-sd`** (`python -m src --service-domain ...`): ¿un nombre de SD existe en el Service Landscape?
    Grafo lineal: exacto → RAG léxico → LLM solo en la franja gris.
 2. **`mapear-historias`** (`python -m src mapear-historias ...`): mapea un lote de HU a sus SD.
    (detalle abajo)
@@ -60,7 +66,7 @@ de tocar retrieval, el modelo canónico BIAN, o `infra/retrieval/`.
       `missing_candidates` / `unsupported_candidates` / `ownership_conflicts` /
       `duplicated_responsibilities` / `coverage_gaps` / `blocking_codes` `BIAN-SCOPE-009`).
    4. `preparar_candidatos` **[determinista]**: resuelve nombres LLM ∪ `missing_candidates` ∪
-      **retrieval híbrido** (opcional, ver abajo) contra `SD.json`, tope `max_candidatos_hu` —
+      **retrieval híbrido** (opcional, ver abajo) contra el Service Landscape, tope `max_candidatos_hu` —
       lo que exceda el tope NO desaparece en silencio: queda como incidencia
       `TRUNCATED_BY_MAX_CANDIDATOS_HU` —, `CatalogoBianCache.asegurar(...)` (cache-first en
       `docs/bian-cache/release14.0.0`; descarga solo ausentes; `GITHUB_TOKEN` opcional), arma **un
@@ -406,8 +412,11 @@ depender de qué framing use la E2E.
   (`embed-v4.0` → `embed-multilingual-v3.0` → `embed-english-v3.0` → `*-light-v3.0`) → Gemini → OpenRouter.
   `COHERE_API_KEY` (trial) = SOLO embeddings; el proveedor `cohere` no aporta chat. El índice se cachea
   en `.cache/` por el modelo **activo** (no por la lista) para no mezclar dimensiones tras un failover.
-- `docs/SD.json` = 341 Service Domains (Service Landscape), columnas L..V de `docs/BIANv14.xlsm`.
-  `docs/bian-business-areas.json` = misma jerarquía (semilla copiada de `architecture/context/`).
+- `docs/BIAN_Service_Landscape_V14.0_Matrix_View.json` = 341 Service Domains, **la única fuente**
+  que lee el runtime (`config.yaml → validar_sd.ruta_catalogo_bian`). `docs/SD.json` (columnas
+  L..V de `docs/BIANv14.xlsm`) y `docs/bian-business-areas.json` quedan como insumo/semilla; el
+  primero se usa solo desde `scripts/enrich_service_landscape/` para completar huecos del
+  landscape (última corrida: 12 valores, 0 campos nuevos).
   `docs/bian-operation-catalogs.json` = fallback legado, operaciones CR/BQ de 9 SD (semilla).
   `docs/bian-cache/release14.0.0/<SD>.json` = cache-first del OpenAPI oficial por SD
   (`cache_version: 2`: operaciones CR+BQ con `parent_control_record`/`request_schema`/`response_schema`,

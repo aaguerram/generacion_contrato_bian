@@ -1,4 +1,4 @@
-"""Puerto driven: acceso al catálogo de Service Domains (SD.json)."""
+"""Puerto driven: acceso al catálogo de Service Domains (BIAN Service Landscape)."""
 
 from __future__ import annotations
 

@@ -330,7 +330,7 @@ class TestGrafoMapeoSeleccionReal(unittest.TestCase):
 
     def _servicio(self):
         return MapearHistoriasServiceDomainsService(
-            CatalogoJson(str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")),
+            CatalogoJson(str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json")),
             LectorHistoriasFilesystem(),
             _AnalistaGuion(),
             PublicadorMapeoJson(),
@@ -550,7 +550,7 @@ class TestGrafoMapeoOperacionesDuplicadas(unittest.TestCase):
 
     def test_misma_operacion_citada_por_escenario_se_fusiona_en_una_sola(self):
         servicio = MapearHistoriasServiceDomainsService(
-            CatalogoJson(str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")),
+            CatalogoJson(str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json")),
             LectorHistoriasFilesystem(),
             _AnalistaNotificacionYaOwned(),
             PublicadorMapeoJson(),
@@ -612,7 +612,7 @@ class TestGrafoMapeoPromocionOwnership(unittest.TestCase):
 
     def _servicio(self):
         return MapearHistoriasServiceDomainsService(
-            CatalogoJson(str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")),
+            CatalogoJson(str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json")),
             LectorHistoriasFilesystem(),
             _AnalistaNotificacion(),
             PublicadorMapeoJson(),
@@ -691,7 +691,7 @@ class TestGrafoMapeoPromocionOwnership(unittest.TestCase):
                 )
 
         servicio = MapearHistoriasServiceDomainsService(
-            CatalogoJson(str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")),
+            CatalogoJson(str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json")),
             LectorHistoriasFilesystem(),
             _AnalistaNotificacion(),
             PublicadorMapeoJson(),
@@ -793,7 +793,7 @@ class TestGrafoMapeoFinalizacionPorOperacion(unittest.TestCase):
 
     def test_owned_directo_desde_el_inicio_se_finaliza_por_operacion_verificada(self):
         servicio = MapearHistoriasServiceDomainsService(
-            CatalogoJson(str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")),
+            CatalogoJson(str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json")),
             LectorHistoriasFilesystem(),
             _AnalistaNotificacionYaOwned(),
             PublicadorMapeoJson(),
@@ -914,7 +914,7 @@ class TestGrafoMapeoDegradacionOwnership(unittest.TestCase):
 
     def test_party_reference_data_directory_se_degrada_a_consumed_dependency(self):
         servicio = MapearHistoriasServiceDomainsService(
-            CatalogoJson(str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")),
+            CatalogoJson(str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json")),
             LectorHistoriasFilesystem(),
             _AnalistaActualizacionMalClasificada(),
             PublicadorMapeoJson(),
@@ -1016,7 +1016,7 @@ class TestGrafoMapeoRetrievalHibrido(unittest.TestCase):
     fan-out -- ya no se limita a reportarlo como "omitido" sin evaluar."""
 
     def test_candidato_no_propuesto_por_el_llm_se_reinyecta_y_evalua(self):
-        catalogo = CatalogoJson(str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json"))
+        catalogo = CatalogoJson(str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json"))
         servicio = MapearHistoriasServiceDomainsService(
             catalogo,
             LectorHistoriasFilesystem(),

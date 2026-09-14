@@ -3,7 +3,7 @@ los reparte en dos ejes: aplicabilidad semantica (grupo) y decision contractual 
 
 Pasos deterministas (stdlib + pydantic + dominio, sin frameworks, sin API):
 
-1. **Resolución** de cada nombre propuesto contra el catálogo BIAN R14 (`SD.json`, 341 SD):
+1. **Resolución** de cada nombre propuesto contra el catálogo BIAN R14 (Service Landscape, 341 SD):
    - match normalizado exacto            -> MATCH   (nombre canónico del catálogo)
    - si no, subcadena normalizada única  -> MATCH   (se recupera el nombre canónico)
    - varias coincidencias                -> AMBIGUOUS  (se descarta, se registra el motivo)

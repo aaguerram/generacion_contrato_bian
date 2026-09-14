@@ -20,7 +20,7 @@ por cada HU un subgrafo con fan-out por candidato):
 El LLM NUNCA decide el estado final (SELECTED / UNRESOLVED / REJECTED): devuelve senales
 ordinales 0-3, trazabilidad con identificadores, supuestos y gaps. El codigo determinista
 calcula score, confianza, clasificacion y bloqueos. Toda la evidencia BIAN vive dentro de
-`generacion_contrato_ia_v2/docs/` (`SD.json`, `bian-business-areas.json`,
+`generacion_contrato_ia_v2/docs/` (`BIAN_Service_Landscape_V14.0_Matrix_View.json`,
 `bian-operation-catalogs.json`, `bian-cache/`). Sin Internet, sin memoria del modelo como evidencia.
 """
 
@@ -688,9 +688,11 @@ class OperacionBianAplicada(BaseModel):
 
 
 class ServiceDomainAsignado(BaseModel):
-    """Un Service Domain ya clasificado y enriquecido con evidencia de docs/ (SD.json + jerarquía)."""
+    """Un Service Domain ya clasificado y enriquecido con evidencia de docs/ (Service Landscape)."""
 
-    service_domain: str = Field(description="Nombre canónico exacto tal cual aparece en SD.json.")
+    service_domain: str = Field(
+        description="Nombre canónico exacto tal cual aparece en el Service Landscape."
+    )
     resolucion: Resolucion = Field(
         description="Cómo resolvió el nombre propuesto contra el catálogo BIAN R14."
     )
@@ -716,10 +718,10 @@ class ServiceDomainAsignado(BaseModel):
         default=None, description="Business Domain BIAN R14 (jerarquía local)."
     )
     rol_bian: str | None = Field(
-        default=None, description="Service Role del SD copiado de SD.json (evidencia)."
+        default=None, description="Service Role del SD copiado del Service Landscape (evidencia)."
     )
     patron_funcional: str | None = Field(
-        default=None, description="Functional Pattern del SD (SD.json)."
+        default=None, description="Functional Pattern del SD (Service Landscape)."
     )
     origen_candidato: OrigenCandidato = "llm"
     operaciones_bian: list[OperacionBianAplicada] = Field(

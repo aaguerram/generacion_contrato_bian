@@ -145,7 +145,7 @@ outcomes: {intencion_outcomes}
 external_dependencies: {intencion_dependencies}
 </intencion_funcional>
 
-<catalogo_bian fuente="docs/SD.json + docs/bian-business-areas.json" total="{catalogo_total}">
+<catalogo_bian fuente="docs/BIAN_Service_Landscape_V14.0_Matrix_View.json" total="{catalogo_total}">
 {catalogo}
 </catalogo_bian>
 
@@ -203,7 +203,7 @@ external_dependencies: {intencion_dependencies}
 {disponibilidad_evidencia}
 </disponibilidad_evidencia>
 
-<indice_global fuente="docs/SD.json" total="{catalogo_total}">
+<indice_global fuente="docs/BIAN_Service_Landscape_V14.0_Matrix_View.json" total="{catalogo_total}">
 {indice_global}
 </indice_global>
 

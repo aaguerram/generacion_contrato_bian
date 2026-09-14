@@ -39,7 +39,7 @@ class TestSmartTokenRegresion(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.catalogo = CatalogoJson(
-            str(DOCS / "SD.json"), str(DOCS / "bian-business-areas.json")
+            str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json")
         ).cargar()
         cls.ops = CatalogoBianCache(
             str(DOCS / "bian-operation-catalogs.json"),

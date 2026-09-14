@@ -1,4 +1,4 @@
-"""Normalización + carga real de SD.json (sin API)."""
+"""Normalización + carga real del catálogo BIAN único `docs/BIAN_Service_Landscape_V14.0_Matrix_View.json`."""
 
 from __future__ import annotations
 
@@ -9,7 +9,9 @@ from src.adaptadores.salida.catalogo_json import CatalogoJson
 from src.adaptadores.salida.recuperador_lexico import RecuperadorLexico
 from src.dominio.normalizacion import normalizar
 
-SD_JSON = Path(__file__).resolve().parents[2] / "docs" / "SD.json"
+CATALOGO = (
+    Path(__file__).resolve().parents[2] / "docs" / "BIAN_Service_Landscape_V14.0_Matrix_View.json"
+)
 
 
 class TestNormalizacion(unittest.TestCase):
@@ -27,7 +29,7 @@ class TestNormalizacion(unittest.TestCase):
 class TestCatalogoJson(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.cat = CatalogoJson(SD_JSON)
+        cls.cat = CatalogoJson(CATALOGO)
 
     def test_carga(self):
         entradas = self.cat.cargar()
@@ -35,12 +37,12 @@ class TestCatalogoJson(unittest.TestCase):
         self.assertTrue(all(e.service_domain for e in entradas))
 
     def test_enriquece_con_jerarquia_bian(self):
-        # bian-business-areas.json (en docs/) aporta Business Area / Business Domain por SD
+        # el documento único ya trae Business Area / Business Domain resueltos por SD
         e = self.cat.buscar_exacto("Party Authentication")
         self.assertIsNotNone(e)
         self.assertEqual(e.business_area, "Sales and Service")
         self.assertTrue(e.business_domain)
-        # los 341 SD de SD.json están en la jerarquía
+        # los 341 SD del catálogo tienen jerarquía
         self.assertTrue(all(x.business_area for x in self.cat.cargar()))
 
     def test_exacto_con_variantes(self):
@@ -56,7 +58,7 @@ class TestCatalogoJson(unittest.TestCase):
 class TestRecuperadorLexico(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.rec = RecuperadorLexico(CatalogoJson(SD_JSON))
+        cls.rec = RecuperadorLexico(CatalogoJson(CATALOGO))
 
     def test_typo_rankea_primero_y_similitud_alta(self):
         top = self.rec.recuperar("Issued Device Adminstration", 6)  # falta una 'i'

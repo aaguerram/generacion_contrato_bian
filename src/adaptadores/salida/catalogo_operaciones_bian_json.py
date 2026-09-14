@@ -3,7 +3,7 @@
 Fuente: `docs/bian-operation-catalogs.json` — extracto normalizado de los catálogos BOM
 Extended API oficiales de BIAN R14 (9 Service Domains materializados). El nombre del SD
 se resuelve de forma laxa (normalización) porque las claves del JSON vienen en forma
-compacta (`PartyAuthentication`) y SD.json usa la forma con espacios (`Party Authentication`).
+compacta (`PartyAuthentication`) y el Landscape usa la forma con espacios (`Party Authentication`).
 """
 
 from __future__ import annotations

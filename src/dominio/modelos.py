@@ -7,7 +7,7 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 MetodoValidacion = Literal[
-    "coincidencia_exacta",  # el nombre está en SD.json salvo forma       (determinista, existe=True)
+    "coincidencia_exacta",  # el nombre está en el Landscape salvo forma  (determinista, existe=True)
     "similitud_alta",  # similitud léxica del nombre >= umbral alto   (determinista, existe=True)
     "similitud_baja",  # similitud léxica del nombre <  umbral bajo   (determinista, existe=False)
     "rag_llm",  # franja gris: lo decidió el LLM adjudicador   (existe True o False)
@@ -15,10 +15,10 @@ MetodoValidacion = Literal[
 
 
 class EntradaCatalogo(BaseModel):
-    """Un BIAN Service Domain leído de SD.json (columnas L..V).
+    """Un BIAN Service Domain leído del Service Landscape (fuente única, 341 SD).
 
-    `business_area` / `business_domain` no están en SD.json: los rellena `CatalogoJson`
-    cruzando con `docs/bian-business-areas.json` (misma release, mismos 341 SD).
+    `CatalogoJson` lo carga de `docs/BIAN_Service_Landscape_V14.0_Matrix_View.json`, que ya trae
+    textos, clasificación funcional y la jerarquía `business_area` / `business_domain`.
     """
 
     service_domain: str

@@ -1748,7 +1748,7 @@
                   "example_of_use": "A back office unit determines which collateral items are due for a valuation review and documentation check and schedules the activities accordingly",
                   "executive_summary": "This service domain maintains the status of a customers collateral assets, including scheduled and ad-hoc valuations and confirmation of the correct completion of scheduled maintenance tasks.",
                   "key_features": "Record and classify collateral assets\nObtain collateral asset valuations\nConfirm the maintenance and status of collateral assets",
-                  "documentation": "\"A bank guarantee is a financial backstop offered by a financial institution promising to cover a financial obligation if one party in a transaction fails to hold up their end of a contract. Generally used outside the United States, a bank guarantee enables the bank's client to acquire goods, buy equipment, or perform international trade. If the client fails to settle a debt or deliver promised goods, the bank will cover it.\" https://www.investopedia.com/terms/b/bankguarantee.asp\nFrom the above it follows that a Bank Guarantee is an obligation for the issuing bank and should be recorded as such in the bank's bookkeeping (as an off-balance-sheet account).\nBanks require collateral in order to issue a Bank Guarantee. A typical form of collateral for a Bank Guarantee is a Counter Guarantee, issued by another bank.\nIn the normal situation a Bank Guarantee will not result in a financial transaction for the bank. The bank's customer is supposed to pay the beneficiary of the guarantee directly or anyway fulfil its obligations under the Bank Guarantee, after which the guarantee can be closed.",
+                  "documentation": "** 1. Role ** This service domain handles the oversight, administration and confirmation of maintenance tasks associated with different types of collateral items. This includes arranging for scheduled and ad-hoc collateral valuations, item status/documentation and title checks and tracking upkeep actions that the item owner is obliged to undertake (such as insuring a house) ** 2. Examples of use ** A back office unit determines which collateral items are due for a valuation review and documentation check and schedules the activities accordingly ** 3.Executive Summary ** This service domain maintains the status of a customers collateral assets, including scheduled and ad-hoc valuations and confirmation of the correct completion of scheduled maintenance tasks. ** 4. Key Features ** Record and classify collateral assets Obtain collateral asset valuations Confirm the maintenance and status of collateral assets ** General comment ** \"A bank guarantee is a financial backstop offered by a financial institution promising to cover a financial obligation if one party in a transaction fails to hold up their end of a contract. Generally used outside the United States, a bank guarantee enables the bank's client to acquire goods, buy equipment, or perform international trade. If the client fails to settle a debt or deliver promised goods, the bank will cover it.\" https://www.investopedia.com/terms/b/bankguarantee.asp From the above it follows that a Bank Guarantee is an obligation for the issuing bank and should be recorded as such in the bank's bookkeeping (as an off-balance-sheet account). Banks require collateral in order to issue a Bank Guarantee. A typical form of collateral for a Bank Guarantee is a Counter Guarantee, issued by another bank. In the normal situation a Bank Guarantee will not result in a financial transaction for the bank. The bank's customer is supposed to pay the beneficiary of the guarantee directly or anyway fulfil its obligations under the Bank Guarantee, after which the guarantee can be closed.",
                   "functional_pattern": "Administer",
                   "asset_type": "Collateral Asset",
                   "generic_artifact_type": "Administrative Plan",
@@ -4054,7 +4054,7 @@
                   "example_of_use": "A bank guarantee is provided to a corporate client to cover international trade finance deal",
                   "executive_summary": "This Service Domain handles the pricing and issuance of a broad range of bank guarantee instruments",
                   "key_features": "Price and issue bank guarantees for bank customers\nEvaluate claims and make payments against the guarantee\nRecover collateral against redeemed guarantees where applicable",
-                  "documentation": "\"A bank guarantee is a financial backstop offered by a financial institution promising to cover a financial obligation if one party in a transaction fails to hold up their end of a contract. Generally used outside the United States, a bank guarantee enables the bank's client to acquire goods, buy equipment, or perform international trade. If the client fails to settle a debt or deliver promised goods, the bank will cover it.\" https://www.investopedia.com/terms/b/bankguarantee.asp\nFrom the above it follows that a Bank Guarantee is an obligation for the issuing bank and should be recorded as such in the bank's bookkeeping (as an off-balance-sheet account).\nBanks require collateral in order to issue a Bank Guarantee. A typical form of collateral for a Bank Guarantee is a Counter Guarantee, issued by another bank.\nIn the normal situation a Bank Guarantee will not result in a financial transaction for the bank. The bank's customer is supposed to pay the beneficiary of the guarantee directly or anyway fulfil its obligations under the Bank Guarantee, after which the guarantee can be closed.",
+                  "documentation": "** 1. Role ** Orchestrate the pricing, issuance and subsequent fulfillment activities for Bank Guarantees as used in corporate/correspondent trade and project finance activity ** 2. Examples of use ** A bank guarantee is provided to a corporate client to cover international trade finance deal ** 3.Executive Summary ** This Service Domain handles the pricing and issuance of a broad range of bank guarantee instruments ** 4. Key Features ** Price and issue bank guarantees for bank customers Evaluate claims and make payments against the guarantee Recover collateral against redeemed guarantees where applicable ** General comment ** \"A bank guarantee is a financial backstop offered by a financial institution promising to cover a financial obligation if one party in a transaction fails to hold up their end of a contract. Generally used outside the United States, a bank guarantee enables the bank's client to acquire goods, buy equipment, or perform international trade. If the client fails to settle a debt or deliver promised goods, the bank will cover it.\" https://www.investopedia.com/terms/b/bankguarantee.asp From the above it follows that a Bank Guarantee is an obligation for the issuing bank and should be recorded as such in the bank's bookkeeping (as an off-balance-sheet account). Banks require collateral in order to issue a Bank Guarantee. A typical form of collateral for a Bank Guarantee is a Counter Guarantee, issued by another bank. In the normal situation a Bank Guarantee will not result in a financial transaction for the bank. The bank's customer is supposed to pay the beneficiary of the guarantee directly or anyway fulfil its obligations under the Bank Guarantee, after which the guarantee can be closed.",
                   "functional_pattern": "Transact",
                   "asset_type": "Bank Guarantee",
                   "generic_artifact_type": "Transaction",
@@ -4928,10 +4928,10 @@
               "name": "Partner Management",
               "object_url": "https://bian.org/servicelandscape-14-0-0/object_12.html?object=63864",
               "sd_overview_url": "https://bian.org/servicelandscape-14-0-0/views/view_53551.html",
-              "role_definition": null,
-              "example_of_use": null,
-              "executive_summary": null,
-              "key_features": null,
+              "role_definition": "The Partner Management service domain handles the development and negotiation of collaborative partners and their continued relationship.",
+              "example_of_use": "The relationship with an Airline Rewards Parter is continually tracked to ensure mutually advantageous relationship.",
+              "executive_summary": "This service domain handles strategic management of collaborative partners including partner development, performance and relationship tracking.",
+              "key_features": "- Partner relationship management - Partner performance and profitability review - Renegotiation and renewal of terms",
               "documentation": "Ability to establish, control, predict, process, organize an individual, or other legal entity, that has, plans to have, or has an agreement with the organization with the intent to exchange monetary and / or non-monetary value in the provisioning of products and services other means of assistance  to a customer.",
               "functional_pattern": "Manage",
               "asset_type": "Partner Releationship",
@@ -6223,7 +6223,7 @@
               "example_of_use": "- Upon opening of a consumer loan account the fulfillment Service Domain will use a generic Service Connection \"Update GL Accounts\" to trigger Financial Accounting to record the new general ledger of sub ledger accounts.\n- At the end of a day's banking operations Financial Accounting will retrieve all of today's bookings on Position Keeping and create (summary) entries for the general ledger and sub ledger accounts.",
               "executive_summary": "The Financial Accounting Service Domain takes in financial facts and based on these, creates accounting instructions that will update the general ledger and sub ledger accounts",
               "key_features": "- Maintain the chart of accounts\n- Provide information about the chart of accounts\n- Reflect the opening of accounts in the GL\n- Create summary interval bookings in the GL for all entries in Position Keeping and (if applicable) Credit Card Position Keeping",
-              "documentation": "Financial accounting is the field of accounting concerned with the summary, analysis and reporting of financial transactions related to a business.[1] This involves the preparation of financial statements available for public use. Stockholders, suppliers, banks, employees, government agencies, business owners, and other stakeholders are examples of people interested in receiving such information for decision making purposes.\nFinancial accountancy is governed by both local and international accounting standards. Generally Accepted Accounting Principles (GAAP) is the standard framework of guidelines for financial accounting used in any given jurisdiction. It includes the standards, conventions and rules that accountants follow in recording and summarizing and in the preparation of financial statements.\nOn the other hand, International Financial Reporting Standards (IFRS) is a set of passionable accounting standards stating how particular types of transactions and other events should be reported in financial statements. IFRS are issued by the International Accounting Standards Board (IASB).[2] With IFRS becoming more widespread on the international scene, consistency in financial reporting has become more prevalent between global organizations.\nWhile financial accounting is used to prepare accounting information for people outside the organization or not involved in the day-to-day running of the company, managerial accounting provides accounting information to help managers make decisions to manage the business.",
+              "documentation": "** 1. Role ** The Financial Accounting Service Domain takes in financial facts and based on these, creates accounting instructions. It lives in the accounting world of the bank and can access the banking, cards and securities worlds only for retrieve operations. It knows and maintains the chart of accounts and it can create accounting instructions that will update the general ledger and sub ledger accounts. Examples of financial facts are the opening of a loan account, revaluation of collateral and periodically (e.g. daily): position changes as a result of payments transactions. ** 2. Examples of use ** - Upon opening of a consumer loan account the fulfillment Service Domain will use a generic Service Connection \"Update GL Accounts\" to trigger Financial Accounting to record the new general ledger of sub ledger accounts. - At the end of a day's banking operations Financial Accounting will retrieve all of today's bookings on Position Keeping and create (summary) entries for the general ledger and sub ledger accounts. ** 3.Executive Summary ** The Financial Accounting Service Domain takes in financial facts and based on these, creates accounting instructions that will update the general ledger and sub ledger accounts ** 4. Key Features ** - Maintain the chart of accounts - Provide information about the chart of accounts - Reflect the opening of accounts in the GL - Create summary interval bookings in the GL for all entries in Position Keeping and (if applicable) Credit Card Position Keeping ** General comment ** Financial accounting is the field of accounting concerned with the summary, analysis and reporting of financial transactions related to a business.[1] This involves the preparation of financial statements available for public use. Stockholders, suppliers, banks, employees, government agencies, business owners, and other stakeholders are examples of people interested in receiving such information for decision making purposes. Financial accountancy is governed by both local and international accounting standards. Generally Accepted Accounting Principles (GAAP) is the standard framework of guidelines for financial accounting used in any given jurisdiction. It includes the standards, conventions and rules that accountants follow in recording and summarizing and in the preparation of financial statements. On the other hand, International Financial Reporting Standards (IFRS) is a set of passionable accounting standards stating how particular types of transactions and other events should be reported in financial statements. IFRS are issued by the International Accounting Standards Board (IASB).[2] With IFRS becoming more widespread on the international scene, consistency in financial reporting has become more prevalent between global organizations. While financial accounting is used to prepare accounting information for people outside the organization or not involved in the day-to-day running of the company, managerial accounting provides accounting information to help managers make decisions to manage the business.",
               "functional_pattern": "Track",
               "asset_type": "Financial Booking",
               "generic_artifact_type": "Log",
@@ -6956,7 +6956,7 @@
               "example_of_use": "A customer logs into the bank in order to notify the bank of their change of address. They are presented with a service selection dialogue that enables then to quickly isolate the specific service",
               "executive_summary": "This Service Domain presents a structured set of services that the customer can select from",
               "key_features": "Filter services to those for which the customer is eligible\nDetermine the type of service being requested\nIsolate the specific service within the type/category\nDetermine any required service settings or options\nProvide processing details to be followed to realize the service",
-              "documentation": "The initial BQ definitions define customer service types. These will need to be further decomposed to isolate specific services using the sub-qualifier structure. The servicing properties include the customer eligibility requirements, processing workflow definition, service parameters and any service invocation constraints for the service itself",
+              "documentation": "** 1. Role ** This Service Domain handles the context sensitive presentation and selection of services that a customer may choose from to access the bank. These represent the packaging together of the underlying service interactions with one or more Service Domains as necessary, masking the complexity of the internal structure of the bank's applications from the user. The selected service will align with a workflow followed in the Session Dialogue Service Domain that actually orchestrates the selected service delivery ** 2. Examples of use ** A customer logs into the bank in order to notify the bank of their change of address. They are presented with a service selection dialogue that enables then to quickly isolate the specific service ** 3.Executive Summary ** This Service Domain presents a structured set of services that the customer can select from ** 4. Key Features ** Filter services to those for which the customer is eligible Determine the type of service being requested Isolate the specific service within the type/category Determine any required service settings or options Provide processing details to be followed to realize the service ** General comment ** The initial BQ definitions define customer service types. These will need to be further decomposed to isolate specific services using the sub-qualifier structure. The servicing properties include the customer eligibility requirements, processing workflow definition, service parameters and any service invocation constraints for the service itself",
               "functional_pattern": "Catalog",
               "asset_type": "Service",
               "generic_artifact_type": "Directory Entry",
@@ -7485,10 +7485,10 @@
               "name": "Brand Management",
               "object_url": "https://bian.org/servicelandscape-14-0-0/object_12.html?object=61993",
               "sd_overview_url": "https://bian.org/servicelandscape-14-0-0/views/view_54084.html",
-              "role_definition": null,
-              "example_of_use": null,
-              "executive_summary": null,
-              "key_features": null,
+              "role_definition": "Define and develop the enterprise brand, including providing advice and guidance to marketing and product/service development activities that leverage the brand. Respond to events that potentially damage the brand or provide an opportunity to strengthen/leverage brand awareness",
+              "example_of_use": "Product design seeks input from the brand management unit to factor the brand into the product marketing materials and ensure alignment",
+              "executive_summary": "Respond to events that potentially damage the brand or provide an opportunity to strengthen/leverage brand awareness",
+              "key_features": "Brand definition Review business development impact and leverage of the brand Troubleshoot production issues that might impact the brand",
               "documentation": "Ability to establish, develop, analyze, administer, and report on all aspects of a market’s perception of the business (or part), its  products, services, experience and culture often represented by unique names, symbols, marks, colours or logo.",
               "functional_pattern": "Manage",
               "asset_type": "Brand",
@@ -8244,5 +8244,140 @@
       ]
     }
   ],
-  "unclassified_in_model": []
+  "unclassified_in_model": [],
+  "enrichment": {
+    "enriquecido_por": "scripts/enrich_service_landscape/enrich_service_landscape.py",
+    "fecha": "2026-09-14",
+    "fuentes": [
+      {
+        "file": "docs/SD.json",
+        "sha256": "89e5f946e5beafdc66563c42e5b8d150dada00dd978b3db0fc2940d8f3ef8f86"
+      }
+    ],
+    "mapeo_de_campos": {
+      "Asset Type": "asset_type",
+      "Control Record <AssetType><ArtifactType>": "control_record",
+      "Documentation": "documentation",
+      "Examples of Use": "example_of_use",
+      "Executive Summary": "executive_summary",
+      "Features": "key_features",
+      "Functional Pattern": "functional_pattern",
+      "Generic Artifact Type": "generic_artifact_type",
+      "Registration Status": "registration_status",
+      "Service Domain": "name",
+      "Service Role": "role_definition"
+    },
+    "campos_agregados": [],
+    "valores_completados": {
+      "documentation": 4,
+      "example_of_use": 2,
+      "executive_summary": 2,
+      "key_features": 2,
+      "role_definition": 2
+    },
+    "discrepancias_no_aplicadas": [
+      {
+        "service_domain": "Legal Advisory",
+        "campo": "executive_summary",
+        "chars_landscape": 183,
+        "chars_sd_json": 182
+      },
+      {
+        "service_domain": "Position Keeping",
+        "campo": "key_features",
+        "chars_landscape": 527,
+        "chars_sd_json": 526
+      },
+      {
+        "service_domain": "Incentive Account",
+        "campo": "key_features",
+        "chars_landscape": 703,
+        "chars_sd_json": 702
+      },
+      {
+        "service_domain": "Incentive Program Directory",
+        "campo": "key_features",
+        "chars_landscape": 481,
+        "chars_sd_json": 480
+      },
+      {
+        "service_domain": "Issued Certificate Directory",
+        "campo": "key_features",
+        "chars_landscape": 189,
+        "chars_sd_json": 188
+      },
+      {
+        "service_domain": "Rewards Delivery",
+        "campo": "key_features",
+        "chars_landscape": 292,
+        "chars_sd_json": 291
+      },
+      {
+        "service_domain": "Rewards Inventory",
+        "campo": "key_features",
+        "chars_landscape": 452,
+        "chars_sd_json": 451
+      },
+      {
+        "service_domain": "Rewards Menu",
+        "campo": "key_features",
+        "chars_landscape": 686,
+        "chars_sd_json": 685
+      },
+      {
+        "service_domain": "Payment Rail",
+        "campo": "key_features",
+        "chars_landscape": 411,
+        "chars_sd_json": 410
+      },
+      {
+        "service_domain": "Claim Administration",
+        "campo": "key_features",
+        "chars_landscape": 207,
+        "chars_sd_json": 206
+      },
+      {
+        "service_domain": "Virtual Account",
+        "campo": "key_features",
+        "chars_landscape": 296,
+        "chars_sd_json": 290
+      },
+      {
+        "service_domain": "Operations Log",
+        "campo": "executive_summary",
+        "chars_landscape": 98,
+        "chars_sd_json": 97
+      },
+      {
+        "service_domain": "Operations Log",
+        "campo": "key_features",
+        "chars_landscape": 157,
+        "chars_sd_json": 156
+      },
+      {
+        "service_domain": "Partner Administration",
+        "campo": "key_features",
+        "chars_landscape": 169,
+        "chars_sd_json": 168
+      },
+      {
+        "service_domain": "Partner Management",
+        "campo": "documentation",
+        "chars_landscape": 313,
+        "chars_sd_json": 627
+      },
+      {
+        "service_domain": "Brand Management",
+        "campo": "documentation",
+        "chars_landscape": 244,
+        "chars_sd_json": 777
+      },
+      {
+        "service_domain": "Payment Order Initiation",
+        "campo": "key_features",
+        "chars_landscape": 381,
+        "chars_sd_json": 380
+      }
+    ]
+  }
 }
