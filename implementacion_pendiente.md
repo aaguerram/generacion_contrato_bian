@@ -35,6 +35,10 @@ sección 9, y es bastante distinto de lo que este documento suponía: **medir ca
 4. **La expansión por grafo ingenua es inservible**: 157 de 341 SD alcanzables en dos saltos,
    porque `Party` la modelan 125 SD. Hubo que filtrar por especificidad del nodo puente.
 5. **Un reranker malo es peor que ninguno**: el respaldo léxico hundía Recall@10 de 0.71 a 0.14.
+6. **El cross-encoder real no basta para justificar la cadena**: `bge-reranker-v2-m3` sube la
+   cadena RRF de 0.71 a 0.86 de Recall@10 (MRR 0.370 -> 0.410), o sea rescata lo que la fusión
+   rompió, pero el vectorial a secas sigue mejor (MRR 0.436, la mitad de `hard_negatives`
+   delante). Arreglar la fusión va antes que añadir un modelo.
 
 ## 0-bis. Qué ya estaba resuelto antes de esta iteración (no reabrir sin motivo)
 

@@ -52,3 +52,9 @@ adecuado para `validar-sd` (ahí la consulta ES un nombre), pero para `mapear-hi
 medir antes de encender `retrieval_hibrido_habilitado`.
 
 Anotado como pendiente: ponderar la fusión o elegir canales por caso de uso.
+
+Confirmado después con el cross-encoder real (`bge-reranker-v2-m3` en la GPU del host): reordenar
+la cadena RRF la sube de 0.71 a 0.86 de Recall@10, es decir **rescata lo que la fusión había roto**
+sin llegar a superar al vectorial solo (MRR 0.410 frente a 0.436, y el doble de `hard_negatives`
+por delante). Un reranker no arregla una fusión mal ponderada: conviene arreglar la fusión antes de
+pagar un modelo extra.

@@ -22,6 +22,13 @@ dos configuraciones del pipeline completo (canary).
 | Qdrant | 0.29 | 0.71 | **0.86** | 0.434 |
 | RRF (léxico+vectorial) | 0.29 | 0.43 | 0.71 | 0.370 |
 | RRF + graph | 0.29 | 0.43 | 0.71 | 0.370 |
+| RRF + graph + rerank (`bge-reranker-v2-m3`) | 0.29 | 0.43 | 0.86 | 0.410 |
+
+**El reranker rescata lo que la fusión rompe, pero no supera al mejor canal.** Sube el Recall@10
+de la cadena RRF de 0.71 a 0.86 y el MRR de 0.370 a 0.410 — y aun así el vectorial a secas sigue
+por delante en MRR (0.436) y cuela la mitad de `hard_negatives` (2 frente a 4). Con este corpus,
+la configuración que más rinde sigue siendo **vectorial solo, sin fusión y sin reranker**; el
+cross-encoder tendría sentido si primero se arregla la fusión.
 
 Tres cosas que estos números ya cambiaron:
 
@@ -46,3 +53,14 @@ compara `canary.py`.
 Cada caso declara su `procedencia` (los dos casos E2E y las HU reales de `HU - copia/`) y sus
 `hard_negatives` salen de candidatos que el pipeline propuso de verdad. Para comparar modelos de
 embeddings con criterio harían falta del orden de 100 consultas etiquetadas.
+
+
+## Nota de entorno: caché de HuggingFace
+
+En este host `~/.cache/huggingface` pertenece a **root** (la creó algún proceso con sudo), así que
+el cross-encoder no puede descargarse con el usuario normal y el reranker degrada a "no reordenar"
+con un aviso en el log. Solución sin root: apuntar la caché a una ruta propia.
+
+```bash
+export HF_HOME=~/.cache/hf-local
+```
