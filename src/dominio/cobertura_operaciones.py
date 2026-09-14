@@ -26,6 +26,26 @@ def campos_alcanzables(schema: str, schemas_detalle: list[SchemaBom]) -> set[str
     return {clave} | {normalizar(p.name) for p in s.properties if p.name}
 
 
+def _formas_citables(ref: str) -> set[str]:
+    """Formas normalizadas de una `evidence_ref` que cuentan como la misma cita.
+
+    El prompt RENDERIZA los campos como `campos_respuesta={CorrespondenceAddressee:Address,
+    CorrespondenceContent:string, ...}` y pide "cita el nombre EXACTO del campo", así que el LLM
+    devuelve `"CorrespondenceAddressee:Address"` — el nombre exacto tal como se le mostró. Sin
+    partir por ":" esa cita PERFECTAMENTE VÁLIDA se normaliza a `correspondenceaddresseeaddress`
+    y nunca empata con el campo real `correspondenceaddressee`: era la causa de
+    `operation_grounding_rate = 0.0` en las corridas reales del 2026-09-14, con las tres refs de
+    `Correspondence/InitiateOutbound` existiendo literalmente en su `response_schema` `Outbound`.
+
+    Ambos lados cuentan: el izquierdo es el nombre del campo y el derecho es su tipo, que en BIAN
+    suele ser otro schema real del mismo Service Domain (`Address`, `Channel`). Esto NO relaja el
+    anti-alucinación: cada parte se sigue exigiendo contra los campos/schemas REALES del catálogo,
+    no se acepta texto libre.
+    """
+    partes = {ref, *ref.split(":")}
+    return {n for n in (normalizar(p) for p in partes) if n}
+
+
 def operacion_evidencia_verificable(
     op: OperacionBian, evidence_refs: list[str], schemas_detalle: list[SchemaBom]
 ) -> bool:
@@ -41,7 +61,7 @@ def operacion_evidencia_verificable(
         normalizar(op.grupo),
         normalizar(op.operation_id),
     }
-    return any(normalizar(ref) in alcanzables for ref in evidence_refs if ref and ref.strip())
+    return any(_formas_citables(ref) & alcanzables for ref in evidence_refs if ref and ref.strip())
 
 
 def derivar_path_grupo(grupo: str, verbo: str, operaciones: list[OperacionBian]) -> str | None:

@@ -45,6 +45,15 @@ from src.dominio.normalizacion import normalizar
 logger = logging.getLogger(__name__)
 
 _ROL_MAX_CHARS = 240
+# El Service Role que ven `evaluar_candidato` y `revisar_adversarial`. Tiene que ser el MISMO
+# en los dos: el revisor emite DIRECTO_SIN_SERVICE_ROLE ("el Service Role no describe
+# verbo+objeto de la historia") sobre la decision del evaluador, asi que si ve menos rol que
+# el, contradice con menos evidencia de la que se uso para decidir. Con el limite viejo del
+# revisor (120) el corte alcanzaba al 90% de los 341 SD (mediana 309 chars, p90 563) y partia
+# la frase justo antes del objeto de negocio: "Party Reference Data Directory" se cortaba en
+# "...wide range of party reference data that might ", ocultando "contact details ...
+# demographic details", y quedaba marcado DIRECTO_SIN_SERVICE_ROLE pese a tener score 1.0.
+_ROL_REVISION_MAX_CHARS = 900
 
 
 class _CadenaMedida:
@@ -257,7 +266,10 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
             "candidato_area": paquete.business_area or "(sin dato)",
             "candidato_domain": paquete.business_domain or "(sin dato)",
             "candidato_patron": paquete.functional_pattern or "(sin dato)",
-            "candidato_service_role": _recortar(paquete.service_role or "(sin Service Role en la evidencia)", 900),
+            "candidato_service_role": _recortar(
+                paquete.service_role or "(sin Service Role en la evidencia)",
+                _ROL_REVISION_MAX_CHARS,
+            ),
             "candidato_crs": _lista(paquete.control_records),
             "candidato_bqs": _lista(paquete.behavior_qualifiers),
             "candidato_operaciones": _formatear_operaciones(paquete.operations),
@@ -295,7 +307,7 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
                 filas.append(
                     f'- "{a.service_domain}"  grupo={etiqueta}  rol={a.rol_contractual}  '
                     f"decision={a.decision_contractual}  accion_objeto={a.accion_objeto or '(vacío)'}  "
-                    f"service_role={_recortar(a.rol_bian or '', 120)}"
+                    f"service_role={_recortar(a.rol_bian or '', _ROL_REVISION_MAX_CHARS)}"
                 )
         out: RevisionAdversarialLLM = self._cadena(SPEC_ADVERSARIAL, RevisionAdversarialLLM).invoke({
             "historia_archivo": historia.archivo,
