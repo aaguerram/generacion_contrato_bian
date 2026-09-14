@@ -82,6 +82,7 @@ from src.dominio.historias import (
     HistoriaConServiceDomains,
     HistoriaUsuario,
     MetadatosPrompt,
+    OperacionBian,
     OperacionBianAplicada,
     PaqueteEvidenciaCandidato,
     ReconciliacionFuncionalidadLLM,

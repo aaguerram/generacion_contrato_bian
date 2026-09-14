@@ -260,7 +260,7 @@ def match_notes_to_classes(
         kind, value = classified
 
         matched_any = False
-        for edge_id, pts in edges.items():
+        for _edge_id, pts in edges.items():
             if len(pts) < 2:
                 continue
             start, end = pts[0], pts[-1]

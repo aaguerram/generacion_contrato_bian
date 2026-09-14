@@ -6,7 +6,7 @@ if len(sys.argv) > 1 and sys.argv[1] in _SUBCOMANDOS_MAPEO:
     from src.adaptadores.entrada.cli_mapeo import main
 
     raise SystemExit(main(sys.argv[2:]))
+else:
+    from src.adaptadores.entrada.cli import main
 
-from src.adaptadores.entrada.cli import main
-
-raise SystemExit(main())
+    raise SystemExit(main())

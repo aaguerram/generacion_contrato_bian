@@ -35,14 +35,18 @@ class TestFormatearOperacionesConCamposDeRespuesta(unittest.TestCase):
 
     def test_retrieve_reference_expone_celular_y_correo_inline(self):
         linea = next(
-            l for l in self.texto.splitlines() if l.strip().startswith("- RetrieveReference")
+            fila
+            for fila in self.texto.splitlines()
+            if fila.strip().startswith("- RetrieveReference")
         )
         self.assertIn("CellPhoneNumber", linea)
         self.assertIn("eMailAddress", linea)
 
     def test_retrieve_demographics_no_expone_ningun_campo_de_contacto(self):
         linea = next(
-            l for l in self.texto.splitlines() if l.strip().startswith("- RetrieveDemographics")
+            fila
+            for fila in self.texto.splitlines()
+            if fila.strip().startswith("- RetrieveDemographics")
         )
         self.assertNotIn("CellPhoneNumber", linea)
         self.assertNotIn("eMailAddress", linea)

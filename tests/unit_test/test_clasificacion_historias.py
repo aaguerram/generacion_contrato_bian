@@ -22,6 +22,7 @@ from src.dominio.historias import (
     OperacionBian,
     RevisionAdversarialLLM,
     ServiceDomainPropuestoLLM,
+    ServiceDomainsDeHistoria,
 )
 from src.dominio.modelos import EntradaCatalogo
 from src.dominio.normalizacion import normalizar
