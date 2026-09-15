@@ -15,7 +15,7 @@ import logging
 import time
 
 from src.adaptadores.salida.formato_bom import formatear_bom_puml, formatear_schemas_bom
-from src.adaptadores.salida.llm.failover import SoportaStructured
+from src.adaptadores.salida.llm.failover import PeticionDemasiadoGrande, SoportaStructured
 from src.adaptadores.salida.prompts_mapeo import (
     SPEC_ADVERSARIAL,
     SPEC_CANDIDATOS,
@@ -203,9 +203,41 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
         # 0 = índice de siempre; >0 = escalón CAG (ver `formatear_catalogo`).
         self._cag_chars_por_sd = max(0, cag_chars_por_sd)
 
+    def _escalones_cag(self) -> list[int]:
+        """Escalones decrecientes del catálogo, para reintentar cuando la petición no cabe.
+
+        El último es siempre 0 (el índice de siempre, ~27k tokens): es el que cabe en todos los
+        modelos de la cadena y el que ya se usaba antes de existir CAG.
+        """
+        if not self._cag_chars_por_sd:
+            return [0]
+        return sorted({self._cag_chars_por_sd, self._cag_chars_por_sd // 2, 0}, reverse=True)
+
     # ── infra ────────────────────────────────────────────────────────────────
     def _chat_de(self, spec: PromptSpec):
         return self._chats_por_nodo.get(spec.id, self._chat)
+
+    def _invocar_reduciendo(self, spec: PromptSpec, schema, entradas, escalones: list[int]):
+        """Invoca el nodo y, si NINGÚN modelo acepta la petición por tamaño, la reduce y reintenta.
+
+        `escalones` son valores decrecientes de `chars_negocio` para el catálogo (el escalón CAG).
+        Cambiar de modelo no arregla un prompt que no cabe en ninguno: lo único que lo arregla es
+        mandar menos. Se degrada el CONTENIDO antes que rendirse, y se deja constancia en el log
+        de con qué escalón se consiguió — un candidato encontrado con el catálogo recortado no es
+        lo mismo que uno encontrado con el catálogo completo.
+        """
+        ultimo: PeticionDemasiadoGrande | None = None
+        for chars in escalones:
+            try:
+                return self._cadena(spec, schema).invoke(entradas(chars))
+            except PeticionDemasiadoGrande as exc:
+                ultimo = exc
+                logger.warning(
+                    "%s: ningún modelo acepta el prompt con chars_negocio=%d (%s); reduzco",
+                    spec.id, chars, exc,
+                )
+        assert ultimo is not None
+        raise ultimo
 
     def _cadena(self, spec: PromptSpec, schema):
         chat = self._chat_de(spec)
@@ -254,21 +286,24 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
         intencion: IntencionHistoriaLLM,
         catalogo: list[EntradaCatalogo],
     ) -> CandidatosHistoriaLLM:
-        out: CandidatosHistoriaLLM = self._cadena(SPEC_CANDIDATOS, CandidatosHistoriaLLM).invoke({
-            "funcionalidad_macro": funcionalidad.funcionalidad_macro,
-            "historia_archivo": historia.archivo,
-            "historia_titulo": historia.titulo,
-            "historia_contenido": historia.contenido,
-            "intencion_resumen": intencion.resumen_funcional or "(sin resumen)",
-            "intencion_actions": _lista(intencion.business_actions),
-            "intencion_objects": _lista(intencion.business_objects),
-            "intencion_outcomes": _lista(intencion.outcomes),
-            "intencion_dependencies": _lista(intencion.external_dependencies),
-            "catalogo_total": len(catalogo),
-            "catalogo": formatear_catalogo(
-                catalogo, self._rol_max_chars, self._cag_chars_por_sd
-            ),
-        })
+        out: CandidatosHistoriaLLM = self._invocar_reduciendo(
+            SPEC_CANDIDATOS,
+            CandidatosHistoriaLLM,
+            lambda chars: {
+                "funcionalidad_macro": funcionalidad.funcionalidad_macro,
+                "historia_archivo": historia.archivo,
+                "historia_titulo": historia.titulo,
+                "historia_contenido": historia.contenido,
+                "intencion_resumen": intencion.resumen_funcional or "(sin resumen)",
+                "intencion_actions": _lista(intencion.business_actions),
+                "intencion_objects": _lista(intencion.business_objects),
+                "intencion_outcomes": _lista(intencion.outcomes),
+                "intencion_dependencies": _lista(intencion.external_dependencies),
+                "catalogo_total": len(catalogo),
+                "catalogo": formatear_catalogo(catalogo, self._rol_max_chars, chars),
+            },
+            self._escalones_cag(),
+        )
         return out.model_copy(update={"metadatos": self._huella(SPEC_CANDIDATOS, "generar_candidatos", historia.archivo)})
 
     # ── nodo 3 ───────────────────────────────────────────────────────────────

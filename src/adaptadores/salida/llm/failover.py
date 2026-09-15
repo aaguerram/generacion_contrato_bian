@@ -39,8 +39,15 @@ _SIN_CUOTA = ("429", "RESOURCE_EXHAUSTED", "RATE LIMIT", "RATE-LIMIT", "RATELIMI
               "EXCEEDED", "CREDITS", "402", "PAYMENT REQUIRED", "INSUFFICIENT", "NO ENDPOINTS",
               "UNAVAILABLE FOR FREE", "IS NOT AVAILABLE", "NOT A VALID MODEL", "INVALID MODEL",
               "UNKNOWN MODEL", "MODEL_NOT_FOUND", "MODEL NOT FOUND", "DOES NOT EXIST",
-              "DO NOT HAVE ACCESS", "REQUEST TOO LARGE", "NO ALLOWED PROVIDERS", "NO INFERENCE PROVIDER",
+              "DO NOT HAVE ACCESS", "NO ALLOWED PROVIDERS", "NO INFERENCE PROVIDER",
               "PERMISSION DENIED", "NOT ALLOWED", "DATA POLICY", "DECOMMISSIONED")
+# "No cabe" NO es lo mismo que "sin cuota", aunque ambos acaben pasando al siguiente modelo: la
+# cuota vuelve sola y el tamaño no. Un 413 dice algo sobre ESTA petición y ESTE modelo, y esa
+# información sirve dos veces -- para no repetir el error con la misma petición (ver
+# `_demasiado_grande` en `ChatConFailover`) y para que quien construyó el prompt pueda reducirlo
+# en vez de rendirse (`PeticionDemasiadoGrande`).
+_NO_CABE = ("413", "REQUEST TOO LARGE", "TOO LARGE", "CONTEXT LENGTH", "MAXIMUM CONTEXT",
+            "CONTEXT_LENGTH_EXCEEDED", "TOO MANY TOKENS", "REDUCE THE LENGTH", "PROMPT IS TOO LONG")
 _PARSER = ("OUTPUTPARSEREXCEPTION", "VALIDATIONERROR", "JSONDECODEERROR", "FAILED TO PARSE",
            "DID NOT MATCH", "RESPONSE_FORMAT", "COULD NOT PARSE", "PYDANTIC", "INVALID_REQUEST_BODY",
            "FAILED TO VALIDATE JSON", "DOES NOT SUPPORT", "JSON_VALIDATE_FAILED")
@@ -55,13 +62,27 @@ def es_transitorio(exc: BaseException) -> bool:
     return any(m in t for m in _TRANSITORIO) and not any(m in t for m in _SIN_CUOTA)
 
 
+def no_cabe(exc: BaseException) -> bool:
+    """El modelo rechazó la petición por TAMAÑO (413 y equivalentes)."""
+    return any(m in _txt(exc) for m in _NO_CABE)
+
+
 def degradar_a_siguiente(exc: BaseException) -> bool:
     t = _txt(exc)
-    return any(m in t for m in _SIN_CUOTA) or any(m in t for m in _PARSER)
+    return any(m in t for m in _SIN_CUOTA) or any(m in t for m in _PARSER) or no_cabe(exc)
 
 
 class TodosLosModelosAgotados(RuntimeError):
     pass
+
+
+class PeticionDemasiadoGrande(TodosLosModelosAgotados):
+    """Se agotó la cadena y al menos un modelo rechazó la petición por TAMAÑO.
+
+    Se distingue de `TodosLosModelosAgotados` para que quien construyó el prompt pueda hacer lo
+    único que arregla esto -- mandar menos -- en vez de rendirse. Ver
+    `AnalistaMapeoBianLangChain`, que reintenta con el catálogo reducido.
+    """
 
 
 @dataclass(frozen=True)
@@ -120,6 +141,9 @@ class ChatConFailover:
         # mezclaría el modelo de llamadas concurrentes; thread-local mantiene cada huella ligada
         # a la misma invocación síncrona que acaba de terminar.
         self._uso_local = threading.local()
+        # {etiqueta del modelo: menor tamaño de prompt que rechazó por 413}. Compartido entre
+        # llamadas del proceso a propósito: es lo que evita repetir el mismo 413 en cada nodo.
+        self._limite_tamano: dict[str, int] = {}
 
     @property
     def descripcion(self) -> str:
@@ -129,12 +153,34 @@ class ChatConFailover:
         """Devuelve el modelo efectivo de la última llamada realizada en el hilo actual."""
         return getattr(self._uso_local, "valor", None)
 
+    @staticmethod
+    def _tamano(prompt_value) -> int:
+        try:
+            return len(prompt_value.to_string())
+        except Exception:  # noqa: BLE001 - cualquier prompt raro cae a su repr
+            return len(str(prompt_value))
+
     def with_structured_output(self, schema, **kw) -> Runnable:  # noqa: N802 (compat LangChain)
         def _invocar(prompt_value, config=None):
             self._uso_local.valor = None
             ultimo: BaseException | None = None
             intento_total = 0
+            rechazo_por_tamano = False
+            tamano = self._tamano(prompt_value)
             for entrada in self._entradas:
+                # Si este modelo ya rechazó por tamaño una petición igual o MENOR, mandarle esta
+                # es gastar un round-trip para leer el mismo 413. No es un latch sobre el modelo
+                # -sigue siendo el primero que se prueba para cualquier prompt más pequeño-, es
+                # memoria sobre el TAMAÑO. Medido: con CAG encendido, Groq devolvía 413 en los dos
+                # modelos en cada nodo grande, corrida tras corrida.
+                limite = self._limite_tamano.get(entrada.etiqueta())
+                if limite is not None and tamano >= limite:
+                    logger.info(
+                        "%s omitido sin llamar: ya rechazó por tamaño >= %d chars (esta: %d)",
+                        entrada.etiqueta(), limite, tamano,
+                    )
+                    rechazo_por_tamano = True
+                    continue
                 runnable = entrada.structured(schema, **dict(kw))
                 for intento in range(1, self._reintentos + 1):
                     intento_total += 1
@@ -150,6 +196,17 @@ class ChatConFailover:
                         return r
                     except Exception as exc:  # noqa: BLE001
                         ultimo = exc
+                        if no_cabe(exc):
+                            rechazo_por_tamano = True
+                            previo = self._limite_tamano.get(entrada.etiqueta())
+                            self._limite_tamano[entrada.etiqueta()] = (
+                                tamano if previo is None else min(previo, tamano)
+                            )
+                            logger.warning(
+                                "%s no acepta esta petición (%d chars): %s; siguiente modelo",
+                                entrada.etiqueta(), tamano, _corto(exc),
+                            )
+                            break
                         if es_transitorio(exc) and intento < self._reintentos:
                             espera = min(self._bmax, self._b0 * (2 ** (intento - 1)))
                             logger.warning(
@@ -165,6 +222,11 @@ class ChatConFailover:
                             )
                             break
                         raise  # error real -> propagar
+            if rechazo_por_tamano:
+                raise PeticionDemasiadoGrande(
+                    f"Ningún modelo aceptó una petición de {tamano} chars "
+                    f"[{self.descripcion}]. Último error: {_corto(ultimo)}"
+                ) from ultimo
             raise TodosLosModelosAgotados(
                 f"Se agotaron todos los modelos [{self.descripcion}]. Último error: {_corto(ultimo)}"
             ) from ultimo

@@ -9,9 +9,11 @@ from langchain_core.runnables import Runnable, RunnableLambda
 from src.adaptadores.salida.llm.failover import (
     ChatConFailover,
     EntradaModelo,
+    PeticionDemasiadoGrande,
     TodosLosModelosAgotados,
     degradar_a_siguiente,
     es_transitorio,
+    no_cabe,
 )
 
 
@@ -116,37 +118,71 @@ if __name__ == "__main__":
 
 
 class TestFailoverReintentaLaCadenaEnCadaLlamada(unittest.TestCase):
-    """Cada llamada arranca en el PRIMER modelo de la cadena, siempre.
+    """Cada llamada arranca en el PRIMER modelo de la cadena — con una excepción por TAMAÑO.
 
     Es la propiedad que hace utilizable el mix de proveedores: un modelo que rechaza un nodo por
-    tamaño de prompt (Groq devuelve 413 "Request too large" con el catálogo CAG de ~48k tokens)
-    NO queda descartado para el resto de la corrida — el siguiente nodo, cuyo prompt es mucho más
+    tamaño de prompt (Groq devuelve 413 "Request too large" con el catálogo CAG de ~48k tokens) NO
+    queda descartado para el resto de la corrida; el siguiente nodo, cuyo prompt es mucho más
     pequeño, vuelve a intentarlo y normalmente le cabe. Si alguien añadiera un latch del tipo
-    "recuerda el modelo que funcionó", el mix dejaría de funcionar así y la cadena se quedaría
-    pegada al último superviviente: este test existe para que ese cambio falle aquí.
+    "recuerda el modelo que funcionó", el mix se quedaría pegado al último superviviente.
+
+    El matiz que introduce el manejo del 413: lo que se recuerda no es el MODELO sino el TAMAÑO.
+    Un prompt igual o mayor al que ya rechazó se salta **sin llamar** —repetirlo es gastar un
+    round-trip para leer el mismo error, y medido pasaba en cada nodo grande de cada corrida—,
+    pero uno más pequeño se sigue intentando primero, que es justo el caso que importa.
 
     Sin API.
     """
 
-    def _cadena_grande_y_pequena(self):
-        # El primer modelo rechaza la llamada 1 (nodo grande) y responde la 2 (nodo pequeño).
-        grande = _entrada("groq", RuntimeError("413 Request too large"), "ok-nodo-pequeno")
-        respaldo = _entrada("ollama", "ok-respaldo", "ok-respaldo")
+    def _cadena(self):
+        # El primer modelo rechaza por tamaño; el respaldo responde siempre.
+        grande = _entrada("groq", RuntimeError("413 Request too large"), "ok-groq")
+        respaldo = _entrada("ollama", "ok-respaldo", "ok-respaldo", "ok-respaldo")
         return ChatConFailover([grande, respaldo], reintentos_transitorios=1)
 
-    def test_un_413_no_descarta_al_proveedor_para_los_siguientes_nodos(self):
-        chat = self._cadena_grande_y_pequena()
+    def test_un_prompt_mas_pequeno_vuelve_a_intentar_al_primer_modelo(self):
+        chat = self._cadena()
         runnable = chat.with_structured_output(dict)
 
-        self.assertEqual(runnable.invoke("prompt enorme"), "ok-respaldo")
+        self.assertEqual(runnable.invoke("P" * 5000), "ok-respaldo")
         self.assertEqual(chat.ultimo_uso().proveedor, "ollama")
 
-        # Segunda llamada = otro nodo: vuelve a empezar por el primero, que ahora sí responde.
-        self.assertEqual(runnable.invoke("prompt pequeño"), "ok-nodo-pequeno")
+        # Otro nodo, prompt mucho menor: la cadena vuelve a empezar por groq, que ahora responde.
+        self.assertEqual(runnable.invoke("P" * 50), "ok-groq")
         self.assertEqual(chat.ultimo_uso().proveedor, "groq")
 
+    def test_un_prompt_igual_o_mayor_se_salta_sin_llamar(self):
+        chat = self._cadena()
+        runnable = chat.with_structured_output(dict)
+        runnable.invoke("P" * 5000)  # aprende que groq no acepta >= 5000
+
+        # Si groq se volviera a llamar, su guion daría "ok-groq"; que devuelva el respaldo prueba
+        # que ni se intentó (y por tanto no se gastó la llamada).
+        self.assertEqual(runnable.invoke("P" * 6000), "ok-respaldo")
+        self.assertEqual(chat.ultimo_uso().proveedor, "ollama")
+
+    def test_si_ningun_modelo_acepta_el_tamano_se_distingue_del_agotamiento(self):
+        """`PeticionDemasiadoGrande` existe para que quien armó el prompt pueda mandar menos."""
+        chat = ChatConFailover(
+            [
+                _entrada("groq", RuntimeError("413 Request too large")),
+                _entrada("gemini", RuntimeError("400 context length exceeded")),
+            ],
+            reintentos_transitorios=1,
+        )
+        with self.assertRaises(PeticionDemasiadoGrande):
+            chat.with_structured_output(dict).invoke("P" * 5000)
+
+    def test_agotar_la_cadena_por_cuota_NO_es_peticion_demasiado_grande(self):
+        chat = ChatConFailover(
+            [_entrada("groq", RuntimeError("429 rate limit"))], reintentos_transitorios=1
+        )
+        with self.assertRaises(TodosLosModelosAgotados) as ctx:
+            chat.with_structured_output(dict).invoke("x")
+        self.assertNotIsInstance(ctx.exception, PeticionDemasiadoGrande)
+
     def test_la_descripcion_de_la_cadena_no_cambia_entre_llamadas(self):
-        chat = self._cadena_grande_y_pequena()
+        chat = self._cadena()
         antes = chat.descripcion
         chat.with_structured_output(dict).invoke("x")
         self.assertEqual(chat.descripcion, antes)
@@ -182,3 +218,20 @@ class TestPrioridadPorNodo(unittest.TestCase):
         self.assertEqual(
             [p.nombre for p in config.orden_llm("fake", nodo="mapeo.operaciones")], ["fake"]
         )
+
+
+class TestClasificacionPorTamano(unittest.TestCase):
+    def test_reconoce_las_formas_habituales_del_413(self):
+        for mensaje in (
+            "Error code: 413 - Request too large for model",
+            "400 context_length_exceeded",
+            "Please reduce the length of the messages",
+            "prompt is too long: 250000 tokens",
+        ):
+            self.assertTrue(no_cabe(RuntimeError(mensaje)), mensaje)
+
+    def test_una_cuota_no_es_un_problema_de_tamano(self):
+        self.assertFalse(no_cabe(RuntimeError("429 rate limit reached")))
+
+    def test_por_tamano_tambien_se_pasa_al_siguiente_modelo(self):
+        self.assertTrue(degradar_a_siguiente(RuntimeError("413 Request too large")))
