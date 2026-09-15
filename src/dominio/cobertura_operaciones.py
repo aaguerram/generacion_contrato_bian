@@ -105,10 +105,20 @@ def resolver_operation_id(
     operación YA presente en `operaciones` — nunca desde texto libre ni fuzzy, y nunca inventa una
     operación que no esté en el catálogo dado (mismo principio anti-alucinación que
     `operacion_evidencia_verificable`: tolera un formato de cita distinto, no un contenido
-    distinto). `None` si ninguna operación del catálogo coincide de ninguna forma."""
+    distinto). `None` si ninguna operación del catálogo coincide de ninguna forma.
+
+    También acepta el **índice** con el que la operación aparece numerada en el prompt (`"7"`,
+    `"[7]"`, `"#7"`, 1-based, en el orden de `operaciones`). Elegir un número entre una lista
+    numerada es una tarea mucho más fácil para un modelo pequeño que reproducir un identificador
+    camelCase entre decenas, y sigue siendo una cita al catálogo REAL: un índice fuera de rango no
+    resuelve nada, igual que un operationId inventado."""
     directo = (id_propuesto or "").strip()
     if not directo:
         return None
+    indice = directo.strip("[]#() ")
+    if indice.isdigit():
+        posicion = int(indice)
+        return operaciones[posicion - 1] if 1 <= posicion <= len(operaciones) else None
     for o in operaciones:
         if o.operation_id == directo:
             return o

@@ -92,6 +92,7 @@ from src.dominio.historias import (
     EvidenciaBian,
     HistoriaConServiceDomains,
     HistoriaUsuario,
+    MapeoOperacionesLLM,
     MetadatosPrompt,
     OperacionBian,
     OperacionBianAplicada,
@@ -237,6 +238,25 @@ def _bom_respalda(paquete: PaqueteEvidenciaCandidato, clase: str, atributo: str)
         if any(normalizar(e.name) == clave_clase for e in paquete.bom_modelo.enums):
             return True
     return False
+
+
+def _fusionar_mapeos(mapeos: list[MapeoOperacionesLLM]) -> MapeoOperacionesLLM:
+    """Une los mapeos de las llamadas por Service Domain en uno solo.
+
+    Las huellas NO se fusionan aqui: cada llamada tiene la suya y todas deben persistir en
+    `huellas_prompts`, porque el numero de huellas ES el numero de llamadas LLM de la corrida. El
+    llamador las recoge por separado (ver `_asignar_operaciones`).
+    """
+    if not mapeos:
+        return MapeoOperacionesLLM()
+    return MapeoOperacionesLLM(
+        operaciones=[o for m in mapeos for o in m.operaciones],
+        bq_personalizados=[b for m in mapeos for b in m.bq_personalizados],
+        gaps=list(dict.fromkeys(g for m in mapeos for g in m.gaps)),
+        blocking_codes=list(dict.fromkeys(c for m in mapeos for c in m.blocking_codes)),
+        citas_descartadas=[c for m in mapeos for c in m.citas_descartadas],
+        metadatos=next((m.metadatos for m in mapeos if m.metadatos is not None), None),
+    )
 
 
 def _canonico(valor) -> str:
@@ -960,7 +980,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
 
     def _h_operaciones(self, estado: EstadoHistoria) -> dict:
         elegibles = candidatos_operacion_elegibles(estado["grupos"])
-        huella, incidencias, con_operaciones = self._asignar_operaciones(
+        huellas, incidencias, con_operaciones = self._asignar_operaciones(
             estado["historia"],
             estado["funcionalidad"],
             elegibles,
@@ -979,7 +999,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         grupos = degradar_sin_operacion_anclada(grupos, con_operaciones)
         return {
             "grupos": grupos,
-            "huellas": [huella] if huella is not None else [],
+            "huellas": huellas,
             "incidencias": incidencias,
         }
 
@@ -1096,7 +1116,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         funcionalidad,
         elegibles: list[ServiceDomainAsignado],
         a_evaluar: list[PaqueteEvidenciaCandidato],
-    ) -> tuple[MetadatosPrompt | None, list[dict], set[str]]:
+    ) -> tuple[list[MetadatosPrompt], list[dict], set[str]]:
         """`elegibles` = `candidatos_operacion_elegibles(grupos)`: OWNED_CONTRACT, directo o
         tentativo (no solo "directo") — ver `clasificacion_historias.candidatos_operacion_elegibles`.
 
@@ -1105,14 +1125,14 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         ancló aunque las había", que es lo único que justifica degradar (ver
         `degradar_sin_operacion_anclada`)."""
         if not self._mapear_operaciones or not elegibles:
-            return None, [], set()
+            return [], [], set()
         operaciones_por_sd = {}
         for sd in elegibles:
             ops = self._catalogo_operaciones.operaciones_de(sd.service_domain)
             if ops:
                 operaciones_por_sd[sd.service_domain] = ops
         if not operaciones_por_sd:
-            return None, [], set()
+            return [], [], set()
 
         nombres_elegibles = {normalizar(sd.service_domain) for sd in elegibles}
         paquetes_por_sd = {
@@ -1121,9 +1141,23 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             if normalizar(p.service_domain) in nombres_elegibles
         }
 
-        mapeo = self._mapeador_operaciones.mapear(
-            historia, funcionalidad, operaciones_por_sd, paquetes_por_sd
-        )
+        # UNA LLAMADA POR SERVICE DOMAIN, no una con todos. El nodo mas fragil del pipeline es
+        # este -- tiene que citar una operacion concreta entre decenas, y su fallo es el unico que
+        # deja la historia sin contrato-. Pedirle N Service Domains a la vez multiplica el espacio
+        # de error y mezcla los catalogos; aislado, cada llamada ve un solo catalogo y una sola
+        # decision. Los elegibles son 1-2 en la practica (`candidatos_operacion_elegibles`), asi
+        # que el coste extra es de 0-1 llamadas por HU, y la cache de nodos las absorbe al repetir.
+        parciales = [
+            self._mapeador_operaciones.mapear(
+                historia,
+                funcionalidad,
+                {sd: operaciones},
+                {sd: paquetes_por_sd[sd]} if sd in paquetes_por_sd else {},
+            )
+            for sd, operaciones in operaciones_por_sd.items()
+        ]
+        mapeo = _fusionar_mapeos(parciales)
+        huellas = [m.metadatos for m in parciales if m.metadatos is not None]
         por_sd_norm = {sd.service_domain.casefold(): sd for sd in elegibles}
         # Indexado por nombre NORMALIZADO (no el string crudo): una diferencia de capitalización o
         # acentos entre lo que devuelve el LLM y el nombre canónico del SD no debe hacer que la
@@ -1265,7 +1299,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             for sd in elegibles
             if not sd.operaciones_bian and operaciones_por_sd.get(sd.service_domain)
         ]
-        return mapeo.metadatos, incidencias, set(operaciones_por_sd)
+        return huellas, incidencias, set(operaciones_por_sd)
 
     @staticmethod
     def _anclar_bq_personalizados(

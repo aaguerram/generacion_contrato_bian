@@ -79,8 +79,16 @@ sobrevivir a la muerte del proceso exigiría `langgraph-checkpoint-sqlite`, que 
   decenas, es el primero en romperse con uno débil. La clave es el `prompt_id`. `--proveedor X`
   sigue mandando sobre esto. Ojo con lo que **no** hace falta configurar: cada LLAMADA ya recorre
   su cadena desde el principio, así que un proveedor que devolvió 413 en un nodo de prompt grande
-  se vuelve a intentar en el siguiente nodo, que quizá sí le cabe
+  se vuelve a intentar en el siguiente nodo **si el prompt es más pequeño**
   (`test_failover.py::TestFailoverReintentaLaCadenaEnCadaLlamada`).
+- **413 es su propia categoría**, no "sin cuota": la cuota vuelve sola y el tamaño no.
+  `ChatConFailover` recuerda el menor tamaño que cada modelo rechazó y **se salta ese modelo sin
+  llamarlo** para un prompt igual o mayor — antes gastaba un round-trip por modelo en cada nodo
+  grande, corrida tras corrida. Lo que recuerda es el TAMAÑO, no el modelo: un prompt más pequeño
+  lo vuelve a intentar primero. Si NINGÚN modelo acepta el tamaño lanza `PeticionDemasiadoGrande`
+  en vez de `TodosLosModelosAgotados`, y `AnalistaMapeoBianLangChain` reintenta **reduciendo el
+  catálogo** por escalones CAG decrecientes hasta 0 — cambiar de modelo no arregla un prompt que
+  no cabe en ninguno; lo único que lo arregla es mandar menos.
 - **Failover** (`src/adaptadores/salida/llm/failover.py` · `ChatConFailover`): recorre
   `routing.llm_priority` y, dentro de cada proveedor, `providers.<n>.llm.models` **en orden**.
   429 / 402 / "no disponible" / salida no parseable -> siguiente modelo; 503 / timeout ->
@@ -223,8 +231,15 @@ sobrevivir a la muerte del proceso exigiría `langgraph-checkpoint-sqlite`, que 
       (`salida/2026-09-12_*/`). Regresión determinista en
       `tests/unit_test/test_grafo_mapeo.py::TestGrafoMapeoPromocionOwnership` y
       `tests/unit_test/test_clasificacion_historias.py::TestDeterminarPromociones`.
-   9. `seleccionar_operaciones` (si `paso2_operaciones`) → `MapeoOperacionesLLM` para los SD
-      **elegibles** (`candidatos_operacion_elegibles`: `OWNED_CONTRACT` directo O tentativo — YA NO
+   9. `seleccionar_operaciones` (si `paso2_operaciones`) → **UNA llamada por Service Domain
+      elegible**, no una con todos: es el nodo más frágil y el único cuyo fallo deja la historia
+      sin contrato, así que cada llamada ve un solo catálogo y toma una sola decisión (los
+      elegibles son 1-2 en la práctica, y cada llamada deja SU huella — el nº de huellas ES el nº
+      de llamadas LLM). Las operaciones van **numeradas** en el prompt y `resolver_operation_id`
+      acepta el índice (`7`, `[7]`, `#7`): elegir un número de una lista es mucho más fácil para un
+      modelo pequeño que reproducir un `operationId` camelCase entre decenas, y sigue siendo una
+      cita al catálogo REAL — un índice fuera de rango no resuelve nada, igual que un operationId
+      inventado. Devuelve `MapeoOperacionesLLM` para los SD **elegibles** (`candidatos_operacion_elegibles`: `OWNED_CONTRACT` directo O tentativo — YA NO
       solo "directo"; un SD correctamente identificado como propietario con confianza tentativa
       igual tiene una operación oficial real que documentar, sin que la confianza global de la
       historia decida si esa operación existe): `operationId` literal, conjunto mínimo suficiente, `traceability` por operación,

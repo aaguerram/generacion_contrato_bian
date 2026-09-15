@@ -64,7 +64,11 @@ def _formatear(
         paquete = paquetes_por_sd.get(sd)
         indice_schemas = {normalizar(s.name): s for s in paquete.schemas_detalle} if paquete else {}
         lineas = [f'Service Domain "{sd}":']
-        for o in operaciones:
+        # Numeradas: el prompt acepta el índice como cita, y elegir un número de una lista es
+        # mucho más fácil para un modelo pequeño que reproducir un operationId camelCase entre
+        # decenas. `resolver_operation_id` lo ancla contra ESTA misma lista, así que sigue siendo
+        # una cita al catálogo real (un índice fuera de rango no resuelve nada).
+        for posicion, o in enumerate(operaciones, start=1):
             padre = f" <- {o.parent_control_record}" if o.parent_control_record else ""
             esquema = " / ".join(p for p in (
                 f"req={o.request_schema}" if o.request_schema else "",

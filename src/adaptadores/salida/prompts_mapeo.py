@@ -432,8 +432,11 @@ implementan cada escenario. Eliges el conjunto MÍNIMO SUFICIENTE.
 </rol>
 
 <reglas>
-- Usa SOLO operationId de `<operaciones_disponibles>` para ESE Service Domain. Copia literal.
-  Nunca inventes ni muevas un operationId entre Service Domains.
+- Usa SOLO operaciones de `<operaciones_disponibles>` para ESE Service Domain. Nunca inventes ni
+  muevas una operación entre Service Domains.
+- En `operation_id` puedes poner **el número entre corchetes** con el que aparece la operación en
+  la lista (p. ej. `7`) o el operationId literal copiado tal cual. El número es preferible: se
+  comprueba contra la misma lista y no hay forma de equivocarse al transcribirlo.
 - Cada operación de `<operaciones_disponibles>` trae `campos_respuesta` (lista "campo:tipo") con
   los campos REALES de su `response_schema`. Antes de elegir, revisa `campos_respuesta` de cada
   candidata: si
@@ -504,7 +507,7 @@ justificacion, reason_codes}} — vacío si no hace falta ninguno; `grupo_existe
 un grupo ya listado en operaciones_disponibles, nunca un grupo nuevo), 'gaps', 'blocking_codes'.
 """
 
-SPEC_OPERACIONES = _spec("mapeo.operaciones", "1.1.0", _SIS_OPERACIONES, _HUM_OPERACIONES)
+SPEC_OPERACIONES = _spec("mapeo.operaciones", "1.2.0", _SIS_OPERACIONES, _HUM_OPERACIONES)
 PROMPT_MAPEO_OPERACIONES = SPEC_OPERACIONES.template
 
 
