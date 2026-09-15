@@ -32,6 +32,45 @@ from langgraph.checkpoint.base import BaseCheckpointSaver
 
 logger = logging.getLogger(__name__)
 
+# El estado del grafo lleva modelos del dominio (`EvaluacionCandidatoLLM`,
+# `ServiceDomainsDeHistoria`, ...). LangGraph los serializa sin problema, pero al RELEERLOS avisa de
+# que son tipos "no registrados" y anuncia que una versión futura los bloqueará: es decir, reanudar
+# dejaría de funcionar tras una actualización. Declararlos permitidos lo arregla ahora y deja
+# explícito qué se acepta deserializar: SOLO los modelos de nuestro dominio, que son código propio
+# y versionado, nunca un módulo arbitrario.
+#
+# La lista se construye por reflexión sobre los dos módulos del dominio, no a mano: escribirla a
+# mano significaría que cada modelo nuevo rompe el reanudar en silencio -- un tipo fuera de la
+# lista NO falla, se deserializa como `dict`, y el error salta mucho más tarde y en otro sitio
+# (medido: `AttributeError: 'dict' object has no attribute 'candidatos_directos'` dentro de
+# `determinar_promociones`).
+
+
+def _clases_del_dominio() -> list[type]:
+    import inspect
+
+    from pydantic import BaseModel
+
+    from src.dominio import historias, modelos
+
+    return [
+        objeto
+        for modulo in (historias, modelos)
+        for _, objeto in inspect.getmembers(modulo, inspect.isclass)
+        if issubclass(objeto, BaseModel) and objeto.__module__ == modulo.__name__
+    ]
+
+
+def _serde():
+    """Serializador con los modelos del dominio declarados como permitidos (o el de siempre si
+    esta versión de LangGraph todavía no acepta el parámetro)."""
+    from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
+
+    try:
+        return JsonPlusSerializer(allowed_msgpack_modules=_clases_del_dominio())
+    except TypeError:  # pragma: no cover - versión anterior de langgraph
+        return JsonPlusSerializer()
+
 
 def crear_checkpointer(ruta: str | Path) -> BaseCheckpointSaver:
     """Checkpointer SQLite en `ruta`, creando la base y sus directorios si no existen."""
@@ -46,7 +85,7 @@ def crear_checkpointer(ruta: str | Path) -> BaseCheckpointSaver:
         # compartir la conexión entre hilos es correcto; lo que no valdría es una conexión por
         # hilo escribiendo a la vez sobre el mismo archivo.
         conexion = sqlite3.connect(str(destino), check_same_thread=False)
-        saver = SqliteSaver(conexion)
+        saver = SqliteSaver(conexion, serde=_serde())
         saver.setup()  # idempotente: crea las tablas solo si faltan
         logger.info(
             "checkpointer SQLite %s: %s", "abierto" if existia else "creado", destino

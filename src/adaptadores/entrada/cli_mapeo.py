@@ -100,6 +100,15 @@ def _parse(argv: list[str] | None) -> argparse.Namespace:
         help="Desactiva el paso 2 (operaciones oficiales).",
     )
     p.add_argument(
+        "--reanudar",
+        metavar="THREAD_ID",
+        default=None,
+        help="Continúa una corrida anterior desde su último checkpoint, en vez de empezar de "
+        "cero. El THREAD_ID es el `parametros.thread_id` del JSON de esa corrida (o el que se "
+        "imprimió al arrancarla). Exige que esa corrida se hiciera con "
+        "`mapear_historias.durabilidad: sync|async`.",
+    )
+    p.add_argument(
         "--actualizar-cache-bian",
         action="store_true",
         help="Actualiza desde la fuente oficial incluso si el candidato ya existe en cache.",
@@ -127,6 +136,9 @@ def _resumen(resultado) -> None:
     print(f"Historias           : {resultado.total_historias}")
     u = resultado.parametros
     print(f"Cadena LLM          : {u.get('cadena_llm')}")
+    if u.get("thread_id"):
+        # Solo con durabilidad: es el identificador con el que se reanuda esta corrida si muere.
+        print(f"Reanudable con      : --reanudar {u['thread_id']}")
     print(
         f"Umbrales            : directo >= {u.get('umbral_directo')}  |  "
         f"tentativo {u.get('umbral_tentativo')}..{u.get('umbral_directo')}"
@@ -207,9 +219,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     print(f">> salida    = {dir_run}")
 
+    if args.reanudar:
+        print(f">> reanudando la corrida {args.reanudar} desde su último checkpoint")
+
     try:
         resultado = caso_uso.ejecutar(
-            str(args.directorio_hu), str(args.funcionalidad), str(dir_run)
+            str(args.directorio_hu),
+            str(args.funcionalidad),
+            str(dir_run),
+            reanudar=args.reanudar,
         )
     except (ValueError, FileNotFoundError, RuntimeError) as exc:
         logger.error("%s", exc)

@@ -81,3 +81,40 @@ class TestNoSeVersiona(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestModelosDelDominioSeDeserializanEnteros(unittest.TestCase):
+    """Un tipo fuera de la lista permitida NO falla: vuelve como `dict`, y el error salta mucho
+    despues y en otro sitio.
+
+    Medido al implementarlo: con una lista escrita a mano e incompleta, reanudar devolvia
+    `ServiceDomainsDeHistoria` como `dict` y reventaba dentro de `determinar_promociones` con
+    `AttributeError: 'dict' object has no attribute 'candidatos_directos'`. Por eso la lista se
+    construye por reflexion sobre el dominio y por eso existe este test: un modelo nuevo no puede
+    romper el reanudar en silencio.
+    """
+
+    def test_la_lista_cubre_todos_los_modelos_del_dominio(self):
+        import inspect
+
+        from pydantic import BaseModel
+
+        from src.adaptadores.salida.checkpointer_sqlite import _clases_del_dominio
+        from src.dominio import historias, modelos
+
+        declarados = {c.__name__ for c in _clases_del_dominio()}
+        for modulo in (historias, modelos):
+            for nombre, objeto in inspect.getmembers(modulo, inspect.isclass):
+                if issubclass(objeto, BaseModel) and objeto.__module__ == modulo.__name__:
+                    self.assertIn(nombre, declarados, f"{nombre} no entraria entero al reanudar")
+
+    def test_un_modelo_del_dominio_sobrevive_al_viaje_de_ida_y_vuelta(self):
+        from src.adaptadores.salida.checkpointer_sqlite import _serde
+        from src.dominio.historias import ServiceDomainsDeHistoria
+
+        serde = _serde()
+        original = ServiceDomainsDeHistoria()
+        vuelta = serde.loads_typed(serde.dumps_typed(original))
+        self.assertIsInstance(
+            vuelta, ServiceDomainsDeHistoria, "volvio como dict: el reanudar se romperia"
+        )

@@ -373,27 +373,45 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         )
         self._durabilidad = durabilidad if durabilidad in ("exit", "sync", "async") else "exit"
         self._checkpointer_inyectado = checkpointer
+        # `thread_id` de la corrida en curso: sale en `parametros` para poder reanudarla. Vacío
+        # cuando no hay durabilidad, porque entonces no hay nada que reanudar.
+        self._thread_id = ""
         self._subgrafo = self._compilar_subgrafo()
         self._grafo = self._compilar()
 
     def ejecutar(
-        self, directorio_hu: str, ruta_funcionalidad: str, directorio_salida: str
+        self,
+        directorio_hu: str,
+        ruta_funcionalidad: str,
+        directorio_salida: str,
+        *,
+        reanudar: str | None = None,
     ) -> ResultadoMapeoHistorias:
         config: dict = {"recursion_limit": 60, "max_concurrency": self._concurrencia}
         extra: dict = {}
+        entrada: dict | None = {
+            "directorio_hu": directorio_hu,
+            "ruta_funcionalidad": ruta_funcionalidad,
+            "directorio_salida": directorio_salida,
+        }
         if self._durabilidad != "exit":
-            # Cada corrida es su propio hilo de checkpoints: nunca se mezcla con una anterior.
-            config["configurable"] = {"thread_id": uuid.uuid4().hex}
+            # Cada corrida es su propio hilo de checkpoints: nunca se mezcla con una anterior,
+            # salvo que se pida explícitamente continuar una.
+            self._thread_id = reanudar or uuid.uuid4().hex
+            config["configurable"] = {"thread_id": self._thread_id}
             extra["durability"] = self._durabilidad
-        estado = self._grafo.invoke(
-            {
-                "directorio_hu": directorio_hu,
-                "ruta_funcionalidad": ruta_funcionalidad,
-                "directorio_salida": directorio_salida,
-            },
-            config=config,
-            **extra,
-        )
+            if reanudar:
+                # `None` como entrada = "sigue donde te quedaste". Mandar la entrada otra vez
+                # reiniciaría el grafo desde `cargar` y perdería el trabajo ya hecho.
+                entrada = None
+                logger.info("reanudando la corrida %s desde su último checkpoint", reanudar)
+        elif reanudar:
+            raise ValueError(
+                f"no se puede reanudar la corrida '{reanudar}': la durabilidad está en 'exit', "
+                "así que no se guardó ningún checkpoint. Actívala con "
+                "`mapear_historias.durabilidad: sync` ANTES de la corrida que quieras reanudar."
+            )
+        estado = self._grafo.invoke(entrada, config=config, **extra)
         if self._cache_nodos is not None:
             logger.info(
                 "caché de nodos: %d aciertos / %d fallos",
@@ -1443,6 +1461,10 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         parametros = {
             **self._parametros_base,
             "run_id": uuid.uuid4().hex,
+            # Con durabilidad, ESTE es el identificador con el que se reanuda:
+            # `--reanudar <thread_id>`. Sin durabilidad va vacío a propósito.
+            "thread_id": self._thread_id,
+            "durabilidad": self._durabilidad,
             "umbral_directo": self._umbrales.directo,
             "umbral_tentativo": self._umbrales.tentativo,
             "concurrencia": self._concurrencia,

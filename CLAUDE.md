@@ -73,9 +73,22 @@ las cuesta todas.
 No confundir los dos mecanismos: la **caché de nodos** evita re-pagar las llamadas LLM al
 RE-EJECUTAR (y funciona aunque el estado se pierda); el **checkpointer** deja *reanudar* donde se
 quedó y habilita `interrupt`/human-in-the-loop, que es lo que pide el `UNRESOLVED` "bloqueado para
-revisión humana" del dominio. Aviso operativo medido: una corrida de 1 HU dejó **18 checkpoints /
-87 writes y ~19 MB** — el estado incluye el catálogo serializado por superstep, así que la base
-crece rápido y conviene borrarla entre campañas (es desechable por definición).
+revisión humana" del dominio.
+
+**Reanudar** (`--reanudar <thread_id>`): con durabilidad, `parametros.thread_id` sale en el JSON y
+el CLI lo imprime al terminar. Continuar entrega `None` como entrada al grafo — mandar la entrada
+otra vez lo reiniciaría desde `cargar` y tiraría el trabajo hecho; medido, una corrida caída en
+`revisar_adversarial` se reanuda sin repetir `extraer_intencion` ni ninguna `evaluar_candidato`.
+Sin durabilidad se **rechaza** en vez de re-ejecutar en silencio. Los modelos del dominio van
+declarados en el allowlist de deserialización del serializador (`_clases_del_dominio`, por
+reflexión): un tipo fuera de esa lista NO falla, vuelve como `dict` y revienta mucho después y en
+otro sitio (visto: `AttributeError: 'dict' object has no attribute 'candidatos_directos'` dentro
+de `determinar_promociones`), así que la lista no se escribe a mano y hay un test que la cubre. Coste medido de activarla: **disco, no latencia**. Una corrida de 1 HU deja
+18 checkpoints / 87 writes y **~19 MB** —el estado incluye el catálogo de 341 SD serializado por
+superstep, así que la base crece rápido y conviene borrarla entre campañas, que es seguro porque
+es desechable por definición—, pero el tiempo no se mueve: 1,37 s con durabilidad frente a 1,56 s
+sin ella (`--proveedor fake`, misma HU; la diferencia es ruido). Si una corrida con durabilidad
+tarda más, la causa está en el failover, no en el checkpointer.
 
 ## Configuración: `config.yaml` + `.env`
 
