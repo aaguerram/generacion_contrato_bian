@@ -73,6 +73,14 @@ sobrevivir a la muerte del proceso exigiría `langgraph-checkpoint-sqlite`, que 
 - **`config.yaml`** (versionado, sin secretos) = proveedores, modelos, orden de failover, umbrales,
   rutas, observabilidad. Se carga en `src/configuracion/config_yaml.py` -> `Config`;
   `src/configuracion/settings.py` compone `.env` + `config.yaml` (`cargar_settings()` devuelve un `Config`).
+- **Orden de modelos POR NODO** (`routing.llm_priority_por_nodo`, vacío por defecto): los 7 nodos
+  LLM no tienen la misma dificultad ni el mismo tamaño de prompt — `mapeo.intencion` lo resuelve
+  cualquier modelo y `mapeo.operaciones`, que debe devolver un `operationId` literal entre
+  decenas, es el primero en romperse con uno débil. La clave es el `prompt_id`. `--proveedor X`
+  sigue mandando sobre esto. Ojo con lo que **no** hace falta configurar: cada LLAMADA ya recorre
+  su cadena desde el principio, así que un proveedor que devolvió 413 en un nodo de prompt grande
+  se vuelve a intentar en el siguiente nodo, que quizá sí le cabe
+  (`test_failover.py::TestFailoverReintentaLaCadenaEnCadaLlamada`).
 - **Failover** (`src/adaptadores/salida/llm/failover.py` · `ChatConFailover`): recorre
   `routing.llm_priority` y, dentro de cada proveedor, `providers.<n>.llm.models` **en orden**.
   429 / 402 / "no disponible" / salida no parseable -> siguiente modelo; 503 / timeout ->
@@ -201,8 +209,14 @@ sobrevivir a la muerte del proceso exigiría `langgraph-checkpoint-sqlite`, que 
       `Document` (27 SD) no es contender por un objeto, es el andamiaje de BIAN. El veredicto no
       reclasifica nada: cambia el motivo a `OWNERSHIP_CONFLICT_CONFIRMED_BY_GRAPH` o
       `..._NOT_BACKED_BY_GRAPH` y alimenta `ownership_conflict_rate_respaldado`, que es la misma
-      tasa descontando el ruido. Medido sobre el grafo real, los candidatos de las dos HU conocidas
-      NO comparten ningún objeto específico. Caso real que motivó la promoción:
+      tasa descontando el ruido. Confirmar exige **tres** cosas, no dos: que exista un nodo real
+      compartido, que ese nodo **discrimine**, y que **tenga que ver con el objeto en disputa**
+      (el `accion_objeto` que la clasificación ya atribuyó a ese candidato). La tercera se añadió
+      tras medirla: con 11 candidatos la señal confirmaba 6 conflictos apoyándose en objetos sin
+      relación con lo disputado (`Access Arrangement` entre Correspondence y Customer Access
+      Entitlement para un conflicto sobre "enviar notificación"). Sin ella la regla responde
+      "¿comparte este candidato algo específico con ALGÚN otro?", cuya probabilidad crece con el
+      número de candidatos, en vez de "¿respalda el catálogo ESTE conflicto?". Caso real que motivó la promoción:
       "Notificar actualización de datos" → Correspondence quedaba REJECTED/CONSUMED_DEPENDENCY
       pese a citar `InitiateOutbound` (`salida/2026-09-11_17-59-40/`). Caso real que motivó el piso
       `objeto_bom`: la misma historia promovía también a "Party Authentication" sin base real
@@ -270,7 +284,22 @@ sobrevivir a la muerte del proceso exigiría `langgraph-checkpoint-sqlite`, que 
       caveat es el formato en que el LLM la citó), se finaliza igual que una promoción: se mueve a
       `candidatos_directos` con `SELECTED`/`OWNED_SELECTED` y
       `reason_codes += ["OWNED_FINALIZED_BY_OPERATION_EVIDENCE"]`, sin importar el score léxico
-      agregado. Caso real que lo motivó: en una corrida con LLM real, Correspondence salió
+      agregado. **Recorre los TRES grupos, incluido `directo`**: estar en el grupo `directo`
+      (score ≥ 0.90) NO implica estar `SELECTED`, porque `aplicar_hallazgos_adversariales` degrada
+      la DECISIÓN sin mover de grupo — antes el bucle solo miraba tentativos/descartados y un
+      propietario con evidencia sólida se quedaba sin contrato solo por estar ya en `directo`
+      (caso real: Party Reference Data Directory, confianza 0.9650, `objeto_bom` 1.0, evidencia
+      `CACHED_VERIFIED` y `RetrieveReference` anclada sin reservas, y aun así
+      `UNRESOLVED/TENTATIVE_SCORE`).
+      **`degradar_sin_operacion_anclada`** es el movimiento simétrico y corre justo después: un
+      `SELECTED` que no ancló NINGUNA de las operaciones oficiales de su SD pasa a
+      `UNRESOLVED`/`NO_OPERATION_ANCHORED` (+ `DOWNGRADED_NO_OPERATION_ANCHORED`), porque el
+      entregable es "qué operación BIAN implementa esta historia" y sin operación no hay nada que
+      implementar. Solo aplica si ese SD **sí tenía** operaciones oficiales en el catálogo: si no
+      trae ninguna, o el paso está apagado (`--sin-operaciones`), no hay nada que reprochar. Caso
+      real: en 2 de 3 corridas, Party Reference Data Directory salía `SELECTED` junto a
+      Correspondence, promovido por el revisor adversarial, con 17 operaciones disponibles y cero
+      ancladas. Caso real que lo motivó: en una corrida con LLM real, Correspondence salió
       `OWNED_CONTRACT` directo (nada que promover) pero con score 0.6733 (idéntico al caso de
       promoción) — sin este paso quedaba en tentativo pese a tener `InitiateOutbound` ya anclado y
       verificado. Ver `tests/unit_test/test_grafo_mapeo.py::TestGrafoMapeoFinalizacionPorOperacion`.
@@ -298,7 +327,19 @@ sobrevivir a la muerte del proceso exigiría `langgraph-checkpoint-sqlite`, que 
    `DEPENDENCIA_PROMOVIDA_A_CONTRATO` que NO calificaron para ninguna reclasificación, sobre
    promovidos+degradados+sin-resolver — quedan `UNRESOLVED` bloqueados, no reclasificados a
    ciegas), `operation_grounding_rate` (operaciones ancladas sin `OPERATION_EVIDENCE_UNVERIFIED`, sobre el
-   total ancladas), `operation_id_no_resuelto` (incidencias `OPERATION_ID_UNRESOLVED`) y
+   total ancladas — **0.0, no 1.0, cuando había SD elegibles y no se ancló ninguna**: antes esa
+   división vacía marcaba verde justo en el peor caso, medido en una corrida real con
+   `operaciones_ancladas: 0`), `operation_coverage_rate` (SD elegibles que lograron anclar alguna,
+   sobre el total de elegibles — distingue "anclé poco y bien" de "no anclé nada"),
+   `operation_mapping_empty` (incidencias `OPERATION_MAPPING_EMPTY`: un SD elegible que salió con
+   cero operaciones; antes era invisible porque el bucle de anclaje ni se ejecutaba),
+   `historias_sin_contrato` (incidencias `HISTORIA_SIN_CONTRATO`: una HU que no dejó NINGÚN SD
+   `SELECTED`; medido en una corrida real, ese peor caso posible mostraba cobertura 1.0 y
+   grounding 1.0 porque sin elegibles no había nada que anclar — ahora las dos tasas son `null`
+   = "no aplica" cuando no hay elegibles, y la alarma la lleva este contador),
+   `operation_id_no_resuelto` (incidencias `OPERATION_ID_UNRESOLVED`, que ahora incluyen las citas
+   que el blindaje anti-alucinación del adaptador descarta — antes solo vivían en un
+   `logger.warning`, así que "el modelo se inventó todo" era indistinguible de "no propuso nada") y
    `finalizados_por_operacion_solida` (`OWNED_FINALIZED_BY_OPERATION_EVIDENCE`, ver paso 9),
    `ownership_conflict_rate_respaldado` + `ownership_conflictos_confirmados_por_grafo` /
    `ownership_conflictos_sin_respaldo_de_grafo` (paso 8).

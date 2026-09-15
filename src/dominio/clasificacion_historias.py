@@ -41,6 +41,8 @@ Pasos deterministas (stdlib + pydantic + dominio, sin frameworks, sin API):
 
 from __future__ import annotations
 
+import re
+import unicodedata
 from dataclasses import dataclass
 
 from src.dominio.historias import (
@@ -55,7 +57,8 @@ from src.dominio.historias import (
 )
 from src.dominio.modelos import EntradaCatalogo
 from src.dominio.normalizacion import normalizar
-from src.dominio.scoring_bian import _sim, calcular_score
+from src.dominio.scoring_bian import _sim, _split_camel, calcular_score
+from src.dominio.vocabulario_bian import EQUIVALENCIAS_RETRIEVAL
 
 _EPS = 0.001  # margen para dejar un SD topado justo por debajo del umbral directo
 
@@ -444,54 +447,110 @@ def propuestos_degradados(
     return salida
 
 
+def _tokens_comparables(texto: str) -> set[str]:
+    """Tokens normalizados y traducidos al inglés, para cruzar catálogo con texto del LLM.
+
+    No reusa `scoring_bian._tokens` a propósito: aquel usa el mapa BASE, que es el que fija el
+    score y tiene su propia regresión. Aquí hace falta el mapa de recuperación, más amplio
+    (`contacto -> contact`, que BASE no trae), y tocar el del scoring para conseguirlo movería
+    números que no tienen nada que ver con esta comprobación.
+    """
+    plano = (
+        unicodedata.normalize("NFKD", _split_camel(texto or "").lower())
+        .encode("ascii", "ignore")
+        .decode()
+    )
+    return {
+        EQUIVALENCIAS_RETRIEVAL.get(t, t)
+        for t in re.findall(r"[a-z0-9]+", plano)
+        if len(t) > 2
+    }
+
+
+def _tokens_en_comun(nombre_objeto: str, objeto_en_disputa: str) -> set[str]:
+    """Términos compartidos entre el nodo del catálogo y el objeto que el conflicto disputa.
+
+    Además de la intersección exacta, acepta **variantes morfológicas de la misma raíz**: el
+    catálogo escribe `Notification Record` y el LLM escribe "enviar notificación", que el
+    vocabulario traduce a `notify` — misma raíz, palabras distintas. Sin esto la condición sería
+    tan estricta que no confirmaría nunca. Se exige raíz de 5 caracteres para que la coincidencia
+    siga siendo explicable: `notif|icación` sí, `pay|ment` contra `pay|ee` no.
+    """
+    izquierda, derecha = _tokens_comparables(nombre_objeto), _tokens_comparables(objeto_en_disputa)
+    comunes = izquierda & derecha
+    for x in izquierda - comunes:
+        for y in derecha - comunes:
+            if len(x) >= 5 and len(y) >= 5 and (x.startswith(y[:5]) or y.startswith(x[:5])):
+                comunes.add(x)
+    return comunes
+
+
 CONFLICTO_CONFIRMADO_POR_GRAFO = "OWNERSHIP_CONFLICT_CONFIRMED_BY_GRAPH"
 CONFLICTO_SIN_RESPALDO_DE_GRAFO = "OWNERSHIP_CONFLICT_NOT_BACKED_BY_GRAPH"
 
 
 def confirmar_conflictos_por_grafo(
-    service_domains_en_conflicto: list[str],
+    objeto_en_disputa_por_sd: dict[str, str],
     objetos_compartidos: list,
 ) -> dict[str, tuple[str, str]]:
     """¿El catálogo BIAN respalda el conflicto de ownership que afirmó el revisor adversarial?
 
-    Un `ownership_conflict` dice "estos dos Service Domains reclaman el mismo objeto de negocio".
+    Un `ownership_conflict` dice "estos Service Domains reclaman el mismo objeto de negocio".
     Hasta ahora eso era **solo la opinión del LLM**: quedaba como incidencia
     `OWNERSHIP_CONFLICT_UNRESOLVED` sin nada que la confirmara o la desmintiera. El grafo canónico
     sí puede comprobarlo, porque sabe qué nodos del modelo toca cada SD.
 
-    La comprobación tiene dos partes, y la segunda es la que importa:
+    La comprobación tiene **tres** partes, y las dos últimas son las que hacen que la señal diga
+    algo:
 
     1. ¿Existe un nodo real (clase del BOM, schema, Control Record) que ambos toquen?
     2. ¿Ese nodo **discrimina**? Compartir `Party` no es un conflicto: la modelan 125 Service
        Domains, es el andamiaje del modelo BIAN. Solo cuenta un nodo específico
        (`ObjetoCompartido.especifico`, mismo umbral que la expansión por grafo).
+    3. ¿Ese nodo tiene que ver con **el objeto en disputa**? Esta condición se añadió después de
+       medirla: con 11 candidatos en una historia, la señal confirmó 6 conflictos apoyándose en
+       objetos sin relación con lo disputado —`Access Arrangement` entre Correspondence y Customer
+       Access Entitlement para un conflicto sobre "enviar notificación"—. Sin ella la regla
+       responde "¿comparte este candidato algo específico con ALGÚN otro?", cuya probabilidad
+       crece con el número de candidatos, en vez de "¿respalda el catálogo ESTE conflicto?".
 
-    Devuelve `{sd_normalizado: (veredicto, detalle)}`. **No reclasifica nada**: igual que el resto
-    del módulo, una señal sola no mueve una decisión — aquí decide si el conflicto queda como
-    incidencia accionable o como ruido anotado. Sin grafo disponible, el dict va vacío y todo se
-    comporta como antes.
+    `objeto_en_disputa_por_sd` = `{service_domain: accion_objeto}`, el objeto que el propio
+    pipeline ya atribuyó a ese candidato al clasificarlo. Devuelve
+    `{sd_normalizado: (veredicto, detalle)}`. **No reclasifica nada**: igual que el resto del
+    módulo, una señal sola no mueve una decisión — aquí decide si el conflicto queda como
+    incidencia accionable o como ruido anotado. Sin grafo, el dict va vacío y todo sigue igual.
     """
-    if not service_domains_en_conflicto or not objetos_compartidos:
+    if not objeto_en_disputa_por_sd or not objetos_compartidos:
         return {}
     especificos = [o for o in objetos_compartidos if getattr(o, "especifico", False)]
     veredictos: dict[str, tuple[str, str]] = {}
-    for sd in service_domains_en_conflicto:
+    for sd, objeto_disputa in objeto_en_disputa_por_sd.items():
         clave = normalizar(sd)
         if not clave:
             continue
-        respaldo = [
+        tocan_al_sd = [
             o
             for o in especificos
             if any(normalizar(x) == clave for x in getattr(o, "service_domains", []))
         ]
+        respaldo = [o for o in tocan_al_sd if _tokens_en_comun(o.nombre, objeto_disputa)]
         if respaldo:
             objeto = respaldo[0]
             otros = [x for x in objeto.service_domains if normalizar(x) != clave]
+            comunes = sorted(_tokens_en_comun(objeto.nombre, objeto_disputa))
             veredictos[clave] = (
                 CONFLICTO_CONFIRMADO_POR_GRAFO,
                 f"el catálogo BIAN confirma el conflicto: '{objeto.nombre}' ({objeto.tipo}) lo "
                 f"modelan también {', '.join(otros)} y solo {objeto.total_service_domains} "
-                "Service Domain(s) en total, así que el objeto discrimina.",
+                f"Service Domain(s) en total, y coincide con el objeto en disputa "
+                f"('{objeto_disputa}') en: {', '.join(comunes)}.",
+            )
+        elif tocan_al_sd:
+            veredictos[clave] = (
+                CONFLICTO_SIN_RESPALDO_DE_GRAFO,
+                "el catálogo BIAN no respalda el conflicto: los objetos específicos que este "
+                f"Service Domain comparte con los otros candidatos ({', '.join(sorted({o.nombre for o in tocan_al_sd})[:3])}) "
+                f"no tienen nada que ver con el objeto en disputa ('{objeto_disputa}').",
             )
         else:
             genericos = sorted(
@@ -566,12 +625,20 @@ def finalizar_por_operacion_solida(
     era correcta desde la primera evaluación (sin pasar por `determinar_promociones`). Mismo piso
     `objeto_bom_minimo` que la promoción (misma vulnerabilidad: `operacion_evidencia_verificable`
     acepta citar el propio `grupo`/`operation_id` como evidencia "verificada", lo que no garantiza
-    que esa operación tenga relación real con el objeto de negocio de la historia). Idempotente:
-    no hace nada si ya está en `directo`."""
+    que esa operación tenga relación real con el objeto de negocio de la historia). Recorre los TRES
+    grupos, incluido `directo`: estar en el grupo `directo` (score >= 0.90) NO implica estar
+    `SELECTED`, porque `aplicar_hallazgos_adversariales` degrada la DECISIÓN sin mover el
+    candidato de grupo. Un propietario con evidencia sólida podía así quedarse sin contrato solo
+    por estar ya en `directo` -- caso real medido: Party Reference Data Directory con confianza
+    0.9650, `objeto_bom` 1.0, evidencia `CACHED_VERIFIED` y `RetrieveReference` anclada sin
+    reservas, y aun así `UNRESOLVED/TENTATIVE_SCORE`. Idempotente: sobre un candidato ya
+    `SELECTED` no cambia nada."""
     directos = list(grupos.candidatos_directos)
     tentativos = list(grupos.candidatos_tentativos)
     descartados = list(grupos.candidatos_descartados)
-    for a in (*tentativos, *descartados):
+    for a in (*directos, *tentativos, *descartados):
+        if a.decision_contractual == "SELECTED":
+            continue
         if (
             a.rol_contractual == "OWNED_CONTRACT"
             and a.evidencia_bian.estado in ("VERIFIED", "CACHED_VERIFIED")
@@ -591,6 +658,44 @@ def finalizar_por_operacion_solida(
         candidatos_tentativos=sorted(tentativos, key=_orden),
         candidatos_descartados=sorted(descartados, key=_orden),
     )
+
+
+NO_OPERATION_REASON_CODE = "DOWNGRADED_NO_OPERATION_ANCHORED"
+
+
+def degradar_sin_operacion_anclada(
+    grupos: ServiceDomainsDeHistoria, service_domains_con_operaciones: set[str]
+) -> ServiceDomainsDeHistoria:
+    """Se llama DESPUÉS de anclar operaciones y de `finalizar_por_operacion_solida`. Un candidato
+    `SELECTED` que no logró anclar NINGUNA de las operaciones oficiales de su Service Domain no
+    puede presentarse como contrato resuelto: el entregable de este pipeline es "qué operación
+    BIAN implementa esta historia", y sin operación no hay nada que implementar.
+
+    Es el movimiento simétrico de `finalizar_por_operacion_solida`: aquella sube a `SELECTED` con
+    evidencia de operación sólida; esta baja a `UNRESOLVED` cuando esa evidencia falta del todo.
+    Y como el resto del módulo, exige una señal calculada aparte antes de mover nada: solo aplica
+    si el Service Domain SÍ tenía operaciones oficiales en el catálogo
+    (`service_domains_con_operaciones`). Si el catálogo no trae ninguna, o el paso de operaciones
+    está apagado (`--sin-operaciones`), no hay nada que reprochar y no se toca.
+
+    Caso real que lo motivó: en 2 de 3 corridas, `Party Reference Data Directory` salía `SELECTED`
+    junto a Correspondence -promovido por el revisor adversarial- con sus 17 operaciones oficiales
+    disponibles y NINGUNA anclada. No se mueve de grupo, solo cambia la decisión: el mismo
+    tratamiento que ya aplica la degradación adversarial.
+    """
+    if not service_domains_con_operaciones:
+        return grupos
+    disponibles = {normalizar(sd) for sd in service_domains_con_operaciones}
+    for a in (*grupos.candidatos_directos, *grupos.candidatos_tentativos):
+        if (
+            a.decision_contractual == "SELECTED"
+            and not a.operaciones_bian
+            and normalizar(a.service_domain) in disponibles
+        ):
+            a.decision_contractual = "UNRESOLVED"
+            a.motivo_decision = "NO_OPERATION_ANCHORED"
+            a.reason_codes = list(dict.fromkeys([*a.reason_codes, NO_OPERATION_REASON_CODE]))
+    return grupos
 
 
 def aplicar_hallazgos_adversariales(

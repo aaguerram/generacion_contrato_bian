@@ -72,6 +72,9 @@ MotivoDecision = Literal[
     "RELATED_NOT_OWNED",  # relación temática, no necesaria para implementar la historia
     "OUT_OF_SCOPE",  # score por debajo de la banda tentativa: no aplica
     "NAME_UNRESOLVED",  # el nombre propuesto no resolvió contra el catálogo BIAN R14
+    # Propietario con evidencia, pero NINGUNA de sus operaciones oficiales pudo anclarse: un
+    # contrato sin operación no es accionable, así que no puede presentarse como resuelto.
+    "NO_OPERATION_ANCHORED",
 ]
 
 # alias tolerados en el JSON de entrada de la funcionalidad macro
@@ -654,6 +657,15 @@ class MapeoOperacionesLLM(BaseModel):
     )
     gaps: list[str] = Field(default_factory=list)
     blocking_codes: list[str] = Field(default_factory=list)
+    citas_descartadas: list[str] = Field(
+        default_factory=list,
+        description=(
+            "Citas 'ServiceDomain/operationId' que el blindaje anti-alucinación del adaptador "
+            "tiró por no resolver contra el catálogo real de ESE Service Domain. Antes solo "
+            "quedaban en un `logger.warning`: si el modelo se inventaba TODAS las operaciones, el "
+            "resultado era indistinguible de 'no propuso ninguna' y la corrida no lo reportaba."
+        ),
+    )
     metadatos: MetadatosPrompt | None = None
 
 

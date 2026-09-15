@@ -96,22 +96,61 @@ class TestConfirmacionDeConflictos(unittest.TestCase):
             total_service_domains=total,
         )
 
-    def test_confirma_cuando_el_objeto_compartido_discrimina(self):
-        veredictos = confirmar_conflictos_por_grafo(["A"], [self._objeto(2, ["A", "B"])])
+    def test_confirma_cuando_el_objeto_compartido_discrimina_Y_es_el_disputado(self):
+        veredictos = confirmar_conflictos_por_grafo(
+            {"A": "actualizar el punto de contacto"}, [self._objeto(2, ["A", "B"])]
+        )
         motivo, detalle = veredictos[normalizar("A")]
         self.assertEqual(motivo, CONFLICTO_CONFIRMADO_POR_GRAFO)
         self.assertIn("Contact Point", detalle)
         self.assertIn("B", detalle)
+        self.assertIn("contact", detalle)  # el término que ambos comparten, auditable
 
     def test_no_respalda_cuando_solo_comparten_andamiaje(self):
-        veredictos = confirmar_conflictos_por_grafo(["A"], [self._objeto(125, ["A", "B"])])
+        veredictos = confirmar_conflictos_por_grafo(
+            {"A": "actualizar el punto de contacto"}, [self._objeto(125, ["A", "B"])]
+        )
         motivo, detalle = veredictos[normalizar("A")]
         self.assertEqual(motivo, CONFLICTO_SIN_RESPALDO_DE_GRAFO)
         self.assertIn("Contact Point", detalle)
 
+    def test_no_respalda_cuando_el_objeto_compartido_no_es_el_disputado(self):
+        """El caso real que obligó a añadir la tercera condición.
+
+        Con 11 candidatos, la señal confirmaba 6 conflictos apoyándose en objetos sin relación con
+        lo disputado: `Access Arrangement` entre Correspondence y Customer Access Entitlement para
+        un conflicto sobre "enviar notificación". Un objeto compartido y específico NO es respaldo
+        si no tiene nada que ver con el objeto en disputa; si no, la regla responde "¿comparte algo
+        con ALGÚN otro candidato?", cuya probabilidad crece con el número de candidatos.
+        """
+        objeto = ObjetoCompartido(
+            nodo="bom_class:acc",
+            tipo="BOM_CLASS",
+            nombre="Access Arrangement",
+            service_domains=["Correspondence", "Customer Access Entitlement"],
+            total_service_domains=2,
+        )
+        veredictos = confirmar_conflictos_por_grafo({"Correspondence": "enviar notificación"}, [objeto])
+        motivo, detalle = veredictos[normalizar("Correspondence")]
+        self.assertEqual(motivo, CONFLICTO_SIN_RESPALDO_DE_GRAFO)
+        self.assertIn("no tienen nada que ver", detalle)
+
+    def test_el_puente_es_en_funciona_en_la_comparacion(self):
+        """El nodo viene del catálogo en inglés y el objeto en disputa lo escribe el LLM en
+        español: sin traducir, ninguna confirmación sería posible nunca."""
+        objeto = ObjetoCompartido(
+            nodo="bom_class:n",
+            tipo="BOM_CLASS",
+            nombre="Notification Record",
+            service_domains=["A", "B"],
+            total_service_domains=2,
+        )
+        veredictos = confirmar_conflictos_por_grafo({"A": "enviar notificación"}, [objeto])
+        self.assertEqual(veredictos[normalizar("A")][0], CONFLICTO_CONFIRMADO_POR_GRAFO)
+
     def test_sin_grafo_no_emite_veredicto_y_todo_sigue_como_antes(self):
-        self.assertEqual(confirmar_conflictos_por_grafo(["A"], []), {})
-        self.assertEqual(confirmar_conflictos_por_grafo([], [self._objeto(2, ["A", "B"])]), {})
+        self.assertEqual(confirmar_conflictos_por_grafo({"A": "x"}, []), {})
+        self.assertEqual(confirmar_conflictos_por_grafo({}, [self._objeto(2, ["A", "B"])]), {})
 
 
 if __name__ == "__main__":

@@ -64,6 +64,7 @@ from src.dominio.clasificacion_historias import (
     OPERATION_FINALIZED_REASON_CODE,
     PROMOTED_REASON_CODE,
     confirmar_conflictos_por_grafo,
+    degradar_sin_operacion_anclada,
     UmbralesMapeo,
     aplicar_hallazgos_adversariales,
     candidatos_operacion_elegibles,
@@ -939,13 +940,27 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         except Exception as exc:  # pragma: no cover - el grafo nunca debe tumbar la corrida
             logger.warning("señales de grafo no disponibles: %s", exc)
             return {}
-        return confirmar_conflictos_por_grafo(
-            [h.service_domain for h in hallazgos if h.service_domain], compartidos
-        )
+        # El objeto en disputa de cada candidato sale de la clasificación que YA se hizo
+        # (`accion_objeto`), no del texto libre del hallazgo: es el mismo dato que usan las
+        # degradaciones, así que la confirmación se apoya en algo que el pipeline ya sostenía.
+        accion_por_sd = {
+            a.service_domain: a.accion_objeto
+            for a in (
+                *estado["grupos"].candidatos_directos,
+                *estado["grupos"].candidatos_tentativos,
+                *estado["grupos"].candidatos_descartados,
+            )
+        }
+        en_disputa = {
+            h.service_domain: accion_por_sd.get(h.service_domain) or h.detalle
+            for h in hallazgos
+            if h.service_domain
+        }
+        return confirmar_conflictos_por_grafo(en_disputa, compartidos)
 
     def _h_operaciones(self, estado: EstadoHistoria) -> dict:
         elegibles = candidatos_operacion_elegibles(estado["grupos"])
-        huella, incidencias = self._asignar_operaciones(
+        huella, incidencias, con_operaciones = self._asignar_operaciones(
             estado["historia"],
             estado["funcionalidad"],
             elegibles,
@@ -957,6 +972,11 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # `determinar_promociones` (ese cubre el caso "el LLM lo clasificó mal como dependencia";
         # este cubre "el LLM ya lo clasificó bien pero con rúbricas de acción/objeto bajas").
         grupos = finalizar_por_operacion_solida(estado["grupos"])
+        # ...y el movimiento simétrico: un SELECTED que no ancló NINGUNA de las operaciones
+        # oficiales de su SD no es un contrato accionable. Solo aplica si el SD tenía operaciones
+        # disponibles: si el catálogo no trae ninguna, o el paso está apagado, no hay nada que
+        # reprochar.
+        grupos = degradar_sin_operacion_anclada(grupos, con_operaciones)
         return {
             "grupos": grupos,
             "huellas": [huella] if huella is not None else [],
@@ -1029,7 +1049,45 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             service_domains=grupos,
             service_domains_omitidos=omitidos,
         )
-        return {"resultado": resultado}
+        # Una historia que no produce NINGÚN contrato es el peor resultado posible, y hasta ahora
+        # era el que mejor pintaba en el JSON: sin SD elegible no hay nada que anclar, así que
+        # `operation_coverage_rate` y `operation_grounding_rate` salían en 1.0 por vacío. Es el
+        # mismo error de forma que se corrigió un nivel más abajo (una tasa que da verde porque no
+        # se hizo nada), y se cierra igual: con una incidencia que lo nombra.
+        seleccionados = [
+            a
+            for a in (*grupos.candidatos_directos, *grupos.candidatos_tentativos)
+            if a.decision_contractual == "SELECTED"
+        ]
+        incidencias = []
+        if not seleccionados:
+            mejor = max(
+                (*grupos.candidatos_directos, *grupos.candidatos_tentativos),
+                key=lambda a: a.confianza,
+                default=None,
+            )
+            incidencias.append(
+                {
+                    "historia": historia.archivo,
+                    "service_domain_propuesto": mejor.service_domain if mejor else "(ninguno)",
+                    "resolucion": "MATCH" if mejor else "NOT_FOUND",
+                    "decision": "UNRESOLVED",
+                    "motivo": "HISTORIA_SIN_CONTRATO",
+                    "detalle": (
+                        f"ningún Service Domain quedó SELECTED entre los "
+                        f"{len(estado.get('a_evaluar', []))} candidatos evaluados"
+                        + (
+                            f"; el mejor fue {mejor.service_domain} "
+                            f"({mejor.rol_contractual}, {mejor.motivo_decision}, "
+                            f"confianza {mejor.confianza:.4f})"
+                            if mejor
+                            else ""
+                        )
+                        + "."
+                    ),
+                }
+            )
+        return {"resultado": resultado, "incidencias": incidencias}
 
     # ── paso 6: operaciones oficiales (+ BQ personalizados) para los SD elegibles ─
     def _asignar_operaciones(
@@ -1038,18 +1096,23 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         funcionalidad,
         elegibles: list[ServiceDomainAsignado],
         a_evaluar: list[PaqueteEvidenciaCandidato],
-    ) -> tuple[MetadatosPrompt | None, list[dict]]:
+    ) -> tuple[MetadatosPrompt | None, list[dict], set[str]]:
         """`elegibles` = `candidatos_operacion_elegibles(grupos)`: OWNED_CONTRACT, directo o
-        tentativo (no solo "directo") — ver `clasificacion_historias.candidatos_operacion_elegibles`."""
+        tentativo (no solo "directo") — ver `clasificacion_historias.candidatos_operacion_elegibles`.
+
+        Devuelve también el conjunto de Service Domains que SÍ tenían operaciones oficiales en el
+        catálogo: sin ese dato no se puede distinguir "no ancló porque no hay operaciones" de "no
+        ancló aunque las había", que es lo único que justifica degradar (ver
+        `degradar_sin_operacion_anclada`)."""
         if not self._mapear_operaciones or not elegibles:
-            return None, []
+            return None, [], set()
         operaciones_por_sd = {}
         for sd in elegibles:
             ops = self._catalogo_operaciones.operaciones_de(sd.service_domain)
             if ops:
                 operaciones_por_sd[sd.service_domain] = ops
         if not operaciones_por_sd:
-            return None, []
+            return None, [], set()
 
         nombres_elegibles = {normalizar(sd.service_domain) for sd in elegibles}
         paquetes_por_sd = {
@@ -1164,7 +1227,45 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         self._anclar_bq_personalizados(
             mapeo.bq_personalizados, por_sd_norm, paquetes_por_sd, historia.titulo
         )
-        return mapeo.metadatos, incidencias
+
+        # El blindaje del adaptador tiró citas que no resuelven contra el catalogo de SU Service
+        # Domain. Es el MISMO motivo que ya se registra arriba cuando la cita llega hasta aqui;
+        # lo unico que cambiaba era el sitio donde se descartaba, y alli solo habia un log.
+        incidencias += [
+            {
+                "historia": historia.archivo,
+                "service_domain_propuesto": cita.split("/", 1)[0],
+                "resolucion": "NOT_FOUND",
+                "decision": "NOT_EVALUATED",
+                "motivo": "OPERATION_ID_UNRESOLVED",
+                "detalle": f"cita '{cita}' descartada por el blindaje anti-alucinacion: no "
+                "resuelve contra el catalogo real de ese Service Domain.",
+            }
+            for cita in mapeo.citas_descartadas
+        ]
+
+        # Un Service Domain ELEGIBLE (OWNED_CONTRACT, directo o tentativo) que acaba con CERO
+        # operaciones ancladas era invisible: el bucle de anclaje simplemente no se ejecutaba y
+        # esta funcion devolvia sin incidencias. Es justo el sintoma de que respondio un modelo
+        # incapaz de citar un operationId -- el paso mas fragil del pipeline-, y sin esto la
+        # corrida termina en verde con `finalizar_por_operacion_solida` sin poder dispararse.
+        incidencias += [
+            {
+                "historia": historia.archivo,
+                "service_domain_propuesto": sd.service_domain,
+                "resolucion": "MATCH",
+                "decision": "UNRESOLVED",
+                "motivo": "OPERATION_MAPPING_EMPTY",
+                "detalle": (
+                    f"{sd.service_domain} es elegible ({sd.rol_contractual}, {sd.grupo}) y tiene "
+                    f"{len(operaciones_por_sd.get(sd.service_domain, []))} operaciones oficiales "
+                    "en el catalogo, pero el mapeo no ancló ninguna."
+                ),
+            }
+            for sd in elegibles
+            if not sd.operaciones_bian and operaciones_por_sd.get(sd.service_domain)
+        ]
+        return mapeo.metadatos, incidencias, set(operaciones_por_sd)
 
     @staticmethod
     def _anclar_bq_personalizados(
@@ -1393,17 +1494,36 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             1 for a in todos if OPERATION_FINALIZED_REASON_CODE in a.reason_codes
         )
 
-        elegibles = [
-            a
-            for h in procesadas
-            for a in (
-                *h.service_domains.candidatos_directos,
-                *h.service_domains.candidatos_tentativos,
-            )
-        ]
+        # Elegibles = los que DEBIAN recibir operacion (`candidatos_operacion_elegibles`:
+        # OWNED_CONTRACT directo o tentativo), no todos los directos/tentativos: si no, un SD que
+        # nunca fue candidato a operacion contaria como cobertura perdida.
+        elegibles = [a for h in procesadas for a in candidatos_operacion_elegibles(h.service_domains)]
         ops = [o for a in elegibles for o in a.operaciones_bian]
         verificadas = sum(1 for o in ops if "OPERATION_EVIDENCE_UNVERIFIED" not in o.reason_codes)
-        operation_grounding_rate = round(verificadas / len(ops), 4) if ops else 1.0
+        # CORRECCION: antes esto devolvia 1.0 cuando NO habia ninguna operacion anclada, o sea
+        # marcaba verde justo en el peor caso -medido en una corrida real: grounding 1.0 con
+        # `operaciones_ancladas: 0`-. Sin operaciones no hay nada que fundamentar: si habia SD
+        # elegibles, la tasa es 0.0; solo vale 1.0 cuando no habia nada que anclar.
+        if ops:
+            operation_grounding_rate = round(verificadas / len(ops), 4)
+        elif elegibles:
+            operation_grounding_rate = 0.0
+        else:
+            # Sin SD elegibles no hay nada que fundamentar: la tasa NO APLICA. Antes valía 1.0, y
+            # una corrida que no selecciono ni un contrato salia con las dos tasas en verde
+            # (medido: corrida real con 0 SELECTED, cobertura 1.0 y grounding 1.0). `null` obliga
+            # a mirar `historias_sin_contrato` en vez de leer un 1.0 como exito.
+            operation_grounding_rate = None
+        # Lo que el grounding NO puede ver: cuantos de los SD que debian recibir operacion la
+        # recibieron. Es la tasa que distingue "ancle poco y bien" de "no ancle nada".
+        con_operacion = sum(1 for a in elegibles if a.operaciones_bian)
+        operation_coverage_rate = round(con_operacion / len(elegibles), 4) if elegibles else None
+        operation_mapping_empty = sum(
+            1 for i in incidencias if i.get("motivo") == "OPERATION_MAPPING_EMPTY"
+        )
+        historias_sin_contrato = sum(
+            1 for i in incidencias if i.get("motivo") == "HISTORIA_SIN_CONTRATO"
+        )
         operation_id_no_resuelto = sum(
             1 for i in incidencias if i.get("motivo") == "OPERATION_ID_UNRESOLVED"
         )
@@ -1420,7 +1540,11 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             "ownership_conflictos_confirmados_por_grafo": confirmados,
             "ownership_conflictos_sin_respaldo_de_grafo": sin_respaldo,
             "operation_grounding_rate": operation_grounding_rate,
+            "operation_coverage_rate": operation_coverage_rate,
             "operaciones_ancladas": len(ops),
+            "service_domains_elegibles": len(elegibles),
+            "operation_mapping_empty": operation_mapping_empty,
+            "historias_sin_contrato": historias_sin_contrato,
             "operation_id_no_resuelto": operation_id_no_resuelto,
             "finalizados_por_operacion_solida": finalizados_por_operacion,
         }

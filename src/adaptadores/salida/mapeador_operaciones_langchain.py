@@ -157,7 +157,8 @@ class MapeadorOperacionesLangChain(MapeadorOperacionesBianPort):
             logger.info("TIEMPO_LLM nodo=%s tardo=%.1fs", SPEC_OPERACIONES.id, time.monotonic() - inicio)
 
         catalogo_por_sd = {normalizar(sd): operaciones for sd, operaciones in operaciones_por_sd.items()}
-        limpias = []
+        limpias: list = []
+        descartadas: list[str] = []
         for op in resultado.operaciones:
             operaciones_sd = catalogo_por_sd.get(normalizar(op.service_domain))
             # `resolver_operation_id` (no un chequeo exacto): modelos más débiles del failover a
@@ -168,6 +169,10 @@ class MapeadorOperacionesLangChain(MapeadorOperacionesBianPort):
             if operaciones_sd and resolver_operation_id(op.operation_id, operaciones_sd) is not None:
                 limpias.append(op)
             else:
+                # No basta con loguearlo: si el modelo se inventa TODAS las operaciones, la
+                # corrida acaba con cero ancladas y sin ninguna señal de por qué. La cita viaja
+                # de vuelta para que el servicio la convierta en incidencia.
+                descartadas.append(f"{op.service_domain}/{op.operation_id}")
                 logger.warning(
                     "HU '%s': operación %s/%s fuera del catálogo provisto; descartada",
                     historia.titulo,
@@ -190,5 +195,6 @@ class MapeadorOperacionesLangChain(MapeadorOperacionesBianPort):
         return resultado.model_copy(update={
             "operaciones": limpias,
             "bq_personalizados": bqs,
+            "citas_descartadas": descartadas,
             "metadatos": self._huella(historia.archivo, uso),
         })
