@@ -1,8 +1,8 @@
 # Memory — generacion-contrato-ia-v2
 
-> Generated: 2026-09-15 05:03:57  
-> Total memories: **42**  
-> Breakdown: instruction: 2, fact: 11, decision: 11, goal: 2, context: 2, learning: 14
+> Generated: 2026-09-15 05:11:53  
+> Total memories: **43**  
+> Breakdown: instruction: 2, fact: 11, decision: 12, goal: 2, context: 2, learning: 14
 
 ---
 
@@ -154,27 +154,35 @@
 
 *Confidence: 0.9 | Status: active | Created: 2026-09-13T03:10:19*
 
+### Regla de diseno para nodos LLM fragiles en generac...
+
+> Regla de diseno para nodos LLM fragiles en generacion_contrato_bian (commit 36e8eae): AL PASO MAS FRAGIL SE LE PIDE UNA COSA A LA VEZ Y SE LE DEJA CITAR DE LA FORMA MAS FACIL QUE SIGA SIENDO VERIFICABLE. `seleccionar_operaciones` es el unico nodo cuyo fallo deja la historia sin contrato, y se le pedia lo mas dificil posible: TODOS los Service Domains elegibles en una sola llamada y un operationId literal copiado entre decenas. Dos cambios: (1) UNA LLAMADA POR SERVICE DOMAIN -cada llamada ve un solo catalogo y toma una sola decision-; los elegibles son 1-2 en la practica, asi que cuesta 0-1 llamadas extra por HU y la cache de nodos las absorbe al repetir. Cada llamada deja SU huella: el numero de huellas ES el numero de llamadas LLM, y dejarlo en 1 con N llamadas haria mentir al conteo de coste. (2) CITA POR INDICE: las operaciones van numeradas en el prompt y resolver_operation_id acepta 7, [7], #7. Elegir un numero de una lista es mucho mas facil para un modelo pequeno que reproducir InitiateOutbound, y NO relaja el anclaje: el indice se resuelve contra la MISMA lista que se mostro y uno fuera de rango no resuelve nada, igual que un operationId inventado. Es la misma tolerancia que ya existia para 'METODO /path': otro FORMATO de cita, nunca otro contenido.
+>
+> Resultado medido: la corrida E2E posterior da un resultado de negocio IDENTICO al de antes. Era de esperar -estos cambios atacan la economia del fallo y el espacio de error del modelo debil, no la calidad cuando el modelo responde bien-, y con 25% de varianza una sola pasada tampoco distinguiria una mejora moderada del ruido. Caso que NO se arreglo y esta bien asi: Party Reference Data Directory siguio sin anclar operacion en la HU de notificacion incluso con su llamada dedicada, porque ninguna de sus 17 operaciones (consulta/actualizacion de datos) implementa 'notificar'; el modelo declina, degradar_sin_operacion_anclada lo marca, y 'arreglarlo' habria sido inventar un contrato.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-15T10:11:08 | Tags: `prompts`, `operaciones`, `modelos-debiles`, `bian`, `anclaje`*
+
 ### BOM extendido: CatalogoBianCache._normalizar usa c...
 
 > BOM extendido: CatalogoBianCache._normalizar usa cache_version:2 (request_schema/response_schema resueltos via $ref + parent_control_record en los BQ + schemas_detalle con el cuerpo real de cada schema). PUML BOM en docs/bian-puml/ (272 archivos, copia de architecture/BIAN_PUML/) parseado por src/dominio/puml_bom.py::parsear_puml_bom (puro) -> ModeloBomPuml; puerto CatalogoBomPort / adaptador CatalogoBomPuml. Regla de prompt fija: functional_object sale SIEMPRE del objeto de negocio real, nunca del wrapper Control Record.
 
 *Confidence: 0.85 | Status: active | Created: 2026-09-13T03:10:18*
 
+### Enrutado de modelos por nodo en generacion_contrat...
+
+> Enrutado de modelos por nodo en generacion_contrato_bian (routing.llm_priority_por_nodo, commit d50dc9d, vacio por defecto): un nodo LLM concreto puede tener otro orden de proveedores que el global, con clave su prompt_id (mapeo.intencion, mapeo.evaluacion, mapeo.operaciones, ...). Razon medida: los 7 nodos no tienen la misma dificultad ni el mismo tamano de prompt -mapeo.intencion lo resuelve cualquier modelo; mapeo.operaciones, que debe citar una operacion concreta entre decenas, es el primero en romperse con uno debil y el unico cuyo fallo deja la historia sin contrato-. Cada nodo con override recibe su propia ChatConFailover construida una vez, y la huella pregunta al chat que REALMENTE resolvio ese nodo (si no, un nodo con cadena propia reportaria el proveedor de otro). --proveedor X sigue mandando sobre el yaml: pinnear la cadena es decision del operador.
+>
+> TRATO DEL 413 (commit 85ce8e0): es su PROPIA categoria, no 'sin cuota'. La cuota vuelve sola y el tamano no, y esa diferencia se paga dos veces: (a) ChatConFailover recuerda el menor tamano que cada modelo rechazo y se lo salta SIN LLAMARLO para un prompt igual o mayor -antes gastaba dos round-trips de Groq en cada nodo grande, corrida tras corrida-; (b) si NINGUN modelo acepta el tamano lanza PeticionDemasiadoGrande en vez de TodosLosModelosAgotados, y AnalistaMapeoBianLangChain reintenta reduciendo el catalogo por escalones CAG decrecientes hasta 0. Cambiar de modelo no arregla un prompt que no cabe en ninguno; lo unico que lo arregla es mandar menos, y quien sabe como mandar menos es quien armo el prompt, no el failover.
+>
+> PROPIEDAD DEL FAILOVER QUE NO HAY QUE ROMPER, afinada por el trato del 413: lo que se recuerda es el TAMANO, no el modelo. Cada llamada recorre su cadena desde el PRIMER modelo, sin latch que recuerde cual funciono, asi que un prompt MAS PEQUENO vuelve a intentar al proveedor que rechazo uno grande -observado: con CAG encendido Groq falla en generar_candidatos con ~48k tokens y responde 6-7 llamadas de los nodos pequenos de la misma corrida-; uno igual o mayor se salta sin gastar la llamada. Fijado en tests/unit_test/test_failover.py::TestFailoverReintentaLaCadenaEnCadaLlamada, con tamanos explicitos, para que anadir un latch por MODELO falle ahi.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-15T04:57:11 | Tags: `failover`, `routing`, `llm`, `nodos`, `bian`*
+
 ### A escala de 341 Service Domains el recall de recup...
 
 > A escala de 341 Service Domains el recall de recuperacion es un problema OPCIONAL, no una restriccion: medido el 2026-09-14, el indice global compacto que ya recibe revisar_completitud (nombre + rol recortado a 90 chars) pesa 39.979 chars = ~10k tokens, el catalogo entero con texto_para_indexar y el tope actual de 1.195 chars pesa ~93k tokens, y sin tope ~154k tokens. Es decir: el catalogo COMPLETO cabe en el contexto de los modelos de contexto largo, asi que generar candidatos con todo el catalogo en prompt (CAG) hace Recall@K estructuralmente 1.0 y elimina la clase entera de fallo que el benchmark mide. Regla de decision: CAG gana cuando el corpus es pequeno, estatico (release BIAN fijo), compartido entre todas las consultas y auditable -las cuatro se cumplen aqui-; RAG se reserva para lo grande, fresco o por tenant. Antes de invertir mas en ponderar la fusion RRF hay que medir CAG contra retrieval en el mismo corpus dorado. Salvedad de costo: el ahorro por prompt caching depende del proveedor (Gemini y Anthropic cachean prefijos; Groq no), y en Ollama local sobre el GB10 el contexto largo es gratis en dinero pero no en latencia ni memoria.
 
 *Confidence: 0.9 | Status: active | Created: 2026-09-15T00:28:00 | Tags: `cag`, `retrieval`, `bian`, `contexto-largo`, `benchmark`*
-
-### Enrutado de modelos por nodo en generacion_contrat...
-
-> Enrutado de modelos por nodo en generacion_contrato_bian (routing.llm_priority_por_nodo, commit d50dc9d, vacio por defecto): un nodo LLM concreto puede tener otro orden de proveedores que el global, con clave su prompt_id (mapeo.intencion, mapeo.evaluacion, mapeo.operaciones, ...). Razon medida: los 7 nodos no tienen la misma dificultad ni el mismo tamano de prompt -mapeo.intencion lo resuelve cualquier modelo; mapeo.operaciones, que debe devolver un operationId LITERAL entre decenas, es el primero en romperse con uno debil y el unico cuyo fallo deja la historia sin contrato-. Cada nodo con override recibe su propia ChatConFailover construida una vez, y la huella pregunta al chat que REALMENTE resolvio ese nodo (si no, un nodo con cadena propia reportaria el proveedor de otro). --proveedor X sigue mandando sobre el yaml: pinnear la cadena es decision del operador.
->
-> PROPIEDAD DEL FAILOVER QUE NO HAY QUE CONFIGURAR NI ROMPER: cada LLAMADA recorre su cadena desde el PRIMER modelo, sin ningun latch que recuerde cual funciono. Por eso un proveedor que devolvio 413 'Request too large' en un nodo de prompt grande SE VUELVE A INTENTAR en el siguiente nodo, que quiza si le cabe -observado: con CAG encendido Groq falla en generar_candidatos con ~48k tokens y responde 6-7 llamadas de los nodos pequenos de la misma corrida-. Queda fijado en tests/unit_test/test_failover.py::TestFailoverReintentaLaCadenaEnCadaLlamada para que anadir un latch del tipo 'recuerda el modelo que funciono' falle ahi.
->
-> Pendiente relacionado: 413 esta clasificado dentro de _SIN_CUOTA en failover.py, asi que el reintento salta de modelo con el MISMO prompt gigante y quema un round-trip por modelo. Merece categoria propia -'esta peticion no cabe'- para reducir la peticion (bajar el escalon CAG, recortar candidatos/schemas) antes de cambiar de proveedor.
-
-*Confidence: 1.0 | Status: active | Created: 2026-09-15T04:57:11 | Tags: `failover`, `routing`, `llm`, `nodos`, `bian`*
 
 ### El estilo Python de generacion_contrato_bian lo fi...
 
@@ -202,15 +210,15 @@
 
 ### Pendiente en generacion_contrato_bian para retomar...
 
-> Estado y pendientes de generacion_contrato_bian al 2026-09-15 (todo en origin/main hasta d3375ba; 278 tests en verde, sin red y sin LLM).
+> Estado y pendientes de generacion_contrato_bian al 2026-09-15 (todo en origin/main hasta 36e8eae; 291 tests en verde, sin red y sin LLM).
 >
-> HECHO desde la ultima revision: los 6 puntos del plan de precision (cache de nodos + defer + durabilidad, BM25 con puente ES->EN + RRF ponderado, CAG escalonado, corpus por capas + skill, grafo como confirmacion de conflictos, CRAG de una vuelta), los dos extras del landscape, el barrido de texto del reranker, el orden de modelos POR NODO (routing.llm_priority_por_nodo), MAPEO_CONFIG en el harness E2E, y cinco arreglos de visibilidad/decision salidos de medir corridas reales -ver las memorias de doctrina de observabilidad y de decision contractual-.
+> HECHO en esta iteracion, TODO OFF POR DEFECTO -- el trabajo pendiente no es escribir codigo, es decidir que se enciende: los 6 puntos del plan de precision (cache de nodos + defer + durabilidad, BM25 con puente ES->EN + RRF ponderado, CAG escalonado, corpus por capas + skill, grafo como confirmacion de conflictos, CRAG de una vuelta); los dos extras del landscape; el barrido de texto del reranker (que lo dejo descartado por medicion EN CONTRA, no por falta de medicion); el orden de modelos POR NODO y el trato del 413; MAPEO_CONFIG en el harness E2E; los cinco arreglos de visibilidad/decision; y el rediseno del nodo de operaciones (una llamada por SD + cita por indice). Ver las memorias de doctrina de observabilidad, decision contractual, enrutado/failover y nodos fragiles.
 >
-> VARIANZA MEDIDA, y es el dato que gobierna todo lo demas: con los seis flags encendidos la E2E `datos_personales_notificacion` dio 2 fallos en 8 corridas (25%) con el MISMO modelo respondiendo el nodo critico (gemini-3.5-flash-lite en las 8, comprobado por provider_used/model_used de las huellas). Es varianza del modelo, NO degradacion de proveedor: una sola corrida -verde o roja- no dice nada sobre una configuracion. Cualquier conclusion sobre un flag necesita varias pasadas.
+> VARIANZA MEDIDA, y es el dato que gobierna todo lo demas: con los seis flags encendidos, la E2E dio 2 fallos en 8 corridas (25%) con el MISMO modelo respondiendo el nodo critico (gemini-3.5-flash-lite en las 8, comprobado por provider_used/model_used de las huellas). Es varianza del modelo, NO degradacion de proveedor. Una sola corrida -verde o roja- no dice nada sobre una configuracion.
 >
-> PENDIENTE, por orden: (1) CANARY CON LLM REAL (canary.py --proveedor ollama) flag por flag, ahora barato por la cache de nodos; ningun flag se enciende sin eso, y hay que correrlo varias veces por la varianza de arriba. (2) AMPLIAR LA CAPA hu_real del corpus (6 consultas): sigue siendo el cuello y no se fabrica; protocolo en la skill corpus-dorado-bian. (3) MEDIR CAG CONTRA RETRIEVAL en hu_real con LLM real: el coste en tokens esta medido (~27k -> ~48k -> ~54k), el efecto en la decision no. (4) TRATAR EL 413 APARTE EN EL FAILOVER: 'REQUEST TOO LARGE' esta clasificado en _SIN_CUOTA, asi que salta de modelo con el MISMO prompt gigante y quema un round-trip por modelo; deberia reducir la peticion (bajar el escalon CAG, recortar candidatos) antes de cambiar de proveedor. (5) Encadenar el enriquecedor a generate_matrix_view. (6) ownership_conflict_rate sigue metiendo descartados en el denominador. (7) Entrenar modelo propio: descartado hasta el punto 2. (8) pgvector: no mientras la ADR no cambie. (9) Checkpointer persistente (langgraph-checkpoint-sqlite) si se quiere resume entre procesos. (10) `seleccionar_operaciones` pide TODOS los SD elegibles en una sola llamada y exige el operationId literal: una llamada por SD, y/o operaciones numeradas para pedir el numero, reduciria el espacio de error del modelo debil.
+> PENDIENTE, por orden: (1) CANARY CON LLM REAL (canary.py --proveedor ollama) flag por flag y REPETIDO varias veces; es la puerta para encender cualquier flag y ahora es barato por la cache de nodos. (2) AMPLIAR LA CAPA hu_real del corpus (6 consultas): el cuello real, y lo unico que no se resuelve con codigo -exige etiquetado humano sobre HU del banco, protocolo en la skill corpus-dorado-bian-. (3) MEDIR CAG CONTRA RETRIEVAL en hu_real con LLM real: el coste en tokens esta medido (~27k -> ~48k -> ~54k), el efecto en la decision no. (4) DECIDIR QUE HACER CON LA E2E COMO GATE: con 25% de fallo por varianza, un rojo no distingue 'rompiste algo' de 'mala suerte'; o se corre N veces exigiendo mayoria, o se acepta explicitamente que el peso de la regresion lo llevan los tests deterministas y la E2E es humo. Hoy no esta decidido y alguien puede leer un rojo como regresion real. (5) Encadenar el enriquecedor a generate_matrix_view. (6) ownership_conflict_rate sigue metiendo descartados en el denominador. (7) Entrenar modelo propio: descartado hasta el punto 2. (8) pgvector: no mientras la ADR no cambie. (9) Checkpointer persistente (langgraph-checkpoint-sqlite) si se quiere resume entre procesos; hoy lo cubre la cache de nodos.
 >
-> Entorno: exportar HF_HOME=~/.cache/hf-local (la cache global de HuggingFace es de root; el cross-encoder ya esta ahi, 2,2 GB). Qdrant levantado con volumen poblado. Ollama local sirve qwen3.8:27b-q8_0 (chat, 262k contexto) y qwen3-embedding:8b. git push necesita `git -c credential.helper='!gh auth git-credential' push` (no hay helper configurado ni GITHUB_TOKEN). Correr E2E contra otra config: EJECUTAR_E2E=1 MAPEO_CONFIG=/ruta/config.yaml .venv/bin/python -m unittest discover -s tests -p "test_e2e_*.py".
+> Entorno: exportar HF_HOME=~/.cache/hf-local (la cache global de HuggingFace es de root; el cross-encoder ya esta ahi, 2,2 GB). Qdrant levantado con volumen poblado. Ollama local sirve qwen3.8:27b-q8_0 (chat, 262k contexto) y qwen3-embedding:8b. git push necesita `git -c credential.helper='!gh auth git-credential' push` (no hay helper configurado ni GITHUB_TOKEN); `gh auth setup-git` lo dejaria permanente. Correr E2E contra otra config: EJECUTAR_E2E=1 MAPEO_CONFIG=/ruta/config.yaml .venv/bin/python -m unittest discover -s tests -p "test_e2e_*.py".
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-14T23:10:27 | Tags: `pendientes`, `roadmap`, `retrieval`, `continuar`*
 
