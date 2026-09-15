@@ -186,3 +186,74 @@ class TestHistoriaSinContrato(unittest.TestCase):
         self.assertNotIn("HISTORIA_SIN_CONTRATO", motivos)
         self.assertEqual(metricas["historias_sin_contrato"], 0)
         self.assertIsNotNone(metricas["operation_coverage_rate"])
+
+
+class TestPorQueNoSePromovio(unittest.TestCase):
+    """La incidencia dice QUE condicion bloqueo la promocion, no solo que hubo conflicto.
+
+    Sin esto, diagnosticar una corrida obligaba a REPETIRLA: paso de verdad -- una E2E fallo y,
+    para saber que condicion de `determinar_promociones` no se cumplio, hubo que volver a correrla
+    con LLM real.
+    """
+
+    def _grupos(self, **kw):
+        from src.dominio.historias import (
+            DesgloseScore,
+            EvidenciaBian,
+            ServiceDomainAsignado,
+            ServiceDomainsDeHistoria,
+        )
+
+        base = {
+            "service_domain": "Correspondence",
+            "resolucion": "MATCH",
+            "rol_contractual": "CONSUMED_DEPENDENCY",
+            "confianza": 0.7,
+            "confianza_pct": 70,
+            "confianza_llm": 0.7,
+            "grupo": "tentativo",
+            "evidencia_bian": EvidenciaBian(estado="CACHED_VERIFIED"),
+            "desglose_score": DesgloseScore(objeto_bom=1.0),
+            "dependency_kind": "AUDIT_OR_NOTIFICATION",
+            "dependency_traceability": ["SC-01"],
+            "evidence_refs": ["InitiateOutbound"],
+        }
+        base.update(kw)
+        return ServiceDomainsDeHistoria(candidatos_tentativos=[ServiceDomainAsignado(**base)])
+
+    def _revision(self):
+        from src.dominio.historias import HallazgoAdversarial, RevisionAdversarialLLM
+
+        return RevisionAdversarialLLM(
+            hallazgos=[
+                HallazgoAdversarial(
+                    tipo="ACCION_DIRECTA_COMO_DEPENDENCIA", service_domain="Correspondence"
+                )
+            ]
+        )
+
+    def _motivo(self, **kw) -> str:
+        from src.dominio.clasificacion_historias import motivos_no_promocion
+        from src.dominio.normalizacion import normalizar
+
+        return motivos_no_promocion(self._grupos(**kw), self._revision()).get(
+            normalizar("Correspondence"), ""
+        )
+
+    def test_nombra_el_dependency_kind_que_lo_bloqueo(self):
+        self.assertIn("SUPPORTING_LOOKUP", self._motivo(dependency_kind="SUPPORTING_LOOKUP"))
+
+    def test_nombra_la_falta_de_trazabilidad(self):
+        self.assertIn("dependency_traceability", self._motivo(dependency_traceability=[]))
+
+    def test_nombra_la_falta_de_evidencia(self):
+        self.assertIn("evidence_refs", self._motivo(evidence_refs=[]))
+
+    def test_nombra_el_objeto_bom_con_su_valor(self):
+        from src.dominio.historias import DesgloseScore
+
+        motivo = self._motivo(desglose_score=DesgloseScore(objeto_bom=0.04))
+        self.assertIn("objeto_bom=0.0400", motivo)
+
+    def test_si_califico_no_hay_motivo_que_explicar(self):
+        self.assertEqual(self._motivo(), "")

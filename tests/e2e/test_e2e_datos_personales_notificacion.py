@@ -37,10 +37,8 @@ from __future__ import annotations
 import unittest
 
 from e2e.shared.e2e_common import (
-    cargar_esperado,
-    ejecutar_caso,
     requiere_e2e,
-    verificar_candidatos_y_operaciones,
+    verificar_caso,
 )
 
 _CARPETA = "datos_personales_notificacion"
@@ -52,9 +50,10 @@ class TestE2EDatosPersonalesNotificacion(unittest.TestCase):
     `tests/resources/datos_personales_notificacion/` (entrada Y salida propias de esta prueba)."""
 
     def test_mismos_candidatos_y_operaciones_que_la_corrida_de_referencia(self):
-        resultado = ejecutar_caso(_CARPETA)
-        esperado = cargar_esperado(_CARPETA)
-        verificar_candidatos_y_operaciones(self, resultado, esperado)
+        # `verificar_caso` corre el caso `E2E_REPETICIONES` veces (1 por defecto) y exige
+        # mayoría: con 27% de fallo por varianza del modelo medido, una sola pasada no distingue
+        # una regresión de una mala tirada.
+        verificar_caso(self, _CARPETA)
 
 
 if __name__ == "__main__":

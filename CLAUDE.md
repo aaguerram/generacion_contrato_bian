@@ -233,8 +233,23 @@ tarda más, la causa está en el failover, no en el checkpointer.
       inventa un contrato sobre evidencia inexistente). Un `ACCION_DIRECTA_COMO_DEPENDENCIA` que no
       califica para promoción (sin `dependency_kind` de salida, sin trazabilidad/evidencia,
       `objeto_bom` insuficiente, o contradicho por `DIRECTO_SIN_SERVICE_ROLE`) queda como
-      incidencia `OWNERSHIP_CONFLICT_UNRESOLVED` (nunca se pierde en silencio; ver
-      `metricas.ownership_*` en la salida). Con `grafo_senales_adversarial` (**OFF por defecto**)
+      incidencia `OWNERSHIP_CONFLICT_UNRESOLVED` — que además dice **qué condición** bloqueó la
+      promoción (`motivos_no_promocion`: el `dependency_kind`, la trazabilidad que falta o el
+      `objeto_bom` con su valor); sin eso, diagnosticar una corrida obligaba a repetirla con LLM
+      real. **`determinar_promociones_por_accion`** cierra la asimetría de fondo: un
+      `OWNED_CONTRACT` mal clasificado tiene tres redes, y un `CONSUMED_DEPENDENCY` mal clasificado
+      solo tenía la promoción adversarial, que exige que DOS juicios del LLM coincidan —si el
+      revisor no lo marca, `_decidir` fuerza `REJECTED` y `candidatos_operacion_elegibles` lo
+      excluye, así que el paso de operaciones ni corre y ningún rescate por evidencia puede actuar
+      (caso real: Party Reference Data Directory, `CONSUMED_DEPENDENCY` con confianza 0.795 en una
+      historia de consultar/mostrar datos personales, HU sin ningún contrato). Es el espejo de
+      `determinar_degradaciones`: sube `CONSUMED`→`OWNED` cuando la `accion_objeto` citada SÍ
+      comparte tokens con `intencion.business_actions`, y como no hay hallazgo que lo respalde
+      exige `objeto_bom >= 0.50` (muy por encima del 0.15 de la promoción con hallazgo) y evidencia
+      verificada. **No decide el contrato**: solo devuelve el rol a `OWNED_CONTRACT` para abrir la
+      puerta al paso de operaciones — de ahí en adelante manda la evidencia
+      (`finalizar_por_operacion_solida` sube, `degradar_sin_operacion_anclada` baja). Por eso el
+      piso puede ser exigente sin ser paranoico. Ver `metricas.ownership_*` en la salida. Con `grafo_senales_adversarial` (**OFF por defecto**)
       ese conflicto deja de ser solo la palabra del revisor: `GrafoBianPort.objetos_compartidos`
       busca qué nodo REAL del catálogo comparten los candidatos y `confirmar_conflictos_por_grafo`
       aplica la misma regla de especificidad que la expansión — compartir `Party` (125 SD) o
@@ -373,7 +388,9 @@ tarda más, la causa está en el failover, no en el checkpointer.
    `operation_mapping_empty` (incidencias `OPERATION_MAPPING_EMPTY`: un SD elegible que salió con
    cero operaciones; antes era invisible porque el bucle de anclaje ni se ejecutaba),
    `historias_sin_contrato` (incidencias `HISTORIA_SIN_CONTRATO`: una HU que no dejó NINGÚN SD
-   `SELECTED`; medido en una corrida real, ese peor caso posible mostraba cobertura 1.0 y
+   `SELECTED`, con el mejor candidato nombrado y —diagnóstico sin coste— **cuántas operaciones
+   oficiales tenía ese candidato que nadie llegó a evaluar**, que es la diferencia entre "no había
+   nada que anclar" y "había 17 y no se miraron"; medido en una corrida real, ese peor caso posible mostraba cobertura 1.0 y
    grounding 1.0 porque sin elegibles no había nada que anclar — ahora las dos tasas son `null`
    = "no aplica" cuando no hay elegibles, y la alarma la lleva este contador),
    `operation_id_no_resuelto` (incidencias `OPERATION_ID_UNRESOLVED`, que ahora incluyen las citas
@@ -436,6 +453,11 @@ pide, nunca de forma automática:
 
 ```bash
 EJECUTAR_E2E=1 .venv/Scripts/python -m unittest discover -s tests -p "test_e2e_*.py" -v
+
+# N corridas por caso, exigiendo MAYORÍA (medido: 27% de fallo por varianza del modelo sobre 11
+# corridas de la misma configuración — con una sola pasada, un rojo no distingue "rompiste algo"
+# de "mala suerte"). Por defecto 1, que es la prueba de siempre.
+EJECUTAR_E2E=1 E2E_REPETICIONES=3 .venv/Scripts/python -m unittest discover -s tests -p "test_e2e_*.py" -v
 ```
 
 (`discover -s tests`, no un path con puntos: `discover -s tests` inserta `tests/` en `sys.path`

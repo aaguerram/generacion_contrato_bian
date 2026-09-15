@@ -69,6 +69,15 @@ RESOURCES = Path(__file__).resolve().parents[2] / "resources"
 # tocar el del repo; sin la variable, el comportamiento es exactamente el de antes.
 VAR_CONFIG = "MAPEO_CONFIG"
 
+# Cuántas veces se corre cada caso E2E; se exige que la MAYORÍA cumpla el contrato.
+#
+# Por qué existe: medido sobre 11 corridas de la misma configuración, esta suite falla el 27% de
+# las veces por VARIANZA DEL MODELO -- el mismo modelo, la misma entrada, resultados distintos. Con
+# una sola pasada, un rojo no distingue "rompiste algo" de "mala suerte", y eso es peor que no
+# tener gate: invita a ignorar los fallos. Con 1 (el valor por defecto) se comporta como siempre;
+# subirlo convierte la prueba en una medición en vez de un sorteo, a cambio de tiempo y cuota.
+VAR_REPETICIONES = "E2E_REPETICIONES"
+
 requiere_e2e = unittest.skipUnless(
     os.environ.get("EJECUTAR_E2E") == "1",
     "prueba de integracion bajo demanda (llamadas LLM reales, consume cuota) -> "
@@ -107,6 +116,43 @@ def ejecutar_caso(carpeta: str) -> ResultadoMapeoHistorias:
     config = cargar_settings(ruta_config=ruta_config)
     caso_uso = crear_caso_uso_mapeo(config)
     return caso_uso.ejecutar(str(datos), str(ruta_funcionalidad), str(datos))
+
+
+def repeticiones() -> int:
+    """Nº de corridas por caso (`E2E_REPETICIONES`, 1 por defecto)."""
+    try:
+        return max(1, int(os.environ.get(VAR_REPETICIONES, "1")))
+    except ValueError:
+        return 1
+
+
+def verificar_caso(testcase: unittest.TestCase, carpeta: str) -> None:
+    """Corre el caso `repeticiones()` veces y exige que la MAYORÍA cumpla el contrato.
+
+    Con una repetición es exactamente la prueba de siempre. Con más, el veredicto deja de depender
+    de una tirada: se reporta el marcador (`2/3 corridas cumplieron`) y los motivos de las que
+    fallaron, para que un rojo diga si el pipeline se rompió o si la variación del modelo se llevó
+    esa pasada. Todas las corridas se ejecutan SIEMPRE -- parar en cuanto hay mayoría escondería
+    cuántas fallaron, que es justo el dato que interesa medir.
+    """
+    esperado = cargar_esperado(carpeta)
+    intentos = repeticiones()
+    fallos: list[str] = []
+    for i in range(1, intentos + 1):
+        try:
+            verificar_candidatos_y_operaciones(testcase, ejecutar_caso(carpeta), esperado)
+        except AssertionError as exc:
+            fallos.append(f"corrida {i}/{intentos}: {exc}")
+
+    cumplieron = intentos - len(fallos)
+    if intentos > 1:
+        print(f"\n[{carpeta}] {cumplieron}/{intentos} corridas cumplieron el contrato")
+    if cumplieron * 2 <= intentos:  # mayoría estricta
+        detalle = "\n\n".join(fallos)
+        testcase.fail(
+            f"solo {cumplieron} de {intentos} corridas cumplieron el contrato de "
+            f"'{carpeta}'.\n\n{detalle}"
+        )
 
 
 def cargar_esperado(carpeta: str) -> ResultadoMapeoHistorias:

@@ -57,7 +57,7 @@ from src.dominio.historias import (
 )
 from src.dominio.modelos import EntradaCatalogo
 from src.dominio.normalizacion import normalizar
-from src.dominio.scoring_bian import _sim, _split_camel, calcular_score
+from src.dominio.scoring_bian import _sim, _split_camel, _tokens, calcular_score
 from src.dominio.vocabulario_bian import EQUIVALENCIAS_RETRIEVAL
 
 _EPS = 0.001  # margen para dejar un SD topado justo por debajo del umbral directo
@@ -322,6 +322,134 @@ def determinar_promociones(
         ):
             promovidos.add(clave)
     return frozenset(promovidos)
+
+
+# Piso para la promoción que NO se apoya en el revisor adversarial. Mucho más alto que
+# `OBJETO_BOM_MINIMO_PROMOCION` (0.15) a propósito: allí hay un hallazgo independiente que
+# respalda el movimiento, aquí no hay nada más que la contradicción interna del propio candidato.
+OBJETO_BOM_MINIMO_PROMOCION_DIRECTA = 0.50
+PROMOTED_BY_ACTION_REASON_CODE = "OWNERSHIP_PROMOTED_BY_DECLARED_ACTION"
+
+
+def determinar_promociones_por_accion(
+    grupos: ServiceDomainsDeHistoria,
+    intencion: IntencionHistoriaLLM,
+    *,
+    objeto_bom_minimo: float = OBJETO_BOM_MINIMO_PROMOCION_DIRECTA,
+) -> frozenset[str]:
+    """`CONSUMED_DEPENDENCY` -> `OWNED_CONTRACT` cuando el candidato se contradice a sí mismo.
+
+    Cierra una asimetría real del pipeline, medida en una corrida E2E: un `OWNED_CONTRACT` mal
+    clasificado tiene TRES redes (promoción adversarial, finalización por operación sólida,
+    degradación controlada), mientras que un `CONSUMED_DEPENDENCY` mal clasificado tenía UNA
+    (`determinar_promociones`) que además exige que el **revisor adversarial también lo haya
+    detectado** -- o sea, que DOS juicios del LLM coincidan. Cuando el revisor no lo marca, no
+    había salida: `_decidir` fuerza `REJECTED` sin mirar el score y
+    `candidatos_operacion_elegibles` excluye a los no-owned, así que el paso de operaciones ni se
+    ejecuta y ninguno de los rescates por evidencia de operación puede actuar. Caso real: Party
+    Reference Data Directory quedó `CONSUMED_DEPENDENCY` (confianza 0.795) en una historia que
+    consiste en consultar y mostrar datos personales, y la HU terminó sin ningún contrato.
+
+    Es el espejo exacto de `determinar_degradaciones`, que baja `OWNED`->`CONSUMED` cuando la
+    acción citada NO comparte ningún token con `intencion.business_actions`. Aquí se sube cuando la
+    acción citada SÍ es una de las que la historia declaró ejecutar -- y, como no hay hallazgo
+    adversarial que respalde el movimiento, se exige además:
+
+    - `objeto_bom >= objeto_bom_minimo` (0.50, muy por encima del 0.15 de la promoción con
+      hallazgo): el objeto de negocio del SD tiene que coincidir de verdad con el de la historia,
+      no rozarla;
+    - evidencia BIAN oficial verificada.
+
+    LO QUE ESTA FUNCIÓN **NO** HACE: decidir el contrato. Solo devuelve el rol a `OWNED_CONTRACT`,
+    que es lo que abre la puerta al paso de operaciones. A partir de ahí manda la evidencia, no
+    esta regla: si se ancla una operación oficial verificada, `finalizar_por_operacion_solida` lo
+    deja `SELECTED`; si no se ancla ninguna, `degradar_sin_operacion_anclada` lo devuelve a
+    `UNRESOLVED`. Por eso el piso puede ser exigente sin ser paranoico: el veredicto final lo da
+    la operación, no la reclasificación.
+    """
+    if not intencion.business_actions:
+        return frozenset()  # sin acciones declaradas no hay con qué confirmar nada
+    acciones_historia = " ".join(intencion.business_actions)
+
+    promovidos: set[str] = set()
+    for a in (
+        *grupos.candidatos_directos,
+        *grupos.candidatos_tentativos,
+        *grupos.candidatos_descartados,
+    ):
+        if (
+            a.rol_contractual == "CONSUMED_DEPENDENCY"
+            and a.accion_objeto
+            and _tokens(a.accion_objeto) & _tokens(acciones_historia)
+            and a.desglose_score.objeto_bom >= objeto_bom_minimo
+            and a.evidencia_bian.estado in ("VERIFIED", "CACHED_VERIFIED")
+        ):
+            promovidos.add(normalizar(a.service_domain))
+    return frozenset(promovidos)
+
+
+def motivos_no_promocion(
+    grupos: ServiceDomainsDeHistoria,
+    revision: RevisionAdversarialLLM,
+    *,
+    objeto_bom_minimo: float = OBJETO_BOM_MINIMO_PROMOCION,
+) -> dict[str, str]:
+    """Por QUÉ no calificó cada promoción que el revisor adversarial sí pidió.
+
+    `determinar_promociones` exige cinco condiciones y devuelve un conjunto; cuando un SD no entra,
+    la incidencia decía "hay un conflicto sin resolver" y nada más. Diagnosticar una corrida asi
+    obligaba a REPETIRLA -- pasó de verdad: una E2E fallo y, para saber que condicion bloqueo la
+    promocion, hubo que volver a correrla con LLM real.
+
+    Devuelve `{sd_normalizado: motivo}` con la PRIMERA condicion que falló, en el mismo orden en
+    que las comprueba `determinar_promociones`. Solo para los SD con hallazgo
+    `ACCION_DIRECTA_COMO_DEPENDENCIA` que NO quedaron promovidos.
+    """
+    hallazgos_por_sd: dict[str, list[str]] = {}
+    for h in revision.hallazgos:
+        if h.service_domain:
+            hallazgos_por_sd.setdefault(normalizar(h.service_domain), []).append(h.tipo)
+
+    todos = {
+        normalizar(a.service_domain): a
+        for a in (
+            *grupos.candidatos_directos,
+            *grupos.candidatos_tentativos,
+            *grupos.candidatos_descartados,
+        )
+    }
+    promovidos = determinar_promociones(grupos, revision, objeto_bom_minimo=objeto_bom_minimo)
+
+    motivos: dict[str, str] = {}
+    for clave, tipos in hallazgos_por_sd.items():
+        if "ACCION_DIRECTA_COMO_DEPENDENCIA" not in tipos or clave in promovidos:
+            continue
+        if "DIRECTO_SIN_SERVICE_ROLE" in tipos:
+            motivos[clave] = (
+                "el propio revisor se contradice: marcó DIRECTO_SIN_SERVICE_ROLE para el mismo "
+                "Service Domain"
+            )
+            continue
+        a = todos.get(clave)
+        if a is None:
+            motivos[clave] = "el hallazgo cita un Service Domain que no está entre los evaluados"
+        elif a.rol_contractual != "CONSUMED_DEPENDENCY":
+            motivos[clave] = f"su rol ya es {a.rol_contractual}, no hay nada que promover"
+        elif a.dependency_kind not in _PROMOCION_DEPENDENCY_KINDS:
+            motivos[clave] = (
+                f"dependency_kind={a.dependency_kind or '(sin declarar)'}: es una precondición "
+                "consultada, no la salida que la historia produce"
+            )
+        elif not a.dependency_traceability:
+            motivos[clave] = "sin dependency_traceability: no cita ningún escenario de la historia"
+        elif not a.evidence_refs:
+            motivos[clave] = "sin evidence_refs: no cita ninguna evidencia oficial"
+        else:
+            motivos[clave] = (
+                f"objeto_bom={a.desglose_score.objeto_bom:.4f} < {objeto_bom_minimo}: la evidencia "
+                "citada no tiene relación léxica con el objeto de negocio de la historia"
+            )
+    return motivos
 
 
 def propuestos_promovidos(

@@ -63,8 +63,11 @@ from src.dominio.clasificacion_historias import (
     DEMOTED_REASON_CODE,
     OPERATION_FINALIZED_REASON_CODE,
     PROMOTED_REASON_CODE,
+    PROMOTED_BY_ACTION_REASON_CODE,
     confirmar_conflictos_por_grafo,
     degradar_sin_operacion_anclada,
+    determinar_promociones_por_accion,
+    motivos_no_promocion,
     UmbralesMapeo,
     aplicar_hallazgos_adversariales,
     candidatos_operacion_elegibles,
@@ -238,6 +241,18 @@ def _bom_respalda(paquete: PaqueteEvidenciaCandidato, clase: str, atributo: str)
         if any(normalizar(e.name) == clave_clase for e in paquete.bom_modelo.enums):
             return True
     return False
+
+
+def _operaciones_disponibles(asignado, estado) -> int:
+    """Cuántas operaciones oficiales tiene ese SD en el paquete de evidencia ya armado.
+
+    Cero red y cero LLM: el paquete se armó en `preparar_candidatos`, aquí solo se cuenta.
+    """
+    clave = normalizar(asignado.service_domain)
+    for paquete in estado.get("a_evaluar", []):
+        if normalizar(paquete.service_domain) == clave:
+            return len(paquete.operations)
+    return 0
 
 
 def _fusionar_mapeos(mapeos: list[MapeoOperacionesLLM]) -> MapeoOperacionesLLM:
@@ -895,6 +910,12 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # Ambas leen `desglose_score`/`accion_objeto` de la clasificación YA hecha
         # (`estado["grupos"]`), no de `propuestos_por_sd` (que no trae el score calculado).
         promovidos = determinar_promociones(estado["grupos"], revision)
+        # Promoción que NO depende de que el revisor lo haya visto: cierra la asimetría por la que
+        # un CONSUMED_DEPENDENCY mal clasificado no tenía ninguna salida determinista. Solo devuelve
+        # el rol a OWNED_CONTRACT -- abre la puerta al paso de operaciones; el contrato lo decide
+        # después la evidencia (`finalizar_por_operacion_solida` / `degradar_sin_operacion_anclada`).
+        por_accion = determinar_promociones_por_accion(estado["grupos"], estado["intencion"])
+        promovidos = frozenset(promovidos | por_accion)
         degradados = determinar_degradaciones(estado["grupos"], estado["intencion"], revision)
 
         grupos = estado["grupos"]
@@ -904,13 +925,19 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             # sobre el resultado viejo. Una sola pasada cubre las dos direcciones.
             if promovidos:
                 propuestos_por_sd = propuestos_promovidos(propuestos_por_sd, promovidos)
+                for clave in por_accion:
+                    propuesto = propuestos_por_sd.get(clave)
+                    if propuesto is not None:
+                        propuesto.reason_codes = list(
+                            dict.fromkeys([*propuesto.reason_codes, PROMOTED_BY_ACTION_REASON_CODE])
+                        )
             if degradados:
                 propuestos_por_sd = propuestos_degradados(propuestos_por_sd, degradados)
             grupos = self._reclasificar(estado, propuestos_por_sd)
             if promovidos:
                 logger.info(
-                    "HU '%s': %d SD promovido(s) CONSUMED_DEPENDENCY -> OWNED_CONTRACT por "
-                    "evidencia adversarial fuerte: %s",
+                    "HU '%s': %d SD promovido(s) CONSUMED_DEPENDENCY -> OWNED_CONTRACT "
+                    "(adversarial y/o acción declarada por la propia historia): %s",
                     estado["historia"].titulo,
                     len(promovidos),
                     ", ".join(sorted(promovidos)),
@@ -943,6 +970,9 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # que estos candidatos compartan de verdad, o solo andamiaje BIAN que medio catálogo toca?
         # No reclasifica nada -- separa conflicto accionable de ruido anotado.
         veredictos = self._veredictos_de_grafo(estado, sin_resolver)
+        # Por que NO califico cada promocion que el revisor si pidio. Sin esto la incidencia solo
+        # decia "hay un conflicto" y diagnosticar exigia repetir la corrida con LLM real.
+        no_promocion = motivos_no_promocion(estado["grupos"], revision)
         incidencias = []
         for h in sin_resolver:
             motivo, detalle_grafo = veredictos.get(
@@ -953,6 +983,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 or f"{h.tipo} sin evidencia determinista suficiente para "
                 "reclasificar automáticamente; revisar manualmente."
             )
+            por_que = no_promocion.get(normalizar(h.service_domain or ""), "")
             incidencias.append(
                 {
                     "historia": estado["historia"].archivo,
@@ -960,7 +991,9 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                     "resolucion": "MATCH",
                     "decision": "UNRESOLVED",
                     "motivo": motivo,
-                    "detalle": f"{base} {detalle_grafo}".strip(),
+                    "detalle": " ".join(
+                        p for p in (base, detalle_grafo, f"No se promovió: {por_que}." if por_que else "") if p
+                    ).strip(),
                 }
             )
         return {
@@ -1124,6 +1157,17 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                             else ""
                         )
                         + "."
+                        # Diagnóstico sin coste: el paso de operaciones NO corre para un no-owned,
+                        # así que nadie mira si ese candidato tenía operaciones oficiales. Decirlo
+                        # aquí distingue "no había nada que anclar" de "había 17 y no se miraron",
+                        # que es la diferencia entre un resultado correcto y una clasificación mala.
+                        + (
+                            f" Aviso: {mejor.service_domain} SÍ tiene "
+                            f"{_operaciones_disponibles(mejor, estado)} operaciones oficiales en el "
+                            "catálogo, que nadie llegó a evaluar porque su rol no es OWNED_CONTRACT."
+                            if mejor and _operaciones_disponibles(mejor, estado)
+                            else ""
+                        )
                     ),
                 }
             )
