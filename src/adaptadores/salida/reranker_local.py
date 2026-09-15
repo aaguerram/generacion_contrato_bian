@@ -31,8 +31,9 @@ from src.aplicacion.puertos.reranker import RerankerPort
 
 logger = logging.getLogger(__name__)
 
-# Multilingüe (las HU están en español y el catálogo BIAN en inglés) y pequeño: ~560 MB en fp32,
-# suficiente para reordenar una decena de candidatos por historia.
+# Multilingüe, que es el requisito real: las HU están en español y el catálogo BIAN en inglés.
+# 568M de parámetros = **2,2 GB en disco** en fp32 (medido en `~/.cache/hf-local`), no 560 MB.
+# Se descarga una vez; cargarlo cuesta ~18 s por proceso y reordenar 10 candidatos ~0,4 s en GPU.
 MODELO_POR_DEFECTO = "BAAI/bge-reranker-v2-m3"
 
 _TOKEN = re.compile(r"[a-z0-9áéíóúñü]+")

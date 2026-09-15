@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from typing import Literal
 
 from pydantic import BaseModel, Field
@@ -17,6 +18,21 @@ MetodoValidacion = Literal[
     "similitud_baja",  # similitud léxica del nombre <  umbral bajo   (determinista, existe=False)
     "rag_llm",  # franja gris: lo decidió el LLM adjudicador   (existe True o False)
 ]
+
+
+def _frase(*partes) -> str:
+    """Une los trozos que existan en una sola frase legible, sin puntos dobles."""
+    limpias = [" ".join(str(p).split()) for p in partes if p and str(p).strip()]
+    return " ".join(t if t.endswith((".", "!", "?", ":")) else f"{t}." for t in limpias)
+
+
+def _limpiar_documentacion(documentacion: str | None) -> str:
+    """`** 1. Role ** texto ** 2. Examples of use ** ...` -> `Role: texto. Examples of use: ...`."""
+    if not documentacion:
+        return ""
+    # El número es opcional: además de `** 1. Role **`, el landscape trae `** General comment **`.
+    texto = re.sub(r"\*\*\s*(?:\d+\s*\.?\s*)?([^*]+?)\s*\*\*", r" \1: ", str(documentacion))
+    return " ".join(texto.split()).strip()
 
 
 class EntradaCatalogo(BaseModel):
@@ -72,6 +88,80 @@ class EntradaCatalogo(BaseModel):
         if len(texto) <= max_chars:
             return texto
         return texto[:max_chars].rsplit(" ", 1)[0] + "…"
+
+    def texto_prosa(self, variante: str = "prosa") -> str:
+        """Texto del Service Domain en PROSA, para un cross-encoder (no para un índice).
+
+        Un índice y un reranker quieren cosas distintas y por eso no comparten texto. El índice
+        (`texto_para_indexar`) quiere **cobertura de vocabulario**: cuantos más términos reales
+        del SD entren, más probable es que alguno coincida con la consulta, y da igual que el
+        resultado se lea como un volcado —jerarquía, patrón funcional, tipo de activo, nombre del
+        Control Record, todo pegado—. Un cross-encoder, en cambio, **lee** el par (consulta,
+        documento) como texto: la clasificación y la jerarquía no le dicen nada, le añaden ruido y
+        le gastan ventana. Medido: con el texto del índice, el reranker puntúa todos los
+        candidatos en ~0.003 (no ve ningún emparejamiento) y hunde R@1 de 0.50 a 0.17.
+
+        Variantes (`VARIANTES_TEXTO_SD`), de menos a más contenido:
+
+        - `indice`: el texto del índice, tal cual. Es la línea base con la que comparar.
+        - `rol` / `resumen` / `ejemplos` / `features`: un solo campo del landscape.
+        - `nombre_rol`: el nombre seguido de su rol — lo mínimo que se lee como una frase.
+        - `prosa`: nombre + rol + ejemplo de uso + resumen ejecutivo. Todo lo redactado, sin
+          clasificación ni jerarquía.
+        - `prosa_features`: lo anterior más las capacidades (que son una lista, no prosa).
+        - `documentacion`: la ficha estructurada del landscape tal cual (`** 1. Role ** ...`).
+        - `documentacion_limpia`: la misma ficha con los marcadores convertidos en encabezados
+          legibles, que es como la leería una persona.
+
+        Cuál usar no se decide por intuición: lo elige el barrido
+        `evaluate.py --barrido-texto`.
+        """
+        nombre = self.service_domain or ""
+        campos = {
+            "rol": self.service_role,
+            "resumen": self.executive_summary,
+            "ejemplos": self.examples_of_use,
+            "features": self.features,
+            "documentacion": self.documentation,
+        }
+        if variante == "indice":
+            return self.texto_para_indexar()
+        if variante in campos:
+            return " ".join(str(campos[variante] or "").split()) or nombre
+        if variante == "nombre_rol":
+            return _frase(nombre, self.service_role)
+        if variante == "prosa":
+            return _frase(nombre, self.service_role, self.examples_of_use, self.executive_summary)
+        if variante == "prosa_features":
+            return _frase(
+                nombre,
+                self.service_role,
+                self.examples_of_use,
+                self.executive_summary,
+                self.features,
+            )
+        if variante == "documentacion_limpia":
+            # El nombre va delante como en el resto de variantes en prosa: sin él, esta sería la
+            # única que compite sin decir de qué Service Domain habla, y la comparación mentiría.
+            limpia = _limpiar_documentacion(self.documentation)
+            return _frase(nombre, limpia) if limpia else _frase(nombre, self.service_role)
+        raise ValueError(
+            f"variante de texto desconocida: '{variante}' (esperaba una de {VARIANTES_TEXTO_SD})"
+        )
+
+
+VARIANTES_TEXTO_SD = (
+    "indice",
+    "rol",
+    "nombre_rol",
+    "resumen",
+    "ejemplos",
+    "features",
+    "prosa",
+    "prosa_features",
+    "documentacion",
+    "documentacion_limpia",
+)
 
 
 class CandidatoSD(BaseModel):
