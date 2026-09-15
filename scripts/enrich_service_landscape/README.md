@@ -46,6 +46,15 @@ En total se aplicaron 29 valores: 12 huecos que el landscape tenía vacíos o tr
 de `Partner Management` y `Brand Management`, donde el landscape traía una definición de
 capability en vez de la documentación del Service Domain—.
 
+Esas dos últimas se revisaron con criterio BIAN el 2026-09-14 y el veredicto quedó automatizado:
+`documentation` es la ficha estructurada del Service Domain (`** 1. Role ** / ** 2. Examples of
+use ** / ** 3. Executive Summary ** / ...`), así que su sección 1 tiene que decir exactamente lo
+mismo que el `role_definition` de ese SD — una definición de *capability* no lo cumple. Los valores
+aplicados por el script cumplen, y hoy coinciden **338/338** de los SD que traen los dos campos
+(los 3 restantes no traen uno de los dos en ninguna de las dos fuentes oficiales). Lo verifica
+`tests/unit_test/test_catalogo_bian_unico.py::test_la_documentacion_describe_al_service_domain_y_no_a_otra_cosa`,
+así que si una regeneración del Matrix View vuelve a meter el texto equivocado, falla la suite.
+
 ## Valores repetidos entre atributos
 
 El script comprueba que ningún **texto descriptivo** (`role_definition`, `example_of_use`,

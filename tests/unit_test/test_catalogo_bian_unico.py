@@ -21,6 +21,7 @@ Sin red y sin LLM.
 from __future__ import annotations
 
 import json
+import re
 import unittest
 
 from src.adaptadores.salida.catalogo_json import CatalogoJson
@@ -109,6 +110,49 @@ class TestCatalogoBianUnico(unittest.TestCase):
                     repetidos.append(f"{nombre}: {vistos[valor]} == {campo}")
                 vistos.setdefault(valor, campo)
         self.assertEqual(repetidos, [], "textos duplicados entre atributos del mismo SD")
+
+    def test_la_documentacion_describe_al_service_domain_y_no_a_otra_cosa(self):
+        """`documentation` abre con `** 1. Role **`, y ese rol es el del propio Service Domain.
+
+        Criterio BIAN: `documentation` es la ficha estructurada del Service Domain
+        (`** 1. Role ** / ** 2. Examples of use ** / ** 3. Executive Summary ** / ...`), así que su
+        sección 1 tiene que decir exactamente lo mismo que `role_definition` de ese SD. Es lo que
+        resuelve las dos discrepancias que el enriquecedor sobrescribió: en `Partner Management` y
+        `Brand Management` el landscape traía en `documentation` la definición de una *capability*
+        —otro artefacto BIAN, con otro rol— y SD.json la ficha del Service Domain. Con esta
+        comprobación la discrepancia deja de ser un juicio manual: hoy coinciden 338/338 de los SD
+        que traen los dos campos, y cualquier reaparición del texto equivocado falla aquí.
+
+        Los 3 SD que no traen uno de los dos campos (`Card Transaction Tracking` sin
+        `documentation`; `Operational Risk Models` y `Sales Planning` sin `role_definition`) no son
+        comparables: ninguna de las dos fuentes oficiales publica el que falta.
+        """
+        seccion_rol = re.compile(r"\*\*\s*1\.\s*Role\s*\*\*(.*?)(?=\*\*\s*\d|\Z)", re.S | re.I)
+
+        def t(valor) -> str:
+            return "" if _vacio(valor) else " ".join(str(valor).split()).rstrip(". ").lower()
+
+        sin_seccion, desalineados, comparables = [], [], 0
+        for nombre, sd in self.crudos.items():
+            doc, rol = sd.get("documentation"), sd.get("role_definition")
+            if _vacio(doc) or _vacio(rol):
+                continue
+            encontrada = seccion_rol.search(str(doc))
+            if not encontrada:
+                sin_seccion.append(nombre)
+                continue
+            comparables += 1
+            if t(encontrada.group(1)) != t(rol):
+                desalineados.append(nombre)
+
+        self.assertEqual(sin_seccion, [], "`documentation` sin la sección `** 1. Role **`")
+        self.assertEqual(comparables, _TOTAL_SD - 3)
+        self.assertEqual(
+            desalineados,
+            [],
+            "la `documentation` de estos SD describe otro artefacto BIAN: correr "
+            "scripts/enrich_service_landscape/enrich_service_landscape.py",
+        )
 
     def test_el_valor_de_sd_json_manda_en_los_campos_emparejados(self):
         """SD.json es autoritativo en el valor; el landscape solo aporta el nombre del campo."""

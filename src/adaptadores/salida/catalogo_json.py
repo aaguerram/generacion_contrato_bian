@@ -56,6 +56,7 @@ class CatalogoJson(CatalogoServiceDomainsPort):
         self._entradas: list[EntradaCatalogo] | None = None
         self._indice: dict[str, str] = {}
         self._por_nombre: dict[str, EntradaCatalogo] = {}
+        self._rutas_bom: dict[str, str] = {}
 
     def _aplanar(
         self, nodos: list[dict], area: str | None = None, dominio: str | None = None
@@ -89,6 +90,9 @@ class CatalogoJson(CatalogoServiceDomainsPort):
             datos["business_area"] = area
             datos["business_domain"] = dominio
             entradas.append(EntradaCatalogo(**datos))
+            ruta_bom = _texto((sd.get("bom_diagram") or {}).get("puml_path"))
+            if ruta_bom:
+                self._rutas_bom[datos["service_domain"]] = ruta_bom
 
         self._entradas = entradas
         self._por_nombre = {e.service_domain: e for e in entradas}
@@ -98,6 +102,17 @@ class CatalogoJson(CatalogoServiceDomainsPort):
         self._cargar()
         assert self._entradas is not None
         return self._entradas
+
+    def rutas_bom_puml(self) -> dict[str, str]:
+        """Ruta del PUML BOM que el propio landscape declara por Service Domain (`bom_diagram`).
+
+        265 de los 341 SD la traen. `CatalogoBomPuml` la prefiere sobre deducir el nombre del
+        archivo por convención kebab-case: hoy ambas coinciden en los 265 (lo fija
+        `tests/unit_test/test_catalogo_bom_puml.py`), pero la convención es una suposición sobre
+        cómo nombró los archivos `scripts/svg_to_puml_bom/`, no un dato publicado.
+        """
+        self._cargar()
+        return dict(self._rutas_bom)
 
     def buscar_exacto(self, nombre: str) -> EntradaCatalogo | None:
         self._cargar()
