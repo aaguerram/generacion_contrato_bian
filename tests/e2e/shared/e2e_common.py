@@ -63,6 +63,12 @@ from src.dominio.normalizacion import normalizar
 
 RESOURCES = Path(__file__).resolve().parents[2] / "resources"
 
+# El harness llamaba a `cargar_settings()` sin argumentos, así que una prueba E2E solo podía
+# correr contra el `config.yaml` de la raíz: comparar "con los flags nuevos" contra "sin ellos"
+# obligaba a editar el archivo versionado entre corridas. `MAPEO_CONFIG` apunta a otro YAML sin
+# tocar el del repo; sin la variable, el comportamiento es exactamente el de antes.
+VAR_CONFIG = "MAPEO_CONFIG"
+
 requiere_e2e = unittest.skipUnless(
     os.environ.get("EJECUTAR_E2E") == "1",
     "prueba de integracion bajo demanda (llamadas LLM reales, consume cuota) -> "
@@ -85,7 +91,9 @@ def _funcionalidad_de(carpeta: Path) -> Path:
 def ejecutar_caso(carpeta: str) -> ResultadoMapeoHistorias:
     """Ejecuta `mapear-historias` (LLM real, failover de `config.yaml`) sobre
     `tests/resources/<carpeta>/`. Autodescubre el JSON de funcionalidad (debe haber uno
-    solo en la carpeta). `--directorio-hu` y `--directorio` (salida) son la MISMA carpeta:
+    solo en la carpeta). Usa el `config.yaml` de la raíz salvo que `MAPEO_CONFIG` apunte a otro (así se compara una
+    configuración candidata sin editar el archivo versionado).
+    `--directorio-hu` y `--directorio` (salida) son la MISMA carpeta:
     `leer_historias()` solo lee `.txt`/`.md`/`.markdown`, así que ignora los JSON que ya
     viven ahí (funcionalidad, expected-result, y la salida anterior)."""
     datos = RESOURCES / carpeta
@@ -93,7 +101,10 @@ def ejecutar_caso(carpeta: str) -> ResultadoMapeoHistorias:
         raise FileNotFoundError(f"falta la carpeta de datos de la prueba: {datos}")
     ruta_funcionalidad = _funcionalidad_de(datos)
 
-    config = cargar_settings()
+    ruta_config = os.environ.get(VAR_CONFIG) or None
+    if ruta_config and not Path(ruta_config).is_file():
+        raise FileNotFoundError(f"{VAR_CONFIG}={ruta_config} no existe")
+    config = cargar_settings(ruta_config=ruta_config)
     caso_uso = crear_caso_uso_mapeo(config)
     return caso_uso.ejecutar(str(datos), str(ruta_funcionalidad), str(datos))
 
