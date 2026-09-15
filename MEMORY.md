@@ -1,8 +1,8 @@
 # Memory — generacion-contrato-ia-v2
 
-> Generated: 2026-09-15 05:24:59  
-> Total memories: **44**  
-> Breakdown: instruction: 2, fact: 11, decision: 13, goal: 2, context: 2, learning: 14
+> Generated: 2026-09-15 08:04:41  
+> Total memories: **46**  
+> Breakdown: instruction: 3, fact: 11, decision: 14, goal: 2, context: 2, learning: 14
 
 ---
 
@@ -21,6 +21,16 @@
 > Doctrina de observabilidad de generacion_contrato_bian, destilada de cinco agujeros reales encontrados el 2026-09-14/15 (commit d3375ba): UNA METRICA QUE DA VERDE PORQUE NO SE HIZO NADA ES PEOR QUE NO TENERLA, y una division vacia es el sitio donde se esconde. Los cinco eran el MISMO error de forma a distintos niveles: (1) operation_grounding_rate = verificadas/ancladas devolvia 1.0 cuando ancladas era 0 -medido: corrida real con operaciones_ancladas 0 y grounding 1.0-; ahora 0.0 si habia SD elegibles y null si no los habia. (2) La misma trampa un nivel arriba: una historia con CERO Service Domains SELECTED mostraba cobertura 1.0 y grounding 1.0 porque sin elegibles no habia nada que anclar; ahora deja incidencia HISTORIA_SIN_CONTRATO nombrando al mejor candidato con su rol, motivo y confianza. (3) Un bucle que no se ejecuta no reporta: _asignar_operaciones recorria mapeo.operaciones y si venia vacio devolvia sin incidencias, asi que un SD elegible sin operaciones era invisible -> OPERATION_MAPPING_EMPTY. (4) Un descarte que solo existe en un logger.warning es un descarte perdido: el blindaje anti-alucinacion tiraba citas con un log, y 'el modelo se invento TODAS las operaciones' quedaba indistinguible de 'no propuso ninguna' -> viajan en MapeoOperacionesLLM.citas_descartadas y se registran como OPERATION_ID_UNRESOLVED. (5) Una tasa de exito necesita su tasa de COBERTURA al lado: grounding dice 'de lo que ancle, cuanto esta fundamentado' y no puede distinguir 'ancle poco y bien' de 'no ancle nada' -> operation_coverage_rate = SD elegibles que anclaron alguna / SD elegibles. Regla practica al anadir cualquier metrica nueva: preguntar que valor toma cuando el denominador es cero, y si ese valor se lee como exito, es un bug. Ninguno de los cinco lo encontro una revision de codigo: los encontro medir corridas reales y mirar por que el JSON pintaba bien.
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-15T04:56:11 | Tags: `observabilidad`, `metricas`, `incidencias`, `bian`, `calidad`*
+
+### Regla estadistica para juzgar corridas E2E en gene...
+
+> Regla estadistica para juzgar corridas E2E en generacion_contrato_bian, fijada el 2026-09-15: UNA TANDA EN VERDE NO ES UNA MEJORA. La varianza medida de la suite E2E con los flags encendidos es de 3 fallos en 11 corridas (27%) con el MISMO modelo respondiendo el nodo critico -varianza del modelo, no degradacion de proveedor, comprobado por provider_used/model_used de las huellas-. Bajo esa tasa, ver 6 corridas seguidas en verde tiene ~15% de probabilidad POR AZAR: es exactamente lo que ocurrio tras implementar los arreglos de ownership, y por eso NO se declaro ninguna mejora. Para distinguir una mejora real del ruido hacen falta del orden de 15-20 corridas por configuracion.
+>
+> Consecuencia practica implementada: `E2E_REPETICIONES=N` (1 por defecto) corre cada caso N veces y exige MAYORIA ESTRICTA, reportando el marcador ('2/3 corridas cumplieron') y los motivos de las que fallaron. Todas las corridas se ejecutan siempre -parar al alcanzar mayoria escondería cuantas fallaron, que es el dato que interesa-. Uso recomendado: 3 repeticiones como gate diario, 15+ para decidir si un flag se enciende por defecto.
+>
+> Corolario que aplica a cualquier medicion de este proyecto: antes de atribuir un cambio de resultado a un cambio de codigo, calcular que probabilidad tenia ese resultado bajo la varianza ya conocida. Si sale por encima de ~10%, la unica afirmacion honesta es 'compatible con una mejora', no 'mejoro'.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-15T13:04:13 | Tags: `e2e`, `varianza`, `estadistica`, `metodologia`, `bian`*
 
 ---
 
@@ -168,6 +178,18 @@
 
 *Confidence: 0.85 | Status: active | Created: 2026-09-13T03:10:18*
 
+### Asimetria estructural del ownership en generacion_...
+
+> Asimetria estructural del ownership en generacion_contrato_bian y como se cerro (commit 2e1c5c7, 2026-09-15): un OWNED_CONTRACT mal clasificado tenia TRES redes -promocion adversarial, finalizacion por operacion solida, degradacion controlada- y un CONSUMED_DEPENDENCY mal clasificado tenia UNA, `determinar_promociones`, que ademas exige que el revisor adversarial TAMBIEN lo detecte: o sea que DOS juicios del LLM coincidan. Si el revisor no lo marcaba no habia salida, porque `_decidir` fuerza REJECTED sin mirar el score y `candidatos_operacion_elegibles` excluye a los no-owned -el paso de operaciones ni se ejecuta, y ningun rescate por evidencia de operacion puede actuar-. Caso real medido: Party Reference Data Directory quedo CONSUMED_DEPENDENCY con confianza 0.795 en una historia de consultar y mostrar datos personales, y la HU acabo sin ningun contrato.
+>
+> `determinar_promociones_por_accion` es el espejo exacto de `determinar_degradaciones`: aquella BAJA cuando la accion citada no comparte NINGUN token con intencion.business_actions, esta SUBE cuando si los comparte. Sin hallazgo adversarial que lo respalde exige ademas objeto_bom >= 0.50 (contra 0.15 de la promocion con hallazgo) y evidencia BIAN verificada.
+>
+> EL DETALLE DE DISENO QUE LO HACE SEGURO, y que generaliza a cualquier regla de este pipeline: NO decide el contrato. Solo devuelve el rol a OWNED_CONTRACT, lo que unicamente ABRE LA PUERTA al paso de operaciones; de ahi en adelante manda la evidencia -finalizar_por_operacion_solida sube si hay operacion oficial verificada, degradar_sin_operacion_anclada baja si no se ancla ninguna-. Por eso el piso puede ser exigente sin ser paranoico: el veredicto final lo da la operacion, no la reclasificacion. Regla que se lleva: cuando una regla nueva podria crear falsos positivos, hacer que habilite una COMPROBACION posterior en vez de emitir el veredicto.
+>
+> Leccion adicional del mismo trabajo: cuando existe un movimiento que sube por evidencia fuerte, hay que preguntarse si falta el simetrico que baja por ausencia de esa evidencia, Y si el que sube depende de que dos juicios del LLM coincidan -si depende, no es una red, es una loteria-.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-15T13:03:59 | Tags: `ownership`, `asimetria`, `clasificacion`, `bian`, `determinismo`*
+
 ### Enrutado de modelos por nodo en generacion_contrat...
 
 > Enrutado de modelos por nodo en generacion_contrato_bian (routing.llm_priority_por_nodo, commit d50dc9d, vacio por defecto): un nodo LLM concreto puede tener otro orden de proveedores que el global, con clave su prompt_id (mapeo.intencion, mapeo.evaluacion, mapeo.operaciones, ...). Razon medida: los 7 nodos no tienen la misma dificultad ni el mismo tamano de prompt -mapeo.intencion lo resuelve cualquier modelo; mapeo.operaciones, que debe citar una operacion concreta entre decenas, es el primero en romperse con uno debil y el unico cuyo fallo deja la historia sin contrato-. Cada nodo con override recibe su propia ChatConFailover construida una vez, y la huella pregunta al chat que REALMENTE resolvio ese nodo (si no, un nodo con cadena propia reportaria el proveedor de otro). --proveedor X sigue mandando sobre el yaml: pinnear la cadena es decision del operador.
@@ -220,15 +242,23 @@
 
 ### Pendiente en generacion_contrato_bian para retomar...
 
-> Estado y pendientes de generacion_contrato_bian al 2026-09-15 (todo en origin/main hasta 1fc3a7d; 296 tests en verde, sin red y sin LLM).
+> PUNTO DE RETOMA de generacion_contrato_bian (2026-09-15, todo en origin/main hasta 2e1c5c7; 315 tests en verde, sin red y sin LLM). El trabajo pendiente YA NO ES ESCRIBIR CODIGO: son tres decisiones que necesitan datos que hoy no existen. Se retoma cuando haya mas Historias de Usuario etiquetadas del banco. El protocolo paso a paso, con los comandos, esta en implementacion_pendiente.md, seccion 'Retomar aqui cuando haya mas HU etiquetadas'.
 >
-> HECHO en esta iteracion, TODO OFF POR DEFECTO -- el trabajo pendiente ya no es escribir codigo, es decidir que se enciende: los 6 puntos del plan de precision (cache de nodos + defer + durabilidad, BM25 con puente ES->EN + RRF ponderado, CAG escalonado, corpus por capas + skill, grafo como confirmacion de conflictos, CRAG de una vuelta); los dos extras del landscape; el barrido de texto del reranker (que lo dejo descartado por medicion EN CONTRA, no por falta de medicion); el orden de modelos POR NODO y el trato del 413; MAPEO_CONFIG en el harness E2E; los cinco arreglos de visibilidad/decision; el rediseno del nodo de operaciones (una llamada por SD + cita por indice); y el checkpointer persistente SQLite. Ver las memorias de doctrina de observabilidad, decision contractual, enrutado/failover, nodos fragiles y checkpointer.
+> ESTADO: nueve funcionalidades implementadas y TODAS APAGADAS por defecto (retrieval hibrido con BM25 + puente ES->EN + RRF ponderado, CAG escalonado, Graph RAG, senales de grafo para el adversarial, CRAG de una vuelta, reranker -este descartado por medicion EN CONTRA-, cache de nodos, durabilidad con checkpointer SQLite persistente + --reanudar, orden de modelos por nodo). Mas los arreglos que si estan siempre activos porque son correcciones, no features: visibilidad de operaciones (OPERATION_MAPPING_EMPTY, coverage_rate, HISTORIA_SIN_CONTRATO, citas descartadas registradas), las dos decisiones contractuales simetricas, la promocion por accion declarada, el trato del 413 y el rediseno del nodo de operaciones (una llamada por SD + cita por indice).
 >
-> VARIANZA MEDIDA, y es el dato que gobierna todo lo demas: con los seis flags encendidos, la E2E dio 2 fallos en 8 corridas (25%) con el MISMO modelo respondiendo el nodo critico (gemini-3.5-flash-lite en las 8, comprobado por provider_used/model_used de las huellas). Es varianza del modelo, NO degradacion de proveedor. Una sola corrida -verde o roja- no dice nada sobre una configuracion.
+> PASO 0 (lo unico que no se automatiza): meter las HU nuevas en la capa hu_real del corpus dorado. Hoy son 6 consultas de negocio; los otros 91 casos son consultas-nombre generadas que miden validar-sd, NO el problema de negocio. Protocolo en la skill corpus-dorado-bian. Con ~30 ya se puede decidir el canal disperso y los pesos de la fusion (hoy el mejor punto medido -k=20, peso 0.25, MRR 0.608- esta sobreajustado a 6 casos, donde un acierto mueve 0.17).
 >
-> PENDIENTE, por orden: (1) CANARY CON LLM REAL (canary.py --proveedor ollama) flag por flag y REPETIDO varias veces; es la puerta para encender cualquier flag y ahora es barato por la cache de nodos. (2) AMPLIAR LA CAPA hu_real del corpus (6 consultas): el cuello real, y lo unico que no se resuelve con codigo -exige etiquetado humano sobre HU del banco, protocolo en la skill corpus-dorado-bian-. (3) MEDIR CAG CONTRA RETRIEVAL en hu_real con LLM real: el coste en tokens esta medido (~27k -> ~48k -> ~54k), el efecto en la decision no. (4) DECIDIR QUE HACER CON LA E2E COMO GATE: con 25% de fallo por varianza, un rojo no distingue 'rompiste algo' de 'mala suerte'; o se corre N veces exigiendo mayoria, o se acepta explicitamente que el peso de la regresion lo llevan los tests deterministas y la E2E es humo. Hoy no esta decidido. (5) APROVECHAR EL CHECKPOINTER: ya persiste, pero nadie REANUDA todavia -falta exponer el thread_id de una corrida y un modo 'continuar', y el interrupt/human-in-the-loop para el UNRESOLVED bloqueado, que es su caso de uso mas valioso-. (6) Encadenar el enriquecedor a generate_matrix_view. (7) ownership_conflict_rate sigue metiendo descartados en el denominador. (8) Entrenar modelo propio: descartado hasta el punto 2. (9) pgvector: no mientras la ADR no cambie.
+> PASO 1: `evaluate.py --tipo hu_real` y `--barrido rrf-bm25 --tipo hu_real`. NUNCA el promedio global: el canal lexico mide 0.95 de Recall@10 global y 0.17 en hu_real.
 >
-> Entorno: exportar HF_HOME=~/.cache/hf-local (la cache global de HuggingFace es de root; el cross-encoder ya esta ahi, 2,2 GB). Qdrant levantado con volumen poblado. Ollama local sirve qwen3.8:27b-q8_0 (chat, 262k contexto) y qwen3-embedding:8b. git push necesita `git -c credential.helper='!gh auth git-credential' push` (no hay helper configurado ni GITHUB_TOKEN); `gh auth setup-git` lo dejaria permanente. Correr E2E contra otra config: EJECUTAR_E2E=1 MAPEO_CONFIG=/ruta/config.yaml .venv/bin/python -m unittest discover -s tests -p "test_e2e_*.py".
+> PASO 2: canary con LLM real (--proveedor ollama, sin cuota), flag por flag y REPETIDO. Barato por la cache de nodos.
+>
+> PASO 3: E2E con E2E_REPETICIONES (3 como gate diario, 15+ para decidir un default). Ver la memoria de la regla estadistica: bajo 27% de varianza, 6 verdes seguidos tienen ~15% de probabilidad por azar.
+>
+> QUE MIRAR ademas del verde/rojo, todo ya en el JSON de cada corrida: historias_sin_contrato, operation_coverage_rate, operation_mapping_empty, ownership_conflict_rate_respaldado, y los reason_codes OWNERSHIP_PROMOTED_BY_DECLARED_ACTION (la red de seguridad del ownership actuando) y DOWNGRADED_NO_OPERATION_ANCHORED (el modelo reclamando contratos que no sostiene con una operacion).
+>
+> PENDIENTE MENOR: encadenar el enriquecedor a generate_matrix_view; ownership_conflict_rate mete descartados en el denominador; interrupt/human-in-the-loop para el UNRESOLVED bloqueado (base tecnica lista, falta decidir el protocolo del CLI); entrenar modelo propio descartado hasta tener el corpus; pgvector no mientras la ADR no cambie.
+>
+> ENTORNO: exportar HF_HOME=~/.cache/hf-local (la cache global de HuggingFace es de root). Ollama local sirve qwen3.8:27b-q8_0 (chat, 262k contexto) y qwen3-embedding:8b. git push necesita `git -c credential.helper='!gh auth git-credential' push`; `gh auth setup-git` lo dejaria permanente. E2E contra otra config: EJECUTAR_E2E=1 MAPEO_CONFIG=/ruta/config.yaml. La base del checkpointer crece ~19 MB por HU y es desechable.
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-14T23:10:27 | Tags: `pendientes`, `roadmap`, `retrieval`, `continuar`*
 

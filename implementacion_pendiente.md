@@ -395,6 +395,65 @@ Lo que la medición de esta iteración añadió al diagnóstico:
 - **El promedio global del corpus engañaba**: el canal léxico mide 0.95 de Recall@10 global y 0.17
   en `hu_real`. Por eso el corpus ahora tiene capas y el informe las reporta por separado.
 
+### Retomar aquí cuando haya más HU etiquetadas (protocolo, 2026-09-15)
+
+Todo lo implementado está en `origin/main` y **apagado por defecto**. Lo que falta no es código:
+son tres decisiones que necesitan datos que hoy no existen. Este es el orden exacto para cuando
+lleguen más Historias de Usuario del banco.
+
+**Paso 0 — meter las HU nuevas en el corpus** (lo único que no se puede automatizar). Protocolo
+completo en la skill `corpus-dorado-bian`. Resumen de lo que NO vale: inventar consultas, usar
+como consulta el texto que el sistema indexa (`role_definition`/`examples_of_use`/`features` — es
+circular), o presentar el total de 97 casos como cobertura de negocio (91 son consultas-nombre
+generadas). El positivo se confirma con evidencia —una corrida validada, un `expected-result.json`
+curado, o el Service Landscape + la Semantic API—, nunca de memoria. Cada caso lleva su
+`procedencia`.
+
+```bash
+# 1. Cuántas consultas de negocio hay realmente (hoy: 6)
+.venv/bin/python -c "import yaml,collections;c=yaml.safe_load(open('scripts/evaluate_retrieval/corpus_dorado.yaml'));print(collections.Counter(x['tipo'] for x in c['casos']))"
+
+# 2. Recuperación por capa — nunca el promedio global (el canal léxico mide 0.95 global y 0.17 en hu_real)
+.venv/bin/python scripts/evaluate_retrieval/evaluate.py --tipo hu_real
+.venv/bin/python scripts/evaluate_retrieval/evaluate.py --barrido rrf-bm25 --tipo hu_real
+```
+
+**Paso 1 — decidir el canal disperso y los pesos de la fusión.** Con ~30 consultas `hu_real` ya
+se puede: hoy el mejor punto medido (`k=20`, peso disperso `0.25`, MRR 0.608) está sobreajustado
+a 6 casos, donde un acierto mueve 0.17. Si el barrido confirma la forma con más datos, cambiar
+`retrieval_canal_lexico: bm25` + pesos en `config.yaml` deja de ser una apuesta.
+
+**Paso 2 — canary con LLM real, flag por flag y REPETIDO.** Un canary de una pasada mide ruido:
+la varianza medida es de 3 fallos en 11 corridas (27%) con el MISMO modelo. Es barato porque la
+caché de nodos solo repaga lo que cambió.
+
+```bash
+.venv/bin/python scripts/evaluate_retrieval/canary.py --hu ./HU \
+    --funcionalidad ./ejemplos/funcionalidad-actualizacion-datos-personales.json \
+    --base config.yaml --candidata candidata.yaml --proveedor ollama
+```
+
+**Paso 3 — E2E como medición, no como sorteo.** `E2E_REPETICIONES=N` corre cada caso N veces y
+exige mayoría, reportando el marcador.
+
+```bash
+EJECUTAR_E2E=1 E2E_REPETICIONES=3 MAPEO_CONFIG=/ruta/candidata.yaml \
+    .venv/bin/python -m unittest discover -s tests -p "test_e2e_*.py" -v
+```
+
+Cuántas repeticiones hacen falta, con los números que ya tenemos: bajo una tasa de fallo del 27%,
+**6 corridas en verde tienen ~15% de probabilidad por azar** — que es exactamente lo que pasó el
+2026-09-15 y por eso NO se declaró ninguna mejora. Para distinguir una mejora real del ruido hacen
+falta del orden de **15-20 corridas** por configuración. Con 3 repeticiones la E2E sirve de gate
+diario; con 15+, sirve para decidir si un flag se enciende por defecto.
+
+**Qué mirar además del verde/rojo** (todo sale del JSON de cada corrida, sin instrumentar nada):
+`historias_sin_contrato`, `operation_coverage_rate`, `operation_mapping_empty`,
+`ownership_conflict_rate_respaldado` y los `reason_codes`
+`OWNERSHIP_PROMOTED_BY_DECLARED_ACTION` / `DOWNGRADED_NO_OPERATION_ANCHORED` — si el primero
+aparece, la red de seguridad del ownership está actuando; si el segundo aparece mucho, el modelo
+está reclamando contratos que no puede sostener con una operación.
+
 ### Lo que sigue pendiente
 
 1. **Correr el canary con LLM real** (`canary.py --proveedor ollama`) flag por flag —ahora barato,
@@ -425,10 +484,16 @@ Lo que la medición de esta iteración añadió al diagnóstico:
 7. **Entrenar un modelo propio** sigue descartado: 6 HU etiquetadas. El punto 2 es el
    prerrequisito.
 8. **pgvector** no se implementa mientras la ADR no cambie.
-9. **Checkpointer persistente**: `durabilidad: sync` usa `InMemorySaver`, así que sobrevive a un
-   fallo dentro del proceso pero no a su muerte. Hoy eso lo cubre la caché de nodos (re-ejecutar
-   paga solo lo que falta); un resume real exigiría `langgraph-checkpoint-sqlite`, que es una
-   dependencia nueva.
+9. ~~Checkpointer persistente~~ **HECHO (2026-09-15)**: `durabilidad: sync|async` abre una base
+   SQLite que se crea si no existe y nunca se versiona, y `--reanudar <thread_id>` continúa una
+   corrida muerta desde su último checkpoint sin repetir lo hecho. Coste medido: disco (~19 MB por
+   HU), no latencia. **Lo que falta de aquí**: el `interrupt`/human-in-the-loop para el
+   `UNRESOLVED` bloqueado — la base técnica está, pero exige decidir antes un protocolo (cómo para
+   la corrida, cómo responde el humano, cómo se reanuda con esa decisión), y eso cambia el
+   contrato del CLI.
+10. **Decidir qué exigirle a la E2E como gate**: `E2E_REPETICIONES` ya permite medir en vez de
+    sortear, pero cuántas repeticiones se exigen en cada contexto (diario vs. decisión de default)
+    sigue sin fijarse.
 
 ### Cerrados el 2026-09-14 (los dos "extras menores" que quedaban anotados)
 
