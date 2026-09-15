@@ -12,6 +12,11 @@ claves_api.md
 *.sqlite-wal
 *.sqlite-shm
 
+# Caché de extracción AST de graphify: es caché y está versionada por el nombre de versión del
+# extractor (v0.9.49-s2 -> v0.9.61-s2 -> ...), así que cada actualización borraría cientos de
+# archivos y añadiría otros tantos. El grafo, el informe y el manifiesto SÍ se versionan.
+graphify-out/cache/
+
 # Modelo canónico BIAN: artefacto DERIVADO de docs/ (19 MB, 26k nodos). Se regenera con
 # `scripts/ingest_bian/ingest_bian.py`, así que no se versiona: cada regeneración añadiría otro
 # blob de 19 MB al historial sin aportar nada que las fuentes no tengan ya.
