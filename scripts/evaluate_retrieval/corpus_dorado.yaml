@@ -1,86 +1,971 @@
-# Corpus dorado de recuperación BIAN.
-#
-# Cada entrada es una consulta (el texto de una HU o su intención) con el Service Domain que DEBE
-# recuperarse, y los `hard_negatives` que el pipeline ha propuesto de verdad en corridas reales y
-# que NO son la respuesta. Los negativos importan tanto como el positivo: el problema de este
-# dominio no es que falte recall, es que sobran candidatos plausibles.
-#
-# Procedencia de cada caso (nada inventado):
-#   - `tests/resources/*/`: los dos casos E2E, con su `expected-result.json` curado.
-#   - `HU - copia/`: historias reales de la funcionalidad "Actualización de datos personales".
-#   Los `hard_negatives` salen de los `candidatos_descartados` de corridas reales registradas.
-#
-# AVISO sobre el tamaño: 7 consultas NO son un corpus dorado estadísticamente útil. Sirven como
-# regresión (detectan que algo empeoró) y como esqueleto para crecer. Cualquier conclusión sobre
-# "qué modelo de embeddings es mejor" con esta muestra sería ruido; ver el README.
 version: 1
-release_bian: "14.0.0"
-
+release_bian: 14.0.0
 casos:
-  - id: crear-pantalla-datos-personales
-    hu: "Crear pantalla de datos personales"
-    consulta: "consultar y mostrar los datos personales del cliente, número de celular y correo electrónico"
-    positivo: "Party Reference Data Directory"
-    hard_negatives:
-      - "Customer Workbench"
-      - "Party Authentication"
-      - "Transaction Authorization"
-    procedencia: "tests/resources/datos_personales/"
-
-  - id: notificar-actualizacion-datos
-    hu: "Notificar actualización de datos"
-    consulta: "notificar al cliente por correo y SMS que sus datos de contacto fueron actualizados"
-    positivo: "Correspondence"
-    hard_negatives:
-      - "Party Reference Data Directory"
-      - "Fraud Evaluation"
-      - "Internal Audit"
-      - "Party Authentication"
-      - "Customer Access Entitlement"
-    procedencia: "tests/resources/datos_personales_notificacion/"
-
-  - id: actualizar-correo-electronico
-    hu: "Actualizar correo electrónico"
-    consulta: "actualizar la dirección de correo electrónico registrada del cliente"
-    positivo: "Party Reference Data Directory"
-    hard_negatives:
-      - "Customer Workbench"
-      - "Party Authentication"
-    procedencia: "HU - copia/HU-Actualizar correo electrónico.txt"
-
-  - id: actualizar-numero-celular
-    hu: "Actualizar número celular"
-    consulta: "actualizar el número de teléfono celular de contacto del cliente"
-    positivo: "Party Reference Data Directory"
-    hard_negatives:
-      - "Customer Workbench"
-      - "Session Dialogue"
-    procedencia: "HU - copia/HU-Actualizar número celular.txt"
-
-  - id: confirmar-con-smart-token
-    hu: "Confirmar actualización del número celular y correo con Smart Token"
-    consulta: "confirmar con segundo factor de autenticación antes de aplicar el cambio de contacto"
-    positivo: "Party Authentication"
-    hard_negatives:
-      - "Party Reference Data Directory"
-      - "Customer Access Entitlement"
-      - "Transaction Authorization"
-    procedencia: "HU - copia/HU-Confirmar actualización del número celular y correo con Smart Token.txt"
-
-  - id: actualizar-cuentas-menores
-    hu: "Actualizar cuentas de menores"
-    consulta: "actualizar los datos de contacto en cuentas de titulares menores de edad y su representante"
-    positivo: "Party Reference Data Directory"
-    hard_negatives:
-      - "Legal Entity Directory"
-      - "Customer Relationship Management"
-    procedencia: "HU - copia/HU-Actualizar cuentas de menores.txt"
-
-  - id: validar-nombre-sd-exacto
-    hu: "(validar-sd) nombre canónico exacto"
-    consulta: "Current Account"
-    positivo: "Current Account"
-    hard_negatives:
-      - "Current Account Facility"
-      - "Savings Account"
-    procedencia: "caso de uso validar-sd: la recuperación por nombre no debe degradarse"
+- id: crear-pantalla-datos-personales
+  tipo: hu_real
+  hu: Crear pantalla de datos personales
+  consulta: consultar y mostrar los datos personales del cliente, número de celular y correo electrónico
+  positivo: Party Reference Data Directory
+  hard_negatives:
+  - Customer Workbench
+  - Party Authentication
+  - Transaction Authorization
+  procedencia: tests/resources/datos_personales/
+- id: notificar-actualizacion-datos
+  tipo: hu_real
+  hu: Notificar actualización de datos
+  consulta: notificar al cliente por correo y SMS que sus datos de contacto fueron actualizados
+  positivo: Correspondence
+  hard_negatives:
+  - Party Reference Data Directory
+  - Fraud Evaluation
+  - Internal Audit
+  - Party Authentication
+  - Customer Access Entitlement
+  procedencia: tests/resources/datos_personales_notificacion/
+- id: actualizar-correo-electronico
+  tipo: hu_real
+  hu: Actualizar correo electrónico
+  consulta: actualizar la dirección de correo electrónico registrada del cliente
+  positivo: Party Reference Data Directory
+  hard_negatives:
+  - Customer Workbench
+  - Party Authentication
+  procedencia: HU - copia/HU-Actualizar correo electrónico.txt
+- id: actualizar-numero-celular
+  tipo: hu_real
+  hu: Actualizar número celular
+  consulta: actualizar el número de teléfono celular de contacto del cliente
+  positivo: Party Reference Data Directory
+  hard_negatives:
+  - Customer Workbench
+  - Session Dialogue
+  procedencia: HU - copia/HU-Actualizar número celular.txt
+- id: confirmar-con-smart-token
+  tipo: hu_real
+  hu: Confirmar actualización del número celular y correo con Smart Token
+  consulta: confirmar con segundo factor de autenticación antes de aplicar el cambio de contacto
+  positivo: Party Authentication
+  hard_negatives:
+  - Party Reference Data Directory
+  - Customer Access Entitlement
+  - Transaction Authorization
+  procedencia: HU - copia/HU-Confirmar actualización del número celular y correo con Smart Token.txt
+- id: actualizar-cuentas-menores
+  tipo: hu_real
+  hu: Actualizar cuentas de menores
+  consulta: actualizar los datos de contacto en cuentas de titulares menores de edad y su representante
+  positivo: Party Reference Data Directory
+  hard_negatives:
+  - Legal Entity Directory
+  - Customer Relationship Management
+  procedencia: HU - copia/HU-Actualizar cuentas de menores.txt
+- id: validar-nombre-sd-exacto
+  tipo: nombre_canonico
+  hu: (validar-sd) nombre canónico exacto
+  consulta: Current Account
+  positivo: Current Account
+  hard_negatives:
+  - Current Account Facility
+  - Savings Account
+  procedencia: 'caso de uso validar-sd: la recuperación por nombre no debe degradarse'
+- id: nombre-atm-network-management
+  tipo: nombre_canonico
+  hu: (validar-sd) ATM Network Management
+  consulta: ATM Network Management
+  positivo: ATM Network Management
+  hard_negatives:
+  - Advanced Voice Services Management
+  - Branch Network Management
+  - Card Network Participant Facility
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-advanced-voice-services-management
+  tipo: nombre_canonico
+  hu: (validar-sd) Advanced Voice Services Management
+  consulta: Advanced Voice Services Management
+  positivo: Advanced Voice Services Management
+  hard_negatives:
+  - ATM Network Management
+  - Archive Services
+  - Brand Management
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-asset-and-liability-management
+  tipo: nombre_canonico
+  hu: (validar-sd) Asset And Liability Management
+  consulta: Asset And Liability Management
+  positivo: Asset And Liability Management
+  hard_negatives:
+  - Asset Securitization
+  - Brand Management
+  - Credit Management
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-bank-portfolio-analysis
+  tipo: nombre_canonico
+  hu: (validar-sd) Bank Portfolio Analysis
+  consulta: Bank Portfolio Analysis
+  positivo: Bank Portfolio Analysis
+  hard_negatives:
+  - Bank Drafts
+  - Bank Guarantee
+  - Correspondent Bank Relationship Management
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-branch-network-management
+  tipo: nombre_canonico
+  hu: (validar-sd) Branch Network Management
+  consulta: Branch Network Management
+  positivo: Branch Network Management
+  hard_negatives:
+  - ATM Network Management
+  - Branch Portfolio
+  - Brand Management
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-business-development
+  tipo: nombre_canonico
+  hu: (validar-sd) Business Development
+  consulta: Business Development
+  positivo: Business Development
+  hard_negatives:
+  - Business Unit Financial Analysis
+  - Business Unit Financial Operations
+  - System Development
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-business-unit-financial-operations
+  tipo: nombre_canonico
+  hu: (validar-sd) Business Unit Financial Operations
+  consulta: Business Unit Financial Operations
+  positivo: Business Unit Financial Operations
+  hard_negatives:
+  - ATM Network Operations
+  - Business Development
+  - Business Risk Models
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-card-collections
+  tipo: nombre_canonico
+  hu: (validar-sd) Card Collections
+  consulta: Card Collections
+  positivo: Card Collections
+  hard_negatives:
+  - Collections
+  - Card Case
+  - Card Financial Settlement
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-card-transaction-capture
+  tipo: nombre_canonico
+  hu: (validar-sd) Card Transaction Capture
+  consulta: Card Transaction Capture
+  positivo: Card Transaction Capture
+  hard_negatives:
+  - Card Case
+  - Card Clearing
+  - Card Collections
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-cash-concentration
+  tipo: nombre_canonico
+  hu: (validar-sd) Cash Concentration
+  consulta: Cash Concentration
+  positivo: Cash Concentration
+  hard_negatives:
+  - Cash Management And Account Services
+  - Market Data Switch Operation
+  - Central Cash Handling
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-channel-portfolio
+  tipo: nombre_canonico
+  hu: (validar-sd) Channel Portfolio
+  consulta: Channel Portfolio
+  positivo: Channel Portfolio
+  hard_negatives:
+  - Bank Portfolio Administration
+  - Intellectual Property Portfolio
+  - Investment Portfolio Analysis
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-collateral-allocation-management
+  tipo: nombre_canonico
+  hu: (validar-sd) Collateral Allocation Management
+  consulta: Collateral Allocation Management
+  positivo: Collateral Allocation Management
+  hard_negatives:
+  - Brand Management
+  - Credit Management
+  - Management Manual
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-company-billing-and-payments
+  tipo: nombre_canonico
+  hu: (validar-sd) Company Billing and Payments
+  consulta: Company Billing and Payments
+  positivo: Company Billing and Payments
+  hard_negatives:
+  - Customer Billing
+  - ECM And DCM
+  - Payment Rail
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-consumer-loan
+  tipo: nombre_canonico
+  hu: (validar-sd) Consumer Loan
+  consulta: Consumer Loan
+  positivo: Consumer Loan
+  hard_negatives:
+  - Loan
+  - Consumer Advisory Services
+  - Consumer Investments
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-continuity-planning
+  tipo: nombre_canonico
+  hu: (validar-sd) Continuity Planning
+  consulta: Continuity Planning
+  positivo: Continuity Planning
+  hard_negatives:
+  - Investment Portfolio Planning
+  - Sales Planning
+  - Loan
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-corporate-alliance-and-stake-holder
+  tipo: nombre_canonico
+  hu: (validar-sd) Corporate Alliance and Stake Holder
+  consulta: Corporate Alliance and Stake Holder
+  positivo: Corporate Alliance and Stake Holder
+  hard_negatives:
+  - Corporate Action
+  - Corporate Card Service
+  - Corporate Finance
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-corporate-lease
+  tipo: nombre_canonico
+  hu: (validar-sd) Corporate Lease
+  consulta: Corporate Lease
+  positivo: Corporate Lease
+  hard_negatives:
+  - Corporate Alliance and Stake Holder
+  - Corporate Communications
+  - Corporate Current Account
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-corporate-strategy
+  tipo: nombre_canonico
+  hu: (validar-sd) Corporate Strategy
+  consulta: Corporate Strategy
+  positivo: Corporate Strategy
+  hard_negatives:
+  - Corporate Alliance and Stake Holder
+  - Corporate Treasury Analysis
+  - Corporate Treasury
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-correspondence
+  tipo: nombre_canonico
+  hu: (validar-sd) Correspondence
+  consulta: Correspondence
+  positivo: Correspondence
+  hard_negatives:
+  - Correspondent Bank Directory
+  - Correspondent Bank Relationship Management
+  - Corporate Finance
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-credit-card
+  tipo: nombre_canonico
+  hu: (validar-sd) Credit Card
+  consulta: Credit Card
+  positivo: Credit Card
+  hard_negatives:
+  - Card Authorization
+  - Card Financial Settlement
+  - Card Network Participant Facility
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-credit-and-margin-management
+  tipo: nombre_canonico
+  hu: (validar-sd) Credit and Margin Management
+  consulta: Credit and Margin Management
+  positivo: Credit and Margin Management
+  hard_negatives:
+  - Brand Management
+  - Correspondent Bank Relationship Management
+  - Credit Card
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-customer-agreement
+  tipo: nombre_canonico
+  hu: (validar-sd) Customer Agreement
+  consulta: Customer Agreement
+  positivo: Customer Agreement
+  hard_negatives:
+  - Contractor and Supplier Agreement
+  - Customer Access Entitlement
+  - Customer Campaign Execution
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-customer-campaign-execution
+  tipo: nombre_canonico
+  hu: (validar-sd) Customer Campaign Execution
+  consulta: Customer Campaign Execution
+  positivo: Customer Campaign Execution
+  hard_negatives:
+  - Customer Agreement
+  - Customer Billing
+  - Customer Case
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-customer-credit-rating
+  tipo: nombre_canonico
+  hu: (validar-sd) Customer Credit Rating
+  consulta: Customer Credit Rating
+  positivo: Customer Credit Rating
+  hard_negatives:
+  - Credit Card
+  - Customer Case
+  - Customer Offer
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-customer-position
+  tipo: nombre_canonico
+  hu: (validar-sd) Customer Position
+  consulta: Customer Position
+  positivo: Customer Position
+  hard_negatives:
+  - Customer Proposition
+  - Customer Access Entitlement
+  - Customer Behavior Insights
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-customer-surveys
+  tipo: nombre_canonico
+  hu: (validar-sd) Customer Surveys
+  consulta: Customer Surveys
+  positivo: Customer Surveys
+  hard_negatives:
+  - Customer Access Entitlement
+  - Customer Behavior Insights
+  - Customer Behavior Models
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-development-environment
+  tipo: nombre_canonico
+  hu: (validar-sd) Development Environment
+  consulta: Development Environment
+  positivo: Development Environment
+  hard_negatives:
+  - System Development
+  - Business Development
+  - Procurement
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-document-directory
+  tipo: nombre_canonico
+  hu: (validar-sd) Document Directory
+  consulta: Document Directory
+  positivo: Document Directory
+  hard_negatives:
+  - Approved Supplier Directory
+  - Correspondent Bank Directory
+  - Customer Product and Service Directory
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-employee-assignment
+  tipo: nombre_canonico
+  hu: (validar-sd) Employee Assignment
+  consulta: Employee Assignment
+  positivo: Employee Assignment
+  hard_negatives:
+  - Employee Payroll And Incentives
+  - Employee and Contractor Contract
+  - Employee Access
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-employee-payroll-and-incentives
+  tipo: nombre_canonico
+  hu: (validar-sd) Employee Payroll And Incentives
+  consulta: Employee Payroll And Incentives
+  positivo: Employee Payroll And Incentives
+  hard_negatives:
+  - ECM And DCM
+  - Employee Access
+  - Employee Assignment
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-equipment-maintenance
+  tipo: nombre_canonico
+  hu: (validar-sd) Equipment Maintenance
+  consulta: Equipment Maintenance
+  positivo: Equipment Maintenance
+  hard_negatives:
+  - Building Maintenance
+  - Equipment Administration
+  - Recruitment
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-financial-control
+  tipo: nombre_canonico
+  hu: (validar-sd) Financial Control
+  consulta: Financial Control
+  positivo: Financial Control
+  hard_negatives:
+  - Business Unit Financial Analysis
+  - Business Unit Financial Operations
+  - Customer Financial Insights
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-financial-market-analysis
+  tipo: nombre_canonico
+  hu: (validar-sd) Financial Market Analysis
+  consulta: Financial Market Analysis
+  positivo: Financial Market Analysis
+  hard_negatives:
+  - Market Analysis
+  - Financial Message Analysis
+  - Financial Instrument Reference Data Management
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-fixed-asset-register
+  tipo: nombre_canonico
+  hu: (validar-sd) Fixed Asset Register
+  consulta: Fixed Asset Register
+  positivo: Fixed Asset Register
+  hard_negatives:
+  - Asset And Liability Management
+  - Collateral Asset Administration
+  - Party Asset Directory
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-funeral-policy
+  tipo: nombre_canonico
+  hu: (validar-sd) Funeral Policy
+  consulta: Funeral Policy
+  positivo: Funeral Policy
+  hard_negatives:
+  - Legal Compliance
+  - Notional Pooling
+  - Financial Compliance
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-it-standards-and-guidelines
+  tipo: nombre_canonico
+  hu: (validar-sd) IT Standards And Guidelines
+  consulta: IT Standards And Guidelines
+  positivo: IT Standards And Guidelines
+  hard_negatives:
+  - ECM And DCM
+  - Loan
+  - Reward Points Awards And Redemption
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-information-provider-operation
+  tipo: nombre_canonico
+  hu: (validar-sd) Information Provider Operation
+  consulta: Information Provider Operation
+  positivo: Information Provider Operation
+  hard_negatives:
+  - Information Provider Administration
+  - Site Operations
+  - Service Provider Operations
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-internal-bank-account
+  tipo: nombre_canonico
+  hu: (validar-sd) Internal Bank Account
+  consulta: Internal Bank Account
+  positivo: Internal Bank Account
+  hard_negatives:
+  - Bank Drafts
+  - Bank Guarantee
+  - Cash Management And Account Services
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-investment-portfolio-planning
+  tipo: nombre_canonico
+  hu: (validar-sd) Investment Portfolio Planning
+  consulta: Investment Portfolio Planning
+  positivo: Investment Portfolio Planning
+  hard_negatives:
+  - Branch Portfolio
+  - Channel Portfolio
+  - Continuity Planning
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-knowledge-exchange
+  tipo: nombre_canonico
+  hu: (validar-sd) Knowledge Exchange
+  consulta: Knowledge Exchange
+  positivo: Knowledge Exchange
+  hard_negatives:
+  - Currency Exchange
+  - Leasing
+  - Legal Compliance
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-legal-compliance
+  tipo: nombre_canonico
+  hu: (validar-sd) Legal Compliance
+  consulta: Legal Compliance
+  positivo: Legal Compliance
+  hard_negatives:
+  - Regulatory And Legal Authority
+  - Regulatory Compliance
+  - Compliance Reporting
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-loan
+  tipo: nombre_canonico
+  hu: (validar-sd) Loan
+  consulta: Loan
+  positivo: Loan
+  hard_negatives:
+  - Consumer Loan
+  - Corporate Loan
+  - Loan Syndication
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-market-data-switch-administration
+  tipo: nombre_canonico
+  hu: (validar-sd) Market Data Switch Administration
+  consulta: Market Data Switch Administration
+  positivo: Market Data Switch Administration
+  hard_negatives:
+  - Claim Administration
+  - Custody Administration
+  - Market Analysis
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-market-order-execution
+  tipo: nombre_canonico
+  hu: (validar-sd) Market Order Execution
+  consulta: Market Order Execution
+  positivo: Market Order Execution
+  hard_negatives:
+  - Market Order
+  - Market Data Switch Administration
+  - Market Making
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-merchant-relations
+  tipo: nombre_canonico
+  hu: (validar-sd) Merchant Relations
+  consulta: Merchant Relations
+  positivo: Merchant Relations
+  hard_negatives:
+  - Merchant Acquiring Facility
+  - Interbank Relationship Management
+  - Correspondent Bank Relationship Management
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-open-item-management
+  tipo: nombre_canonico
+  hu: (validar-sd) Open Item Management
+  consulta: Open Item Management
+  positivo: Open Item Management
+  hard_negatives:
+  - Advanced Voice Services Management
+  - Asset And Liability Management
+  - Cash Management And Account Services
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-organization-direction
+  tipo: nombre_canonico
+  hu: (validar-sd) Organization Direction
+  consulta: Organization Direction
+  positivo: Organization Direction
+  hard_negatives:
+  - Segment Direction
+  - Collections
+  - Direct Debit
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-party-authentication
+  tipo: nombre_canonico
+  hu: (validar-sd) Party Authentication
+  consulta: Party Authentication
+  positivo: Party Authentication
+  hard_negatives:
+  - Party Reference Data Directory
+  - Card Authorization
+  - Party Asset Directory
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-payment-confirmation
+  tipo: nombre_canonico
+  hu: (validar-sd) Payment Confirmation
+  consulta: Payment Confirmation
+  positivo: Payment Confirmation
+  hard_negatives:
+  - Payment Rail
+  - Payment Orchestration
+  - Payment Order Initiation
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-platform-operations
+  tipo: nombre_canonico
+  hu: (validar-sd) Platform Operations
+  consulta: Platform Operations
+  positivo: Platform Operations
+  hard_negatives:
+  - Advanced Voice Services Operations
+  - Business Unit Financial Operations
+  - Operations Log
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-processing-order
+  tipo: nombre_canonico
+  hu: (validar-sd) Processing Order
+  consulta: Processing Order
+  positivo: Processing Order
+  hard_negatives:
+  - Payment Order Initiation
+  - Securities Fails Processing
+  - Cheque Processing
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-product-directory
+  tipo: nombre_canonico
+  hu: (validar-sd) Product Directory
+  consulta: Product Directory
+  positivo: Product Directory
+  hard_negatives:
+  - Approved Supplier Directory
+  - Correspondent Bank Directory
+  - Customer Product And Service Eligibility
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-product-portfolio
+  tipo: nombre_canonico
+  hu: (validar-sd) Product Portfolio
+  consulta: Product Portfolio
+  positivo: Product Portfolio
+  hard_negatives:
+  - Bank Portfolio Administration
+  - Customer Product And Service Eligibility
+  - Customer Product and Service Directory
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-production-release
+  tipo: nombre_canonico
+  hu: (validar-sd) Production Release
+  consulta: Production Release
+  positivo: Production Release
+  hard_negatives:
+  - Production Risk Models
+  - Sales Product
+  - Product Design
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-promotional-events
+  tipo: nombre_canonico
+  hu: (validar-sd) Promotional Events
+  consulta: Promotional Events
+  positivo: Promotional Events
+  hard_negatives:
+  - Production Release
+  - Position Management
+  - Position Keeping
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-public-offering
+  tipo: nombre_canonico
+  hu: (validar-sd) Public Offering
+  consulta: Public Offering
+  positivo: Public Offering
+  hard_negatives:
+  - Public Reference Data Management
+  - Factoring
+  - Leasing
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-regulatory-and-legal-authority
+  tipo: nombre_canonico
+  hu: (validar-sd) Regulatory And Legal Authority
+  consulta: Regulatory And Legal Authority
+  positivo: Regulatory And Legal Authority
+  hard_negatives:
+  - ECM And DCM
+  - Legal Advisory
+  - Legal Compliance
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-rewards-delivery
+  tipo: nombre_canonico
+  hu: (validar-sd) Rewards Delivery
+  consulta: Rewards Delivery
+  positivo: Rewards Delivery
+  hard_negatives:
+  - Rewards Inventory
+  - Rewards Menu
+  - Dealer Desk
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-sales-product-agreement
+  tipo: nombre_canonico
+  hu: (validar-sd) Sales Product Agreement
+  consulta: Sales Product Agreement
+  positivo: Sales Product Agreement
+  hard_negatives:
+  - Sales Product
+  - Customer Product And Service Eligibility
+  - Customer Product and Service Directory
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: nombre-security-assurance
+  tipo: nombre_canonico
+  hu: (validar-sd) Security Assurance
+  consulta: Security Assurance
+  positivo: Security Assurance
+  hard_negatives:
+  - Product Quality Assurance
+  - Security Advisory
+  - Systems Assurance
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py
+- id: deformado-atm-network-operations
+  tipo: nombre_deformado
+  hu: (validar-sd) ATM Network Opera
+  consulta: ATM Network Opera
+  positivo: ATM Network Operations
+  hard_negatives:
+  - Advanced Voice Services Operations
+  - Business Unit Financial Operations
+  - Card Network Participant Facility
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-bank-drafts
+  tipo: nombre_deformado
+  hu: (validar-sd) Bank Draft
+  consulta: Bank Draft
+  positivo: Bank Drafts
+  hard_negatives:
+  - Bank Portfolio Administration
+  - Bank Portfolio Analysis
+  - Correspondent Bank Directory
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-brokered-product-proxy
+  tipo: nombre_deformado
+  hu: (validar-sd) Broered Product Proxy
+  consulta: Broered Product Proxy
+  positivo: Brokered Product Proxy
+  hard_negatives:
+  - Customer Product And Service Eligibility
+  - Customer Product and Service Directory
+  - Product Design
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (falta la letra 'k')
+- id: deformado-card-clearing
+  tipo: nombre_deformado
+  hu: (validar-sd) Card Clear
+  consulta: Card Clear
+  positivo: Card Clearing
+  hard_negatives:
+  - Card Financial Settlement
+  - Card Network Participant Facility
+  - Card Terminal Administration
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-cash-concentration
+  tipo: nombre_deformado
+  hu: (validar-sd) Cash Conce
+  consulta: Cash Conce
+  positivo: Cash Concentration
+  hard_negatives:
+  - Cash Management And Account Services
+  - Market Data Switch Operation
+  - Central Cash Handling
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-collateral-asset-administration
+  tipo: nombre_deformado
+  hu: (validar-sd) Collateral Asset Admin
+  consulta: Collateral Asset Admin
+  positivo: Collateral Asset Administration
+  hard_negatives:
+  - Asset Securitization
+  - Claim Administration
+  - Fixed Asset Register
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-contact-center-operations
+  tipo: nombre_deformado
+  hu: (validar-sd) Contact Center Opera
+  consulta: Contact Center Opera
+  positivo: Contact Center Operations
+  hard_negatives:
+  - Contact Handler
+  - Contact Routing
+  - Operations Log
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-corporate-current-account
+  tipo: nombre_deformado
+  hu: (validar-sd) Corporate Current Accou
+  consulta: Corporate Current Accou
+  positivo: Corporate Current Account
+  hard_negatives:
+  - Current Account
+  - Account Recovery
+  - Corporate Action
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-corporate-trust-services
+  tipo: nombre_deformado
+  hu: (validar-sd) Corporate Trust Servi
+  consulta: Corporate Trust Servi
+  positivo: Corporate Trust Services
+  hard_negatives:
+  - Trust Services
+  - Archive Services
+  - Cash Management And Account Services
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-credit-and-margin-management
+  tipo: nombre_deformado
+  hu: (validar-sd) Credit and Margin Manag
+  consulta: Credit and Margin Manag
+  positivo: Credit and Margin Management
+  hard_negatives:
+  - Brand Management
+  - Correspondent Bank Relationship Management
+  - Credit Card
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-customer-campaign-management
+  tipo: nombre_deformado
+  hu: (validar-sd) Customer Campaign Manag
+  consulta: Customer Campaign Manag
+  positivo: Customer Campaign Management
+  hard_negatives:
+  - Brand Management
+  - Correspondent Bank Relationship Management
+  - Credit Management
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-customer-product-and-service-directory
+  tipo: nombre_deformado
+  hu: (validar-sd) Customer Product and Service Direc
+  consulta: Customer Product and Service Direc
+  positivo: Customer Product and Service Directory
+  hard_negatives:
+  - Service Directory
+  - Brokered Product Proxy
+  - Corporate Card Service
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-disbursement
+  tipo: nombre_deformado
+  hu: (validar-sd) Disursement
+  consulta: Disursement
+  positivo: Disbursement
+  hard_negatives:
+  - Procurement
+  - Financial Statement Assessment
+  - Segment Direction
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (falta la letra 'b')
+- id: deformado-employee-evaluation
+  tipo: nombre_deformado
+  hu: (validar-sd) Employee Evalu
+  consulta: Employee Evalu
+  positivo: Employee Evaluation
+  hard_negatives:
+  - Employee Payroll And Incentives
+  - Employee and Contractor Contract
+  - Employee Certification
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-financial-control
+  tipo: nombre_deformado
+  hu: (validar-sd) Financial Contr
+  consulta: Financial Contr
+  positivo: Financial Control
+  hard_negatives:
+  - Business Unit Financial Analysis
+  - Business Unit Financial Operations
+  - Customer Financial Insights
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-fraud-diagnosis
+  tipo: nombre_deformado
+  hu: (validar-sd) Fraud Diagn
+  consulta: Fraud Diagn
+  positivo: Fraud Diagnosis
+  hard_negatives:
+  - Fraud Model
+  - Hedge Fund Administration
+  - Mutual Fund Administration
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-incentive-account
+  tipo: nombre_deformado
+  hu: (validar-sd) Incentive Accou
+  consulta: Incentive Accou
+  positivo: Incentive Account
+  hard_negatives:
+  - Cash Management And Account Services
+  - Delinquent Account Handling
+  - Incentive Program Directory
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-investment-portfolio-analysis
+  tipo: nombre_deformado
+  hu: (validar-sd) Investment Portfolio Analy
+  consulta: Investment Portfolio Analy
+  positivo: Investment Portfolio Analysis
+  hard_negatives:
+  - Branch Portfolio
+  - Channel Portfolio
+  - Competitor Analysis
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-legal-advisory
+  tipo: nombre_deformado
+  hu: (validar-sd) Legal Advis
+  consulta: Legal Advis
+  positivo: Legal Advisory
+  hard_negatives:
+  - Consumer Advisory Services
+  - Corporate Tax Advisory
+  - Legal Entity Directory
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-market-data-switch-administration
+  tipo: nombre_deformado
+  hu: (validar-sd) Market Data Switch Admin
+  consulta: Market Data Switch Admin
+  positivo: Market Data Switch Administration
+  hard_negatives:
+  - Claim Administration
+  - Custody Administration
+  - Market Analysis
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-mergers-and-acquisitions-advisory
+  tipo: nombre_deformado
+  hu: (validar-sd) Mergers and Acquisitions Advis
+  consulta: Mergers and Acquisitions Advis
+  positivo: Mergers and Acquisitions Advisory
+  hard_negatives:
+  - Corporate Tax Advisory
+  - ECM And DCM
+  - Legal Advisory
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-partner-agreement
+  tipo: nombre_deformado
+  hu: (validar-sd) Partner Agree
+  consulta: Partner Agree
+  positivo: Partner Agreement
+  hard_negatives:
+  - Partner Management
+  - Contractor and Supplier Agreement
+  - Term Deposit Framework Agreement
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-payment-rail
+  tipo: nombre_deformado
+  hu: (validar-sd) Payent Rail
+  consulta: Payent Rail
+  positivo: Payment Rail
+  hard_negatives:
+  - Payment Confirmation
+  - Payment Orchestration
+  - Payment Order Initiation
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (falta la letra 'm')
+- id: deformado-product-design
+  tipo: nombre_deformado
+  hu: (validar-sd) Product Desig
+  consulta: Product Desig
+  positivo: Product Design
+  hard_negatives:
+  - Brokered Product Proxy
+  - Customer Campaign Design
+  - Customer Product And Service Eligibility
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-production-release
+  tipo: nombre_deformado
+  hu: (validar-sd) Production Relea
+  consulta: Production Relea
+  positivo: Production Release
+  hard_negatives:
+  - Production Risk Models
+  - Sales Product
+  - Product Design
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-public-reference-data-management
+  tipo: nombre_deformado
+  hu: (validar-sd) Public Reference Data Manag
+  consulta: Public Reference Data Manag
+  positivo: Public Reference Data Management
+  hard_negatives:
+  - Brand Management
+  - Credit Management
+  - Management Manual
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-rewards-menu
+  tipo: nombre_deformado
+  hu: (validar-sd) Rewrds Menu
+  consulta: Rewrds Menu
+  positivo: Rewards Menu
+  hard_negatives:
+  - Rewards Delivery
+  - Rewards Inventory
+  - Reward Points Awards And Redemption
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (falta la letra 'a')
+- id: deformado-service-provider-operations
+  tipo: nombre_deformado
+  hu: (validar-sd) Service Provider Opera
+  consulta: Service Provider Opera
+  positivo: Service Provider Operations
+  hard_negatives:
+  - Operations Log
+  - Point of Service
+  - Service Directory
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)
+- id: deformado-stock-lending-and-repos
+  tipo: nombre_deformado
+  hu: (validar-sd) Stok Lending and Repos
+  consulta: Stok Lending and Repos
+  positivo: Stock Lending and Repos
+  hard_negatives:
+  - Cash Management And Account Services
+  - Corporate Alliance and Stake Holder
+  - Customer Product And Service Eligibility
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (falta la letra 'c')
+- id: deformado-term-deposit
+  tipo: nombre_deformado
+  hu: (validar-sd) Term Depos
+  consulta: Term Depos
+  positivo: Term Deposit
+  hard_negatives:
+  - Term Deposit Framework Agreement
+  - Trader Position Operations
+  - Customer Position
+  procedencia: generado por scripts/evaluate_retrieval/generar_casos_nombre.py (última palabra abreviada)

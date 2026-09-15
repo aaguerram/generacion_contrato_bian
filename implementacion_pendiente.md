@@ -368,21 +368,88 @@ No avanzar de fase sin:
 | Endurecimiento operativo | cache/circuit breakers/canary | ❌ pendiente — sección 5 |
 
 
-## 9. Pendiente de verdad (2026-09-14)
+## 9. Pendiente de verdad (2026-09-14, revisado tras implementar los 6 puntos)
 
-Ninguno de estos es código que falte escribir: son decisiones que necesitan datos o cuota.
+### Hecho en esta iteración
 
-1. **Ponderar la fusión o elegir canales por caso de uso.** Hoy RRF trata igual al léxico y al
-   vectorial, y eso baja el recall en `mapear-historias`. El léxico sigue siendo el correcto para
-   `validar-sd`. Medir con pesos antes de encender el híbrido por defecto.
-2. **Ampliar el corpus dorado a ~100 consultas etiquetadas.** Con 7 no se puede comparar modelos
-   de embeddings ni justificar un default; solo detectar regresiones.
-3. **Correr el canary con LLM real** (`scripts/evaluate_retrieval/canary.py --proveedor ollama`)
-   para cada flag por separado, y solo entonces cambiar un default.
-4. **Encadenar el enriquecedor del landscape a `scripts/generate_matrix_view/`**, que hoy lo
+| # | Qué | Dónde | Estado por defecto |
+|---|---|---|---|
+| 1 | Caché de nodos en disco + `defer` + durabilidad | `CacheNodosArchivo`, `cache_policy` en los 7 nodos LLM | OFF (`cache_nodos_habilitado`) |
+| 2 | Canal disperso BM25 con puente ES->EN + RRF con `k` y pesos | `src/dominio/bm25.py`, `vocabulario_bian.py`, `fusion_rrf.py` | OFF (`retrieval_canal_lexico: rapidfuzz`, pesos 1.0) |
+| 3 | CAG escalonado (catálogo completo en el prompt) | `formatear_catalogo(..., chars_negocio)` | OFF (`cag_habilitado`) |
+| 4 | Corpus por capas + generador determinista + skill de etiquetado | `corpus_dorado.yaml`, `generar_casos_nombre.py`, `.claude/skills/corpus-dorado-bian/` | n/a |
+| 5 | Grafo como confirmación determinista del conflicto de ownership | `GrafoBian.objetos_compartidos`, `confirmar_conflictos_por_grafo` | OFF (`grafo_senales_adversarial`) |
+| 6 | CRAG: una vuelta correctiva si el lote de evidencia es débil | `_vuelta_correctiva` | OFF (`crag_reintento_habilitado`) |
+
+Lo que la medición de esta iteración añadió al diagnóstico:
+
+- **El canal disperso no fallaba por pesos, fallaba por idioma.** HU en español, catálogo BIAN
+  íntegramente en inglés: sin puente ES->EN, BM25 recupera CERO. Con él, `hu_real` pasa de 0.083 a
+  0.281 de MRR, y fusionado con el denso a 0.573 — por encima del mejor canal individual (0.342),
+  que es lo que la fusión prometía y nunca cumplía.
+- **Cada caso de uso quiere su canal disperso**: rapidfuzz gana en nombres (MRR 1.000 exacto /
+  0.945 con erratas), BM25 gana en lenguaje natural. Un único canal "léxico" para los dos era el
+  error de fondo.
+- **La fusión es un intercambio**: +MRR y −1 `hard_negative` por delante, a cambio de un positivo
+  que se cae del top-10 (R@10 0.83 -> 0.67).
+- **El promedio global del corpus engañaba**: el canal léxico mide 0.95 de Recall@10 global y 0.17
+  en `hu_real`. Por eso el corpus ahora tiene capas y el informe las reporta por separado.
+
+### Lo que sigue pendiente
+
+1. **Correr el canary con LLM real** (`canary.py --proveedor ollama`) flag por flag —ahora barato,
+   porque la caché de nodos solo repaga lo que cambió— y solo entonces cambiar un default. Ningún
+   flag de esta iteración se enciende sin eso.
+2. **Ampliar la capa `hu_real` a ~100 consultas etiquetadas.** Sigue siendo el cuello: son 6 y no
+   se fabrican. Protocolo en la skill `corpus-dorado-bian`. Las capas `nombre_canonico` /
+   `nombre_deformado` (91 casos) son regresión objetiva de `validar-sd`, NO poder estadístico
+   sobre el problema de negocio.
+3. ~~Volver a medir el reranker~~ **HECHO (2026-09-14)**: re-medido sobre `hu_real` con el canal
+   disperso ya arreglado, el cross-encoder **empeora**: R@1 0.50 -> 0.17, MRR 0.573 -> 0.300 y de
+   1 a 4 `hard_negatives` por delante, a cambio de R@10 0.67 -> 0.83. Su número bueno anterior
+   (0.71 -> 0.86) era rescate de la fusión rota. Como cada candidato por delante cuesta una
+   llamada LLM, la cabeza del ranking vale más que la cola: **`reranker_habilitado` se queda en
+   `false`**. Se probó además la hipótesis del texto (`--barrido-texto`, 10 variantes de
+   `texto_prosa()`): la prosa sube el MRR de 0.300 a 0.417 y baja los negativos de 4 a 2, pero
+   **ninguna variante llega a 0.573 / 1 negativo de no reordenar**. El pipeline pasa ya `prosa` en
+   vez del volcado del índice, para que encender el flag no reparta además el peor texto. Reabrir
+   el reranker exigiría otra vía (otro modelo, o texto escrito a mano por SD), no otra variante de
+   lo que el landscape ya publica.
+4. **Medir CAG contra retrieval en la capa `hu_real`** con LLM real: el coste en tokens está
+   medido (~27k -> ~48k -> ~54k), el efecto en la decisión no.
+5. **Encadenar el enriquecedor del landscape a `scripts/generate_matrix_view/`**, que hoy lo
    pisaría al regenerar.
-5. **`ownership_conflict_rate`** mete en el denominador hallazgos sobre SD ya descartados: con uno
-   solo salta a 1.0.
-6. **Entrenar un modelo propio** sigue descartado: 6 HU etiquetadas. El corpus dorado del punto 2
-   es el prerrequisito.
-7. **pgvector** no se implementa mientras la ADR no cambie.
+6. **`ownership_conflict_rate`** sigue metiendo en el denominador hallazgos sobre SD ya
+   descartados. La señal de grafo da una tasa paralela que descuenta el ruido
+   (`ownership_conflict_rate_respaldado`), pero no arregla el denominador.
+7. **Entrenar un modelo propio** sigue descartado: 6 HU etiquetadas. El punto 2 es el
+   prerrequisito.
+8. **pgvector** no se implementa mientras la ADR no cambie.
+9. **Checkpointer persistente**: `durabilidad: sync` usa `InMemorySaver`, así que sobrevive a un
+   fallo dentro del proceso pero no a su muerte. Hoy eso lo cubre la caché de nodos (re-ejecutar
+   paga solo lo que falta); un resume real exigiría `langgraph-checkpoint-sqlite`, que es una
+   dependencia nueva.
+
+### Cerrados el 2026-09-14 (los dos "extras menores" que quedaban anotados)
+
+- **`bom_diagram` del landscape en vez de deducir la ruta por convención.** `CatalogoJson.rutas_bom_puml()`
+  expone la `bom_diagram.puml_path` que declaran 265 de los 341 SD, y `CatalogoBomPuml` la prefiere,
+  con el slug kebab-case solo como respaldo. **No mueve ningún resultado**: se verificó que las dos
+  formas coinciden en los 265 casos, que las 265 rutas existen, que ninguno de los 76 SD sin
+  `bom_diagram` tiene un PUML que la convención encontrara, y que `bian_source_url` del landscape es
+  idéntico al `' BIAN source:` que ya trae cada `.puml` (de donde sale hoy `ModeloBomPuml.source_url`).
+  Lo que compra es que una regeneración del landscape o de los diagramas que cambie el criterio de
+  nombres falle en `tests/unit_test/test_catalogo_bom_puml.py` en vez de dejar al paquete de evidencia
+  sin BOM en silencio (`objeto_bom` a 0.0, sin error ni log). Quedan 7 `.puml` huérfanos
+  (`ach-operations`, `correspondent-bank-operations`, `direct-debit-collection`, `direct-debits-service`,
+  `payment-execution`, `payment-instruction`, `payment-order`): ningún SD de v14 los referencia ni los
+  alcanzaría por convención — son diagramas de nombres que el release renombró, no una pérdida.
+- **Las dos `documentation` de `Partner Management` y `Brand Management`.** El criterio BIAN que las
+  resuelve es estructural, no un juicio caso a caso: `documentation` es la ficha del Service Domain
+  (`** 1. Role ** / ** 2. Examples of use ** / ...`), así que su sección 1 tiene que decir lo mismo que
+  el `role_definition` de ese SD. El valor que aplicó el enriquecedor cumple; el que traía el landscape
+  era la definición de una *capability* —otro artefacto BIAN—. Hoy coinciden **338/338** de los SD que
+  traen ambos campos, y lo fija
+  `test_catalogo_bian_unico.py::test_la_documentacion_describe_al_service_domain_y_no_a_otra_cosa`.
+  Los 3 no comparables (`Card Transaction Tracking` sin `documentation`; `Operational Risk Models` y
+  `Sales Planning` sin `role_definition`) no los publica ninguna de las dos fuentes oficiales.

@@ -55,7 +55,13 @@ EstadoEvaluacion = Literal["DIRECTO", "TENTATIVO", "DESCARTADO", "NO_RESUELTO"]
 NivelAmbiguedad = Literal["NONE", "LOW", "HIGH"]
 
 # Origen de un candidato en la lista unificada a evaluar.
-OrigenCandidato = Literal["llm", "omitido", "completitud", "retrieval_hibrido", "graph_rag"]
+# "crag": lo reinyectó la vuelta correctiva cuando el lote de evidencia salió vacío o sin
+# operaciones/BOM (ver `_vuelta_correctiva`). Se distingue de "retrieval_hibrido" a propósito: el
+# híbrido siempre aporta candidatos, el CRAG solo aparece cuando la primera pasada no sostenía
+# ninguna decisión -- y eso es justo lo que hay que poder contar en las métricas.
+OrigenCandidato = Literal[
+    "llm", "omitido", "completitud", "retrieval_hibrido", "graph_rag", "crag"
+]
 
 # Motivo de la decisión contractual (sub-taxonomía del diagrama de dos ejes).
 MotivoDecision = Literal[

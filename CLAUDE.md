@@ -32,13 +32,39 @@ para candidatos ausentes; no usa Internet ni memoria del modelo como evidencia d
   procedencia) que genera `scripts/ingest_bian/`; lo consume la expansión Graph RAG.
 
 Retrieval avanzado, todo **OFF por defecto** y con flags INDEPENDIENTES en `config.yaml`
-(`retrieval_hibrido_habilitado`, `graph_rag_habilitado`, `reranker_habilitado`, `vector_store`):
+(`retrieval_hibrido_habilitado`, `graph_rag_habilitado`, `reranker_habilitado`, `vector_store`,
+`retrieval_canal_lexico`, `cag_habilitado`, `grafo_senales_adversarial`,
+`crag_reintento_habilitado`, `cache_nodos_habilitado`, `durabilidad`):
 Graph RAG (`GrafoBianPort`), reranker cross-encoder local (`RerankerPort`) e índice Qdrant
 (`infra/retrieval/`, volumen persistente). Antes de encender cualquiera, medir con
 `scripts/evaluate_retrieval/` (benchmark + canary) — el estado real, lo que la medición desmintió
 del plan original y lo que queda pendiente están en
 [`implementacion_pendiente.md`](implementacion_pendiente.md) §0 y §9. Decisión del backend
 vectorial: [`docs/adr/0001-vector-store.md`](docs/adr/0001-vector-store.md).
+
+**Un canal disperso por caso de uso** (medido, ver el README del benchmark): `RecuperadorLexico`
+(rapidfuzz) compara la consulta con el **nombre** del SD y es el de `validar-sd` (MRR 1.000 en
+nombres exactos, 0.945 con erratas); `RecuperadorBM25` indexa el **texto** del SD con IDF y es el
+de `mapear-historias`. BM25 solo funciona porque traduce: las HU están en español y el catálogo
+BIAN entero en inglés, así que sin el puente `src/dominio/vocabulario_bian.py` la consulta y el
+corpus no comparten ni un término y el canal recupera **cero**. Esa —y no la falta de pesos— era
+la causa del 0.29 histórico. `fusion_rrf` acepta `k` y un peso por canal (`rrf_k`,
+`rrf_peso_lexico`, `rrf_peso_vectorial`).
+
+**CAG escalonado** (`cag_habilitado` + `cag_chars_por_sd`): a 341 Service Domains el catálogo
+entero cabe en contexto (~27k tokens hoy, ~48k con 300 chars de negocio por SD, ~54k con todo lo
+que publica el landscape), así que el Recall@K de la recuperación es una **elección**, no una
+restricción. El escalón añade `examples_of_use`/`features` al catálogo del prompt de candidatos y
+al índice del de completitud.
+
+**Caché de nodos y durabilidad** (`cache_nodos_habilitado`, `cache_nodos_ruta`, `cache_nodos_ttl`,
+`durabilidad`): `CacheNodosArchivo` (`BaseCache` de LangGraph sobre disco) cachea los nodos LLM
+con `cache_policy`; la clave la calcula el `key_func` de cada nodo desde sus entradas semánticas
+más la firma de la corrida (cadena de modelos + `catalog_sha256`), así que ni un modelo distinto
+ni una evidencia distinta reutilizan nada. Re-ejecutar tras un fallo de cuota paga **solo lo que
+falta**, y medir flag por flag deja de repagar todas las llamadas. `reconciliar` es además un nodo
+`defer=True` (ve todas las HU). `durabilidad: sync|async` activa checkpointer (`InMemorySaver`);
+sobrevivir a la muerte del proceso exigiría `langgraph-checkpoint-sqlite`, que no está instalado.
 
 ## Configuración: `config.yaml` + `.env`
 
@@ -86,7 +112,8 @@ vectorial: [`docs/adr/0001-vector-store.md`](docs/adr/0001-vector-store.md).
 
       **Retrieval híbrido** (`mapear_historias.retrieval_hibrido_habilitado`, **OFF por
       defecto**): antes de resolver, `_candidatos_retrieval_hibrido` consulta los
-      `RecuperadorSemanticoPort` configurados (léxico `RecuperadorLexico` siempre + vectorial
+      `RecuperadorSemanticoPort` configurados (canal disperso — `RecuperadorLexico` por nombre o
+      `RecuperadorBM25` por texto según `retrieval_canal_lexico` — siempre + vectorial
       `RecuperadorVectorial` si hay embeddings utilizables — mismos adaptadores que `validar-sd`,
       en memoria, sin Qdrant/pgvector) con la consulta = `business_actions/objects` +
       `capacidades_funcionales` + `outcomes` de `intencion`, fusiona con RRF
@@ -167,7 +194,15 @@ vectorial: [`docs/adr/0001-vector-store.md`](docs/adr/0001-vector-store.md).
       califica para promoción (sin `dependency_kind` de salida, sin trazabilidad/evidencia,
       `objeto_bom` insuficiente, o contradicho por `DIRECTO_SIN_SERVICE_ROLE`) queda como
       incidencia `OWNERSHIP_CONFLICT_UNRESOLVED` (nunca se pierde en silencio; ver
-      `metricas.ownership_*` en la salida). Caso real que motivó la promoción:
+      `metricas.ownership_*` en la salida). Con `grafo_senales_adversarial` (**OFF por defecto**)
+      ese conflicto deja de ser solo la palabra del revisor: `GrafoBianPort.objetos_compartidos`
+      busca qué nodo REAL del catálogo comparten los candidatos y `confirmar_conflictos_por_grafo`
+      aplica la misma regla de especificidad que la expansión — compartir `Party` (125 SD) o
+      `Document` (27 SD) no es contender por un objeto, es el andamiaje de BIAN. El veredicto no
+      reclasifica nada: cambia el motivo a `OWNERSHIP_CONFLICT_CONFIRMED_BY_GRAPH` o
+      `..._NOT_BACKED_BY_GRAPH` y alimenta `ownership_conflict_rate_respaldado`, que es la misma
+      tasa descontando el ruido. Medido sobre el grafo real, los candidatos de las dos HU conocidas
+      NO comparten ningún objeto específico. Caso real que motivó la promoción:
       "Notificar actualización de datos" → Correspondence quedaba REJECTED/CONSUMED_DEPENDENCY
       pese a citar `InitiateOutbound` (`salida/2026-09-11_17-59-40/`). Caso real que motivó el piso
       `objeto_bom`: la misma historia promovía también a "Party Authentication" sin base real
@@ -264,7 +299,9 @@ vectorial: [`docs/adr/0001-vector-store.md`](docs/adr/0001-vector-store.md).
    promovidos+degradados+sin-resolver — quedan `UNRESOLVED` bloqueados, no reclasificados a
    ciegas), `operation_grounding_rate` (operaciones ancladas sin `OPERATION_EVIDENCE_UNVERIFIED`, sobre el
    total ancladas), `operation_id_no_resuelto` (incidencias `OPERATION_ID_UNRESOLVED`) y
-   `finalizados_por_operacion_solida` (`OWNED_FINALIZED_BY_OPERATION_EVIDENCE`, ver paso 9).
+   `finalizados_por_operacion_solida` (`OWNED_FINALIZED_BY_OPERATION_EVIDENCE`, ver paso 9),
+   `ownership_conflict_rate_respaldado` + `ownership_conflictos_confirmados_por_grafo` /
+   `ownership_conflictos_sin_respaldo_de_grafo` (paso 8).
    `desglose_score` de cada SD también trae `retrieval_score` (origen retrieval híbrido) y
    `operation_support_score` (fracción de sus operaciones verificadas) — aditivos, nunca entran a
    `total`.

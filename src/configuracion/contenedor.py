@@ -13,6 +13,7 @@ from pathlib import Path
 from src.adaptadores.salida.adjudicador_langchain import AdjudicadorLangChain
 from src.adaptadores.salida.analista_mapeo_langchain import AnalistaMapeoBianLangChain
 from src.adaptadores.salida.catalogo_bian_cache import CatalogoBianCache
+from src.adaptadores.salida.cache_nodos_archivo import CacheNodosArchivo
 from src.adaptadores.salida.catalogo_bom_puml import CatalogoBomPuml
 from src.adaptadores.salida.catalogo_json import CatalogoJson
 from src.adaptadores.salida.embeddings_failover import EmbeddingsConFailover
@@ -25,6 +26,7 @@ from src.adaptadores.salida.llm.failover import ChatConFailover, EntradaModelo
 from src.adaptadores.salida.mapeador_operaciones_langchain import MapeadorOperacionesLangChain
 from src.adaptadores.salida.publicador_json import PublicadorJson
 from src.adaptadores.salida.publicador_mapeo_json import PublicadorMapeoJson
+from src.adaptadores.salida.recuperador_bm25 import RecuperadorBM25
 from src.adaptadores.salida.recuperador_lexico import RecuperadorLexico
 from src.adaptadores.salida.recuperador_qdrant import RecuperadorQdrant
 from src.adaptadores.salida.recuperador_vectorial import RecuperadorVectorial
@@ -169,7 +171,14 @@ def _recuperadores_hibridos(
     """Léxico (siempre, sin API) + vectorial (best-effort: si no hay proveedor de embeddings
     utilizable, se sigue solo con léxico -- nunca rompe la corrida por esto, igual que
     `_h_preparar` degrada a "sin retrieval híbrido" si la lista queda vacía)."""
-    recuperadores: list[RecuperadorSemanticoPort] = [RecuperadorLexico(catalogo)]
+    # El canal disperso se elige por caso de uso: rapidfuzz compara NOMBRES (validar-sd), BM25
+    # indexa el TEXTO del SD con IDF y traduce ES->EN (mapear-historias). Ver
+    # `scripts/evaluate_retrieval/` para los números que sostienen la elección.
+    recuperadores: list[RecuperadorSemanticoPort] = [
+        RecuperadorBM25(catalogo)
+        if config.mapear_historias.retrieval_canal_lexico == "bm25"
+        else RecuperadorLexico(catalogo)
+    ]
     try:
         emb, modelo_emb = _embeddings(config, proveedor)
         if config.mapear_historias.vector_store == "qdrant":
@@ -207,7 +216,11 @@ def crear_caso_uso_mapeo(
         mh.release_bian,
         permitir_descargas=mh.descargar_faltantes,
     )
-    catalogo_bom = CatalogoBomPuml(config.ruta_bian_puml) if mh.bom_puml_habilitado else None
+    catalogo_bom = (
+        CatalogoBomPuml(config.ruta_bian_puml, catalogo.rutas_bom_puml())
+        if mh.bom_puml_habilitado
+        else None
+    )
     recuperadores = (
         _recuperadores_hibridos(config, catalogo, proveedor)
         if mh.retrieval_hibrido_habilitado
@@ -220,6 +233,7 @@ def crear_caso_uso_mapeo(
         temperature=config.llm.temperature,
         catalog_sha256=catalog_sha,
         rol_max_chars=mh.rol_max_chars,
+        cag_chars_por_sd=mh.cag_chars_por_sd if mh.cag_habilitado else 0,
     )
     mapeador = MapeadorOperacionesLangChain(
         chat,
@@ -252,8 +266,21 @@ def crear_caso_uso_mapeo(
         recuperadores=recuperadores,
         retrieval_top_k=mh.retrieval_top_k,
         retrieval_max_inyectados=mh.retrieval_max_inyectados,
-        grafo=GrafoBianJson(config.ruta_grafo_bian) if mh.graph_rag_habilitado else None,
-        graph_rag_max_inyectados=mh.graph_rag_max_inyectados,
+        rrf_k=mh.rrf_k,
+        rrf_pesos=[mh.rrf_peso_lexico, mh.rrf_peso_vectorial],
+        # El grafo se carga si lo pide CUALQUIERA de sus dos usos (expandir candidatos o
+        # confirmar conflictos); `graph_rag_max_inyectados=0` deja solo el segundo.
+        grafo=GrafoBianJson(config.ruta_grafo_bian)
+        if (mh.graph_rag_habilitado or mh.grafo_senales_adversarial)
+        else None,
+        graph_rag_max_inyectados=mh.graph_rag_max_inyectados if mh.graph_rag_habilitado else 0,
+        senales_grafo_adversarial=mh.grafo_senales_adversarial,
+        crag_reintento=mh.crag_reintento_habilitado,
         reranker=RerankerCrossEncoder(mh.reranker_modelo) if mh.reranker_habilitado else None,
         presupuesto_segundos_hu=mh.presupuesto_segundos_hu,
+        cache_nodos=CacheNodosArchivo(config.ruta_cache_nodos)
+        if mh.cache_nodos_habilitado
+        else None,
+        cache_nodos_ttl=mh.cache_nodos_ttl,
+        durabilidad=mh.durabilidad,
     )

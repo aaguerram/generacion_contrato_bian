@@ -34,15 +34,29 @@ import yaml  # noqa: E402
 
 from src.adaptadores.salida.catalogo_json import CatalogoJson  # noqa: E402
 from src.adaptadores.salida.grafo_bian_json import GrafoBianJson  # noqa: E402
+from src.adaptadores.salida.recuperador_bm25 import RecuperadorBM25  # noqa: E402
 from src.adaptadores.salida.recuperador_lexico import RecuperadorLexico  # noqa: E402
 from src.adaptadores.salida.reranker_local import RerankerCrossEncoder  # noqa: E402
 from src.configuracion.settings import cargar_settings  # noqa: E402
 from src.dominio.fusion_rrf import fusion_rrf  # noqa: E402
+from src.dominio.modelos import VARIANTES_TEXTO_SD  # noqa: E402
 from src.dominio.normalizacion import normalizar  # noqa: E402
 
 CORPUS = Path(__file__).parent / "corpus_dorado.yaml"
-CANALES_POR_DEFECTO = ("lexico", "vectorial", "qdrant", "rrf", "rrf+graph", "rrf+graph+rerank")
+CANALES_POR_DEFECTO = (
+    "lexico",
+    "bm25",
+    "vectorial",
+    "qdrant",
+    "rrf",
+    "rrf-bm25",
+    "rrf+graph",
+    "rrf+graph+rerank",
+)
 TOP_K = 20
+# Rejilla del barrido `--barrido`: k de RRF x peso del canal disperso (el denso queda fijo en 1.0).
+KS_BARRIDO = (10, 20, 60)
+PESOS_BARRIDO = (0.0, 0.25, 0.5, 1.0)
 
 
 def _vectorial(config, catalogo):
@@ -75,8 +89,9 @@ def _qdrant(config):
         return None
 
 
-def _ranking(canal: str, consulta: str, ctx: dict) -> list[str]:
+def _ranking(canal: str, consulta: str, ctx: dict, *, k_rrf: int = 60, peso_disperso: float = 1.0) -> list[str]:
     lex = [c.service_domain for c in ctx["lexico"].recuperar(consulta, TOP_K)]
+    bm = [c.service_domain for c in ctx["bm25"].recuperar(consulta, TOP_K)] if ctx.get("bm25") else []
     vec = (
         [c.service_domain for c in ctx["vectorial"].recuperar(consulta, TOP_K)]
         if ctx.get("vectorial")
@@ -84,6 +99,8 @@ def _ranking(canal: str, consulta: str, ctx: dict) -> list[str]:
     )
     if canal == "lexico":
         return lex
+    if canal == "bm25":
+        return bm
     if canal == "vectorial":
         return vec
     if canal == "qdrant":
@@ -92,8 +109,11 @@ def _ranking(canal: str, consulta: str, ctx: dict) -> list[str]:
             if ctx.get("qdrant")
             else []
         )
-    base = [n for n, _ in fusion_rrf([r for r in (lex, vec) if r])]
-    if canal == "rrf":
+    disperso = bm if canal.startswith("rrf-bm25") else lex
+    canales = [r for r in (disperso, vec) if r]
+    pesos = [peso_disperso, 1.0][: len(canales)] if len(canales) == 2 else None
+    base = [n for n, _ in fusion_rrf(canales, k=k_rrf, pesos=pesos)]
+    if canal in ("rrf", "rrf-bm25"):
         return base
     if canal.startswith("rrf+graph"):
         expandidos = ctx["grafo"].expandir(base[:5], tope=5) if ctx.get("grafo") else []
@@ -102,17 +122,33 @@ def _ranking(canal: str, consulta: str, ctx: dict) -> list[str]:
             c.service_domain for c in expandidos if normalizar(c.service_domain) not in vistos
         ]
     if canal.endswith("rerank") and ctx.get("reranker"):
-        docs = [(n, ctx["textos"].get(normalizar(n), n)) for n in base]
+        # Qué texto ve el cross-encoder es una decisión aparte de qué canal lo alimenta: un índice
+        # quiere cobertura de vocabulario, un cross-encoder quiere algo que se lea. `--texto-rerank`
+        # la hace explícita y `--barrido-texto` la mide en vez de suponerla.
+        textos = ctx.get("textos_rerank") or ctx["textos"]
+        docs = [(n, textos.get(normalizar(n), n)) for n in base]
         base = [n for n, _ in ctx["reranker"].reordenar(consulta, docs, tope=len(docs))]
     return base
 
 
-def evaluar(casos: list[dict], canales: tuple[str, ...], ctx: dict) -> dict:
+def evaluar(
+    casos: list[dict],
+    canales: tuple[str, ...],
+    ctx: dict,
+    *,
+    k_rrf: int = 60,
+    peso_disperso: float = 1.0,
+) -> dict:
     resultados: dict[str, dict] = {}
     for canal in canales:
         filas = []
         for caso in casos:
-            ranking = [normalizar(n) for n in _ranking(canal, caso["consulta"], ctx)]
+            ranking = [
+                normalizar(n)
+                for n in _ranking(
+                    canal, caso["consulta"], ctx, k_rrf=k_rrf, peso_disperso=peso_disperso
+                )
+            ]
             positivo = normalizar(caso["positivo"])
             pos = ranking.index(positivo) + 1 if positivo in ranking else 0
             negativos = {normalizar(n) for n in caso.get("hard_negatives", [])}
@@ -131,30 +167,90 @@ def evaluar(casos: list[dict], canales: tuple[str, ...], ctx: dict) -> dict:
     return resultados
 
 
+def barrido(casos: list[dict], ctx: dict, canal: str) -> list[dict]:
+    """Rejilla `k` x peso del canal disperso sobre UN canal fusionado.
+
+    AVISO estadístico: con 7 consultas, un solo acierto mueve 0.14 de recall, así que el mejor
+    punto de esta rejilla está sobreajustado por construcción. Sirve para ver la FORMA de la
+    superficie (¿el peso del disperso ayuda o estorba?, ¿k importa?), no para fijar un default.
+    """
+    filas = []
+    for k in KS_BARRIDO:
+        for peso in PESOS_BARRIDO:
+            r = evaluar(casos, (canal,), ctx, k_rrf=k, peso_disperso=peso)[canal]
+            filas.append(
+                {
+                    "canal": canal,
+                    "k": k,
+                    "peso_disperso": peso,
+                    "recall@5": r["recall@5"],
+                    "recall@10": r["recall@10"],
+                    "mrr": r["mrr"],
+                    "negativos_delante": r["negativos_delante"],
+                }
+            )
+    return filas
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     p.add_argument("--canales", default=",".join(CANALES_POR_DEFECTO))
     p.add_argument("--json", default="", help="Escribe el informe completo en este archivo.")
     p.add_argument("--corpus", default=str(CORPUS))
+    p.add_argument(
+        "--barrido",
+        default="",
+        help="Canal fusionado sobre el que barrer k x peso_disperso (p. ej. rrf-bm25).",
+    )
+    p.add_argument(
+        "--tipo", default="", help="Evalúa solo los casos del corpus con este `tipo` (ver README)."
+    )
+    p.add_argument(
+        "--texto-rerank",
+        default="indice",
+        choices=list(VARIANTES_TEXTO_SD),
+        help="Qué texto del Service Domain ve el cross-encoder (ver EntradaCatalogo.texto_prosa).",
+    )
+    p.add_argument(
+        "--barrido-texto",
+        default="",
+        help="Canal con rerank sobre el que probar TODAS las variantes de texto (p. ej. "
+        "rrf-bm25+rerank). Imprime una fila por variante.",
+    )
     args = p.parse_args(argv)
 
     corpus = yaml.safe_load(Path(args.corpus).read_text(encoding="utf-8"))
     casos = corpus["casos"]
+    if args.tipo:
+        casos = [c for c in casos if c.get("tipo") == args.tipo]
+        if not casos:
+            print(f"ningún caso con tipo='{args.tipo}'")
+            return 1
     config = cargar_settings()
     catalogo = CatalogoJson(config.ruta_catalogo_bian)
     entradas = catalogo.cargar()
 
     canales = tuple(c.strip() for c in args.canales.split(",") if c.strip())
+    # Los canales que hay que poder construir incluyen los que solo aparecen en un barrido: si no,
+    # `ctx["reranker"]` sería None y el barrido de texto mediría "sin rerank" en todas las filas
+    # (diez filas idénticas y ninguna señal de que el modelo no llegó a cargarse).
+    canales_activos = canales + tuple(
+        c for c in (args.barrido, args.barrido_texto) if c
+    )
     reranker = RerankerCrossEncoder(config.mapear_historias.reranker_modelo)
     ctx = {
         "lexico": RecuperadorLexico(catalogo),
+        "bm25": RecuperadorBM25(catalogo),
         "vectorial": _vectorial(config, catalogo)
-        if any("vectorial" in c or c.startswith("rrf") for c in canales)
+        if any("vectorial" in c or c.startswith("rrf") for c in canales_activos)
         else None,
         "grafo": GrafoBianJson(config.ruta_grafo_bian),
-        "qdrant": _qdrant(config) if "qdrant" in canales else None,
-        "reranker": reranker if any(c.endswith("rerank") for c in canales) else None,
+        "qdrant": _qdrant(config) if "qdrant" in canales_activos else None,
+        "reranker": reranker if any(c.endswith("rerank") for c in canales_activos) else None,
         "textos": {normalizar(e.service_domain): e.texto_para_indexar() for e in entradas},
+        "textos_rerank": {
+            normalizar(e.service_domain): e.texto_prosa(args.texto_rerank) for e in entradas
+        },
     }
 
     print(f"corpus: {len(casos)} consultas · catálogo: {len(entradas)} SD\n")
@@ -168,10 +264,59 @@ def main(argv: list[str] | None = None) -> int:
             + (f"   ✗ sin recuperar: {r['no_recuperados']}" if r["no_recuperados"] else "")
         )
 
+    tipos = sorted({c.get("tipo", "sin_tipo") for c in casos})
+    if len(tipos) > 1:
+        # Las capas del corpus NO se promedian entre sí: `hu_real` mide el problema de negocio y
+        # las capas de nombre miden `validar-sd`. Un número global las mezclaría y taparía justo
+        # lo que interesa (que mejorar una no rompa la otra).
+        print("\npor capa del corpus:")
+        for tipo in tipos:
+            subconjunto = [c for c in casos if c.get("tipo", "sin_tipo") == tipo]
+            parcial = evaluar(subconjunto, canales, ctx)
+            print(f"  [{tipo}] n={len(subconjunto)}")
+            for canal, r in parcial.items():
+                print(
+                    f"    {canal:20s} R@1 {r['recall@1']:.2f}  R@5 {r['recall@5']:.2f}  "
+                    f"R@10 {r['recall@10']:.2f}  MRR {r['mrr']:.3f}"
+                )
+
     print(
         "\nRecall alto NO implica que el pipeline acierte: mide recuperación, no decisión. "
         "Contrastar con ownership_conflict_rate y operation_grounding_rate de una corrida real."
     )
+
+    if args.barrido_texto:
+        canal = args.barrido_texto
+        if ctx.get("reranker") is None:
+            print(f"\nbarrido de texto imposible: '{canal}' no activa ningún reranker")
+            return 1
+        print(f"\nbarrido de texto sobre '{canal}' (qué lee el cross-encoder):")
+        print(f"{'variante':22s} {'chars':>7s} {'R@1':>6s} {'R@5':>6s} {'R@10':>6s} {'MRR':>6s} {'neg':>5s}")
+        for variante in VARIANTES_TEXTO_SD:
+            ctx["textos_rerank"] = {
+                normalizar(e.service_domain): e.texto_prosa(variante) for e in entradas
+            }
+            if hasattr(ctx.get("reranker"), "_cache"):
+                ctx["reranker"]._cache.clear()  # el cache es por (consulta, candidatos), no por texto
+            r = evaluar(casos, (canal,), ctx)[canal]
+            medio = sum(len(t) for t in ctx["textos_rerank"].values()) // max(1, len(entradas))
+            print(
+                f"{variante:22s} {medio:7d} {r['recall@1']:6.2f} {r['recall@5']:6.2f} "
+                f"{r['recall@10']:6.2f} {r['mrr']:6.3f} {r['negativos_delante']:5d}"
+            )
+
+    if args.barrido:
+        print(f"\nbarrido sobre '{args.barrido}' (k x peso del canal disperso):")
+        print(f"{'k':>4s} {'peso':>6s} {'R@5':>6s} {'R@10':>6s} {'MRR':>6s} {'neg':>5s}")
+        for fila in barrido(casos, ctx, args.barrido):
+            print(
+                f"{fila['k']:4d} {fila['peso_disperso']:6.2f} {fila['recall@5']:6.2f} "
+                f"{fila['recall@10']:6.2f} {fila['mrr']:6.3f} {fila['negativos_delante']:5d}"
+            )
+        print(
+            f"Con {len(casos)} consultas un acierto mueve {1 / len(casos):.2f} de recall: "
+            "la rejilla muestra la FORMA de la superficie, no el default."
+        )
 
     if args.json:
         destino = Path(args.json)

@@ -14,7 +14,7 @@ import logging
 from pathlib import Path
 
 from src.aplicacion.puertos.grafo_bian import GrafoBianPort
-from src.dominio.grafo_bian import CandidatoGrafo, GrafoBian
+from src.dominio.grafo_bian import CandidatoGrafo, GrafoBian, ObjetoCompartido
 
 logger = logging.getLogger(__name__)
 
@@ -43,6 +43,10 @@ class GrafoBianJson(GrafoBianPort):
             "Grafo BIAN cargado: %d nodos, %d aristas", len(self._grafo.nodos), len(self._grafo.aristas)
         )
         return self._grafo
+
+    def objetos_compartidos(self, service_domains: list[str]) -> list[ObjetoCompartido]:
+        grafo = self._cargar()
+        return grafo.objetos_compartidos(service_domains) if grafo is not None else []
 
     def expandir(self, service_domains: list[str], *, tope: int) -> list[CandidatoGrafo]:
         grafo = self._cargar()

@@ -27,6 +27,8 @@ Depende SOLO de: dominio, puertos y `langgraph`.
 
 from __future__ import annotations
 
+import hashlib
+import json
 import logging
 import re
 import time
@@ -35,10 +37,12 @@ import uuid
 from langgraph.graph import END, START, StateGraph
 
 try:
-    from langgraph.types import RetryPolicy, Send
+    from langgraph.types import CachePolicy, RetryPolicy, Send
 except ImportError:  # pragma: no cover
     from langgraph.constants import Send  # type: ignore
     from langgraph.pregel import RetryPolicy  # type: ignore
+
+    CachePolicy = None  # type: ignore[assignment]
 
 from src.aplicacion.puertos.analista_mapeo import AnalistaMapeoBianPort
 from src.aplicacion.puertos.catalogo import CatalogoServiceDomainsPort
@@ -54,9 +58,12 @@ from src.aplicacion.puertos.reranker import RerankerPort
 from src.aplicacion.servicios.estado_historia import EstadoHistoria
 from src.aplicacion.servicios.estado_mapeo import EstadoMapeo
 from src.dominio.clasificacion_historias import (
+    CONFLICTO_CONFIRMADO_POR_GRAFO,
+    CONFLICTO_SIN_RESPALDO_DE_GRAFO,
     DEMOTED_REASON_CODE,
     OPERATION_FINALIZED_REASON_CODE,
     PROMOTED_REASON_CODE,
+    confirmar_conflictos_por_grafo,
     UmbralesMapeo,
     aplicar_hallazgos_adversariales,
     candidatos_operacion_elegibles,
@@ -231,6 +238,32 @@ def _bom_respalda(paquete: PaqueteEvidenciaCandidato, clase: str, atributo: str)
     return False
 
 
+def _canonico(valor) -> str:
+    """Texto estable y comparable de una entrada de nodo, para la clave de caché.
+
+    Modelos Pydantic -> su JSON (orden de campos fijo por el modelo); el resto -> JSON con claves
+    ordenadas. Nunca entra el estado completo: cada `key_func` elige QUÉ entradas son semánticas
+    para ese nodo, así que cambiar un flag que no afecta a un nodo no invalida su caché.
+    """
+    if valor is None:
+        return "null"
+    volcar = getattr(valor, "model_dump_json", None)
+    if callable(volcar):
+        return volcar()
+    if isinstance(valor, (list, tuple)):
+        return "[" + ",".join(_canonico(v) for v in valor) + "]"
+    if isinstance(valor, dict):
+        return "{" + ",".join(f"{k}:{_canonico(valor[k])}" for k in sorted(valor)) + "}"
+    try:
+        return json.dumps(valor, sort_keys=True, default=str)
+    except (TypeError, ValueError):  # pragma: no cover - defensivo
+        return str(valor)
+
+
+def _sha_corto(*partes: str) -> str:
+    return hashlib.sha256("\x1f".join(partes).encode("utf-8")).hexdigest()[:40]
+
+
 class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
     def __init__(
         self,
@@ -253,10 +286,17 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         recuperadores: list[RecuperadorSemanticoPort] | None = None,
         retrieval_top_k: int = 20,
         retrieval_max_inyectados: int = 5,
+        rrf_k: int = 60,
+        rrf_pesos: list[float] | None = None,
         grafo: GrafoBianPort | None = None,
         graph_rag_max_inyectados: int = 3,
+        senales_grafo_adversarial: bool = False,
+        crag_reintento: bool = False,
         reranker: RerankerPort | None = None,
         presupuesto_segundos_hu: float = 0.0,
+        cache_nodos=None,
+        cache_nodos_ttl: int = 0,
+        durabilidad: str = "exit",
     ) -> None:
         self._catalogo = catalogo
         self._lector = lector
@@ -278,8 +318,20 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         self._recuperadores = list(recuperadores or [])
         self._retrieval_top_k = max(1, retrieval_top_k)
         self._retrieval_max_inyectados = max(0, retrieval_max_inyectados)
+        # Fusión: `k` y un peso por canal (mismo orden que `recuperadores`). Sin pesos explícitos
+        # se fusiona como siempre (todos a 1.0) -- ver `fusion_rrf`.
+        self._rrf_k = max(1, rrf_k)
+        self._rrf_pesos = list(rrf_pesos) if rrf_pesos else None
         self._grafo_bian = grafo
         self._graph_rag_max_inyectados = max(0, graph_rag_max_inyectados)
+        # El grafo como SEÑAL para el árbitro, no como generador de candidatos: flag aparte del
+        # de expansión porque son dos usos distintos del mismo artefacto y hay que poder medirlos
+        # por separado (uno añade candidatos, el otro comprueba un conflicto ya afirmado).
+        self._senales_grafo_adversarial = senales_grafo_adversarial
+        # CRAG: UNA sola vuelta correctiva, y solo cuando el lote de evidencia sale vacío/débil.
+        # Acotada a propósito: un lazo agéntico abierto rompería las dos propiedades que el
+        # pipeline defiende (reproducibilidad por huellas y coste predecible por HU).
+        self._crag_reintento = crag_reintento
         self._reranker = reranker
         # Presupuesto para el retrieval OPCIONAL (híbrido + grafo + reranker) de cada historia.
         # No cubre las llamadas LLM: esas ya tienen su propio failover con reintentos. Cubre justo
@@ -287,20 +339,44 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # embeddings lento, un índice externo que no responde, un modelo que tarda en cargar-.
         # 0 = sin límite.
         self._presupuesto_segundos_hu = max(0.0, presupuesto_segundos_hu)
+        # Caché de nodos (LangGraph 1.x): `None` = desactivada y el grafo se comporta exactamente
+        # como antes. La clave de cada nodo lleva esta firma, así que un resultado producido por
+        # otra cadena de modelos o sobre otro catálogo NUNCA se reutiliza.
+        self._cache_nodos = cache_nodos
+        self._cache_nodos_ttl = max(0, cache_nodos_ttl) or None
+        self._firma_llm = _sha_corto(
+            str(self._parametros_base.get("cadena_llm", "")),
+            str(self._parametros_base.get("esfuerzo", "")),
+            str(self._parametros_base.get("catalog_sha256", "")),
+        )
+        self._durabilidad = durabilidad if durabilidad in ("exit", "sync", "async") else "exit"
         self._subgrafo = self._compilar_subgrafo()
         self._grafo = self._compilar()
 
     def ejecutar(
         self, directorio_hu: str, ruta_funcionalidad: str, directorio_salida: str
     ) -> ResultadoMapeoHistorias:
+        config: dict = {"recursion_limit": 60, "max_concurrency": self._concurrencia}
+        extra: dict = {}
+        if self._durabilidad != "exit":
+            # Cada corrida es su propio hilo de checkpoints: nunca se mezcla con una anterior.
+            config["configurable"] = {"thread_id": uuid.uuid4().hex}
+            extra["durability"] = self._durabilidad
         estado = self._grafo.invoke(
             {
                 "directorio_hu": directorio_hu,
                 "ruta_funcionalidad": ruta_funcionalidad,
                 "directorio_salida": directorio_salida,
             },
-            config={"recursion_limit": 60, "max_concurrency": self._concurrencia},
+            config=config,
+            **extra,
         )
+        if self._cache_nodos is not None:
+            logger.info(
+                "caché de nodos: %d aciertos / %d fallos",
+                getattr(self._cache_nodos, "aciertos", 0),
+                getattr(self._cache_nodos, "fallos", 0),
+            )
         return self._resultado_mapeo(estado)
 
     # ══ outer graph ═════════════════════════════════════════════════════════
@@ -427,7 +503,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         fusionados: list[tuple[str, str, list[str]]] = []
         puntajes: dict[str, float] = {}
         vistos = set(ya_normalizados)
-        for nombre, score in fusion_rrf(rankings):
+        pesos = self._rrf_pesos[: len(rankings)] if self._rrf_pesos else None
+        for nombre, score in fusion_rrf(rankings, k=self._rrf_k, pesos=pesos):
             puntajes[normalizar(nombre)] = round(score, 6)
             if len(fusionados) >= self._retrieval_max_inyectados or normalizar(nombre) in vistos:
                 continue
@@ -496,7 +573,13 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             return resueltos, {}
 
         por_clave = {normalizar(e.service_domain): (e, o, i) for e, o, i in resueltos}
-        documentos = [(clave, e.texto_para_indexar()) for clave, (e, _, _) in por_clave.items()]
+        # PROSA, no el texto del índice: un cross-encoder lee el par (consulta, documento), así
+        # que la jerarquía y la clasificación que el índice mete para cubrir vocabulario aquí solo
+        # son ruido. Medido sobre `hu_real` (`evaluate.py --barrido-texto`): con el texto del
+        # índice el reranker da MRR 0.300 y deja 4 `hard_negatives` delante; con `prosa`, 0.417 y
+        # 2. Sigue por debajo de no reordenar (0.573 / 1) -- por eso `reranker_habilitado` es
+        # `false`--, pero si alguien lo enciende no debe recibir además el peor texto posible.
+        documentos = [(clave, e.texto_prosa("prosa")) for clave, (e, _, _) in por_clave.items()]
         try:
             ranking = self._reranker.reordenar(consulta, documentos, tope=len(documentos))
         except Exception as exc:  # un reranker caído no puede tumbar la corrida
@@ -603,6 +686,13 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             )
         a_evaluar.sort(key=lambda p: p.service_domain.lower())
 
+        # ── CRAG: una vuelta correctiva si el lote no sostiene ninguna decisión ──
+        paquetes_crag, incidencia_crag = self._vuelta_correctiva(estado, a_evaluar, indice, reloj)
+        if paquetes_crag:
+            a_evaluar = sorted(a_evaluar + paquetes_crag, key=lambda p: p.service_domain.lower())
+        if incidencia_crag:
+            incidencias.append(incidencia_crag)
+
         ya = {normalizar(p.service_domain) for p in a_evaluar}
         omitidos = (
             detectar_omitidos(estado["intencion"], catalogo, ya, top_n=self._top_n_omitidos)
@@ -616,6 +706,98 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             "retrieval_scores": retrieval_scores,
             "graph_scores": graph_scores,
             "rerank_scores": rerank_scores,
+        }
+
+    @staticmethod
+    def _lote_debil(paquetes: list[PaqueteEvidenciaCandidato]) -> str:
+        """¿El lote de evidencia puede sostener ALGUNA decisión? Devuelve el motivo, o "".
+
+        Débil = no hay ni un candidato con evidencia utilizable: sin candidatos, o ninguno con
+        operaciones oficiales ni modelo BOM. Con un lote así, `evaluar_candidato` gastaría una
+        llamada LLM por candidato para terminar en `NO_OFFICIAL_BIAN_EVIDENCE` — es el único caso
+        en que volver a recuperar tiene sentido, y por eso la condición es estricta: reintentar
+        "por si acaso" duplicaría el coste de todas las historias para arreglar unas pocas.
+        """
+        if not paquetes:
+            return "sin candidatos resueltos"
+        if not any(p.operations or p.bom_modelo for p in paquetes):
+            return "ningún candidato con operaciones oficiales ni modelo BOM"
+        return ""
+
+    def _vuelta_correctiva(self, estado: EstadoHistoria, a_evaluar, indice, reloj):
+        """Reescribe la consulta con lo que la propia historia declaró que NO sabe y recupera UNA
+        vez más. Nunca reemplaza candidatos: solo añade, con `origen="crag"`.
+
+        La reescritura usa `gaps` / `unresolved_questions` / `capacidades_funcionales` de
+        `extraer_intencion` —lo que quedó sin resolver— en vez de repetir la misma consulta que ya
+        falló, que es lo que distingue una vuelta correctiva de un reintento ciego.
+        """
+        motivo = self._lote_debil(a_evaluar) if self._crag_reintento else ""
+        if not motivo or not self._recuperadores or not reloj.queda("vuelta correctiva CRAG"):
+            return [], None
+        intencion = estado.get("intencion")
+        if intencion is None:
+            return [], None
+        consulta = " ".join(
+            [
+                estado["historia"].titulo,
+                *intencion.gaps,
+                *intencion.unresolved_questions,
+                *intencion.capacidades_funcionales,
+            ]
+        ).strip()
+        if not consulta:
+            return [], None
+
+        ya = {normalizar(p.service_domain) for p in a_evaluar}
+        rankings = [
+            [c.service_domain for c in r.recuperar(consulta, self._retrieval_top_k)]
+            for r in self._recuperadores
+        ]
+        pesos = self._rrf_pesos[: len(rankings)] if self._rrf_pesos else None
+        nuevos: list[PaqueteEvidenciaCandidato] = []
+        for nombre, _score in fusion_rrf(rankings, k=self._rrf_k, pesos=pesos):
+            if len(nuevos) >= self._retrieval_max_inyectados:
+                break
+            entrada, resol = resolver_nombre_sd(nombre, indice)
+            if entrada is None or resol != "MATCH" or normalizar(entrada.service_domain) in ya:
+                continue
+            ya.add(normalizar(entrada.service_domain))
+            evidencia = self._catalogo_operaciones.asegurar(
+                [entrada.service_domain], actualizar=False
+            ).get(entrada.service_domain, EvidenciaBian())
+            ops = self._catalogo_operaciones.operaciones_de(entrada.service_domain) or []
+            if not ops:
+                continue  # si sigue sin evidencia, reinyectarlo solo gastaría otra llamada LLM
+            nuevos.append(
+                _paquete_de(
+                    entrada,
+                    evidencia,
+                    ops,
+                    self._catalogo_operaciones.esquemas_de(entrada.service_domain),
+                    origen="crag",
+                    supporting_intent=[],
+                    schemas_detalle=self._catalogo_operaciones.schemas_detalle_de(
+                        entrada.service_domain
+                    ),
+                    bom_modelo=self._catalogo_bom.modelo_de(entrada.service_domain)
+                    if self._catalogo_bom
+                    else None,
+                )
+            )
+        logger.info(
+            "HU '%s': vuelta correctiva CRAG (%s) -> %d candidato(s) con evidencia",
+            estado["historia"].titulo,
+            motivo,
+            len(nuevos),
+        )
+        return nuevos, {
+            "historia": estado["historia"].archivo,
+            "service_domain_propuesto": ", ".join(p.service_domain for p in nuevos) or "(ninguno)",
+            "resolucion": "MATCH",
+            "decision": "NOT_EVALUATED" if not nuevos else "RETRIED",
+            "motivo": "CRAG_RETRY_APPLIED",
+            "detalle": f"lote débil ({motivo}); consulta reescrita desde gaps/unresolved_questions",
         }
 
     def _fan_out_candidatos(self, estado: EstadoHistoria):
@@ -708,29 +890,58 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # Fase 0 (observabilidad): un hallazgo que NO califica para reclasificación automática
         # (ni promoción ni degradación) sigue siendo un conflicto de ownership real -- no debe
         # quedar solo en un log; ver `_metricas` en `_resultado_mapeo` (`ownership_conflict_rate`).
-        incidencias = [
-            {
-                "historia": estado["historia"].archivo,
-                "service_domain_propuesto": h.service_domain,
-                "resolucion": "MATCH",
-                "decision": "UNRESOLVED",
-                "motivo": "OWNERSHIP_CONFLICT_UNRESOLVED",
-                "detalle": h.detalle
-                or f"{h.tipo} sin evidencia determinista suficiente para "
-                "reclasificar automáticamente; revisar manualmente.",
-            }
+        sin_resolver = [
+            h
             for h in revision.hallazgos
             if h.tipo in ("ACCION_DIRECTA_COMO_DEPENDENCIA", "DEPENDENCIA_PROMOVIDA_A_CONTRATO")
             and h.service_domain
             and normalizar(h.service_domain) not in promovidos
             and normalizar(h.service_domain) not in degradados
         ]
+        # El grafo canónico contrasta el conflicto contra el catálogo: ¿hay un objeto ESPECÍFICO
+        # que estos candidatos compartan de verdad, o solo andamiaje BIAN que medio catálogo toca?
+        # No reclasifica nada -- separa conflicto accionable de ruido anotado.
+        veredictos = self._veredictos_de_grafo(estado, sin_resolver)
+        incidencias = []
+        for h in sin_resolver:
+            motivo, detalle_grafo = veredictos.get(
+                normalizar(h.service_domain or ""), ("OWNERSHIP_CONFLICT_UNRESOLVED", "")
+            )
+            base = (
+                h.detalle
+                or f"{h.tipo} sin evidencia determinista suficiente para "
+                "reclasificar automáticamente; revisar manualmente."
+            )
+            incidencias.append(
+                {
+                    "historia": estado["historia"].archivo,
+                    "service_domain_propuesto": h.service_domain,
+                    "resolucion": "MATCH",
+                    "decision": "UNRESOLVED",
+                    "motivo": motivo,
+                    "detalle": f"{base} {detalle_grafo}".strip(),
+                }
+            )
         return {
             "grupos": grupos,
             "bloqueos_hu": bloqueos,
             "propuestos_por_sd": propuestos_por_sd,
             "incidencias": incidencias,
         }
+
+    def _veredictos_de_grafo(self, estado: EstadoHistoria, hallazgos: list) -> dict:
+        """Veredicto del grafo sobre cada conflicto sin resolver (vacío si la señal está apagada)."""
+        if not self._senales_grafo_adversarial or self._grafo_bian is None or not hallazgos:
+            return {}
+        candidatos = [p.service_domain for p in estado.get("a_evaluar", [])]
+        try:
+            compartidos = self._grafo_bian.objetos_compartidos(candidatos)
+        except Exception as exc:  # pragma: no cover - el grafo nunca debe tumbar la corrida
+            logger.warning("señales de grafo no disponibles: %s", exc)
+            return {}
+        return confirmar_conflictos_por_grafo(
+            [h.service_domain for h in hallazgos if h.service_domain], compartidos
+        )
 
     def _h_operaciones(self, estado: EstadoHistoria) -> dict:
         elegibles = candidatos_operacion_elegibles(estado["grupos"])
@@ -1154,11 +1365,30 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
 
         promovidos = sum(1 for a in todos if PROMOTED_REASON_CODE in a.reason_codes)
         degradados_count = sum(1 for a in todos if DEMOTED_REASON_CODE in a.reason_codes)
-        sin_resolver = sum(
-            1 for i in incidencias if i.get("motivo") == "OWNERSHIP_CONFLICT_UNRESOLVED"
+        # Un conflicto sin resolver puede llevar tres motivos: el de siempre (sin señal de grafo),
+        # y los dos veredictos que el grafo emite cuando la señal está encendida.
+        motivos_conflicto = {
+            "OWNERSHIP_CONFLICT_UNRESOLVED",
+            CONFLICTO_CONFIRMADO_POR_GRAFO,
+            CONFLICTO_SIN_RESPALDO_DE_GRAFO,
+        }
+        conflictos = [i for i in incidencias if i.get("motivo") in motivos_conflicto]
+        sin_resolver = len(conflictos)
+        sin_respaldo = sum(
+            1 for i in conflictos if i.get("motivo") == CONFLICTO_SIN_RESPALDO_DE_GRAFO
+        )
+        confirmados = sum(
+            1 for i in conflictos if i.get("motivo") == CONFLICTO_CONFIRMADO_POR_GRAFO
         )
         base_ownership = promovidos + degradados_count + sin_resolver
         ownership_conflict_rate = round(sin_resolver / base_ownership, 4) if base_ownership else 0.0
+        # Misma tasa descontando los conflictos que el catálogo BIAN NO respalda (solo objetos
+        # genéricos compartidos). Con la señal de grafo apagada coincide con la de arriba.
+        accionables = sin_resolver - sin_respaldo
+        base_accionable = promovidos + degradados_count + accionables
+        ownership_conflict_rate_respaldado = (
+            round(accionables / base_accionable, 4) if base_accionable else 0.0
+        )
         finalizados_por_operacion = sum(
             1 for a in todos if OPERATION_FINALIZED_REASON_CODE in a.reason_codes
         )
@@ -1183,9 +1413,12 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             "candidatos_truncados": truncados,
             "candidatos_evaluados": total_evaluados,
             "ownership_conflict_rate": ownership_conflict_rate,
+            "ownership_conflict_rate_respaldado": ownership_conflict_rate_respaldado,
             "ownership_promovidos": promovidos,
             "ownership_degradados": degradados_count,
             "ownership_sin_resolver": sin_resolver,
+            "ownership_conflictos_confirmados_por_grafo": confirmados,
+            "ownership_conflictos_sin_respaldo_de_grafo": sin_respaldo,
             "operation_grounding_rate": operation_grounding_rate,
             "operaciones_ancladas": len(ops),
             "operation_id_no_resuelto": operation_id_no_resuelto,
@@ -1282,18 +1515,114 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                     mejor[o.service_domain] = o
         return sorted(mejor.values(), key=lambda o: (-o.score_lexico, o.service_domain))
 
+    # ══ caché de nodos ════════════════════════════════════════════════════
+    def _clave(self, nodo: str, *piezas) -> str:
+        """Clave de caché de un nodo: su firma de LLM/catálogo + sus entradas semánticas."""
+        return f"{nodo}:{_sha_corto(self._firma_llm, *(_canonico(x) for x in piezas))}"
+
+    def _checkpointer(self):
+        """Checkpointer solo si se pidió durabilidad: `durability` sin checkpointer no hace nada
+        (LangGraph avisa y falla). `InMemorySaver` da estado inspeccionable y reanudable DENTRO
+        del proceso -- suficiente para `interrupt`/human-in-the-loop. Sobrevivir a la muerte del
+        proceso exigiría `langgraph-checkpoint-sqlite`, que no está instalado; hoy eso lo cubre la
+        caché de nodos en disco: re-ejecutar salta lo ya calculado y solo paga lo que falta.
+        """
+        if self._durabilidad == "exit":
+            return None
+        from langgraph.checkpoint.memory import InMemorySaver
+
+        return InMemorySaver()
+
+    def _politica(self, nodo: str, clave):
+        """`CachePolicy` del nodo, o `None` si la caché está apagada (comportamiento de siempre)."""
+        if self._cache_nodos is None or CachePolicy is None:
+            return None
+        return CachePolicy(key_func=clave, ttl=self._cache_nodos_ttl)
+
     # ══ ensamblado de grafos ══════════════════════════════════════════════
     def _compilar_subgrafo(self):
         g = StateGraph(EstadoHistoria)
-        g.add_node("extraer_intencion", self._h_intencion, retry_policy=_RETRY)
-        g.add_node("generar_candidatos", self._h_candidatos, retry_policy=_RETRY)
-        g.add_node("revisar_completitud", self._h_completitud, retry_policy=_RETRY)
+        # Solo se cachean los nodos LLM: son los caros y los no deterministas. Los deterministas
+        # (`preparar_candidatos`, `clasificar`, `aplicar_adversarial`, `ensamblar`) cuestan
+        # milisegundos y recalcularlos siempre evita que una entrada de caché vieja fije una
+        # decisión que el código ya cambió.
+        g.add_node(
+            "extraer_intencion",
+            self._h_intencion,
+            retry_policy=_RETRY,
+            cache_policy=self._politica(
+                "intencion",
+                lambda e: self._clave("intencion", e["historia"], e["funcionalidad"]),
+            ),
+        )
+        g.add_node(
+            "generar_candidatos",
+            self._h_candidatos,
+            retry_policy=_RETRY,
+            cache_policy=self._politica(
+                "candidatos",
+                lambda e: self._clave(
+                    "candidatos", e["historia"], e["funcionalidad"], e.get("intencion")
+                ),
+            ),
+        )
+        g.add_node(
+            "revisar_completitud",
+            self._h_completitud,
+            retry_policy=_RETRY,
+            cache_policy=self._politica(
+                "completitud",
+                lambda e: self._clave(
+                    "completitud", e["historia"], e.get("intencion"), e.get("candidatos")
+                ),
+            ),
+        )
         g.add_node("preparar_candidatos", self._h_preparar)
-        g.add_node("evaluar_candidato", self._h_evaluar, retry_policy=_RETRY)
+        g.add_node(
+            "evaluar_candidato",
+            self._h_evaluar,
+            retry_policy=_RETRY,
+            cache_policy=self._politica(
+                "evaluacion",
+                # El paquete de evidencia entero entra en la clave: incluye el SHA-256 de la
+                # evidencia BIAN del SD, así que refrescar la caché BIAN invalida su evaluación.
+                lambda e: self._clave(
+                    "evaluacion",
+                    e["historia"],
+                    e["funcionalidad"],
+                    e.get("intencion"),
+                    e["paquete"],
+                ),
+            ),
+        )
         g.add_node("clasificar", self._h_clasificar)
-        g.add_node("revisar_adversarial", self._h_adversarial, retry_policy=_RETRY)
+        g.add_node(
+            "revisar_adversarial",
+            self._h_adversarial,
+            retry_policy=_RETRY,
+            cache_policy=self._politica(
+                "adversarial",
+                lambda e: self._clave(
+                    "adversarial", e["historia"], e.get("intencion"), e.get("grupos")
+                ),
+            ),
+        )
         g.add_node("aplicar_adversarial", self._h_aplicar_adversarial)
-        g.add_node("seleccionar_operaciones", self._h_operaciones, retry_policy=_RETRY)
+        g.add_node(
+            "seleccionar_operaciones",
+            self._h_operaciones,
+            retry_policy=_RETRY,
+            cache_policy=self._politica(
+                "operaciones",
+                lambda e: self._clave(
+                    "operaciones",
+                    e["historia"],
+                    e["funcionalidad"],
+                    e.get("grupos"),
+                    e.get("a_evaluar"),
+                ),
+            ),
+        )
         g.add_node("ensamblar", self._h_ensamblar)
 
         g.add_edge(START, "extraer_intencion")
@@ -1309,13 +1638,29 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         g.add_edge("aplicar_adversarial", "seleccionar_operaciones")
         g.add_edge("seleccionar_operaciones", "ensamblar")
         g.add_edge("ensamblar", END)
-        return g.compile()
+        return g.compile(cache=self._cache_nodos)
 
     def _compilar(self):
         g = StateGraph(EstadoMapeo)
         g.add_node("cargar", self._nodo_cargar)
         g.add_node("procesar_historia", self._nodo_procesar)
-        g.add_node("reconciliar", self._nodo_reconciliar, retry_policy=_RETRY)
+        g.add_node(
+            "reconciliar",
+            self._nodo_reconciliar,
+            retry_policy=_RETRY,
+            # `defer=True`: reconciliar ES un nodo diferido -- ve TODAS las HU. Hasta ahora eso
+            # dependía de que el map-reduce de LangGraph juntara las ramas antes de la arista;
+            # declararlo lo hace explícito y no depende del orden en que terminen las HU.
+            defer=True,
+            cache_policy=self._politica(
+                "reconciliacion",
+                lambda e: self._clave(
+                    "reconciliacion",
+                    e.get("funcionalidad"),
+                    [self._resumen_hu(h) for h in self._procesadas_ordenadas(e)],
+                ),
+            ),
+        )
         g.add_node("publicar", self._nodo_publicar)
 
         g.add_edge(START, "cargar")
@@ -1323,4 +1668,4 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         g.add_edge("procesar_historia", "reconciliar")
         g.add_edge("reconciliar", "publicar")
         g.add_edge("publicar", END)
-        return g.compile()
+        return g.compile(cache=self._cache_nodos, checkpointer=self._checkpointer())

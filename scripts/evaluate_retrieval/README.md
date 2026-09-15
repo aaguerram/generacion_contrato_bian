@@ -13,31 +13,123 @@ dos configuraciones del pipeline completo (canary).
     --base config.yaml --candidata otra-config.yaml --proveedor ollama
 ```
 
-## Resultados actuales (7 consultas, 341 SD, `qwen3-embedding:8b`)
+## El corpus tiene capas, y NO se promedian
+
+| capa | n | qué mide | se puede ampliar |
+|---|---|---|---|
+| `hu_real` | 6 | Historia de Usuario real -> su Service Domain propietario (`mapear-historias`) | solo con etiquetado humano (skill `corpus-dorado-bian`) |
+| `nombre_canonico` | 61 | la consulta ES el nombre exacto (`validar-sd`) | sí, generado |
+| `nombre_deformado` | 30 | el nombre con una deformación declarada (abreviatura, letra menos) | sí, generado |
+
+Las dos capas de nombre las genera `generar_casos_nombre.py` (determinista e idempotente; nunca
+toca los casos manuales). **No son poder estadístico sobre el problema de negocio**: son la
+regresión objetiva de `validar-sd` y el control de que mejorar un caso de uso no rompa el otro.
+
+Por qué importa la separación, con los números en la mano: el canal léxico por nombre mide
+**Recall@10 0.95 global** y **0.17 en `hu_real`**. Promediar las capas convertiría el peor canal
+para mapear historias en el mejor del informe.
+
+## Resultados actuales (97 consultas, 341 SD, `qwen3-embedding:8b`, 2026-09-14)
+
+`hu_real` (n=6) — el caso de uso `mapear-historias`:
 
 | canal | R@1 | R@5 | R@10 | MRR |
 |---|---|---|---|---|
-| léxico (rapidfuzz) | 0.14 | 0.29 | 0.29 | 0.214 |
-| vectorial en memoria | 0.29 | 0.71 | **0.86** | 0.436 |
-| Qdrant | 0.29 | 0.71 | **0.86** | 0.434 |
-| RRF (léxico+vectorial) | 0.29 | 0.43 | 0.71 | 0.370 |
-| RRF + graph | 0.29 | 0.43 | 0.71 | 0.370 |
-| RRF + graph + rerank (`bge-reranker-v2-m3`) | 0.29 | 0.43 | 0.86 | 0.410 |
+| léxico (rapidfuzz, por nombre) | 0.00 | 0.17 | 0.17 | 0.083 |
+| BM25 (por texto, con puente ES->EN) | 0.17 | 0.33 | 0.50 | 0.281 |
+| vectorial en memoria | 0.17 | 0.67 | **0.83** | 0.342 |
+| RRF (léxico + vectorial) | 0.17 | 0.33 | 0.67 | 0.265 |
+| **RRF (BM25 + vectorial)** | **0.50** | 0.67 | 0.67 | **0.573** |
 
-**El reranker rescata lo que la fusión rompe, pero no supera al mejor canal.** Sube el Recall@10
-de la cadena RRF de 0.71 a 0.86 y el MRR de 0.370 a 0.410 — y aun así el vectorial a secas sigue
-por delante en MRR (0.436) y cuela la mitad de `hard_negatives` (2 frente a 4). Con este corpus,
-la configuración que más rinde sigue siendo **vectorial solo, sin fusión y sin reranker**; el
-cross-encoder tendría sentido si primero se arregla la fusión.
+`nombre_canonico` (n=61) y `nombre_deformado` (n=30) — el caso de uso `validar-sd`:
 
-Tres cosas que estos números ya cambiaron:
+| canal | MRR canónico | MRR deformado |
+|---|---|---|
+| **léxico (rapidfuzz)** | **1.000** | **0.945** |
+| BM25 | 0.965 | 0.636 |
+| vectorial | 0.913 | 0.687 |
+| RRF (léxico + vectorial) | 0.989 | 0.889 |
+| RRF (BM25 + vectorial) | 0.975 | 0.790 |
 
-1. **La fusión RRF empeora**: mete el léxico —que en lenguaje natural acierta 0.29— con el mismo
-   peso que el vectorial. El léxico es el canal correcto para `validar-sd` (ahí la consulta ES un
-   nombre), no para `mapear-historias`.
-2. **El reranker léxico era dañino** (0.14) y por eso el respaldo del cross-encoder pasó a NO
-   reordenar.
-3. **Qdrant no aporta calidad** a esta escala → `docs/adr/0001-vector-store.md`.
+### Lo que estos números dicen
+
+1. **El canal léxico no fallaba por falta de pesos: fallaba por idioma.** Las HU están en español
+   y el catálogo BIAN entero en inglés, así que la consulta y el corpus no compartían ni un
+   término. Con el puente ES->EN (`src/dominio/vocabulario_bian.py`), el canal disperso pasa de
+   0.083 a 0.281 de MRR en `hu_real`, y fusionado con el denso llega a 0.573 — **más que el mejor
+   canal individual** (vectorial, 0.342), que es lo que la fusión prometía y no cumplía.
+2. **Cada caso de uso quiere su canal disperso.** rapidfuzz (comparar NOMBRES) es intocable para
+   `validar-sd`: 1.000 de MRR en nombres exactos y 0.945 con deformaciones, donde BM25 se hunde a
+   0.636 —una errata no cambia los términos, cambia las letras—. BM25 (comparar TEXTO) es el de
+   `mapear-historias`. Un solo canal "léxico" para los dos casos era el error de fondo.
+3. **La fusión es un intercambio, no una mejora libre:** RRF+BM25 gana en la cabeza del ranking
+   (R@1 0.50 vs 0.17) y pierde en profundidad (R@10 0.67 vs 0.83). Cuál importa depende de qué
+   hace el pipeline después — y aquí cada candidato de más cuesta una llamada LLM, así que la
+   cabeza del ranking vale más que la cola.
+4. **Qdrant sigue sin comprar calidad** a esta escala -> `docs/adr/0001-vector-store.md`.
+5. **El reranker cross-encoder pasó de rescate a lastre.** Su número bueno (R@10 0.71 -> 0.86)
+   se midió contra la fusión ROTA, donde había mucho que rescatar. Re-medido sobre `hu_real` con
+   el canal disperso ya arreglado (`BAAI/bge-reranker-v2-m3` en GPU):
+
+   | canal | R@1 | R@5 | R@10 | MRR | negativos delante |
+   |---|---|---|---|---|---|
+   | `rrf-bm25` | **0.50** | **0.67** | 0.67 | **0.573** | **1** |
+   | `rrf-bm25+rerank` | 0.17 | 0.33 | **0.83** | 0.300 | 4 |
+   | `rrf+graph+rerank` | 0.17 | 0.33 | **0.83** | 0.311 | 4 |
+
+   Recupera profundidad (R@10 0.67 -> 0.83) y **destroza la cabeza**: R@1 0.50 -> 0.17, MRR
+   0.573 -> 0.300, y cuadruplica los `hard_negatives` por delante del positivo (1 -> 4). En este
+   pipeline cada candidato por delante es una llamada LLM con ~16k tokens de evidencia, así que
+   la cabeza vale más que la cola: **el reranker sigue sin justificarse**. Se ve en un caso
+   suelto: para "notificar al cliente por correo y SMS...", BM25 pone `Correspondence` en el
+   puesto 1 y el cross-encoder lo baja al 5, con todos los scores en ~0.003.
+
+   **¿Y si el problema era el texto?** Se probó: `--barrido-texto` mide las 10 variantes de
+   `EntradaCatalogo.texto_prosa()` sobre `hu_real`, con el mismo canal y el mismo modelo.
+
+   | texto que lee el cross-encoder | chars | R@1 | R@5 | R@10 | MRR | neg. delante |
+   |---|---|---|---|---|---|---|
+   | *(sin reranker: `rrf-bm25`)* | — | **0.50** | **0.67** | 0.67 | **0.573** | **1** |
+   | `indice` (el que se usaba) | 1093 | 0.17 | 0.33 | **0.83** | 0.300 | 4 |
+   | `rol` | 333 | 0.17 | 0.33 | 0.67 | 0.265 | 2 |
+   | `nombre_rol` | 357 | 0.17 | 0.33 | 0.67 | 0.320 | 2 |
+   | `resumen` | 129 | 0.00 | 0.17 | 0.33 | 0.108 | 3 |
+   | `ejemplos` | 159 | 0.17 | 0.17 | 0.33 | 0.238 | 3 |
+   | `features` | 158 | 0.00 | 0.33 | 0.67 | 0.141 | 4 |
+   | **`prosa`** (nombre + rol + ejemplo + resumen) | 644 | **0.33** | **0.50** | 0.50 | **0.417** | **2** |
+   | `prosa_features` | 799 | 0.17 | 0.33 | 0.83 | 0.297 | 3 |
+   | `documentacion` | 891 | 0.17 | 0.33 | 0.67 | 0.285 | 3 |
+   | `documentacion_limpia` | 880 | 0.17 | 0.33 | 0.83 | 0.299 | 3 |
+
+   El diagnóstico era correcto y **no basta**: darle prosa sube el MRR un 39% (0.300 -> 0.417) y
+   le quita la mitad de los `hard_negatives` (4 -> 2) respecto al volcado del índice, así que sí,
+   el texto importaba. Pero **ninguna variante alcanza a no reordenar** (0.573 / 1 negativo). Hay
+   además una forma clara en los datos: los textos cortos (`resumen` 129 chars, `ejemplos` 159)
+   son los peores —el modelo se queda sin contexto para juzgar— y pasar de ~650 chars tampoco
+   ayuda; el óptimo es prosa de longitud media. El pipeline pasa `prosa` cuando se reordena, para
+   que encender el flag no reparta además el peor texto, pero el flag sigue en `false`.
+
+### Barrido de `k` y pesos
+
+```bash
+.venv/bin/python scripts/evaluate_retrieval/evaluate.py --barrido rrf-bm25 --tipo hu_real
+```
+
+Medido sobre `hu_real` (n=6):
+
+| k | peso disperso | R@5 | R@10 | MRR | negativos delante |
+|---|---|---|---|---|---|
+| 10-60 | 0.00 (solo denso) | 0.67 | **0.83** | 0.342 | 2 |
+| 10 | 0.25 | 0.67 | 0.67 | 0.581 | 1 |
+| **20** | **0.25** | 0.67 | 0.67 | **0.608** | **1** |
+| 60 | 0.25 | 0.67 | 0.67 | 0.608 | 1 |
+| 10-60 | 1.00 | 0.67 | 0.67 | 0.573 | 1 |
+
+`k` (10/20/60) apenas mueve nada; el peso del canal disperso sí, y siempre en la misma dirección:
+más MRR y un `hard_negative` menos por delante, a cambio de un positivo que se cae del top-10. **Con 6 consultas de negocio, un
+acierto mueve 0.17 de recall**: la rejilla sirve para ver la forma de la superficie, no para fijar
+un default. Por eso los valores por defecto siguen siendo los de siempre (`rapidfuzz`, pesos 1.0,
+`k=60`) y el híbrido sigue OFF: cambiar un default exige el canary con LLM real.
 
 ## Lo que este benchmark NO mide
 
@@ -49,10 +141,15 @@ compara `canary.py`.
 
 ## Sobre el tamaño del corpus
 
-7 consultas **no** son un corpus estadísticamente útil; sirven como regresión y como esqueleto.
-Cada caso declara su `procedencia` (los dos casos E2E y las HU reales de `HU - copia/`) y sus
-`hard_negatives` salen de candidatos que el pipeline propuso de verdad. Para comparar modelos de
-embeddings con criterio harían falta del orden de 100 consultas etiquetadas.
+El corpus tiene 97 casos y **sigue teniendo 6 consultas de negocio**. Las 91 restantes son las dos
+capas de nombre, objetivas y generadas. Para comparar modelos de embeddings o justificar un
+default de `mapear-historias` hacen falta del orden de 100 consultas **de la capa `hu_real`**, y
+esas solo salen de etiquetar HU reales: el protocolo está en la skill `corpus-dorado-bian`.
+Rellenar el corpus con consultas de negocio inventadas no daría poder estadístico, daría ruido con
+aspecto de dato.
+
+Cada caso declara su `procedencia` y sus `hard_negatives` salen de candidatos que el pipeline
+propuso de verdad (o, en las capas generadas, de los nombres más parecidos del propio catálogo).
 
 
 ## Nota de entorno: caché de HuggingFace

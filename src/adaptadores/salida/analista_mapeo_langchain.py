@@ -83,8 +83,26 @@ def _lista(xs: list[str] | tuple[str, ...], vacio: str = "(ninguno)") -> str:
     return "; ".join(xs) if xs else vacio
 
 
-def formatear_catalogo(catalogo: list[EntradaCatalogo], rol_max_chars: int = _ROL_MAX_CHARS) -> str:
-    """Una línea por SD: - "Nombre" · Area > Domain · [Patrón/AssetType] :: rol recortado."""
+def formatear_catalogo(
+    catalogo: list[EntradaCatalogo],
+    rol_max_chars: int = _ROL_MAX_CHARS,
+    chars_negocio: int = 0,
+) -> str:
+    """Una línea por SD: - "Nombre" · Area > Domain · [Patrón/AssetType] :: rol recortado.
+
+    `chars_negocio > 0` activa el escalón **CAG** (Cache-Augmented Generation): añade a cada SD su
+    vocabulario de negocio —`examples_of_use` y `features`— dentro de ese presupuesto de
+    caracteres. Es lo que convierte al catálogo del prompt en la fuente completa en vez de un
+    índice: a 341 Service Domains el catálogo entero cabe en contexto, así que el candidato
+    correcto no puede quedarse fuera por un recorte de recuperación (el Recall@K deja de ser una
+    restricción y pasa a ser una elección). El coste es tokens, y por eso es escalonado: el propio
+    valor fija el escalón (0 = como siempre, 300 ≈ 25k tokens de más, ~1200 = todo lo que el
+    landscape publica).
+
+    Por qué `examples_of_use`/`features` y no el `role_definition` más largo: una HU rara vez
+    repite el rol formal ("administer and execute..."), pero sí menciona el escenario y la
+    capacidad concreta — es el mismo razonamiento que ya sostiene `texto_para_indexar()`.
+    """
     lineas = []
     for e in catalogo:
         jer = " > ".join(p for p in (e.business_area, e.business_domain) if p)
@@ -97,16 +115,37 @@ def formatear_catalogo(catalogo: list[EntradaCatalogo], rol_max_chars: int = _RO
         rol = _recortar(e.service_role or "", rol_max_chars)
         if rol:
             partes.append(f" :: {rol}")
+        if chars_negocio > 0:
+            negocio = " ".join(t for t in (e.examples_of_use, e.features) if t)
+            recortado = _recortar(negocio, chars_negocio)
+            if recortado:
+                partes.append(f" | {recortado}")
         lineas.append("".join(partes))
     return "\n".join(lineas)
 
 
-def _formatear_indice_global(catalogo: list[EntradaCatalogo], rol_max_chars: int = 90) -> str:
-    """Índice global compacto (solo nombre + rol muy recortado) para el hint de completitud."""
-    return "\n".join(
-        f'- "{e.service_domain}"' + (f" :: {_recortar(e.service_role or '', rol_max_chars)}" if e.service_role else "")
-        for e in catalogo
-    )
+def _formatear_indice_global(
+    catalogo: list[EntradaCatalogo], rol_max_chars: int = 90, chars_negocio: int = 0
+) -> str:
+    """Índice global compacto (nombre + rol muy recortado) para el hint de completitud.
+
+    Con `chars_negocio > 0` (escalón CAG) el hint deja de ser solo nombres: el revisor de
+    completitud ve también con qué vocabulario habla cada Service Domain, que es justo lo que
+    necesita para decir "falta este" sin haberlo recuperado antes.
+    """
+    lineas = []
+    for e in catalogo:
+        partes = [f'- "{e.service_domain}"']
+        rol = _recortar(e.service_role or "", rol_max_chars)
+        if rol:
+            partes.append(f" :: {rol}")
+        if chars_negocio > 0:
+            negocio = " ".join(t for t in (e.examples_of_use, e.features) if t)
+            recortado = _recortar(negocio, chars_negocio)
+            if recortado:
+                partes.append(f" | {recortado}")
+        lineas.append("".join(partes))
+    return "\n".join(lineas)
 
 
 def _schemas_de_operaciones(operaciones) -> set[str]:
@@ -150,12 +189,15 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
         temperature: float | None = None,
         catalog_sha256: str = "",
         rol_max_chars: int = _ROL_MAX_CHARS,
+        cag_chars_por_sd: int = 0,
     ) -> None:
         self._chat = chat_model
         self._modelo_desc = modelo_desc
         self._temperature = temperature
         self._catalog_sha256 = catalog_sha256
         self._rol_max_chars = rol_max_chars
+        # 0 = índice de siempre; >0 = escalón CAG (ver `formatear_catalogo`).
+        self._cag_chars_por_sd = max(0, cag_chars_por_sd)
 
     # ── infra ────────────────────────────────────────────────────────────────
     def _cadena(self, spec: PromptSpec, schema):
@@ -212,7 +254,9 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
             "intencion_outcomes": _lista(intencion.outcomes),
             "intencion_dependencies": _lista(intencion.external_dependencies),
             "catalogo_total": len(catalogo),
-            "catalogo": formatear_catalogo(catalogo, self._rol_max_chars),
+            "catalogo": formatear_catalogo(
+                catalogo, self._rol_max_chars, self._cag_chars_por_sd
+            ),
         })
         return out.model_copy(update={"metadatos": self._huella(SPEC_CANDIDATOS, "generar_candidatos", historia.archivo)})
 
@@ -240,7 +284,9 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
             "candidatos_actuales": actuales,
             "disponibilidad_evidencia": disp,
             "catalogo_total": len(catalogo),
-            "indice_global": _formatear_indice_global(catalogo),
+            "indice_global": _formatear_indice_global(
+                catalogo, chars_negocio=self._cag_chars_por_sd
+            ),
         })
         return out.model_copy(update={"metadatos": self._huella(SPEC_COMPLETITUD, "revisar_completitud", historia.archivo)})
 

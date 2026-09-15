@@ -444,6 +444,72 @@ def propuestos_degradados(
     return salida
 
 
+CONFLICTO_CONFIRMADO_POR_GRAFO = "OWNERSHIP_CONFLICT_CONFIRMED_BY_GRAPH"
+CONFLICTO_SIN_RESPALDO_DE_GRAFO = "OWNERSHIP_CONFLICT_NOT_BACKED_BY_GRAPH"
+
+
+def confirmar_conflictos_por_grafo(
+    service_domains_en_conflicto: list[str],
+    objetos_compartidos: list,
+) -> dict[str, tuple[str, str]]:
+    """¿El catálogo BIAN respalda el conflicto de ownership que afirmó el revisor adversarial?
+
+    Un `ownership_conflict` dice "estos dos Service Domains reclaman el mismo objeto de negocio".
+    Hasta ahora eso era **solo la opinión del LLM**: quedaba como incidencia
+    `OWNERSHIP_CONFLICT_UNRESOLVED` sin nada que la confirmara o la desmintiera. El grafo canónico
+    sí puede comprobarlo, porque sabe qué nodos del modelo toca cada SD.
+
+    La comprobación tiene dos partes, y la segunda es la que importa:
+
+    1. ¿Existe un nodo real (clase del BOM, schema, Control Record) que ambos toquen?
+    2. ¿Ese nodo **discrimina**? Compartir `Party` no es un conflicto: la modelan 125 Service
+       Domains, es el andamiaje del modelo BIAN. Solo cuenta un nodo específico
+       (`ObjetoCompartido.especifico`, mismo umbral que la expansión por grafo).
+
+    Devuelve `{sd_normalizado: (veredicto, detalle)}`. **No reclasifica nada**: igual que el resto
+    del módulo, una señal sola no mueve una decisión — aquí decide si el conflicto queda como
+    incidencia accionable o como ruido anotado. Sin grafo disponible, el dict va vacío y todo se
+    comporta como antes.
+    """
+    if not service_domains_en_conflicto or not objetos_compartidos:
+        return {}
+    especificos = [o for o in objetos_compartidos if getattr(o, "especifico", False)]
+    veredictos: dict[str, tuple[str, str]] = {}
+    for sd in service_domains_en_conflicto:
+        clave = normalizar(sd)
+        if not clave:
+            continue
+        respaldo = [
+            o
+            for o in especificos
+            if any(normalizar(x) == clave for x in getattr(o, "service_domains", []))
+        ]
+        if respaldo:
+            objeto = respaldo[0]
+            otros = [x for x in objeto.service_domains if normalizar(x) != clave]
+            veredictos[clave] = (
+                CONFLICTO_CONFIRMADO_POR_GRAFO,
+                f"el catálogo BIAN confirma el conflicto: '{objeto.nombre}' ({objeto.tipo}) lo "
+                f"modelan también {', '.join(otros)} y solo {objeto.total_service_domains} "
+                "Service Domain(s) en total, así que el objeto discrimina.",
+            )
+        else:
+            genericos = sorted(
+                {o.nombre for o in objetos_compartidos if not getattr(o, "especifico", False)}
+            )[:3]
+            veredictos[clave] = (
+                CONFLICTO_SIN_RESPALDO_DE_GRAFO,
+                "el catálogo BIAN no respalda el conflicto: no hay ningún objeto específico "
+                "compartido con los otros candidatos"
+                + (
+                    f"; solo genéricos ({', '.join(genericos)}), que medio catálogo modela."
+                    if genericos
+                    else "."
+                ),
+            )
+    return veredictos
+
+
 def candidatos_operacion_elegibles(grupos: ServiceDomainsDeHistoria) -> list[ServiceDomainAsignado]:
     """SD con base suficiente para intentar anclar operaciones oficiales: `OWNED_CONTRACT`,
     directo O tentativo. Desacopla la selección de operaciones del umbral de confianza directa

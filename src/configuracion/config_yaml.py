@@ -118,6 +118,32 @@ class MapearHistoriasConfig:
     retrieval_hibrido_habilitado: bool = False
     retrieval_top_k: int = 20
     retrieval_max_inyectados: int = 5
+    # ── Canal disperso y fusión (ver scripts/evaluate_retrieval/) ──
+    # `rapidfuzz` compara la consulta contra el NOMBRE del Service Domain (que es lo correcto para
+    # validar-sd, donde la consulta ES un nombre). `bm25` indexa el texto completo del SD y pesa
+    # los términos por IDF, que es lo que pide mapear-historias (la consulta es lenguaje natural).
+    retrieval_canal_lexico: str = "rapidfuzz"
+    # RRF: `k` amortigua el peso del top-1. 60 es el valor del paper, calibrado para corpus de
+    # miles de documentos; con 341 SD y top-20 un k menor diferencia más. Los pesos permiten que
+    # la fusión deje de tratar por igual a un canal que acierta 0.29 y a otro que acierta 0.86.
+    rrf_k: int = 60
+    rrf_peso_lexico: float = 1.0
+    rrf_peso_vectorial: float = 1.0
+    # ── CAG (Cache-Augmented Generation) escalonado ──
+    # El catálogo entero cabe en contexto (~93k tokens con el tope actual de texto por SD), así
+    # que el recall de recuperación es un problema OPCIONAL a esta escala. `cag_chars_por_sd`
+    # fija el escalón: 0 = índice de siempre (nombre + rol a 90 chars, ~10k tokens).
+    cag_habilitado: bool = False
+    cag_chars_por_sd: int = 300
+    # ── Señales de grafo para el revisor adversarial (deterministas, no las decide el LLM) ──
+    grafo_senales_adversarial: bool = False
+    # ── CRAG: una sola vuelta correctiva cuando la evidencia del lote sale vacía/débil ──
+    crag_reintento_habilitado: bool = False
+    # ── Caché de nodos LangGraph y durabilidad ──
+    cache_nodos_habilitado: bool = False
+    cache_nodos_ruta: str = ".cache/nodos-langgraph"
+    cache_nodos_ttl: int = 0  # segundos; 0 = sin expiración
+    durabilidad: str = "exit"  # exit | sync | async (sync/async exigen checkpointer)
 
 
 @dataclass(frozen=True)
@@ -154,6 +180,10 @@ class Config:
     @property
     def ruta_bian_puml(self) -> str:
         return self._abs(self.mapear_historias.ruta_bian_puml)
+
+    @property
+    def ruta_cache_nodos(self) -> str:
+        return self._abs(self.mapear_historias.cache_nodos_ruta)
 
     # ── orden de proveedores para failover ──
     def orden_llm(self, proveedor_forzado: str | None = None) -> list[ProveedorConfig]:
@@ -278,6 +308,18 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
         retrieval_hibrido_habilitado=bool(mh.get("retrieval_hibrido_habilitado", False)),
         retrieval_top_k=int(mh.get("retrieval_top_k", 20)),
         retrieval_max_inyectados=int(mh.get("retrieval_max_inyectados", 5)),
+        retrieval_canal_lexico=str(mh.get("retrieval_canal_lexico", "rapidfuzz")).strip().lower(),
+        rrf_k=int(mh.get("rrf_k", 60)),
+        rrf_peso_lexico=float(mh.get("rrf_peso_lexico", 1.0)),
+        rrf_peso_vectorial=float(mh.get("rrf_peso_vectorial", 1.0)),
+        cag_habilitado=bool(mh.get("cag_habilitado", False)),
+        cag_chars_por_sd=int(mh.get("cag_chars_por_sd", 300)),
+        grafo_senales_adversarial=bool(mh.get("grafo_senales_adversarial", False)),
+        crag_reintento_habilitado=bool(mh.get("crag_reintento_habilitado", False)),
+        cache_nodos_habilitado=bool(mh.get("cache_nodos_habilitado", False)),
+        cache_nodos_ruta=str(mh.get("cache_nodos_ruta", ".cache/nodos-langgraph")),
+        cache_nodos_ttl=int(mh.get("cache_nodos_ttl", 0)),
+        durabilidad=str(mh.get("durabilidad", "exit")).strip().lower(),
     )
 
     return Config(

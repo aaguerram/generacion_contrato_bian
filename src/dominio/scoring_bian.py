@@ -18,42 +18,11 @@ from src.dominio.historias import (
     ServiceDomainPropuestoLLM,
 )
 from src.dominio.modelos import EntradaCatalogo
+from src.dominio.vocabulario_bian import EQUIVALENCIAS_BASE
 
-_EQUIVALENCIAS = {
-    "autorizar": "authorization",
-    "autoriza": "authorization",
-    "autorizacion": "authorization",
-    "transaccion": "transaction",
-    "transacciones": "transaction",
-    "evaluar": "evaluate",
-    "evaluacion": "evaluate",
-    "actualizar": "update",
-    "consultar": "retrieve",
-    "recuperar": "retrieve",
-    "ejecutar": "execute",
-    "solicitar": "request",
-    "conceder": "grant",
-    "cliente": "customer",
-    "cuenta": "account",
-    "pago": "payment",
-    "dispositivo": "device",
-    "token": "token",
-    "autenticar": "authentication",
-    "autenticacion": "authentication",
-    "activar": "activate",
-    "activacion": "activate",
-    "enrolar": "enroll",
-    "enrolamiento": "enroll",
-    "permiso": "entitlement",
-    "permisos": "entitlement",
-    "sesion": "session",
-    "notificar": "notify",
-    "notificacion": "notify",
-    "auditoria": "audit",
-    "fraude": "fraud",
-    "riesgo": "risk",
-    "factor": "factor",
-}
+# El mapa vive en `vocabulario_bian` (un solo sitio para el puente ES->EN del dominio);
+# aquí se usa el BASE tal cual: la extensión de retrieval no debe mover el scoring.
+_EQUIVALENCIAS = EQUIVALENCIAS_BASE
 _STOP = {
     "una",
     "uno",

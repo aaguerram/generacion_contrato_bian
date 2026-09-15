@@ -69,6 +69,28 @@ class CandidatoGrafo(BaseModel):
     )
 
 
+class ObjetoCompartido(BaseModel):
+    """Un nodo del catálogo que MÁS DE UN Service Domain candidato toca, con su especificidad.
+
+    Es la única forma de comprobar un `ownership_conflict` sin creerle al LLM: dos candidatos
+    reclaman el mismo objeto de negocio solo si existe un nodo REAL del catálogo BIAN que ambos
+    modelan. Y no basta con que exista: `total_service_domains` dice a cuántos SD del catálogo
+    entero toca ese nodo. Compartir `Party` (125 SD) no es un conflicto — es el ruido de fondo
+    del modelo BIAN; compartir una clase que solo modelan 2 SD sí lo es.
+    """
+
+    nodo: str
+    tipo: TipoNodo
+    nombre: str
+    service_domains: list[str] = Field(default_factory=list)
+    total_service_domains: int = 0
+
+    @property
+    def especifico(self) -> bool:
+        """`True` si el nodo discrimina (mismo umbral que la expansión: `MAX_SD_POR_PUENTE`)."""
+        return 0 < self.total_service_domains <= MAX_SD_POR_PUENTE
+
+
 class NodoBian(BaseModel):
     """Una entidad del catálogo BIAN, identificada de forma canónica y estable."""
 
@@ -121,6 +143,74 @@ class GrafoBian(BaseModel):
             elif a.hasta == nodo_id:
                 salida.append((a.desde, a.tipo))
         return salida
+
+    def objetos_compartidos(self, service_domains: list[str]) -> list[ObjetoCompartido]:
+        """Nodos del catálogo que tocan DOS O MÁS de los `service_domains` dados.
+
+        Dos formas de "tocar", porque el grafo modela los dos casos distinto:
+
+        - **Clases del BOM** (`BOM_CLASS`): son nodos GLOBALES (`service_domain=None`) y cada SD
+          llega a ellas por una arista `MODELA`. Compartir una clase es la señal más fuerte: las
+          dos fuentes son el mismo diagrama oficial.
+        - **Schemas y Control Records**: son nodos POR Service Domain, así que "compartir" es
+          tener un nodo del mismo tipo y nombre (p. ej. dos SD con un CR llamado igual).
+
+        Solo nodos de modelo: compartir Business Area no dice nada sobre ownership, igual que en
+        `ARISTAS_EXPANDIBLES`. Ordena lo más específico primero, que es lo accionable.
+        """
+        objetivo = {sd for sd in service_domains if sd}
+        if len(objetivo) < 2:
+            return []
+        indice = self.indice_nodos()
+        grado = self.grado_por_service_domain()
+
+        # 1) clases del BOM, por aristas MODELA
+        por_clase: dict[str, set[str]] = {}
+        for a in self.aristas:
+            if a.tipo != "MODELA":
+                continue
+            sd = indice[a.desde].service_domain if a.desde in indice else None
+            if sd in objetivo and a.hasta in indice and indice[a.hasta].tipo == "BOM_CLASS":
+                por_clase.setdefault(a.hasta, set()).add(sd)
+
+        compartidos = [
+            ObjetoCompartido(
+                nodo=nid,
+                tipo="BOM_CLASS",
+                nombre=indice[nid].nombre,
+                service_domains=sorted(sds),
+                total_service_domains=grado.get(nid, len(sds)),
+            )
+            for nid, sds in por_clase.items()
+            if len(sds) > 1
+        ]
+
+        # 2) schemas y control records: nodos por SD, se comparan por (tipo, nombre)
+        propios: dict[tuple[str, str], dict[str, set[str]]] = {}
+        for nodo in self.nodos:
+            if nodo.tipo not in ("SCHEMA", "CONTROL_RECORD") or not nodo.service_domain:
+                continue
+            clave = (nodo.tipo, nodo.nombre.strip().lower())
+            registro = propios.setdefault(clave, {"objetivo": set(), "todos": set(), "id": set()})
+            registro["todos"].add(nodo.service_domain)
+            if nodo.service_domain in objetivo:
+                registro["objetivo"].add(nodo.service_domain)
+                registro["id"].add(nodo.id)
+        for (tipo, _), registro in propios.items():
+            if len(registro["objetivo"]) < 2:
+                continue
+            compartidos.append(
+                ObjetoCompartido(
+                    nodo=sorted(registro["id"])[0],
+                    tipo=tipo,  # type: ignore[arg-type]
+                    nombre=indice[sorted(registro["id"])[0]].nombre,
+                    service_domains=sorted(registro["objetivo"]),
+                    total_service_domains=len(registro["todos"]),
+                )
+            )
+        return sorted(
+            compartidos, key=lambda o: (o.total_service_domains, o.nombre.lower(), o.nodo)
+        )
 
     def grado_por_service_domain(self) -> dict[str, int]:
         """En cuántos Service Domain aparece cada nodo compartido (clases del BOM, sobre todo)."""

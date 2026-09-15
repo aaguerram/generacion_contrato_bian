@@ -199,3 +199,33 @@ mapear_historias:
   presupuesto_segundos_hu: 0     # 0 = sin límite; >0 corta el retrieval opcional si se pasa
   retrieval_top_k: 20            # top-k que pide cada recuperador (léxico y vectorial) antes de fusionar
   retrieval_max_inyectados: 5    # tope de candidatos NUEVOS que el retrieval híbrido puede añadir por HU
+
+  # Canal disperso + fusión. Medido (scripts/evaluate_retrieval/): con rapidfuzz -que compara la
+  # consulta contra el NOMBRE del SD- el canal léxico acierta 0.29 en lenguaje natural y arrastra
+  # la fusión de 0.86 a 0.71. `bm25` indexa el TEXTO del SD y pesa términos por IDF; los pesos y
+  # `rrf_k` dejan de tratar por igual a los dos canales. Los defaults reproducen lo de siempre.
+  retrieval_canal_lexico: rapidfuzz   # rapidfuzz | bm25
+  rrf_k: 60                      # constante del paper; con 341 SD y top-20, 10-20 diferencia más
+  rrf_peso_lexico: 1.0
+  rrf_peso_vectorial: 1.0
+
+  # CAG escalonado: el catálogo entero cabe en contexto (~93k tokens), así que a esta escala el
+  # recall es un problema opcional. 0 = índice de siempre (nombre + rol a 90 chars, ~10k tokens);
+  # 300 chars/SD ≈ 25k tokens (entra en cualquier modelo del failover); ~1200 = catálogo completo.
+  cag_habilitado: false
+  cag_chars_por_sd: 300
+
+  # El grafo canónico BIAN como HECHO determinista para el revisor adversarial (cuántos SD modelan
+  # el mismo objeto, qué candidatos comparten clase BOM). No decide nada: solo se le muestra.
+  grafo_senales_adversarial: false
+
+  # CRAG: UNA vuelta correctiva de recuperación cuando el lote de evidencia sale vacío o sin BOM.
+  crag_reintento_habilitado: false
+
+  # Caché de nodos LangGraph en disco + durabilidad. La caché hace barato medir flag por flag y
+  # convierte un re-run tras un fallo de cuota en "solo lo que falta". La clave incluye la cadena
+  # de modelos y el SHA del catálogo: nunca reutiliza el resultado de otro modelo/evidencia.
+  cache_nodos_habilitado: false
+  cache_nodos_ruta: .cache/nodos-langgraph
+  cache_nodos_ttl: 0             # segundos; 0 = sin expiración
+  durabilidad: exit              # exit | sync | async (sync/async activan checkpointer)
