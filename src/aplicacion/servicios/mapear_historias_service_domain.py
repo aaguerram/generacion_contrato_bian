@@ -318,6 +318,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         cache_nodos=None,
         cache_nodos_ttl: int = 0,
         durabilidad: str = "exit",
+        checkpointer=None,
     ) -> None:
         self._catalogo = catalogo
         self._lector = lector
@@ -371,6 +372,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             str(self._parametros_base.get("catalog_sha256", "")),
         )
         self._durabilidad = durabilidad if durabilidad in ("exit", "sync", "async") else "exit"
+        self._checkpointer_inyectado = checkpointer
         self._subgrafo = self._compilar_subgrafo()
         self._grafo = self._compilar()
 
@@ -1680,13 +1682,17 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
 
     def _checkpointer(self):
         """Checkpointer solo si se pidió durabilidad: `durability` sin checkpointer no hace nada
-        (LangGraph avisa y falla). `InMemorySaver` da estado inspeccionable y reanudable DENTRO
-        del proceso -- suficiente para `interrupt`/human-in-the-loop. Sobrevivir a la muerte del
-        proceso exigiría `langgraph-checkpoint-sqlite`, que no está instalado; hoy eso lo cubre la
-        caché de nodos en disco: re-ejecutar salta lo ya calculado y solo paga lo que falta.
+        (LangGraph avisa y luego falla).
+
+        El checkpointer lo construye el contenedor y se inyecta, igual que la caché de nodos: la
+        persistencia es infraestructura y esta capa no decide dónde vive un archivo. Sin uno
+        inyectado se usa `InMemorySaver`, que da estado inspeccionable y reanudable DENTRO del
+        proceso -- suficiente para `interrupt`, inútil si el proceso muere.
         """
         if self._durabilidad == "exit":
             return None
+        if self._checkpointer_inyectado is not None:
+            return self._checkpointer_inyectado
         from langgraph.checkpoint.memory import InMemorySaver
 
         return InMemorySaver()

@@ -63,8 +63,19 @@ con `cache_policy`; la clave la calcula el `key_func` de cada nodo desde sus ent
 más la firma de la corrida (cadena de modelos + `catalog_sha256`), así que ni un modelo distinto
 ni una evidencia distinta reutilizan nada. Re-ejecutar tras un fallo de cuota paga **solo lo que
 falta**, y medir flag por flag deja de repagar todas las llamadas. `reconciliar` es además un nodo
-`defer=True` (ve todas las HU). `durabilidad: sync|async` activa checkpointer (`InMemorySaver`);
-sobrevivir a la muerte del proceso exigiría `langgraph-checkpoint-sqlite`, que no está instalado.
+`defer=True` (ve todas las HU). `durabilidad: sync|async` activa un **checkpointer persistente
+SQLite** (`crear_checkpointer`, `checkpoint_ruta`, por defecto `.cache/checkpoints/mapeo.sqlite`):
+la base y sus directorios **se crean si no existen**, `setup()` es idempotente, y nunca se
+versiona (`.gitignore` excluye `.cache/` y `*.sqlite*`). Si no se puede abrir, degrada a
+`InMemorySaver` **con aviso** — perder la persistencia cuesta una re-ejecución; tumbar la corrida
+las cuesta todas.
+
+No confundir los dos mecanismos: la **caché de nodos** evita re-pagar las llamadas LLM al
+RE-EJECUTAR (y funciona aunque el estado se pierda); el **checkpointer** deja *reanudar* donde se
+quedó y habilita `interrupt`/human-in-the-loop, que es lo que pide el `UNRESOLVED` "bloqueado para
+revisión humana" del dominio. Aviso operativo medido: una corrida de 1 HU dejó **18 checkpoints /
+87 writes y ~19 MB** — el estado incluye el catálogo serializado por superstep, así que la base
+crece rápido y conviene borrarla entre campañas (es desechable por definición).
 
 ## Configuración: `config.yaml` + `.env`
 

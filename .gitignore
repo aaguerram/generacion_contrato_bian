@@ -5,6 +5,12 @@ __pycache__/
 openrouter.md
 claves_api.md
 .cache/
+# Bases del checkpointer de LangGraph: estado de corridas, nunca se versiona (y puede crecer).
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
 
 # Modelo canónico BIAN: artefacto DERIVADO de docs/ (19 MB, 26k nodos). Se regenera con
 # `scripts/ingest_bian/ingest_bian.py`, así que no se versiona: cada regeneración añadiría otro

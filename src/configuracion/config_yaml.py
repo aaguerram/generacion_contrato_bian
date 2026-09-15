@@ -150,6 +150,9 @@ class MapearHistoriasConfig:
     cache_nodos_ruta: str = ".cache/nodos-langgraph"
     cache_nodos_ttl: int = 0  # segundos; 0 = sin expiración
     durabilidad: str = "exit"  # exit | sync | async (sync/async exigen checkpointer)
+    # Base del checkpointer persistente. Vive bajo `.cache/` (gitignored) y se CREA si no existe.
+    # Solo se abre cuando `durabilidad != exit`.
+    checkpoint_ruta: str = ".cache/checkpoints/mapeo.sqlite"
 
 
 @dataclass(frozen=True)
@@ -190,6 +193,10 @@ class Config:
     @property
     def ruta_cache_nodos(self) -> str:
         return self._abs(self.mapear_historias.cache_nodos_ruta)
+
+    @property
+    def ruta_checkpoints(self) -> str:
+        return self._abs(self.mapear_historias.checkpoint_ruta)
 
     # ── orden de proveedores para failover ──
     def orden_llm(
@@ -338,6 +345,7 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
         cache_nodos_ruta=str(mh.get("cache_nodos_ruta", ".cache/nodos-langgraph")),
         cache_nodos_ttl=int(mh.get("cache_nodos_ttl", 0)),
         durabilidad=str(mh.get("durabilidad", "exit")).strip().lower(),
+        checkpoint_ruta=str(mh.get("checkpoint_ruta", ".cache/checkpoints/mapeo.sqlite")),
     )
 
     return Config(

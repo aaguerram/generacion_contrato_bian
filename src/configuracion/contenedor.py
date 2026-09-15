@@ -15,6 +15,7 @@ from src.adaptadores.salida.analista_mapeo_langchain import AnalistaMapeoBianLan
 from src.adaptadores.salida.catalogo_bian_cache import CatalogoBianCache
 from src.adaptadores.salida.cache_nodos_archivo import CacheNodosArchivo
 from src.adaptadores.salida.catalogo_bom_puml import CatalogoBomPuml
+from src.adaptadores.salida.checkpointer_sqlite import crear_checkpointer
 from src.adaptadores.salida.catalogo_json import CatalogoJson
 from src.adaptadores.salida.embeddings_failover import EmbeddingsConFailover
 from src.adaptadores.salida.embeddings_resiliente import EmbeddingsResiliente
@@ -304,4 +305,9 @@ def crear_caso_uso_mapeo(
         else None,
         cache_nodos_ttl=mh.cache_nodos_ttl,
         durabilidad=mh.durabilidad,
+        # La base se abre (y se crea) solo si se pidió durabilidad: una corrida normal no debe
+        # dejar un archivo SQLite por ahí sin que nadie lo haya pedido.
+        checkpointer=crear_checkpointer(config.ruta_checkpoints)
+        if mh.durabilidad != "exit"
+        else None,
     )

@@ -245,3 +245,6 @@ mapear_historias:
   cache_nodos_ruta: .cache/nodos-langgraph
   cache_nodos_ttl: 0             # segundos; 0 = sin expiración
   durabilidad: exit              # exit | sync | async (sync/async activan checkpointer)
+  # Base del checkpointer persistente (SQLite). Se CREA si no existe, directorios incluidos, y
+  # solo se abre cuando durabilidad != exit. Vive bajo .cache/ y nunca se versiona (.gitignore).
+  checkpoint_ruta: .cache/checkpoints/mapeo.sqlite
