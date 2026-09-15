@@ -25,6 +25,7 @@ from src.adaptadores.salida.llm.factory import crear_estrategia
 from src.adaptadores.salida.llm.failover import ChatConFailover, EntradaModelo
 from src.adaptadores.salida.mapeador_operaciones_langchain import MapeadorOperacionesLangChain
 from src.adaptadores.salida.publicador_json import PublicadorJson
+from src.adaptadores.salida.prompts_mapeo import SPEC_OPERACIONES
 from src.adaptadores.salida.publicador_mapeo_json import PublicadorMapeoJson
 from src.adaptadores.salida.recuperador_bm25 import RecuperadorBM25
 from src.adaptadores.salida.recuperador_lexico import RecuperadorLexico
@@ -60,9 +61,11 @@ def _cfg_proveedor(
     )
 
 
-def _entradas_llm(config: Config, proveedor_forzado: str | None) -> list[EntradaModelo]:
+def _entradas_llm(
+    config: Config, proveedor_forzado: str | None, nodo: str | None = None
+) -> list[EntradaModelo]:
     entradas: list[EntradaModelo] = []
-    for prov in config.orden_llm(proveedor_forzado):
+    for prov in config.orden_llm(proveedor_forzado, nodo=nodo):
         emb = prov.embedding_models[0] if prov.embedding_models else ""
         for modelo in prov.llm_models:
             cfg = _cfg_proveedor(config, prov, modelo, emb or modelo)
@@ -75,7 +78,11 @@ def _entradas_llm(config: Config, proveedor_forzado: str | None) -> list[Entrada
     return entradas
 
 
-def crear_chat_failover(config: Config, *, proveedor: str | None = None) -> ChatConFailover:
+def crear_chat_failover(
+    config: Config, *, proveedor: str | None = None, nodo: str | None = None
+) -> ChatConFailover:
+    """Cadena de failover. `nodo` (un `prompt_id`) permite darle a un nodo concreto otro orden de
+    proveedores -ver `routing.llm_priority_por_nodo`-; sin él, todos comparten `llm_priority`."""
     nombre = (proveedor or "").strip().lower()
     if nombre == "fake":
         cfg = ConfiguracionProveedor(
@@ -85,13 +92,17 @@ def crear_chat_failover(config: Config, *, proveedor: str | None = None) -> Chat
             [EntradaModelo("fake", "fake", crear_estrategia("fake", cfg).crear_chat_model())]
         )
 
-    entradas = _entradas_llm(config, nombre or None)
+    entradas = _entradas_llm(config, nombre or None, nodo)
     if not entradas:
         raise RuntimeError(
             "No hay ningún proveedor LLM utilizable (revisa las API keys del .env y "
             "`providers.*.enabled` en config.yaml), o usa --proveedor fake."
         )
-    logger.info("cadena de failover LLM: %s", " -> ".join(e.etiqueta() for e in entradas))
+    logger.info(
+        "cadena de failover LLM%s: %s",
+        f" [{nodo}]" if nodo else "",
+        " -> ".join(e.etiqueta() for e in entradas),
+    )
     return ChatConFailover(
         entradas,
         reintentos_transitorios=config.llm.reintentos_transitorios,
@@ -207,6 +218,14 @@ def crear_caso_uso_mapeo(
 ) -> MapearHistoriasUseCase:
     mh = config.mapear_historias
     chat = crear_chat_failover(config, proveedor=proveedor)
+    # Una cadena propia por cada nodo que la pida en `routing.llm_priority_por_nodo`. Se construye
+    # una sola vez por nodo y se reutiliza; cada LLAMADA vuelve a recorrer su cadena desde el
+    # principio (ver ChatConFailover), así que un proveedor que falló por tamaño de prompt en un
+    # nodo grande se vuelve a intentar en el siguiente nodo, que quizá sí le cabe.
+    chats_por_nodo = {
+        nodo: crear_chat_failover(config, proveedor=proveedor, nodo=nodo)
+        for nodo in config.routing.llm_priority_por_nodo
+    }
     catalog_sha = _sha256_archivo(config.ruta_catalogo_bian)
 
     catalogo = CatalogoJson(config.ruta_catalogo_bian)
@@ -234,10 +253,12 @@ def crear_caso_uso_mapeo(
         catalog_sha256=catalog_sha,
         rol_max_chars=mh.rol_max_chars,
         cag_chars_por_sd=mh.cag_chars_por_sd if mh.cag_habilitado else 0,
+        chats_por_nodo=chats_por_nodo,
     )
+    chat_operaciones = chats_por_nodo.get(SPEC_OPERACIONES.id, chat)
     mapeador = MapeadorOperacionesLangChain(
-        chat,
-        modelo_desc=chat.descripcion,
+        chat_operaciones,
+        modelo_desc=chat_operaciones.descripcion,
         temperature=config.llm.temperature,
         catalog_sha256=catalog_sha,
     )

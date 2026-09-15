@@ -8,7 +8,7 @@ declaradas por cada proveedor.
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 import yaml
@@ -47,6 +47,12 @@ class ProveedorConfig:
 class RoutingConfig:
     llm_priority: tuple[str, ...]
     embedding_priority: tuple[str, ...]
+    # Orden de proveedores DISTINTO para nodos concretos, por `prompt_id` (mapeo.operaciones,
+    # mapeo.evaluacion, ...). Los 7 nodos LLM no tienen la misma dificultad ni el mismo tamaño de
+    # prompt: `mapeo.intencion` lo resuelve cualquier modelo, y `mapeo.operaciones` -que debe
+    # devolver un operationId literal entre decenas- es el que se rompe primero con un modelo
+    # debil. Sin esta entrada, todos los nodos comparten `llm_priority`, que es el default.
+    llm_priority_por_nodo: dict[str, tuple[str, ...]] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -186,8 +192,15 @@ class Config:
         return self._abs(self.mapear_historias.cache_nodos_ruta)
 
     # ── orden de proveedores para failover ──
-    def orden_llm(self, proveedor_forzado: str | None = None) -> list[ProveedorConfig]:
-        return self._orden(self.routing.llm_priority, "usable_llm", proveedor_forzado)
+    def orden_llm(
+        self, proveedor_forzado: str | None = None, nodo: str | None = None
+    ) -> list[ProveedorConfig]:
+        """Orden de proveedores para un nodo. `--proveedor X` sigue mandando sobre todo: pinnear
+        la cadena es una decisión del operador y no la puede pisar una entrada de config."""
+        prioridad = self.routing.llm_priority
+        if nodo and not proveedor_forzado:
+            prioridad = self.routing.llm_priority_por_nodo.get(nodo, prioridad)
+        return self._orden(prioridad, "usable_llm", proveedor_forzado)
 
     def orden_embedding(self, proveedor_forzado: str | None = None) -> list[ProveedorConfig]:
         return self._orden(self.routing.embedding_priority, "usable_embedding", proveedor_forzado)
@@ -241,6 +254,11 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
     routing = RoutingConfig(
         llm_priority=tuple(str(x) for x in (r.get("llm_priority") or [])),
         embedding_priority=tuple(str(x) for x in (r.get("embedding_priority") or [])),
+        llm_priority_por_nodo={
+            str(nodo): tuple(str(x) for x in (lista or []))
+            for nodo, lista in (r.get("llm_priority_por_nodo") or {}).items()
+            if lista
+        },
     )
     proveedores = {n: _proveedor(n, v or {}) for n, v in (raw.get("providers") or {}).items()}
 

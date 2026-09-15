@@ -190,8 +190,12 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
         catalog_sha256: str = "",
         rol_max_chars: int = _ROL_MAX_CHARS,
         cag_chars_por_sd: int = 0,
+        chats_por_nodo: dict | None = None,
     ) -> None:
         self._chat = chat_model
+        # Un chat distinto para nodos concretos (clave = `prompt_id`). Vacío = todos los nodos
+        # comparten la misma cadena, que es el comportamiento de siempre.
+        self._chats_por_nodo = dict(chats_por_nodo or {})
         self._modelo_desc = modelo_desc
         self._temperature = temperature
         self._catalog_sha256 = catalog_sha256
@@ -200,20 +204,27 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
         self._cag_chars_por_sd = max(0, cag_chars_por_sd)
 
     # ── infra ────────────────────────────────────────────────────────────────
+    def _chat_de(self, spec: PromptSpec):
+        return self._chats_por_nodo.get(spec.id, self._chat)
+
     def _cadena(self, spec: PromptSpec, schema):
-        return _CadenaMedida(spec.template | self._chat.with_structured_output(schema), spec.id)
+        chat = self._chat_de(spec)
+        return _CadenaMedida(spec.template | chat.with_structured_output(schema), spec.id)
 
     def _huella(
         self, spec: PromptSpec, nodo: str, historia: str = "", evidence_snapshot_id: str = ""
     ) -> MetadatosPrompt:
-        uso = self._chat.ultimo_uso() if hasattr(self._chat, "ultimo_uso") else None
+        # La huella tiene que preguntarle al MISMO chat que resolvió este nodo, no al de por
+        # defecto: si no, un nodo con cadena propia reportaría el proveedor de otro.
+        chat = self._chat_de(spec)
+        uso = chat.ultimo_uso() if hasattr(chat, "ultimo_uso") else None
         return MetadatosPrompt(
             prompt_id=spec.id,
             prompt_version=spec.version,
             prompt_sha256=hashlib.sha256(spec.texto.encode("utf-8")).hexdigest(),
             nodo=nodo,
             historia=historia,
-            model=self._modelo_desc,
+            model=getattr(chat, "descripcion", self._modelo_desc) or self._modelo_desc,
             provider_used=uso.proveedor if uso else "",
             model_used=uso.modelo if uso else "",
             attempt=uso.intento if uso else None,

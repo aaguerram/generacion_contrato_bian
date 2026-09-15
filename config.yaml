@@ -22,6 +22,22 @@ routing:
   # Ollama primero (propio, sin cuota); Cohere, Gemini y OpenRouter de respaldo.
   embedding_priority: [ollama, cohere, gemini, openrouter]
 
+  # Orden DISTINTO para nodos concretos, por `prompt_id`. Los 7 nodos LLM no tienen la misma
+  # dificultad ni el mismo tamaño de prompt: `mapeo.intencion` lo resuelve cualquier modelo, y
+  # `mapeo.operaciones` -que debe devolver un operationId literal entre decenas- es el primero en
+  # romperse con un modelo débil (corrida real del 2026-09-14: Groq 413 por tamaño, Gemini sin
+  # cuota, respondió un modelo más pequeño y no ancló ni una operación).
+  #
+  # OJO con lo que esto NO arregla: cada LLAMADA ya recorre su cadena desde el principio, así que
+  # un proveedor que falló con 413 en un nodo de prompt grande SE VUELVE A INTENTAR en el
+  # siguiente nodo, que quizá sí le cabe. Eso no hay que configurarlo -- lo fija
+  # `tests/unit_test/test_failover.py::TestFailoverReintentaLaCadenaEnCadaLlamada`.
+  #
+  # Vacío = todos los nodos comparten `llm_priority`. `--proveedor X` sigue mandando sobre esto.
+  llm_priority_por_nodo: {}
+  #   mapeo.operaciones: [ollama, groq, gemini, huggingface, openrouter]   # 262k de contexto, sin cuota
+  #   mapeo.evaluacion:  [groq, gemini, huggingface, openrouter, ollama]
+
 # ── Proveedores ─────────────────────────────────────────────────────────────
 providers:
   # ── Ollama: servidor propio (docker, qwen3.8 27B para chat + qwen3-embedding 8B para

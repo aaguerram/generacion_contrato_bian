@@ -113,3 +113,72 @@ class TestChatConFailover(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestFailoverReintentaLaCadenaEnCadaLlamada(unittest.TestCase):
+    """Cada llamada arranca en el PRIMER modelo de la cadena, siempre.
+
+    Es la propiedad que hace utilizable el mix de proveedores: un modelo que rechaza un nodo por
+    tamaño de prompt (Groq devuelve 413 "Request too large" con el catálogo CAG de ~48k tokens)
+    NO queda descartado para el resto de la corrida — el siguiente nodo, cuyo prompt es mucho más
+    pequeño, vuelve a intentarlo y normalmente le cabe. Si alguien añadiera un latch del tipo
+    "recuerda el modelo que funcionó", el mix dejaría de funcionar así y la cadena se quedaría
+    pegada al último superviviente: este test existe para que ese cambio falle aquí.
+
+    Sin API.
+    """
+
+    def _cadena_grande_y_pequena(self):
+        # El primer modelo rechaza la llamada 1 (nodo grande) y responde la 2 (nodo pequeño).
+        grande = _entrada("groq", RuntimeError("413 Request too large"), "ok-nodo-pequeno")
+        respaldo = _entrada("ollama", "ok-respaldo", "ok-respaldo")
+        return ChatConFailover([grande, respaldo], reintentos_transitorios=1)
+
+    def test_un_413_no_descarta_al_proveedor_para_los_siguientes_nodos(self):
+        chat = self._cadena_grande_y_pequena()
+        runnable = chat.with_structured_output(dict)
+
+        self.assertEqual(runnable.invoke("prompt enorme"), "ok-respaldo")
+        self.assertEqual(chat.ultimo_uso().proveedor, "ollama")
+
+        # Segunda llamada = otro nodo: vuelve a empezar por el primero, que ahora sí responde.
+        self.assertEqual(runnable.invoke("prompt pequeño"), "ok-nodo-pequeno")
+        self.assertEqual(chat.ultimo_uso().proveedor, "groq")
+
+    def test_la_descripcion_de_la_cadena_no_cambia_entre_llamadas(self):
+        chat = self._cadena_grande_y_pequena()
+        antes = chat.descripcion
+        chat.with_structured_output(dict).invoke("x")
+        self.assertEqual(chat.descripcion, antes)
+
+
+class TestPrioridadPorNodo(unittest.TestCase):
+    """`routing.llm_priority_por_nodo` da otro orden de proveedores a un nodo concreto."""
+
+    def _config(self, por_nodo):
+        from unit_test.support import config_test
+
+        import dataclasses
+
+        base = config_test()
+        return dataclasses.replace(
+            base, routing=dataclasses.replace(base.routing, llm_priority_por_nodo=por_nodo)
+        )
+
+    def test_sin_override_todos_los_nodos_comparten_la_cadena(self):
+        config = self._config({})
+        self.assertEqual(
+            [p.nombre for p in config.orden_llm()],
+            [p.nombre for p in config.orden_llm(nodo="mapeo.operaciones")],
+        )
+
+    def test_un_nodo_con_override_usa_su_propio_orden(self):
+        config = self._config({"mapeo.operaciones": ("fake",)})
+        self.assertEqual([p.nombre for p in config.orden_llm(nodo="mapeo.operaciones")], ["fake"])
+
+    def test_proveedor_forzado_manda_sobre_el_override_del_nodo(self):
+        """`--proveedor X` es una decisión del operador: no la puede pisar una entrada del yaml."""
+        config = self._config({"mapeo.operaciones": ("noexiste",)})
+        self.assertEqual(
+            [p.nombre for p in config.orden_llm("fake", nodo="mapeo.operaciones")], ["fake"]
+        )
