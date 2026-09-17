@@ -1,0 +1,122 @@
+{
+ "Customer Credit Rating": {
+  "role_definition": "Este Service Domain gestiona la derivación y el mantenimiento de la calificación crediticia de cada cliente, tanto personas naturales como corporativos. La calificación interna puede integrar los datos de crédito provistos externamente por burós de crédito con los datos transaccionales internos y las evaluaciones de la relación. La calificación se mantendrá según reglas internas, pero es posible que se ofrezca un servicio para recalcular el puntaje de crédito fuera de calendario",
+  "example_of_use": "Un cliente llama al centro de contacto para saber a qué ofertas hipotecarias es elegible. El representante de atención (CSR) usa la evaluación crediticia interna del cliente como uno de los insumos para consultar el Product Directory y recuperar los datos de los productos y las condiciones disponibles",
+  "executive_summary": "Este Service Domain mantiene y administra la evaluación crediticia que el banco hace de sus clientes, a partir de datos internos consolidados y, opcionalmente, consultando reportes de burós de crédito externos",
+  "key_features": "Acceder a los burós de crédito externos para obtener los reportes crediticios del cliente\nConsolidar el uso de productos del banco que impacta la calificación\nDerivar y mantener la evaluación crediticia del cliente que hace el banco"
+ },
+ "Customer Event History": {
+  "role_definition": "Este Service Domain captura un rango amplio de eventos del cliente para construir un historial integral de su actividad, que pueda sustentar el análisis de comportamiento posterior. Esto incluye los eventos clave de venta y propuesta, los eventos de gestión de la relación, los eventos de entrega de productos, los disparadores detectados del cliente (normalmente recogidos durante los diálogos de atención) y, posiblemente, actividad del cliente obtenida de fuentes externas. Los datos armados se ponen a disposición para el análisis de comportamiento y para consulta más general (como la que podría usar la gestión de la relación, por ejemplo)",
+  "example_of_use": "Un cliente contacta al centro de llamadas para consultar por las transacciones de su cuenta y, durante el diálogo, el representante de atención detecta un evento de vida (por ejemplo, el cliente se está cambiando de casa). Los datos del contacto y el evento de vida se capturan en el historial del cliente",
+  "executive_summary": "Este Service Domain captura, clasifica y almacena los eventos del cliente relacionados con la relación, la atención y el cumplimiento de productos. Además de los datos de atención y de las transacciones de producto, la bitácora puede capturar eventos de vida y de relación que se revelan durante los intercambios con el cliente",
+  "key_features": "Registrar los eventos de venta, mercadeo y desarrollo de la relación del cliente\nRegistrar los eventos de atención del cliente\nRegistrar los eventos de vida detectados (en interacciones o por investigación externa)\nRegistrar los eventos y las alertas de cumplimiento de productos"
+ },
+ "Customer Financial Insights": {
+  "role_definition": "Este Service Domain consulta el registro histórico del perfil financiero del cliente —que cubre los flujos de efectivo de sus cuentas, su posición de crédito y depósitos y sus tenencias de garantías y patrimonio, tal como las mantiene el Service Domain Customer Position— para desarrollar hallazgos financieros. Ese análisis puede sustentar la actividad de ventas y mercadeo, identificando la oportunidad de ofrecerle productos y servicios nuevos, y también detectar dónde los cambios en su situación financiera podrían requerir renegociar sus esquemas de producto vigentes. Las rutinas y los modelos de análisis financiero que se aplican los desarrolla y mantiene el Service Domain Customer Behavior Models",
+  "example_of_use": "Un análisis periódico del perfil financiero de un cliente determina que ha tenido un crecimiento sostenido de sus ingresos conforme avanzó su carrera. El cliente parece tener flujo de efectivo libre y, por lo tanto, podría ser candidato para un crédito hipotecario, un depósito a plazo o asesoría de inversión. El análisis actualizado se notifica a Customer Relationship Management para su consideración.",
+  "executive_summary": "Este Service Domain aplica análisis de comportamiento al historial financiero del cliente para desarrollar hallazgos que puedan revelar oportunidades de desarrollo del negocio o detectar posibles preocupaciones sobre su bienestar financiero",
+  "key_features": "- Consolidar y extraer la actividad financiera histórica del cliente desde los Service Domain Customer Position\n- Elegir y aplicar los análisis financieros a los datos financieros históricos del cliente\n- Mantener y derivar hallazgos financieros sobre las oportunidades de desarrollo de la relación y los posibles problemas financieros"
+ },
+ "Customer Product And Service Eligibility": {
+  "role_definition": "Este Service Domain mantiene una lista de los productos y servicios para los que un cliente es elegible. Puede incluir productos y servicios que el cliente tuvo en el pasado. Para actualizar la lista, de forma periódica o ante determinados eventos, el Service Domain llama a Product Matching para encontrar productos adicionales a los que el cliente sea elegible. Una vez que el cliente adquiere un producto o servicio, este se retira de la lista actual y se agrega a su registro en Customer Products and Services.",
+  "example_of_use": "- Customer Relationship Management reevalúa la elegibilidad de un cliente durante un análisis periódico.",
+  "executive_summary": "Este Service Domain mantiene una lista de los productos y servicios para los que un cliente es elegible.",
+  "key_features": "- Proveer la lista de productos y servicios para los que un cliente es elegible\n- Actualizar la lista de productos y servicios para los que un cliente es elegible, a partir de una solicitud de la gestión de la relación con el cliente y con la ayuda de Product Matching)"
+ },
+ "Customer Product and Service Directory": {
+  "role_definition": "Este Service Domain mantiene los datos de todos los productos y servicios que un cliente ha adquirido del banco. Como tal, mantiene datos de los productos y servicios actuales y pasados. Incluye las opciones y las características clave de producto que se eligieron y la disponibilidad o el estado actual del producto del cliente, pero no mantiene ningún dato sobre el uso del producto ni información de saldos. Es el único dominio del modelo que puede proveer información sobre los productos y servicios actuales de un cliente.",
+  "example_of_use": "- Customer Offer consulta los productos y servicios que un cliente tiene actualmente para mostrárselos y ayudarlo a decidir sobre un producto (o variante) nuevo.\n- Un cliente adquiere un producto del banco. El producto se agrega a su lista en Customer Products and Services.\n- El gestor de relación verifica la cobertura actual de productos y servicios de un cliente al armar su plan de desarrollo de negocio para el siguiente ciclo.",
+  "executive_summary": "Este Service Domain mantiene los datos más importantes de todos los productos y servicios que un cliente ha adquirido del banco.",
+  "key_features": "- Proveer la lista de productos y servicios que el cliente toma actualmente del banco\n- Agregar un producto o servicio a la lista cuando el cliente adquiere uno nuevo\n- Mantener y reportar los productos y servicios y sus datos de configuración asociados para un cliente\n- Actualizar los datos de productos y servicios del cliente cuando se solicite (por ejemplo, al completarse con éxito una oferta al cliente)"
+ },
+ "Customer Proposition": {
+  "role_definition": "Este Service Domain le permite al banco y al cliente establecer y mantener las preferencias y los requerimientos de cumplimiento de productos y servicios que abarcan múltiples productos",
+  "example_of_use": "El banco determina que el valor significativo de largo plazo de la relación con un cliente amerita exonerar ciertas comisiones estándar para ayudar a retener su negocio, y registra ese requerimiento en su acuerdo de propuesta",
+  "executive_summary": "Este Service Domain mantiene los requerimientos definidos por el banco y por el cliente que abarcan todos los productos y servicios",
+  "key_features": "Mantener los términos de entrega de servicio definidos por el banco\nMantener los términos de preferencia de servicio definidos por el cliente"
+ },
+ "Customer Relationship Management": {
+  "role_definition": "Esta función gestiona las relaciones administradas con los clientes. Normalmente existirá un plan de desarrollo del cliente y un presupuesto o metas para los clientes de mayor valor. La función puede apoyarse en hallazgos de mercado externos y en el cumplimiento interno de productos y servicios para controlar el desempeño y disparar el contacto cuando corresponda. Es una fuente clave de desarrollo del negocio, al proveer el cruce de productos y servicios y su difusión. Como punto principal de contacto, el gestor de relación puede ayudar en la resolución de problemas y en el diagnóstico. La gestión de la relación aplica a clientes corporativos y de alto patrimonio. Facilidades automatizadas basadas en conocimiento pueden ofrecer algunas funciones de gestión de la relación a nivel de banca de personas, en particular para ventas y mercadeo",
+  "example_of_use": "Un gestor de relación de clientes corporativos revisa la actividad reciente de un cliente y nota que sus niveles de actividad vienen bajando. Se revisan las posibles actividades externas (de mercado) e internas (de atención y cumplimiento) en busca de causas. Se programa una reunión para determinar la razón y si algún producto o servicio bancario podría ayudar o está en mayor riesgo",
+  "executive_summary": "Este Service Domain desarrolla y ejecuta un plan del cliente para mantener y construir la relación. Las actividades incluyen el contacto continuo, el control de los eventos y la actividad internos y externos de interés y relevancia, el cruce y la venta de productos y servicios, el procesamiento de consultas puntuales, el diagnóstico y la resolución de problemas, incluidas las fases iniciales de la recuperación de una cuenta en problemas",
+  "key_features": "Desarrollar un plan y metas de la relación con el cliente\nActuar como enlace y asesorar al cliente, y desarrollar la relación\nCruzar los productos y servicios con las necesidades del cliente\nResolver los problemas junto con el cliente"
+ },
+ "Party Reference Data Directory": {
+  "role_definition": "El Service Domain de directorio de datos de referencia de la parte mantiene un rango potencialmente amplio de datos de referencia que podrían usarse en cualquier interacción entre el banco y la parte, incluidos el desarrollo de la relación, las ventas y el mercadeo, la atención y la entrega de productos. Esto puede incluir datos generales de referencia y de contacto, las asociaciones de la parte, sus datos demográficos y algunas preferencias de atención. Puede mantenerse información distinta para distintos tipos de parte, como personas naturales, corporaciones y socios",
+  "example_of_use": "Se accede a los datos de referencia de la parte para precargar un formulario de solicitud de una nueva oportunidad de producto con un cliente",
+  "executive_summary": "Este Service Domain mantiene un conjunto de información de referencia de la parte, que cubre aspectos como los datos generales de referencia, los contactos y las asociaciones y la información demográfica",
+  "key_features": "Mantener la información de referencia de la parte\nMantener los indicadores demográficos de la parte\nMantener los roles, las asociaciones y las relaciones de la parte\nMantener los contactos de la parte con el banco"
+ },
+ "Payee Management": {
+  "role_definition": "Este Service Domain da soporte a la afiliación y a la resolución de alias o apoderados para validar e identificar la información de la cuenta del beneficiario y sus preferencias.",
+  "example_of_use": "Un cliente establecido inicia una transferencia desde su cuenta de ahorros a la cuenta de un amigo en el mismo banco o en otro, pero entrega solamente el número de celular del amigo.",
+  "executive_summary": "Este Service Domain mantiene un catálogo de referencia que se usa para convertir las referencias de alias o apoderado del beneficiario en los datos de cuenta requeridos",
+  "key_features": "Registrar y actualizar el alias del beneficiario con los datos del banco y/o de la cuenta\nRegistrar y actualizar el servicio del beneficiario con los datos de afiliación"
+ },
+ "Sales Product Agreement": {
+  "role_definition": "El Service Domain Sales Product Agreement captura y mantiene los términos y condiciones legales vigentes de un producto vendido. Los términos y condiciones específicos del producto están subordinados a los del acuerdo marco del cliente, que mantiene el Service Domain Customer Agreement. Los términos contractuales del producto influyen en el cumplimiento del producto y del servicio, por ejemplo al definir las comisiones, tasas y penalidades aplicables y las características y opciones elegidas. Nótese que pueden existir otras características de configuración del producto que no son contractualmente vinculantes; esas se mantienen directamente en el Service Domain de cumplimiento del producto o servicio asociado",
+  "example_of_use": "Un cliente establecido completa el proceso de solicitud de un producto de crédito nuevo y se constituye un nuevo acuerdo de venta del producto",
+  "executive_summary": "Este Service Domain mantiene un acuerdo legal estructurado que define los términos y condiciones contractuales de un producto vigente de un cliente. Está subordinado al acuerdo marco del cliente, que mantiene el Service Domain Customer Agreement",
+  "key_features": "Constituir y mantener el acuerdo de venta del producto del cliente\nAsegurar que las consideraciones legales, regulatorias y corporativas queden cubiertas\nDeterminar si las acciones propuestas están cubiertas por el acuerdo"
+ },
+ "Advertising": {
+  "role_definition": "Supervisar el uso y evaluar la cobertura y el impacto de las campañas publicitarias. Dirigir la ejecución de las campañas para maximizar el impacto en el negocio. Supervisar la actividad de diseño y desarrollo de las campañas publicitarias.",
+  "example_of_use": "Desarrollo del negocio revisa la investigación de mercado para determinar los niveles de conocimiento de determinados productos del banco e inicia una campaña publicitaria para elevarlo",
+  "executive_summary": "Desarrollar el plan y supervisar la actividad de las campañas publicitarias, incluida la gestión del presupuesto y los recursos",
+  "key_features": "Controlar la actividad del mercado y de la competencia\nEvaluar el desempeño de los segmentos de clientes\nEvaluar la cobertura de las campañas publicitarias\nDirigir el desarrollo de las campañas publicitarias\nDirigir la ejecución de las campañas publicitarias"
+ },
+ "Brand Management": {
+  "role_definition": "Definir y desarrollar la marca de la empresa, lo que incluye proveer asesoría y guía a las actividades de mercadeo y de desarrollo de productos y servicios que aprovechan la marca. Responder a los eventos que potencialmente la dañan o que ofrecen una oportunidad de fortalecer o aprovechar su reconocimiento",
+  "example_of_use": "Diseño de producto solicita el aporte de la unidad de gestión de marca para incorporarla en el material de mercadeo del producto y asegurar la alineación",
+  "executive_summary": "Responder a los eventos que potencialmente dañan la marca o que ofrecen una oportunidad de fortalecer o aprovechar su reconocimiento",
+  "key_features": "Definición de la marca Revisión del impacto en el desarrollo del negocio y del aprovechamiento de la marca Resolución de los problemas de producción que puedan impactar la marca"
+ },
+ "Business Development": {
+  "role_definition": "Definir, implementar, controlar y evaluar los planes de desarrollo de negocio nuevo de la empresa o de divisiones específicas. Esto puede cubrir actividades como la entrada a nuevos segmentos de mercado, la cobertura de productos y el desarrollo de sus especificaciones, el desarrollo de la marca, la captación de clientes nuevos y, con los clientes existentes, la venta cruzada, la venta incremental y la retención.",
+  "example_of_use": "La estrategia corporativa desarrolla metas de captación de negocio nuevo en segmentos de mercado seleccionados",
+  "executive_summary": "Definir, implementar, controlar y evaluar los planes de desarrollo de negocio nuevo",
+  "key_features": "Definir las políticas y los lineamientos rectores\nDefinir las metas del negocio\nDefinir las estrategias de desarrollo del negocio que las sustentan\nControlar el avance hacia las metas y dirigir la actividad"
+ },
+ "Customer Campaign Design": {
+  "role_definition": "Este Service Domain diseña y refina las campañas de clientes (o integra diseños de especialistas externos en campañas). Las campañas de clientes se dirigen a la base de clientes existente y pueden ser proactivas (con focalización, contacto y solicitud al cliente) o de autoservicio, e incluyen actividades como la venta cruzada, la venta incremental y la retención. Se usa numeración de versiones para controlar el impacto de los cambios hechos a las campañas a lo largo de su uso.",
+  "example_of_use": "Una campaña de retención se actualiza para ofrecer condiciones de precio modificadas o mejoradas a los clientes focalizados y ayudar a retener su negocio, luego de detectarse una tasa de respuesta baja",
+  "executive_summary": "Diseñar y refinar las especificaciones de las campañas de clientes a partir de su impacto",
+  "key_features": "Definir el perfil objetivo y el impacto de una campaña\nEspecificar una campaña de clientes\nControlar el impacto de una campaña\nRefinar y reconfigurar una campaña"
+ },
+ "Customer Campaign Management": {
+  "role_definition": "Supervisar el uso y evaluar la cobertura y el impacto de las campañas internas y de clientes. Dirigir los recursos de ejecución de las campañas para maximizar el impacto en el negocio y en respuesta a las oportunidades y amenazas de mercado identificadas. Supervisar la actividad de diseño y desarrollo de las campañas.",
+  "example_of_use": "Customer Campaign Management identifica actividad de la competencia que representa una amenaza para los clientes existentes. Se inicia el diseño de una campaña de retención para atender esa amenaza",
+  "executive_summary": "Evaluar la cobertura y el impacto de las campañas internas y de clientes y reorientar en consecuencia la actividad de desarrollo y ejecución de campañas",
+  "key_features": "Controlar la actividad del mercado y de la competencia\nEvaluar el desempeño de los segmentos de clientes\nEvaluar la cobertura de las campañas de clientes\nDirigir el desarrollo de las campañas de clientes\nDirigir la ejecución de las campañas de clientes"
+ },
+ "Customer Surveys": {
+  "role_definition": "Gestionar el despliegue, la ejecución y el refinamiento continuo de las encuestas a clientes. Esto incluye muchos tipos de encuesta: cuestionarios tradicionales por correo, solicitud de revisión y retroalimentación en producción, y paneles de revisión o grupos focales. El proceso de ejecución realiza la definición de la encuesta, la selección de los participantes, la aplicación y el análisis posterior",
+  "example_of_use": "El banco desarrolla un cuestionario para obtener retroalimentación de los clientes que usan con frecuencia la facilidad de autoservicio del centro de contacto y recoger sugerencias de mejora",
+  "executive_summary": "Definir, ejecutar y analizar las encuestas a clientes",
+  "key_features": "Definición y refinamiento de la encuesta a clientes\nSelección e identificación de los participantes\nEjecución de la encuesta a clientes\nAnálisis y retroalimentación de la encuesta a clientes"
+ },
+ "Promotional Events": {
+  "role_definition": "Desarrollar y ejecutar eventos promocionales que cubran el desarrollo de la marca y la publicidad. Esto puede incluir la participación en eventos deportivos o de entretenimiento o actividad promocional más general",
+  "example_of_use": "Desarrollo del negocio revisa la investigación de mercado para elegir los eventos promocionales que patrocinará, con el fin de apoyar la marca del banco y elevar su reconocimiento en el mercado",
+  "executive_summary": "Desarrollar el plan y supervisar la actividad de eventos promocionales, incluida la gestión del presupuesto y los recursos",
+  "key_features": "Controlar la actividad del mercado y de la competencia en eventos promocionales\nEvaluar la adecuación de las oportunidades de patrocinio de eventos promocionales\nDirigir la participación en eventos promocionales"
+ },
+ "Prospect Campaign Design": {
+  "role_definition": "Este Service Domain diseña y refina las campañas de prospectos (o integra diseños de especialistas externos en campañas). Las campañas de prospectos se dirigen a la captación de clientes nuevos y normalmente son proactivas (con focalización, contacto y solicitud al prospecto). Se usa numeración de versiones para controlar el impacto de los cambios hechos a las campañas a lo largo de su uso.",
+  "example_of_use": "Una campaña de captación de prospectos se actualiza para ofrecer condiciones de precio modificadas o mejoradas a los prospectos focalizados, luego de detectarse una tasa de aceptación baja",
+  "executive_summary": "Diseñar y refinar las especificaciones de las campañas de prospectos a partir de su impacto",
+  "key_features": "Definir el perfil objetivo y el impacto de una campaña\nEspecificar una campaña de prospectos\nControlar el impacto de una campaña\nRefinar y reconfigurar una campaña"
+ },
+ "Prospect Campaign Management": {
+  "role_definition": "Supervisar el uso y evaluar la cobertura y el impacto de las campañas externas y de prospectos. Dirigir los recursos de ejecución de las campañas para maximizar el impacto en el negocio y en respuesta a las oportunidades y amenazas de mercado identificadas. Supervisar la actividad de diseño y desarrollo de las campañas.",
+  "example_of_use": "Prospect Campaign Management identifica actividad de la competencia dirigida a un segmento de mercado no explotado. Se inicia el diseño de una campaña de captación competitiva para atender esa amenaza",
+  "executive_summary": "Evaluar la cobertura y el impacto de las campañas externas y de prospectos y reorientar en consecuencia la actividad de desarrollo y ejecución de campañas",
+  "key_features": "Controlar la actividad del mercado y de la competencia\nEvaluar el desempeño y las oportunidades de los segmentos de clientes\nEvaluar la cobertura de las campañas de prospectos\nDirigir el desarrollo de las campañas de prospectos\nDirigir la ejecución de las campañas de prospectos"
+ },
+ "Commission Agreement": {
+  "role_definition": "Este Service Domain crea y mantiene los términos para aplicar comisiones a las transacciones asignadas a empleados y a brókeres o intermediarios de servicio representantes",
+  "example_of_use": "Ejemplo de uso:\nEl acuerdo de comisiones de un empleado se constituye una vez que califica para realizar actividad de venta en el centro de contacto",
+  "executive_summary": "Mantener y administrar los términos y las transacciones de las comisiones de empleados y brókeres",
+  "key_features": "Capturar los términos de comisión del empleado\nInterpretar la aplicabilidad de los términos a las transacciones"
+ }
+}

@@ -1,0 +1,118 @@
+{
+ "Commissions": {
+  "role_definition": "Capture and structure commissionable transactions that are subsequently processed against an existing commission agreement",
+  "example_of_use": "Example of use:\nA qualified servicing representative succeeds in selling an opportunity to an established customer and is awarded a commission",
+  "executive_summary": "The service domain processes commissions for transactions for eligible employees",
+  "key_features": "Confirm employee eligibility for commission payment\nDetermine earned commission amount for (sales) transaction\nInitiate payment to employee account"
+ },
+ "Customer Campaign Execution": {
+  "role_definition": "Handle the deployment, execution and on-going refinement of a customer campaign. This includes many types of proactive customer campaigns such as up-sell, cross-sell and customer retention. The campaign execution process performs the initial selection and confirmation of candidate customers and includes providing critical feedback on the impact of the campaign to the design unit to support re-calibration and refinement of the specification based on practical experience",
+  "example_of_use": "A bank implements a targeted cross-sell campaign in the customer servicing center to generate additional sales",
+  "executive_summary": "Execute a customer campaign (version) and track and respond to impact",
+  "key_features": "Candidate customer selection/identification\nCustomer interaction and response capture\nCampaign performance analysis and feedback"
+ },
+ "Customer Offer": {
+  "role_definition": "The Offer Management Service Domain can process offers for all types of customers and any allowed combination of product or service. It references the Product Directory for the product specific offer instructions it must follow. The offer process may combine the selection of product/service specific details (e.g. pricing & negotiation ranges, documentation/authorization/regulatory requirements, eligibility and declarations, credit and other customer details), customer specific details (e.g. credit standing, other classifications such as operational overhead/retention target/activity history, demographics and segmentation). The service domain orchestrates a potentially complex/multi-threaded/multi stage workflow to get the offer to the point where the product/service can be initiated.",
+  "example_of_use": "An existing customer has discussed short term funding needs with the Financial Advisor and agreed in principle to taking out a corporate loan. The customer offer process is initiated and leads the advisor through the detailed checks, authorizations and documentation needed prior to the final set-up of the Corporate Loan",
+  "executive_summary": "This service domain orchestrates the processing of a product offer for a new or established  customer. The offer process is defined specifically for the product or service being considered and can include actions such as document checks, collateral allocation, credit assessments, underwriting decisions, regulatory and procedural checks, eligibility checks, the use of internal and external specialist services (such as evaluations and legal advice).",
+  "key_features": "Obtain offer processing requirements for selected product\nConfirm customer suitability/eligibility for product\nAgree product features, fees and pricing with customer\nObtain documents/signatures and required disclosures\nArrange collateral and obtain underwriting authorizations\nPerform any audit and compliance checks\nInitiate product set-up"
+ },
+ "Lead and Opportunity Management": {
+  "role_definition": "This service domain captures, evaluates and progresses identified lead/opportunities that may arise during customer relationship development, sales, servicing and fulfillment interactions. It will clarify and confirm the customer's interest and check that the product is suitable and the customer eligible prior to initiating the formal offer process (see service domain Customer Offer)",
+  "example_of_use": "A lead is identified during a customer servicing interaction and the lead captured for subsequent follow-up",
+  "executive_summary": "This service domain captures, classifies and track sales lead/opportunities with established clients for additional products or services. It handles the processing of the opportunity through to the point of formal offer processing.",
+  "key_features": "Lead/opportunity classification and capture\nLead/opportunity evaluation and confirmation\nVerify opportunity, initiate/schedule customer offer processing"
+ },
+ "Party Lifecycle Management": {
+  "role_definition": "This service domain tracks the state of a party relationship with the bank from the initial checks made when establishing a new business relationship with a customer or partner and then that are performed as necessary over the duration of the relationship. The checks and the maintenance requirements will vary by party type (e.g. individual, company, partner) and jurisdiction. The checks cover bank specific and legal and regulatory considerations and may be updated based on a standard schedule or by request in specific circumstances.",
+  "example_of_use": "A prospective customer has been identified and the bank undertakes a collection of checks to confirm this is a new relationship and to verify the relationship in compliance with bank, legal and regulatory requirements. Note that for different customer types (non consumer in particular) many different checks will be required.",
+  "executive_summary": "This service domain tracks the state of a party relationship with the bank from the initial checks made during the establishment of a new party connection and subsequently maintained as necessary over the duration of the relationship. The checks and the maintenance requirements will vary by party type and jurisdiction. The checks cover bank specific and legal and regulatory considerations and may be updated based on a standard schedule or by request in specific circumstances.",
+  "key_features": "Perform party qualification/confirmation checks\nMaintain a schedule and perform periodic re-assessments\nProvide status reports and process status update notifications"
+ },
+ "Product Expert Sales Support": {
+  "role_definition": "Track availability and utilization and assign product specialists to support sales activity (for both internal customer up-sell and external prospect acquisition activity). This can include the administration of customer fees/charges if applicable",
+  "example_of_use": "A relationship manager requests specialist support for a customer seeking investment product selection advice",
+  "executive_summary": "Administer the availability and allocation of product specialists to support sales activity",
+  "key_features": "Track the availability of specialist product support\nAssign resources in response to support requests\nObtain and process feedback from customers as to the effectiveness and impact of support"
+ },
+ "Product Matching": {
+  "role_definition": "The service domain implements a decision service (that might be interactive) to isolate the preferred product(s) for which a customer is eligible in a specific servicing situation. The product selection logic will balance factors including customer indicated desired product type/features, customer type/profile, solicitation/retention/enquiry servicing situation, prevailing campaigns/bank preferred products. The decision logic improves product selection to optimize the customer interaction and support business development",
+  "example_of_use": "Example of use:\nA customer servicing representative initiates a product matching dialogue after resolving a disputed payment in favor of the customer, hoping to leverage the positive contact situation to generate additional business opportunities",
+  "executive_summary": "Capability used to match eligible product and product combinations to a customer based on prevailing conditions such as customer type, product interest, solicitation/retention, campaign alignment",
+  "key_features": "Determine customer product interest\nIsolate eligible products\nConsider context to filter/prioritize products\nApply broader campaign/bank preferences"
+ },
+ "Product Sales Support": {
+  "role_definition": "Administer the allocation of specialist support to advise on specific products and services",
+  "example_of_use": "An established corporate customer arranges a meeting with a specialist to discuss short term funding options",
+  "executive_summary": "This Service Domain administers customer access to product specialists"
+ },
+ "Prospect Campaign Execution": {
+  "role_definition": "Handle the deployment, execution and on-going refinement of a prospect campaign. This includes many types of proactive prospect acquisition campaigns. The campaign execution process performs the initial selection and confirmation/validation of candidate lists and includes providing critical feedback on the impact of the campaign to the design unit to support re-calibration and refinement of the specification based on practical experience",
+  "example_of_use": "A bank implements a targeted take-one mailshot acquisition campaign to attract additional customers",
+  "executive_summary": "Execute a prospect campaign (version) and track and respond to impact",
+  "key_features": "Candidate prospect selection/identification (list development)\nProspect interaction and response capture\nCampaign performance analysis and feedback"
+ },
+ "Sales Planning": {
+  "example_of_use": "Sales management review quarterly performance and pipeline and set sales targets and allocations for the upcoming cycle"
+ },
+ "Sales Product": {
+  "role_definition": "A sales product defines specific constraints and terms that augment the features of the base product it 'wraps'. It is used to support customization or core products to address specific market needs and opportunities with more  narrowly targeted products",
+  "example_of_use": "A bank packages its Current Account product with features suited to students as part of a prospect campaign",
+  "executive_summary": "A representation of a product as sold to a customer, covering the operational fulfillment requirements",
+  "key_features": "Link to core/underlying product instance\nSupport specific product constraints/processing terms\nEnable/link to additional service features"
+ },
+ "Underwriting": {
+  "role_definition": "The underwriting decision considers the ability of the borrower to finance the loan based on their known cash flows and credit worthiness. The underwriting decision refers to specific properties of the proposed loan (amount, term, repayment schedule, collateral etc.), the income and known commitments of the borrower and their credit history with the bank. The decision may factor perceived underwriting risks into the interest rate and/or collateral requirements to obtain approval",
+  "example_of_use": "A corporate loan offer is processed and at the appropriate point an underwriting authorization is requested",
+  "executive_summary": "This service domain manages the underwriting decision process for products as appropriate (including many loan types and some insurance products)",
+  "key_features": "Consolidate underwriting decision materials\nEvaluate cash flow/credit position for proposal\nMake (conditional if needed) underwriting determination"
+ },
+ "Card Case": {
+  "role_definition": "Capture, track, resolve and report on card related transactional disputes, handling all the dispute resolution messages between the Issuer, the Card Network and the Acquirer.",
+  "example_of_use": "A card holder reports a payment dispute to the contact center and a case is initiated. The account is credited and documentation requested from the merchant. The case is finally judged when the documents are available for review and all interested parties are notified of the resolution",
+  "executive_summary": "This service domain handles the processing of a customer card case, typically a disputed charge",
+  "key_features": "Consolidation of transaction details\nChargeback processing\nCase decisioning and arbitration\nCase resolution"
+ },
+ "Case Root Cause Analysis": {
+  "role_definition": "Analyze customer servicing case resolution records for root cause insights. Analysis can be focused for more specific analysis including: problematic product and service features that can be refined; possible operational weaknesses that might require improved training/guidelines; and, to detect possible credit/fraud patterns",
+  "example_of_use": "Example of use:\nContact center case resolution records are reviewed to identify recurring issues that can be resolved with improved servicing representative training and guidelines",
+  "executive_summary": "Root cause analysis business function reviews case reports to identify possible improvements to eliminate/mitigate servicing issues",
+  "key_features": "Product and service feature related issue analysis\nServicing and operational performance issue analysis\nCredit and fraudulent behavior analysis"
+ },
+ "Customer Case": {
+  "role_definition": "Case resolution tasks follow specific procedures for the type of case involved. Case resolution can be quick by applying resolution rules and obtaining additional authorization as necessary, or they can be long living activities, for example where documentation is requested and has to be retrieved from merchants or other interested parties before the disputed issue can finally be ruled upon. A wide range of case types can be expected",
+  "example_of_use": "A case resolution operator works through the resolution of a case, following the established process for the specific case - in this case a disputed charge that is below a threshold allowing the credit to be charged to the merchant",
+  "executive_summary": "This service domain handles the initiation, tracking, resolution and reporting on customer cases (issues that typically require corrective response to some financial transaction)",
+  "key_features": "Customer case capture and classification\nCase related information consolidation\nCustomer case diagnosis and decisioning\nCustomer case resolution implementation"
+ },
+ "Customer Case Management": {
+  "role_definition": "Manage customer case handling, track the effectiveness and impact of case resolution. Evaluate and confirm that the decision making rules and thresholds are well balanced in terms of equitable determination with general customer and merchant acceptance of the process. Ensure and that sufficient and appropriately trained resources are available",
+  "example_of_use": "Customer case handling is assessed over a period and the rules and thresholds guiding resolution decisions recalibrated",
+  "executive_summary": "Track and assess case load and resolution activity - allocate resources as necessary to optimize case resolution performance",
+  "key_features": "Define and refine the guiding principles and rules for case resolution\nAssess effectiveness of the case processing function\nDetermine and monitor staffing levels and utilization"
+ },
+ "Loan Syndication": {
+  "role_definition": "Loan Syndication is a Service Domain that supports orgination, set-up and servicing of syndicated loans. It provides services that are used in lead banks, agents and banks providing administrative support.\nIn the context of the origination process the Service Domain Loan Syndication takes in a request for a loan that will require syndication. The request could come from the Customer Offer Service Domain which will delegate the origination due to the complexity of the process. Loan Syndication orchestrates the handling of the set up, starting with the verification if all conditions for providing a syndicated loan are met. It will call services of Party Asset Directory (recording of pledgeable asstes) and Underwriting before it will pass control to the Syndicate Management Service Domain to actually set up the syndicate.\nIn the context of servicing Loan Syndication is instrumental in orchestrating processes to transfer participations between lenders, handling of the maturity of a syndicated loan and more.",
+  "example_of_use": "A request for a large financing project which will likely require syndication comes in from a corporate customer. Customer Offer will receive the request, it will conduct or refresh the customer onboarding and subsequently pass on the request to Loan Syndication to handle the origination, including the valuation and recording of pledgeable assets, up to the point where the syndicate can be set up and the loan closing (set up completion) stage can start.",
+  "executive_summary": "Loan Syndication is a Service Domain that supports orgination, set-up and servicing of syndicated loans. It provides services that are used in lead banks, agents and banks providing administrative support.\nIt handles the orchestration of origination and servicing processes for syndicated loans.",
+  "key_features": "The features usually run at the lead bank.\n- Take in a request for a syndicated loan\n- Negotiate Mandate Letter and Term Sheets\n- Prepare for disbursement of additional tranches of the loan\n- Orchestrate the transfer of a loan participation to a different lender\n- Process the maturity of a Syndicatec Loan"
+ },
+ "Payment Order Initiation": {
+  "role_definition": "This service domain supports payment services for consumer and business customers by capturing the payment instruction and forwarding it to Payment Orchestration to handle different types of payment transactions, both within the bank as well as with other banks through different payment schemes. The service domain can support single transactions, or manage scheduled payments if requested.",
+  "example_of_use": "An established customer transfers an amount from their current account to an overseas account for a family member. As this is a recurring transaction, the details are maintained and updated as necessary",
+  "executive_summary": "This service domain provides a customer payment service. It captures the payer and payee details and other key properties of the payment and initiates the orchestration of the transaction. It provides support for repeating/scheduled payments.",
+  "key_features": "Capture payment instruction details (individual) Parse Payment Instruction (Credit Transfer, Direct Debit, Request to Pay, etc.) Verify/validate payment transaction (check funds available) Enrich Payment Information (e.g., Purchase Order Info) Identify payor/payee bank/acct Confirm Fees/FX rates Initiation payment order processing Manage scheduled payments (Payment Warehousing)"
+ },
+ "Servicing Issue": {
+  "role_definition": "Capture, track, resolve and report on the more general customer servicing issues that may arise in the servicing center. Note that this does not include the handling of specific customer cases (such as a payment dispute) Servicing issues typically requiring some kind of follow-up by the contact service representative (CSR), production support services or their management",
+  "example_of_use": "A servicing representative notes that the guidelines for a particular product are confusing and result in frequent customer enquiries. The apparent shortfall is raised to management for review",
+  "executive_summary": "This Service Domain handles production customer servicing issues detected in the customer servicing environment",
+  "key_features": "Capture servicing issue details and impact\nAnalyze root cause of the issue\nDetermine remedial actions to resolve issue\nPropose procedural and systems amendments to mitigate cause"
+ },
+ "Servicing Mandate": {
+  "role_definition": "The Servicing Mandate service domain maintains an agreement between the bank and an external party that governs/constrains the allowed access given to the bank's products and services. This access permission can be defined at two levels - overall for the service provider and at a more detailed level as applied to a specific customer.",
+  "example_of_use": "A third party provider has accessed the bank on behalf of a customer to initiate payment for a purchased product. The bank checks that the service provider is permitted to perform payments in general and whether there are specific constrains for this customer",
+  "executive_summary": "This service domain maintains the allowed customer servicing arrangements for a service provider covering general access to the bank's products and services and optionally customer specific arrangements",
+  "key_features": "Set-up mandate covering 3rd party access to services\nSet-up provider's customer specific servicing permissions\nCheck proposed activity is covered by the mandate\nMaintain/report on 3rd party activity"
+ }
+}

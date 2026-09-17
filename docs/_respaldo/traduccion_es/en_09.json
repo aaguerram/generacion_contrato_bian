@@ -1,0 +1,122 @@
+{
+ "Custody Administration": {
+  "role_definition": "Administer the securities scrip (paper and electronic) holdings for a custodial arrangement. This includes administering the physical movements of securities, safe storage, the processing of associated dividends and interest and securities reporting",
+  "example_of_use": "Example of use:\nA customer uses the banks custodial services to handle their investment portfolio holdings",
+  "executive_summary": "A service to provide safe custody services for marketable securities for bank customers",
+  "key_features": "Administer securities movements\nArrange safe storage\nProcess dividends and interest against securities\nReport on securities holdings\nDetermine and apply service fees"
+ },
+ "Financial Instrument Valuation": {
+  "role_definition": "Provide securities/asset valuation services. A wide range of valuation approaches can be applied to a range of different instrument/asset types. This Service Domain implements a process by which the most appropriate valuation method is selected and applied in the context of the valuation request and the purpose of the valuation. The fundamental pricing principle is based on an analysis of the present value of expected cash flows. This calculation involves identifying the expected cash flows, determining appropriate (range of)interest rates that might discount future cash flows and calculate the current value of future cash flows applying those interest rates",
+  "example_of_use": "The assets held in an investment portfolio are subject to valuation as part of an annual performance report",
+  "executive_summary": "This Service Domain provides a range of financial asset valuation services",
+  "key_features": "Support the selection from various financial asset valuation approaches (e.g. market, income, replacement) and depending on the type of financial asset and valuation context\nConsolidate information supporting the valuation assessment\nDetermine and report on the financial asset valuation"
+ },
+ "Hedge Fund Administration": {
+  "role_definition": "Hedge funds group accredited investors as limited partners to the fund with the fund manager as the general partner. As investors are restricted to being accredited a hedge funds is free to make more aggressive investment decisions and can generate higher returns. Fund income combines management and performance fees",
+  "example_of_use": "A bank operates a hedge fund to support its accredited investment customers. The fund targets a market segment of specific interest to its investor membership",
+  "executive_summary": "The Hedge Fund Administration Service Domain handles all aspects of the set-up and operation of a hedge fund that is offered to accredited investors within the bank's customer base",
+  "key_features": "Handle the fund's accounting, tax administration and financial reporting needs\nManage/develop the fund, investing in alignment with fund policy\nHandle investor inflows and outflow processing to the fund\nProcess management and performance fees\nSupport/oversee all general investor servicing and process middle and back office functions"
+ },
+ "Mutual Fund Administration": {
+  "role_definition": "Mutual funds provide an investment vehicle to general investors and as such are highly regulated and tend to focus on lower risk/return investments. Mutual funds are allowed to charge investors a management fee, but unlike hedge funds the mutual fund manager is not permitted to share in the fund's performance",
+  "example_of_use": "A bank operates mutual funds to offer its non accredited customers access to suitably structured investment opportunities.",
+  "executive_summary": "The Mutual Fund Administration Service Domain handles all aspects of the set-up and operation of mutual funds that can be offered to the bank's general (non-accredited) customers",
+  "key_features": "Handle the fund's accounting, tax administration and financial reporting needs\nManage/develop the fund, investing in alignment with fund policy\nHandle investor inflows and outflow processing to the fund\nProcess management fees\nSupport/oversee all general investor servicing and process middle and back office functions"
+ },
+ "Order Allocation": {
+  "role_definition": "Apply appropriate rules to allocate a completed or partially completed block order across the customers placing the constituent market orders",
+  "example_of_use": "A large market order is partly fulfilled and the pricing and allocation of the trade is allocated across the counterparties",
+  "executive_summary": "This Service Domain allocates partially fulfilled market trades",
+  "key_features": "Review allocation rules for partially completed market orders\nAllocate traded securities in accordance with allocation rules\nProvide allocation details as requested"
+ },
+ "Securities Fails Processing": {
+  "role_definition": "Market trades of securities may fail at different stages in the clearing and settlement processing. This Service Domain handles the resolution of securities processing failures",
+  "example_of_use": "The settlement details for an executed trade are rejected by the counterparty during confirmation. The back office traces the deal activity to identify the source of the clerical error obtain the agreement for the resolution and make the necessary changes to the transaction and trade reporting",
+  "executive_summary": "This Service Domain handles the resolution of clerical and processing errors that lead to failures in the securities trade clearing and settlement processes",
+  "key_features": "Research and determine the reason for securities back office processing failures\nDetermine corrective action required\nAgree and execute resolution with interested parties"
+ },
+ "Trade Clearing": {
+  "role_definition": "The process handles the notification and agreement of trade details and confirms securities and funds are made available in the corresponding cash and securities depository systems. Note the mechanics of the confirmation process can vary significantly for different security types and market places. In all cases the goal of the clearing process is to confirm and notify the transaction details to all interested parties to ensure that subsequent settlement of the transaction progresses smoothly",
+  "example_of_use": "A market trade is passed to the back office for clearing and settlement.",
+  "executive_summary": "This Service Domain handles the back office processes that confirm and notify interested parties that securities and funds are available as traded in anticipation of settlement processing",
+  "key_features": "Create and issue confirmation notices as necessary\nResolve discrepancies with interested parties\nConfirm and pre-assign cash availability as necessary\nConfirm and pre-assign securities availability as necessary\nForward transaction for settlement processing"
+ },
+ "Trade Confirmation Matching": {
+  "role_definition": "Trade matching and confirmation/affirmation is the process by which the broker dealer and institutional investor involved in a market trade ensure they agree all terms early in the trade process. The matching function is typically performed by a central market facility with both broker dealer and the institutional investor reporting trade details independently. The central system matches reported trades and then seeks confirmation/affirmation from the interested parties. This Service Domain supports the broker or investor role interfacing to that central market service",
+  "example_of_use": "Broker dealer and institutional investor trade details are matched and confirmation/affirmation obtained during a trading period",
+  "executive_summary": "This Service Domain supports the bank's interface to a central market matching and confirmation service whether the bank acts as broker dealer or institutional investor",
+  "key_features": "Report trades to the matching service\nReview matched trade reports and confirm/affirm details\nResolve and escalate unmatched trade issues"
+ },
+ "Trade Settlement": {
+  "role_definition": "Market trade that have been cleared are passed for settlement as handled by this Service Domain. The clearing process will have obtained confirmation and acceptance of the trade details and ensured that cash and securities are available in the respective depository accounts. Settlement processing orchestrates the movement of cash and securities between the accounts as required to complete/settle the trade. Different settlement mechanisms can be available depending on the type of instrument and marketplace being used",
+  "example_of_use": "A market trade that has been cleared is passed for final settlement processing",
+  "executive_summary": "This Service Domain handles the final movement of cash and securities between depositories as previously confirmed in the clearing process, in order to settle a market trade",
+  "key_features": "Process the movement of cash between accounts\nProcess the movement of securities between accounts\nConfirm all settlement activities have been completed as required"
+ },
+ "Trade and Price Reporting": {
+  "role_definition": "Operate a trade reporting facility as required by applicable trading market participation rules and regulations. Capture and transmit executed trade details to the exchange in compliance with the required timeframes and operating schedules",
+  "example_of_use": "Real-time trade reporting is processed for market trades executed through specific trading markets accessed by the bank",
+  "executive_summary": "This Service Domain operates an automated facility that reports executed market trades to the market place as required by the rules of market participation",
+  "key_features": "Capture market trades executed in the front office\nCheck and report trade details to the exchange in a timely manner"
+ },
+ "Unit Trust Administration": {
+  "role_definition": "Unit trusts offer a fixed term investment vehicle for bank customers with terms typically ranging from one to twenty years. Unlike many other types of investment fund the unit trust issues a fixed number of shares and is not actively managed during its term. The fund may exchange severely underperforming assets in rare cases. Investors may be able to exchange shares with other investors within the trust but the fund is essentially 'closed' to the originating investor pool for its full term",
+  "example_of_use": "An investment trust is established and sold to a group of investors",
+  "executive_summary": "This Service Domain handles the implementation and fulfillment of unit investment trusts",
+  "key_features": "Handle the unit trust's accounting, tax administration and financial reporting needs\nPackage the initial investment for the trust\nHandle share exchanges between investors in the trust\nProcess management fees\nSupport/oversee all general investor servicing and process middle and back office functions"
+ },
+ "Bank Guarantee": {
+  "role_definition": "Orchestrate the pricing, issuance and subsequent fulfillment activities for Bank Guarantees as used in corporate/correspondent trade and project finance activity",
+  "example_of_use": "A bank guarantee is provided to a corporate client to cover international trade finance deal",
+  "executive_summary": "This Service Domain handles the pricing and issuance of a broad range of bank guarantee instruments",
+  "key_features": "Price and issue bank guarantees for bank customers\nEvaluate claims and make payments against the guarantee\nRecover collateral against redeemed guarantees where applicable",
+  "general_comment": "\"A bank guarantee is a financial backstop offered by a financial institution promising to cover a financial obligation if one party in a transaction fails to hold up their end of a contract. Generally used outside the United States, a bank guarantee enables the bank's client to acquire goods, buy equipment, or perform international trade. If the client fails to settle a debt or deliver promised goods, the bank will cover it.\" https://www.investopedia.com/terms/b/bankguarantee.asp From the above it follows that a Bank Guarantee is an obligation for the issuing bank and should be recorded as such in the bank's bookkeeping (as an off-balance-sheet account). Banks require collateral in order to issue a Bank Guarantee. A typical form of collateral for a Bank Guarantee is a Counter Guarantee, issued by another bank. In the normal situation a Bank Guarantee will not result in a financial transaction for the bank. The bank's customer is supposed to pay the beneficiary of the guarantee directly or anyway fulfil its obligations under the Bank Guarantee, after which the guarantee can be closed."
+ },
+ "Cash Concentration": {
+  "role_definition": "Cash Concentration is a cash management service aimed at moving a balance, or part of a balance of an account to a different account. This can be done periodically and ad-hoc. Objectives could be to zero a specific account (e.g. during each EOD) or to replenish a particular account (e.g. in case of insufficient balance for a payment order). In the latter case it is necessary to define the sequence in which balances from other accounts are moved to the destination account.",
+  "example_of_use": "A customer has an agreement to replenish a Current Account from a second account when there are insufficient funds to meet scheduled payments",
+  "executive_summary": "Cash Concentration is a cash management service aimed at moving a balance, or part of a balance of an account to a different account to meet various requirements.",
+  "key_features": "- Record and maintain the list of accounts participating in the sweeping agreement\n- Orchestrate the handling of a request for balance sweeping."
+ },
+ "Cash Management And Account Services": {
+  "role_definition": "Cash Management and Account Services combines the capabilities of a cash management account that in itself combines features of a current account and a savings account, with additional cash management services. The supporting features that make up the facility (checks/cheques, standing orders, debit cards, phone and on-line banking services etc. can be extended to include other features such as positive pay and reverse positive pay for check processing.",
+  "example_of_use": "A corporate customer implements a positive pay facility with the bank to reduce the exposure to check fraud for the checks it writes.",
+  "executive_summary": "This service domain orchestrates a cash management and accounting services facility typically used by corporations to support additional cash management features over and above the standard facilities of current and savings accounts",
+  "key_features": "Set-up cash management and accounting service  facilities\nIssue cards, check-books for an account\nProcess deposits and withdrawals\nHandle standing orders and direct debits\nProcess fees and apply interest charges\nProvide balance/statements and reports\nProcess cash management services such a positive pay"
+ },
+ "Cheque Lock Box": {
+  "role_definition": "A service where the bank handles paper cheques on behalf of a corporate customer in order to expedite processing",
+  "example_of_use": "A batch of checks are processed for a corporate customer with a lock box payment facility",
+  "executive_summary": "This Service Domain support paper cheque processing services offered to corporate customers"
+ },
+ "Corporate Payroll Services": {
+  "role_definition": "The Corporate Payroll Services Service Domain processes net salary payments for corporate customers' employees. Employee and payment details are provided by the corporate and the bank coordinates payments to any employee accounts held at the bank and makes payments to other banks with the employee as the beneficiary as necessary.",
+  "example_of_use": "A Corporate customer engages the bank to handle its staff payroll payment processing. It incentivizes its employees to open accounts at the bank to facilitate payment and arranges for employees to provide all necessary account details to support payroll processing",
+  "executive_summary": "The Corporate Payroll Services Service Domain handles payroll payment processing for the employees of a corporate customer.",
+  "key_features": "Support the set-up and maintenance of the corporate employee payment details\nProcess periodic payroll processing\nHandle issues that may occur in payment processing\nProvide status and activity reporting to the corporate for internal control"
+ },
+ "Credit Facility": {
+  "role_definition": "The Credit Facility Service Domain manages the Credit Facilities that a Corporate Customer has with the bank. A Credit Facility is an agreement between the bank and a (corporate) customer to allow the customer to acquire asset products from the bank up to the limit of the credit facility without the need for a full due diligence and underwriting for each of these products. Credit Facilities can have a hierarchy and they come under the overall Credit Limit for the customer, which is the bank-internal maximum credit exposure that the bank is willing to have with the customer.",
+  "example_of_use": "Credit Facilties can typically be used to attach trade financing products and also overdrafts in current account where quick processing is demanded by the customer. A Credit Facility is with one customer, but the overall Credit Limit under which Credit Facilities come, can be for more than one customer, typically belonging to one customer group. Credit Facilities within a Credit Facility hierarchy can be for different, but usually related, customers.",
+  "executive_summary": "The Credit Facility Service Domain manages the Credit Facilities that a Corporate Customer has with the bank. A Credit Facility is an agreement between the bank and a (corporate) customer to allow the customer to acquire asset products from the bank up to the limit of the credit facility without the need for a full due diligence and underwriting for each of these products.",
+  "key_features": "- Set up a credit facility agreement with a corporate customer\n- Open a credit facility  under the customer's credit limit or under an existing credit facility\n- Attach a banking product to a an existing credit facility"
+ },
+ "Credit Management": {
+  "role_definition": "This service domain supports a central bank credit management function that maintains an overarching credit perspective across all bank activity. Transactions can be re-priced to factor in this credit perspective",
+  "example_of_use": "Example of use:\nA corporate loan is presented for credit management pricing decisioning prior to completion of the offer process",
+  "executive_summary": "This service domain provides a bank-wide/oversight function to qualify credit pricing for offered products and services to reflect the bank's appetite to write the business. This decision can override the standard product pricing procedure",
+  "key_features": "Evaluate a proposed loan's fit to the bank's credit policies and priorities\nRe-price major loans to align to bank policies and priorities"
+ },
+ "Direct Debit": {
+  "role_definition": "This service domain processes the creditor side of direct debit processing. Typically a creditor will submit a batch of direct debit requests. The process checks the required service mandates are in place and initiates the payment processing. It tracks payment and reports on completion or other processing issues that might arise (such as insufficient funds available).",
+  "example_of_use": "Example of use:\nA corporate customer submits a batch of direct debit instructions for customers with accounts held at the bank",
+  "executive_summary": "Fulfils a direct debit agreement.  Handles the creditor side of direct debits.",
+  "key_features": "Confirm direct debit mandates are in place\nConfirm funds available\nInitiate direct debit payment\nTrack direct debit (include customer acceptance if required)\nReport on direct debit processing"
+ },
+ "Direct Debit Mandate": {
+  "role_definition": "Customer mandates are administered/managed that are associated with a direct debit processing facility provided for a corporate client. The individual customer mandates are registered and may be updated/amended. The mandates are referenced to confirm coverage when direct debit processing is undertaken periodically",
+  "example_of_use": "A customer completes a direct debit mandate for a corporate client that is registered",
+  "executive_summary": "This service domains manages the customer mandates associated with direct debit processing for a corporate client",
+  "key_features": "Register customer direct debit mandates\nUpdate  customer mandates\nProvide mandate details/confirm coverage"
+ }
+}

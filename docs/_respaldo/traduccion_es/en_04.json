@@ -1,0 +1,110 @@
+{
+ "Company Billing and Payments": {
+  "role_definition": "Handle the company billing and payments activity for company sales and purchases",
+  "example_of_use": "Company payments are processed"
+ },
+ "Fixed Asset Register": {
+  "role_definition": "Maintain a central register of fixed assets, tracking status and applying appropriate depreciation to value representation",
+  "example_of_use": "Newly acquired assets are registered as they are allocated to specific business units"
+ },
+ "Internal Audit": {
+  "role_definition": "This service domain administers the scheduled and ad-hoc application of internal audit and compliance reviews. This includes interpreting the banks policies and procedures that guide all aspects the bank's operations and determining which guidelines apply in specific circumstances across the enterprise. Support for interpreting guidelines are provided to activities in the bank that are subject to audit and scheduled and ad-hoc checks performed to confirm compliance",
+  "example_of_use": "Example of use:\nA periodic audit of a processing unit is undertaken and remedial corrections to procedures recommended to improve compliance",
+  "executive_summary": "Maintain and portfolio of internal audit checks. Select and execute a meaningful sample of checks and identify and resolve non-compliance",
+  "key_features": "Schedule/target internal audit reviews\nConsolidate documents/activity pertaining to the audit\nProvide advice/guidance for achieving guideline/policy compliance\nEvaluate and report on activity for regulatory compliance,\nNotify and track responses for detected procedural failures"
+ },
+ "Legal Advisory": {
+  "role_definition": "Provide customers and bank employees with advice on legal aspects of product sales and servicing as well as on planned and executed transactions. The advice can take the form of an evaluation but it can also result in a legally correct document or a contract for the provisioning of a complex service or a product. Quite often legal advice is not a separately chargeable service that a bank provides to a customer. Rather it is part of a sales proces for a product or service or part of a servicing process for an existing product.",
+  "example_of_use": "- Preparing a draft agreement for the fiduciary transfer of ownership of equipment and inventory to the bank as part of the opening of a corporate loan\n- Provide advice on the consequences of inter-company loans in the case of opening a corporate sweep agreement",
+  "executive_summary": "The role of the Service Domain is to provide customers and bank employees with advice on legal aspects of product sales and servicing as well as on planned and executed transactions.",
+  "key_features": "- Evaluate impact of customer-specific situations on the sale of a product or service\n- Provide a legally binding document for a complex sale process of a product or service"
+ },
+ "Legal Compliance": {
+  "role_definition": "This service domain oversees legal compliance related considerations for the bank. This includes interpreting the laws that govern the bank's operations and determining which laws apply in specific circumstances across the enterprise. Support and guidelines are provided to activities in the bank that are subject to specific laws and support given to address legal matters that might arise",
+  "example_of_use": "A new product design is checked against the prevailing financial laws for the target jurisdictions of delivery",
+  "executive_summary": "Provide specialist legal advice, assess for legal compliance and resolve legal cases as they occur",
+  "key_features": "Review and interpret the law\nProvide legal advice/guidance\nEvaluate and report on bank activity to ensure legality"
+ },
+ "Procurement": {
+  "role_definition": "Coordinate the selection pricing and execution of purchase agreements and ensure compliance with purchasing policies",
+  "example_of_use": "A major purchase order goes through the formal selection process with competitive bids being considered before the purchase order is assigned"
+ },
+ "Security Advisory": {
+  "role_definition": "Provide specialist security advice and guidance for line management and projects as needed to ensure security arrangements across the organization",
+  "example_of_use": "Specialist security advice is sought for a major project"
+ },
+ "Security Assurance": {
+  "role_definition": "Maintain and apply a portfolio of security assurance checks, target selective assurance tests to ensure security countermeasures are in place and appropriate",
+  "example_of_use": "A security check of a new product operation is performed considering multiple threat categories"
+ },
+ "Account Reconciliation": {
+  "role_definition": "Match, reconcile and resolve identified discrepancies between selected financial accounts in collaboration with the account 'owner' as necessary",
+  "example_of_use": "A scheduled reconciliation task is performed for the nostro/vostro accounts and discrepancies identified and resolved between the holding banks",
+  "executive_summary": "This Service Domain handles account reconciliation tasks",
+  "key_features": "Consolidate account details for reconciliation\nCompare and identify any discrepancies\nDiagnose and resolve discrepancies"
+ },
+ "Accounts Receivable": {
+  "role_definition": "Manage the tracking, chasing and receipt of scheduled payments against issued invoices. For the significant majority accounts are likely to be settled in compliance with established arrangements. For late payment the Service Domain includes actions to negotiate with the customer and handle defaulted payments",
+  "example_of_use": "A product business unit submits an invoice to a customer for services rendered that requires customer payment from an account not managed by the bank.",
+  "executive_summary": "This service domain handles accounts receivable for invoices issue by the bank to customers and partners. It includes follow-up and resolution activity for delayed/missed payments",
+  "key_features": "Account assessment\nAccount owner contact\nAccount payment processing\nAccount writedown or recovery initiation\nDelinquent account resolution (re-instated or passed to collections)"
+ },
+ "Counterparty Risk": {
+  "role_definition": "Maintain and administer a counterparty risk rating",
+  "example_of_use": "A back office function tracks transaction activity and external rating details to maintain counterparty credit ratings"
+ },
+ "Customer Position": {
+  "role_definition": "Individual products will maintain different financial views for the customer. This service domain consolidates financial details from all in-force products and services in order to derive a consolidated financial view which can include current (real-time) positions and projected/estimated values. The consolidated customer position can cover aspects such as cash flows/balances, credit and collateral positions and may derive actual and estimated/projected values",
+  "example_of_use": "The banks maintains and analyses the consolidated position for a customer across all accounts products and services",
+  "executive_summary": "This service domain maintains a consolidated financial position for a customer, combining details from all products and services in use. The position can cover available funds, credit, collateral, tax exposure and other financial measures as necessary",
+  "key_features": "Consolidate product and service financial activity\nDerive consolidated cash flow/balance positions (current and projected)\nDerive consolidated credit exposure (current and projected\nDerive consolidated collateral positions (current and projected)"
+ },
+ "Fraud Diagnosis": {
+  "role_definition": "Analyze suspect transaction with Customer behavior information across product portfolio, using Expert Systems /Artificial Intelligence and/or manual review, including customer contact to determine if transaction is fraudulent.  Further apply Economic Model to determine transaction disposition and notify applicable Product Fulfillment SDs.",
+  "example_of_use": "Out of pattern card use is detected and the details passed for analysis. The analysis determines there is a high probability of fraud recommending appropriate containment actions",
+  "executive_summary": "This service domain handles the evaluation of detected possible fraud to support an appropriate response to contain the exposure",
+  "key_features": "Analyse activity to assess likelihood of customer fraud\nAnalyse activity to assess likelihood of merchant fraud\nAnalyse activity to assess likelihood of intermediary fraud"
+ },
+ "Fraud Evaluation": {
+  "role_definition": "This service domain handles the structured execution of fraud detection tests/routines that are used to identify possible fraud by detecting out of pattern behaviors. The tests may run in-line with production or may access transaction logs as appropriate. Detected anomalies are passed for further analysis and resolution.",
+  "example_of_use": "Example of use:\nCard transactions are subjected to an array of fraud pattern test to detect 'out of pattern' behavior - anomalies are highlighted for analysis",
+  "executive_summary": "The service domain executes fraud behavioral pattern tests to detect possible fraudulent transactions/activity",
+  "key_features": "Transaction data consolidation\nFraud detection test execution\nFraud analysis/diagnosis and reporting"
+ },
+ "Position Keeping": {
+  "role_definition": "Maintain a log of financial transactions, monetary or value transactions, and entitlements, for management information, tracking and reconciliation purposes.  It can offer utilities that enable it to maintain balances/positions, to calculate interest and charges, and to support transaction reconciliation activities.",
+  "example_of_use": "Any product fulfillment domain, current account, savings account, credit card, incentive account, etc, delegates transaction posting/tracking to the Position Keeping service domain.",
+  "executive_summary": "This service domain maintains a log of monetary or value transactions and entitlements log posted to product facilities. Reconciled financial transactions are subsequently used for posting to the accounting systems.",
+  "key_features": "- Configure the transaction log for recording services (including transaction attributes) - Post transactions (including financial, monetary, value driven incentive points, entitlements) - Repair/update transactions - Maintain/update transaction status (e.g., matched, reversed, unbilled, billed, accrued, vested, redeemed, expired, forfeited, etc.) - Maintain positions as configured (includes limits and blocks) - Provide simple accounting services (e.g. interest accruals) - Provide transaction reporting and alert services"
+ },
+ "Position Management": {
+  "role_definition": "Maintain on-line and near-time cross account complex positions. Includes consolidated currency, instrument, sector and counterparty views as appropriate",
+  "example_of_use": "Example of use:\nA major corporate or institutional customer's consolidated position is refenced when the corporate customer sufferes a major incident",
+  "executive_summary": "The Service Domain tracks the bank's consolidated financial positions for major customers and complex market conditions",
+  "key_features": "Consolidate key transaction details\nEvaluate likey position impact (absolute and estimated)\nMaintain position and supporting commentary/explanation\nNotify trends and projected postion breaches"
+ },
+ "Product Combination": {
+  "role_definition": "The Product Combination service domain allows a bank to assemble a composite product from two or more existing products. The combination framework implements necessary functional constraints on the 'contained products' and handles considerations such as transfer pricing where the profitability of embedded products may be compromised to ensure management analysis is not distorted",
+  "example_of_use": "Example of use:\nA current account product instance is bundled with an investment portfolio product instance to create a combined \"margin trading\" product. The performance evaluation of the embedded current account that has constrained capabilities is amended to reflect its contribution to the combined product performance",
+  "executive_summary": "Product Combination supports bundled products applying necessary constraints on embedded product fulfillment and ensuring product performance analysis takes correct account of embedded products' contribution",
+  "key_features": "Embedded product constrained operation configuration\nTransfer pricing/inter product performance compensation handling\nCombined product fulfillment facilities"
+ },
+ "Reward Points Account": {
+  "role_definition": "Track/log the allocation and remittance of rewards points. The service domain acts as a transaction log similar where the instrument is not subject to interest considerations (as with cash) but may have a finite life-time with expiry dates on reward points",
+  "example_of_use": "Example of use:\nA customer transaction that generates reward points is captured on the log, resulting in an increase in their available point balance",
+  "executive_summary": "Administer the booking and remittance of rewards points",
+  "key_features": "Capture reward points awards and remittance transactions\nProcess reward point expiry terms for limited life reward points"
+ },
+ "Securities Position Keeping": {
+  "role_definition": "Maintain a log of securities transactions for investment account management information, tracking and reconciliation purposes. The facility simply maintains transaction activity details for a collection of instruments, which includes dividend and other corporate action related actions where appropriate. The transaction log is used to maintain the holding positions",
+  "example_of_use": "Example of use:\nAn investment account is set up for a customer and the underlying securities position keeping facility is initialized to track subsequent transactions",
+  "executive_summary": "This service domain maintains a securities transaction log to support securities investment activity",
+  "key_features": "Configure the transaction log for recording services\nPost securities transactions\nRepair/update securities transactions\nMaintain securities positions as configured\nSupport corporate actions as appropriate (e.g. dividend status)\nProvide transaction reporting and alert services"
+ },
+ "Transaction Engine": {
+  "role_definition": "The Service Domain provides a utility/background operational support service to orchestrate a schedule of payment transaction and reporting activities for the fulfillment of certain long term instruments or structured facilities. The Service Domain maintains a link to the associated fulfillment Service Domain and the applicable product instance for reporting and processing issues that may arise.",
+  "example_of_use": "The mortgage fulfillment Service Domain delegates repayment processing to the Transaction Engine for its active mortgage product instances",
+  "executive_summary": "Orchestrate a schedule of payment transaction and reporting activities for the fulfillment of certain long term instruments or structured facilities",
+  "key_features": "Establish the processing schedule for a product instance\nProcess transaction and reporting tasks as necessary\nEscalate issues to the product fulfillment Service Domain as necessary\nReport on transaction fulfillment activity"
+ }
+}

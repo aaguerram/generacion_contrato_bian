@@ -1,0 +1,121 @@
+{
+ "Credit Card": {
+  "role_definition": "Este Service Domain gestiona el cumplimiento tanto de tarjetas de crédito como de tarjetas de cargo. La principal diferencia funcional son las estructuras distintas de repago y de manejo del crédito de los dos tipos de producto de tarjeta. Nótese que, a diferencia de las cuentas corrientes, los productos de tarjeta normalmente se cumplen a través de compañías especializadas de tarjeta de crédito que usan una red de tarjetas que vincula a los bancos emisores y a los bancos adquirentes de comercios para las actividades de autorización, compensación y liquidación.\nLas tarjetas de débito (es decir, dispositivos para acceder a una cuenta bancaria normal) no corresponden a este Service Domain.",
+  "example_of_use": "Un cliente de tarjeta ya establecido usa su tarjeta de crédito para una compra y liquida el saldo de la cuenta de tarjeta en el ciclo de pago mensual",
+  "executive_summary": "Este Service Domain orquesta el mantenimiento programado y las actividades transaccionales asociadas al cumplimiento del producto de tarjeta de crédito",
+  "key_features": "- Crear una cuenta de tarjeta de crédito\n- Emitir la tarjeta o el dispositivo de acceso\n- Procesar las transacciones de tarjeta (autorización y transacción financiera)\n- Procesar la redirección o la transferencia de transacciones\n- Procesar diversos planes de repago\n- Calcular intereses y comisiones\n- Facturación periódica de la tarjeta\n- Recuperación de los valores vencidos de la tarjeta"
+ },
+ "Merchant Acquiring Facility": {
+  "role_definition": "Este es el Service Domain principal para gestionar la cuenta del comercio y los términos y condiciones específicos del comercio. Incluye abrir la cuenta del comercio, realizar la configuración necesaria para la aceptación de tarjetas —como asignar terminales POS—, mantener los saldos por pagar del comercio, realizar la liquidación periódica y gestionar las comisiones y los cargos. Cuando los comercios presentan transacciones de pago con tarjeta, el banco adquirente es responsable de pagarles conforme a los términos del contrato del comercio, que especifican cuándo debe pagársele y qué monto se retiene del pago como descuento del comercio o comisión por el servicio.",
+  "example_of_use": "El banco adquirente afilia comercios para que acepten pagos con tarjeta y les abre cuentas de comercio.",
+  "executive_summary": "Este Service Domain orquesta las actividades relacionadas con el cumplimiento del comercio, el mantenimiento de su cuenta, sus actividades transaccionales y su liquidación, incluida la facturación de las comisiones y los cargos del comercio.",
+  "key_features": "Creación y mantenimiento de la facilidad del comercio.\nMantenimiento de la jerarquía del comercio.\nAsignación y registro de los POS del comercio.\nProcesamiento de contracargos del comercio.\nCompensación y liquidación del comercio.\nProcesamiento del descuento y las comisiones del comercio."
+ },
+ "Merchant Relations": {
+  "role_definition": "Las relaciones del banco con los comercios se gobiernan por los términos y condiciones que mantiene este Service Domain. Nótese que esto cubre la aplicación de los términos legales, regulatorios y operativos acordados con el comercio y no cubre ningún aspecto más general de la gestión de la relación",
+  "example_of_use": "Se disputa un cargo de tarjeta y se abre un caso; el proceso de atención del caso consulta los términos y condiciones vigentes del comercio que gobiernan la resolución de la disputa",
+  "executive_summary": "Este Service Domain mantiene los términos y condiciones acordados con los comercios para la actividad relacionada con tarjetas",
+  "key_features": "Establecer y mantener los términos y condiciones del comercio\nDeterminar la aplicabilidad de los términos a situaciones específicas\nProveer acceso a los términos y explicar su interpretación correcta"
+ },
+ "Bank Drafts": {
+  "role_definition": "Este Service Domain gestiona la fijación de precios y la emisión de diversas formas de vehículos de pago garantizados por el banco, incluidos los giros bancarios, las transferencias por cable, los cheques certificados y los cheques de viajero. La transacción combina la extracción del monto principal y las comisiones de la cuenta del comprador con la creación y el registro del documento físico al portador, usando cualquier medio y mecanismo de seguridad adecuado. Los fondos garantizados por el banco se mantienen en una cuenta transitoria hasta que el beneficiario deposite el giro.",
+  "example_of_use": "Un cliente adquiere un giro bancario para cumplir con los requisitos de un comercio al que quiere hacerle una compra importante",
+  "executive_summary": "Este Service Domain da soporte a las transacciones de pago garantizadas por el banco, como los giros bancarios",
+  "key_features": "Acordar el mecanismo y los términos del pago garantizado por el banco\nCalcular y obtener el pago del ordenante\nGenerar y registrar el documento al portador\nProcesar la remesa del documento al portador"
+ },
+ "Brokered Product Proxy": {
+  "role_definition": "Administrar la coordinación con terceros para la entrega productiva de productos y servicios 'intermediados' que se ofrecen a través del banco, posiblemente en combinación con la oferta propia de productos y servicios del banco",
+  "example_of_use": "El gestor de relación de un cliente le facilita el acceso a un bróker de seguros aprobado por el banco",
+  "executive_summary": "Este Service Domain supervisa todas las actividades asociadas a la entrega coordinada de productos y servicios de terceros",
+  "key_features": "Monitorear y evaluar la calidad de la producción y de la entrega del servicio\nSupervisar y asegurar el cumplimiento de los niveles de servicio acordados por parte del tercero\nSupervisar la resolución de los problemas de producción"
+ },
+ "Claim Administration": {
+  "role_definition": "El servicio Claim Administration gestiona las tareas puntuales y programadas que hacen falta para cumplir las obligaciones de la póliza de seguro, tal como las confirmó la evaluación del siniestro. Esto incluye los pagos específicos de cada tarea y los recurrentes, y otras obligaciones no financieras comprometidas en la póliza.",
+  "example_of_use": "Iniciar pagos puntuales y recurrentes",
+  "executive_summary": "El Service Domain de administración de siniestros implementa las obligaciones de pago y de soporte de la póliza respecto de un siniestro verificado",
+  "key_features": "Administrar el calendario de tareas asociadas al cumplimiento del siniestro Procesar los pagos, tanto puntuales como recurrentes Gestionar la documentación y las comunicaciones Resolver los problemas de procesamiento del siniestro y las solicitudes relacionadas"
+ },
+ "Claim Assessment": {
+  "role_definition": "El Service Domain Claim Assessment lo invoca el Service Domain de cumplimiento de la póliza en respuesta a un siniestro presentado. Ejecuta un conjunto de pruebas para evaluar y confirmar la veracidad del siniestro y la elegibilidad de los beneficiarios, y para determinar e iniciar el otorgamiento de los derechos. Nótese que las pruebas de evaluación pueden repetirse conforme a un calendario cuando los pagos se relacionan con una condición persistente.",
+  "example_of_use": "Un familiar de edad avanzada de un empleado de la compañía fallece y el empleado presenta un siniestro de gastos exequiales para cubrirlos.",
+  "executive_summary": "El Service Domain Claim Assessment ejecuta las pruebas exigidas para confirmar la veracidad de un siniestro presentado bajo una póliza de seguro.",
+  "key_features": "Capturar y consolidar los datos del siniestro\nCruzar el siniestro con los derechos de la póliza\nRealizar la debida diligencia sobre el siniestro\nDeterminar los derechos del siniestro e iniciar los desembolsos"
+ },
+ "Consumer Advisory Services": {
+  "role_definition": "Proveer a los clientes personas naturales asesoría financiera para la selección de productos, inversiones, optimización tributaria, etc. El tiempo dedicado puede generar un cargo, en particular cuando se involucran recursos especializados de asesoría financiera",
+  "example_of_use": "Un cliente obtiene asesoría de optimización tributaria de un asesor financiero en una agencia",
+  "executive_summary": "Ofrecer servicios de asesoría financiera a los clientes personas naturales, posiblemente con costo",
+  "key_features": "Evaluar la posición financiera del cliente\nDiscutir las opciones y las estrategias financieras\nGestionar la asesoría especializada de producto o servicio"
+ },
+ "Consumer Investments": {
+  "role_definition": "Da soporte a la actividad de inversión y negociación de valores iniciada por el cliente persona natural para sus inversiones en valores autoadministradas. Las operaciones normalmente se agrupan o se netean contra la propia posición de valores del banco para su ejecución posterior en el mercado. Las cotizaciones y los precios se basan en el precio vigente al momento de la instrucción de negociación del cliente",
+  "example_of_use": "Una persona natural inicia la compra de valores para su portafolio de inversión, aportando los fondos desde su cuenta corriente de 'trading' vinculada",
+  "executive_summary": "Gestionar las solicitudes de negociación de la persona natural en el front-end. Normalmente se agruparán o netearán para su ejecución en el mercado",
+  "key_features": "Proveer cotizaciones de precio\nIniciar la orden de mercado del cliente persona natural\nActualizar la posición de valores del banco"
+ },
+ "Corporate Trust Services": {
+  "role_definition": "Proveer servicios de fideicomiso corporativo centrados en el manejo independiente y fiduciario de un rango amplio de posibles instrumentos de deuda corporativa con los inversionistas, y dar soporte a los esquemas de cuentas de garantía (escrow) cuando haga falta",
+  "example_of_use": "Una empresa usa los servicios de fideicomiso corporativo del banco para administrar su relación con los inversionistas en una emisión de deuda importante",
+  "executive_summary": "Este Service Domain provee servicios de fideicomiso corporativo centrados en el manejo de instrumentos de deuda y el soporte de cuentas de garantía (escrow)",
+  "key_features": "Administrar el reporte financiero con los inversionistas de bonos\nResolver los problemas de los inversionistas como parte objetiva e independiente\nConstituir y mantener las cuentas de garantía (escrow) de respaldo"
+ },
+ "Currency Exchange": {
+  "role_definition": "Este es un servicio de ventanilla en el que se cambia moneda; la transacción usa tasas preferenciales y puede incluir comisiones. Nótese que en algunos casos los cheques de viajero pueden manejarse como una pseudomoneda dentro de esta capacidad. Nótese también que el control y la distribución del inventario de divisas de la agencia y del cajero los administran los Service Domain Branch Currency Management y Branch Currency Distribution",
+  "example_of_use": "Ejemplo de uso:\nUna persona que no es cliente del banco realiza un cambio de divisas en ventanilla, comprando moneda extranjera con moneda local en efectivo",
+  "executive_summary": "Este Service Domain da soporte al cambio de divisas en ventanilla",
+  "key_features": "Fijación de precio de la transacción FX\nCaptura de la transacción FX\nManejo de documentos"
+ },
+ "Customer Tax Handling": {
+  "role_definition": "Existen distintas obligaciones de control y reporte tributario para los productos y servicios en distintas ubicaciones y jurisdicciones. Este Service Domain gestiona la consolidación y el reporte de la actividad relacionada con impuestos que haga falta para un cliente. Nótese que este Service Domain solo es responsable de consolidar y reportar la actividad tributaria: harán falta otros Service Domain para atender las obligaciones reales de procesamiento tributario que puedan aplicar a ciertos productos y servicios",
+  "example_of_use": "A un cliente persona natural se le entrega un reporte tributario de fin de año de los productos y servicios que le proveyó el banco",
+  "executive_summary": "Este Service Domain gestiona las obligaciones de reporte tributario de la persona natural, incluidas la consolidación y el reporte de la actividad financiera del cliente relacionada con impuestos",
+  "key_features": "Mantener las obligaciones de reporte tributario del cliente\nConsolidar los datos de la actividad y las transacciones de productos y servicios relacionados con impuestos\nAnalizar la actividad financiera y armar los reportes tributarios del cliente"
+ },
+ "Funeral Policy": {
+  "role_definition": "El Service Domain Funeral Policy gestiona la constitución y el cumplimiento de un producto de seguro exequial. Esto incluye las tareas generales de mantenimiento del producto, la orquestación del pago de las primas y el inicio de la decisión y el procesamiento cuando se presenta un siniestro contra la póliza",
+  "example_of_use": "Un empleado de la compañía cubierto por la póliza de seguro exequial corporativa presenta un siniestro por los gastos exequiales de un dependiente que falleció recientemente.",
+  "executive_summary": "El Service Domain Funeral Policy gestiona el mantenimiento general del producto y el pago de las primas, e inicia el procesamiento de los siniestros.",
+  "key_features": "Constitución de los esquemas de la póliza y de las opciones del producto\nMantenimiento y actualización de los esquemas de la póliza\nCálculo, facturación y procesamiento de la prima\nInicio del procesamiento del siniestro"
+ },
+ "Trust Services": {
+  "role_definition": "Proveer servicios de fideicomiso a clientes de alto valor, incluidos el mantenimiento de activos, la gestión ante los tribunales, el manejo de impuestos y gastos, la administración de activos y el procesamiento de los impuestos sucesorios, de herencia y a la renta",
+  "example_of_use": "Se constituye un fondo fiduciario por cuenta de un padre a favor de sus hijos. El padre destina efectivo o activos al fideicomiso, que los administra hasta que los hijos alcancen cierta edad.",
+  "executive_summary": "Este Service Domain da soporte a un conjunto de servicios de administración fiduciaria ofrecidos a clientes de alto valor",
+  "key_features": "Mantener y administrar los activos del fideicomiso\nAtender los asuntos judiciales y legales del fideicomiso\nAdministrar la tributación y las comisiones del fideicomiso\nPreparar las declaraciones de impuestos sucesorios, de herencia y a la renta"
+ },
+ "Corporate Finance": {
+  "role_definition": "Provee un rango amplio de servicios especializados de asesoría en financiamiento, basados en honorarios o comisiones (de naturaleza tanto táctica como estratégica). Los encargos normalmente se empaquetan en proyectos con alcance definido y resultados definidos que dan soporte a los clientes institucionales y corporativos. También puede proveerse soporte de asesoría continuo o puntual bajo la modalidad de retainer",
+  "example_of_use": "El gestor de relación de un cliente corporativo vincula servicios especializados de asesoría financiera para asistir a un cliente corporativo con la evaluación estratégica de sus opciones de financiamiento",
+  "executive_summary": "Este Service Domain gestiona la provisión de un rango amplio de servicios de asesoría financiera a los clientes corporativos",
+  "key_features": "Asesorar a la empresa para lograr la estructura de capital óptima\nProveer asesoría táctica y estratégica de financiamiento\nAsesorar sobre los enfoques de tributación corporativa"
+ },
+ "Corporate Tax Advisory": {
+  "role_definition": "Proveer a los clientes corporativos asesoría tributaria para que comprendan mejor sus obligaciones y para identificar e implementar enfoques de optimización tributaria. El servicio se cobra y puede incluir el uso de recursos especializados de asesoría financiera de producto cuando haga falta",
+  "example_of_use": "Un cliente corporativo obtiene asesoría de optimización tributaria de un asesor financiero en una agencia",
+  "executive_summary": "Un producto basado en honorarios o comisiones que provee evaluaciones, asesoría y guía específicamente tributarias para los clientes corporativos",
+  "key_features": "Evaluar la posición tributaria del cliente\nIdentificar y evaluar las opciones y las estrategias de optimización tributaria\nGestionar la asesoría especializada en tributación de productos y servicios\nImplementar las opciones de optimización tributaria con la selección y la configuración de productos y servicios"
+ },
+ "Mergers and Acquisitions Advisory": {
+  "role_definition": "Un proyecto basado en honorarios o comisiones que provee asesoría, ejecución, fijación de precio, coordinación y colocación de operaciones de tipo M&A, IPO, MBO y LBO",
+  "example_of_use": "Un cliente corporativo contrata a un banco de inversión para liderar una operación de M&A por su cuenta",
+  "executive_summary": "Este Service Domain gestiona los proyectos de fusiones y adquisiciones, IPO, MBO y LBO, con el banco actuando en el rol líder y/o subordinado"
+ },
+ "Private Placement": {
+  "role_definition": "La colocación privada cubre la definición, la fijación de precio, la colocación y todas las acciones de soporte involucradas en una oferta privada de capital o deuda corporativos. Una colocación privada evita muchas de las restricciones regulatorias más estrictas de una oferta pública, pero solo puede colocarse entre inversionistas acreditados. Los valores de capital o de deuda asociados que emite la empresa no necesitan registrarse ante las autoridades regulatorias.",
+  "example_of_use": "La unidad de Corporate Finance de un banco de inversión da soporte a un cliente corporativo en una colocación privada para levantar fondos destinados a una expansión planificada de su capacidad de manufactura",
+  "executive_summary": "Este Service Domain provee el rango completo de funciones involucradas en prestar servicios de colocación privada a los clientes corporativos.",
+  "key_features": "Determinar y especificar el mecanismo de financiamiento óptimo (deuda o capital)\nEmpaquetar el valor de deuda o de capital para los inversionistas\nColocar el crédito entre inversionistas acreditados\nProcesar las acciones de mantenimiento y cumplimiento del instrumento de capital o de deuda"
+ },
+ "Public Offering": {
+  "role_definition": "Una oferta pública implica la especificación y el empaquetamiento de capital o bonos corporativos en los mercados públicos para levantar capital. Puede ser la oferta pública inicial (IPO), cuando una compañía privada sale a bolsa por primera vez, u ofertas secundarias o subsecuentes para levantar capital adicional. Las IPO involucran un rango amplio de acciones de análisis financiero, auditoría y aprobación regulatoria. Un banco líder y varios bancos colocadores pueden coordinarse para asegurar la operación. Las ofertas secundarias pueden ser dilutivas (crean acciones adicionales) o no dilutivas (redistribuyen acciones existentes).",
+  "example_of_use": "Un banco de inversión, como banco líder, arma un consorcio de bancos para orquestar la IPO de una compañía privada de rápido crecimiento que quiere levantar capital significativo para expandir sus operaciones",
+  "executive_summary": "Este Service Domain da soporte a un rango amplio de acciones financieras, contables y regulatorias complejas involucradas en asesorar y apoyar en la práctica a las compañías que salen a bolsa y/o que levantan capital adicional mediante la emisión de valores que se negocian públicamente",
+  "key_features": "Determinar y especificar el mecanismo de financiamiento óptimo (deuda o capital)\nCoordinar con los reguladores la aprobación y el registro del instrumento\nElaborar evaluaciones financieras y gerenciales integrales que sustenten la fijación de precio del instrumento\nEmpaquetar el valor de deuda o de capital para los inversionistas públicos y realizar las giras de promoción que hagan falta\nCoordinar como banco colocador líder o secundario de la IPO\nDar soporte a las acciones de mantenimiento y cumplimiento del instrumento de capital o de deuda negociado, si hace falta"
+ },
+ "Investment Account": {
+  "role_definition": "La cuenta de inversión es una facilidad que se usa para mantener las tenencias no monetarias de un cliente. Gestiona el depósito y el retiro de valores y puede mantener registros de múltiples valores e instrumentos. También refleja los resultados de las acciones corporativas, tal como las gestiona y orquesta el Service Domain Corporate Events (por ejemplo, pagos de dividendos, splits, etc.)",
+  "example_of_use": "Un cliente de inversión mantiene un portafolio de inversión y las tenencias se mantienen en la cuenta de inversión",
+  "executive_summary": "Este Service Domain gestiona las posiciones de tenencias no monetarias de un cliente, cubriendo múltiples instrumentos cuando haga falta",
+  "key_features": "Crear las facilidades de la cuenta de inversión\nProcesar los depósitos y los retiros de valores\nProcesar los resultados de los eventos corporativos\nProcesar comisiones y aplicar cargos por intereses\nProveer saldos, estados de cuenta y reportes"
+ }
+}

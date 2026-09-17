@@ -1,0 +1,118 @@
+{
+ "Commissions": {
+  "role_definition": "Capturar y estructurar las transacciones comisionables que después se procesan contra un acuerdo de comisiones existente",
+  "example_of_use": "Ejemplo de uso:\nUn representante de atención calificado logra vender una oportunidad a un cliente establecido y se le otorga una comisión",
+  "executive_summary": "Este Service Domain procesa las comisiones de las transacciones de los empleados elegibles",
+  "key_features": "Confirmar la elegibilidad del empleado para el pago de la comisión\nDeterminar el monto de comisión ganado por la transacción (de venta)\nIniciar el pago a la cuenta del empleado"
+ },
+ "Customer Campaign Execution": {
+  "role_definition": "Gestionar el despliegue, la ejecución y el refinamiento continuo de una campaña de clientes. Esto incluye muchos tipos de campaña proactiva, como la venta incremental, la venta cruzada y la retención. El proceso de ejecución realiza la selección y la confirmación inicial de los clientes candidatos e incluye proveerle a la unidad de diseño retroalimentación crítica sobre el impacto de la campaña, para sustentar la recalibración y el refinamiento de la especificación a partir de la experiencia práctica",
+  "example_of_use": "El banco implementa una campaña focalizada de venta cruzada en el centro de atención al cliente para generar ventas adicionales",
+  "executive_summary": "Ejecutar una (versión de) campaña de clientes, y controlar y responder a su impacto",
+  "key_features": "Selección e identificación de los clientes candidatos\nInteracción con el cliente y captura de su respuesta\nAnálisis del desempeño de la campaña y retroalimentación"
+ },
+ "Customer Offer": {
+  "role_definition": "El Service Domain de gestión de ofertas puede procesar ofertas para todo tipo de cliente y para cualquier combinación permitida de producto o servicio. Consulta el Product Directory para obtener las instrucciones de oferta específicas del producto que debe seguir. El proceso de oferta puede combinar la selección de datos específicos del producto o servicio (por ejemplo, rangos de precio y de negociación, requerimientos de documentación, autorización y regulatorios, elegibilidad y declaraciones, datos de crédito y otros datos del cliente) con datos específicos del cliente (por ejemplo, su situación crediticia y otras clasificaciones como el costo operativo, la meta de retención o el historial de actividad, además de datos demográficos y de segmentación). El Service Domain orquesta un flujo de trabajo potencialmente complejo, en paralelo y de múltiples etapas, para llevar la oferta hasta el punto en que el producto o servicio puede iniciarse.",
+  "example_of_use": "Un cliente existente ha conversado sus necesidades de financiamiento de corto plazo con el asesor financiero y ha acordado en principio tomar un crédito corporativo. Se inicia el proceso de oferta al cliente, que guía al asesor por las verificaciones detalladas, las autorizaciones y la documentación necesarias antes de la constitución final del crédito corporativo",
+  "executive_summary": "Este Service Domain orquesta el procesamiento de una oferta de producto a un cliente nuevo o establecido. El proceso de oferta se define específicamente para el producto o servicio que se está considerando y puede incluir acciones como la verificación de documentos, la asignación de garantías, las evaluaciones de crédito, las decisiones de suscripción de riesgo, las verificaciones regulatorias y de procedimiento, las verificaciones de elegibilidad y el uso de servicios especializados internos y externos (como valoraciones y asesoría legal).",
+  "key_features": "Obtener los requerimientos de procesamiento de la oferta del producto elegido\nConfirmar la idoneidad y la elegibilidad del cliente para el producto\nAcordar con el cliente las características, las comisiones y el precio del producto\nObtener los documentos, las firmas y las revelaciones exigidas\nGestionar las garantías y obtener las autorizaciones de suscripción de riesgo\nRealizar las verificaciones de auditoría y cumplimiento\nIniciar la constitución del producto"
+ },
+ "Lead and Opportunity Management": {
+  "role_definition": "Este Service Domain captura, evalúa y hace avanzar los prospectos y las oportunidades identificadas que pueden surgir durante el desarrollo de la relación con el cliente y las interacciones de venta, atención y cumplimiento. Aclarará y confirmará el interés del cliente y verificará que el producto sea idóneo y el cliente elegible antes de iniciar el proceso formal de oferta (ver el Service Domain Customer Offer)",
+  "example_of_use": "Se identifica un prospecto durante una interacción de atención al cliente y se lo captura para su seguimiento posterior",
+  "executive_summary": "Este Service Domain captura, clasifica y controla los prospectos y las oportunidades de venta de productos o servicios adicionales a clientes establecidos. Gestiona el procesamiento de la oportunidad hasta el punto del procesamiento formal de la oferta.",
+  "key_features": "Clasificación y captura del prospecto u oportunidad\nEvaluación y confirmación del prospecto u oportunidad\nVerificar la oportunidad e iniciar o programar el procesamiento de la oferta al cliente"
+ },
+ "Party Lifecycle Management": {
+  "role_definition": "Este Service Domain controla el estado de la relación de una parte con el banco, desde las verificaciones iniciales que se hacen al establecer una relación de negocio nueva con un cliente o un socio y luego las que se realizan cuando haga falta durante toda la duración de la relación. Las verificaciones y los requerimientos de mantenimiento variarán según el tipo de parte (por ejemplo, persona natural, compañía, socio) y la jurisdicción. Cubren consideraciones propias del banco y legales y regulatorias, y pueden actualizarse conforme a un calendario estándar o a solicitud en circunstancias específicas.",
+  "example_of_use": "Se ha identificado un cliente potencial y el banco realiza un conjunto de verificaciones para confirmar que se trata de una relación nueva y para verificarla conforme a los requerimientos del banco, legales y regulatorios. Nótese que para distintos tipos de cliente (en particular los que no son personas naturales) se requerirán muchas verificaciones distintas.",
+  "executive_summary": "Este Service Domain controla el estado de la relación de una parte con el banco, desde las verificaciones iniciales hechas al establecer una conexión nueva y luego mantenidas cuando haga falta durante toda la duración de la relación. Las verificaciones y los requerimientos de mantenimiento variarán según el tipo de parte y la jurisdicción. Cubren consideraciones propias del banco y legales y regulatorias, y pueden actualizarse conforme a un calendario estándar o a solicitud en circunstancias específicas.",
+  "key_features": "Realizar las verificaciones de calificación y confirmación de la parte\nMantener un calendario y realizar las reevaluaciones periódicas\nProveer reportes de estado y procesar las notificaciones de actualización de estado"
+ },
+ "Product Expert Sales Support": {
+  "role_definition": "Controlar la disponibilidad y el aprovechamiento y asignar especialistas de producto para apoyar la actividad de venta (tanto para la venta incremental a clientes internos como para la captación de prospectos externos). Esto puede incluir la administración de las comisiones y los cargos al cliente, si aplican",
+  "example_of_use": "Un gestor de relación solicita apoyo especializado para un cliente que busca asesoría en la selección de productos de inversión",
+  "executive_summary": "Administrar la disponibilidad y la asignación de los especialistas de producto para apoyar la actividad de venta",
+  "key_features": "Controlar la disponibilidad del soporte especializado de producto\nAsignar recursos en respuesta a las solicitudes de apoyo\nObtener y procesar la retroalimentación de los clientes sobre la efectividad y el impacto del apoyo"
+ },
+ "Product Matching": {
+  "role_definition": "Este Service Domain implementa un servicio de decisión (que puede ser interactivo) para aislar el o los productos preferidos a los que un cliente es elegible en una situación de atención específica. La lógica de selección balancea factores como el tipo o las características de producto que el cliente indicó desear, su tipo y perfil, la situación de atención (solicitud, retención o consulta) y las campañas vigentes o los productos preferidos del banco. Esa lógica de decisión mejora la selección para optimizar la interacción con el cliente y sustentar el desarrollo del negocio",
+  "example_of_use": "Ejemplo de uso:\nUn representante de atención al cliente inicia un diálogo de cruce de productos luego de resolver un pago disputado a favor del cliente, con la esperanza de aprovechar la situación positiva del contacto para generar oportunidades de negocio adicionales",
+  "executive_summary": "Capacidad usada para cruzar los productos y las combinaciones de productos elegibles con un cliente, a partir de las condiciones vigentes, como el tipo de cliente, su interés en el producto, la situación de solicitud o retención y la alineación con las campañas",
+  "key_features": "Determinar el interés de producto del cliente\nAislar los productos elegibles\nConsiderar el contexto para filtrar y priorizar los productos\nAplicar las preferencias más amplias de la campaña o del banco"
+ },
+ "Product Sales Support": {
+  "role_definition": "Administrar la asignación de apoyo especializado para asesorar sobre productos y servicios específicos",
+  "example_of_use": "Un cliente corporativo establecido agenda una reunión con un especialista para conversar sobre opciones de financiamiento de corto plazo",
+  "executive_summary": "Este Service Domain administra el acceso de los clientes a los especialistas de producto"
+ },
+ "Prospect Campaign Execution": {
+  "role_definition": "Gestionar el despliegue, la ejecución y el refinamiento continuo de una campaña de prospectos. Esto incluye muchos tipos de campaña proactiva de captación. El proceso de ejecución realiza la selección y la confirmación o validación inicial de las listas de candidatos e incluye proveerle a la unidad de diseño retroalimentación crítica sobre el impacto de la campaña, para sustentar la recalibración y el refinamiento de la especificación a partir de la experiencia práctica",
+  "example_of_use": "El banco implementa una campaña de captación focalizada por envío de correo para atraer clientes adicionales",
+  "executive_summary": "Ejecutar una (versión de) campaña de prospectos, y controlar y responder a su impacto",
+  "key_features": "Selección e identificación de los prospectos candidatos (armado de la lista)\nInteracción con el prospecto y captura de su respuesta\nAnálisis del desempeño de la campaña y retroalimentación"
+ },
+ "Sales Planning": {
+  "example_of_use": "La gerencia de ventas revisa el desempeño trimestral y el embudo, y fija las metas y las asignaciones de venta del siguiente ciclo"
+ },
+ "Sales Product": {
+  "role_definition": "Un producto de venta define restricciones y condiciones específicas que complementan las características del producto base que 'envuelve'. Se usa para dar soporte a la personalización de los productos centrales, con el fin de atender necesidades y oportunidades de mercado específicas con productos más focalizados",
+  "example_of_use": "El banco empaqueta su producto de cuenta corriente con características adecuadas para estudiantes, como parte de una campaña de prospectos",
+  "executive_summary": "Una representación del producto tal como se le vende al cliente, que cubre los requerimientos operativos de cumplimiento",
+  "key_features": "Vincular con la instancia del producto central o subyacente\nDar soporte a las restricciones y las condiciones de procesamiento específicas del producto\nHabilitar y vincular características de servicio adicionales"
+ },
+ "Underwriting": {
+  "role_definition": "La decisión de suscripción de riesgo considera la capacidad del prestatario de financiar el crédito a partir de sus flujos de efectivo conocidos y su solvencia. Esa decisión se refiere a propiedades específicas del crédito propuesto (monto, plazo, calendario de amortización, garantías, etc.), a los ingresos y los compromisos conocidos del prestatario y a su historial crediticio con el banco. La decisión puede incorporar los riesgos percibidos en la tasa de interés y/o en los requerimientos de garantía para obtener la aprobación",
+  "example_of_use": "Se procesa una oferta de crédito corporativo y, en el punto correspondiente, se solicita una autorización de suscripción de riesgo",
+  "executive_summary": "Este Service Domain administra el proceso de decisión de suscripción de riesgo de los productos que corresponda (incluidos muchos tipos de crédito y algunos productos de seguro)",
+  "key_features": "Consolidar los materiales de la decisión de suscripción de riesgo\nEvaluar el flujo de efectivo y la posición crediticia de la propuesta\nEmitir la determinación de suscripción de riesgo (condicionada si hace falta)"
+ },
+ "Card Case": {
+  "role_definition": "Capturar, controlar, resolver y reportar las disputas transaccionales relacionadas con tarjetas, gestionando todos los mensajes de resolución de la disputa entre el emisor, la red de tarjetas y el adquirente.",
+  "example_of_use": "Un tarjetahabiente reporta una disputa de pago al centro de contacto y se inicia un caso. La cuenta se acredita y se solicita documentación al comercio. El caso se juzga finalmente cuando los documentos están disponibles para revisión, y todas las partes interesadas son notificadas de la resolución",
+  "executive_summary": "Este Service Domain gestiona el procesamiento de un caso de tarjeta del cliente, normalmente un cargo disputado",
+  "key_features": "Consolidación de los datos de la transacción\nProcesamiento del contracargo\nDecisión y arbitraje del caso\nResolución del caso"
+ },
+ "Case Root Cause Analysis": {
+  "role_definition": "Analizar los registros de resolución de casos de atención al cliente en busca de hallazgos de causa raíz. El análisis puede focalizarse para ser más específico e incluir: características problemáticas de productos y servicios que pueden refinarse; posibles debilidades operativas que podrían requerir mejor capacitación y lineamientos; y la detección de posibles patrones de crédito o de fraude",
+  "example_of_use": "Ejemplo de uso:\nSe revisan los registros de resolución de casos del centro de contacto para identificar problemas recurrentes que puedan resolverse mejorando la capacitación y los lineamientos de los representantes de atención",
+  "executive_summary": "La función de negocio de análisis de causa raíz revisa los reportes de casos para identificar posibles mejoras que eliminen o mitiguen los problemas de atención",
+  "key_features": "Análisis de los problemas relacionados con características de productos y servicios\nAnálisis de los problemas de desempeño de la atención y operativo\nAnálisis del comportamiento crediticio y fraudulento"
+ },
+ "Customer Case": {
+  "role_definition": "Las tareas de resolución de casos siguen procedimientos específicos según el tipo de caso involucrado. La resolución puede ser rápida, aplicando reglas de resolución y obteniendo autorización adicional cuando haga falta, o puede tratarse de actividades de larga duración; por ejemplo, cuando se solicita documentación que debe obtenerse de los comercios u otras partes interesadas antes de poder dictaminar sobre el asunto disputado. Puede esperarse un rango amplio de tipos de caso",
+  "example_of_use": "Un operador de resolución de casos trabaja en la resolución de un caso siguiendo el proceso establecido para ese caso específico; en este caso, un cargo disputado que está por debajo del umbral que permite cargarle el crédito al comercio",
+  "executive_summary": "Este Service Domain gestiona el inicio, el control, la resolución y el reporte de los casos de clientes (asuntos que normalmente requieren una respuesta correctiva sobre alguna transacción financiera)",
+  "key_features": "Captura y clasificación del caso del cliente\nConsolidación de la información relacionada con el caso\nDiagnóstico y decisión sobre el caso del cliente\nImplementación de la resolución del caso del cliente"
+ },
+ "Customer Case Management": {
+  "role_definition": "Administrar la atención de los casos de clientes y controlar la efectividad y el impacto de su resolución. Evaluar y confirmar que las reglas y los umbrales de decisión estén bien balanceados en términos de una determinación equitativa, con aceptación general del proceso por parte de los clientes y los comercios. Asegurar que haya recursos suficientes y adecuadamente capacitados disponibles",
+  "example_of_use": "La atención de casos de clientes se evalúa durante un período y se recalibran las reglas y los umbrales que guían las decisiones de resolución",
+  "executive_summary": "Controlar y evaluar la carga de casos y la actividad de resolución, y asignar recursos según haga falta para optimizar el desempeño de la resolución",
+  "key_features": "Definir y refinar los principios y las reglas que guían la resolución de casos\nEvaluar la efectividad de la función de procesamiento de casos\nDeterminar y monitorear los niveles de dotación de personal y su aprovechamiento"
+ },
+ "Loan Syndication": {
+  "role_definition": "Loan Syndication es un Service Domain que da soporte a la originación, la constitución y la atención de los créditos sindicados. Provee servicios que se usan en los bancos líderes, los agentes y los bancos que prestan soporte administrativo.\nEn el contexto del proceso de originación, el Service Domain Loan Syndication recibe una solicitud de crédito que requerirá sindicación. La solicitud podría venir del Service Domain Customer Offer, que delegará la originación por la complejidad del proceso. Loan Syndication orquesta la atención de la constitución, empezando por verificar si se cumplen todas las condiciones para otorgar un crédito sindicado. Llamará a los servicios de Party Asset Directory (registro de los activos pignorables) y de Underwriting antes de pasar el control al Service Domain Syndicate Management para constituir efectivamente el sindicato.\nEn el contexto de la atención, Loan Syndication es clave para orquestar los procesos de transferencia de participaciones entre prestamistas, el manejo del vencimiento de un crédito sindicado y otros.",
+  "example_of_use": "Llega de un cliente corporativo una solicitud para un proyecto de financiamiento grande que probablemente requerirá sindicación. Customer Offer recibirá la solicitud, realizará o actualizará la vinculación del cliente y luego pasará la solicitud a Loan Syndication para que gestione la originación —incluidas la valoración y el registro de los activos pignorables— hasta el punto en que el sindicato pueda constituirse y pueda iniciar la etapa de cierre del crédito (finalización de la constitución).",
+  "executive_summary": "Loan Syndication es un Service Domain que da soporte a la originación, la constitución y la atención de los créditos sindicados. Provee servicios que se usan en los bancos líderes, los agentes y los bancos que prestan soporte administrativo.\nGestiona la orquestación de los procesos de originación y de atención de los créditos sindicados.",
+  "key_features": "Las funcionalidades normalmente se ejecutan en el banco líder.\n- Recibir una solicitud de crédito sindicado\n- Negociar la carta mandato y los términos de referencia\n- Preparar el desembolso de tramos adicionales del crédito\n- Orquestar la transferencia de una participación del crédito a otro prestamista\n- Procesar el vencimiento de un crédito sindicado"
+ },
+ "Payment Order Initiation": {
+  "role_definition": "Este Service Domain da soporte a los servicios de pago para clientes personas naturales y empresas, capturando la instrucción de pago y reenviándola a Payment Orchestration para que gestione los distintos tipos de transacción de pago, tanto dentro del banco como con otros bancos por distintos esquemas de pago. El Service Domain puede soportar transacciones únicas o administrar pagos programados si se le solicita.",
+  "example_of_use": "Un cliente establecido transfiere un monto desde su cuenta corriente a una cuenta en el exterior de un familiar. Como es una transacción recurrente, los datos se mantienen y se actualizan cuando haga falta",
+  "executive_summary": "Este Service Domain provee un servicio de pago al cliente. Captura los datos del ordenante y del beneficiario y otras propiedades clave del pago, e inicia la orquestación de la transacción. Da soporte a los pagos recurrentes y programados.",
+  "key_features": "Capturar los datos de la instrucción de pago (individual) Interpretar la instrucción de pago (transferencia de crédito, débito directo, solicitud de pago, etc.) Verificar y validar la transacción de pago (comprobar fondos disponibles) Enriquecer la información del pago (por ejemplo, datos de la orden de compra) Identificar el banco y la cuenta del ordenante y del beneficiario Confirmar las comisiones y los tipos de cambio Iniciar el procesamiento de la orden de pago Administrar los pagos programados (almacenamiento de pagos)"
+ },
+ "Servicing Issue": {
+  "role_definition": "Capturar, controlar, resolver y reportar los problemas de atención al cliente más generales que puedan surgir en el centro de servicio. Nótese que esto no incluye la atención de casos específicos de clientes (como una disputa de pago). Los problemas de atención normalmente requieren algún tipo de seguimiento por parte del representante de atención (CSR), de los servicios de soporte de producción o de su gerencia",
+  "example_of_use": "Un representante de atención advierte que los lineamientos de un producto determinado son confusos y generan consultas frecuentes de los clientes. La deficiencia aparente se eleva a la gerencia para su revisión",
+  "executive_summary": "Este Service Domain gestiona los problemas productivos de atención al cliente detectados en el entorno de servicio",
+  "key_features": "Capturar los datos y el impacto del problema de atención\nAnalizar la causa raíz del problema\nDeterminar las acciones correctivas para resolverlo\nProponer modificaciones de procedimiento y de sistemas que mitiguen la causa"
+ },
+ "Servicing Mandate": {
+  "role_definition": "El Service Domain Servicing Mandate mantiene un acuerdo entre el banco y una parte externa que gobierna y restringe el acceso permitido a los productos y servicios del banco. Ese permiso de acceso puede definirse en dos niveles: global para el proveedor del servicio y, con más detalle, aplicado a un cliente específico.",
+  "example_of_use": "Un proveedor tercero ha accedido al banco por cuenta de un cliente para iniciar el pago de un producto adquirido. El banco verifica que el proveedor esté autorizado a realizar pagos en general y si existen restricciones específicas para ese cliente",
+  "executive_summary": "Este Service Domain mantiene los esquemas de atención al cliente permitidos para un proveedor de servicios, que cubren el acceso general a los productos y servicios del banco y, opcionalmente, esquemas específicos por cliente",
+  "key_features": "Constituir el mandato que cubre el acceso de terceros a los servicios\nConstituir los permisos de atención específicos por cliente del proveedor\nVerificar que la actividad propuesta esté cubierta por el mandato\nMantener y reportar la actividad del tercero"
+ }
+}

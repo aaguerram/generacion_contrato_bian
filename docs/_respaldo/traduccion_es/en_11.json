@@ -1,0 +1,116 @@
+{
+ "Correspondent Bank Relationship Management": {
+  "role_definition": "Handle the negotiation, development and tracking of reciprocity with correspondent bank relationships",
+  "example_of_use": "A bank establishes and maintains a correspondent relationship for international payments and trade finance representation in a foreign country",
+  "executive_summary": "This Service Domain manages correspondent bank relations, ensuring reciprocity and developing business where possible",
+  "key_features": "Track and assess correspondent bank activity for reciprocity\nIdentify and develop business opportunities with the correspondent bank\nOversee the resolution of production issues as might arise"
+ },
+ "Information Provider Administration": {
+  "role_definition": "Administer the information feed configuration and service agreement with the commercial information providers including subscription and service payment authorization activities",
+  "example_of_use": "A bank subscribes to a real time market feed and administers the distribution to entitled employees"
+ },
+ "Interbank Relationship Management": {
+  "role_definition": "This function handles managed interbank relationships. The are a range of relationship considerations that may apply between banks covering trading arrangements, joint ventures, clearing and settlement arrangements etc. The Interbank Relationship Management function acts as a relationship planning and coordination point to facilitate interbank interactions",
+  "example_of_use": "A partner bank is contacted to review a major project opportunity\nThe interbank relationship management function is used to coordinate contacts for a joint venture marketing opportunity between the banks",
+  "executive_summary": "Manage the bank's relationship with other banks, covering any specific agreements that may be in place and overseeing operational issues.",
+  "key_features": "Develop the bank relationship plan/targets\nLiaise/advise bank representatives and develop the relationship\nIdentify and develop mutually beneficial initiatives with the bank\nTroubleshoot production issues that arise involving the bank"
+ },
+ "Operations Log": {
+  "role_definition": "Maintain a record of transactions and events related to Partners to support settlement, reconciliatin and performance tracking.",
+  "example_of_use": "Points transfer activity is recorded for subsequent settlement with the Airline.",
+  "executive_summary": "This service domain handle the day-to-day operations of a collaborative partner related services.",
+  "key_features": "- Configure transaction and event log information - Log transactions and events - Update logged transactions and events - Retrieve and summarize log entries"
+ },
+ "Partner Administration": {
+  "role_definition": "The Partner Administration service domain handles all aspects of collaboration with a Partner, including the setup and implementation, coordination of services, settlement, reconciliation and issue resolution.",
+  "example_of_use": "A customer's rewards redemption request is fulfilled by transferring points to an Airline Frequent Flyer account with the airline being compensated based on agreed terms.",
+  "executive_summary": "This service domain handle the day-to-day operations of a collaborative partner related services.",
+  "key_features": "- Partner setup and implementation - Coordination of services - Monitoring Performance Agreements - Partner settlement and reconciliation - Issue resolution - Reporting"
+ },
+ "Partner Agreement": {
+  "role_definition": "The Partner Agreement service domain maintains the terms and conditions that govern the relationship with partners who collaborate with the bank in providing products and services to customers, including contractual, operational and financial aspects of the relationship.",
+  "example_of_use": "A restaurant chain enters an agreement with the bank for the issuance of reward vouchers that allow customers to avail of dinner for two on week nights.",
+  "executive_summary": "This service domain captures and maintains comprehensive terms and conditions govering Partner relationships.",
+  "key_features": "- Setup and maintain the Partner Agreement terms and conditions\n- Provide access to different aspects of agreed terms used for administering the day to day operations\n- Handle cancellation, renewal and sunsetting of the agreements"
+ },
+ "Partner Management": {
+  "role_definition": "The Partner Management service domain handles the development and negotiation of collaborative partners and their continued relationship.",
+  "example_of_use": "The relationship with an Airline Rewards Parter is continually tracked to ensure mutually advantageous relationship.",
+  "executive_summary": "This service domain handles strategic management of collaborative partners including partner development, performance and relationship tracking.",
+  "key_features": "- Partner relationship management - Partner performance and profitability review - Renegotiation and renewal of terms"
+ },
+ "Product Service Agency": {
+  "role_definition": "Maintain contractual and service agreements with transaction related service providers (e.g. legal/tax advisors)",
+  "example_of_use": "The contractual arrangements with an established specialist service provider are reviewed at year end",
+  "executive_summary": "This Service Domain establishes and maintains contractual arrangements with product and service agencies",
+  "key_features": "Establish appropriate contractual terms with agency\nMaintain and update contractual terms as necessary\nReview proposed work/assignments for compliance with agreed terms"
+ },
+ "Service Provider Operations": {
+  "role_definition": "Service Provider Operations handles operational interactions with an external service provider. Most exchanges will be automated. The range of possible interactions can be quite extensive as might be needed to address the different types of external service collaboration and supporting actions required. In as far as possible generic actions are defined that might be adjusted in implementation for different service providers and operational environments.",
+  "example_of_use": "The bank acting as a third party provider (TPP) connects to another banks acting as an account servicing payment service provider (ASPSP) in order to refresh an Access Token",
+  "executive_summary": "This Service Domain handles the range of operational actions used in production interactions with an external service provider.",
+  "key_features": "Handling service consents, access permissions and access tokens\nEstablishing external service provider access\nProcessing external service access requests\nProcessing external service responses and requests"
+ },
+ "Sub Custodian Agreement": {
+  "role_definition": "Maintain sub custodian agreement terms and track and report on sub custodian activity. Note the lead custodian role may engage a sub custodian for handling international securities outside its jurisdiction",
+  "example_of_use": "The contractual terms are referenced during the settlement procedure for a securities trade where the sub custodian holds the associated documentation",
+  "executive_summary": "This Service Domain establishes and maintains the terms governing sub custodian relationship",
+  "key_features": "Establish appropriate contractual terms with agency\nMaintain and update contractual terms as necessary\nReview proposed work/assignments for compliance with agreed terms"
+ },
+ "Syndicate Management": {
+  "role_definition": "Manage the membership and administration of syndicates in compliance with the agreed syndicate charter and operating agreements. The combines the application of eligibility requirements to establish membership and the subsequent ensuring of compliance with performance obligations defined under the membership",
+  "example_of_use": "A major project funding initiative assembles a syndicate of investors",
+  "executive_summary": "This Service Domain manages syndicate membership and compliance",
+  "key_features": "Overall membership maintenance and reporting\nIndividual membership enrolment\nApply eligibility clauses\nEnforce compliance obligations"
+ },
+ "Counterparty Administration": {
+  "role_definition": "Maintain and provide access to the counterparty reference details to support trading/payment activity. This includes SWIFT addresses, standard settlement instructions that are published. The data is typically acquired using a market feed for the default values, but the facility can support the maintenance of specific details and instructions that apply to the counterparty relationship overriding the public default",
+  "example_of_use": "Back office clearing and settlement references the counterparty details to assemble a funds transfer as part of an equity trade using the counterparty details to generate the associated SWIFT based payment exchange",
+  "executive_summary": "This Service Domain maintains key counterparty reference information used in the clearing and settlement of wholesale trading",
+  "key_features": "Consolidate counterparty market feed data\nQualify data and maintain counterparty directory content\nProvide access to counterparty reference records"
+ },
+ "Financial Instrument Reference Data Management": {
+  "role_definition": "Maintain a central reference directory of market traded asset/instrument details. The details are typically captured from one or more specialist market feeds that publish market asset/instrument details. It can include the result of internal reference data processing",
+  "example_of_use": "A corporate financial advisory project references different instrument specifications when assembling a structured financial approach to the customer financing needs",
+  "executive_summary": "This Service Domain maintains a directory of financial instrument reference data",
+  "key_features": "Consolidate reference data from market sources\nClassify and verify reference data\nOrganize reference data for ease of access\nProvide access to instrument reference data"
+ },
+ "Financial Market Analysis": {
+  "role_definition": "Analyze available sources of internal and external financial market information and research to develop insights and opinions on any aspect of financial market activity and pricing",
+  "example_of_use": "Example of use:\nA competitor financial pricing analysis is requested for a company issuing corporate paper",
+  "executive_summary": "Provide different types of financial market analysis using available financial market information and research",
+  "key_features": "Identify sources of financial market research\nSelect appropriate analytical algorithms/hypotheses to apply\nConsolidate information and apply/refine algorithms\nInterpret and present analytical insights"
+ },
+ "Financial Market Research": {
+  "role_definition": "Consolidate financial market information from a variety of sources and optionally organize the consolidated information to align to different topics or categories for subsequent selection and analysis (see Financial Market Analysis)",
+  "example_of_use": "An investment portfolio manager obtains financial market research to support portfolio rebalancing decisions",
+  "executive_summary": "The service domain consolidates external financial market research",
+  "key_features": "Identify and subscribe to financial market research services\nOperate access to financial market research service to obtain reports\nConsolidate, classify and maintain research\nProvide access to financial market research within the bank (direct and for analysis)\nSupport ad-hoc requests to identify and obtain financial market research"
+ },
+ "Information Provider Operation": {
+  "role_definition": "Operate the interface for importing data feeds from commercial information providers and internal broadcast pages",
+  "example_of_use": "A trader has subscribed to and references market price feeds at their trading desk"
+ },
+ "Location Data Management": {
+  "role_definition": "The maintenance of location details is used to check the validity, allowed use and occupancy of locations - both physical and virtual. This information can be augmented using external directory services when appropriate. The information is used for authentication and security purposes, and can also be used for interactive location based sales and marketing when combined with location tracking services/capabilities",
+  "example_of_use": "A new prospect provides an address as their place of residence. It is checked to be a valid/known location for residential use.",
+  "executive_summary": "This service domain maintain details of the use and state of locations of interest to the bank. This can include both physical and virtual addresses. It is used to check for valid use and for sales/marketing activities",
+  "key_features": "Maintain/confirm location address/details\nTrack allowed and actual location usage\nTrack location ownership/occupancy details"
+ },
+ "Market Data Switch Administration": {
+  "role_definition": "Administer the internal information distribution 'switch' with external and external market information feeds and associated employee access rights. Note this can include 'brokering' information access on a first come first serve basis for limited active user number feed services",
+  "example_of_use": "A new employee is provided with the standard access to information feed at their trading desk"
+ },
+ "Market Data Switch Operation": {
+  "role_definition": "This facility handles the real-time operation of the market information dissemination switch that is typically used to support trading and investment functions. It references the access entitlement to services for users maintained by the Market Data Switch Administration service domain (there can be complex rules governing access to various feeds). The dissemination mechanism/switch may support composite pages of data and interactive service requests. It may also support internally published information such as bank rates defined by the bank's treasury unit",
+  "example_of_use": "Example of use:\nA bank trader request access to a market data feed at their dealing position during a trading session",
+  "executive_summary": "This service domain operates the internal information distribution facility/switch in compliance with administered external subscription information feed service access rights. Note the content is retrieved by the Market Feed Operation service domain from the various external feed services. Internal information can also be published over the switch from various bank sources (such as bank rates provided by treasury).",
+  "key_features": "Handle access to the information provider (IP) service content\nStore and forward (IP) content over the internal switch\nHandle internal access to the IP content based on user access rights/requests\nPublish internal content over the data switch"
+ },
+ "Market Information Management": {
+  "role_definition": "Consolidate market information from multiple sources and in any suitable media/format in order to build a bank financial market knowledge-base. The service domain activities include maintaining, refining, qualifying/verifying and presenting information in order to improve the quality of the available market intelligence within the bank",
+  "example_of_use": "The bank consolidates multiple sources of private company merger and acquisition activity in order to maintain a view of private company players in a target sector",
+  "executive_summary": "Market information management consolidates and improves market information from multiple sources in order to build up a bank knowledge base in targeted areas",
+  "key_features": "Determine the required scope of market information to be maintained\nSource suitable market information sources and consolidate records\nVerify and qualify the accuracy of the information\nStructure/present the information in reports suited to business analysis and review"
+ }
+}

@@ -1,0 +1,116 @@
+{
+ "Correspondent Bank Relationship Management": {
+  "role_definition": "Gestionar la negociación, el desarrollo y el control de la reciprocidad en las relaciones con bancos corresponsales",
+  "example_of_use": "El banco establece y mantiene una relación de corresponsalía para pagos internacionales y para su representación en financiamiento de comercio exterior en un país extranjero",
+  "executive_summary": "Este Service Domain administra las relaciones con los bancos corresponsales, asegurando la reciprocidad y desarrollando negocio cuando es posible",
+  "key_features": "Controlar y evaluar la actividad del banco corresponsal en términos de reciprocidad\nIdentificar y desarrollar oportunidades de negocio con el banco corresponsal\nSupervisar la resolución de los problemas de producción que puedan surgir"
+ },
+ "Information Provider Administration": {
+  "role_definition": "Administrar la configuración de las fuentes de información y el acuerdo de servicio con los proveedores comerciales de información, incluidas las actividades de suscripción y de autorización del pago del servicio",
+  "example_of_use": "El banco se suscribe a una fuente de mercado en tiempo real y administra su distribución a los empleados habilitados"
+ },
+ "Interbank Relationship Management": {
+  "role_definition": "Esta función gestiona las relaciones interbancarias administradas. Existe un rango de consideraciones de relación que pueden aplicar entre bancos, que cubren esquemas de negociación, alianzas conjuntas, esquemas de compensación y liquidación, etc. La función de gestión de la relación interbancaria actúa como punto de planificación y coordinación de la relación para facilitar las interacciones entre bancos",
+  "example_of_use": "Se contacta a un banco socio para revisar una oportunidad de proyecto importante\nLa función de gestión de la relación interbancaria se usa para coordinar los contactos de una oportunidad conjunta de mercadeo entre los bancos",
+  "executive_summary": "Administrar la relación del banco con otros bancos, cubriendo los acuerdos específicos que puedan existir y supervisando los problemas operativos.",
+  "key_features": "Desarrollar el plan y las metas de la relación con el banco\nActuar como enlace y asesorar a los representantes del banco y desarrollar la relación\nIdentificar y desarrollar iniciativas mutuamente beneficiosas con el banco\nResolver los problemas de producción que surjan y que involucren a ese banco"
+ },
+ "Operations Log": {
+  "role_definition": "Mantener un registro de las transacciones y los eventos relacionados con los socios, para sustentar la liquidación, la conciliación y el control del desempeño.",
+  "example_of_use": "La actividad de transferencia de puntos se registra para su liquidación posterior con la aerolínea.",
+  "executive_summary": "Este Service Domain gestiona la operación diaria de los servicios relacionados con un socio colaborador.",
+  "key_features": "- Configurar la información de la bitácora de transacciones y eventos - Registrar transacciones y eventos - Actualizar las transacciones y los eventos registrados - Recuperar y resumir las entradas de la bitácora"
+ },
+ "Partner Administration": {
+  "role_definition": "El Service Domain Partner Administration gestiona todos los aspectos de la colaboración con un socio, incluidas la configuración y la implementación, la coordinación de los servicios, la liquidación, la conciliación y la resolución de problemas.",
+  "example_of_use": "La solicitud de redención de recompensas de un cliente se cumple transfiriendo puntos a una cuenta de viajero frecuente de una aerolínea, y la aerolínea se compensa según los términos acordados.",
+  "executive_summary": "Este Service Domain gestiona la operación diaria de los servicios relacionados con un socio colaborador.",
+  "key_features": "- Configuración e implementación del socio - Coordinación de los servicios - Monitoreo de los acuerdos de desempeño - Liquidación y conciliación con el socio - Resolución de problemas - Reporte"
+ },
+ "Partner Agreement": {
+  "role_definition": "El Service Domain Partner Agreement mantiene los términos y condiciones que gobiernan la relación con los socios que colaboran con el banco en la provisión de productos y servicios a los clientes, incluidos los aspectos contractuales, operativos y financieros de la relación.",
+  "example_of_use": "Una cadena de restaurantes firma un acuerdo con el banco para la emisión de vales de recompensa que les permiten a los clientes acceder a una cena para dos en días de semana.",
+  "executive_summary": "Este Service Domain captura y mantiene los términos y condiciones integrales que gobiernan las relaciones con los socios.",
+  "key_features": "- Configurar y mantener los términos y condiciones del acuerdo con el socio\n- Proveer acceso a los distintos aspectos de los términos acordados que se usan para administrar la operación diaria\n- Gestionar la cancelación, la renovación y la descontinuación de los acuerdos"
+ },
+ "Partner Management": {
+  "role_definition": "El Service Domain Partner Management gestiona el desarrollo y la negociación de los socios colaboradores y la continuidad de su relación.",
+  "example_of_use": "La relación con un socio de recompensas de una aerolínea se controla de forma continua para asegurar que siga siendo mutuamente ventajosa.",
+  "executive_summary": "Este Service Domain gestiona la administración estratégica de los socios colaboradores, incluidos su desarrollo y el control de su desempeño y de la relación.",
+  "key_features": "- Gestión de la relación con el socio - Revisión del desempeño y la rentabilidad del socio - Renegociación y renovación de los términos"
+ },
+ "Product Service Agency": {
+  "role_definition": "Mantener los acuerdos contractuales y de servicio con los proveedores de servicios relacionados con transacciones (por ejemplo, asesores legales o tributarios)",
+  "example_of_use": "Los acuerdos contractuales con un proveedor de servicios especializado establecido se revisan al cierre del año",
+  "executive_summary": "Este Service Domain constituye y mantiene los acuerdos contractuales con las agencias de productos y servicios",
+  "key_features": "Establecer los términos contractuales adecuados con la agencia\nMantener y actualizar los términos contractuales cuando haga falta\nRevisar los trabajos y las asignaciones propuestos frente al cumplimiento de los términos acordados"
+ },
+ "Service Provider Operations": {
+  "role_definition": "Service Provider Operations gestiona las interacciones operativas con un proveedor de servicios externo. La mayoría de los intercambios serán automatizados. El rango de interacciones posibles puede ser bastante extenso, según lo que haga falta para atender los distintos tipos de colaboración con servicios externos y las acciones de soporte requeridas. En lo posible se definen acciones genéricas, que pueden ajustarse en la implementación para distintos proveedores y entornos operativos.",
+  "example_of_use": "El banco, actuando como proveedor tercero (TPP), se conecta con otro banco que actúa como proveedor de servicios de pago administrador de cuenta (ASPSP) para refrescar un token de acceso",
+  "executive_summary": "Este Service Domain gestiona el rango de acciones operativas que se usan en las interacciones productivas con un proveedor de servicios externo.",
+  "key_features": "Gestionar los consentimientos del servicio, los permisos y los tokens de acceso\nEstablecer el acceso al proveedor de servicios externo\nProcesar las solicitudes de acceso al servicio externo\nProcesar las respuestas y las solicitudes del servicio externo"
+ },
+ "Sub Custodian Agreement": {
+  "role_definition": "Mantener los términos del acuerdo con el subcustodio, y controlar y reportar su actividad. Nótese que el custodio principal puede vincular a un subcustodio para manejar valores internacionales fuera de su jurisdicción",
+  "example_of_use": "Los términos contractuales se consultan durante el procedimiento de liquidación de una operación de valores en la que el subcustodio guarda la documentación asociada",
+  "executive_summary": "Este Service Domain constituye y mantiene los términos que gobiernan la relación con el subcustodio",
+  "key_features": "Establecer los términos contractuales adecuados con la agencia\nMantener y actualizar los términos contractuales cuando haga falta\nRevisar los trabajos y las asignaciones propuestos frente al cumplimiento de los términos acordados"
+ },
+ "Syndicate Management": {
+  "role_definition": "Administrar la membresía y la administración de los sindicatos conforme al estatuto y los acuerdos operativos acordados. Combina la aplicación de los requisitos de elegibilidad para constituir la membresía con el aseguramiento posterior del cumplimiento de las obligaciones de desempeño definidas en ella",
+  "example_of_use": "Una iniciativa importante de financiamiento de proyectos arma un sindicato de inversionistas",
+  "executive_summary": "Este Service Domain administra la membresía y el cumplimiento del sindicato",
+  "key_features": "Mantenimiento y reporte global de la membresía\nIncorporación de cada miembro\nAplicar las cláusulas de elegibilidad\nHacer cumplir las obligaciones de cumplimiento"
+ },
+ "Counterparty Administration": {
+  "role_definition": "Mantener y proveer acceso a los datos de referencia de la contraparte para sustentar la actividad de negociación y de pagos. Esto incluye las direcciones SWIFT y las instrucciones de liquidación estándar publicadas. Los datos normalmente se obtienen de una fuente de mercado para los valores por defecto, pero la facilidad puede dar soporte al mantenimiento de datos e instrucciones específicas que apliquen a la relación con la contraparte y que sobrescriban el valor público por defecto",
+  "example_of_use": "La compensación y liquidación del back office consulta los datos de la contraparte para armar una transferencia de fondos como parte de una operación de acciones, usando esos datos para generar el intercambio de pago asociado basado en SWIFT",
+  "executive_summary": "Este Service Domain mantiene la información de referencia clave de las contrapartes que se usa en la compensación y la liquidación de la negociación mayorista",
+  "key_features": "Consolidar los datos de la fuente de mercado de contrapartes\nCalificar los datos y mantener el contenido del directorio de contrapartes\nProveer acceso a los registros de referencia de las contrapartes"
+ },
+ "Financial Instrument Reference Data Management": {
+  "role_definition": "Mantener un directorio central de referencia con los datos de los activos e instrumentos negociados en el mercado. Los datos normalmente se capturan de una o varias fuentes de mercado especializadas que publican esos detalles. Puede incluir el resultado del procesamiento interno de datos de referencia",
+  "example_of_use": "Un proyecto de asesoría financiera corporativa consulta las especificaciones de distintos instrumentos al armar un enfoque financiero estructurado para las necesidades de financiamiento del cliente",
+  "executive_summary": "Este Service Domain mantiene un directorio de datos de referencia de instrumentos financieros",
+  "key_features": "Consolidar los datos de referencia de las fuentes de mercado\nClasificar y verificar los datos de referencia\nOrganizar los datos de referencia para facilitar su consulta\nProveer acceso a los datos de referencia de los instrumentos"
+ },
+ "Financial Market Analysis": {
+  "role_definition": "Analizar las fuentes disponibles de información e investigación de mercados financieros, internas y externas, para desarrollar hallazgos y opiniones sobre cualquier aspecto de la actividad y la formación de precios de los mercados financieros",
+  "example_of_use": "Ejemplo de uso:\nSe solicita un análisis de precios financieros de la competencia para una compañía que emite papel comercial",
+  "executive_summary": "Proveer distintos tipos de análisis de mercados financieros usando la información y la investigación disponibles",
+  "key_features": "Identificar las fuentes de investigación de mercados financieros\nElegir los algoritmos o las hipótesis analíticas adecuadas para aplicar\nConsolidar la información y aplicar y refinar los algoritmos\nInterpretar y presentar los hallazgos analíticos"
+ },
+ "Financial Market Research": {
+  "role_definition": "Consolidar la información de mercados financieros de diversas fuentes y, opcionalmente, organizarla por temas o categorías para su selección y análisis posteriores (ver Financial Market Analysis)",
+  "example_of_use": "Un administrador de portafolios de inversión obtiene investigación de mercados financieros para sustentar sus decisiones de rebalanceo",
+  "executive_summary": "Este Service Domain consolida la investigación externa de mercados financieros",
+  "key_features": "Identificar y suscribirse a los servicios de investigación de mercados financieros\nOperar el acceso al servicio de investigación de mercados financieros para obtener reportes\nConsolidar, clasificar y mantener la investigación\nProveer acceso a la investigación de mercados financieros dentro del banco (directo y para análisis)\nAtender las solicitudes puntuales de identificación y obtención de investigación de mercados financieros"
+ },
+ "Information Provider Operation": {
+  "role_definition": "Operar la interfaz para importar las fuentes de datos de los proveedores comerciales de información y de las páginas internas de difusión",
+  "example_of_use": "Un operador se ha suscrito a las fuentes de precios de mercado y las consulta en su mesa de negociación"
+ },
+ "Location Data Management": {
+  "role_definition": "El mantenimiento de los datos de ubicación se usa para verificar la validez, el uso permitido y la ocupación de las ubicaciones, tanto físicas como virtuales. Esta información puede complementarse con servicios de directorio externos cuando corresponda. Se usa para fines de autenticación y seguridad, y también puede usarse para ventas y mercadeo interactivos basados en ubicación, cuando se combina con servicios y capacidades de rastreo de ubicación",
+  "example_of_use": "Un prospecto nuevo entrega una dirección como su lugar de residencia. Se verifica que sea una ubicación válida y conocida de uso residencial.",
+  "executive_summary": "Este Service Domain mantiene los datos del uso y el estado de las ubicaciones de interés para el banco. Puede incluir direcciones tanto físicas como virtuales. Se usa para verificar el uso válido y para actividades de ventas y mercadeo",
+  "key_features": "Mantener y confirmar la dirección y los datos de la ubicación\nControlar el uso permitido y el uso real de la ubicación\nControlar los datos de propiedad y ocupación de la ubicación"
+ },
+ "Market Data Switch Administration": {
+  "role_definition": "Administrar el 'switch' interno de distribución de información con las fuentes de información de mercado externas e internas y los derechos de acceso de los empleados asociados. Nótese que esto puede incluir 'intermediar' el acceso a la información por orden de llegada en los servicios cuya fuente tiene un número limitado de usuarios activos",
+  "example_of_use": "A un empleado nuevo se le provee el acceso estándar a la fuente de información en su mesa de negociación"
+ },
+ "Market Data Switch Operation": {
+  "role_definition": "Esta facilidad gestiona la operación en tiempo real del switch de difusión de información de mercado que normalmente se usa para dar soporte a las funciones de negociación e inversión. Consulta los derechos de acceso de los usuarios a los servicios que mantiene el Service Domain Market Data Switch Administration (pueden existir reglas complejas que gobiernen el acceso a las distintas fuentes). El mecanismo o switch de difusión puede soportar páginas compuestas de datos y solicitudes de servicio interactivas. También puede soportar información publicada internamente, como las tasas del banco que define su unidad de tesorería",
+  "example_of_use": "Ejemplo de uso:\nUn operador del banco solicita acceso a una fuente de datos de mercado en su posición de negociación durante una sesión",
+  "executive_summary": "Este Service Domain opera la facilidad o switch interno de distribución de información, conforme a los derechos de acceso administrados de los servicios de información externos suscritos. Nótese que el contenido lo recupera el Service Domain Market Feed Operation de los distintos servicios externos. La información interna también puede publicarse por el switch desde diversas fuentes del banco (como las tasas que provee tesorería).",
+  "key_features": "Gestionar el acceso al contenido del servicio del proveedor de información (IP)\nAlmacenar y reenviar el contenido del IP por el switch interno\nGestionar el acceso interno al contenido del IP según los derechos y las solicitudes de acceso del usuario\nPublicar contenido interno por el switch de datos"
+ },
+ "Market Information Management": {
+  "role_definition": "Consolidar información de mercado de múltiples fuentes y en cualquier medio o formato adecuado, con el fin de construir una base de conocimiento del banco sobre los mercados financieros. Las actividades de este Service Domain incluyen mantener, refinar, calificar, verificar y presentar la información para mejorar la calidad de la inteligencia de mercado disponible dentro del banco",
+  "example_of_use": "El banco consolida múltiples fuentes de actividad de fusiones y adquisiciones de compañías privadas para mantener una visión de los actores privados de un sector objetivo",
+  "executive_summary": "La gestión de información de mercado consolida y mejora la información de múltiples fuentes para construir una base de conocimiento del banco en áreas focalizadas",
+  "key_features": "Determinar el alcance requerido de la información de mercado que debe mantenerse\nIdentificar las fuentes de información de mercado adecuadas y consolidar los registros\nVerificar y calificar la exactitud de la información\nEstructurar y presentar la información en reportes adecuados para el análisis y la revisión del negocio"
+ }
+}

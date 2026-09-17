@@ -1,0 +1,119 @@
+{
+ "Compliance Reporting": {
+  "role_definition": "Este Service Domain programa, consolida información y reporta la actividad de auditoría interna y de cumplimiento en todo el banco",
+  "example_of_use": "Ejemplo de uso:\nSe auditan los procedimientos de contabilidad financiera de una función de back office",
+  "executive_summary": "Este Service Domain administra y orquesta las tareas necesarias para aplicar y reportar la actividad de control y reporte de la auditoría interna",
+  "key_features": "Consolidar los materiales de reporte de cumplimiento y auditoría interna y armar los reportes\nEntregar los reportes programados y puntuales a los auditores internos, destacando los incumplimientos\nGestionar el seguimiento de las acciones correctivas identificadas por incumplimiento\nSupervisar el reporte regulatorio de las transacciones en línea y productivas"
+ },
+ "Financial Accounting": {
+  "role_definition": "El Service Domain Financial Accounting recibe hechos financieros y, a partir de ellos, crea instrucciones contables. Vive en el mundo contable del banco y solo puede acceder a los mundos bancario, de tarjetas y de valores para operaciones de consulta. Conoce y mantiene el plan de cuentas y puede crear instrucciones contables que actualizarán las cuentas del libro mayor y de los libros auxiliares.\nEjemplos de hechos financieros son la apertura de una cuenta de crédito, la revaloración de una garantía y, de forma periódica (por ejemplo, diaria), los cambios de posición resultantes de las transacciones de pago.",
+  "example_of_use": "- Al abrirse una cuenta de crédito de consumo, el Service Domain de cumplimiento usará la Service Connection genérica \"Update GL Accounts\" para que Financial Accounting registre las nuevas cuentas del libro mayor o de los libros auxiliares.\n- Al cierre de las operaciones bancarias del día, Financial Accounting recuperará todos los asientos del día en Position Keeping y creará las entradas (resumidas) para las cuentas del libro mayor y de los libros auxiliares.",
+  "executive_summary": "El Service Domain Financial Accounting recibe hechos financieros y, a partir de ellos, crea instrucciones contables que actualizarán las cuentas del libro mayor y de los libros auxiliares",
+  "key_features": "- Mantener el plan de cuentas\n- Proveer información sobre el plan de cuentas\n- Reflejar la apertura de cuentas en el libro mayor\n- Crear asientos resumidos por intervalo en el libro mayor para todas las entradas de Position Keeping y (si aplica) de Credit Card Position Keeping",
+  "general_comment": "La contabilidad financiera es el campo de la contabilidad que se ocupa del resumen, el análisis y el reporte de las transacciones financieras relacionadas con un negocio.[1] Esto implica la preparación de estados financieros disponibles para uso público. Los accionistas, los proveedores, los bancos, los empleados, los organismos gubernamentales, los dueños del negocio y otros grupos de interés son ejemplos de personas interesadas en recibir esa información con fines de toma de decisiones. La contabilidad financiera se rige tanto por estándares contables locales como internacionales. Los Principios de Contabilidad Generalmente Aceptados (GAAP) son el marco estándar de lineamientos de contabilidad financiera usado en una jurisdicción determinada. Incluye los estándares, las convenciones y las reglas que los contadores siguen al registrar y resumir y en la preparación de los estados financieros. Por otro lado, las Normas Internacionales de Información Financiera (IFRS) son un conjunto de estándares contables que establecen cómo deben reportarse en los estados financieros tipos particulares de transacciones y otros eventos. Las IFRS las emite el Consejo de Normas Internacionales de Contabilidad (IASB).[2] Con las IFRS haciéndose más extendidas en el escenario internacional, la consistencia en el reporte financiero se ha vuelto más frecuente entre organizaciones globales. Mientras la contabilidad financiera se usa para preparar información contable para personas ajenas a la organización o no involucradas en la operación diaria de la compañía, la contabilidad gerencial provee información contable para ayudar a los gerentes a tomar decisiones para administrar el negocio."
+ },
+ "Financial Statement Assessment": {
+  "role_definition": "El Service Domain Financial Statement Assessment da soporte a un rango amplio de cálculos y evaluaciones que pueden aplicarse a los reportes financieros presentados desde diversas fuentes, incluidas las organizaciones clientes y las unidades de negocio. La evaluación puede derivar muchos hallazgos, entre ellos los valores proyectados de activos y pasivos, la proyección de los flujos de efectivo y la liquidez, la determinación de perfiles de riesgo y la sensibilidad a distintas condiciones de mercado.",
+  "example_of_use": "El banco realiza una evaluación programada de los estados financieros de un prestatario para ratificar la calificación de calidad de su crédito",
+  "executive_summary": "Este Service Domain da soporte a un conjunto de análisis financieros que pueden usarse para extraer hallazgos específicos (por ejemplo, valoraciones, liquidez, riesgo, sensibilidades de mercado) de los estados financieros de una entidad",
+  "key_features": "Verificar y formatear los reportes financieros\nAplicar las pruebas de evaluación financiera\nInterpretar y presentar los hallazgos de la evaluación"
+ },
+ "Fraud Resolution": {
+  "role_definition": "Crear y actualizar el caso de fraude y gestionar los pasos de investigación y resolución, lo que puede implicar iniciar acciones de contención, obtener documentación, realizar investigación y acciones forenses, determinar la responsabilidad, iniciar acciones de resolución como reversiones y ajustes financieros, suscribirse y publicar a consorcios, determinar la causa raíz e iniciar acciones correctivas y preventivas. El caso de fraude puede abrirlo la facilidad de producto o canal, Fraud Diagnosis o Customer Case.",
+  "example_of_use": "Se detecta en los registros transaccionales un patrón de posible fraude, se lo investiga y se descubre evidencia de fraude. Se inicia la actividad de denuncia y resolución",
+  "executive_summary": "Este Service Domain crea y procesa un caso de fraude derivado de comportamiento fraudulento detectado durante el procesamiento productivo",
+  "key_features": "Crear el caso de resolución de fraude\nObtener documentación y evaluarla\nDeterminar y asignar la responsabilidad\nDefinir e iniciar las actividades de resolución"
+ },
+ "Guideline Compliance": {
+  "role_definition": "Este centro de servicio administra la actividad de los especialistas encargados de probar y confirmar el cumplimiento de los lineamientos. Las pruebas de cumplimiento pueden incluir revisiones de documentos y análisis transaccionales más detallados, y pueden implicar interacciones con la unidad evaluada para obtener detalles o explicaciones adicionales. El cumplimiento de lineamientos normalmente se enfoca en las actividades de inversión y de crédito de mayor monto, confirmando que las transacciones se ejecuten alineadas con los lineamientos de la gerencia y las políticas prudenciales.",
+  "example_of_use": "Un proceso de originación de crédito se presenta a las verificaciones de cumplimiento de lineamientos antes de completar la originación y el cierre del crédito",
+  "executive_summary": "Este Service Domain desarrolla y aplica un portafolio de pruebas de cumplimiento de lineamientos para confirmar la adherencia a los procedimientos internos impuestos por el banco y el regulador. Las pruebas pueden hacerse sobre los datos transaccionales completos o sobre muestras significativas, según corresponda, para mitigar la exposición a comportamientos no conformes. Las verificaciones pueden responder a un calendario, a una solicitud específica dentro del procesamiento normal o iniciarse de forma aleatoria como actividad de supervisión",
+  "key_features": "Programar y focalizar las verificaciones de cumplimiento\nConsolidar los documentos y la actividad correspondientes a las pruebas de cumplimiento\nProveer asesoría y guía para lograr el cumplimiento\nEvaluar y reportar la actividad frente al cumplimiento,\nNotificar las fallas de cumplimiento detectadas y dar seguimiento a las respuestas"
+ },
+ "Regulatory Compliance": {
+  "role_definition": "Este Service Domain administra la aplicación programada y puntual de las verificaciones regulatorias. Esto incluye interpretar todo el rango de requerimientos regulatorios que gobiernan las operaciones del banco y determinar qué regulaciones aplican en circunstancias específicas a lo largo de la empresa. Se proveen soporte y lineamientos a las actividades del banco sujetas a esas regulaciones, y se ejecutan verificaciones programadas y puntuales para confirmar el cumplimiento",
+  "example_of_use": "Los datos de un cliente nuevo se envían a las verificaciones regulatorias contra listas de control. Una transacción posterior se reporta para las verificaciones de cumplimiento regulatorio",
+  "executive_summary": "Este Service Domain provee un servicio para interpretar los requerimientos regulatorios, proveer guía y definir e implementar un portafolio de pruebas de cumplimiento regulatorio en todas las actividades del banco que corresponda",
+  "key_features": "Programar y focalizar las verificaciones regulatorias\nConsolidar los documentos y la actividad correspondientes a las pruebas regulatorias\nProveer asesoría y guía para lograr el cumplimiento regulatorio\nEvaluar y reportar la actividad frente al cumplimiento regulatorio,\nNotificar las fallas regulatorias detectadas y dar seguimiento a las respuestas"
+ },
+ "Regulatory Reporting": {
+  "role_definition": "Este Service Domain gestiona las obligaciones de reporte regulatorio del banco. Esto incluye la consolidación y la presentación de información en los reportes y las revelaciones regulatorias, y la atención de las respuestas a las solicitudes de información del regulador como parte de la relación continua con él. También gestiona la consolidación, el formateo y la entrega programados del conjunto de reportes de cumplimiento, incluido el reporte de operaciones 'en línea' y el reporte de análisis transaccional posterior al hecho",
+  "example_of_use": "La actividad de negociación se reporta a la bolsa para cumplir los requerimientos de reporte regulatorio",
+  "executive_summary": "Este Service Domain administra y orquesta las tareas necesarias para cumplir las obligaciones de reporte regulatorio del banco",
+  "key_features": "Consolidar los materiales de reporte regulatorio y armar los reportes\nEntregar los reportes programados y puntuales a los reguladores\nAtender las solicitudes y las respuestas de reporte del regulador\nSupervisar el reporte regulatorio de las transacciones en línea y productivas"
+ },
+ "ATM Network Management": {
+  "role_definition": "Configurar la asignación de productos y servicios en toda la red de ATM y supervisar el registro y los controles de acceso de los ATM",
+  "example_of_use": "Se instala un conjunto nuevo de ATM independientes en un aeropuerto y se los configura con servicios limitados para asegurar alta disponibilidad en la dispensación de efectivo"
+ },
+ "ATM Network Operations": {
+  "role_definition": "Este Service Domain gestiona todos los aspectos automatizados de la operación de la red de ATM. Esto incluye controlar el movimiento de efectivo y documentos por la red y sus dispositivos. También gestiona la detección y la respuesta a los errores y las alertas de los dispositivos, incluida la supervisión del movimiento físico de efectivo y documentos y la atención de las alertas y las caídas de los dispositivos",
+  "example_of_use": "Ejemplo de uso:\nEl banco controla la distribución y el retiro del inventario de efectivo en toda su red de ATM en operación",
+  "executive_summary": "Gestionar la operación automatizada de la red de ATM y los dispositivos vinculados, incluido el rastreo de los movimientos físicos de efectivo y documentos",
+  "key_features": "Gestionar la distribución y el depósito de efectivo por la red de ATM\nGestionar la captura y la generación de la documentación relacionada con las transacciones del ATM\nDetectar y responder a los errores y las caídas de los dispositivos ATM"
+ },
+ "Advanced Voice Services Management": {
+  "role_definition": "Gestiona la supervisión y la configuración del canal de acceso PBX (telefonía y voz). Esto incluye evaluar la capacidad y el rendimiento, y programar el mantenimiento y las actualizaciones de la configuración del canal. También determinar el acceso y el uso permitidos y resolver los problemas de producción importantes",
+  "example_of_use": "La gerencia revisa y define los requerimientos de reconfiguración del canal de voz a partir de las proyecciones de capacidad y volumen",
+  "executive_summary": "Supervisar la configuración y la operación de las facilidades del canal de voz",
+  "key_features": "Determinar la configuración requerida de la plataforma del canal de voz\nSupervisar las actualizaciones y el mantenimiento de la plataforma\nControlar la disponibilidad del servicio y resolver los problemas de producción importantes"
+ },
+ "Advanced Voice Services Operations": {
+  "role_definition": "Este Service Domain gestiona la operación de la infraestructura PBX y de telefonía, que puede incluir capacidades IVR embebidas. El sistema PBX tendrá una integración estrecha con las capacidades del centro de llamadas y de la banca electrónica, según el grado de integración telefonía-computador (CTI) y de soporte multicanal",
+  "example_of_use": "Ejemplo de uso:\nEl menú numérico se ajusta para aumentar la actividad de autoservicio durante un período de carga máxima (esto podría implementarse en el IVR en una configuración más sofisticada)",
+  "executive_summary": "Este Service Domain opera la infraestructura del canal telefónico, incluidos el IVR y cualquier otro dispositivo automatizado que corresponda. Esto incluye la atención de las reglas de enrutamiento por defecto y los ajustes intradía o de sesión para atender la carga máxima u otras variaciones operativas",
+  "key_features": "Atender los contactos de voz entrantes del cliente\nProveer las conexiones de voz salientes\nGestionar el reporte y la resolución de los problemas del servicio"
+ },
+ "Branch Currency Distribution": {
+  "role_definition": "Este Service Domain gestiona la programación y la distribución segura de divisas en toda la red de agencias (para las agencias del banco y las ubicaciones remotas de ATM). Asegura que se mantenga el efectivo requerido en cada ubicación y realiza los movimientos hacia y desde las bóvedas centrales de custodia cuando haga falta para asegurar la disponibilidad de efectivo",
+  "example_of_use": "Ejemplo de uso:\nLos ATM de una agencia se abastecen de efectivo en respuesta a la demanda anticipada de los clientes",
+  "executive_summary": "Programar y coordinar la distribución segura del inventario de efectivo en las redes de agencias y de ATM.",
+  "key_features": "Administración de la flota de vehículos de distribución\nPlanificación y programación de la distribución\nMonitoreo y control de la actividad de distribución\nCoordinación del acceso al efectivo central"
+ },
+ "Branch Currency Management": {
+  "role_definition": "Este Service Domain es responsable de controlar el inventario de efectivo (divisas) disponible que se mantiene y se distribuye dentro de la agencia hacia las posiciones de cajero y los ATM, para asegurar que siempre haya efectivo suficiente en todas las posiciones. También de verificar los saldos y velar por que el excedente se transfiera a la custodia central segura cuando corresponda. Si hace falta, pueden elegirse criterios específicos para refinar la asignación",
+  "example_of_use": "Ejemplo de uso:\nLa gerencia de la agencia revisa el efectivo disponible y confirma los saldos de cierre del día en las posiciones de cajero",
+  "executive_summary": "Controlar el inventario de efectivo, proyectar la demanda y asegurar que todo el efectivo esté cuadrado dentro de la agencia",
+  "key_features": "Control del uso y la disponibilidad del inventario de efectivo\nEvaluación y planificación de los requerimientos de inventario de efectivo de la agencia\nSupervisión de la disponibilidad y los movimientos de efectivo dentro de la agencia"
+ },
+ "Branch Location Management": {
+  "role_definition": "Este Service Domain supervisa y administra la actividad diaria de la agencia bancaria, manteniendo sus planes y presupuestos, asignando responsabilidades, determinando la cobertura óptima de productos y servicios y reportando su actividad y desempeño",
+  "example_of_use": "Ejemplo de uso:\nUn gerente de agencia revisa el desempeño de productos y servicios en su ubicación y ajusta las prioridades de dotación de personal de desarrollo de negocio para enfocarse en oportunidades de alto valor",
+  "executive_summary": "Administrar y supervisar la actividad de la agencia y asignar recursos para optimizar su desempeño",
+  "key_features": "Desarrollar e implementar los planes de negocio de la agencia\nAsignar los recursos de gestión de clientes para optimizar la cobertura de productos y servicios\nEvaluar y reportar el desempeño de la agencia\nEnlace con el cliente y resolución de problemas"
+ },
+ "Branch Location Operations": {
+  "role_definition": "Administrar la actividad diaria dentro de la agencia: asignar cajeros y gestores de relación a las posiciones y controlar su disponibilidad y desempeño, asegurar que el efectivo y los consumibles de producto estén a mano y que todas las instalaciones funcionen correctamente",
+  "example_of_use": "Ejemplo de uso:\nLa administración del personal de la agencia asigna las posiciones de cajero y las tareas de gestión de relación a la fuerza laboral según la demanda del momento",
+  "executive_summary": "La administración diaria de la actividad de la agencia, incluida la asignación de cajeros y la supervisión del manejo de efectivo",
+  "key_features": "Asignaciones de personal\nMovimientos de efectivo y de valores no monetarios dentro de la agencia\nOperación del servicio de custodia segura\nOperaciones de seguridad de la ubicación"
+ },
+ "Branch Network Management": {
+  "role_definition": "Configurar los servicios y los productos disponibles (ATM, asignaciones de oficina, escritorio y cajero) de las agencias en todo el portafolio de la red. (Nótese que en el modelo BIAN un ATM se trata como un tipo específico de ubicación de agencia)",
+  "example_of_use": "La red de agencias se reconfigura para acomodar un producto nuevo o modificado dirigido a un segmento de clientes específico (por ejemplo, créditos estudiantiles en las agencias ubicadas en campus)"
+ },
+ "Card Terminal Administration": {
+  "role_definition": "Este Service Domain es responsable de la asignación al comercio del terminal de punto de venta o de la interfaz de enlace de autorización, de su configuración y activación y de la administración de su estado a lo largo del tiempo, incluido el reemplazo de dispositivos o interfaces defectuosos. El banco adquirente configura el terminal o la interfaz para cubrir los requerimientos específicos del comercio, según su tipo, su riesgo y otros términos y condiciones.",
+  "example_of_use": "A un comercio se le asignan uno o varios dispositivos o interfaces para procesar la autorización y el envío de los cargos de tarjeta cuando el banco adquirente le abre una cuenta de comercio nueva. (Nótese que esto puede involucrar un terminal de punto de venta o una interfaz de enlace de autorización con el propio sistema de caja del comercio).",
+  "executive_summary": "Este Service Domain administra la red de POS, incluidos el inventario, las características del terminal, el despliegue y el estado de los dispositivos POS.",
+  "key_features": "Administración del inventario de POS\nRegistro y configuración del POS o la interfaz del comercio\nMantenimiento del estado del POS o la interfaz del comercio"
+ },
+ "Card Terminal Operation": {
+  "role_definition": "Este Service Domain mantiene un registro de las transacciones recibidas de cada terminal de punto de venta o enlace de autorización que los comercios usan para presentar cargos de tarjeta, y se usa para ayudar al comercio a conciliar las transacciones al cierre del día o del turno. Las transacciones se reenvían al Service Domain Card Transaction Capture cuando el comercio cierra los lotes del terminal. El Service Domain también monitorea el estado operativo de los terminales y gestiona su reemplazo.",
+  "example_of_use": "Las transacciones de cargo que un comercio presenta por terminales de punto de venta o enlaces de autorización las registra el banco adquirente a medida que las recibe, y se retienen hasta que el comercio concilie y cierre un lote en el terminal o la caja al final del día o del turno. Las transacciones contenidas en los lotes que el comercio cierra se envían entonces a compensación.",
+  "executive_summary": "Este Service Domain gestiona las operaciones de POS, incluidos el procesamiento, la captura y el control de las transacciones originadas en los dispositivos de punto de venta.",
+  "key_features": "Captura y autorización de la transacción de tarjeta\nConciliación de las transacciones del comercio\nCierre y envío del lote de transacciones\nControl del estado del terminal o del dispositivo"
+ },
+ "Contact Center Management": {
+  "role_definition": "Gestiona la supervisión y la configuración del centro de contacto. Definir y mantener la asignación de los recursos del centro de contacto a los distintos tipos de tráfico de contactos (por ejemplo, por producto, segmento o asunto). La facilidad del centro de contacto puede incluir 'posiciones' automatizadas además de personal. También cubre la resolución de los problemas de producción importantes",
+  "example_of_use": "La gerencia del centro de contacto reasigna las posiciones de atención en respuesta a la carga del servicio y a los tiempos de espera de los clientes",
+  "executive_summary": "Supervisar la asignación y la operación del centro de contacto con clientes",
+  "key_features": "Determinar la configuración del centro de contacto y el calendario de servicio\nMonitorear el aprovechamiento y reconfigurar el centro cuando haga falta\nControlar y evaluar el desempeño del servicio y resolver los problemas operativos mayores"
+ },
+ "Contact Center Operations": {
+  "role_definition": "Supervisar y administrar la actividad diaria del centro de contacto. Esto incluye la asignación de personas a las posiciones de atención conforme a la configuración de servicio que determina Contact Center Management. También el control de la disponibilidad y el aprovechamiento del personal durante la sesión de atención y los ajustes de asignación necesarios para atender la carga. (Nótese que los recursos de atención interactúan directamente con el Service Domain Contact Routing para indicar cuándo están disponibles para recibir contactos de clientes)",
+  "example_of_use": "Las operaciones del centro de contacto reasignan personal a las posiciones de atención para atender la carga máxima de un producto o tipo de servicio específico",
+  "executive_summary": "Administrar la actividad diaria del centro de contacto: asignar posiciones y controlar la disponibilidad y el desempeño del personal",
+  "key_features": "Controlar la disponibilidad y las asignaciones de los recursos de atención\nControlar las cargas de atención y responder a los períodos de mayor demanda\nResolver los problemas de atención del centro de contacto"
+ }
+}

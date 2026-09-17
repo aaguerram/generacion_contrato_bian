@@ -1,0 +1,123 @@
+{
+ "Collateral Allocation Management": {
+  "role_definition": "Collateral Allocation Management oversees the allocation of a party asset when pledged as collateral to one or more loans. Specific reference details of the asset are maintained in the Party Asset Directory Service Domain. The valuation of an asset is organized by the Party Asset Directory. A valuation can be requested by the Collateral Allocation Management Service Domain. Collateral Allocation Management also determines the portion of an asset value that can be applied or can still be applied as collateral. This will depend on the asset type and specific policies of the bank.",
+  "example_of_use": "A customer transfers the fiduciary ownership of a consumer durable to the bank as security for a loan.  Collateral Asset Management will do the allocation by  linking the asset (as recorded in Party Asset Directory) to the loan product instance.",
+  "executive_summary": "The Service Domain manages the allocation of party owned assets to bank issued lending and other asset products.",
+  "key_features": "- Allocate collateral\n- Maintain collateral position"
+ },
+ "Collateral Asset Administration": {
+  "role_definition": "This service domain handles the oversight, administration and confirmation of maintenance tasks associated with different types of collateral items. This includes arranging for scheduled and ad-hoc collateral valuations, item status/documentation and title checks and tracking upkeep actions that the item owner is obliged to undertake (such as insuring a house)",
+  "example_of_use": "A back office unit determines which collateral items are due for a valuation review and documentation check and schedules the activities accordingly",
+  "executive_summary": "This service domain maintains the status of a customers collateral assets, including scheduled and ad-hoc valuations and confirmation of the correct completion of scheduled maintenance tasks.",
+  "key_features": "Record and classify collateral assets\nObtain collateral asset valuations\nConfirm the maintenance and status of collateral assets",
+  "general_comment": "\"A bank guarantee is a financial backstop offered by a financial institution promising to cover a financial obligation if one party in a transaction fails to hold up their end of a contract. Generally used outside the United States, a bank guarantee enables the bank's client to acquire goods, buy equipment, or perform international trade. If the client fails to settle a debt or deliver promised goods, the bank will cover it.\" https://www.investopedia.com/terms/b/bankguarantee.asp From the above it follows that a Bank Guarantee is an obligation for the issuing bank and should be recorded as such in the bank's bookkeeping (as an off-balance-sheet account). Banks require collateral in order to issue a Bank Guarantee. A typical form of collateral for a Bank Guarantee is a Counter Guarantee, issued by another bank. In the normal situation a Bank Guarantee will not result in a financial transaction for the bank. The bank's customer is supposed to pay the beneficiary of the guarantee directly or anyway fulfil its obligations under the Bank Guarantee, after which the guarantee can be closed."
+ },
+ "Collections": {
+  "role_definition": "Administer the recovery and/or liquidation of collateral against problem accounts",
+  "example_of_use": "Example of use:\nCollateral held against a failed account is valued and submitted for liquidation to recover losses",
+  "executive_summary": "Handles the liquidation of assets to offset the losses for problem accounts",
+  "key_features": "Assess account status and determine collections approach\nCollateral title and valuation assessment\nCollateral Liquidation\nAccount/debt factoring"
+ },
+ "Party Asset Directory": {
+  "role_definition": "The Party Asset Directory maintains reference details of non-bank owned assets with which the bank may have some interest. In the most common case, the owning party will be a bank customer and the bank's interest will be when the referenced asset is pledged to the bank as collateral. There can be other reasons that the bank will maintain reference details about non-bank owned assets. The assets can be of a variety of types, like equipment and inventory, cars and other consumer durables, and title to land and buildings. The directory may also maintain reference details of financial instrument assets a party holds with the bank and other financial institutions.",
+  "example_of_use": "In preparation of obtaining a car loan from the bank a customer provides details of the car for which the financing is needed. These details are recorded in the Party Asset Directory.",
+  "executive_summary": "This directory maintains reference details of assets held by a party, usually a customer of the bank. In most case, the bank's interest in the asset is because it may be pledged to the bank as collateral.",
+  "key_features": "- Capture and classify party assets,\n- Verify asset reference details,\n- Maintain and refresh reference details,"
+ },
+ "Card Collections": {
+  "role_definition": "The card collection process relates to the determination and execution of the optimal strategy to ensure the collection of unsecured distressed card debt, which may include aggressive collection efforts, renegotiation of payments terms in order to improve customer commitment to make the payment, or to take any applicable legal actions against the customer.",
+  "example_of_use": "A card account is canceled when the age of outstanding balance exceeds policy limits (normally 90 days) or when delinquency management and dunning efforts are determined to be unsuccessful at eliciting payment. The account is then assigned to an internal Collections department or an external Collection Agency for making aggressive attempts at securing the payment of the outstandings.",
+  "executive_summary": "This service domain administers the recovery of outstanding amounts from cancelled card accounts through internal or external collection agencies.  This may involve negotiating payment terms and/or interest write-downs.",
+  "key_features": "Card collection case classification and assignment\nCollection payment terms and processing\nCollection processing resolution/conclusion"
+ },
+ "Card Transaction Switch": {
+  "role_definition": "This service domain handles the processing and asynchronous switching of Card Transaction related messages, such as Authorization, Sale, Void, Refund, etc. between the Acquiring Bank and the Issuing Bank through the Card Network. It has a role within the Acquiring Bank in switching transactions acquired from the Merchant to the Card Network, within the Card Network to switch the transaction to the applicable Card Issuer, and within the Card Issuer to switch the transaction to the instance of the Card Authorization service domain for the card product involved.",
+  "example_of_use": "An authorization request or sale transaction message is received from the Point of Sale device by the Acquiring Bank, which then needs to route the message to the Card Issuing Bank through the Card Network (e.g. Visa, MC, AMEX or Diners etc.), await the response from the Card Issuer and communicate it to the Merchant through the Point of Sale device.",
+  "executive_summary": "This service domain orchestrates the switching and routing of Card Authorization and Financial transactions received through the Card POS Network, Card E-Commerce Gateway, or the ATM Network from the Acquirer to the Issuer through the Card Networks.",
+  "key_features": "Card transaction capture\nCard transaction routing"
+ },
+ "Channel Activity Analysis": {
+  "role_definition": "Channel activity analysis provides a range of analytical insights into channel use to support access controls, relationship sales and development approaches and to help detect possible fraudulent activity",
+  "example_of_use": "A customer attempts to self-serve a product sale but gives up. Later they call the contact center and their recent attempt is used to route the contact to a sales rep who is prompted to continue the product application",
+  "executive_summary": "This service domain tracks and analyzes channel activity to support relationship development, to detect unwanted behavior, possible fraud, and to constrain channel use as necessary (for example tracking usage frequency and cumulative transaction amounts within a period)",
+  "key_features": "Analyze activity for potential customer fraud\nAnalyze activity for potential merchant fraud\nAnalyze activity for relationship development\nDetect device errors and 'bot' access attempts"
+ },
+ "Channel Activity History": {
+  "role_definition": "This service domain captures transaction activity across multiple channels/devices to provide recent activity details (such as an attempt at a self-service product application) to influence/inform service routing. The history is also used for access control and as a source of activity data for more detailed channel usage analysis",
+  "example_of_use": "Channel Activity Analysis draws on channel activity history data to support channel usage analysis to detect out of pattern behavior for customers",
+  "executive_summary": "This service domains consolidates and captures customer channel usage activity to support channel activity analysis and also can be referenced for customer access authorization and routing decisions",
+  "key_features": "Log customer channel usage\nProvide recent activity records"
+ },
+ "Customer Billing": {
+  "role_definition": "This service domain provides a general customer billing service. The service domain is provided with the applicable fees and charges that are authorized for invoicing typically by a product or service fulfillment service domain. Processing can include verification and authorizations steps and the invoice could be issued as a single transaction or a schedule of transactions.",
+  "example_of_use": "An invoice is raised for the fees and commissions applicable to a managed investment portfolio",
+  "executive_summary": "This service domains provides a central service to compose, issue and track customer billing and invoices",
+  "key_features": "Process/issue customer invoices (on request from fulfillment)\nIssue reminders against unpaid invoices\nTrack and report on customer payments against invoices\nIncluding personalized messages"
+ },
+ "Delinquent Account Handling": {
+  "role_definition": "This service domain determines and executes strategies for eliciting payment from high risk accounts. These strategies may include communicating with the customer through text messages, emails or phone calls. The account may continue to maintain some facilities at this stage. Eventually it can be necessary to reduce the credit line or block the account to prevent further increase in risk, or to cancel theaccount and transfer it to Collections.",
+  "example_of_use": "When a Card Account is assessed to be at a high risk of default, such as a Charge Card Account with high out of pattern outstandings or a Credit Card Account with significant aged balances, attempts are made to elicit the payment of the outstanding amounts or to limit further increase in risk through optimal strategies for contacting the customer and inducing payment of the outstanding amount.",
+  "executive_summary": "This service domain handles delinquent accounts (typically for active credit/charge cards) for follow-up of payments due through periodic review and contacts. This process ends when the account is cancelled and is transferred to Collections",
+  "key_features": "Delinquent account assessment\nAccount owner contact\nAccount payment processing\nDelinquent account resolution (re-instated or passed to collections)"
+ },
+ "Disbursement": {
+  "role_definition": "This service domain handles the disbursement of funds typically for different loan facilities. Though typically a rather simple service it is modeled as a discrete service center as many banks handle disbursements from a specialist unit",
+  "example_of_use": "A disbursement is processed at the closing of a new loan",
+  "executive_summary": "This service domain handles the disbursement of funds to newly established loans/facilities as necessary",
+  "key_features": "Handle disbursements for new loans\nReport on disbursement activity/status"
+ },
+ "Incentive Account": {
+  "role_definition": "The Incentive Account service domain orchestrates the fulfillment of all service obligations for one or more Incentive Programs into which a Customer's products are enrolled. This includes maintaining enrollment status, accruing value driven incentives such as points or cashback, accruing service driven incentives such as product or relationship incentives, handling and orchestrating incentive redemptions requests, maintaing balance and status of accrued incentives, and managing their expiration and forfeiture.",
+  "example_of_use": "Look up both value driven incentives, including points and cashback, as well as service driven entitlements, such as coupons, that are available for redemption by a customer.",
+  "executive_summary": "This service domain orchestrates the scheduled maintenance and transactional activities associated with Incentive Program fulfillment, including enrollment, accrual and redemption.",
+  "key_features": "- Perform and record enrollment of customer products into eligible Incentive Programs - Process transactions and events received from Product Fulfillment (e.g., Card or Current Account) to determine and accrue incentives - Track accrued value driven incentives (points/cashback) and service driven entitlements - Accrue applicable bonus incentives - Process linkage of Incentive Account with Partner Loyalty Accounts - Fulfill Incentive redemption request - Handling expiration and forfeiture of accrued incentives - Handle points transfer requests to linked Partner Loyalty programs - Process Consumer Charges/Fees associated with enrollment, accrual or redemption - Handle Points or Cashback reversal"
+ },
+ "Incentive Program Directory": {
+  "role_definition": "The Incentive Program Directory service domain maintains a comprehensive directory of Incentive Progams and their specifications and is referenced for enorllment of a customer product into an incentive program, for accruing value driven or service driven incentives, and for redeeming incentives.",
+  "example_of_use": "Obtain the rules for determining if a transaction is elibile for points and for the number of points to be awarded.",
+  "executive_summary": "This service domain maintains specifications of the various Incentive Programs that are on offerr to customers.",
+  "key_features": "- Maintain Incentive Program specifications or characteristics - Provide list of applicable Incentive Programs based on context - Provide eligibility conditions and rules for enrollment - Provide elibilitlity conditions and rules for incentive accrual - Provide eligibility conditions and rules for incentive redemption - Provide list of associated Rewards Menus from which rewards may be selected for redemption - Provide rules for expiration and forfeiture of accrued incentives"
+ },
+ "Internal Bank Account": {
+  "role_definition": "The Internal Bank Accounts Service Domain manages holding accounts, mirror accounts, working accounts etc. that are required for the booking of that part of a transaction in the bank world (so not in the accounting world) that is not to be booked on a customer account. This is typically the case when amounts cannot immediately be booked on a final account for duty seggregation or processing reasons or in order to mirror bookings on external accounts, like nostro accounts.",
+  "example_of_use": "The settlement of an on outgoing credit transfer via SWIFT is done by instructing a correspondent bank to debit the amount from the account this bank has with the correspondent bank. In this bank's books a nostro account (Internal Bank Account) will be used to mirror this booking on the account with the correspondent.\nAt the creditor bank, in the case of an outgoing direct debit instruction, the Corporate Current Account of the customer (the creditor) will be credited immediately and the amount will be booked debit on a holding account (Internal Bank Account), to be cleared when the settlement from the debtor's bank comes in.",
+  "executive_summary": "This Service Domain manages the banking-related accounts that are not owned by customers. These are not general ledger accounts. Typical examples are holding accounts and mirror accounts.",
+  "key_features": "- Open Internal Bank Account\n- Get Uncleared Transactions\n- Get Balance\n- Provide Report on Movements\n- Initialize the Internal Bank Account\n- Support Account reconciliation and reporting requirements"
+ },
+ "Issued Certificate Directory": {
+  "role_definition": "The Issued Certificate Directory service domain maintains details of all Rewards Certificates issued to customers, provides necessary information to facilitate certificate redemption, and records updates related to redemption and expiration.",
+  "example_of_use": "The information about a Reward Certificate issued to a customer, including any secret authentication codes, is used by the Rewards Partner at the time of delivery of the reward to the customer.",
+  "executive_summary": "This service domain faciliatates the issuance of Rewards Certificates and their redemption.",
+  "key_features": "- Record issued certificates and their details - Provide certificate authentication information - Record redemption status - Track the number of redemptions - Handle certificate expiration"
+ },
+ "Issued Device Administration": {
+  "role_definition": "This service domain administers the inventory management and allocation/issuance for all issued devices and materials (e.g. cards). This covers credit/debit cards and can include other identification/authentication devices such as keychain fobs. it also handles virtual token inventory such as passwords, secret questions and biometric records (signatures, voice/image). An aspect of the administration includes maintaining device reference details and states such as operating system release and age/duration in use. Specific product/service access permissions can be associated with an issued device",
+  "example_of_use": "A card is cancelled and a replacement card is generated and issued for a customer reporting a stolen card",
+  "executive_summary": "This service domain administers the issuance of authentication tokens to customers and third party service providers. Tokens here include physical devices such as cards, fobs, readers and intangible 'devices' such as passwords and secret questions. Administration includes version tracking, replacement and duration/frequency limits. Specific product/service access permissions may be associated with an issued token when appropriate",
+  "key_features": "Administer the issuance/set-up/registration of authentication devices\nMaintain/update issued device status\nMaintain/update permissions associated with issued devices\nProcess issued device status updates/alerts"
+ },
+ "Issued Device Tracking": {
+  "role_definition": "This service domain tracks and reports on the state (e.g. suspended, flagged for possible fraud, cancelled) for all issued devices. This covers credit/debit cards and can include other identification devices such as keychain fobs and virtual authentication devices such as electronic signatures, passwords and keys. It may use an external service provider to obtain notifications and is responsible for providing notifications to external services when the bank detects problems with its own issued devices",
+  "example_of_use": "A tracking service notifies the bank that one of its issued authentication devices has been detected in a fraudulent transaction. The bank suspends the device and initiates a fraud case to diagnose and resolve the situation",
+  "executive_summary": "This service domain handles operational access to issued device tracking services. Services report on the status of devices such as cards, fobs, etc. that have been issued to customers. Service notifications include fraud warnings/alerts and device cancellation.",
+  "key_features": "Operate the interface to the issued device tracking service\nProvide issued device updates/alerts for bank detected issues\nRetrieve and apply issued device updates/alerts from the service"
+ },
+ "Leasing Item Administration": {
+  "role_definition": "This service domain handles the oversight, administration and confirmation that any required maintenance tasks that are associated with a leased item that is the subject of a leasing agreement financed through the bank. This can include scheduled and ad-hoc item valuations, status/documentation and title checks and tracking upkeep actions that the item owner is obliged to undertake (such as obtaining certification and insurance)",
+  "example_of_use": "Example of use:\nThe bank reviews the maintenance schedule for a major piece of equipment leased by a customer with bank financing to confirm that preventative maintenance has been undertaken as required and that the equipment is being used as intended",
+  "executive_summary": "Track the status of the assets underlying leasing agreements as they represent collateral items that could be accessed in the event of account recovery",
+  "key_features": "Record and classify leased items\nOversee/review leased item status and valuation checks\nConfirm the maintenance, certification and insurance arrangements are in place"
+ },
+ "Open Item Management": {
+  "role_definition": "This service domain handles open item processing against accounts typically for loans. It enables a unit to handle resolution across multiple accounts as a specialized/centralized administrative activity",
+  "example_of_use": "Example of use:\nOpen items are cleared against an active loan facility",
+  "executive_summary": "This service domain provides a service for handling the resolution of open items against accounts (such as overdue loan payments)",
+  "key_features": "Register and classify open items for processing\nProcess/resolve open items\nReport on open item resolution activity"
+ },
+ "Processing Order": {
+  "role_definition": "The Processing Order Service Domain handles the processing of a service request that comes in via a secure channel from a known requestor, which is typically an automated process itself and not a customer. The request may impact multiple products and services and can involve several processing steps for which it may do the orchestration. By this nature it differs from Servicing Order, which handles the orchestration of requests that originate from a customer.",
+  "example_of_use": "A request for consumer authentication comes in at a card issuer. Processing Order takes in the request from an operational gateway and invokes operations on other Service Domains to do the authentication. The authentication could be Asserted, Risk-based, Interactive and possibly others. Once the authentication processing has been completed, Processing Order would return the result to Operational Gateway to return this to the initiator.",
+  "executive_summary": "The Processing Order Service Domain handles the processing of a service request that comes in via a secure channel from a known requestor, which is typically an automated process itself and not a customer.",
+  "key_features": "- Accept requests for service that come in from a requestor which is not a customer\n- Orchestrate the handling of a request up to the point where control can be transaferred to a fulfilment Service Domain"
+ }
+}

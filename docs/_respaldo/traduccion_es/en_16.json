@@ -1,0 +1,122 @@
+{
+ "Customer Credit Rating": {
+  "role_definition": "This service domain handles the derivation and maintenance of each customer's credit rating for both consumer and corporate customers. The internal rating can integrate externally provided credit details from credit scoring agencies with internal transactional data and relationship assessments. The credit rating will be maintained based on internal rules, but it is possible that a service will be offered to support an unscheduled recalculation of the credit score",
+  "example_of_use": "A customer calls the contact center wishing to know what mortgage offers they are eligible for. The customer servicing representative (CSR) uses the customer's internal credit assessment as one input to reference the Product Directory to retrieve the details of available products and terms",
+  "executive_summary": "This service domain maintains and administers the bank's credit assessment for customers based on consolidated internal data and optionally by referencing external credit agency reports",
+  "key_features": "Access external rating agencies for customer credit reports\nConsolidate bank product use that impacts the rating\nDerive and maintain the bank's customer credit assessment"
+ },
+ "Customer Event History": {
+  "role_definition": "The service domain captures a wide range of customer events to build a comprehensive history of customer activity that can support subsequent behavioral analysis. This includes key sales/proposal events, relationship management events, product delivery events, detected customer triggers (typically gleaned during servicing dialogues) and possibly externally sourced customer activity. The assembled data is made available for behavioral analysis and for more general reference (as might be used for relationship management for example)",
+  "example_of_use": "A customer contacts the call center to enquire about account transactions and during the dialogue the servicing representative detects a life event (e.g. the customer is moving house). The contact details and life event are captured in the customer history",
+  "executive_summary": "This service domain captures, classifies and stores relationship, servicing and product fulfillment related customer events. In addition to servicing and product transaction details, the log can capture life/relationship events that are revealed during customer exchanges",
+  "key_features": "Log customer sales/marketing and relationship development events\nLog customer servicing events\nLog detected life events (from interactions or external research)\nLog product fulfillment events and alerts"
+ },
+ "Customer Financial Insights": {
+  "role_definition": "This service domain references the historical record of the customer's financial profile covering their account cash flows, lending and deposit position (credit) and their collateral/wealth holdings as maintained in the Customer Position service domain in order to develop financial insights. This analysis can support sales and marketing activity by identifying the opportuntiy to offer new products and services as well as detecting where changes in their financial status might require a renegotiation of their existing product arrangements. The financial analysis routines/models applied are developed/maintained by the Customer Behavior Models service domain",
+  "example_of_use": "A regular analysis of a customer's financial profile determines that the customer has enjoyed a steady growth of income as their career has developed. The customer appears to have free cash flow and therefore could be a candidate for a mortgage, term deposit or investment advice. The updated analysis is notified to Customer Relationship Management for further consideration.",
+  "executive_summary": "This service domain applies behavioral analysis to the customer financial history to develop financial insights that can highlight business development opportunities or detect possible concerns with a customer's financial wellfare",
+  "key_features": "- Consolidate/extract historical customer financial activity from the Customer Position service domains\n- Select and apply financial analyses to the historical financial customer data\n- Maintain/derive fianncial insights into relationship development opportunities and possible financial issues"
+ },
+ "Customer Product And Service Eligibility": {
+  "role_definition": "This Service Domain maintains a list of products and services for which a customer is eligible. This could include products and services that the customer has had in the past. In order to update the list, periodically or at certain events, the Service Domain calls Product Matching to find additional products for which the customer is eligible. Once a customer acquires a product or a service, this is removed from the current list and added to the customer's recording in Customer Products and Services.",
+  "example_of_use": "- Customer Relationship Management re-asseses the eligibility of a customer during a periodical customer analysis.",
+  "executive_summary": "This Service Domain maintains a list of products and services for which a customer is eligible.",
+  "key_features": "- Provide a list of products and services for which a customer is eligible\n- Update the list of products and services for which a customer is eligible, based on a request from customer relationship management and with the help of Product Matching)"
+ },
+ "Customer Product and Service Directory": {
+  "role_definition": "This Service Domain maintains the details of all products and services that a customer has acquired from the bank.  As such it maintains data of current and past products and services. It includes key product options and features that have been selected and the current availability/state of the customer's product, but does not maintain any details about product usage or balance information. It is the only domain in the model that can provide information on a customer's current products and services.",
+  "example_of_use": "- Customer Offer inquires on products and services that a customer currently has in order to show them to the customer and help him or her decide on any new product (-variant).\n-  A customer acquires a product from the bank. The product is added to his or her list of products in Customer Products and Services.\n- The customer relation ship manager checks the current product and service coverage for a customer when putting together their business development plan for the coming cycle.",
+  "executive_summary": "This Service Domain maintains the most important details of all the products and services that a customer has acquired from the bank.",
+  "key_features": "- Provide a list of products and services that the cuatomer currently takes from the bank\n- Add a product or service to the list when a customer acquires and new product or service\n- Maintain and report on the product and services and associated configuration details for a customer\n- Update the customers' product and services details on request (e.g. on completion of a successful customer offer)"
+ },
+ "Customer Proposition": {
+  "role_definition": "This Service Domain enables the bank and customer to establish and maintain product and service fulfillment preferences and requirements that span multiple products",
+  "example_of_use": "The bank determines that the significant long term value of a customer relationship should ensure that certain standard fees are waived to help retain their business and records this requirement in their proposition agreement",
+  "executive_summary": "This Service Domain maintains bank and customer defined requirements spanning all products and services",
+  "key_features": "Maintain bank defined service delivery terms\nMaintain customer defined service preference terms"
+ },
+ "Customer Relationship Management": {
+  "role_definition": "This function handles managed customer relationships. There will typically be a customer development plan and budget/targets for higher value customers. The function may draw on external market insights as well as internal product and service fulfillment to track performance and trigger contact when appropriate. The function is a key source of business development providing product/service matching and awareness. As the primary point of contact the relationship manager can help in issue resolution and trouble shooting. Relationship management applies to corporate and high net-worth clients. Automated knowledge-based facilities may offer some relationship management functions at the consumer banking level in particular for sales and marketing",
+  "example_of_use": "A corporate customer relationship manager reviews recent activity for a customer and notices that levels of activity are trending lower. Possible external (market) and internal (servicing/ fulfillment) activities are reviewed for possible causes. A meeting is scheduled to determine the reason and if any banking products/ services could help or are at further risk",
+  "executive_summary": "This service domain develops and executes a customer plan to maintain and build a customer relationship. Activities include ongoing customer contact, tracking internal and external events and activity of interest and relevance, product and service matching and sales, processing ad-hoc queries, trouble shooting and issue resolution including the initial phases of troubled account recovery",
+  "key_features": "Develop a customer relationship plan/targets\nLiaise/advise customer, develop relationship\nMatch products and services to customer needs\nTroubleshoot issues with customer"
+ },
+ "Party Reference Data Directory": {
+  "role_definition": "The party reference data directory service domain maintains a potentially wide range of party reference data that might be used in any interaction between the bank and the party including relationship development, sales/marketing, servicing and product delivery. This can include general reference and contact details, party associations, demographic details and some servicing preferences. Different information may be maintained for different party types such as individuals, corporates, partners",
+  "example_of_use": "Party reference details are accessed to pre-populate an application form for a new product opportunity with a customer",
+  "executive_summary": "This service domain maintains a range of party reference information covering aspects including general reference details, contacts and associations and demographic information",
+  "key_features": "Maintain party reference information\nMaintain party demographic indicators\nMaintain party roles, associations and relationships\nMaintain customer bank contacts"
+ },
+ "Payee Management": {
+  "role_definition": "This service domain supports membership and alias/proxy resolution for validating and identifying payee account information and preferences.",
+  "example_of_use": "An established customer initiates a transfer from their savings account to a friend's account held at the same bank or another bank but provides just the friend's mobile number.",
+  "executive_summary": "This service domain maitains a reference catalogue used to convert payee's alias/proxy references to their required account details",
+  "key_features": "Register/update payee alias with bank and/or account details\nRegister/update payee service with membership details"
+ },
+ "Sales Product Agreement": {
+  "role_definition": "The Sales Product Agreement service domain captures and maintains the legal terms and conditions in force for a sold product. The product specific terms and conditions are subordinate to the terms of the customer master agreement that is maintained by the Customer Agreement service domain. The product contractual terms and conditions influence product and service fulfillment for example by defining applicable fees/rates/penalties and selected features/options. Note that there can be other product configuration features that are not contractually binding - these features are maintained in the associated product/service fulfillment service domain directly",
+  "example_of_use": "An established customer completes the application process for a new lending product and a new sales product agreement is established",
+  "executive_summary": "This service domain maintains a structured legal agreement defining the contractual terms and conditions for an in-force product for a customer. It is subordinate to the customer's master agreement that is maintained by the Customer Agreement service domain",
+  "key_features": "Set-up and maintain the customer sales product agreement\nEnsure legal, regulatory and corporate considerations are covered\nDetermine if proposed actions are covered by the agreement"
+ },
+ "Advertising": {
+  "role_definition": "Oversee the use and assess the coverage and impact of advertising campaigns. Direct advertising campaign execution to maximize business impact. Oversee advertising campaign design and development activity.",
+  "example_of_use": "Business development reviews market research to determine levels of awareness for selected bank products and initiates an advertising campaign to raise awareness",
+  "executive_summary": "Develop the plan for and oversee advertising campaign activity, including budget and resource management",
+  "key_features": "Track market/competitor activity\nAssess customer segment performance\nAssess coverage of advertising campaigns\nDirect the development of advertising campaigns\nDirect the execution of advertising campaigns"
+ },
+ "Brand Management": {
+  "role_definition": "Define and develop the enterprise brand, including providing advice and guidance to marketing and product/service development activities that leverage the brand. Respond to events that potentially damage the brand or provide an opportunity to strengthen/leverage brand awareness",
+  "example_of_use": "Product design seeks input from the brand management unit to factor the brand into the product marketing materials and ensure alignment",
+  "executive_summary": "Respond to events that potentially damage the brand or provide an opportunity to strengthen/leverage brand awareness",
+  "key_features": "Brand definition Review business development impact and leverage of the brand Troubleshoot production issues that might impact the brand"
+ },
+ "Business Development": {
+  "role_definition": "Define, implement, track and assess the new business development plans for the enterprise or specific business divisions. This can cover business activities such as new market segment entry, product coverage and product specification development, brand development, new customer acquisition and existing customer, cross-sell/up-sell and retention.",
+  "example_of_use": "Corporate strategy develops targets for new business acquisition in selected market segments",
+  "executive_summary": "Define, implement, track and assess the new business development plans",
+  "key_features": "Define governing policies and guidelines\nDefine business goals\nDefine supporting business development strategies\nTrack progress towards goals and direct activity"
+ },
+ "Customer Campaign Design": {
+  "role_definition": "This Service Domain designs and refines customer campaigns (or integrates designs from external campaign specialists). Customer campaigns target the existing customer base and can be proactive (involving customer targeting, contact and solicitation) or self-service and include activities such as cross-sell, up-sell and retention. Version numbering is used to track the impact of changes made to campaigns over their usage.",
+  "example_of_use": "A retention campaign is updated to provide amended/improved pricing terms that can be offered to targeted customers to help retain their business after a poor response rate has been detected for the campaign",
+  "executive_summary": "Design and refine customer campaign specifications based on their impact",
+  "key_features": "Define the target profile/impact of a campaign\nSpecify a customer campaign\nTrack the impact of a campaign\nRefine/reconfigure a campaign"
+ },
+ "Customer Campaign Management": {
+  "role_definition": "Oversee the use and assess the coverage and impact of internal/customer campaigns. Direct customer campaign execution resources to maximize business impact and in response to any identified market opportunities and threats. Oversee campaign design and development activity.",
+  "example_of_use": "Customer Campaign Management identifies competitor activity that poses a threat to existing customers. Campaign design is initiated to develop a retention campaign to address the threat",
+  "executive_summary": "Assess the coverage and impact of internal/customer campaigns and redirect campaign development and execution activity accordingly",
+  "key_features": "Track market/competitor activity\nAssess customer segment performance\nAssess coverage of customer campaigns\nDirect the development of customer campaigns\nDirect the execution of customer campaigns"
+ },
+ "Customer Surveys": {
+  "role_definition": "Handle the deployment, execution and on-going refinement of customer surveys. This includes many types of survey including traditional mailshot questionnaires, in production review/feedback solicitation, review panels/focus groups. The survey execution process performs the survey definitions,  selection of reviewers, surveying and post survey analysis",
+  "example_of_use": "A bank develops a customer questionnaire to obtain feedback from customers that make frequent use of the self-service contact center facility for service improvement suggestions",
+  "executive_summary": "Define and execute and analyze customer surveys",
+  "key_features": "Customer survey definition/refinement\nReviewer selection/identification\nCustomer survey execution\nCustomer survey analysis and feedback"
+ },
+ "Promotional Events": {
+  "role_definition": "Develop and execute promotional events covering brand development and advertizing. This can include participation in sporting/entertainment events or more general promotional activity",
+  "example_of_use": "Business development reviews market research to select promotional events to sponsor to support the bank brand and enhance market awareness",
+  "executive_summary": "Develop the plan for and oversee promotional event activity, including budget and resource management",
+  "key_features": "Track market/competitor activity in promotional events\nAssess fit of promotional event sponsorship opportunities\nDirect the participation in promotional events"
+ },
+ "Prospect Campaign Design": {
+  "role_definition": "This Service Domain designs and refines prospect campaigns (or integrates designs from external campaign specialists). Prospect campaigns target new customer acquisition and are typically proactive (involving prospect targeting, contact and solicitation). Version numbering is used to track the impact of changes made to campaigns over their usage.",
+  "example_of_use": "A prospect acquisition campaign is updated to provide amended/improved pricing terms that can be offered to targeted prospects poor take-up rate has been detected for the campaign",
+  "executive_summary": "Design and refine prospect campaign specifications based on their impact",
+  "key_features": "Define the target profile/impact of a campaign\nSpecify a prospect campaign\nTrack the impact of a campaign\nRefine/reconfigure a campaign"
+ },
+ "Prospect Campaign Management": {
+  "role_definition": "Oversee the use and assess the coverage and impact of external/prospect campaigns. Direct prospect campaign execution resources to maximize business impact and in response to any identified market opportunities and threats. Oversee campaign design and development activity.",
+  "example_of_use": "Prospect Campaign Management identifies competitor activity that is targeting an untapped market segment. Campaign design is initiated to develop a competitive acquisition campaign to address the threat",
+  "executive_summary": "Assess the coverage and impact of external/prospect campaigns and redirect campaign development and execution activity accordingly",
+  "key_features": "Track market/competitor activity\nAssess customer segment performance/opportunities\nAssess coverage of prospect campaigns\nDirect the development of prospect campaigns\nDirect the execution of prospect campaigns"
+ },
+ "Commission Agreement": {
+  "role_definition": "This service domain sets up and maintains the terms for applying commissions to transactions assigned to employees and representative service brokers or intermediaries",
+  "example_of_use": "Example of use:\nAn employee's commission agreement is established once they have qualified to undertake sales activity in the contact center",
+  "executive_summary": "Maintain and administer the terms and transactions for employee and broker commissions",
+  "key_features": "Capture employee commission terms\nInterpret applicability of terms to transactions"
+ }
+}

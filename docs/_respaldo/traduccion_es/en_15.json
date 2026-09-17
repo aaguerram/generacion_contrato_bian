@@ -1,0 +1,123 @@
+{
+ "Product Inventory Distribution": {
+  "role_definition": "The service domains administer the provisioning and distribution of product inventory across the branch network and/or organizing distribution direct to customers (e.g. using mail services) where appropriate. The administration function keeps track of inventory holdings and administers a provisioning schedule to acquire replacement inventory as needed to meet requirements",
+  "example_of_use": "Example of use:\nThe distribution of 'take-one' product marketing materials distributed through the branch network is administered in support of a product sales campaign. Brochures are ordered and distributed to ensure branches are supplied with sufficient inventory to meet customer demand",
+  "executive_summary": "Administer the provisioning and distribution of product inventory across the branch network and/or distribute direct to customers (e.g. mail) where appropriate",
+  "key_features": "Product inventory tracking\nReplacement inventory provisioning\nInventory distribution across the branch network\nInventory distribution through bulk correspondence"
+ },
+ "Product Inventory Item Management": {
+  "role_definition": "Maintain the available central product materials inventory in coordination with distribution activities and new product/materials ordering, receipt and warehousing",
+  "example_of_use": "Newly developed product inventory is distributed as part of a product deployment project",
+  "executive_summary": "Maintain and distribute product inventory",
+  "key_features": "Maintain product inventory\nAdminister the distribution of inventory\nRequest stock replenishment"
+ },
+ "eBranch Management": {
+  "role_definition": "Handles the oversight and configuration of the e-branch (web/data) access channel. This includes assessing capacity, performance, scheduling maintenance and updates to the channel configuration. Also determining allowed access and usage and troubleshooting major production problems",
+  "example_of_use": "Management review and define the reconfiguration requirements for the e-branch channel based on capacity/volume projections",
+  "executive_summary": "Oversee the configuration and operation of the e-branch channel facilities",
+  "key_features": "Determine the required e-branch channel platform configuration\nOversee platform upgrades and maintenance\nTrack service availability and troubleshoot major production issues"
+ },
+ "eBranch Operations": {
+  "role_definition": "This service domain operates the E-branch production systems conforming to planned service schedules. It handles customer and non-customer access checks, performs device load balancing and device failure and recovery handling - typically supporting a high performance 24/7 operation. It can include the integration of computer telephony integration (CTI) with branch and call center channels",
+  "example_of_use": "customers and non-bank customers browse the products and services available at the bank",
+  "executive_summary": "This service domain operates the bank's on-line web based electronic branch capabilities - controlling access and load balancing across available communications and processing resources to optimize performance/availability",
+  "key_features": "Operate the bank's e-branch internet platform\nSupport access to the bank's public website\nSupport customer registration and log-in services\nRoute customer contacts for servicing"
+ },
+ "Contact Handler": {
+  "role_definition": "BIAN defines a customer contact as the overarching structure handling a customer interaction from start to end. A contact can include one or more servicing dialogue 'sessions' in parallel or sequence to support different device/channel uses within the contact and to allow for the customer to be passed on to different servicing specialists as necessary during the contact. Each session is handled at a servicing position where the Contact Dialogue service domain is called to handle the specific customer interaction. Contact Handler concludes the contact, handles the authorization permissions and shares any contact information collected during the contact between sessions as necessary",
+  "example_of_use": "A customer is self serving on the web and then requests to talk to a servicing representative directory using the VoIP capability presented on the banks web portal.",
+  "executive_summary": "This service domain handles a customer's interactive contact with the bank. This will typically involve launching of one or more channel/device specific dialogue sessions as necessary within the customer contact",
+  "key_features": "Handle customer contacts with the bank\nObtain customer identity authentication\nConsolidate reference information and recent contact activity details\nObtain routing decision (select optimal servicing resource)\nInitiate servicing sessions\nLog contact activity"
+ },
+ "Contact Routing": {
+  "role_definition": "Contact Routing is called from Contact Management to identify the next available and most suited servicing resource to handle a servicing session within an active customer contact. Selection is optimized to leverage of specialized/qualified servicing resources based on any known details about the customer and the purpose of their contact with the bank.",
+  "example_of_use": "A high value customer contacts the bank. They have been flagged as a sales prospect and so are routed to the next available rep that is registered as being skilled in the specific product of interest and also experienced in sales",
+  "executive_summary": "The Contact Routing service domain tracks servicing resource availability and uses any known details about the customer contact (e.g. identity, indicated purpose of call, status of the relationship) to make an optimal routing decision. The routing selection may include matching the required product knowledge/skills to the available servicing resources.",
+  "key_features": "Track the status/availability of servicing resources\nAssign/select resources to match customer servicing needs"
+ },
+ "Customer Workbench": {
+  "role_definition": "This service domain handles the distribution and operation of a client device based/resident facility to support local working and access to the banks different products and services. It allows for the customer to maintain information and configuration settings remotely to govern their own access environment as necessary. The service domain operates outside the bank but is included in the landscape as it may run application capabilities that are either provided by or certified for use by the bank.",
+  "example_of_use": "A customer downloads an end-user financial management application offered by the bank",
+  "executive_summary": "This service domain represents customer side devices. Most commonly providing a customer access portal to the banks products and services through any suitable channel and device",
+  "key_features": "Provide customer access to the bank's network\nMaintain local bank applications and access capabilities\nSupport local financial data analysis and bank service matching"
+ },
+ "Interactive Help": {
+  "role_definition": "Operate the automated facility that provides interactive help and guidance for servicing to employees and self-service customers. The facility automatically determines the context for the help request and selects stored guidance that is presented to the user. The initial selection can be dynamically refined by the user to focus in on specific requirements as necessary. User feedback as to the content and coverage of the guidance can be captured",
+  "example_of_use": "A new customer servicing representative obtains guidance for a product fulfillment issue raised during a customer contact",
+  "executive_summary": "Operate the automated facility that provides interactive context sensitive servicing guidance to employees and self-serve customers",
+  "key_features": "Maintain context specific guidance\nSelect and present context specific guidance\nRefine guidance selection criteria\nCapture feedback with regard to guidance coverage and usability/quality"
+ },
+ "Party Authentication": {
+  "role_definition": "Customer/party authentication is a cross-channel/device capability that provides identity confirmation for customers accessing the bank through any interactive channel. The service may use a combination of one or more mechanisms to authenticate including issued tokens/devices, virtual mechanisms such as passwords and biometrics such as voice/face recognition. Different levels of authentication may be determined to support different types of access and there may be access permissions associated with the authentication mechanism used",
+  "example_of_use": "A customer is authenticated when making phone contact with the bank's service center",
+  "executive_summary": "This service domain provides a customer identify authentication service covering all channels and devices to support access to the banks products and services",
+  "key_features": "Capture and process authentication requests\nAccess issued device details to perform authentication\nSupport multiple device/additional tasks to raise authentication\nReturn access permissions associated with issued authentication devices"
+ },
+ "Point of Service": {
+  "role_definition": "The servicing position supports all point of sale, branch and channel based customer interactions including e-tellers and contact/service center positions. The facility provides access to product and service systems, supports activity tracking and access to other support and administrative systems as necessary. It can include CTI as appropriate. The service domain integrates with the Customer Dialogue service domain for customer session/narrative support when appropriate. The servicing position can be fully automated for some servicing activities",
+  "example_of_use": "Teller personnel are assigned to teller servicing positions at a branch where they are provided with a cash float and access to consumer product support systems.",
+  "executive_summary": "This service domain operates servicing positions within the bank. It administers all media connections, inventory holdings (e.g. cash), provides access to support utilities and tracks servicing activity -e.g. time spent, activity logs, capturing servicing events including commission and training related actions. In cases servicing positions can be automated",
+  "key_features": "Provide employee access and apply access profile to the position\nProvide user access to servicing and product fulfillment services\nProvide user access to interactive help facilities\nProvide local inventory and position tracking facilities\nProvide access to event logging and commission reporting\nProvide automated point of service support facilities"
+ },
+ "Service Directory": {
+  "role_definition": "This Service Domain handles the context sensitive presentation and selection of services that a customer may choose from to access the bank. These represent the packaging together of the underlying service interactions with one or more Service Domains as necessary, masking the complexity of the internal structure of the bank's applications from the user. The selected service will align with a workflow followed in the Session Dialogue Service Domain that actually orchestrates the selected service delivery",
+  "example_of_use": "A customer logs into the bank in order to notify the bank of their change of address. They are presented with a service selection dialogue that enables then to quickly isolate the specific service",
+  "executive_summary": "This Service Domain presents a structured set of services that the customer can select from",
+  "key_features": "Filter services to those for which the customer is eligible\nDetermine the type of service being requested\nIsolate the specific service within the type/category\nDetermine any required service settings or options\nProvide processing details to be followed to realize the service",
+  "general_comment": "The initial BQ definitions define customer service types. These will need to be further decomposed to isolate specific services using the sub-qualifier structure. The servicing properties include the customer eligibility requirements, processing workflow definition, service parameters and any service invocation constraints for the service itself"
+ },
+ "Servicing Activity Analysis": {
+  "role_definition": "Analyze customer servicing position activity, including teller, case/contact center traffic and VoIP activity. Analysis includes captured call/channel/device type, activity, onward routing and resolution decisions for operational and procedural insights and facility/process and training improvement (Root Cause Analysis)",
+  "example_of_use": "Contact center management reviews servicing activity analysis in order to identify areas where additional training and guidance is needed to improve the customer experience",
+  "executive_summary": "This service domain analyzes servicing activity to support continual service improvement",
+  "key_features": "Analyze servicing activity for root causes\nConsolidate and present data to support analysis\nRecommend remedial actions that might mitigate the root cause for detected issues"
+ },
+ "Servicing Event History": {
+  "role_definition": "The Servicing Event History service domain captures the details of servicing activity to support root cause analysis. The information captured can include summary details of the servicing activity, product access details and click-stream/voice records as necessary. The captured detail can be analyzed for staff assessment and training and to support procedural refinements",
+  "example_of_use": "A servicing contact is concluded and the contact details and result is captured. In cases the call is recorded",
+  "executive_summary": "This service domain captures, classifies and stores servicing activity and events to support root cause analysis",
+  "key_features": "Log customer servicing event activity for the representative\nLog servicing issues and other activity\nSupport servicing log data extracts\nMaintain activity statistics and accumulators"
+ },
+ "Session Dialogue": {
+  "role_definition": "The customer contact dialogue handling capability can provide highly structured orchestration to streamline a customer interaction by consolidating and presenting customer related data in context. It can also use the session to gather additional customer intelligence. In a more advance implementation the customer interaction capabilities can be integrated into an automated self/service context in addition to the more conventional assisted service model. The structured customer dialogue can include tasks to check for other business activities that can be built into the exchange for example, delivering pending communications, sales/marketing attempts, capturing intelligence/triggers, updating relationship status/details, product fulfillment (such as synchronizing customer-side data). The facility can be designed to support multi-channel/multi-device deployments",
+  "example_of_use": "A customer dials into the contact center with a current account balance request. The customer identity is checked by the servicing representative (using a Party Profile Service Domain call). After the customer initial query has been addressed the dialogue is structured to attempt a sales pitch for an internal campaign that the customer has been pre-approved for as flagged in their Party Profile record",
+  "executive_summary": "This service domain handles/structures the customer narrative during an interactive session. It consolidates and presents pertinent customer information and provides servicing guidelines with standard dialogue/scripting as appropriate. It can include the capability to provoke questions to capture key relationship and sales triggers. It also ensures the correct sequencing, dialogue content and actions are performed/initiated during the customer interaction. It may further leverage the session by passing on customer notifications, status updates and triggering sales/marketing efforts.",
+  "key_features": "Consolidate customer reference and product usage details\nStructure the dialogue based on identified topic - process customer queries\nAccess context specific guidance/help text\nOrchestrate product/service access\nInitiate additional customer authentication when needed\nInitiate sales and relationship development actions when appropriate"
+ },
+ "Transaction Authorization": {
+  "role_definition": "This service domain is used to mitigate transaction risk for interactive product and service access fulfillment and works in collaboration with customer identity authentication services. It analyses recent customer activity in order to detect possible out of pattern/fraudulent behavior and authorizes transactions accordingly. The authorization can be subject to obtaining increased levels of customer authentication by requiring the customer to provide additional proof of identity.",
+  "example_of_use": "A customer payment request from their current account is authorized during an assisted servicing session",
+  "executive_summary": "This service domain handles risk based authorization for interactive customer transactions. This combines the context (channel) transaction, customer details and recent activity analysis as appropriate. The authorization may require a specific level of party/customer authentication to get approval.",
+  "key_features": "Consolidate details of proposed customer transaction\nAnalyze recent channel activity for out of pattern customer behavior\nDetect fraud/unwanted activity - raise authentication requirements"
+ },
+ "Account Recovery": {
+  "role_definition": "Handles the recovery of distressed accounts that have exceeded standard late/payment handling but have not yet been fully written off and passed to collections. The restructuring can involve partial write downs and leveraging any tax or other program of assistance that can be applied. The situation is managed until the account is recovered or a decision made to pass the account over to collections",
+  "example_of_use": "A non-performing customer account is handed over for recovery after the normal relationship management efforts have failed. Additional authority is provided to renegotiate/structure the account to enable the customer to attempt recovery. This restructuring can result in write downs that need to be booked appropriately",
+  "executive_summary": "This service domain handles the restructuring of a distressed account (loan) after standard recovery procedures have been exhausted",
+  "key_features": "Account status assessment\nAccount recovery planning\nCustomer agreement/negotiation\nAccount terms amendment/restructuring"
+ },
+ "Customer Access Entitlement": {
+  "role_definition": "This profile is used for servicing and fulfillment controls covering products, services and channel/device usage entitlements. It is referenced for channel access control and utilization limits that may span multiple products. For example there can be a limit on total ATM withdrawals for a customer for all active products over a 24 hour period.",
+  "example_of_use": "A consumer customer contacts the call center and her access profile is used to determine what products and services can be accessed through this channel",
+  "executive_summary": "This service domain maintains the details of the allowed channel/device based access to products and services that the customer has in place.  This profile is referenced in servicing and fulfillment activity and may include customer preferences and access limits/constraints that span multiple products.",
+  "key_features": "Maintain customers' channel/device access profiles (allowed uses and limits)\nMaintain customers' channel/device usage preferences\nCheck/confirm allowed access for customer contacts"
+ },
+ "Customer Agreement": {
+  "role_definition": "The Customer Agreement service domain captures and maintains the master legal terms of conditions in force for a customer (which as noted can be a complex multinational with many underlying product and service specific agreements).",
+  "example_of_use": "An new customer's master agreement is established prior to negotiating and setting up the underlying product specific agreements",
+  "executive_summary": "This service domain maintains the master customer agreement/legal contract. Note that a customer can be a complex corporate entity with many subsidiaries operating in different geopolitical areas. The customer agreement is linked to as many Sales Product Agreements as needed for all in-force products",
+  "key_features": "Set-up and maintain the customer master agreement\nEnsure legal, regulatory and corporate considerations are covered in agreement\nDetermine if proposed actions are covered by the agreement"
+ },
+ "Customer Behavior Insights": {
+  "role_definition": "This service domain references the range of customer historical data maintained by the Customer Event History service domain to develop behavioral insights into customers. This analysis can support sales and marketing activity (e.g. by determining the likely response to sales efforts based on passed performance) as well as identifying changes in status and behavior that might influence the desired product mix for a customer. The actual analysis routines are developed/maintained by the Customer Behavior Models service domain",
+  "example_of_use": "A regular analysis of customer event histories is used to update the maintained range of customer behavioral insights. The updated results are notified to the Customer Relationship Management and Party Profile Service Domains as appropriate",
+  "executive_summary": "This service domain applies behavioral analysis to customer event history to maintain a range of customer ratings/scores (such as 'propensity to buy') and to detect life events or trends",
+  "key_features": "Consolidate customer activity data from internal and external sources\nSelect and apply analyses to the historical customer data\nMaintain/derive insights into behavior and preferences"
+ },
+ "Customer Consent": {
+  "role_definition": "This service domain administers customer consents for their preferences and constraints on accepting direct debit collection requests, request to pay against their accounts held at the bank, or preferences for credit transfer (e.g. payment rail, preferred funding account, etc.)",
+  "example_of_use": "A customer informs the bank of subscription payment requests expected to be received on a monthly basis, indicating the account from which the payment should be made, the date on which payment should be made, and the amount beyond which the customer's express approval should be obtained.",
+  "executive_summary": "This service domain administers a customer's servicing preferences and consents for controlling third party access to their products and services",
+  "key_features": "Register customer consents and preferences\nMaintain validity periods for customer consents\nObtain customer consent through outbound contact with the customer, as required."
+ }
+}

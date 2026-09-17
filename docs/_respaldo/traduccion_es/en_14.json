@@ -1,0 +1,119 @@
+{
+ "Compliance Reporting": {
+  "role_definition": "This service domain schedules, consolidates information and reports on internal audit and compliance activity across the bank",
+  "example_of_use": "Example of use:\nThe financial accounting procedures for a back office function are audited",
+  "executive_summary": "This service domain administers and orchestrates the tasks required to apply and report on internal audit control and reporting activity",
+  "key_features": "Consolidate internal compliance/audit reporting materials and assemble reports\nDelivery scheduled and ad-hoc reports to internal auditors, highlighting non-compliance\nHandle follow up for identified remedial actions for non-compliance\nOversee on-line/production transaction regulatory reporting"
+ },
+ "Financial Accounting": {
+  "role_definition": "The Financial Accounting Service Domain takes in financial facts and based on these, creates accounting instructions. It lives in the accounting world of the bank and can access the banking, cards and securities worlds only for retrieve operations. It knows and maintains the chart of accounts and it can create accounting instructions that will update the general ledger and sub ledger accounts.\nExamples of financial facts are the opening of a loan account, revaluation of collateral and periodically (e.g. daily): position changes as a result of payments transactions.",
+  "example_of_use": "- Upon opening of a consumer loan account the fulfillment Service Domain will use a generic Service Connection \"Update GL Accounts\" to trigger Financial Accounting to record the new general ledger of sub ledger accounts.\n- At the end of a day's banking operations Financial Accounting will retrieve all of today's bookings on Position Keeping and create (summary) entries for the general ledger and sub ledger accounts.",
+  "executive_summary": "The Financial Accounting Service Domain takes in financial facts and based on these, creates accounting instructions that will update the general ledger and sub ledger accounts",
+  "key_features": "- Maintain the chart of accounts\n- Provide information about the chart of accounts\n- Reflect the opening of accounts in the GL\n- Create summary interval bookings in the GL for all entries in Position Keeping and (if applicable) Credit Card Position Keeping",
+  "general_comment": "Financial accounting is the field of accounting concerned with the summary, analysis and reporting of financial transactions related to a business.[1] This involves the preparation of financial statements available for public use. Stockholders, suppliers, banks, employees, government agencies, business owners, and other stakeholders are examples of people interested in receiving such information for decision making purposes. Financial accountancy is governed by both local and international accounting standards. Generally Accepted Accounting Principles (GAAP) is the standard framework of guidelines for financial accounting used in any given jurisdiction. It includes the standards, conventions and rules that accountants follow in recording and summarizing and in the preparation of financial statements. On the other hand, International Financial Reporting Standards (IFRS) is a set of passionable accounting standards stating how particular types of transactions and other events should be reported in financial statements. IFRS are issued by the International Accounting Standards Board (IASB).[2] With IFRS becoming more widespread on the international scene, consistency in financial reporting has become more prevalent between global organizations. While financial accounting is used to prepare accounting information for people outside the organization or not involved in the day-to-day running of the company, managerial accounting provides accounting information to help managers make decisions to manage the business."
+ },
+ "Financial Statement Assessment": {
+  "role_definition": "The Financial Statement Assessment Service Domain supports a broad range of calculations and assessments that can be applied to financial reports that can be submitted from various sources including customer organizations and business units. The assessment can derive many insights including projected values of assets and liabilities, project cash flows and liquidity, determine risk profiles and sensitivity to different market conditions.",
+  "example_of_use": "A bank performs a scheduled assessment of a borrowers' financial statements to ratify their loan quality rating",
+  "executive_summary": "This Service Domain supports a range of financial analyses that can be used to extract specific insights (e.g. valuations, liquidity, risk, market sensitivities) from an entity's financial statements",
+  "key_features": "Verify and format financial reports\nApply financial assessment tests\nInterpret and present assessment findings"
+ },
+ "Fraud Resolution": {
+  "role_definition": "Setup and update Fraud Case and handle investigation and resolution steps, which may involve initiating containment actions, obtaining documentation, performing forensic investigation and actions, determining liability, initiating resolution actions such as reversals and financial adjustments, subscribing and publishing to Consortia, determining root cause and initiating corrective/preventive actions. The Fraud Case may be opened by Product/Channel Facility,  Fraud Diagnosis or by Customer Case.",
+  "example_of_use": "A pattern of possible fraud is highlighted in transaction records that is researched and evidence of fraud discovered. Prosecution/resolution activity is initiated",
+  "executive_summary": "This service domain sets up and processes a fraud case resulting from fraud behavior that has been detected during production processing",
+  "key_features": "Setup fraud resolution case\nObtain documentation and evaluate\nDetermine and assign liability\nDefine and initiate resolution activities"
+ },
+ "Guideline Compliance": {
+  "role_definition": "This service center administers the activity of a specialists tasked with testing and confirming guideline compliance. Compliance tests may include document reviews, more detailed transaction analysis and may involve interactions with the unit under test to obtain additional detail/explanation. Guideline compliance is typically focused on larger value investment and loan activities, confirming transactions are executed in alignment with management guidelines and prudential policies.",
+  "example_of_use": "A loan origination process is submitted for guideline compliance checks prior to completing the origination/loan closure process",
+  "executive_summary": "This service domain develops and applies a portfolio of guideline compliance tests to confirm adherence to bank and regulator imposed internal procedures. Tests may be made on complete transaction data or a meaningful samples as appropriate to mitigate exposure to non-compliant behaviors. Compliance checks may be in response to a schedule, a specific request as part of normal processing or may be initiated randomly as an oversight activity",
+  "key_features": "Schedule/target compliance checks\nConsolidate documents/activity pertaining to compliance tests\nProvide advice/guidance for achieving compliance\nEvaluate and report on activity for compliance,\nNotify and track responses for detected compliance failures"
+ },
+ "Regulatory Compliance": {
+  "role_definition": "This service domain administers the scheduled and ad-hoc application of regulatory checks. This includes interpreting the full range of regulatory requirements governing the bank's operations and determining which regulations apply in specific circumstances across the enterprise. Support and guidelines are provided to activities in the bank that are subject to the regulations and scheduled and ad-hoc checks performed to confirm compliance",
+  "example_of_use": "A new customer's details are passed for regulatory watch list checks. A subsequent transaction is reported for regulatory compliance checks",
+  "executive_summary": "This service domain provides a service to interpret regulatory requirements, provide guidance and define and implement a portfolio of regulatory compliance tests across all appropriate bank activities",
+  "key_features": "Schedule/target regulatory checks\nConsolidate documents/activity pertaining to regulatory tests\nProvide advice/guidance for achieving regulatory compliance\nEvaluate and report on activity for regulatory compliance,\nNotify and track responses for detected regulatory failures"
+ },
+ "Regulatory Reporting": {
+  "role_definition": "The service domain handles the bank's regulatory reporting obligations. This includes the consolidation and presentation of information in regulatory reports and disclosures and handling the response to regulatory requests for information as part of ongoing regulator relations. It also handles the scheduled consolidation, formatting and delivery of the range of compliance reports including 'on-line' trade reporting and after the event transaction analysis reporting",
+  "example_of_use": "Trading activity is reported to the exchange to comply with regulatory reporting requirements",
+  "executive_summary": "This service domain administers and orchestrates the tasks required to meet the bank's regulatory reporting obligations",
+  "key_features": "Consolidate regulatory reporting materials and assemble reports\nDelivery scheduled and ad-hoc reports to regulators\nHandle regulator's reporting requests and responses\nOversee on-line/production transaction regulatory reporting"
+ },
+ "ATM Network Management": {
+  "role_definition": "Configure the allocation of products and services across the ATM network and oversee ATM access registration & controls",
+  "example_of_use": "A new set of standalone ATM's is installed at an airport and configured with limited services to ensure high availability for cash dispensing"
+ },
+ "ATM Network Operations": {
+  "role_definition": "This service domain handles all automated aspects of operating the ATM network. This includes tracking the movement of cash and documents through the network and its ATM devices. It also handles the detection and response to device errors and alerts, including overseeing the physical movement of cash and documents and the handling of device alerts and outages",
+  "example_of_use": "Example of use:\nA bank tracks the distribution and retrieval of cash inventory across its ATM network of operations",
+  "executive_summary": "Handling the automated operation of the ATM network and linked devices, including tracing physical cash and document movements",
+  "key_features": "Handle the distribution/deposit of cash through the ATM network\nHandle the capture and generation of ATM transaction related documentation\nDetect and respond to ATM device errors and outages"
+ },
+ "Advanced Voice Services Management": {
+  "role_definition": "Handles the oversight and configuration of the PBX (telephony/voice) access channel. This includes assessing capacity, performance, scheduling maintenance and updates to the channel configuration. Also determining allowed access and usage and troubleshooting major production problems",
+  "example_of_use": "Management review and define the reconfiguration requirements for the voice channel based on capacity/volume projections",
+  "executive_summary": "Oversee the configuration and operation of the voice channel facilities",
+  "key_features": "Determine the required voice channel platform configuration\nOversee platform upgrades and maintenance\nTrack service availability and troubleshoot major production issues"
+ },
+ "Advanced Voice Services Operations": {
+  "role_definition": "This service domain handles the operation of the PBX/telephony infrastructure which can include embedded IVR capabilities. The PBX system will have close integration with the call center and E-Branch capabilities depending on the degree of computer telephony integration (CTI) and cross channel support",
+  "example_of_use": "Example of use:\nThe numeric menu is adjusted to increase self-serve activity during a period of peak loading (this could be implemented in the IVR in a more sophisticated set-up)",
+  "executive_summary": "This service domain operates the telephone channel infrastructure, including the IVR and any other automated devices as appropriate. This includes handling default routing rules and intra-day/session adjustments to deal with peak load or other operational variations",
+  "key_features": "Handle in-bound customer voice contacts\nProvide out bound voice connections voice\nHandle service issue reporting and resolution"
+ },
+ "Branch Currency Distribution": {
+  "role_definition": "This service domain handles the scheduling and secure distribution of currency throughout the branch network (for bank branches and remote ATM locations). It ensures the required float is maintained at locations and undertakes the movement into and out of central currency holding facilities as necessary to ensure cash availability",
+  "example_of_use": "Example of use:\nATMs at a branch location are stocked with currency in response to anticipated customer demand",
+  "executive_summary": "Schedule and coordinate the secure distribution of cash inventory across the branch and ATM networks.",
+  "key_features": "Distribution vehicle fleet administration\nDistribution planning and scheduling\nDistribution activity monitoring and control\nCentral cash access coordination"
+ },
+ "Branch Currency Management": {
+  "role_definition": "This service domain is responsible for tracking the available cash (currency) inventory held and distributed within the Branch location to teller and ATM positions, to ensure adequate float is always available at all positions. Also to check balances and see that excess cash is transferred to secure central storage as appropriate. If necessary specific criteria can be selected to refine the allocation",
+  "example_of_use": "Example of use:\nThe branch management reviews the available float and confirms end of day balances at the teller positions",
+  "executive_summary": "Track cash inventory, project demand and ensure all cash is accounted for within the branch",
+  "key_features": "Cash inventory usage and availability tracking\nBranch cash inventory requirements evaluation and planning\nOversight of cash availability and movements within the branch"
+ },
+ "Branch Location Management": {
+  "role_definition": "This service domain oversees/manages the day to day bank branch location activity, maintaining branch plans and budgets, assigning responsibilities, determining the optimum coverage of products and services and reporting on branch activity and performance",
+  "example_of_use": "Example of use:\nA branch manager reviews product and service performance at their location and adjusts business development staffing priorities to target high-value business opportunities",
+  "executive_summary": "Manage and oversee branch activity, assign resources to optimize branch performance",
+  "key_features": "Develop and implement branch business plans\nAllocate customer management resources to optimize product/service coverage\nAssess and report on branch performance\nCustomer liaison and troubleshooting"
+ },
+ "Branch Location Operations": {
+  "role_definition": "Administer the day to day activity within the branch - allocating tellers and customer relationship managers to positions and tracking availability/performance, ensuring cash floats and product consumables are on hand and that all facilities are in working order",
+  "example_of_use": "Example of use:\nBranch staff administration assigns teller positions and relationship management tasks to the branch workforce based on ongoing demand",
+  "executive_summary": "The day to day administration of branch activity, including teller assignment and cash handling oversight",
+  "key_features": "Staff assignments\nCash and non-cash movements within the branch\nSafe custody service operation\nLocation security operations"
+ },
+ "Branch Network Management": {
+  "role_definition": "Configure the available services and products (ATM, office/table and teller assignments) for the branch locations across the overall branch portfolio. (Note an ATM is treated as a specific type of branch location in the BIAN model)",
+  "example_of_use": "The branch network is re-configured to accommodate a new or amended product that is targeting a specific customer segment (e.g. student loans at on campus branches)"
+ },
+ "Card Terminal Administration": {
+  "role_definition": "This service domain is responsible for the allocation of the Point of Sale Terminal or Authorization Link interface to the Merchant, configuring and activating the device or interface, and managing its ongoing status, including replacement of faulty devices or interfaces. The Acquiring Bank configures the terminal or the interface to meet the specific requirements of the Merchant depending on the merchant type, risk and other terms and conditions.",
+  "example_of_use": "A Merchant is assigned one or more devices or interfaces for processing Card Charge authorization and submission when an Acquiring Bank sets up a new Merchant Account. (Note this can involve a Point of Sale Terminal or an Authorization Link interface to the merchant's own cash register system).",
+  "executive_summary": "This service domain administers the POS Network including the inventory, terminal characteristics, deployment and status of the POS devices.",
+  "key_features": "POS inventory administration\nMerchant POS/Interface registration/configuration\nMerchant POS/Interface status maintenance"
+ },
+ "Card Terminal Operation": {
+  "role_definition": "This service domain maintains a record of the transactions received from each Point of Sale Terminal or Authorization Link used by the Merchants to submit card charges and is used to help the merchant reconcile the transactions at the end of day or shift. Transactions are forwarded to the Card Transaction Capture service domain when the terminal batches are closed by the merchant. The service domain also monitors the operating status of the terminals and handles terminal replacement.",
+  "example_of_use": "Charge transactions that are submitted by a Merchant through Point of Sale Terminals or Authorization Links are recorded by the Acquiring Bank as they are received and are held until the Merchant reconciles and closes a batch on the Terminal or Cash Register at the end of the day or shift. Transactions contained in batches that are closed by the Merchant are then sent for clearing.",
+  "executive_summary": "This service domain handle POS operations including processing, capture and tracking of the transactions originating at the Point of Sale devices.",
+  "key_features": "Card transaction capture and authorization\nMerchant transaction reconciliation\nTransaction batch closing and submission\nTerminal/device status tracking"
+ },
+ "Contact Center Management": {
+  "role_definition": "Handles the oversight and configuration of the contact center. Define and maintain the assignment of contact center resources to different contact traffic types (e.g. product/segment/issue). The contact center facility can include automated 'position' as well as personnel. Also covers troubleshooting major production problems",
+  "example_of_use": "Contact center management re-assigns servicing positions in response to service loading and customer wait times",
+  "executive_summary": "Oversee the assignment and operation of the customer contact center",
+  "key_features": "Determine the contact center configuration and service schedule\nMonitor utilization and re-configure the center as necessary\nTrack and assess service performance and troubleshoot major operational issues"
+ },
+ "Contact Center Operations": {
+  "role_definition": "Oversee and administer the day to day activity in the contact center. This includes the assignment of individuals to servicing positions in compliance with the service configuration determined by Contact Center Management. Also tracking staff availability and utilization during the servicing session and making necessary assignment adjustments to deal with servicing load. (Note servicing resources interact directly with the Contact Routing service domain to indicate when they are open to receive customer contacts)",
+  "example_of_use": "Contact center operations re-assigns staff to servicing positions to deal with peak loading for a specific product or service type",
+  "executive_summary": "Administer the day to day activity in the contact center - allocate positions and track staff availability and performance",
+  "key_features": "Track servicing resource availability and assignments\nTrack servicing loads and respond to periods of peak requirements\nResolve contact center servicing issues"
+ }
+}

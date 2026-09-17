@@ -1,0 +1,118 @@
+{
+ "Factoring": {
+  "role_definition": "A bank offers factoring services to buy a customers' accounts receivable at a discount to provide short term liquidity. The bank will subsequently process the accounts receivable to recover purchase costs. In cases the bank may factor portions of the accounts receivable to a specialist third party",
+  "example_of_use": "The Bank buys (factors) a batch of a corporate's customer invoices at a suitable discount to provide short term liquidity to the corporate. The bank processes the subsequent customer payments",
+  "executive_summary": "This Service Domain supports a factoring service for corporate customers enabling them to convert accounts receivable into immediate funds at a discount",
+  "key_features": "Evaluate the quality and make-up of the corporate's account receivable\nPrice and negotiate the factoring transaction with the corporate\nProcess the factoring transaction\nProcess accounts receivable for the purchased invoices\nFactor elements of accounts receivable to specialist agencies"
+ },
+ "Letter of Credit": {
+  "role_definition": "Orchestrate the pricing and issuance of Letters of Credit to bank customers guaranteeing their ability to pay sellers for goods that are to be delivered at some future date. Letters of Credit are mostly used to facilitate international trade. They can be single transaction or revolving and can also be transferable and so traded (this Service Domain only covers the issuance and processing of  the LoC)",
+  "example_of_use": "A bank issues an LC to a corporate customer to enable them to make a large purchase from an overseas supplier",
+  "executive_summary": "This Service Domain handles the pricing and issuance of letters of credit to its corporate customers in support of their international trading requirements",
+  "key_features": "Price and issue letters of credit for bank customers\nEvaluate seller claims and make payments against the letter of credit\nEvaluate buyer delivery completion prior to releasing funds\nRecover buyer collateral against redeemed letters of credit where applicable"
+ },
+ "Limit and Exposure Management": {
+  "role_definition": "Oversee corporate limits and exposures for the combined business activity",
+  "example_of_use": "Product fulfillment activity triggers limit and exposure checks"
+ },
+ "Notional Pooling": {
+  "role_definition": "Notional pooling is a mechanism for calculating interest on the combined credit and debit balances of accounts that a corporate customer chooses to cluster together, without actually transferring any funds between the accounts. It allows obtaining a single centralized liquidity position. This enables the subsidiaries to manage their cash position while the company can avoid transferring funds and the tax implications of arranging intercompany loans. Interest income and charges are calculated and distributed periodically in proportion to the local account balances. More advanced pooling arrangements may support multiple currencies",
+  "example_of_use": "A (corporate) customer with multiple subsidiaries has establishes notional pooling to simplify cash management and minimize its interest expense by fully off-setting credit and debit positions across the company.\nThis enables the subsidiaries to manage their cash position while the company can avoid transferring funds and the tax implications of arranging intercompany loans.\nNotional pooling allows a corporate with many accounts, often held by subsidiaries, to pool the balances to obtain a single centralized liquidity position.",
+  "executive_summary": "Notional pooling allows corporate customer with multiple active accounts to pool credit and debit balances to provide a single centralized liquidity position and to minimize interest expense, simplify cash management and retain a degree of local autonomy to the accounts",
+  "key_features": "Establish the structure and control mechanisms for the notional account pool\nConsolidate account information to maintain the central liquidity position\nPeriodically calculate and allocation interest income and charges across the pool"
+ },
+ "Project Finance": {
+  "role_definition": "Provide project financing facilities and associated services. Project finance is an arrangement where the repayment of the loan relies primarily on the project's generated cash flow. As a result the project's assets and rights may be held as secondary collateral to the loan. Project financing may use a special purpose vehicle (SPV) to handle the debt and enable sponsors to keep the debt off their own balance sheets",
+  "example_of_use": "A major government infrastructure development initiative uses project financing in order to attract private sector investment",
+  "executive_summary": "This Service Domain fulfills project financing by which major (government) projects can attract privet sector financing",
+  "key_features": "Structure the project finance transaction\nEstablish the special purpose vehicle to process the loan\nEngage investors to finance the project\nProcess project returns to repay investors"
+ },
+ "Syndicated Loan": {
+  "role_definition": "This service domain fulfills a syndicated loan, including the coordination with syndicate members and clarification/administration of their obligations under the arrangement. It is assumed the bank is acting as the syndicate lead in this arrangement, coordinating with other lending banks in the syndicate in order to manage the transfer of funds. The syndicated loan can be for a single amount or be implemented as a more general loan facility that the customer can draw upon over its term. Note that initial customer offer processing may have covered many of these tasks informally, but once the syndicated loan initiation is made more formal syndicate arrangements must be established as an aspect of fulfillment handled here",
+  "example_of_use": "Example of use:\nA major corporate customer obtains a syndicated loan to finance a major project and the bank arranges to distribute the loan with several other interested banks to share the loan exposure",
+  "executive_summary": "Handle the processing of syndicated loans with the bank playing the lead coordination role with other syndicate bank members. Note some initial preparation may have been made through prior customer offer processing.",
+  "key_features": "Negotiate the broad terms of the loan\nIdentify and build loan syndicate\nFinalize loan terms and allocations/obligations across the syndicate\nOriginate the loan in coordination across the syndicate\nAdminister financial transfers, reporting and all other fulfilment actions over the term"
+ },
+ "Credit Risk Operations": {
+  "role_definition": "This Service Domain monitors the counterparty credit limits  (CCL) used to govern trading activity to manage credit exposure. Note there may be regulatory requirements that determine allowed CCLs.",
+  "example_of_use": "A trading desk checks a proposed trade against trading counterparty credit limits",
+  "executive_summary": "This Service Domain monitors counterparty credit limits in the trading unit",
+  "key_features": "Establish counterparty trading credit limits\nMonitor limits and raise alerts against limit breaches"
+ },
+ "Dealer Desk": {
+  "role_definition": "Operate a dealer desk/workbench that may combine one or more physical trading seats/positions. The facility oversees market information feeds and displays and consolidate trading activity of the individual traders making up the desk. Dealer Desks can trade as principle or agent for the bank's customers and trade in instruments such as forex/MM, equities, commodities, derivatives and other financial assets. In addition to dealer desks that support agency and principle trading, desks may be organized to support other specialist activities such as the sales desk and market risk desk that specifically monitors the bank's market positions.",
+  "example_of_use": "The bank operates a forex dealing desk. A handful of trader positions access the desk to support the banks principal and agency forex trading needs. The desk maintains the trading P&L for the bank's principle forex positions to support trading decisions",
+  "executive_summary": "The Dealer Workbench represents the bank's dealing desk facility supporting one or more trading lines of activity for both agency and principal trading in all chosen market instruments. It also supports sales and market risk trading desk functions",
+  "key_features": "Support the allocation of market information feeds within the desk\nSupport the allocation of trading responsibilities and limits within the desk\nMaintain consolidated traded securities positions and P&L views"
+ },
+ "ECM And DCM": {
+  "role_definition": "The service domain provides fulfillment services for the issuance of primary market equity and debt capital market instruments for corporate customers. It supports both private and public (IPO) placements and covers the specification, pricing and placement activities associated with issuance. (it does not include secondary market trading of the instrument)",
+  "example_of_use": "A corporate customer raises capital through issuing corporate debt in the private capital markets",
+  "executive_summary": "Supports the specification, pricing and issuance of equity and debt (bond) primary capital market products for corporate financing services",
+  "key_features": "Determining and specifying the equity/debt instrument\nProspectus and pricing\nRoad show and placement"
+ },
+ "Market Making": {
+  "role_definition": "Market making ensures liquidity in the markets as the market maker provides a buy/sell quote (typically in coordination with the exchange) for the security and guarantees that they will accept orders. The market maker will adjust the quote to manage their position and generates profit from the margin between buy and sell prices.",
+  "example_of_use": "A financial institution acts as the market maker for a number of market assets/securities. Buy and sell trades are automatically captured and the pricing adjusted to maintain a limited net position by influencing buy/sell decisions",
+  "executive_summary": "This Service Domain enables the bank to fulfill its market making function typically in collaboration with a trading exchange. The bank maintains a buy/sell quote for the securities it supports as a market maker and accepts buy/sell orders on request",
+  "key_features": "Monitor securities trading activity to determine appropriate pricing as market maker\nPublish buy sell quotes for market making securities\nAccept and process buy and sell orders for market making securities"
+ },
+ "Market Order": {
+  "role_definition": "Market Order records an instruction from a customer or his or her representative (which could be an account manager in the bank) to buy or sell securities. It follows the order during its lifetime and reports back to the requestor on the execution.\nIn case of a sell order it puts a block on the investment account when the order is placed. This block will be removed when the order is executed or when it expires.\nA market order may be broken into multiple market trades or combined with other market orders for a block trade at the bank's discretion",
+  "example_of_use": "A customer decides to sell shares from his or her investment account. The customer issues a sell order and a market order is created with the status pending. A block is put on the seller's investment account for the amount of shares in the order. Market Order places the order and waits for a confirmation of execution.\nOnce the bank is informed on successful execution, the status of the market order is changed to executed and the Service Connection \"Execute Securities Transaction\" on Market Order Execution is invoked. Market Order Execution will in turn call Securities Position Keeping to realise the sale in numbers of shares on the involved accounts.",
+  "executive_summary": "Market Order records an instruction from a customer or his or her representative to buy or sell securities. It follows the order during its lifetime and reports back to the requestor on the execution.",
+  "key_features": "- Record and manage customer order\n- Place order and monitor execution\n- Initiate financial settlement upon order execiution"
+ },
+ "Market Order Execution": {
+  "role_definition": "The Market Order Execution Service Domain is responsible for the booking of securities transactions (e.g. resulting from market orders or some types of corporate actions) on investment accounts, so in terms of security name plus quantity. Market Order Execution knows the different transaction types and the related booking sets. It will call Securities Position Keeping to create the debit and the credit bookings of a transaction. It will ensure that the bookings of a securities transaction are executed completely or not at all (the latter in the case of an exception).\nThe execution of a market order may be in parts (trades) or it may be combined with other market orders for a block trade. The Service Connection \"Execute Market Order\" on this Service Domain handles the execution of (an undivided part of) one Market Order.\nA securities transaction will have a related money transaction. This will be handled by Payment Order - Payment Execution.",
+  "example_of_use": "A customer decides to sell shares from his or her investment account. The customer issues a sell order and a Market Order is created with the status pending. Market Order will instruct Securities Position Keeping to put a block on the seller's investment account for the amount of shares in the order. Up to this point Market Order Execution is not involved.\nOnce the bank is informed on successful execution, the status is changed to executed and the Service Connection \"Execute Securities Transaction\" on Market Order Execution is invoked. Market Order Execution will in turn call Securities Position Keeping to realise the sale in numbers of shares on the involved accounts and remove the block from the seller's investment account.\nNB In the case of a buy order a block will be put on the buyer's investment-related cash account. Removal of this block will be handled by the related money transaction.",
+  "executive_summary": "The Market Order Execution Service Domain is responsible for the booking of securities transactions (e.g. resulting from market orders or some types of corporate actions) on investment accounts, so in terms of security name plus quantity.",
+  "key_features": "- Maintain Booking Sets\n- Record the execution of a sell or a buy order\n- Ensure recording of all related bookings on Securities Position Keeping"
+ },
+ "Program Trading": {
+  "role_definition": "Program trading covers a broad range of market trading activities, where the trading rules policies driving the trading decisions are automated, likely with some level of human monitoring/oversight as appropriate. This generic Service Domain is intended to support any form of program trading. In practice a bank may find it necessary to 'clone and specialize' the service domain to support different type of program trading it may employ as necessary.",
+  "example_of_use": "A bank operates a program trading facility to rebalance some of its managed customer investment portfolios",
+  "executive_summary": "This Service Domain supports a program trading capability where the trading decisions are made based on predefined/programmed rules and policies. Manual oversight and monitoring capabilities are supported as appropriate",
+  "key_features": "Support the set-up and maintenance of a portfolio of traded securities\nSupport the definition and update of automated trading rules and policies\nSupport the capture and tracking of market information to trigger trading\nSupport manual oversight and monitoring of automated trading activity\nSupport the automated execution of market trades"
+ },
+ "Quote Management": {
+  "role_definition": "Quote management handles the process by which a trader obtains quotes from multiple market makers in order to select the bank to execute a trade with. Recent trade prices reported to the exchange can be compared with trade activity for the different quoting banks in order to make the selection",
+  "example_of_use": "A trader obtains quotes from multiple market makers prior to executing an agency trade for a corporate investor customer",
+  "executive_summary": "This service domain handles the procedure used by traders to obtain and selecting quotes from market makers",
+  "key_features": "Review recent market trade prices for the selected security\nObtain quotes from available market makers in the security\nReview recent trade activity for the market makers as appropriate\nSelect preferred market bid offer quote"
+ },
+ "Suitability Checking": {
+  "role_definition": "Confirm that all involved counterparties are suitable for a proposed market trade. The checks address regulatory requirements to ensure involved parties are suitably qualified/knowledgeable to participate in the type of trading activity (e.g. in the US suitability is defined by FINRA Rule 2111)",
+  "example_of_use": "An investment manager confirms that a proposed investment meets suitability requirements for the customer",
+  "executive_summary": "Confirm that all involved counterparties are suitable for a proposed market trade.",
+  "key_features": "Determine suitability requirements\nMatch these to the prospective investor\nPerform confirmation checks with the customer\nReport and document the results of the suitability checks as appropriate"
+ },
+ "Trader Position Operations": {
+  "role_definition": "Traded Position Management facilitates the trading of one or more selected securities by one or more appointed traders acting within a trading book 'team'. It enables the allocation of trading responsibilities and limits/constraints to individual traders acting within the group. The trading position includes facilities to enable the individual trader to monitor market opportunities, perform back testing, obtain quotes and for deal capture. A deal blotter records the dealer P&L during the trading session. The facility may also provide access to various securities valuation, market analysis and trading sensitivity/simulation tools.",
+  "example_of_use": "A trader of a dealer desk  is assigned a specific set of security positions to trade with associated trading guidelines and limits",
+  "executive_summary": "This Service Domain supports the activities of individual traders working within a trading book group",
+  "key_features": "Support trader access to market information feeds and analysis\nSupport trader limits and activity tracking and reporting\nMaintain trade blotter and trading P&L calculations\nSupport market opportunity evaluation and quote management actions\nSupport deal capture and reporting actions"
+ },
+ "Trading Book Oversight": {
+  "role_definition": "The bank's trading book tracks the securities held by the bank that are frequently traded and may implement sophisticated risk measures to manage the banks exposure. Trading book oversight is responsible for tracking and analyzing the bank's trading book to manage risk",
+  "example_of_use": "Trading book oversight reviews recent trading activity to confirm activity remains within the banks trading risk tolerance",
+  "executive_summary": "This Service Domain oversees the bank's trading book (a type of account ledger that records details of frequently traded securities held by the bank) to manage the banks market risk",
+  "key_features": "Consolidate and maintain the bank's trading book\nAnalyze the trading book's positions and sensitivities\nDetect out of patter trading activity\nInitiate remedial actions when excessive risk/exposure is detected"
+ },
+ "Trading Models": {
+  "role_definition": "Manage the development and deployment of trading models to support automatic executions",
+  "example_of_use": "Automated trading activity is initiated"
+ },
+ "Contractor and Supplier Agreement": {
+  "role_definition": "Maintain and administer master and project/task specific contractor/supplier legal agreements. Confirm on-going compliance as necessary",
+  "example_of_use": "The contractual arrangements with an established contractor/service provider are reviewed at year end",
+  "executive_summary": "This Service Domain maintains appropriate supplier agreements/contracts",
+  "key_features": "Establish appropriate contractual terms with supplier\nMaintain and update contractual terms as necessary\nReview proposed work/assignments for compliance with agreed terms"
+ },
+ "Correspondent Bank Directory": {
+  "role_definition": "This service domain maintains reference details specific to a correspondent banking partner covering payment terms and preferences and security keys. It also consolidates transactional activity as might be needed to track reciprocity with the correspondent bank. Any specific arrangements and terms (e.g. SSIs) that might override market directory details are maintained here as part of the data record.",
+  "example_of_use": "Correspondent bank (reciprocal) activity is consolidated to support periodic correspondent banking relationship reviews",
+  "executive_summary": "This service domain maintains correspondent bank reference details. This includes correspondent bank payment parameters in particular bank limits and capturing transaction activity to track reciprocity",
+  "key_features": "Maintain correspondent bank reference data\nMaintain specific correspondent settlement instructions\nTrack correspondent bank's service reciprocity"
+ }
+}

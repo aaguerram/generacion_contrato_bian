@@ -1,0 +1,121 @@
+{
+ "Credit Card": {
+  "role_definition": "This service domain handles both credit and charge card fulfillment. The main functional difference being the different re-payment and credit handling structures of the two types of card product. Note that unlike a current accounts, card products are typically fulfilled through specialised credit card companies using a card network that links issuing banks and merchant acquiring banks for authorization, clearing and settlement activities.\nDebit cards (i.e. devices to access a normal bank account) do not come under this Service Domain.",
+  "example_of_use": "An established card customer uses his or her credit card for a purchase and settles the balance of the card account at the monthly payment cycle",
+  "executive_summary": "This service domain orchestrates the scheduled maintenance and transactional activities associated with credit card product fulfillment",
+  "key_features": "- Set-up a credit card account\n- Issue Card/access device\n- Process card transactions (authorization and financial transaction)\n- Process transaction redirection/transfer\n- Process diverse repayment plans\n- Calculate interest and fees\n- Periodic card billing\n- Card dues recovery"
+ },
+ "Merchant Acquiring Facility": {
+  "role_definition": "This service domain is the primary service domain for handling the Merchant Account and the specific terms and conditions for the merchant. It includes opening the Merchant account, performing the required setup for card acceptance, such as assigning POS terminals, maintaining the accounts payable balances for the merchant, performing periodic settlement, and handling fees and charges. When Merchants submit card payment transactions, the Acquiring Bank is responsible for paying the Merchants in accordance with the terms of the Merchant agreement, which specify when the merchant should be paid and the amount that is withheld from the payment as merchant discount or service fees.",
+  "example_of_use": "The Acquiring Bank signs up Merchants for accepting Card Payments and opens Merchant Accounts for them.",
+  "executive_summary": "This service domain orchestrates the activities related to Merchant fulfillment, Merchant Account maintenance, Merchant transactional activities and settlement, including the billing of merchant fees and charges.",
+  "key_features": "Merchant facility set-up and maintenance.\nMerchant hierarchy maintenance.\nMerchant POS assignment/registration.\nMerchant chargeback processing.\nMerchant clearing and settlement.\nMerchant discount and fee processing."
+ },
+ "Merchant Relations": {
+  "role_definition": "The bank's merchant relationships are governed by the terms and conditions maintained by this service domain. Note this covers the application of legal, regulatory and operational terms agreed with the merchant and does not cover any more general aspect of relationship management",
+  "example_of_use": "A card charge is disputed and a case raised - the case processing process references the in-force merchant terms and conditions governing the dispute resolution",
+  "executive_summary": "This service domain maintains the terms and conditions agreed with merchants for cards related activity",
+  "key_features": "Establish and maintain merchant terms and conditions\nDetermine the applicability of terms to specific situations\nProvide access to and explain the correct interpretation of terms"
+ },
+ "Bank Drafts": {
+  "role_definition": "This Service Domain handles the pricing and issuance of various forms of bank guaranteed payment vehicles, including bank drafts, wire transfers, certified checks and travelers checks. The transaction combines extracting the principal amount and fees from the buyer's account and creating and registering the physical bearer document using any suitable media and security mechanisms. The bank guaranteed funds are held on a holding account pending the deposit of the draft by the payee.",
+  "example_of_use": "A customer purchases a bank draft in order to meet the requirements of a merchant from which they wish to make a major purchase",
+  "executive_summary": "This Service Domain support bank guaranteed payment transactions such as bank drafts",
+  "key_features": "Agree mechanism and terms for the bank guaranteed payment\nCalculate and obtain payment from the payer\nGenerate and register the bearer document\nProcess remittance of the bearer document"
+ },
+ "Brokered Product Proxy": {
+  "role_definition": "Administer 3rd party coordination for the production delivery of 'brokered' products and services that are offered through the bank, possibly in combination with the bank's own product and service offerings",
+  "example_of_use": "Access to a bank approved insurance broker is facilitated by a customer's relationship manager",
+  "executive_summary": "This Service Domain oversees all activities associated with the coordinated delivery of 3rd party products and services",
+  "key_features": "Monitor and assess production and service delivery quality\nOversee and assure 3rd party conformance with agreed service levels\nOversee the troubleshooting or production issues"
+ },
+ "Claim Administration": {
+  "role_definition": "The Claim Administration Service handles the one-off and scheduled tasks required to comply with the insurance policy obligations as confirmed by the claim assessment. This will include task specific and recurring payments and other non financial obligations committed to in the policy.",
+  "example_of_use": "Initiate one-off and repeating payments",
+  "executive_summary": "The claim administration Service Domain implements the payment and support obligations of the policy in respect to a verified claim",
+  "key_features": "Administer the schedule of tasks associated with fulfilling the claim Process payments both one-off and recurring Handle documentation and communications Resolve claim processing issues and related requests"
+ },
+ "Claim Assessment": {
+  "role_definition": "The Claim Assessment Service Domain is invoked by the policy fulfillment Service Domain is response to a submitted claim. It runs through a collection of tests to evaluate and confirm the veracity of the claim, eligibility of the beneficiaries and determine and initiate the issuance of the entitlements. Note that he assessment tests may be repeated to a schedule where payments are related to a persistent condition.",
+  "example_of_use": "A elderly relative of a company employee passes and the employee submits a funeral claim to cover the funeral expenses.",
+  "executive_summary": "The Claim Assessment Service Domain runs through the required tests to confirm the veracity of a claim made under an insurance policy.",
+  "key_features": "Capture and consolidate details of claim\nMatch claim against policy entitlements\nPerform due diligence against the claim\nDetermine the claim entitlements and initiate disbursements"
+ },
+ "Consumer Advisory Services": {
+  "role_definition": "Provide consumer customers with financial advice, for product selection, investments, tax optimization etc. The time spent may incur a charge particularly when specialist financial advisory resources are engaged",
+  "example_of_use": "A customer obtains tax optimization advice from a financial advisor at a branch",
+  "executive_summary": "Offer financial advisory services to consumer customers, possibly for a fee",
+  "key_features": "Evaluate the customer's financial position\nDiscuss financial options and strategies\nArrange product/service specialist advice"
+ },
+ "Consumer Investments": {
+  "role_definition": "This supports consumer initiated securities investment and trading activity for their self-managed securities investments. Trades will typically be blocked/netted against the bank's own securities position for subsequent market execution. Quotes/prices are based on the prevailing price at the time of the customer instruction to trade",
+  "example_of_use": "An consumer initiates a securities purchase for their investment portfolio, providing funds from their linked 'trading' current account",
+  "executive_summary": "Handle the consumer front-end trading requests. These will typically be blocked/netted for market execution",
+  "key_features": "Provide price quotes\nInitiate market order for consumer customer\nUpdate banks security position"
+ },
+ "Corporate Trust Services": {
+  "role_definition": "Provide corporate trust services focused on the independent/fiduciary handling of a broad range of possible corporate debt instruments with investors and supporting escrow account arrangements as necessary",
+  "example_of_use": "A corporate uses the corporate trust services of the bank to manage its investor relations for a major debt issue",
+  "executive_summary": "This Service Domain provides corporate trust services centered on the handling of debt instruments and escrow account support",
+  "key_features": "Administer financial reporting with bond investors\nResolve investor issues as an objective/independent party\nEstablish and maintain supporting escrow accounts"
+ },
+ "Currency Exchange": {
+  "role_definition": "This is an over the counter service where currency is exchanged and the transaction uses preferential rates and can include transaction fees. Note in some cases travelers checks can be handled as a pseudo currency within this capability. Note that Branch and teller currency inventory tracking and distribution is administered by Branch Currency Management and Branch Currency Distribution service domains",
+  "example_of_use": "Example of use:\nA non-bank customer obtains a currency exchange at the teller, buying foreign currency for local currency in cash",
+  "executive_summary": "Service Domain supports over the counter currency exchange",
+  "key_features": "FX transaction pricing\nFX transaction capture\nDocument handling"
+ },
+ "Customer Tax Handling": {
+  "role_definition": "There are different tax tracking and reporting obligations for products and services in different locations and jurisdictions. This service domain handles the consolidation and reporting of tax related activity as necessary for a customer. Note that this service domain is only responsible for the consolidation and reporting of tax related activity - other service domains will be required to handle actual tax processing obligations as may apply for certain products and services",
+  "example_of_use": "A consumer customer is provided with a year end tax report for products and services provided by the bank",
+  "executive_summary": "This service domain handles consumer tax reporting obligations including the consolidation and reporting of customer tax related financial activity",
+  "key_features": "Maintain the customer tax reporting obligations\nConsolidate product/service tax related activity/transaction details\nAnalyse financial activity and assemble customer tax reports"
+ },
+ "Funeral Policy": {
+  "role_definition": "The Funeral Policy Service Domain handles the set-up and fulfillment of a funeral insurance product. This includes the general product maintenance tasks, orchestrating premium payments and initiating descisioing and processing if a claim is made against the policy",
+  "example_of_use": "A company employee that is covered by the company's funeral insurance policy submits a claim for funeral expenses for a recently deceased dependant.",
+  "executive_summary": "The Funeral Policy Service Domain handles the general product maintenance, premium payments and initiates claims processing.",
+  "key_features": "Policy arrangements and product options set-up\nPolicy arrangements maintenance & updates\nPremium calculation, billing and processing\nClaim processing initiation"
+ },
+ "Trust Services": {
+  "role_definition": "Provide trust services for high value customers, including asset maintenance, court administration, tax and expense handling, asset management and estate, inheritance and income tax processing",
+  "example_of_use": "A trust fund is set up on behalf of a parent for their offspring. The parent sets aside cash/assets for the trust. The trust handles the cash/assets until the offspring reaches a certain age.",
+  "executive_summary": "This Service Domain support a range of trust management services offered to high value customers",
+  "key_features": "Maintain and manage trust assets\nHandle court and legal matters for the trust\nAdminister trust related taxation and fees\nPrepare estate, inheritance and income tax returns"
+ },
+ "Corporate Finance": {
+  "role_definition": "Provides a broad range of fee or commission based specialized financing advisory services (both tactical and strategic in nature). Assignments will typically be packaged into scoped projects with defined outcomes that support institutional and corporate customers. On-going/ad hoc advisory support may also be provided on a retainer basis",
+  "example_of_use": "A corporate client relationship manager enrolls specialist financial advisory services to assist a corporate customer with a strategic funding options assessment",
+  "executive_summary": "This Service Domain handles the provision of a broad range of financial advisory services to corporate clients",
+  "key_features": "Advise corporate on achieving the optimal capital structure\nProvide tactical and strategic funding advice\nAdvise on corporate taxation approaches"
+ },
+ "Corporate Tax Advisory": {
+  "role_definition": "Provide corporate customers with tax related advice to better understand tax obligations and to identify and implement tax optimization approaches. The service is fee based and may include the use of product specialist financial advisory resources when required",
+  "example_of_use": "A corporate customer obtains tax optimization advice from a financial advisor at a branch",
+  "executive_summary": "A fee or commission based product providing tax specific assessments, advice and guidance for corporate customers",
+  "key_features": "Evaluate the customer's tax position\nIdentify and evaluate tax optimization options and strategies\nArrange product/service taxation specialist advice\nImplement tax optimization options with product and service selection and configuration"
+ },
+ "Mergers and Acquisitions Advisory": {
+  "role_definition": "A fee or commission based project providing advice, execution, pricing and deal coordination and placement for M&A, IPO, MBO, LBO type transactions",
+  "example_of_use": "A corporate customer engages an investment bank to lead an M&A transaction on its behalf",
+  "executive_summary": "This Service Domain handles mergers and acquisition, IPO, MBO and LBO projects with the bank acting in the lead and/or subordinate role"
+ },
+ "Private Placement": {
+  "role_definition": "Private placement covers the definition, pricing, placing and all supporting actions involved for a private offering of corporate equity or debt. A private placement avoids many of the more stringent regulatory constraints of a public offering but can only be placed with accredited investors. The associated equity or debt securities issued by the corporate do not need to be registered with the regulatory authorities.",
+  "example_of_use": "The Corporate Finance unit of an investment bank provides support to a corporate customer with a private placement in order to raise finds for a planned expansion of their manufacturing capacity",
+  "executive_summary": "This Service Domain provides the complete range of functions involved in providing private placement services to corporate customers.",
+  "key_features": "Determine and specify the optimum financing mechanism (debt or equity)\nPackage the debt/equity security for investors\nPlace the loan with accredited investors\nProcess equity/debt instrument maintenance and fulfillment actions"
+ },
+ "Public Offering": {
+  "role_definition": "A public offering involves the specification and packaging of corporate equity or bonds in the public markets to raise capital. This can be the initial public offering (IPO) when a private company is first taken public, and secondary/follow-on offerings to raise further capital. IPO's involve a broad range of financial analysis, auditing and regulatory approval actions. A lead bank and several underwriting banks may coordinate to underwrite the initiative. Secondary offerings can be dilutive (create additional shares) or non-dilutive (redistribute existing shares).",
+  "example_of_use": "An investment bank assembles a consortia of banks as lead bank to orchestrate an IPO for a rapidly growing private company that wishes to raise significant capital to expand its operations",
+  "executive_summary": "This Service Domain supports a broad range of complex financial, accounting and regulatory actions involved in providing advice and practical support to companies going public and/or raising additional capital through the issuance of publicly traded securities",
+  "key_features": "Determine and specify the optimum financing mechanism (debt or equity)\nCoordinate with regulators for the approval and registration of the instrument\nDevelop comprehensive financial and managerial assessments to support the pricing of the instrument\nPackage the debt/equity security for public investors and undertake road-shows as necessary\nCoordinate as lead or secondary underwriting bank for the IPO\nSupport the traded equity/debt instrument maintenance and fulfillment actions if necessary"
+ },
+ "Investment Account": {
+  "role_definition": "The Investment Account is a facility used to maintain the non-cash holdings for a customer. It handles the deposit and withdrawal of securities and can maintain records for multiple securities/instruments. It also reflects the results of corporate actions as handled/orchestrated by the Corporate Events Service Domain (such as dividend payments, splits, etc.)",
+  "example_of_use": "An investment customer maintains an investment portfolio and the holdings are maintained in the Investment Account",
+  "executive_summary": "This service domain handles the non-cash holdings positions for a customer, covering multiple instruments as necessary",
+  "key_features": "Set-up investment account facilities\nProcess securities deposits and withdrawals\nProcess the results of corporate events\nProcess fees and apply interest charges\nProvide balance/statements and reports"
+ }
+}

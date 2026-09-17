@@ -1,0 +1,122 @@
+{
+ "Custody Administration": {
+  "role_definition": "Administrar las tenencias de títulos valores (físicos y electrónicos) de un esquema de custodia. Esto incluye administrar los movimientos físicos de los valores, su almacenamiento seguro, el procesamiento de los dividendos e intereses asociados y el reporte de los valores",
+  "example_of_use": "Ejemplo de uso:\nUn cliente usa los servicios de custodia del banco para manejar las tenencias de su portafolio de inversión",
+  "executive_summary": "Un servicio que provee custodia segura de los valores negociables de los clientes del banco",
+  "key_features": "Administrar los movimientos de valores\nGestionar el almacenamiento seguro\nProcesar los dividendos y los intereses de los valores\nReportar las tenencias de valores\nDeterminar y aplicar las comisiones del servicio"
+ },
+ "Financial Instrument Valuation": {
+  "role_definition": "Proveer servicios de valoración de valores y activos. Puede aplicarse un rango amplio de enfoques de valoración a distintos tipos de instrumento y de activo. Este Service Domain implementa un proceso por el cual se elige y se aplica el método de valoración más adecuado, según el contexto de la solicitud y el propósito de la valoración. El principio fundamental de fijación de precio se basa en el análisis del valor presente de los flujos de efectivo esperados. Ese cálculo implica identificar los flujos de efectivo esperados, determinar el rango adecuado de tasas de interés con las que descontar los flujos futuros y calcular el valor actual de esos flujos aplicando dichas tasas",
+  "example_of_use": "Los activos de un portafolio de inversión se someten a valoración como parte de un reporte anual de desempeño",
+  "executive_summary": "Este Service Domain provee un conjunto de servicios de valoración de activos financieros",
+  "key_features": "Dar soporte a la elección entre varios enfoques de valoración de activos financieros (por ejemplo, mercado, ingresos, reposición) según el tipo de activo financiero y el contexto de la valoración\nConsolidar la información que sustenta la evaluación de la valoración\nDeterminar y reportar la valoración del activo financiero"
+ },
+ "Hedge Fund Administration": {
+  "role_definition": "Los fondos de cobertura (hedge funds) agrupan a inversionistas acreditados como socios limitados del fondo, con el administrador del fondo como socio general. Como los inversionistas deben ser acreditados, un fondo de cobertura es libre de tomar decisiones de inversión más agresivas y puede generar retornos más altos. Los ingresos del fondo combinan comisiones de administración y de desempeño",
+  "example_of_use": "Un banco opera un fondo de cobertura para atender a sus clientes inversionistas acreditados. El fondo se enfoca en un segmento de mercado de interés específico para sus inversionistas",
+  "executive_summary": "El Service Domain Hedge Fund Administration gestiona todos los aspectos de la constitución y la operación de un fondo de cobertura que se ofrece a los inversionistas acreditados de la base de clientes del banco",
+  "key_features": "Atender las necesidades de contabilidad, administración tributaria y reporte financiero del fondo\nAdministrar y desarrollar el fondo, invirtiendo en línea con su política\nGestionar el procesamiento de las entradas y salidas de los inversionistas al fondo\nProcesar las comisiones de administración y de desempeño\nDar soporte y supervisar toda la atención general al inversionista y las funciones de middle y back office"
+ },
+ "Mutual Fund Administration": {
+  "role_definition": "Los fondos mutuos proveen un vehículo de inversión para los inversionistas en general y, como tales, están altamente regulados y tienden a enfocarse en inversiones de menor riesgo y retorno. Los fondos mutuos pueden cobrarles a los inversionistas una comisión de administración pero, a diferencia de los fondos de cobertura, el administrador del fondo mutuo no puede participar del desempeño del fondo",
+  "example_of_use": "Un banco opera fondos mutuos para ofrecerles a sus clientes no acreditados acceso a oportunidades de inversión adecuadamente estructuradas.",
+  "executive_summary": "El Service Domain Mutual Fund Administration gestiona todos los aspectos de la constitución y la operación de los fondos mutuos que pueden ofrecerse a los clientes generales (no acreditados) del banco",
+  "key_features": "Atender las necesidades de contabilidad, administración tributaria y reporte financiero del fondo\nAdministrar y desarrollar el fondo, invirtiendo en línea con su política\nGestionar el procesamiento de las entradas y salidas de los inversionistas al fondo\nProcesar las comisiones de administración\nDar soporte y supervisar toda la atención general al inversionista y las funciones de middle y back office"
+ },
+ "Order Allocation": {
+  "role_definition": "Aplicar las reglas adecuadas para repartir una orden en bloque completada o parcialmente completada entre los clientes que colocaron las órdenes de mercado que la componen",
+  "example_of_use": "Una orden de mercado grande se cumple parcialmente y el precio y la asignación de la operación se reparten entre las contrapartes",
+  "executive_summary": "Este Service Domain reparte las operaciones de mercado parcialmente cumplidas",
+  "key_features": "Revisar las reglas de reparto de las órdenes de mercado parcialmente completadas\nRepartir los valores negociados conforme a las reglas de reparto\nProveer los datos del reparto cuando se soliciten"
+ },
+ "Securities Fails Processing": {
+  "role_definition": "Las operaciones de mercado con valores pueden fallar en distintas etapas del procesamiento de compensación y liquidación. Este Service Domain gestiona la resolución de esas fallas de procesamiento de valores",
+  "example_of_use": "La contraparte rechaza los datos de liquidación de una operación ejecutada durante la confirmación. El back office rastrea la actividad de la operación para identificar el origen del error administrativo, obtiene el acuerdo para la solución y hace los cambios necesarios en la transacción y en el reporte de la operación",
+  "executive_summary": "Este Service Domain gestiona la resolución de los errores administrativos y de procesamiento que provocan fallas en los procesos de compensación y liquidación de operaciones con valores",
+  "key_features": "Investigar y determinar la razón de las fallas de procesamiento del back office de valores\nDeterminar la acción correctiva necesaria\nAcordar y ejecutar la solución con las partes interesadas"
+ },
+ "Trade Clearing": {
+  "role_definition": "Este proceso gestiona la notificación y el acuerdo de los datos de la operación, y confirma que los valores y los fondos estén disponibles en los sistemas de depósito de efectivo y de valores correspondientes. Nótese que la mecánica del proceso de confirmación puede variar significativamente según el tipo de valor y el mercado. En todos los casos, el objetivo del proceso de compensación es confirmar y notificar los datos de la transacción a todas las partes interesadas, para asegurar que la liquidación posterior avance sin contratiempos",
+  "example_of_use": "Una operación de mercado se pasa al back office para su compensación y liquidación.",
+  "executive_summary": "Este Service Domain gestiona los procesos de back office que confirman y notifican a las partes interesadas que los valores y los fondos están disponibles tal como se negociaron, en anticipación del procesamiento de la liquidación",
+  "key_features": "Crear y emitir los avisos de confirmación que hagan falta\nResolver las discrepancias con las partes interesadas\nConfirmar y preasignar la disponibilidad de efectivo cuando haga falta\nConfirmar y preasignar la disponibilidad de valores cuando haga falta\nReenviar la transacción al procesamiento de liquidación"
+ },
+ "Trade Confirmation Matching": {
+  "role_definition": "El cruce y la confirmación o afirmación de operaciones es el proceso por el cual el intermediario y el inversionista institucional que participan en una operación de mercado se aseguran de estar de acuerdo en todos los términos al inicio del proceso. La función de cruce normalmente la realiza una facilidad central de mercado, con el intermediario y el inversionista institucional reportando los datos de la operación de forma independiente. El sistema central cruza las operaciones reportadas y luego solicita la confirmación o afirmación de las partes interesadas. Este Service Domain da soporte al rol de intermediario o de inversionista que se conecta con ese servicio central de mercado",
+  "example_of_use": "Los datos de la operación del intermediario y del inversionista institucional se cruzan y se obtiene la confirmación o afirmación durante un período de negociación",
+  "executive_summary": "Este Service Domain da soporte a la interfaz del banco con un servicio central de cruce y confirmación de mercado, ya sea que el banco actúe como intermediario o como inversionista institucional",
+  "key_features": "Reportar las operaciones al servicio de cruce\nRevisar los reportes de operaciones cruzadas y confirmar o afirmar los datos\nResolver y escalar los problemas de operaciones no cruzadas"
+ },
+ "Trade Settlement": {
+  "role_definition": "Las operaciones de mercado ya compensadas se pasan a liquidación, que gestiona este Service Domain. El proceso de compensación habrá obtenido la confirmación y la aceptación de los datos de la operación y habrá asegurado que el efectivo y los valores estén disponibles en las respectivas cuentas de depósito. El procesamiento de la liquidación orquesta el movimiento de efectivo y valores entre las cuentas, según haga falta para completar y liquidar la operación. Pueden existir distintos mecanismos de liquidación según el tipo de instrumento y el mercado que se use",
+  "example_of_use": "Una operación de mercado ya compensada se pasa al procesamiento final de liquidación",
+  "executive_summary": "Este Service Domain gestiona el movimiento final de efectivo y valores entre depositarios, tal como se confirmó previamente en el proceso de compensación, con el fin de liquidar una operación de mercado",
+  "key_features": "Procesar el movimiento de efectivo entre cuentas\nProcesar el movimiento de valores entre cuentas\nConfirmar que todas las actividades de liquidación se completaron según lo exigido"
+ },
+ "Trade and Price Reporting": {
+  "role_definition": "Operar una facilidad de reporte de operaciones conforme lo exigen las reglas y la regulación de participación del mercado de negociación aplicable. Capturar y transmitir a la bolsa los datos de las operaciones ejecutadas, cumpliendo los plazos y los calendarios operativos exigidos",
+  "example_of_use": "Se procesa el reporte de operaciones en tiempo real de las operaciones de mercado ejecutadas en los mercados de negociación específicos a los que accede el banco",
+  "executive_summary": "Este Service Domain opera una facilidad automatizada que reporta al mercado las operaciones ejecutadas, conforme lo exigen las reglas de participación del mercado",
+  "key_features": "Capturar las operaciones de mercado ejecutadas en el front office\nVerificar y reportar oportunamente los datos de la operación a la bolsa"
+ },
+ "Unit Trust Administration": {
+  "role_definition": "Los fondos de inversión cerrados (unit trusts) ofrecen un vehículo de inversión a plazo fijo para los clientes del banco, con plazos que normalmente van de uno a veinte años. A diferencia de muchos otros tipos de fondo, el unit trust emite un número fijo de participaciones y no se administra activamente durante su plazo. En casos excepcionales el fondo puede cambiar activos con un desempeño muy deficiente. Los inversionistas pueden intercambiar participaciones con otros inversionistas dentro del fondo, pero este permanece esencialmente 'cerrado' al conjunto de inversionistas originales durante todo su plazo",
+  "example_of_use": "Se constituye un fondo de inversión y se lo vende a un grupo de inversionistas",
+  "executive_summary": "Este Service Domain gestiona la implementación y el cumplimiento de los fondos de inversión cerrados",
+  "key_features": "Atender las necesidades de contabilidad, administración tributaria y reporte financiero del fondo\nEmpaquetar la inversión inicial del fondo\nGestionar los intercambios de participaciones entre los inversionistas del fondo\nProcesar las comisiones de administración\nDar soporte y supervisar toda la atención general al inversionista y las funciones de middle y back office"
+ },
+ "Bank Guarantee": {
+  "role_definition": "Orquestar la fijación de precio, la emisión y las actividades de cumplimiento posteriores de las garantías bancarias (Bank Guarantees) usadas en la actividad de comercio corporativo y de corresponsalía y en el financiamiento de proyectos",
+  "example_of_use": "Se otorga una garantía bancaria a un cliente corporativo para cubrir una operación de financiamiento de comercio internacional",
+  "executive_summary": "Este Service Domain gestiona la fijación de precio y la emisión de un rango amplio de instrumentos de garantía bancaria",
+  "key_features": "Fijar el precio y emitir garantías bancarias para los clientes del banco\nEvaluar los reclamos y hacer los pagos contra la garantía\nRecuperar la garantía de respaldo de las garantías redimidas cuando corresponda",
+  "general_comment": "\"Una garantía bancaria (Bank Guarantee) es un respaldo financiero que ofrece una institución financiera, con la promesa de cubrir una obligación financiera si una de las partes de una transacción no cumple su parte del contrato. Usada en general fuera de los Estados Unidos, la garantía bancaria le permite al cliente del banco adquirir bienes, comprar equipos o realizar comercio internacional. Si el cliente no liquida una deuda o no entrega los bienes prometidos, el banco lo cubrirá.\" https://www.investopedia.com/terms/b/bankguarantee.asp De lo anterior se sigue que una Bank Guarantee es una obligación para el banco emisor y debe registrarse como tal en la contabilidad del banco (como una cuenta fuera de balance). Los bancos exigen garantías para emitir una Bank Guarantee. Una forma típica de garantía para una Bank Guarantee es una contragarantía (Counter Guarantee) emitida por otro banco. En la situación normal, una Bank Guarantee no deriva en una transacción financiera para el banco: se espera que el cliente del banco le pague directamente al beneficiario de la garantía o que, de cualquier modo, cumpla sus obligaciones bajo la Bank Guarantee, tras lo cual la garantía puede cerrarse."
+ },
+ "Cash Concentration": {
+  "role_definition": "Cash Concentration es un servicio de gestión de efectivo orientado a mover el saldo, o parte del saldo, de una cuenta a otra. Puede hacerse de forma periódica y puntual. Los objetivos pueden ser dejar en cero una cuenta determinada (por ejemplo, en cada cierre del día) o reponer una cuenta específica (por ejemplo, cuando el saldo es insuficiente para una orden de pago). En este último caso hace falta definir la secuencia en la que los saldos de otras cuentas se mueven a la cuenta destino.",
+  "example_of_use": "Un cliente tiene un acuerdo para reponer una cuenta corriente desde una segunda cuenta cuando los fondos son insuficientes para cubrir los pagos programados",
+  "executive_summary": "Cash Concentration es un servicio de gestión de efectivo orientado a mover el saldo, o parte del saldo, de una cuenta a otra para cubrir diversos requerimientos.",
+  "key_features": "- Registrar y mantener la lista de cuentas que participan en el acuerdo de barrido de saldos\n- Orquestar la atención de una solicitud de barrido de saldos."
+ },
+ "Cash Management And Account Services": {
+  "role_definition": "Cash Management and Account Services combina las capacidades de una cuenta de gestión de efectivo —que a su vez combina características de una cuenta corriente y una cuenta de ahorros— con servicios adicionales de gestión de efectivo. Las características de soporte que componen la facilidad (cheques, órdenes permanentes, tarjetas de débito, servicios de banca telefónica y en línea, etc.) pueden extenderse para incluir otras, como el pago positivo (positive pay) y el pago positivo inverso (reverse positive pay) para el procesamiento de cheques.",
+  "example_of_use": "Un cliente corporativo implementa con el banco una facilidad de pago positivo para reducir la exposición al fraude con los cheques que gira.",
+  "executive_summary": "Este Service Domain orquesta una facilidad de gestión de efectivo y servicios de cuenta, usada normalmente por corporaciones para disponer de características adicionales de gestión de efectivo por encima de las facilidades estándar de las cuentas corrientes y de ahorros",
+  "key_features": "Constituir las facilidades de gestión de efectivo y servicios de cuenta\nEmitir tarjetas y chequeras de la cuenta\nProcesar depósitos y retiros\nGestionar las órdenes permanentes y los débitos directos\nProcesar comisiones y aplicar cargos por intereses\nProveer saldos, estados de cuenta y reportes\nProcesar servicios de gestión de efectivo como el pago positivo"
+ },
+ "Cheque Lock Box": {
+  "role_definition": "Un servicio en el que el banco gestiona cheques físicos por cuenta de un cliente corporativo para agilizar su procesamiento",
+  "example_of_use": "Se procesa un lote de cheques de un cliente corporativo que tiene una facilidad de pago tipo lock box",
+  "executive_summary": "Este Service Domain da soporte a los servicios de procesamiento de cheques físicos ofrecidos a los clientes corporativos"
+ },
+ "Corporate Payroll Services": {
+  "role_definition": "El Service Domain Corporate Payroll Services procesa los pagos de sueldo neto a los empleados de los clientes corporativos. La empresa entrega los datos de los empleados y de los pagos, y el banco coordina los pagos a las cuentas de empleados que estén en el propio banco y realiza los pagos a otros bancos con el empleado como beneficiario, según haga falta.",
+  "example_of_use": "Un cliente corporativo contrata al banco para que gestione el procesamiento del pago de la nómina de su personal. Incentiva a sus empleados a abrir cuentas en el banco para facilitar el pago y gestiona que entreguen todos los datos de cuenta necesarios para el procesamiento de la nómina",
+  "executive_summary": "El Service Domain Corporate Payroll Services gestiona el procesamiento del pago de nómina de los empleados de un cliente corporativo.",
+  "key_features": "Dar soporte a la creación y el mantenimiento de los datos de pago de los empleados de la empresa\nProcesar la nómina periódica\nAtender los problemas que puedan ocurrir en el procesamiento de los pagos\nProveerle a la empresa el reporte de estado y actividad para su control interno"
+ },
+ "Credit Facility": {
+  "role_definition": "El Service Domain Credit Facility administra las facilidades de crédito que un cliente corporativo tiene con el banco. Una facilidad de crédito es un acuerdo entre el banco y un cliente (corporativo) que le permite adquirir productos de activo del banco hasta el límite de la facilidad, sin necesidad de una debida diligencia y un análisis de riesgo completos para cada uno de esos productos. Las facilidades de crédito pueden tener una jerarquía y quedan comprendidas dentro del límite de crédito global del cliente, que es la exposición crediticia máxima interna que el banco está dispuesto a tener con él.",
+  "example_of_use": "Las facilidades de crédito se usan normalmente para vincular productos de financiamiento de comercio exterior y también sobregiros en cuenta corriente, cuando el cliente exige un procesamiento rápido. Una facilidad de crédito es con un solo cliente, pero el límite de crédito global bajo el cual se encuentran las facilidades puede ser para más de un cliente, normalmente pertenecientes a un mismo grupo. Las facilidades de crédito dentro de una jerarquía pueden ser para clientes distintos, aunque por lo general relacionados.",
+  "executive_summary": "El Service Domain Credit Facility administra las facilidades de crédito que un cliente corporativo tiene con el banco. Una facilidad de crédito es un acuerdo entre el banco y un cliente (corporativo) que le permite adquirir productos de activo del banco hasta el límite de la facilidad, sin necesidad de una debida diligencia y un análisis de riesgo completos para cada uno de esos productos.",
+  "key_features": "- Constituir un acuerdo de facilidad de crédito con un cliente corporativo\n- Abrir una facilidad de crédito bajo el límite de crédito del cliente o bajo una facilidad de crédito existente\n- Vincular un producto bancario a una facilidad de crédito existente"
+ },
+ "Credit Management": {
+  "role_definition": "Este Service Domain da soporte a una función central de gestión de crédito del banco, que mantiene una perspectiva crediticia global sobre toda la actividad. Las transacciones pueden repreciarse para incorporar esa perspectiva crediticia",
+  "example_of_use": "Ejemplo de uso:\nUn crédito corporativo se presenta a la decisión de precio de la gestión de crédito antes de completar el proceso de oferta",
+  "executive_summary": "Este Service Domain provee una función de supervisión a nivel de todo el banco para calificar el precio del crédito de los productos y servicios ofrecidos, de modo que refleje el apetito del banco por tomar ese negocio. Esta decisión puede sobrescribir el procedimiento estándar de fijación de precio del producto",
+  "key_features": "Evaluar la adecuación de un crédito propuesto a las políticas y las prioridades crediticias del banco\nRepreciar los créditos importantes para alinearlos con las políticas y las prioridades del banco"
+ },
+ "Direct Debit": {
+  "role_definition": "Este Service Domain procesa el lado del acreedor del procesamiento de débitos directos. Normalmente el acreedor presenta un lote de solicitudes de débito directo. El proceso verifica que existan los mandatos de servicio exigidos e inicia el procesamiento del pago. Controla el pago y reporta su culminación u otros problemas de procesamiento que puedan surgir (como la falta de fondos disponibles).",
+  "example_of_use": "Ejemplo de uso:\nUn cliente corporativo presenta un lote de instrucciones de débito directo de clientes con cuentas en el banco",
+  "executive_summary": "Cumple un acuerdo de débito directo. Gestiona el lado del acreedor de los débitos directos.",
+  "key_features": "Confirmar que los mandatos de débito directo existan\nConfirmar la disponibilidad de fondos\nIniciar el pago por débito directo\nControlar el débito directo (incluida la aceptación del cliente si hace falta)\nReportar el procesamiento del débito directo"
+ },
+ "Direct Debit Mandate": {
+  "role_definition": "Se administran y gestionan los mandatos de los clientes asociados a una facilidad de procesamiento de débitos directos provista a un cliente corporativo. Los mandatos individuales se registran y pueden actualizarse o modificarse. Los mandatos se consultan para confirmar la cobertura cuando el procesamiento de débitos directos se ejecuta periódicamente",
+  "example_of_use": "Un cliente completa un mandato de débito directo para un cliente corporativo y este queda registrado",
+  "executive_summary": "Este Service Domain administra los mandatos de los clientes asociados al procesamiento de débitos directos de un cliente corporativo",
+  "key_features": "Registrar los mandatos de débito directo de los clientes\nActualizar los mandatos de los clientes\nProveer los datos del mandato y confirmar la cobertura"
+ }
+}

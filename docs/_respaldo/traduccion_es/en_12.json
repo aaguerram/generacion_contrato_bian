@@ -1,0 +1,108 @@
+{
+ "Public Reference Data Management": {
+  "role_definition": "This service domain maintains and provides structured access to standard 'global' reference data and definitions associated with market activity such as currency, country and segment identifiers. These values will typically be externally sourced using market information feeds and distributed using whatever is the appropriate mechanism within the bank",
+  "example_of_use": "Example of use:\nThe international ISO standard definitions are maintained and applied across production systems of the bank",
+  "executive_summary": "Provide structured access to standard 'global' reference data and definitions associated with market activity such as currency, country and segment identifiers.",
+  "key_features": "Identify global data standards and sources\nArrange for access to external reference data sources\nImport and disseminate public/global reference data"
+ },
+ "Quant Model": {
+  "role_definition": "Develop and maintain a portfolio of quantitative analysis (quant) models that can be applied in different contexts across the business.",
+  "example_of_use": "A investment manager uses quant models to evaluate a portfolio's holdings and determine an appropriate trading strategy in response to some impactful market event"
+ },
+ "Legal Entity Directory": {
+  "role_definition": "Maintain the legal entity structure including ownership, subsidiaries and partnership details",
+  "example_of_use": "Party legal entity details are checked for the financial booking of a major loan",
+  "executive_summary": "This service domain maintains details of the legal entity structure of the party including dependents and associations for individuals and ownership/subsidiary structures for corporations. Some financial indicators and product coverage/activity details can be included where this defines the nature of the legal entity relationship in particular for corporate entities",
+  "key_features": "Maintain legal entity reference details for bank customers\nTrack/update legal entity details based on market research and reports\nProcess legal entity detail updates from customers/bank sources\nConfirm/provide legal entity details for transaction processing tasks"
+ },
+ "Party Routing Profile": {
+  "role_definition": "The customer profile service domain is used to tune the customer experience during any real-time interaction with the bank. A collection of status indicators, ratings and alerts can be maintained that are then used to influence the routing and servicing decisions that govern the customer interaction. For example a status indicator could include a warning that the account is in distress which would limit sales activity and might result in routing a contact to a specialist account recovery servicing facility.",
+  "example_of_use": "The identity and active status of a customer is checked as they present themselves on-line to access their bank account",
+  "executive_summary": "This service domain maintains a small profile of key indicators for a customer that is referenced during customer interactions to facilitate routing, servicing and product/service fulfillment decisions. This can include status (such as account in arrears), ratings (such as high value customer) and alerts (such possible fraud activity detected)",
+  "key_features": "Track and provide customer status flags (e.g. in arrears)\nTrack and provide customer ratings (e.g. credit rating)\nTrack and provide customer alerts (e.g. possible fraud activity)"
+ },
+ "Discount Pricing": {
+  "role_definition": "Maintain a current price list (with ranges and optional terms) by product/customer type for exceptional pricing conditions that override standard pricing as would be derived from the standard product specification",
+  "example_of_use": "A short term discount (waived fees) is put in place for a product at selected university campus locations as part of an effort to attract new student customers"
+ },
+ "Product Deployment": {
+  "role_definition": "Plan and administer the deployment activities for new and enhanced products and services, includes employee training, product inventory and solution deployment and coordination with systems production release, IT platform operations, production fulfillment staffing, customer servicing, marketing and sales activities",
+  "example_of_use": "An enhancement to an established product is rolled out across the enterprise",
+  "executive_summary": "Plan and administer the production deployment new and updated products and services",
+  "key_features": "Define and arrange for systems enhancement production integration (development and testing handled by SD-Production Release)\nDefine and arrange for IT and HR operational requirements\nDefine and arrange for sales and marketing support requirements\nDefine and arrange for customer servicing requirements\nDefine and arrange for incremental product fulfillment and support requirements"
+ },
+ "Product Design": {
+  "role_definition": "Design and refine bank product and service specifications. This addresses multiple aspects including the core product specification definition, legal, tax and regulatory compliance, pricing, risk and performance assessments, testing and supporting systems and production requirements definition",
+  "example_of_use": "Product management identifies an opportunity to amend key features of a product to target a market segment",
+  "executive_summary": "Develop/refine product designs and supporting specification details",
+  "key_features": "Consolidate desired product/service features and requirements\nDefine and develop product/service specifications\nDeploy, process feedback and refine/tune product/service specifications"
+ },
+ "Product Directory": {
+  "role_definition": "The product directory service domain provides a central service to reference product specifications and related details. The broad range of specification information available includes: product feature descriptions; pricing and eligibility requirements used in sales and on-boarding; servicing support and guidelines; and operational and production requirements",
+  "example_of_use": "A customer accesses the product directory to obtain product feature descriptions, eligibility and pricing guidelines",
+  "executive_summary": "This service domain maintains a comprehensive directory of the bank's products and services. It can be referenced to obtain product details used to support activities including product selection, sales and marketing, on-boarding, servicing and product fulfillment.",
+  "key_features": "Maintain product/service operational requirements\nMaintain product/service sales/marketing rules and guidelines\nMaintain product/service suitability and eligibility requirements\nMaintain product/service servicing guidelines and diagnosis\nMaintain product/service production requirements\nProvide structured access to the product directory"
+ },
+ "Product Quality Assurance": {
+  "role_definition": "The service domain maintain and execute a portfolio of product quality assurance tests and if appropriate certifications to apply to new and updated production applications. These tests can be applied to any specific aspects of product sales, servicing and fulfillment as might be appropriate",
+  "example_of_use": "Example of use:\nQuality assurance tests are applied to evaluate a newly released product processing to determine whether error and issue rates are acceptable and support root cause analysis",
+  "executive_summary": "Maintain and execute a portfolio of product quality assurance tests and certifications that can be applied to evaluate any aspect of production activity for quality assurance",
+  "key_features": "Select assurance target area\nApply assurance tests\nAnalyze testing results to determine root cause for error rates/issues"
+ },
+ "Product Training": {
+  "role_definition": "This service domain handles the development and delivery of product specific training across the workforce to schedule and as a requested service. This includes the use of all appropriate media and training mechanisms (on-line, self taught, classroom etc.)",
+  "example_of_use": "Example of use:\nA training program is developed and rolled out covering the servicing of an updated product for the customer servicing teams",
+  "executive_summary": "Develop and provide product specific training across the workforce. This includes all media and training mechanisms (on-line, self taught, classroom etc.)",
+  "key_features": "Training material assembly and formatting\nTraining session scheduling\nTraining execution\nTraining effectiveness evaluation"
+ },
+ "Special Pricing Conditions": {
+  "role_definition": "This service domain allows the bank to apply special pricing terms and conditions that override standard price calculations. These override facilities are to be used in specific situations where a bank level decision is taken to amend prices or pricing terms in response to some major event or business development action",
+  "example_of_use": "Example of use:\nThe bank suspends certain product fees during a major brand awareness campaign",
+  "executive_summary": "Maintain a pricing list or conditions (with ranges and optional terms) categorized by various dimensions to impose exceptional product pricing conditions that override standard pricing terms (for special events/situations)",
+  "key_features": "Capture authorized override bank pricing terms\nBroadcast special terms to interested parties\nConfirm terms applied as required in production"
+ },
+ "Asset And Liability Management": {
+  "role_definition": "A central policy and direction capability that reviews consolidated bank P&L profile and performance and defines and directs asset and liability policies. Also sanctions and/or influences large transactions",
+  "example_of_use": "The bank's senior policy makers review that bank's book performance and amend guidelines to remain within policy directives",
+  "executive_summary": "The unit overseeing the  banks asset & liability policies and position",
+  "key_features": "Consolidate the bank's asset and liability position\nAssess sensitivity to prevailing and projected market conditions\nEvaluate alignment with banks risk appetite and policies\nIssue directives to remain in alignment with policies\nConsider impact and approve/reject very large transactions"
+ },
+ "Asset Securitization": {
+  "role_definition": "This service domain supports the bank's selection, securitization and sale of bank customer loan assets. This may be undertaken to adjust the make-up of the loan portfolio or to raise funds to support the bank's operations. The process includes the selection, packaging, pricing and placement of the loan assets",
+  "example_of_use": "Example of use:\nA bank schedules a review of its loan book in order to improve its portfolio and/or raise capital by securitizing selected assets",
+  "executive_summary": "Determine and select assets for securitization as needed to maintain and optimize the Bank's portfolio. Administer the securitization process",
+  "key_features": "Loan Asset Selection\nAsset Packaging\nSecuritization Placement"
+ },
+ "Bank Portfolio Administration": {
+  "role_definition": "Consolidate, ratify, correct and present timely transaction information to support the analysis of the bank's consolidated 'book of business'",
+  "example_of_use": "The consolidated view of bank activity covering its asset and liability activity is assembled and ratified for analysis"
+ },
+ "Bank Portfolio Analysis": {
+  "role_definition": "Define and maintain a broad collection of analytical views and ad-hoc analyses into the consolidated book of business for the enterprise. Develop and refine analyses in response to events and detected trends",
+  "example_of_use": "A financial analysis of the bank's consolidated activity is assembled for consideration by the bank's asset and liability policy unit"
+ },
+ "Corporate Treasury": {
+  "role_definition": "This service domain manages and administers the consolidation of transaction details and summaries in order to derive and report on the array of consolidated positions managed by Treasury. This includes the assembly of related maturity ladders (cash flow projections) and managing tactical and strategic funding activity for the bank. It is also responsible for tracking prevailing market conditions and determining the various bank rates that should be applied throughout the bank",
+  "example_of_use": "The Bank Treasury consolidates trading and lending activity across its corporate clients to develop timely views of current positions and maturity projections",
+  "executive_summary": "This service domain orchestrates the consolidation and presentation of summary transaction details in order to assemble a timely and accurate view of the overall treasury position of the Bank at any one time. It is also responsible for determining the different interest and exchange rates applied to different products and services within the bank",
+  "key_features": "Track the banks treasury positions\nEnsure bank liquidity\nManage tactical funding activities\nManage strategic funding activities\nInitiate securitization activities\nDetermine and publish bank interest and exchange rates"
+ },
+ "Corporate Treasury Analysis": {
+  "role_definition": "Track the consolidated treasury positions for the Bank (includes liquidity and capital adequacy) and initiate interbank and market trades and hedging as needed to remain within desired boundaries",
+  "example_of_use": "The Bank Treasury tracks the bank's consolidated liquidity position and initiates trading activity to remain within prudential limits"
+ },
+ "Stock Lending and Repos": {
+  "role_definition": "Stock lending and repos (repurchase agreements) support the tri-party repo where the bank conducts the transactions with both the seller and buyer of the securities protecting both their interests (ensuring cash is transferred and the security delivered as agreed) to support the short term purchase/loan transaction. Term and open repos can be supported, the latter involving more complex credit considerations.",
+  "example_of_use": "A bank handles a government securities repo transaction between two customers to enable the 'borrowing' customer to meet their short term capital needs",
+  "executive_summary": "This Service Domain supports the bank offering tri-party repo transactions made between its customers to support their short term capital management requirements",
+  "key_features": "Capture and agree repo transaction details with lending and borrowing customers\nOversee the cash movements underlying the transaction\nOversee the securities movements underlying the transaction"
+ },
+ "Branch Portfolio": {
+  "role_definition": "Evaluate coverage and relative performance of branches. Optimize product allocation and marketing activity across the available branch network.",
+  "example_of_use": "Business strategists assemble and review the distribution and relative product performance across the network and adjust the allocation accordingly"
+ },
+ "Channel Portfolio": {
+  "role_definition": "Evaluate the coverage and relative performance of different channels with respect to the blend of service and product activity. Optimize channel use to minimize costs and enhance customer experience",
+  "example_of_use": "Product designers review the performance of products over different channels and channel combinations to refine product designs and delivery"
+ }
+}

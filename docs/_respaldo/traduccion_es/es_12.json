@@ -1,0 +1,108 @@
+{
+ "Public Reference Data Management": {
+  "role_definition": "Este Service Domain mantiene y provee acceso estructurado a los datos y las definiciones de referencia 'globales' estándar asociados a la actividad de mercado, como los identificadores de moneda, país y segmento. Estos valores normalmente se obtienen de fuentes externas mediante fuentes de información de mercado y se distribuyen por el mecanismo que resulte adecuado dentro del banco",
+  "example_of_use": "Ejemplo de uso:\nLas definiciones del estándar internacional ISO se mantienen y se aplican en todos los sistemas productivos del banco",
+  "executive_summary": "Proveer acceso estructurado a los datos y las definiciones de referencia 'globales' estándar asociados a la actividad de mercado, como los identificadores de moneda, país y segmento.",
+  "key_features": "Identificar los estándares y las fuentes de datos globales\nGestionar el acceso a las fuentes externas de datos de referencia\nImportar y difundir los datos de referencia públicos y globales"
+ },
+ "Quant Model": {
+  "role_definition": "Desarrollar y mantener un portafolio de modelos de análisis cuantitativo (quant) que puedan aplicarse en distintos contextos del negocio.",
+  "example_of_use": "Un administrador de inversiones usa modelos cuantitativos para evaluar las tenencias de un portafolio y determinar la estrategia de negociación adecuada en respuesta a algún evento de mercado relevante"
+ },
+ "Legal Entity Directory": {
+  "role_definition": "Mantener la estructura de la entidad legal, incluidos los datos de propiedad, subsidiarias y participaciones societarias",
+  "example_of_use": "Los datos de la entidad legal de la parte se verifican para la contabilización financiera de un crédito importante",
+  "executive_summary": "Este Service Domain mantiene los datos de la estructura de entidad legal de la parte, incluidos los dependientes y las asociaciones para personas naturales y las estructuras de propiedad y subsidiarias para personas jurídicas. Pueden incluirse algunos indicadores financieros y datos de cobertura y actividad de productos cuando eso define la naturaleza de la relación de entidad legal, en particular para las entidades corporativas",
+  "key_features": "Mantener los datos de referencia de entidad legal de los clientes del banco\nControlar y actualizar los datos de entidad legal a partir de investigación y reportes de mercado\nProcesar las actualizaciones de los datos de entidad legal provenientes de los clientes o de fuentes del banco\nConfirmar y proveer los datos de entidad legal para las tareas de procesamiento transaccional"
+ },
+ "Party Routing Profile": {
+  "role_definition": "Este Service Domain de perfil del cliente se usa para afinar la experiencia del cliente durante cualquier interacción en tiempo real con el banco. Puede mantenerse un conjunto de indicadores de estado, calificaciones y alertas que después se usan para influir en las decisiones de enrutamiento y de atención que gobiernan la interacción. Por ejemplo, un indicador de estado podría incluir una advertencia de que la cuenta está en problemas, lo que limitaría la actividad de venta y podría derivar en enrutar el contacto a una facilidad especializada de recuperación de cuentas.",
+  "example_of_use": "Se verifican la identidad y el estado activo de un cliente cuando se presenta en línea para acceder a su cuenta bancaria",
+  "executive_summary": "Este Service Domain mantiene un perfil reducido de indicadores clave del cliente que se consulta durante las interacciones con él, para facilitar las decisiones de enrutamiento, atención y cumplimiento de productos y servicios. Puede incluir estados (como cuenta en mora), calificaciones (como cliente de alto valor) y alertas (como posible actividad fraudulenta detectada)",
+  "key_features": "Controlar y proveer las banderas de estado del cliente (por ejemplo, en mora)\nControlar y proveer las calificaciones del cliente (por ejemplo, calificación crediticia)\nControlar y proveer las alertas del cliente (por ejemplo, posible actividad fraudulenta)"
+ },
+ "Discount Pricing": {
+  "role_definition": "Mantener una lista de precios vigente (con rangos y condiciones opcionales) por tipo de producto y de cliente, para las condiciones de precio excepcionales que sobrescriben el precio estándar derivado de la especificación estándar del producto",
+  "example_of_use": "Se establece un descuento de corto plazo (exoneración de comisiones) para un producto en determinados campus universitarios, como parte de un esfuerzo por captar clientes estudiantes nuevos"
+ },
+ "Product Deployment": {
+  "role_definition": "Planificar y administrar las actividades de despliegue de los productos y servicios nuevos y mejorados; incluye la capacitación de los empleados, el inventario del producto y el despliegue de la solución, y la coordinación con la liberación a producción de los sistemas, la operación de las plataformas de TI, la dotación de personal para el cumplimiento productivo, la atención al cliente y las actividades de mercadeo y ventas",
+  "example_of_use": "Una mejora a un producto establecido se despliega en toda la empresa",
+  "executive_summary": "Planificar y administrar el despliegue a producción de los productos y servicios nuevos y actualizados",
+  "key_features": "Definir y gestionar la integración a producción de las mejoras de sistemas (el desarrollo y las pruebas los gestiona el SD Production Release)\nDefinir y gestionar los requerimientos operativos de TI y de Recursos Humanos\nDefinir y gestionar los requerimientos de soporte de ventas y mercadeo\nDefinir y gestionar los requerimientos de atención al cliente\nDefinir y gestionar los requerimientos incrementales de cumplimiento y soporte del producto"
+ },
+ "Product Design": {
+  "role_definition": "Diseñar y refinar las especificaciones de los productos y servicios del banco. Esto atiende múltiples aspectos, incluidos la definición de la especificación central del producto, el cumplimiento legal, tributario y regulatorio, la fijación de precio, las evaluaciones de riesgo y desempeño, las pruebas y la definición de los requerimientos de sistemas de soporte y de producción",
+  "example_of_use": "La gerencia de producto identifica una oportunidad de modificar características clave de un producto para enfocarlo a un segmento de mercado",
+  "executive_summary": "Desarrollar y refinar los diseños de producto y los detalles de la especificación que los sustenta",
+  "key_features": "Consolidar las características y los requerimientos deseados del producto o servicio\nDefinir y desarrollar las especificaciones del producto o servicio\nDesplegar, procesar la retroalimentación y refinar y afinar las especificaciones del producto o servicio"
+ },
+ "Product Directory": {
+  "role_definition": "El Service Domain de directorio de productos provee un servicio central para consultar las especificaciones de producto y sus datos relacionados. El rango amplio de información de especificación disponible incluye: descripciones de las características del producto; precios y requisitos de elegibilidad usados en la venta y la vinculación; soporte y lineamientos de atención; y requerimientos operativos y de producción",
+  "example_of_use": "Un cliente accede al directorio de productos para obtener las descripciones de las características del producto y los lineamientos de elegibilidad y precio",
+  "executive_summary": "Este Service Domain mantiene un directorio integral de los productos y servicios del banco. Puede consultarse para obtener los datos de producto que sustentan actividades como la selección del producto, las ventas y el mercadeo, la vinculación, la atención y el cumplimiento del producto.",
+  "key_features": "Mantener los requerimientos operativos del producto o servicio\nMantener las reglas y los lineamientos de ventas y mercadeo del producto o servicio\nMantener los requisitos de idoneidad y elegibilidad del producto o servicio\nMantener los lineamientos de atención y el diagnóstico del producto o servicio\nMantener los requerimientos de producción del producto o servicio\nProveer acceso estructurado al directorio de productos"
+ },
+ "Product Quality Assurance": {
+  "role_definition": "Este Service Domain mantiene y ejecuta un portafolio de pruebas de aseguramiento de la calidad del producto y, si corresponde, de certificaciones, para aplicarlas a las aplicaciones productivas nuevas y actualizadas. Estas pruebas pueden aplicarse a cualquier aspecto específico de la venta, la atención y el cumplimiento del producto, según corresponda",
+  "example_of_use": "Ejemplo de uso:\nSe aplican pruebas de aseguramiento de calidad para evaluar el procesamiento de un producto recién liberado, con el fin de determinar si las tasas de error y de incidencias son aceptables y sustentar el análisis de causa raíz",
+  "executive_summary": "Mantener y ejecutar un portafolio de pruebas y certificaciones de aseguramiento de la calidad del producto, que pueden aplicarse para evaluar cualquier aspecto de la actividad productiva",
+  "key_features": "Elegir el área objetivo del aseguramiento\nAplicar las pruebas de aseguramiento\nAnalizar los resultados de las pruebas para determinar la causa raíz de las tasas de error y las incidencias"
+ },
+ "Product Training": {
+  "role_definition": "Este Service Domain gestiona el desarrollo y la entrega de capacitación específica de producto a toda la fuerza laboral, de forma programada y como servicio a solicitud. Esto incluye el uso de todos los medios y mecanismos de capacitación adecuados (en línea, autoaprendizaje, aula, etc.)",
+  "example_of_use": "Ejemplo de uso:\nSe desarrolla y despliega un programa de capacitación sobre la atención de un producto actualizado para los equipos de servicio al cliente",
+  "executive_summary": "Desarrollar y proveer capacitación específica de producto a toda la fuerza laboral. Esto incluye todos los medios y mecanismos de capacitación (en línea, autoaprendizaje, aula, etc.)",
+  "key_features": "Armado y formateo del material de capacitación\nProgramación de las sesiones de capacitación\nEjecución de la capacitación\nEvaluación de la efectividad de la capacitación"
+ },
+ "Special Pricing Conditions": {
+  "role_definition": "Este Service Domain le permite al banco aplicar términos y condiciones de precio especiales que sobrescriben los cálculos de precio estándar. Estas facilidades de sobrescritura se usan en situaciones específicas, cuando se toma una decisión a nivel del banco de modificar los precios o sus condiciones en respuesta a algún evento importante o a una acción de desarrollo del negocio",
+  "example_of_use": "Ejemplo de uso:\nEl banco suspende ciertas comisiones de un producto durante una campaña importante de posicionamiento de marca",
+  "executive_summary": "Mantener una lista o condiciones de precio (con rangos y condiciones opcionales) categorizadas por diversas dimensiones, para imponer condiciones de precio excepcionales que sobrescriban los términos estándar (para eventos o situaciones especiales)",
+  "key_features": "Capturar los términos de precio del banco autorizados como sobrescritura\nDifundir los términos especiales a las partes interesadas\nConfirmar que los términos se apliquen como se exige en producción"
+ },
+ "Asset And Liability Management": {
+  "role_definition": "Una capacidad central de política y dirección que revisa el perfil y el desempeño consolidados del resultado (P&L) del banco y define y dirige las políticas de activos y pasivos. También sanciona y/o influye en las transacciones de gran monto",
+  "example_of_use": "Los responsables de política de alto nivel del banco revisan el desempeño de su libro y modifican los lineamientos para mantenerse dentro de las directrices de política",
+  "executive_summary": "La unidad que supervisa las políticas y la posición de activos y pasivos del banco",
+  "key_features": "Consolidar la posición de activos y pasivos del banco\nEvaluar la sensibilidad a las condiciones de mercado vigentes y proyectadas\nEvaluar la alineación con el apetito de riesgo y las políticas del banco\nEmitir directrices para mantenerse alineado con las políticas\nConsiderar el impacto y aprobar o rechazar las transacciones de monto muy alto"
+ },
+ "Asset Securitization": {
+  "role_definition": "Este Service Domain da soporte a la selección, la titularización y la venta de los activos de crédito de los clientes del banco. Puede hacerse para ajustar la composición del portafolio de créditos o para levantar fondos que sustenten las operaciones del banco. El proceso incluye la selección, el empaquetamiento, la fijación de precio y la colocación de esos activos",
+  "example_of_use": "Ejemplo de uso:\nEl banco programa una revisión de su libro de créditos para mejorar su portafolio y/o levantar capital titularizando activos seleccionados",
+  "executive_summary": "Determinar y elegir los activos que se titularizarán, según haga falta para mantener y optimizar el portafolio del banco. Administrar el proceso de titularización",
+  "key_features": "Selección de los activos de crédito\nEmpaquetamiento de los activos\nColocación de la titularización"
+ },
+ "Bank Portfolio Administration": {
+  "role_definition": "Consolidar, ratificar, corregir y presentar oportunamente la información transaccional que sustenta el análisis del 'libro de negocio' consolidado del banco",
+  "example_of_use": "Se arma y se ratifica para su análisis la vista consolidada de la actividad del banco, que cubre su actividad de activos y pasivos"
+ },
+ "Bank Portfolio Analysis": {
+  "role_definition": "Definir y mantener un conjunto amplio de vistas analíticas y de análisis puntuales sobre el libro de negocio consolidado de la empresa. Desarrollar y refinar los análisis en respuesta a los eventos y a las tendencias detectadas",
+  "example_of_use": "Se arma un análisis financiero de la actividad consolidada del banco para que lo considere su unidad de política de activos y pasivos"
+ },
+ "Corporate Treasury": {
+  "role_definition": "Este Service Domain administra y gestiona la consolidación de los datos y los resúmenes transaccionales, con el fin de derivar y reportar el conjunto de posiciones consolidadas que administra tesorería. Esto incluye armar las escaleras de vencimientos asociadas (proyecciones de flujo de efectivo) y administrar la actividad de fondeo táctico y estratégico del banco. También es responsable de controlar las condiciones de mercado vigentes y de determinar las distintas tasas del banco que deben aplicarse en toda la institución",
+  "example_of_use": "La tesorería del banco consolida la actividad de negociación y de crédito de sus clientes corporativos para elaborar vistas oportunas de las posiciones actuales y de las proyecciones de vencimiento",
+  "executive_summary": "Este Service Domain orquesta la consolidación y la presentación de los datos transaccionales resumidos, con el fin de armar una vista oportuna y exacta de la posición global de tesorería del banco en cualquier momento. También es responsable de determinar las distintas tasas de interés y de cambio que se aplican a los diferentes productos y servicios del banco",
+  "key_features": "Controlar las posiciones de tesorería del banco\nAsegurar la liquidez del banco\nAdministrar las actividades de fondeo táctico\nAdministrar las actividades de fondeo estratégico\nIniciar las actividades de titularización\nDeterminar y publicar las tasas de interés y de cambio del banco"
+ },
+ "Corporate Treasury Analysis": {
+  "role_definition": "Controlar las posiciones de tesorería consolidadas del banco (incluidas la liquidez y la suficiencia de capital) e iniciar operaciones interbancarias, de mercado y de cobertura según haga falta para mantenerse dentro de los límites deseados",
+  "example_of_use": "La tesorería del banco controla su posición de liquidez consolidada e inicia actividad de negociación para mantenerse dentro de los límites prudenciales"
+ },
+ "Stock Lending and Repos": {
+  "role_definition": "El préstamo de valores y los repos (acuerdos de recompra) dan soporte al repo tripartito, en el que el banco realiza las transacciones tanto con el vendedor como con el comprador de los valores, protegiendo los intereses de ambos (asegurando que el efectivo se transfiera y el valor se entregue según lo acordado) para sustentar la transacción de compra o préstamo de corto plazo. Pueden soportarse repos a plazo y abiertos; estos últimos implican consideraciones crediticias más complejas.",
+  "example_of_use": "El banco gestiona una operación de repo de valores de gobierno entre dos clientes, para permitirle al cliente 'prestatario' cubrir sus necesidades de capital de corto plazo",
+  "executive_summary": "Este Service Domain le permite al banco ofrecer operaciones de repo tripartito entre sus clientes, para sustentar sus requerimientos de gestión de capital de corto plazo",
+  "key_features": "Capturar y acordar los datos de la operación de repo con los clientes prestamista y prestatario\nSupervisar los movimientos de efectivo subyacentes a la operación\nSupervisar los movimientos de valores subyacentes a la operación"
+ },
+ "Branch Portfolio": {
+  "role_definition": "Evaluar la cobertura y el desempeño relativo de las agencias. Optimizar la asignación de productos y la actividad de mercadeo en toda la red de agencias disponible.",
+  "example_of_use": "Los estrategas del negocio arman y revisan la distribución y el desempeño relativo de los productos en toda la red y ajustan la asignación en consecuencia"
+ },
+ "Channel Portfolio": {
+  "role_definition": "Evaluar la cobertura y el desempeño relativo de los distintos canales respecto de la mezcla de actividad de servicio y de producto. Optimizar el uso de los canales para minimizar costos y mejorar la experiencia del cliente",
+  "example_of_use": "Los diseñadores de producto revisan el desempeño de los productos en distintos canales y combinaciones de canales para refinar los diseños y la entrega"
+ }
+}
