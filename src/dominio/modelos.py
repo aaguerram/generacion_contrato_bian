@@ -55,6 +55,12 @@ class EntradaCatalogo(BaseModel):
     business_area: str | None = None
     business_domain: str | None = None
     documentation: str | None = None
+    # Qué significan `business_area` / `business_domain`, no solo cómo se llaman: el landscape
+    # documenta cada nodo de la jerarquía y hasta ahora se descartaba al aplanar. Se repiten entre
+    # los SD del mismo nodo a propósito -- el prompt los deduplica y los manda UNA vez como
+    # taxonomía (5 areas + 36 dominios ~ 2.9k tokens), nunca inline por SD (~23k tokens).
+    business_area_doc: str | None = None
+    business_domain_doc: str | None = None
 
     def texto_para_indexar(self, *, max_chars: int = _MAX_CHARS_INDICE) -> str:
         """Texto del SD para el índice semántico.

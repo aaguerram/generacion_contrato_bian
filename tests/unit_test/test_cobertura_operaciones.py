@@ -10,10 +10,12 @@ import unittest
 from src.adaptadores.salida.catalogo_bian_cache import CatalogoBianCache
 from src.dominio.cobertura_operaciones import (
     campos_alcanzables,
+    cobertura_datos_requeridos,
     derivar_path_grupo,
     fusionar_propuestas_de_operacion,
     operacion_evidencia_verificable,
     operation_id_en_uso,
+    resolver_dato_requerido,
     resolver_operation_id,
 )
 from src.dominio.historias import OperacionBian, OperacionPropuestaLLM
@@ -257,6 +259,89 @@ class TestFusionarPropuestasDeOperacion(unittest.TestCase):
         p2 = self._propuesta(reason_codes=["BIAN-SCOPE-008", "OTRO"])
         fusion = fusionar_propuestas_de_operacion([p1, p2])
         self.assertEqual(fusion.reason_codes, ["BIAN-SCOPE-008", "OTRO"])
+
+
+class TestResolverDatoRequerido(unittest.TestCase):
+    """El checklist de datos va NUMERADO en el prompt (igual que las operaciones), así que la cita
+    se ancla contra la lista real: índice, literal o contención — nunca texto libre."""
+
+    DATOS = ["Datos personales del usuario", "Mensaje informativo de restricción", "Nombre del tutor"]
+
+    def test_indice_de_la_lista(self):
+        self.assertEqual(resolver_dato_requerido("3", self.DATOS), "Nombre del tutor")
+        self.assertEqual(resolver_dato_requerido("[3]", self.DATOS), "Nombre del tutor")
+        self.assertEqual(resolver_dato_requerido("#1", self.DATOS), "Datos personales del usuario")
+
+    def test_indice_fuera_de_rango_no_resuelve(self):
+        self.assertIsNone(resolver_dato_requerido("9", self.DATOS))
+        self.assertIsNone(resolver_dato_requerido("0", self.DATOS))
+
+    def test_literal_y_normalizado(self):
+        self.assertEqual(resolver_dato_requerido("Nombre del tutor", self.DATOS), "Nombre del tutor")
+        self.assertEqual(resolver_dato_requerido("NOMBRE DEL TUTOR", self.DATOS), "Nombre del tutor")
+
+    def test_contencion_en_cualquier_direccion(self):
+        self.assertEqual(
+            resolver_dato_requerido("el nombre del tutor asociado", self.DATOS), "Nombre del tutor"
+        )
+        self.assertEqual(resolver_dato_requerido("tutor", ["Nombre del tutor"]), "Nombre del tutor")
+
+    def test_texto_sin_relacion_no_resuelve(self):
+        self.assertIsNone(resolver_dato_requerido("saldo de la cuenta", self.DATOS))
+        self.assertIsNone(resolver_dato_requerido("", self.DATOS))
+        self.assertIsNone(resolver_dato_requerido("Nombre del tutor", []))
+
+
+class TestCoberturaDatosRequeridos(unittest.TestCase):
+    """Caso real 2026-09-15: la intención llevaba "Nombre del tutor" y el mapeo ancló solo
+    `RetrieveReference`. Sin cubrirlo NI declararlo, el dato debe salir como no evaluado."""
+
+    DATOS = ["Datos personales del usuario", "Nombre del tutor"]
+
+    def test_silencio_sobre_un_dato_lo_deja_como_no_evaluado(self):
+        cubiertos, declarados, no_evaluados = cobertura_datos_requeridos(self.DATOS, ["1"], [])
+        self.assertEqual(cubiertos, ["Datos personales del usuario"])
+        self.assertEqual(declarados, [])
+        self.assertEqual(no_evaluados, ["Nombre del tutor"])
+
+    def test_declarar_sin_operacion_no_es_lo_mismo_que_callar(self):
+        cubiertos, declarados, no_evaluados = cobertura_datos_requeridos(
+            self.DATOS, ["1"], ["Nombre del tutor"]
+        )
+        self.assertEqual(declarados, ["Nombre del tutor"])
+        self.assertEqual(no_evaluados, [])
+
+    def test_cubierto_gana_a_declarado_entre_service_domains(self):
+        # Cada llamada ve UN Service Domain: el que no expone el dato lo declara, el que sí lo
+        # cubre. La unión no puede reportar el mismo dato como faltante.
+        cubiertos, declarados, no_evaluados = cobertura_datos_requeridos(
+            self.DATOS, ["1", "2"], ["Nombre del tutor"]
+        )
+        self.assertEqual(cubiertos, self.DATOS)
+        self.assertEqual(declarados, [])
+        self.assertEqual(no_evaluados, [])
+
+    def test_cita_que_no_resuelve_no_cubre_nada(self):
+        cubiertos, _, no_evaluados = cobertura_datos_requeridos(
+            self.DATOS, ["saldo de la cuenta"], []
+        )
+        self.assertEqual(cubiertos, [])
+        self.assertEqual(no_evaluados, self.DATOS)
+
+    def test_sin_datos_requeridos_no_hay_nada_que_reportar(self):
+        self.assertEqual(cobertura_datos_requeridos([], ["1"], ["2"]), ([], [], []))
+
+
+class TestFusionConservaDatosCubiertos(unittest.TestCase):
+    def test_datos_cubiertos_se_unen_sin_duplicar(self):
+        base = dict(service_domain="SD", operation_id="RetrieveReference")
+        fusion = fusionar_propuestas_de_operacion(
+            [
+                OperacionPropuestaLLM(**base, datos_cubiertos=["1"]),
+                OperacionPropuestaLLM(**base, datos_cubiertos=["1", "2"]),
+            ]
+        )
+        self.assertEqual(fusion.datos_cubiertos, ["1", "2"])
 
 
 if __name__ == "__main__":

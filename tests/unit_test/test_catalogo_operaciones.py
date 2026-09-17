@@ -9,7 +9,7 @@ from src.adaptadores.salida.catalogo_operaciones_bian_json import CatalogoOperac
 from src.adaptadores.salida.llm.estrategia import ConfiguracionProveedor
 from src.adaptadores.salida.llm.fake import FakeStrategy
 from src.adaptadores.salida.mapeador_operaciones_langchain import MapeadorOperacionesLangChain
-from src.dominio.historias import FuncionalidadMacro, HistoriaUsuario
+from src.dominio.historias import FuncionalidadMacro, HistoriaUsuario, IntencionHistoriaLLM
 
 DOCS = Path(__file__).resolve().parents[2] / "docs"
 OPS = str(DOCS / "bian-operation-catalogs.json")
@@ -63,6 +63,7 @@ class TestMapeadorOperaciones(unittest.TestCase):
         r = mapeador.mapear(
             historia,
             FuncionalidadMacro(funcionalidad_macro="F", detalle="d"),
+            IntencionHistoriaLLM(business_objects=["Transacción"]),
             {"Transaction Authorization": ops},
             {},
         )
@@ -77,6 +78,7 @@ class TestMapeadorOperaciones(unittest.TestCase):
         r = mapeador.mapear(
             HistoriaUsuario(archivo="a", titulo="a", contenido="a"),
             FuncionalidadMacro(funcionalidad_macro="F"),
+            IntencionHistoriaLLM(),
             {},
             {},
         )

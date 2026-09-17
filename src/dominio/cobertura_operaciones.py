@@ -152,13 +152,14 @@ def fusionar_propuestas_de_operacion(
     `operation_id`/`method`/`path`, solo cambiando `escenarios_hu`/`justificacion`/`bq_seed`.
 
     Unión sin duplicados (se conserva el orden de aparición) de `escenarios_hu`/`traceability`/
-    `evidence_refs`/`reason_codes`; `justificacion`/`bq_seed` distintas se concatenan con "; " en
-    vez de perderse. Nunca se llama con una lista vacía."""
+    `evidence_refs`/`datos_cubiertos`/`reason_codes`; `justificacion`/`bq_seed` distintas se
+    concatenan con "; " en vez de perderse. Nunca se llama con una lista vacía."""
     escenarios: list[str] = []
     justificaciones: list[str] = []
     bq_seeds: list[str] = []
     traceability: list[str] = []
     evidence_refs: list[str] = []
+    datos_cubiertos: list[str] = []
     reason_codes: list[str] = []
     action_term = business_object = ""
     for p in propuestas:
@@ -169,6 +170,7 @@ def fusionar_propuestas_de_operacion(
             bq_seeds.append(p.bq_seed.strip())
         traceability.extend(s.strip() for s in p.traceability if s and s.strip())
         evidence_refs.extend(p.evidence_refs)
+        datos_cubiertos.extend(p.datos_cubiertos)
         reason_codes.extend(p.reason_codes)
         action_term = action_term or p.action_term.strip()
         business_object = business_object or p.business_object.strip()
@@ -181,6 +183,72 @@ def fusionar_propuestas_de_operacion(
             "business_object": business_object,
             "traceability": list(dict.fromkeys(traceability)),
             "evidence_refs": list(dict.fromkeys(evidence_refs)),
+            "datos_cubiertos": list(dict.fromkeys(datos_cubiertos)),
             "reason_codes": list(dict.fromkeys(reason_codes)),
         }
     )
+
+
+# ── cobertura de los DATOS que la historia pidió ──────────────────────────────
+def resolver_dato_requerido(cita: str, datos_requeridos: list[str]) -> str | None:
+    """Ancla una cita del LLM contra la lista REAL de datos requeridos que se le mostró.
+
+    Mismo patrón que `resolver_operation_id`: la lista va NUMERADA en el prompt, así que se acepta
+    el índice 1-based (`"3"`, `"[3]"`, `"#3"`) además del texto. Del texto se admite el literal, su
+    forma normalizada y la contención en cualquier dirección -el modelo devuelve a veces "nombre
+    del tutor" donde la lista decía "Nombre del tutor asociado al menor"-, pero NUNCA texto libre
+    sin relación: una cita que no empata con ningún dato de la lista devuelve `None` y el llamador
+    la trata como no dicha. Es el mismo blindaje anti-alucinación de las operaciones aplicado al
+    checklist: el LLM elige de una lista cerrada, no inventa el requisito que dice cubrir."""
+    texto = (cita or "").strip()
+    if not texto or not datos_requeridos:
+        return None
+    indice = texto.strip("[]#() ")
+    if indice.isdigit():
+        posicion = int(indice)
+        return datos_requeridos[posicion - 1] if 1 <= posicion <= len(datos_requeridos) else None
+    clave = normalizar(texto)
+    if not clave:
+        return None
+    for dato in datos_requeridos:
+        if normalizar(dato) == clave:
+            return dato
+    for dato in datos_requeridos:
+        normalizado = normalizar(dato)
+        if normalizado and (normalizado in clave or clave in normalizado):
+            return dato
+    return None
+
+
+def cobertura_datos_requeridos(
+    datos_requeridos: list[str],
+    citas_cubiertas: list[str],
+    citas_no_cubiertas: list[str],
+) -> tuple[list[str], list[str], list[str]]:
+    """Reparte los datos que la historia pidió en (cubiertos, declarados_sin_operacion, no_evaluados).
+
+    - **cubiertos**: alguna operación anclada los citó en `datos_cubiertos`.
+    - **declarados_sin_operacion**: el nodo dijo explícitamente que ninguna operación oficial del
+      Service Domain los expone. Es un resultado legítimo (p.ej. un dato puramente de UI), pero
+      tiene que quedar VISIBLE, no en silencio.
+    - **no_evaluados**: el nodo no dijo nada de ellos. Es el caso peor y el que motivó esto: la
+      corrida del 2026-09-15 llevó "Nombre del tutor" en `intencion.business_objects` y el mapeo
+      terminó en verde (`operation_coverage_rate 1.0`) sin cubrirlo ni mencionarlo, porque el nodo
+      de operaciones nunca recibió la lista de datos y su regla es "conjunto mínimo suficiente".
+
+    Determinista y por cita anclada (`resolver_dato_requerido`), nunca por parecido de texto libre:
+    una cita que no resuelve contra la lista no cubre nada. "Cubierto" gana a "declarado": con
+    varios Service Domains elegibles, cada llamada ve UN catálogo y puede declarar sin cubrir lo
+    que otro Service Domain sí cubrió."""
+    cubiertos: list[str] = []
+    for cita in citas_cubiertas:
+        dato = resolver_dato_requerido(cita, datos_requeridos)
+        if dato is not None and dato not in cubiertos:
+            cubiertos.append(dato)
+    declarados: list[str] = []
+    for cita in citas_no_cubiertas:
+        dato = resolver_dato_requerido(cita, datos_requeridos)
+        if dato is not None and dato not in cubiertos and dato not in declarados:
+            declarados.append(dato)
+    no_evaluados = [d for d in datos_requeridos if d not in cubiertos and d not in declarados]
+    return cubiertos, declarados, no_evaluados

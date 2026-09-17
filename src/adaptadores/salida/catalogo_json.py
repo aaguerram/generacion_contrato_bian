@@ -59,15 +59,32 @@ class CatalogoJson(CatalogoServiceDomainsPort):
         self._rutas_bom: dict[str, str] = {}
 
     def _aplanar(
-        self, nodos: list[dict], area: str | None = None, dominio: str | None = None
-    ) -> Iterator[tuple[dict, str | None, str | None]]:
-        """Recorre Business Area -> Business Domain (anidable) -> Service Domain."""
+        self,
+        nodos: list[dict],
+        area: str | None = None,
+        dominio: str | None = None,
+        area_doc: str | None = None,
+        dominio_doc: str | None = None,
+    ) -> Iterator[tuple[dict, str | None, str | None, str | None, str | None]]:
+        """Recorre Business Area -> Business Domain (anidable) -> Service Domain.
+
+        Arrastra también la `documentation` de cada nodo de la jerarquía: es lo que dice QUÉ
+        significa "Sales and Service > Customer Management", y sin ella el prompt usaba esa
+        jerarquía como una etiqueta sin definir (que además pesa en el score).
+        """
         for nodo in nodos:
             nombre = _texto(nodo.get("name"))
+            doc = _texto(nodo.get("documentation"))
             for hijo in nodo.get("business_domains", []):
-                yield from self._aplanar([hijo], area or nombre, _texto(hijo.get("name")))
+                yield from self._aplanar(
+                    [hijo],
+                    area or nombre,
+                    _texto(hijo.get("name")),
+                    area_doc or doc,
+                    _texto(hijo.get("documentation")),
+                )
             for sd in nodo.get("service_domains", []):
-                yield sd, area or nombre, dominio or nombre
+                yield sd, area or nombre, dominio or nombre, area_doc or doc, dominio_doc or doc
 
     def _cargar(self) -> None:
         if self._entradas is not None:
@@ -82,13 +99,15 @@ class CatalogoJson(CatalogoServiceDomainsPort):
             )
 
         entradas: list[EntradaCatalogo] = []
-        for sd, area, dominio in self._aplanar(crudo["business_areas"]):
+        for sd, area, dominio, area_doc, dominio_doc in self._aplanar(crudo["business_areas"]):
             datos = {destino: _texto(sd.get(origen)) for origen, destino in _RENOMBRES.items()}
             if not datos["service_domain"]:
                 continue
             datos.update({campo: _texto(sd.get(campo)) for campo in _IGUALES})
             datos["business_area"] = area
             datos["business_domain"] = dominio
+            datos["business_area_doc"] = area_doc
+            datos["business_domain_doc"] = dominio_doc
             entradas.append(EntradaCatalogo(**datos))
             ruta_bom = _texto((sd.get("bom_diagram") or {}).get("puml_path"))
             if ruta_bom:

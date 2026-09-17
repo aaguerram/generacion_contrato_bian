@@ -121,6 +121,9 @@ te limites a 3-8; no clasifiques todavía el rol contractual; no puntúes confia
 <procedimiento>
 - Para cada `business_action` y `business_object` busca en `<catalogo_bian>` los Service
   Domains cuyo Service Role describa esa acción o administre ese objeto.
+- `<taxonomia_bian>` define qué cubre cada Business Area / Business Domain de la jerarquía que
+  lleva cada línea del catálogo. Úsala para descartar áreas que no tienen que ver con la
+  historia y para no confundir dos Service Domains de nombre parecido en dominios distintos.
 - Incluye también los Service Domains que cubren las `external_dependencies` (guard de auth,
   permisos, riesgo, auditoría, notificación): se evaluarán como dependencia, pero deben entrar.
 - `supporting_intent`: qué business_action / business_object concreto sugiere ese candidato.
@@ -145,6 +148,10 @@ outcomes: {intencion_outcomes}
 external_dependencies: {intencion_dependencies}
 </intencion_funcional>
 
+<taxonomia_bian>
+{taxonomia_bian}
+</taxonomia_bian>
+
 <catalogo_bian fuente="docs/BIAN_Service_Landscape_V14.0_Matrix_View.json" total="{catalogo_total}">
 {catalogo}
 </catalogo_bian>
@@ -153,7 +160,9 @@ Devuelve 'candidatos' (service_domain EXACTO del catálogo, rationale, supportin
 'coverage_notes', 'assumptions', 'gaps'.
 """
 
-SPEC_CANDIDATOS = _spec("mapeo.candidatos", "1.0.0", _SIS_CANDIDATOS, _HUM_CANDIDATOS)
+# 1.1.0: <taxonomia_bian> -- la jerarquía Business Area/Domain deja de ser una etiqueta sin
+# definir. Sube la versión (y con ella el prompt_sha256 de la huella) porque cambia el prompt.
+SPEC_CANDIDATOS = _spec("mapeo.candidatos", "1.1.0", _SIS_CANDIDATOS, _HUM_CANDIDATOS)
 PROMPT_CANDIDATOS = SPEC_CANDIDATOS.template
 
 
@@ -452,7 +461,19 @@ implementan cada escenario. Eliges el conjunto MÍNIMO SUFICIENTE.
   es inequívoca para un escenario -incluida la revisión de `campos_respuesta`-, NO elijas:
   regístralo en `gaps`.
 - Conjunto MÍNIMO suficiente: 1-4 operaciones por Service Domain. Prohibido seleccionar el
-  catálogo completo "por cobertura".
+  catálogo completo "por cobertura". MÍNIMO se mide contra `<datos_requeridos>`, NO contra el
+  número de operaciones: si dos datos requeridos viven en CR/BQ distintos del MISMO Service
+  Domain, hacen falta las dos operaciones. Nunca omitas una operación cuyos `campos_respuesta`
+  son los únicos que exponen un dato requerido.
+- Recorre `<datos_requeridos>` UNO POR UNO antes de responder. Cada dato acaba en exactamente uno
+  de estos sitios, y ninguno puede quedar sin mencionar:
+  1. `datos_cubiertos` de la operación que lo expone (cita su NÚMERO o su texto literal de la
+     lista), con el campo real en `evidence_refs`;
+  2. `bq_personalizados`, si el BOM lo respalda y ninguna operación oficial lo expone;
+  3. `datos_no_cubiertos` (misma forma de cita) + una línea en `gaps` diciendo por qué. Es una
+     respuesta legítima -hay datos de UI o de otro Service Domain-, callarlo no lo es.
+  Un dato requerido que la lista de operaciones SÍ expone en otro CR/BQ y que tú no cubres es el
+  error más caro de este paso: la historia sale con un contrato incompleto y nadie lo nota.
 - `bq_seed`: el fragmento ÚNICO del use case / escenario que esa operación cubre. Inspecciona
   fragmentos individuales; nunca combines bullets ni construyas productos cartesianos. Un
   fragmento BQ -> a lo sumo una operación.
@@ -492,6 +513,10 @@ _HUM_OPERACIONES = """\
 {historia_contenido}
 </historia>
 
+<datos_requeridos>
+{datos_requeridos}
+</datos_requeridos>
+
 <operaciones_disponibles>
 {operaciones}
 </operaciones_disponibles>
@@ -501,13 +526,15 @@ _HUM_OPERACIONES = """\
 </bom_por_sd>
 
 Devuelve 'operaciones' ({{service_domain, operation_id, escenarios_hu, justificacion, action_term,
-business_object, bq_seed, traceability, evidence_refs, reason_codes}}), 'bq_personalizados'
+business_object, bq_seed, traceability, evidence_refs, datos_cubiertos, reason_codes}}),
+'datos_no_cubiertos' (citas de `<datos_requeridos>` que ninguna operación de este Service Domain
+expone), 'bq_personalizados'
 ({{service_domain, grupo_existente, verbo, campo_no_cubierto, clase_bom, atributo_bom, escenarios_hu,
 justificacion, reason_codes}} — vacío si no hace falta ninguno; `grupo_existente` SIEMPRE copiado de
 un grupo ya listado en operaciones_disponibles, nunca un grupo nuevo), 'gaps', 'blocking_codes'.
 """
 
-SPEC_OPERACIONES = _spec("mapeo.operaciones", "1.2.0", _SIS_OPERACIONES, _HUM_OPERACIONES)
+SPEC_OPERACIONES = _spec("mapeo.operaciones", "1.3.0", _SIS_OPERACIONES, _HUM_OPERACIONES)
 PROMPT_MAPEO_OPERACIONES = SPEC_OPERACIONES.template
 
 

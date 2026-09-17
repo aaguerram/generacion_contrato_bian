@@ -185,7 +185,8 @@ mapear_historias:
   concurrencia_candidatos: 1    # candidatos evaluados en paralelo dentro de una HU (subgrafo)
   max_candidatos_hu: 14         # tope de Service Domains evaluados por HU (LLM candidatos + missing)
   paso2_operaciones: true        # paso 6: mapear SD directos -> operaciones oficiales CR/BQ
-  rol_max_chars: 240             # recorte del Service Role al armar el catálogo del prompt
+  rol_max_chars: 600             # recorte del Service Role al armar el catálogo del prompt
+                                 # (240 recortaba 219 de los 341 SD; 600 deja solo 26, +9.7k tokens)
   top_n_omitidos: 5             # 2º pase léxico: nº de SD "posibles omitidos" a reportar por HU (0 = off)
   ruta_operaciones: docs/bian-operation-catalogs.json
   ruta_cache_bian: docs/bian-cache        # cache-first del OpenAPI oficial (CR + BQ + schemas con cuerpo)

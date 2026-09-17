@@ -1,0 +1,48 @@
+Como   usuario menor de edad o usuario asociado a cuenta menor,
+Quiero  que mis datos personales solo sean visibles y no editables,
+Para      cumplir las restricciones de gestión definidas para cuentas de menores.
+
+
+Escenario 1. Visualización de datos en cuenta menor
+
+Dado             que el usuario tiene una cuenta de menor de edad
+Cuando         ingresa a la pantalla de datos personales,
+Entonces       el sistema una pantalla con los siguientes elementos: Ver diseño
+
+Encabezado:
+Título en la parte superior: “Datos personales”.
+Botón de retroceso para regresar a la pantalla anterior.
+Sección de información personal:
+Foto de perfil o avatar del usuario.
+Nombre completo del usuario.
+Número de identificación del usuario.
+Sección de información de contacto:
+Tarjeta o recuadro con los siguientes datos:
+Número celular: Visualización del número registrado (no editable).
+Correo electrónico: Visualización del correo registrado (no editable).
+Mensaje informativo de restricción:
+Recuadro destacado con ícono de información.
+Mensaje:
+Título: “¿Necesitas modificar tu correo o celular?”
+Texto: “Solo {{nombre-tutor}} puede cambiar tus datos de contacto llamando a nuestro Call Center al 02 400 9000.”
+Este mensaje indica que el usuario no tiene permisos para modificar sus datos de contacto y debe contactar a su tutor o responsable a través del canal indicado. (Diseño)
+Image
+**Revisado 06/24/26**
+
+Escenario 2. Restricción de edición
+
+Dado         que el usuario pertenece a una cuenta menor,
+Cuando     visualiza número celular o correo electrónico,
+Entonces  el sistema no permita editar dichos datos
+
+Escenario 3. Mensaje informativo
+
+Dado          que el usuario de cuenta menor ingresa a datos personales,
+Cuando      los campos se muestran como no editables,
+Entonces    el  sistema presente un mensaje informativo explicativo de la restricción.
+
+
+Image
+
+Nota:
+El nombre del tutor será enviado por BE.

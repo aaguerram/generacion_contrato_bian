@@ -585,6 +585,14 @@ class OperacionPropuestaLLM(BaseModel):
         default_factory=list, description="HU-.../SC-.../BR-... que esta operación cubre."
     )
     evidence_refs: list[str] = Field(default_factory=list)
+    datos_cubiertos: list[str] = Field(
+        default_factory=list,
+        description=(
+            "Datos requeridos por la historia que esta operación cubre, citados por su NÚMERO o "
+            "su texto literal de la lista `<datos_requeridos>` del prompt (lista cerrada: una "
+            "cita que no resuelve contra ella no cuenta)."
+        ),
+    )
     reason_codes: list[str] = Field(default_factory=list)
 
 
@@ -655,6 +663,14 @@ class MapeoOperacionesLLM(BaseModel):
         default_factory=list,
         description="Solo cuando ningún CR/BQ oficial cubre un campo Y el BOM del SD lo respalda.",
     )
+    datos_no_cubiertos: list[str] = Field(
+        default_factory=list,
+        description=(
+            "Datos requeridos que NINGUNA operación oficial de este Service Domain expone, "
+            "citados contra la misma lista `<datos_requeridos>`. Declararlos es un resultado "
+            "legítimo; callarlos no (ver `cobertura_datos_requeridos`)."
+        ),
+    )
     gaps: list[str] = Field(default_factory=list)
     blocking_codes: list[str] = Field(default_factory=list)
     citas_descartadas: list[str] = Field(
@@ -712,6 +728,13 @@ class OperacionBianAplicada(BaseModel):
     bq_seed: str = ""
     traceability: list[str] = Field(default_factory=list)
     evidence_refs: list[str] = Field(default_factory=list)
+    datos_cubiertos: list[str] = Field(
+        default_factory=list,
+        description=(
+            "Datos requeridos de la historia que esta operación cubre, ya RESUELTOS contra "
+            "`intencion.business_objects` (texto canónico, no la cita cruda del LLM)."
+        ),
+    )
     reason_codes: list[str] = Field(default_factory=list)
 
 

@@ -1,0 +1,1113 @@
+{
+  "funcionalidad_macro": "Actualización de datos personales",
+  "detalle": "Permitir que el cliente actualice su número celular y correo electrónico desde la aplicación móvil, utilizando validaciones existentes y Smart Token como mecanismo de seguridad, asegurando trazabilidad y notificación de los cambios realizados.",
+  "total_historias": 1,
+  "parametros": {
+    "cadena_llm": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+    "esfuerzo": "low",
+    "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+    "evidencia_bian": "docs/BIAN_Service_Landscape_V14.0_Matrix_View.json + docs/bian-operation-catalogs.json + docs/bian-cache",
+    "run_id": "336f3c1c385a41bea1f3d04998be948f",
+    "thread_id": "",
+    "durabilidad": "exit",
+    "umbral_directo": 0.9,
+    "umbral_tentativo": 0.63,
+    "concurrencia": 1,
+    "concurrencia_candidatos": 1,
+    "max_candidatos_hu": 14,
+    "paso2_operaciones": true,
+    "actualizar_cache_bian": false,
+    "top_n_omitidos": 5,
+    "retrieval_hibrido_activo": false,
+    "retrieval_top_k": 20,
+    "retrieval_max_inyectados": 5
+  },
+  "historias": [
+    {
+      "archivo": "HU-Actualizar cuentas de menores.txt",
+      "titulo": "Actualizar cuentas de menores",
+      "razonamiento": "Permitir que usuarios con cuenta de menor visualicen sus datos personales sin posibilidad de editarlos y muestren un mensaje informativo indicando que solo el tutor puede modificarlos.",
+      "capacidades_funcionales": [
+        "Visualizar datos personales de una cuenta menor",
+        "Restringir la edición de número celular y correo electrónico para cuentas menores",
+        "Presentar mensaje informativo sobre la restricción de edición",
+        "Obtener el nombre del tutor desde el backend"
+      ],
+      "business_actions": [
+        "visualizar datos personales",
+        "restringir edición de datos de contacto",
+        "presentar mensaje informativo"
+      ],
+      "business_objects": [
+        "cuenta de menor",
+        "datos personales",
+        "número celular",
+        "correo electrónico",
+        "nombre del tutor"
+      ],
+      "outcomes": [
+        "Pantalla de datos personales muestra nombre completo, identificación, foto y datos de contacto en modo solo lectura",
+        "El sistema impide cualquier intento de edición del número celular y del correo electrónico",
+        "Se muestra un mensaje informativo indicando que solo el tutor puede cambiar los datos de contacto y proporcionando el número de Call Center",
+        "El nombre del tutor es obtenido del backend y se inserta en el mensaje informativo"
+      ],
+      "external_dependencies": [
+        "Backend (BE) para obtener nombre del tutor",
+        "Smart Token como mecanismo de seguridad",
+        "Sistema de autenticación/autoridad de identidad para determinar que el usuario es menor"
+      ],
+      "traceability_ids": [
+        "HU-Actualizar cuentas de menores",
+        "SC-01",
+        "SC-02",
+        "SC-03"
+      ],
+      "assumptions": [
+        "El usuario está autenticado y su rol de menor es conocido",
+        "El backend siempre devuelve el nombre del tutor",
+        "Smart Token es validado previamente por la capa de seguridad",
+        "La UI puede renderizar campos en modo solo lectura",
+        "Se asume que la relación de tutela (menor-tutor) y la recuperación del nombre del tutor se gestionan dentro de la información de relación del cliente en Customer Relationship Management o Party Reference Data Directory.",
+        "Se asume que la restricción de edición se implementa validando el perfil de acceso del cliente a través de Customer Access Entitlement."
+      ],
+      "gaps": [
+        "Detalle de cómo se valida e integra el Smart Token en la aplicación móvil",
+        "Comportamiento del sistema si el backend no devuelve el nombre del tutor",
+        "Requisitos de auditoría o trazabilidad de los accesos a la pantalla",
+        "No se especifica un Service Domain explícito para la gestión de 'cuentas de menores' como un tipo de producto financiero separado; se asume que es un atributo del perfil del cliente o una restricción de acceso sobre sus contratos existentes."
+      ],
+      "unresolved_questions": [
+        "¿Cuál es el flujo exacto de paso del Smart Token desde la app al backend?",
+        "¿Se debe registrar un log de visualización de datos para cuentas menores?",
+        "¿Cómo se manejará la localización del mensaje informativo?"
+      ],
+      "blocking_codes": [
+        "OBJETO_SIN_PROPIETARIO"
+      ],
+      "intencion": {
+        "resumen_funcional": "Permitir que usuarios con cuenta de menor visualicen sus datos personales sin posibilidad de editarlos y muestren un mensaje informativo indicando que solo el tutor puede modificarlos.",
+        "capacidades_funcionales": [
+          "Visualizar datos personales de una cuenta menor",
+          "Restringir la edición de número celular y correo electrónico para cuentas menores",
+          "Presentar mensaje informativo sobre la restricción de edición",
+          "Obtener el nombre del tutor desde el backend"
+        ],
+        "business_actions": [
+          "visualizar datos personales",
+          "restringir edición de datos de contacto",
+          "presentar mensaje informativo"
+        ],
+        "business_objects": [
+          "cuenta de menor",
+          "datos personales",
+          "número celular",
+          "correo electrónico",
+          "nombre del tutor"
+        ],
+        "outcomes": [
+          "Pantalla de datos personales muestra nombre completo, identificación, foto y datos de contacto en modo solo lectura",
+          "El sistema impide cualquier intento de edición del número celular y del correo electrónico",
+          "Se muestra un mensaje informativo indicando que solo el tutor puede cambiar los datos de contacto y proporcionando el número de Call Center",
+          "El nombre del tutor es obtenido del backend y se inserta en el mensaje informativo"
+        ],
+        "external_dependencies": [
+          "Backend (BE) para obtener nombre del tutor",
+          "Smart Token como mecanismo de seguridad",
+          "Sistema de autenticación/autoridad de identidad para determinar que el usuario es menor"
+        ],
+        "traceability_ids": [
+          "HU-Actualizar cuentas de menores",
+          "SC-01",
+          "SC-02",
+          "SC-03"
+        ],
+        "assumptions": [
+          "El usuario está autenticado y su rol de menor es conocido",
+          "El backend siempre devuelve el nombre del tutor",
+          "Smart Token es validado previamente por la capa de seguridad",
+          "La UI puede renderizar campos en modo solo lectura"
+        ],
+        "gaps": [
+          "Detalle de cómo se valida e integra el Smart Token en la aplicación móvil",
+          "Comportamiento del sistema si el backend no devuelve el nombre del tutor",
+          "Requisitos de auditoría o trazabilidad de los accesos a la pantalla"
+        ],
+        "unresolved_questions": [
+          "¿Cuál es el flujo exacto de paso del Smart Token desde la app al backend?",
+          "¿Se debe registrar un log de visualización de datos para cuentas menores?",
+          "¿Cómo se manejará la localización del mensaje informativo?"
+        ],
+        "metadatos": {
+          "prompt_id": "mapeo.intencion",
+          "prompt_version": "1.0.0",
+          "prompt_sha256": "b1e294c51943a0c47a267c88004bcd3e7de5fb637db9ddcf4ccc0d1af0e02e73",
+          "nodo": "extraer_intencion",
+          "historia": "HU-Actualizar cuentas de menores.txt",
+          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+          "provider_used": "groq",
+          "model_used": "openai/gpt-oss-120b",
+          "attempt": 1,
+          "temperature": 0.0,
+          "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+          "evidence_snapshot_id": ""
+        }
+      },
+      "revision_completitud": {
+        "missing_candidates": [],
+        "unsupported_candidates": [],
+        "ownership_conflicts": [],
+        "duplicated_responsibilities": [],
+        "coverage_gaps": [],
+        "blocking_codes": [],
+        "review_summary": "The proposed candidates are complete and fully supported by the evidence provided in the user story and functional intent.",
+        "metadatos": {
+          "prompt_id": "mapeo.completitud",
+          "prompt_version": "1.0.0",
+          "prompt_sha256": "7c8da3d0b8ef83efa4fb82417c8636564ebd39097461b7d9c58a6ea9442fd09f",
+          "nodo": "revisar_completitud",
+          "historia": "HU-Actualizar cuentas de menores.txt",
+          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+          "provider_used": "gemini",
+          "model_used": "gemini-3.5-flash",
+          "attempt": 4,
+          "temperature": 0.0,
+          "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+          "evidence_snapshot_id": ""
+        }
+      },
+      "revision_adversarial": {
+        "hallazgos": [
+          {
+            "tipo": "ACCION_DIRECTA_COMO_DEPENDENCIA",
+            "service_domain": "Customer Access Entitlement",
+            "reason_codes": [
+              "BIAN-SCOPE-002"
+            ],
+            "detalle": "visualizar datos personales es una acción directa del usuario pero está clasificada como CONSUMED_DEPENDENCY."
+          },
+          {
+            "tipo": "ACCION_DIRECTA_COMO_DEPENDENCIA",
+            "service_domain": "Customer Relationship Management",
+            "reason_codes": [
+              "BIAN-SCOPE-002"
+            ],
+            "detalle": "visualizar datos personales es una acción directa del usuario pero está clasificada como CONSUMED_DEPENDENCY."
+          },
+          {
+            "tipo": "DIRECTO_SIN_SERVICE_ROLE",
+            "service_domain": "Party Reference Data Directory",
+            "reason_codes": [
+              "BIAN-SCOPE-003"
+            ],
+            "detalle": "El service_role no menciona la acción directa visualizar datos personales."
+          },
+          {
+            "tipo": "OBJETO_SIN_PROPIETARIO",
+            "service_domain": "",
+            "reason_codes": [],
+            "detalle": "El objeto 'nombre del tutor' no tiene ningún Service Domain con OWNED_CONTRACT."
+          }
+        ],
+        "blocking_codes": [
+          "OBJETO_SIN_PROPIETARIO"
+        ],
+        "resumen": "Se encontraron inconsistencias: acciones directas marcadas como dependencias consumidas, dominio directo sin rol adecuado y objeto sin propietario.",
+        "metadatos": {
+          "prompt_id": "mapeo.adversarial",
+          "prompt_version": "1.0.0",
+          "prompt_sha256": "fec929070580b147946f02599086c294b14c4b22abc1b5acf9e5032a4b252f7d",
+          "nodo": "revisar_adversarial",
+          "historia": "HU-Actualizar cuentas de menores.txt",
+          "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+          "provider_used": "groq",
+          "model_used": "openai/gpt-oss-120b",
+          "attempt": 1,
+          "temperature": 0.0,
+          "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+          "evidence_snapshot_id": ""
+        }
+      },
+      "total_directos": 1,
+      "total_tentativos": 0,
+      "total_descartados": 3,
+      "service_domains": {
+        "candidatos_directos": [
+          {
+            "service_domain": "Party Reference Data Directory",
+            "resolucion": "MATCH",
+            "rol_contractual": "OWNED_CONTRACT",
+            "dependency_kind": null,
+            "confianza": 0.93,
+            "confianza_pct": 93,
+            "confianza_llm": 1.0,
+            "grupo": "directo",
+            "accion_objeto": "visualizar datos personales",
+            "escenarios_hu": [
+              "HU-Actualizar cuentas de menores"
+            ],
+            "justificacion": "La historia requiere visualizar datos personales de contacto (celular y correo) que no son editables para cuentas de menores. El Service Domain ofrece la operacion RetrieveReference sobre el schema Reference, el cual contiene especificamente CellPhoneNumber y eMailAddress.",
+            "business_area": "Sales and Service",
+            "business_domain": "Customer Management",
+            "rol_bian": "The party reference data directory service domain maintains a potentially wide range of party reference data that might be used in any interaction between the bank and the party including relationship development, sales/marketing, servicing and product delivery. This can include general reference and contact details, party associations, demographic details and some servicing preferences. Different information may be maintained for different party types such as individuals, corporates, partners",
+            "patron_funcional": "Catalog",
+            "origen_candidato": "llm",
+            "operaciones_bian": [
+              {
+                "operation_id": "RetrieveAssociations",
+                "method": "GET",
+                "path": "/PartyReferenceDataDirectory/{partyreferencedatadirectoryid}/Associations/{associationsid}/Retrieve",
+                "tipo": "BQ",
+                "grupo": "Associations",
+                "escenarios_hu": [
+                  "Escenario 1. Visualización de datos en cuenta menor",
+                  "Escenario 3. Mensaje informativo"
+                ],
+                "justificacion": "Permite consultar las asociaciones del cliente para identificar la relación con el tutor o responsable de la cuenta menor.",
+                "action_term": "Retrieve",
+                "business_object": "Associations",
+                "bq_seed": "El nombre del tutor será enviado por BE.",
+                "traceability": [
+                  "HU-Actualizar cuentas de menores/SC-1/BR-2",
+                  "HU-Actualizar cuentas de menores/SC-3/BR-2"
+                ],
+                "evidence_refs": [
+                  "AssociateReference"
+                ],
+                "datos_cubiertos": [
+                  "cuenta de menor",
+                  "nombre del tutor"
+                ],
+                "reason_codes": []
+              },
+              {
+                "operation_id": "RetrieveReference",
+                "method": "GET",
+                "path": "/PartyReferenceDataDirectory/{partyreferencedatadirectoryid}/Reference/{referenceid}/Retrieve",
+                "tipo": "BQ",
+                "grupo": "Reference",
+                "escenarios_hu": [
+                  "Escenario 1. Visualización de datos en cuenta menor",
+                  "Escenario 2. Restricción de edición",
+                  "Escenario 3. Mensaje informativo"
+                ],
+                "justificacion": "Permite recuperar los datos personales de referencia del cliente incluyendo número celular y correo electrónico.",
+                "action_term": "Retrieve",
+                "business_object": "Reference",
+                "bq_seed": "visualiza número celular o correo electrónico",
+                "traceability": [
+                  "HU-Actualizar cuentas de menores/SC-1/BR-1",
+                  "HU-Actualizar cuentas de menores/SC-2/BR-1",
+                  "HU-Actualizar cuentas de menores/SC-3/BR-1"
+                ],
+                "evidence_refs": [
+                  "CellPhoneNumber",
+                  "eMailAddress"
+                ],
+                "datos_cubiertos": [
+                  "datos personales",
+                  "número celular",
+                  "correo electrónico"
+                ],
+                "reason_codes": []
+              }
+            ],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyReferenceDataDirectory.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79",
+              "cache_path": "/home/super/Desktop/angel_dir/generacion_contrato_bian/docs/bian-cache/release14.0.0/PartyReferenceDataDirectory.json",
+              "recuperado_en": "2026-09-10T22:19:40.014858+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 1.0,
+              "objeto_bom": 1.0,
+              "ownership_outcome": 1.0,
+              "trazabilidad_escenarios": 0.5,
+              "coherencia_jerarquia": 0.25,
+              "penalizacion": -0.08,
+              "total": 0.93,
+              "retrieval_score": 0.0,
+              "operation_support_score": 1.0,
+              "graph_score": 0.0,
+              "rerank_score": 0.0
+            },
+            "decision_contractual": "SELECTED",
+            "motivo_decision": "OWNED_SELECTED",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [
+              "[adversarial] El service_role no menciona la acción directa visualizar datos personales."
+            ],
+            "ownership_traceability": [
+              "HU-Actualizar cuentas de menores"
+            ],
+            "dependency_traceability": [],
+            "evidence_refs": [
+              "RetrieveReference",
+              "Reference",
+              "CellPhoneNumber",
+              "eMailAddress"
+            ],
+            "reason_codes": [
+              "BIAN-SCOPE-003",
+              "OWNED_FINALIZED_BY_OPERATION_EVIDENCE"
+            ],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": [
+              "BIAN-SCOPE-003"
+            ]
+          }
+        ],
+        "candidatos_tentativos": [],
+        "candidatos_descartados": [
+          {
+            "service_domain": "Customer Access Entitlement",
+            "resolucion": "MATCH",
+            "rol_contractual": "CONSUMED_DEPENDENCY",
+            "dependency_kind": "SUPPORTING_LOOKUP",
+            "confianza": 0.6033,
+            "confianza_pct": 60,
+            "confianza_llm": 0.75,
+            "grupo": "descartado",
+            "accion_objeto": "visualizar datos personales",
+            "escenarios_hu": [
+              "HU-Actualizar cuentas de menores",
+              "SC-01",
+              "SC-02",
+              "SC-03"
+            ],
+            "justificacion": "La historia solo consume la información de restricciones para impedir la edición, sin crear ni actualizar el acuerdo de acceso. La operación Retrieve del paquete devuelve datos del perfil de acceso, que la UI usa para mostrar datos personales. No hay evidencia de que la historia administre directamente el objeto de acceso o restricciones.",
+            "business_area": "Sales and Service",
+            "business_domain": "Customer Management",
+            "rol_bian": "This profile is used for servicing and fulfillment controls covering products, services and channel/device usage entitlements. It is referenced for channel access control and utilization limits that may span multiple products. For example there can be a limit on total ATM withdrawals for a customer for all active products over a 24 hour period.",
+            "patron_funcional": "Agree Terms",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerAccessEntitlement.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "ce29e41d818e8294beb839eb993dbf8174d6751a5f1bb6e2d1a18899fcfb2036",
+              "cache_path": "/home/super/Desktop/angel_dir/generacion_contrato_bian/docs/bian-cache/release14.0.0/CustomerAccessEntitlement.json",
+              "recuperado_en": "2026-09-10T22:23:40.808671+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 1.0,
+              "objeto_bom": 0.3333,
+              "ownership_outcome": 0.55,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": 0.04,
+              "total": 0.6033,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0,
+              "graph_score": 0.0,
+              "rerank_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "CONSUMED_DEPENDENCY",
+            "ambiguity": "LOW",
+            "observaciones_adversariales": [
+              "Revisar ownership: correspondencia fuerte con catalogo oficial.",
+              "[adversarial] visualizar datos personales es una acción directa del usuario pero está clasificada como CONSUMED_DEPENDENCY."
+            ],
+            "ownership_traceability": [],
+            "dependency_traceability": [
+              "HU-Actualizar cuentas de menores",
+              "SC-01",
+              "SC-02",
+              "SC-03"
+            ],
+            "evidence_refs": [
+              "Retrieve",
+              "RetrieveRestrictions",
+              "Restrictions"
+            ],
+            "reason_codes": [
+              "BIAN-SCOPE-002"
+            ],
+            "assumptions": [
+              "Se asume que la operación Retrieve incluye los datos personales del cliente."
+            ],
+            "gaps": [
+              "El objeto de negocio 'datos personales' no aparece explícitamente en los schemas_bom."
+            ],
+            "blocking_codes": []
+          },
+          {
+            "service_domain": "Customer Relationship Management",
+            "resolucion": "MATCH",
+            "rol_contractual": "CONSUMED_DEPENDENCY",
+            "dependency_kind": "SUPPORTING_LOOKUP",
+            "confianza": 0.415,
+            "confianza_pct": 42,
+            "confianza_llm": 0.3333,
+            "grupo": "descartado",
+            "accion_objeto": "visualizar datos personales",
+            "escenarios_hu": [
+              "SC-01",
+              "SC-02",
+              "SC-03"
+            ],
+            "justificacion": "The story requires viewing personal data, which maps to the Retrieve operation, but the object 'datos personales' is not represented in the schema; thus the service domain only provides data retrieval, not ownership.",
+            "business_area": "Sales and Service",
+            "business_domain": "Customer Management",
+            "rol_bian": "This function handles managed customer relationships. There will typically be a customer development plan and budget/targets for higher value customers. The function may draw on external market insights as well as internal product and service fulfillment to track performance and trigger contact when appropriate. The function is a key source of business development providing product/service matching and awareness. As the primary point of contact the relationship manager can help in issue resolution and trouble shooting. Relationship management applies to corporate and high net-worth clients. Automated knowledge-based facilities may offer some relationship management functions at the consumer banking level in particular for sales and marketing",
+            "patron_funcional": "Manage",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerRelationshipManagement.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "f57a0da7053e40cac7c2cc5ca9243bdb3cbf76fe39993e0502cc151f1a6ec603",
+              "cache_path": "/home/super/Desktop/angel_dir/generacion_contrato_bian/docs/bian-cache/release14.0.0/CustomerRelationshipManagement.json",
+              "recuperado_en": "2026-09-12T22:09:10.081872+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 1.0,
+              "objeto_bom": 0.0,
+              "ownership_outcome": 0.55,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.25,
+              "penalizacion": 0.17,
+              "total": 0.415,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0,
+              "graph_score": 0.0,
+              "rerank_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "CONSUMED_DEPENDENCY",
+            "ambiguity": "HIGH",
+            "observaciones_adversariales": [
+              "Evidencia oficial disponible pero poco concluyente (evidence_quality=1).",
+              "Ambiguedad alta en la evaluacion del candidato.",
+              "Revisar ownership: correspondencia fuerte con catalogo oficial.",
+              "[adversarial] visualizar datos personales es una acción directa del usuario pero está clasificada como CONSUMED_DEPENDENCY."
+            ],
+            "ownership_traceability": [],
+            "dependency_traceability": [
+              "SC-01",
+              "SC-02",
+              "SC-03"
+            ],
+            "evidence_refs": [
+              "Retrieve",
+              "CustomerRelationshipManagementPlan"
+            ],
+            "reason_codes": [
+              "BIAN-SCOPE-002"
+            ],
+            "assumptions": [
+              "Personal data is part of CustomerRelationshipManagementPlan"
+            ],
+            "gaps": [
+              "No schema for personal data (nombre, ID, teléfono, correo)"
+            ],
+            "blocking_codes": []
+          },
+          {
+            "service_domain": "Party Authentication",
+            "resolucion": "MATCH",
+            "rol_contractual": "RELATED_NOT_OWNED",
+            "dependency_kind": null,
+            "confianza": 0.19,
+            "confianza_pct": 19,
+            "confianza_llm": 0.25,
+            "grupo": "descartado",
+            "accion_objeto": "visualizar datos personales",
+            "escenarios_hu": [
+              "PartyAuthenticationAssessment",
+              "Evaluate"
+            ],
+            "justificacion": "La historia trata sobre la lectura de datos personales y la restricción de edición en la UI para menores de edad. Party Authentication administra la evaluación y confirmación de identidad/credenciales de clientes, lo cual no corresponde al dominio de gestión de datos de contacto o perfiles de clientes.",
+            "business_area": "Sales and Service",
+            "business_domain": "Cross Channel",
+            "rol_bian": "Customer/party authentication is a cross-channel/device capability that provides identity confirmation for customers accessing the bank through any interactive channel. The service may use a combination of one or more mechanisms to authenticate including issued tokens/devices, virtual mechanisms such as passwords and biometrics such as voice/face recognition. Different levels of authentication may be determined to support different types of access and there may be access permissions associated with the authentication mechanism used",
+            "patron_funcional": "Assess",
+            "origen_candidato": "llm",
+            "operaciones_bian": [],
+            "bq_personalizados_propuestos": [],
+            "evidencia_bian": {
+              "estado": "CACHED_VERIFIED",
+              "release": "14.0.0",
+              "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyAuthentication.yaml",
+              "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+              "content_sha256": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd",
+              "cache_path": "/home/super/Desktop/angel_dir/generacion_contrato_bian/docs/bian-cache/release14.0.0/PartyAuthentication.json",
+              "recuperado_en": "2026-09-10T22:23:59.281337+00:00",
+              "error": ""
+            },
+            "desglose_score": {
+              "accion_oficial": 0.0,
+              "objeto_bom": 0.0,
+              "ownership_outcome": 0.2,
+              "trazabilidad_escenarios": 1.0,
+              "coherencia_jerarquia": 0.0,
+              "penalizacion": 0.0,
+              "total": 0.19,
+              "retrieval_score": 0.0,
+              "operation_support_score": 0.0,
+              "graph_score": 0.0,
+              "rerank_score": 0.0
+            },
+            "decision_contractual": "REJECTED",
+            "motivo_decision": "RELATED_NOT_OWNED",
+            "ambiguity": "NONE",
+            "observaciones_adversariales": [],
+            "ownership_traceability": [],
+            "dependency_traceability": [],
+            "evidence_refs": [
+              "PartyAuthenticationAssessment",
+              "Evaluate"
+            ],
+            "reason_codes": [],
+            "assumptions": [],
+            "gaps": [],
+            "blocking_codes": []
+          }
+        ]
+      },
+      "service_domains_omitidos": [
+        {
+          "service_domain": "Account Reconciliation",
+          "score_lexico": 0.5,
+          "business_area": "Operations and Execution",
+          "business_domain": "Account Management",
+          "rol_bian": "Match, reconcile and resolve identified discrepancies between selected financial accounts in collaboration with the account 'owner' as necessary",
+          "señales": [
+            "account"
+          ]
+        },
+        {
+          "service_domain": "Account Recovery",
+          "score_lexico": 0.5,
+          "business_area": "Sales and Service",
+          "business_domain": "Customer Management",
+          "rol_bian": "Handles the recovery of distressed accounts that have exceeded standard late/payment handling but have not yet been fully written off and passed to collections. The restructuring can involve partial write downs and leveraging any tax or other program of assistance that can be applied. The situation is managed until the account is recovered or a decision made to pass the account over to collections",
+          "señales": [
+            "account"
+          ]
+        },
+        {
+          "service_domain": "Current Account",
+          "score_lexico": 0.5,
+          "business_area": "Operations and Execution",
+          "business_domain": "Loans and Deposits",
+          "rol_bian": "The Current Account or Demand Deposit Account as it can be called is a financial facility that represents the general checking account facility at the core of the consumer and small business banking activity. There is a range of supporting features that make up the standard facility (checks/cheques, standing orders, debit cards, phone and on-line banking services etc.). The fulfillment can include a range of optional services, fees and interest payments and penalties and will often be bundled and or underlie/support other financial facilities and financial transactions",
+          "señales": [
+            "account"
+          ]
+        },
+        {
+          "service_domain": "Incentive Account",
+          "score_lexico": 0.5,
+          "business_area": "Operations and Execution",
+          "business_domain": "Operational Services",
+          "rol_bian": "The Incentive Account service domain orchestrates the fulfillment of all service obligations for one or more Incentive Programs into which a Customer's products are enrolled. This includes maintaining enrollment status, accruing value driven incentives such as points or cashback, accruing service driven incentives such as product or relationship incentives, handling and orchestrating incentive redemptions requests, maintaing balance and status of accrued incentives, and managing their expiration and forfeiture.",
+          "señales": [
+            "account"
+          ]
+        },
+        {
+          "service_domain": "Investment Account",
+          "score_lexico": 0.5,
+          "business_area": "Operations and Execution",
+          "business_domain": "Investment Management",
+          "rol_bian": "The Investment Account is a facility used to maintain the non-cash holdings for a customer. It handles the deposit and withdrawal of securities and can maintain records for multiple securities/instruments. It also reflects the results of corporate actions as handled/orchestrated by the Corporate Events Service Domain (such as dividend payments, splits, etc.)",
+          "señales": [
+            "account"
+          ]
+        }
+      ]
+    }
+  ],
+  "service_domains_consolidados": [
+    {
+      "service_domain": "Party Reference Data Directory",
+      "decision": "SELECTED",
+      "motivo": "OWNED_SELECTED",
+      "contract_role": "OWNED_CONTRACT",
+      "functionality_role": "OWNED_CONTRACT",
+      "grupo": "directo",
+      "score": 0.93,
+      "historias": [
+        "HU-Actualizar cuentas de menores.txt"
+      ],
+      "supporting_stories": [
+        "HU-Actualizar cuentas de menores.txt — Actualizar cuentas de menores"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "HU-Actualizar cuentas de menores"
+      ],
+      "ownership_traceability": [
+        "HU-Actualizar cuentas de menores"
+      ],
+      "dependency_traceability": [],
+      "selected_operations": [
+        "RetrieveAssociations",
+        "RetrieveReference"
+      ],
+      "custom_bq_candidates": [],
+      "reason_codes": [
+        "BIAN-SCOPE-003",
+        "OWNED_FINALIZED_BY_OPERATION_EVIDENCE"
+      ],
+      "blocking_codes": [
+        "BIAN-SCOPE-003"
+      ],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyReferenceDataDirectory.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79",
+        "cache_path": "/home/super/Desktop/angel_dir/generacion_contrato_bian/docs/bian-cache/release14.0.0/PartyReferenceDataDirectory.json",
+        "recuperado_en": "2026-09-10T22:19:40.014858+00:00",
+        "error": ""
+      },
+      "rationale": "La historia requiere visualizar datos personales de contacto (celular y correo) que no son editables para cuentas de menores. El Service Domain ofrece la operacion RetrieveReference sobre el schema Reference, el cual contiene especificamente CellPhoneNumber y eMailAddress."
+    },
+    {
+      "service_domain": "Customer Access Entitlement",
+      "decision": "REJECTED",
+      "motivo": "CONSUMED_DEPENDENCY",
+      "contract_role": "CONSUMED_DEPENDENCY",
+      "functionality_role": "CONSUMED_DEPENDENCY",
+      "grupo": "descartado",
+      "score": 0.6033,
+      "historias": [
+        "HU-Actualizar cuentas de menores.txt"
+      ],
+      "supporting_stories": [
+        "HU-Actualizar cuentas de menores.txt — Actualizar cuentas de menores"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "HU-Actualizar cuentas de menores",
+        "SC-01",
+        "SC-02",
+        "SC-03"
+      ],
+      "ownership_traceability": [],
+      "dependency_traceability": [
+        "HU-Actualizar cuentas de menores",
+        "SC-01",
+        "SC-02",
+        "SC-03"
+      ],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [
+        "BIAN-SCOPE-002"
+      ],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerAccessEntitlement.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "ce29e41d818e8294beb839eb993dbf8174d6751a5f1bb6e2d1a18899fcfb2036",
+        "cache_path": "/home/super/Desktop/angel_dir/generacion_contrato_bian/docs/bian-cache/release14.0.0/CustomerAccessEntitlement.json",
+        "recuperado_en": "2026-09-10T22:23:40.808671+00:00",
+        "error": ""
+      },
+      "rationale": "La historia solo consume la información de restricciones para impedir la edición, sin crear ni actualizar el acuerdo de acceso. La operación Retrieve del paquete devuelve datos del perfil de acceso, que la UI usa para mostrar datos personales. No hay evidencia de que la historia administre directamente el objeto de acceso o restricciones."
+    },
+    {
+      "service_domain": "Customer Relationship Management",
+      "decision": "REJECTED",
+      "motivo": "CONSUMED_DEPENDENCY",
+      "contract_role": "CONSUMED_DEPENDENCY",
+      "functionality_role": "CONSUMED_DEPENDENCY",
+      "grupo": "descartado",
+      "score": 0.415,
+      "historias": [
+        "HU-Actualizar cuentas de menores.txt"
+      ],
+      "supporting_stories": [
+        "HU-Actualizar cuentas de menores.txt — Actualizar cuentas de menores"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "SC-01",
+        "SC-02",
+        "SC-03"
+      ],
+      "ownership_traceability": [],
+      "dependency_traceability": [
+        "SC-01",
+        "SC-02",
+        "SC-03"
+      ],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [
+        "BIAN-SCOPE-002"
+      ],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/CustomerRelationshipManagement.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "f57a0da7053e40cac7c2cc5ca9243bdb3cbf76fe39993e0502cc151f1a6ec603",
+        "cache_path": "/home/super/Desktop/angel_dir/generacion_contrato_bian/docs/bian-cache/release14.0.0/CustomerRelationshipManagement.json",
+        "recuperado_en": "2026-09-12T22:09:10.081872+00:00",
+        "error": ""
+      },
+      "rationale": "The story requires viewing personal data, which maps to the Retrieve operation, but the object 'datos personales' is not represented in the schema; thus the service domain only provides data retrieval, not ownership."
+    },
+    {
+      "service_domain": "Party Authentication",
+      "decision": "REJECTED",
+      "motivo": "RELATED_NOT_OWNED",
+      "contract_role": "RELATED_NOT_OWNED",
+      "functionality_role": "RELATED_NOT_OWNED",
+      "grupo": "descartado",
+      "score": 0.19,
+      "historias": [
+        "HU-Actualizar cuentas de menores.txt"
+      ],
+      "supporting_stories": [
+        "HU-Actualizar cuentas de menores.txt — Actualizar cuentas de menores"
+      ],
+      "contradicting_stories": [],
+      "traceability": [
+        "Evaluate",
+        "PartyAuthenticationAssessment"
+      ],
+      "ownership_traceability": [],
+      "dependency_traceability": [],
+      "selected_operations": [],
+      "custom_bq_candidates": [],
+      "reason_codes": [],
+      "blocking_codes": [],
+      "evidence": {
+        "estado": "CACHED_VERIFIED",
+        "release": "14.0.0",
+        "source_url": "https://raw.githubusercontent.com/bian-official/public/b58bf4c2c300dd018afc084e9bb24b7adaaa3500/release14.0.0/semantic-apis/oas3%20/yamls/PartyAuthentication.yaml",
+        "source_commit_sha": "b58bf4c2c300dd018afc084e9bb24b7adaaa3500",
+        "content_sha256": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd",
+        "cache_path": "/home/super/Desktop/angel_dir/generacion_contrato_bian/docs/bian-cache/release14.0.0/PartyAuthentication.json",
+        "recuperado_en": "2026-09-10T22:23:59.281337+00:00",
+        "error": ""
+      },
+      "rationale": "La historia trata sobre la lectura de datos personales y la restricción de edición en la UI para menores de edad. Party Authentication administra la evaluación y confirmación de identidad/credenciales de clientes, lo cual no corresponde al dominio de gestión de datos de contacto o perfiles de clientes."
+    }
+  ],
+  "service_domains_omitidos": [
+    {
+      "service_domain": "Account Reconciliation",
+      "score_lexico": 0.5,
+      "business_area": "Operations and Execution",
+      "business_domain": "Account Management",
+      "rol_bian": "Match, reconcile and resolve identified discrepancies between selected financial accounts in collaboration with the account 'owner' as necessary",
+      "señales": [
+        "account"
+      ]
+    },
+    {
+      "service_domain": "Account Recovery",
+      "score_lexico": 0.5,
+      "business_area": "Sales and Service",
+      "business_domain": "Customer Management",
+      "rol_bian": "Handles the recovery of distressed accounts that have exceeded standard late/payment handling but have not yet been fully written off and passed to collections. The restructuring can involve partial write downs and leveraging any tax or other program of assistance that can be applied. The situation is managed until the account is recovered or a decision made to pass the account over to collections",
+      "señales": [
+        "account"
+      ]
+    },
+    {
+      "service_domain": "Current Account",
+      "score_lexico": 0.5,
+      "business_area": "Operations and Execution",
+      "business_domain": "Loans and Deposits",
+      "rol_bian": "The Current Account or Demand Deposit Account as it can be called is a financial facility that represents the general checking account facility at the core of the consumer and small business banking activity. There is a range of supporting features that make up the standard facility (checks/cheques, standing orders, debit cards, phone and on-line banking services etc.). The fulfillment can include a range of optional services, fees and interest payments and penalties and will often be bundled and or underlie/support other financial facilities and financial transactions",
+      "señales": [
+        "account"
+      ]
+    },
+    {
+      "service_domain": "Incentive Account",
+      "score_lexico": 0.5,
+      "business_area": "Operations and Execution",
+      "business_domain": "Operational Services",
+      "rol_bian": "The Incentive Account service domain orchestrates the fulfillment of all service obligations for one or more Incentive Programs into which a Customer's products are enrolled. This includes maintaining enrollment status, accruing value driven incentives such as points or cashback, accruing service driven incentives such as product or relationship incentives, handling and orchestrating incentive redemptions requests, maintaing balance and status of accrued incentives, and managing their expiration and forfeiture.",
+      "señales": [
+        "account"
+      ]
+    },
+    {
+      "service_domain": "Investment Account",
+      "score_lexico": 0.5,
+      "business_area": "Operations and Execution",
+      "business_domain": "Investment Management",
+      "rol_bian": "The Investment Account is a facility used to maintain the non-cash holdings for a customer. It handles the deposit and withdrawal of securities and can maintain records for multiple securities/instruments. It also reflects the results of corporate actions as handled/orchestrated by the Corporate Events Service Domain (such as dividend payments, splits, etc.)",
+      "señales": [
+        "account"
+      ]
+    }
+  ],
+  "reconciliacion": {
+    "service_domains": [
+      {
+        "service_domain": "Party Reference Data Directory",
+        "functionality_role": "OWNED_CONTRACT",
+        "supporting_stories": [
+          "HU-Actualizar cuentas de menores.txt — Actualizar cuentas de menores"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "SELECTED",
+        "reason_codes": [],
+        "rationale": "El dominio gestiona directamente la actualización de datos personales, por lo que la funcionalidad la posee."
+      },
+      {
+        "service_domain": "Customer Access Entitlement",
+        "functionality_role": "CONSUMED_DEPENDENCY",
+        "supporting_stories": [
+          "HU-Actualizar cuentas de menores.txt — Actualizar cuentas de menores"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "El dominio solo se consume para la autorización, no posee la capacidad."
+      },
+      {
+        "service_domain": "Customer Relationship Management",
+        "functionality_role": "CONSUMED_DEPENDENCY",
+        "supporting_stories": [
+          "HU-Actualizar cuentas de menores.txt — Actualizar cuentas de menores"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "El dominio se consume para la gestión de relaciones, no es propietario."
+      },
+      {
+        "service_domain": "Party Authentication",
+        "functionality_role": "RELATED_NOT_OWNED",
+        "supporting_stories": [
+          "HU-Actualizar cuentas de menores.txt — Actualizar cuentas de menores"
+        ],
+        "contradicting_stories": [],
+        "recommended_status": "UNRESOLVED",
+        "reason_codes": [],
+        "rationale": "El dominio es marginal y no posee la capacidad directamente."
+      }
+    ],
+    "gaps": [],
+    "blocking_codes": [],
+    "metadatos": {
+      "prompt_id": "mapeo.reconciliacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "cbd0bbd9c0440d5d3bfdbd376dc9e44c0d0fb372f77bc7454e22a3534ff0ddef",
+      "nodo": "reconciliar_funcionalidad",
+      "historia": "",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "provider_used": "groq",
+      "model_used": "openai/gpt-oss-20b",
+      "attempt": 2,
+      "temperature": 0.0,
+      "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+      "evidence_snapshot_id": ""
+    }
+  },
+  "huellas_prompts": [
+    {
+      "prompt_id": "mapeo.reconciliacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "cbd0bbd9c0440d5d3bfdbd376dc9e44c0d0fb372f77bc7454e22a3534ff0ddef",
+      "nodo": "reconciliar_funcionalidad",
+      "historia": "",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "provider_used": "groq",
+      "model_used": "openai/gpt-oss-20b",
+      "attempt": 2,
+      "temperature": 0.0,
+      "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Actualizar cuentas de menores.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "provider_used": "gemini",
+      "model_used": "gemini-3.6-flash",
+      "attempt": 3,
+      "temperature": 0.0,
+      "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+      "evidence_snapshot_id": "49e65556d7af06074fbd22bed2161eb20dd617a7cef47d14249f3d4b17e624dd"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Actualizar cuentas de menores.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "provider_used": "groq",
+      "model_used": "openai/gpt-oss-120b",
+      "attempt": 1,
+      "temperature": 0.0,
+      "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+      "evidence_snapshot_id": "ce29e41d818e8294beb839eb993dbf8174d6751a5f1bb6e2d1a18899fcfb2036"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Actualizar cuentas de menores.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "provider_used": "groq",
+      "model_used": "openai/gpt-oss-20b",
+      "attempt": 2,
+      "temperature": 0.0,
+      "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+      "evidence_snapshot_id": "f57a0da7053e40cac7c2cc5ca9243bdb3cbf76fe39993e0502cc151f1a6ec603"
+    },
+    {
+      "prompt_id": "mapeo.evaluacion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "a0fdf25429273fa776496fd23373298be91cc56c9749c7f9b8b0896a25eb1a94",
+      "nodo": "evaluar_candidato",
+      "historia": "HU-Actualizar cuentas de menores.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "provider_used": "gemini",
+      "model_used": "gemini-3.5-flash",
+      "attempt": 4,
+      "temperature": 0.0,
+      "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+      "evidence_snapshot_id": "fa00cf777731bb1bde3e809563df14caa37896a9e4ac34560ffaf184f8fdda79"
+    },
+    {
+      "prompt_id": "mapeo.intencion",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "b1e294c51943a0c47a267c88004bcd3e7de5fb637db9ddcf4ccc0d1af0e02e73",
+      "nodo": "extraer_intencion",
+      "historia": "HU-Actualizar cuentas de menores.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "provider_used": "groq",
+      "model_used": "openai/gpt-oss-120b",
+      "attempt": 1,
+      "temperature": 0.0,
+      "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.candidatos",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "4ddebbdddcfe7668b44b892d8402ef022e4d7a602f1fd68b48bd4f3d87f30c19",
+      "nodo": "generar_candidatos",
+      "historia": "HU-Actualizar cuentas de menores.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "provider_used": "gemini",
+      "model_used": "gemini-3.5-flash",
+      "attempt": 4,
+      "temperature": 0.0,
+      "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.adversarial",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "fec929070580b147946f02599086c294b14c4b22abc1b5acf9e5032a4b252f7d",
+      "nodo": "revisar_adversarial",
+      "historia": "HU-Actualizar cuentas de menores.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "provider_used": "groq",
+      "model_used": "openai/gpt-oss-120b",
+      "attempt": 1,
+      "temperature": 0.0,
+      "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.completitud",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "7c8da3d0b8ef83efa4fb82417c8636564ebd39097461b7d9c58a6ea9442fd09f",
+      "nodo": "revisar_completitud",
+      "historia": "HU-Actualizar cuentas de menores.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "provider_used": "gemini",
+      "model_used": "gemini-3.5-flash",
+      "attempt": 4,
+      "temperature": 0.0,
+      "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+      "evidence_snapshot_id": ""
+    },
+    {
+      "prompt_id": "mapeo.operaciones",
+      "prompt_version": "1.3.0",
+      "prompt_sha256": "2b8286a1173ee75a3834866931ec351aff7ea52b107f33a3949f0c5b9fcb6fe0",
+      "nodo": "seleccionar_operaciones",
+      "historia": "HU-Actualizar cuentas de menores.txt",
+      "model": "groq:openai/gpt-oss-120b -> groq:openai/gpt-oss-20b -> gemini:gemini-3.6-flash -> gemini:gemini-3.5-flash -> gemini:gemini-3.5-flash-lite -> huggingface:deepseek-ai/DeepSeek-V4-Flash -> huggingface:openai/gpt-oss-120b -> huggingface:meta-llama/Llama-3.3-70B-Instruct -> openrouter:nvidia/nemotron-3-super-120b-a12b:free -> openrouter:nvidia/nemotron-3.5-lightning:free -> openrouter:google/gemma-4-31b-it:free -> openrouter:openrouter/free -> ollama:qwen3.8:27b-q8_0",
+      "provider_used": "gemini",
+      "model_used": "gemini-3.5-flash-lite",
+      "attempt": 4,
+      "temperature": 0.0,
+      "catalog_sha256": "ddb7d1907fa5c7a4ed265006d93eec1d68c84cc76b89ae63be77650fabcfcaac",
+      "evidence_snapshot_id": ""
+    }
+  ],
+  "incidencias": [
+    {
+      "historia": "HU-Actualizar cuentas de menores.txt",
+      "service_domain_propuesto": "Customer Access Entitlement",
+      "resolucion": "MATCH",
+      "decision": "UNRESOLVED",
+      "motivo": "OWNERSHIP_CONFLICT_UNRESOLVED",
+      "detalle": "visualizar datos personales es una acción directa del usuario pero está clasificada como CONSUMED_DEPENDENCY. No se promovió: dependency_kind=SUPPORTING_LOOKUP: es una precondición consultada, no la salida que la historia produce."
+    },
+    {
+      "historia": "HU-Actualizar cuentas de menores.txt",
+      "service_domain_propuesto": "Customer Relationship Management",
+      "resolucion": "MATCH",
+      "decision": "UNRESOLVED",
+      "motivo": "OWNERSHIP_CONFLICT_UNRESOLVED",
+      "detalle": "visualizar datos personales es una acción directa del usuario pero está clasificada como CONSUMED_DEPENDENCY. No se promovió: dependency_kind=SUPPORTING_LOOKUP: es una precondición consultada, no la salida que la historia produce."
+    }
+  ],
+  "metricas": {
+    "candidate_drop_rate": 0.0,
+    "candidatos_truncados": 0,
+    "candidatos_evaluados": 4,
+    "ownership_conflict_rate": 1.0,
+    "ownership_conflict_rate_respaldado": 1.0,
+    "ownership_promovidos": 0,
+    "ownership_degradados": 0,
+    "ownership_sin_resolver": 2,
+    "ownership_conflictos_confirmados_por_grafo": 0,
+    "ownership_conflictos_sin_respaldo_de_grafo": 0,
+    "operation_grounding_rate": 1.0,
+    "operation_coverage_rate": 1.0,
+    "operaciones_ancladas": 2,
+    "service_domains_elegibles": 1,
+    "operation_mapping_empty": 0,
+    "historias_sin_contrato": 0,
+    "operation_id_no_resuelto": 0,
+    "operation_gaps_declarados": 0,
+    "data_coverage_rate": 1.0,
+    "datos_requeridos_evaluables": 5,
+    "datos_requeridos_sin_operacion": 0,
+    "datos_requeridos_no_evaluados": 0,
+    "finalizados_por_operacion_solida": 1
+  },
+  "generado_en": "2026-09-16T02:58:47.369962+00:00"
+}

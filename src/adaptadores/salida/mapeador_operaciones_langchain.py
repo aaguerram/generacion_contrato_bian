@@ -28,6 +28,7 @@ from src.dominio.cobertura_operaciones import resolver_operation_id
 from src.dominio.historias import (
     FuncionalidadMacro,
     HistoriaUsuario,
+    IntencionHistoriaLLM,
     MapeoOperacionesLLM,
     MetadatosPrompt,
     OperacionBian,
@@ -86,6 +87,22 @@ def _formatear(
     return "\n\n".join(bloques)
 
 
+def _formatear_datos_requeridos(intencion: IntencionHistoriaLLM) -> str:
+    """Checklist NUMERADO de los datos que la historia pide (`intencion.business_objects`, que el
+    nodo 1 ya extrajo). Numerado por la misma razón que las operaciones: el prompt acepta el
+    índice como cita y `resolver_dato_requerido` lo ancla contra ESTA misma lista, así que el
+    modelo elige de un conjunto cerrado en vez de reescribir el requisito con sus palabras.
+
+    Sin este bloque el nodo solo veía la HU cruda: en la corrida real del 2026-09-15 la intención
+    llevaba "Nombre del tutor" y el mapeo ancló únicamente `RetrieveReference`, dejando el BQ
+    `Associations` -el único que expone la relación entre dos Party- fuera del análisis y sin
+    ninguna señal de que faltaba."""
+    datos = [d.strip() for d in intencion.business_objects if d and d.strip()]
+    if not datos:
+        return "(la historia no declaró objetos de negocio)"
+    return "\n".join(f"  [{i}] {d}" for i, d in enumerate(datos, start=1))
+
+
 def _formatear_bom(
     operaciones_por_sd: dict[str, list[OperacionBian]],
     paquetes_por_sd: dict[str, PaqueteEvidenciaCandidato],
@@ -138,6 +155,7 @@ class MapeadorOperacionesLangChain(MapeadorOperacionesBianPort):
         self,
         historia: HistoriaUsuario,
         funcionalidad: FuncionalidadMacro,
+        intencion: IntencionHistoriaLLM,
         operaciones_por_sd: dict[str, list[OperacionBian]],
         paquetes_por_sd: dict[str, PaqueteEvidenciaCandidato],
     ) -> MapeoOperacionesLLM:
@@ -152,6 +170,7 @@ class MapeadorOperacionesLangChain(MapeadorOperacionesBianPort):
                     "historia_archivo": historia.archivo,
                     "historia_titulo": historia.titulo,
                     "historia_contenido": historia.contenido,
+                    "datos_requeridos": _formatear_datos_requeridos(intencion),
                     "operaciones": _formatear(operaciones_por_sd, paquetes_por_sd),
                     "bom_por_sd": _formatear_bom(operaciones_por_sd, paquetes_por_sd),
                 }

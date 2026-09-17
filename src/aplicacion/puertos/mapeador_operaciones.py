@@ -15,6 +15,7 @@ from abc import ABC, abstractmethod
 from src.dominio.historias import (
     FuncionalidadMacro,
     HistoriaUsuario,
+    IntencionHistoriaLLM,
     MapeoOperacionesLLM,
     OperacionBian,
     PaqueteEvidenciaCandidato,
@@ -27,9 +28,16 @@ class MapeadorOperacionesBianPort(ABC):
         self,
         historia: HistoriaUsuario,
         funcionalidad: FuncionalidadMacro,
+        intencion: IntencionHistoriaLLM,
         operaciones_por_sd: dict[str, list[OperacionBian]],
         paquetes_por_sd: dict[str, PaqueteEvidenciaCandidato],
     ) -> MapeoOperacionesLLM:
         """Devuelve, por Service Domain, las operaciones oficiales que implementan la historia,
         y (aparte) los BQ personalizados propuestos cuando el BOM de `paquetes_por_sd` respalda
-        un campo que ninguna operación oficial cubre."""
+        un campo que ninguna operación oficial cubre.
+
+        `intencion` entra porque los DATOS que la historia pide ya los extrajo el nodo 1
+        (`business_objects`) y este paso los necesita como checklist cerrado: sin ellos el nodo
+        solo ve la HU cruda y su regla de "conjunto mínimo suficiente" lo empuja a parar en la
+        primera operación que resuelve el escenario principal, dejando datos reales sin cubrir y
+        sin declarar (ver `cobertura_datos_requeridos`)."""

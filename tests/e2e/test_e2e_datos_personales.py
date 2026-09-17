@@ -30,6 +30,11 @@ from e2e.shared.e2e_common import (
 _CARPETA = "datos_personales"
 
 
+@unittest.skip(
+    "deshabilitada temporalmente (2026-09-15): quitar este decorador para volver a "
+    "correrla; el equivalente determinista sin LLM sigue activo en "
+    "tests/unit_test/test_grafo_mapeo.py"
+)
 @requiere_e2e
 class TestE2EDatosPersonales(unittest.TestCase):
     """Réplica del comando real de `mapear-historias` sobre `tests/resources/datos_personales/`

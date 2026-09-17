@@ -95,7 +95,7 @@ class MapearHistoriasConfig:
     concurrencia_candidatos: int = 2
     max_candidatos_hu: int = 14
     paso2_operaciones: bool = True
-    rol_max_chars: int = 240
+    rol_max_chars: int = 600
     top_n_omitidos: int = 5
     # Flags de retrieval, INDEPENDIENTES: se puede tener híbrido sin grafo, grafo sin reranker,
     # o los tres. Un solo interruptor que mezclara las tres cosas impediría aislar qué aporta cada
@@ -313,7 +313,7 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
         concurrencia_candidatos=int(mh.get("concurrencia_candidatos", 2)),
         max_candidatos_hu=int(mh.get("max_candidatos_hu", 14)),
         paso2_operaciones=bool(mh.get("paso2_operaciones", True)),
-        rol_max_chars=int(mh.get("rol_max_chars", 240)),
+        rol_max_chars=int(mh.get("rol_max_chars", 600)),
         top_n_omitidos=int(mh.get("top_n_omitidos", 5)),
         graph_rag_habilitado=bool(mh.get("graph_rag_habilitado", False)),
         graph_rag_max_inyectados=int(mh.get("graph_rag_max_inyectados", 3)),

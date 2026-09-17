@@ -269,7 +269,7 @@ class _AnalistaGuion(AnalistaMapeoBianPort):
 
 
 class _MapeadorGuion(MapeadorOperacionesBianPort):
-    def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
+    def mapear(self, historia, funcionalidad, intencion, operaciones_por_sd, paquetes_por_sd):
         ops = []
         for sd, lista in operaciones_por_sd.items():
             if lista:
@@ -475,7 +475,7 @@ class _MapeadorNotificacion(MapeadorOperacionesBianPort):
     `resolver_operation_id` debe reconstruirlo desde el path/method reales -- ver
     `tests/test_cobertura_operaciones.py::TestResolverOperationId`."""
 
-    def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
+    def mapear(self, historia, funcionalidad, intencion, operaciones_por_sd, paquetes_por_sd):
         ops = []
         for sd, lista in operaciones_por_sd.items():
             fuente = next((o for o in lista if o.operation_id == "InitiateOutbound"), None)
@@ -498,7 +498,7 @@ class _MapeadorNotificacionVerificada(MapeadorOperacionesBianPort):
     SIN reservas -- necesario para ejercitar `finalizar_por_operacion_solida`, que exige una
     operación anclada sin `reason_codes` pendientes, no solo "alguna" operación."""
 
-    def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
+    def mapear(self, historia, funcionalidad, intencion, operaciones_por_sd, paquetes_por_sd):
         ops = []
         for sd, lista in operaciones_por_sd.items():
             fuente = next((o for o in lista if o.operation_id == "InitiateOutbound"), None)
@@ -522,7 +522,7 @@ class _MapeadorNotificacionMultiplesEscenarios(MapeadorOperacionesBianPort):
     escenario_hu/justificacion/bq_seed) -- antes de `fusionar_propuestas_de_operacion` esto
     generaba 4 entradas duplicadas en `operaciones_bian`."""
 
-    def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
+    def mapear(self, historia, funcionalidad, intencion, operaciones_por_sd, paquetes_por_sd):
         ops = []
         for sd, lista in operaciones_por_sd.items():
             fuente = next((o for o in lista if o.operation_id == "InitiateOutbound"), None)
@@ -677,7 +677,7 @@ class TestGrafoMapeoPromocionOwnership(unittest.TestCase):
 
     def test_operation_id_irreconocible_no_se_pierde_en_silencio(self):
         class _MapeadorInventado(MapeadorOperacionesBianPort):
-            def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
+            def mapear(self, historia, funcionalidad, intencion, operaciones_por_sd, paquetes_por_sd):
                 return MapeoOperacionesLLM(
                     operaciones=[
                         OperacionPropuestaLLM(
@@ -1063,3 +1063,225 @@ class TestGrafoMapeoRetrievalHibrido(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class _AnalistaDatosPersonalesMenor(AnalistaMapeoBianPort):
+    """Reproduce la corrida real del 2026-09-15 sobre "Actualizar cuentas de menores": la intención
+    declara DOS datos de negocio -los datos personales y el nombre del tutor- y Party Reference
+    Data Directory queda OWNED_CONTRACT desde la primera evaluación. El segundo dato vive en otro
+    BQ del MISMO Service Domain (`Associations`), así que anclar solo `RetrieveReference` deja la
+    historia con un contrato incompleto."""
+
+    def extraer_intencion(self, historia, funcionalidad):
+        return IntencionHistoriaLLM(
+            resumen_funcional="guion",
+            business_actions=["visualizar"],
+            business_objects=["Datos personales del usuario", "Nombre del tutor"],
+            traceability_ids=["SC-01"],
+        )
+
+    def generar_candidatos(self, historia, funcionalidad, intencion, catalogo):
+        return CandidatosHistoriaLLM(
+            candidatos=[CandidatoServiceDomainLLM(service_domain="Party Reference Data Directory")]
+        )
+
+    def revisar_completitud(
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+    ):
+        return RevisionCompletitudLLM()
+
+    def evaluar_candidato(self, historia, funcionalidad, intencion, paquete):
+        return EvaluacionCandidatoLLM(
+            service_domain=paquete.service_domain,
+            estado="DIRECTO",
+            rol_contractual="OWNED_CONTRACT",
+            accion_objeto="visualizar datos personales",
+            functional_object="party reference data",
+            match_action=3,
+            match_business_object=3,
+            match_service_role=3,
+            evidence_quality=3,
+            ambiguity="LOW",
+            ownership_traceability=["SC-01"],
+            evidence_refs=["RetrieveReference", "CellPhoneNumber"],
+            justification="(guion) el directorio de referencia administra los datos personales.",
+        )
+
+    def revisar_adversarial(self, historia, intencion, grupos):
+        return RevisionAdversarialLLM(resumen="sin contradicciones")
+
+    def reconciliar_funcionalidad(self, funcionalidad, resumen_por_historia):
+        return ReconciliacionFuncionalidadLLM()
+
+
+class _MapeadorSoloReference(MapeadorOperacionesBianPort):
+    """Lo que hizo el modelo real: ancla `RetrieveReference` para los datos personales y NO dice
+    NADA del segundo dato requerido -- ni lo cubre ni lo declara sin cubrir."""
+
+    def mapear(self, historia, funcionalidad, intencion, operaciones_por_sd, paquetes_por_sd):
+        ops = []
+        for sd, lista in operaciones_por_sd.items():
+            fuente = next((o for o in lista if o.operation_id == "RetrieveReference"), None)
+            if fuente is not None:
+                ops.append(
+                    OperacionPropuestaLLM(
+                        service_domain=sd,
+                        operation_id=fuente.operation_id,
+                        escenarios_hu=["SC-01"],
+                        justificacion="guion: devuelve nombre, identificacion, celular y correo.",
+                        traceability=["SC-01"],
+                        evidence_refs=["CellPhoneNumber", "eMailAddress"],
+                        datos_cubiertos=["1"],
+                    )
+                )
+        return MapeoOperacionesLLM(operaciones=ops)
+
+
+class _MapeadorReferenceYAssociations(MapeadorOperacionesBianPort):
+    """Lo que debe pasar con el checklist delante: cada dato requerido acaba en una operación
+    -`RetrieveReference` para los datos personales, `RetrieveAssociations` (BQ `Associations`, el
+    único que expone la relación entre dos Party) para el tutor-, citado por su número de lista."""
+
+    def mapear(self, historia, funcionalidad, intencion, operaciones_por_sd, paquetes_por_sd):
+        citas = {"RetrieveReference": "1", "RetrieveAssociations": "2"}
+        ops = []
+        for sd, lista in operaciones_por_sd.items():
+            for operation_id, cita in citas.items():
+                fuente = next((o for o in lista if o.operation_id == operation_id), None)
+                if fuente is None:
+                    continue
+                ops.append(
+                    OperacionPropuestaLLM(
+                        service_domain=sd,
+                        operation_id=fuente.operation_id,
+                        escenarios_hu=["SC-01"],
+                        justificacion=f"guion: {operation_id}.",
+                        traceability=["SC-01"],
+                        evidence_refs=[fuente.operation_id],
+                        datos_cubiertos=[cita],
+                    )
+                )
+        return MapeoOperacionesLLM(operaciones=ops)
+
+
+class _MapeadorDeclaraLoQueNoCubre(MapeadorOperacionesBianPort):
+    """El tercer desenlace legítimo: ninguna operación oficial expone el dato y el nodo LO DICE
+    (`datos_no_cubiertos` + `gaps`). No es un error -hay datos de UI o de otro Service Domain-,
+    pero tiene que quedar visible en la salida."""
+
+    def mapear(self, historia, funcionalidad, intencion, operaciones_por_sd, paquetes_por_sd):
+        ops = []
+        for sd, lista in operaciones_por_sd.items():
+            fuente = next((o for o in lista if o.operation_id == "RetrieveReference"), None)
+            if fuente is not None:
+                ops.append(
+                    OperacionPropuestaLLM(
+                        service_domain=sd,
+                        operation_id=fuente.operation_id,
+                        escenarios_hu=["SC-01"],
+                        justificacion="guion: datos personales.",
+                        traceability=["SC-01"],
+                        evidence_refs=[fuente.operation_id],
+                        datos_cubiertos=["Datos personales del usuario"],
+                    )
+                )
+        return MapeoOperacionesLLM(
+            operaciones=ops,
+            datos_no_cubiertos=["Nombre del tutor"],
+            gaps=["ninguna operacion oficial expone el nombre del tutor"],
+            blocking_codes=["BIAN-SCOPE-008"],
+        )
+
+
+class TestGrafoMapeoCoberturaDatosRequeridos(unittest.TestCase):
+    """Regresión determinista (sin LLM real, caché BIAN real) del hueco encontrado en la corrida
+    2026-09-15: la intención declaró "Nombre del tutor", el mapeo ancló solo `RetrieveReference` y
+    la corrida terminó en verde. Un dato requerido que nadie cubrió ni declaró debe ser visible."""
+
+    def _servicio(self, mapeador):
+        return MapearHistoriasServiceDomainsService(
+            CatalogoJson(str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json")),
+            LectorHistoriasFilesystem(),
+            _AnalistaDatosPersonalesMenor(),
+            PublicadorMapeoJson(),
+            CatalogoBianCache(
+                str(DOCS / "bian-operation-catalogs.json"),
+                str(DOCS / "bian-cache"),
+                "14.0.0",
+                permitir_descargas=False,
+            ),
+            mapeador,
+            umbrales=UmbralesMapeo(),
+            concurrencia=1,
+        )
+
+    def _ejecutar(self, mapeador):
+        with tempfile.TemporaryDirectory() as tmp:
+            raiz = Path(tmp)
+            (raiz / "HU").mkdir()
+            (raiz / "HU" / "HU-01.txt").write_text(
+                "Como usuario menor de edad quiero ver mis datos personales.\n"
+                "Escenario 1. Visualizacion de datos en cuenta menor\n"
+                "Nota: el nombre del tutor sera enviado por BE.",
+                encoding="utf-8",
+            )
+            func = raiz / "f.json"
+            func.write_text(
+                json.dumps({"funcionalidad_macro": "Actualizacion de datos personales"}),
+                encoding="utf-8",
+            )
+            return self._servicio(mapeador).ejecutar(
+                str(raiz / "HU"), str(func), str(raiz / "out")
+            )
+
+    def test_dato_requerido_que_nadie_menciono_queda_como_incidencia(self):
+        r = self._ejecutar(_MapeadorSoloReference())
+
+        no_evaluados = [
+            i for i in r.incidencias if i["motivo"] == "DATO_REQUERIDO_NO_EVALUADO"
+        ]
+        self.assertEqual(len(no_evaluados), 1)
+        self.assertIn("Nombre del tutor", no_evaluados[0]["detalle"])
+        self.assertEqual(r.metricas["datos_requeridos_no_evaluados"], 1)
+        self.assertEqual(r.metricas["datos_requeridos_evaluables"], 2)
+        self.assertEqual(r.metricas["data_coverage_rate"], 0.5)
+        # la cobertura de OPERACIONES seguía en verde: es justo lo que ocultaba el hueco.
+        self.assertEqual(r.metricas["operation_coverage_rate"], 1.0)
+
+    def test_cada_dato_cubierto_por_su_bq_deja_la_cobertura_en_1(self):
+        r = self._ejecutar(_MapeadorReferenceYAssociations())
+
+        asignado = next(
+            a
+            for a in r.historias[0].service_domains.candidatos_directos
+            if a.service_domain == "Party Reference Data Directory"
+        )
+        por_id = {o.operation_id: o for o in asignado.operaciones_bian}
+        self.assertIn("RetrieveReference", por_id)
+        self.assertIn("RetrieveAssociations", por_id)
+        self.assertEqual(por_id["RetrieveAssociations"].grupo, "Associations")
+        self.assertEqual(por_id["RetrieveAssociations"].tipo, "BQ")
+        self.assertEqual(por_id["RetrieveAssociations"].method, "GET")
+        # las citas al checklist se anclan al texto canónico del dato, no al número crudo
+        self.assertEqual(por_id["RetrieveReference"].datos_cubiertos, ["Datos personales del usuario"])
+        self.assertEqual(por_id["RetrieveAssociations"].datos_cubiertos, ["Nombre del tutor"])
+        self.assertEqual(r.metricas["data_coverage_rate"], 1.0)
+        self.assertEqual(r.metricas["datos_requeridos_no_evaluados"], 0)
+        self.assertEqual(
+            [i for i in r.incidencias if i["motivo"].startswith("DATO_REQUERIDO")], []
+        )
+
+    def test_dato_declarado_sin_operacion_y_gaps_del_nodo_llegan_a_la_salida(self):
+        r = self._ejecutar(_MapeadorDeclaraLoQueNoCubre())
+
+        declarados = [i for i in r.incidencias if i["motivo"] == "DATO_REQUERIDO_SIN_OPERACION"]
+        self.assertEqual(len(declarados), 1)
+        self.assertIn("Nombre del tutor", declarados[0]["detalle"])
+        self.assertEqual(r.metricas["datos_requeridos_no_evaluados"], 0)
+        self.assertEqual(r.metricas["datos_requeridos_sin_operacion"], 1)
+        # `gaps` y `blocking_codes` del nodo se tiraban en `_asignar_operaciones`: BIAN-SCOPE-008
+        # nunca llegaba ni a la salida ni a las métricas.
+        gaps = [i for i in r.incidencias if i["motivo"] == "OPERATION_GAP_DECLARED"]
+        self.assertEqual(len(gaps), 2)
+        self.assertTrue(any("BIAN-SCOPE-008" in i["detalle"] for i in gaps))
+        self.assertEqual(r.metricas["operation_gaps_declarados"], 2)

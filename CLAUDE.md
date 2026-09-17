@@ -51,6 +51,12 @@ corpus no comparten ni un término y el canal recupera **cero**. Esa —y no la 
 la causa del 0.29 histórico. `fusion_rrf` acepta `k` y un peso por canal (`rrf_k`,
 `rrf_peso_lexico`, `rrf_peso_vectorial`).
 
+Los escalones de degradación del paso 2 son `(chars_negocio, rol_max_chars)`
+(`_escalones_catalogo`), no solo el CAG: primero se sacrifica el vocabulario de negocio y solo al
+final el Service Role, y el último es siempre `(0, 240)` — el índice mínimo con el que el prompt
+siempre cupo. Subir `rol_max_chars` sube el SUELO del prompt, así que sin ese escalón un catálogo
+que no cabe en ningún modelo dejaría la HU sin candidatos en vez de degradarse.
+
 **CAG escalonado** (`cag_habilitado` + `cag_chars_por_sd`): a 341 Service Domains el catálogo
 entero cabe en contexto (~27k tokens hoy, ~48k con 300 chars de negocio por SD, ~54k con todo lo
 que publica el landscape), así que el Recall@K de la recuperación es una **elección**, no una
@@ -135,6 +141,14 @@ tarda más, la causa está en el failover, no en el checkpointer.
       `outcomes`, `external_dependencies`, `traceability_ids` HU-/SC-/BR-, `assumptions`, `gaps`).
       **No nombra ningún SD.**
    2. `generar_candidatos` → `CandidatosHistoriaLLM` (nombres del catálogo; **pista, no exhaustiva**).
+      Ve el catálogo formateado (`formatear_catalogo`: nombre · Area > Domain · [patrón/asset] ::
+      `service_role` recortado a `rol_max_chars`, **600** — con 240 se recortaba el rol de 219 de
+      los 341 SD) **más `<taxonomia_bian>`** (`formatear_taxonomia`): qué cubre cada Business Area
+      (5) y Business Domain (36) según el propio landscape, **deduplicado y enviado una vez**
+      (~3.3k tokens; inline por SD costaría ~23k por la misma información). Antes esa jerarquía
+      viajaba como etiqueta sin definir aunque pesa un 10% del score. `documentation` del SD NO se
+      manda **nunca**: es la concatenación literal de `service_role` + `examples_of_use` +
+      `executive_summary` + `features`, ~76k tokens por cero información nueva.
    3. `revisar_completitud` → `RevisionCompletitudLLM` (usa el índice global BIAN como hint:
       `missing_candidates` / `unsupported_candidates` / `ownership_conflicts` /
       `duplicated_responsibilities` / `coverage_gaps` / `blocking_codes` `BIAN-SCOPE-009`).
@@ -278,7 +292,28 @@ tarda más, la causa está en el failover, no en el checkpointer.
       acepta el índice (`7`, `[7]`, `#7`): elegir un número de una lista es mucho más fácil para un
       modelo pequeño que reproducir un `operationId` camelCase entre decenas, y sigue siendo una
       cita al catálogo REAL — un índice fuera de rango no resuelve nada, igual que un operationId
-      inventado. Devuelve `MapeoOperacionesLLM` para los SD **elegibles** (`candidatos_operacion_elegibles`: `OWNED_CONTRACT` directo O tentativo — YA NO
+      inventado. El prompt recibe además `<datos_requeridos>`: el checklist NUMERADO de
+      `intencion.business_objects` —los datos que la propia HU declaró en `extraer_intencion`—,
+      y cada dato tiene que acabar en uno de tres sitios: `datos_cubiertos` de la operación que lo
+      expone (citado por número o literal; `resolver_dato_requerido` lo ancla contra esa misma
+      lista cerrada, igual que el `operationId`), `bq_personalizados`, o `datos_no_cubiertos` +
+      una línea en `gaps`. "Conjunto mínimo suficiente" se mide contra ESOS datos, no contra el nº
+      de operaciones: si dos datos viven en CR/BQ distintos del MISMO SD, hacen falta las dos
+      operaciones. Sin esto el nodo solo veía la HU cruda y el "mínimo" lo empujaba a parar en la
+      primera operación que resolvía el escenario principal — caso real 2026-09-15, HU "Actualizar
+      cuentas de menores": la intención llevaba "Nombre del tutor" ("el nombre del tutor será
+      enviado por BE"), el mapeo ancló solo `RetrieveReference` y la corrida terminó en verde
+      (`operation_coverage_rate` 1.0) dejando fuera `RetrieveAssociations`, el único BQ de
+      `Party Reference Data Directory` que expone la relación entre dos Party
+      (`AssociateReference`/`AssociateType`). El reparto lo hace `cobertura_datos_requeridos`
+      **[determinista]**: un dato que nadie cubrió NI declaró es incidencia
+      `DATO_REQUERIDO_NO_EVALUADO`; uno declarado sin operación, `DATO_REQUERIDO_SIN_OPERACION`
+      (resultado legítimo — hay datos de UI —, pero visible). "Cubierto" gana a "declarado": cada
+      llamada ve UN Service Domain y declara solo por él. Los `gaps`/`blocking_codes` del nodo
+      (incluido `BIAN-SCOPE-008`) ya no se tiran en `_fusionar_mapeos`: salen como
+      `OPERATION_GAP_DECLARED`. Regresión determinista en
+      `tests/unit_test/test_grafo_mapeo.py::TestGrafoMapeoCoberturaDatosRequeridos`; E2E real en
+      `tests/e2e/test_e2e_cuentas_menores.py`. Devuelve `MapeoOperacionesLLM` para los SD **elegibles** (`candidatos_operacion_elegibles`: `OWNED_CONTRACT` directo O tentativo — YA NO
       solo "directo"; un SD correctamente identificado como propietario con confianza tentativa
       igual tiene una operación oficial real que documentar, sin que la confianza global de la
       historia decida si esa operación existe): `operationId` literal, conjunto mínimo suficiente, `traceability` por operación,
@@ -396,6 +431,10 @@ tarda más, la causa está en el failover, no en el checkpointer.
    `operation_id_no_resuelto` (incidencias `OPERATION_ID_UNRESOLVED`, que ahora incluyen las citas
    que el blindaje anti-alucinación del adaptador descarta — antes solo vivían en un
    `logger.warning`, así que "el modelo se inventó todo" era indistinguible de "no propuso nada") y
+   `data_coverage_rate` (datos requeridos cubiertos por alguna operación, sobre los de las HU que
+   SÍ tuvieron SD elegibles — `null` = no aplica, misma convención que las dos tasas de arriba;
+   sus crudos son `datos_requeridos_evaluables` / `datos_requeridos_sin_operacion` /
+   `datos_requeridos_no_evaluados`), `operation_gaps_declarados` (`OPERATION_GAP_DECLARED`),
    `finalizados_por_operacion_solida` (`OWNED_FINALIZED_BY_OPERATION_EVIDENCE`, ver paso 9),
    `ownership_conflict_rate_respaldado` + `ownership_conflictos_confirmados_por_grafo` /
    `ownership_conflictos_sin_respaldo_de_grafo` (paso 8).
@@ -411,7 +450,8 @@ tarda más, la causa está en el failover, no en el checkpointer.
    (`--sin-timestamp` escribe directo en `<--directorio>`).
    - Puertos: `LectorHistoriasPort`, `AnalistaMapeoBianPort` (6 métodos, 1 por nodo LLM),
      `PublicadorMapeoPort`, `CatalogoOperacionesBianPort` (+`schemas_detalle_de`/`catalogo_estructurado_de`),
-     `CatalogoBomPort` (PUML), `MapeadorOperacionesBianPort`, `MapearHistoriasUseCase`.
+     `CatalogoBomPort` (PUML), `MapeadorOperacionesBianPort` (recibe la `intencion`: sus
+     `business_objects` son el checklist de datos requeridos del paso 9), `MapearHistoriasUseCase`.
    - `python -m src mapear-historias --directorio-hu ./HU --funcionalidad ./ejemplos/funcionalidad-actualizacion-datos-personales.json --directorio ./salida [--proveedor fake|groq|gemini|huggingface|openrouter] [--config <ruta>] [--umbral-directo 0.9] [--umbral-tentativo 0.63] [--concurrencia 2] [--sin-operaciones] [--sin-timestamp] [--actualizar-cache-bian]`
 
 ## REGLA OBLIGATORIA para cualquier cambio en `src/`
@@ -520,6 +560,13 @@ Valida que Correspondence quede `OWNED_CONTRACT` (nunca `REJECTED`) con `Initiat
 LLM le da al candidato (0.5033 / 0.6733 / 0.98 observados en corridas reales según el contexto y
 qué modelo del failover respondió) — la regresión determinista es la que fija ese caso sin
 depender de qué framing use la E2E.
+
+Tercer ejemplo: `tests/e2e/test_e2e_cuentas_menores.py` + `tests/resources/cuentas_menores/` — HU
+"Actualizar cuentas de menores" bajo la misma funcionalidad macro. Fija el caso de los DOS datos
+en DOS Behavior Qualifier del MISMO Service Domain: `Party Reference Data Directory` debe anclar
+`RetrieveReference` (BQ `Reference`: celular/correo) **y** `RetrieveAssociations` (BQ
+`Associations`: la relación menor↔tutor, `AssociateReference`). Su equivalente determinista SIN
+LLM es `tests/unit_test/test_grafo_mapeo.py::TestGrafoMapeoCoberturaDatosRequeridos`.
 
 ## Comandos
 

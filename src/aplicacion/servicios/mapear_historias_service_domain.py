@@ -81,10 +81,12 @@ from src.dominio.clasificacion_historias import (
 )
 from src.dominio.cobertura_operaciones import (
     campos_alcanzables,
+    cobertura_datos_requeridos,
     derivar_path_grupo,
     fusionar_propuestas_de_operacion,
     operacion_evidencia_verificable,
     operation_id_en_uso,
+    resolver_dato_requerido,
     resolver_operation_id,
 )
 from src.dominio.deteccion_omitidos import detectar_omitidos
@@ -267,6 +269,10 @@ def _fusionar_mapeos(mapeos: list[MapeoOperacionesLLM]) -> MapeoOperacionesLLM:
     return MapeoOperacionesLLM(
         operaciones=[o for m in mapeos for o in m.operaciones],
         bq_personalizados=[b for m in mapeos for b in m.bq_personalizados],
+        # Cada llamada ve UN Service Domain, así que "este dato no lo expone ninguna operación"
+        # es una declaración PARCIAL: la unión se reparte después contra lo que cubrió cualquier
+        # otro Service Domain (`cobertura_datos_requeridos`, donde "cubierto" gana a "declarado").
+        datos_no_cubiertos=list(dict.fromkeys(d for m in mapeos for d in m.datos_no_cubiertos)),
         gaps=list(dict.fromkeys(g for m in mapeos for g in m.gaps)),
         blocking_codes=list(dict.fromkeys(c for m in mapeos for c in m.blocking_codes)),
         citas_descartadas=[c for m in mapeos for c in m.citas_descartadas],
@@ -1036,6 +1042,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         huellas, incidencias, con_operaciones = self._asignar_operaciones(
             estado["historia"],
             estado["funcionalidad"],
+            estado["intencion"],
             elegibles,
             estado.get("a_evaluar", []),
         )
@@ -1178,6 +1185,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         self,
         historia: HistoriaUsuario,
         funcionalidad,
+        intencion,
         elegibles: list[ServiceDomainAsignado],
         a_evaluar: list[PaqueteEvidenciaCandidato],
     ) -> tuple[list[MetadatosPrompt], list[dict], set[str]]:
@@ -1215,6 +1223,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             self._mapeador_operaciones.mapear(
                 historia,
                 funcionalidad,
+                intencion,
                 {sd: operaciones},
                 {sd: paquetes_por_sd[sd]} if sd in paquetes_por_sd else {},
             )
@@ -1229,6 +1238,11 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # (aislamiento estricto: un operationId de un SD nunca se ancla a otro SD).
         indice_ops = {normalizar(nombre): ops for nombre, ops in operaciones_por_sd.items()}
         incidencias: list[dict] = []
+        # Checklist de datos que la historia pidió (`intencion.business_objects`, nodo 1) y que
+        # este paso debe cubrir con una operación o declarar sin cubrir. Ver
+        # `cobertura_datos_requeridos`.
+        datos_requeridos = [d.strip() for d in intencion.business_objects if d and d.strip()]
+        cubiertos_historia: list[str] = []
         # 1ª pasada: resuelve cada propuesta contra el catálogo real y agrupa por (SD, operationId
         # real) -- el LLM puede citar la MISMA operación más de una vez, una por cada
         # escenario/bq_seed que cubre (`fusionar_propuestas_de_operacion`), nunca se ancla una
@@ -1291,6 +1305,19 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                     fuente.operation_id,
                     fuente.response_schema,
                 )
+            # Las citas al checklist se anclan igual que el operationId: contra la lista REAL que
+            # se le mostró (`resolver_dato_requerido`), nunca como texto libre. Una cita que no
+            # resuelve no cubre nada y el dato sigue contando como no evaluado.
+            datos_cubiertos = list(
+                dict.fromkeys(
+                    d
+                    for d in (
+                        resolver_dato_requerido(c, datos_requeridos) for c in op.datos_cubiertos
+                    )
+                    if d is not None
+                )
+            )
+            cubiertos_historia.extend(datos_cubiertos)
             asignado.operaciones_bian.append(
                 OperacionBianAplicada(
                     operation_id=fuente.operation_id,
@@ -1305,6 +1332,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                     bq_seed=op.bq_seed,
                     traceability=op.traceability,
                     evidence_refs=op.evidence_refs,
+                    datos_cubiertos=datos_cubiertos,
                     reason_codes=list(dict.fromkeys(reason_codes)),
                 )
             )
@@ -1362,6 +1390,66 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             }
             for sd in elegibles
             if not sd.operaciones_bian and operaciones_por_sd.get(sd.service_domain)
+        ]
+
+        # Los `gaps`/`blocking_codes` del nodo se fusionaban (`_fusionar_mapeos`) y se TIRABAN:
+        # `BIAN-SCOPE-008` ("una semilla del use case quedó sin cubrir") es justo la señal de un
+        # contrato incompleto, y no llegaba a la salida ni a las métricas. Ahora es una incidencia
+        # como cualquier otra: informativa, no reclasifica nada.
+        incidencias += [
+            {
+                "historia": historia.archivo,
+                "service_domain_propuesto": ", ".join(operaciones_por_sd),
+                "resolucion": "MATCH",
+                "decision": "NOT_EVALUATED",
+                "motivo": "OPERATION_GAP_DECLARED",
+                "detalle": detalle,
+            }
+            for detalle in [*mapeo.gaps, *(f"blocking_code {c}" for c in mapeo.blocking_codes)]
+            if detalle and detalle.strip()
+        ]
+
+        # Cobertura de los DATOS que la historia pidió. La HU los declara (`business_objects`) y
+        # el nodo tiene que cerrarlos uno por uno: cubrirlos con una operación o decir que ninguna
+        # los expone. El silencio era invisible -- caso real 2026-09-15: "Nombre del tutor" salió
+        # en la intención, el mapeo ancló solo `RetrieveReference` y la corrida terminó con
+        # `operation_coverage_rate` 1.0 aunque el BQ `Associations` del MISMO Service Domain era
+        # el que expone la relación entre dos Party.
+        _, declarados, no_evaluados = cobertura_datos_requeridos(
+            datos_requeridos,
+            cubiertos_historia,
+            [c for c in mapeo.datos_no_cubiertos],
+        )
+        incidencias += [
+            {
+                "historia": historia.archivo,
+                "service_domain_propuesto": ", ".join(operaciones_por_sd),
+                "resolucion": "MATCH",
+                "decision": "NOT_EVALUATED",
+                "motivo": motivo,
+                "detalle": detalle,
+            }
+            for motivo, datos, detalle_fn in (
+                (
+                    "DATO_REQUERIDO_SIN_OPERACION",
+                    declarados,
+                    lambda d: (
+                        f"el dato requerido '{d}' quedó declarado sin operación: ninguna "
+                        "operación oficial de los Service Domains elegibles lo expone."
+                    ),
+                ),
+                (
+                    "DATO_REQUERIDO_NO_EVALUADO",
+                    no_evaluados,
+                    lambda d: (
+                        f"el dato requerido '{d}' no fue ni cubierto ni declarado por el paso de "
+                        "operaciones; revisar si algún CR/BQ de los Service Domains elegibles lo "
+                        "expone."
+                    ),
+                ),
+            )
+            for d in datos
+            for detalle in [detalle_fn(d)]
         ]
         return huellas, incidencias, set(operaciones_por_sd)
 
@@ -1629,6 +1717,29 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         operation_id_no_resuelto = sum(
             1 for i in incidencias if i.get("motivo") == "OPERATION_ID_UNRESOLVED"
         )
+        operation_gaps_declarados = sum(
+            1 for i in incidencias if i.get("motivo") == "OPERATION_GAP_DECLARED"
+        )
+        datos_sin_operacion = sum(
+            1 for i in incidencias if i.get("motivo") == "DATO_REQUERIDO_SIN_OPERACION"
+        )
+        datos_no_evaluados = sum(
+            1 for i in incidencias if i.get("motivo") == "DATO_REQUERIDO_NO_EVALUADO"
+        )
+        # Cuántos de los datos que las historias pidieron acabaron con una operación que los
+        # cubre. Solo cuentan las HU que tuvieron SD elegibles: sin elegibles el paso de
+        # operaciones ni corre, y castigar ahí duplicaría lo que ya dice `historias_sin_contrato`.
+        # `None` = no aplica, misma convención que las dos tasas de operaciones.
+        datos_evaluables = sum(
+            len([d for d in h.business_objects if d and d.strip()])
+            for h in procesadas
+            if candidatos_operacion_elegibles(h.service_domains)
+        )
+        data_coverage_rate = (
+            round((datos_evaluables - datos_sin_operacion - datos_no_evaluados) / datos_evaluables, 4)
+            if datos_evaluables
+            else None
+        )
 
         return {
             "candidate_drop_rate": candidate_drop_rate,
@@ -1648,6 +1759,11 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             "operation_mapping_empty": operation_mapping_empty,
             "historias_sin_contrato": historias_sin_contrato,
             "operation_id_no_resuelto": operation_id_no_resuelto,
+            "operation_gaps_declarados": operation_gaps_declarados,
+            "data_coverage_rate": data_coverage_rate,
+            "datos_requeridos_evaluables": datos_evaluables,
+            "datos_requeridos_sin_operacion": datos_sin_operacion,
+            "datos_requeridos_no_evaluados": datos_no_evaluados,
             "finalizados_por_operacion_solida": finalizados_por_operacion,
         }
 
@@ -1848,6 +1964,11 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                     "operaciones",
                     e["historia"],
                     e["funcionalidad"],
+                    # La intención entra en la clave porque entra en el prompt: sus
+                    # `business_objects` son el checklist de datos requeridos que este nodo debe
+                    # cubrir o declarar. Sin esto, una intención distinta reutilizaría un mapeo
+                    # calculado contra otra lista de datos.
+                    e.get("intencion"),
                     e.get("grupos"),
                     e.get("a_evaluar"),
                 ),

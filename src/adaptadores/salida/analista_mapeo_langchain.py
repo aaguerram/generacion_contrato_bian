@@ -44,7 +44,12 @@ from src.dominio.normalizacion import normalizar
 
 logger = logging.getLogger(__name__)
 
-_ROL_MAX_CHARS = 240
+_ROL_MAX_CHARS = 600
+# Suelo del último escalón de degradación: el índice mínimo con el que el paso 2 siempre cupo.
+_ROL_MIN_CHARS = 240
+# La documentación de un nodo de la jerarquía BIAN: 490 chars el más largo, así que el tope no
+# recorta nada hoy -- está para que un landscape futuro no se lleve el presupuesto por delante.
+_TAXONOMIA_MAX_CHARS = 600
 # El Service Role que ven `evaluar_candidato` y `revisar_adversarial`. Tiene que ser el MISMO
 # en los dos: el revisor emite DIRECTO_SIN_SERVICE_ROLE ("el Service Role no describe
 # verbo+objeto de la historia") sobre la decision del evaluador, asi que si ve menos rol que
@@ -121,6 +126,39 @@ def formatear_catalogo(
             if recortado:
                 partes.append(f" | {recortado}")
         lineas.append("".join(partes))
+    return "\n".join(lineas)
+
+
+def formatear_taxonomia(catalogo: list[EntradaCatalogo]) -> str:
+    """La jerarquía BIAN CON su definición, deduplicada y enviada UNA vez.
+
+    Cada línea de `formatear_catalogo` lleva `· Sales and Service > Customer Management`, pero
+    hasta ahora esa jerarquía viajaba como una etiqueta sin definir -- y pesa en el score del paso
+    de clasificación. El landscape sí documenta cada nodo (`business_areas[].documentation` y el
+    de cada Business Domain); `CatalogoJson` lo arrastra hasta `EntradaCatalogo`.
+
+    Va aparte y no inline por SD por una razón de presupuesto: son 5 áreas + 36 dominios, así que
+    deduplicado cuesta ~2.9k tokens y repetido en las 341 líneas del catálogo costaría ~23k -- 8x
+    más por exactamente la misma información.
+    """
+    areas: dict[str, str] = {}
+    dominios: dict[str, dict[str, tuple[str, int]]] = {}
+    for e in catalogo:
+        area = e.business_area
+        if not area:
+            continue
+        areas.setdefault(area, e.business_area_doc or "")
+        if e.business_domain:
+            por_area = dominios.setdefault(area, {})
+            doc, n = por_area.get(e.business_domain, (e.business_domain_doc or "", 0))
+            por_area[e.business_domain] = (doc, n + 1)
+
+    lineas = []
+    for area, doc in areas.items():
+        lineas.append(f'- Business Area "{area}"' + (f" :: {_recortar(doc, _TAXONOMIA_MAX_CHARS)}" if doc else ""))
+        for dominio, (doc_dom, n) in dominios.get(area, {}).items():
+            sufijo = f" :: {_recortar(doc_dom, _TAXONOMIA_MAX_CHARS)}" if doc_dom else ""
+            lineas.append(f'  - Business Domain "{dominio}" ({n} SD){sufijo}')
     return "\n".join(lineas)
 
 
@@ -203,38 +241,50 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
         # 0 = índice de siempre; >0 = escalón CAG (ver `formatear_catalogo`).
         self._cag_chars_por_sd = max(0, cag_chars_por_sd)
 
-    def _escalones_cag(self) -> list[int]:
-        """Escalones decrecientes del catálogo, para reintentar cuando la petición no cabe.
+    def _escalones_catalogo(self) -> list[tuple[int, int]]:
+        """Presupuestos decrecientes del catálogo `(chars_negocio, rol_max_chars)`.
 
-        El último es siempre 0 (el índice de siempre, ~27k tokens): es el que cabe en todos los
-        modelos de la cadena y el que ya se usaba antes de existir CAG.
+        Primero se recorta el vocabulario de negocio (el escalón CAG) y solo al final el Service
+        Role, porque el rol es la señal más discriminante: es lo último que se sacrifica.
+
+        El último escalón es siempre `(0, 240)` — el índice mínimo histórico, ~27k tokens con 341
+        SD. Existe porque subir `rol_max_chars` sube el SUELO del prompt: sin este escalón, un
+        catálogo que no cabe en ningún modelo deja la HU sin candidatos en vez de degradarse.
         """
-        if not self._cag_chars_por_sd:
-            return [0]
-        return sorted({self._cag_chars_por_sd, self._cag_chars_por_sd // 2, 0}, reverse=True)
+        negocio = (
+            sorted({self._cag_chars_por_sd, self._cag_chars_por_sd // 2, 0}, reverse=True)
+            if self._cag_chars_por_sd
+            else [0]
+        )
+        escalones = [(c, self._rol_max_chars) for c in negocio]
+        if self._rol_max_chars > _ROL_MIN_CHARS:
+            escalones.append((0, _ROL_MIN_CHARS))
+        return escalones
 
     # ── infra ────────────────────────────────────────────────────────────────
     def _chat_de(self, spec: PromptSpec):
         return self._chats_por_nodo.get(spec.id, self._chat)
 
-    def _invocar_reduciendo(self, spec: PromptSpec, schema, entradas, escalones: list[int]):
+    def _invocar_reduciendo(
+        self, spec: PromptSpec, schema, entradas, escalones: list[tuple[int, int]]
+    ):
         """Invoca el nodo y, si NINGÚN modelo acepta la petición por tamaño, la reduce y reintenta.
 
-        `escalones` son valores decrecientes de `chars_negocio` para el catálogo (el escalón CAG).
+        `escalones` son presupuestos decrecientes del catálogo `(chars_negocio, rol_max_chars)`.
         Cambiar de modelo no arregla un prompt que no cabe en ninguno: lo único que lo arregla es
         mandar menos. Se degrada el CONTENIDO antes que rendirse, y se deja constancia en el log
         de con qué escalón se consiguió — un candidato encontrado con el catálogo recortado no es
         lo mismo que uno encontrado con el catálogo completo.
         """
         ultimo: PeticionDemasiadoGrande | None = None
-        for chars in escalones:
+        for presupuesto in escalones:
             try:
-                return self._cadena(spec, schema).invoke(entradas(chars))
+                return self._cadena(spec, schema).invoke(entradas(presupuesto))
             except PeticionDemasiadoGrande as exc:
                 ultimo = exc
                 logger.warning(
-                    "%s: ningún modelo acepta el prompt con chars_negocio=%d (%s); reduzco",
-                    spec.id, chars, exc,
+                    "%s: ningún modelo acepta el prompt con (chars_negocio, rol)=%s (%s); reduzco",
+                    spec.id, presupuesto, exc,
                 )
         assert ultimo is not None
         raise ultimo
@@ -286,10 +336,11 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
         intencion: IntencionHistoriaLLM,
         catalogo: list[EntradaCatalogo],
     ) -> CandidatosHistoriaLLM:
+        taxonomia = formatear_taxonomia(catalogo)
         out: CandidatosHistoriaLLM = self._invocar_reduciendo(
             SPEC_CANDIDATOS,
             CandidatosHistoriaLLM,
-            lambda chars: {
+            lambda presupuesto: {
                 "funcionalidad_macro": funcionalidad.funcionalidad_macro,
                 "historia_archivo": historia.archivo,
                 "historia_titulo": historia.titulo,
@@ -300,9 +351,12 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
                 "intencion_outcomes": _lista(intencion.outcomes),
                 "intencion_dependencies": _lista(intencion.external_dependencies),
                 "catalogo_total": len(catalogo),
-                "catalogo": formatear_catalogo(catalogo, self._rol_max_chars, chars),
+                "catalogo": formatear_catalogo(catalogo, presupuesto[1], presupuesto[0]),
+                # Fuera del lambda de escalones a propósito: la taxonomía es fija y pequeña, no
+                # es lo que hace que una petición no quepa.
+                "taxonomia_bian": taxonomia,
             },
-            self._escalones_cag(),
+            self._escalones_catalogo(),
         )
         return out.model_copy(update={"metadatos": self._huella(SPEC_CANDIDATOS, "generar_candidatos", historia.archivo)})
 

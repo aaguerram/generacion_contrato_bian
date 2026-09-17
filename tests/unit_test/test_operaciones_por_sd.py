@@ -83,7 +83,7 @@ class _MapeadorContador(MapeadorOperacionesBianPort):
     def __init__(self) -> None:
         self.llamadas: list[tuple[str, ...]] = []
 
-    def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
+    def mapear(self, historia, funcionalidad, intencion, operaciones_por_sd, paquetes_por_sd):
         self.llamadas.append(tuple(operaciones_por_sd))
         return MapeoOperacionesLLM(
             operaciones=[

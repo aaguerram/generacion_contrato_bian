@@ -1,8 +1,8 @@
 # Memory — generacion-contrato-ia-v2
 
-> Generated: 2026-09-15 11:15:35  
-> Total memories: **46**  
-> Breakdown: instruction: 3, fact: 11, decision: 14, goal: 2, context: 2, learning: 14
+> Generated: 2026-09-17 11:53:42  
+> Total memories: **61**  
+> Breakdown: instruction: 3, fact: 17, decision: 18, goal: 3, commitment: 1, context: 2, learning: 16, artifact: 1
 
 ---
 
@@ -80,6 +80,18 @@
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-14T20:51:07 | Tags: `bian`, `service-landscape`, `fuente-unica`, `catalogo`, `leccion`*
 
+### BIAN landscape: documentation del SD es redundante, la de area/domain se descarta
+
+> En el BIAN Service Landscape Matrix View (docs/BIAN_Service_Landscape_V14.0_Matrix_View.json) el campo 'documentation' de cada Service Domain NO aporta informacion nueva: es la concatenacion literal de los 4 campos que ya se parsean por separado (** 1. Role ** = service_role, ** 2. Examples of use ** = examples_of_use, ** 3. Executive Summary ** = executive_summary, ** 4. Key Features ** = features). Verificado 2026-09-16 sobre Party Reference Data Directory. Cuesta 305.706 chars (~76k tokens sobre 341 SD) por cero informacion nueva, asi que NUNCA debe meterse en un prompt; el unico uso legitimo es como relleno de ultimo recurso en texto_para_indexar(). En cambio SI existe informacion valiosa que el runtime descarta hoy: el landscape trae 'documentation' por Business Area (5) y por Business Domain (36) -11.690 chars ~2.9k tokens en total, enviables UNA vez como bloque de cabecera, no repetidos por SD- y CatalogoJson._aplanar solo toma el 'name' de esos nodos, asi que ni siquiera se cargan (EntradaCatalogo no tiene campo para ellos). Dato relacionado: rol_max_chars=240 recorta el service_role de 219 de los 341 SD (64%), descartando ~10.7k tokens de la fuente mas discriminante.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-17T03:11:31 | Tags: `bian`, `landscape`, `prompts`, `catalogo`, `tokens`*
+
+### Mapa de los 5 puntos donde el grafo LangGraph de m...
+
+> Mapa de los 5 puntos donde el grafo LangGraph de mapear-historias consume los JSON de docs/bian-cache/release14.0.0/<SD>.json, con el campo exacto que lee cada uno (checklist para migrar la fuente de contratos BIAN): (1) nodo cargar, mapear_historias_service_domain.py:456, service_domains_con_catalogo() -> solo la clave service_domain de cada archivo, solo para el log. (2) nodo revisar_completitud, :526, evidencia_de(sd) -> solo el bloque evidence -> estado VERIFIED/CACHED_VERIFIED que entra al prompt como disponibilidad. (3) nodo preparar_candidatos, :725-745, el uso pesado: asegurar() + operaciones_de() -> operations[] completo + esquemas_de() -> schemas[] + schemas_detalle_de() -> schemas_detalle[]; todo se empaqueta en PaqueteEvidenciaCandidato via _paquete_de, que ademas DERIVA control_records/behavior_qualifiers del campo grupo de las operaciones. Mismo bloque duplicado en _vuelta_correctiva (CRAG) :828-842. (4) nodo clasificar via _reclasificar :886-893, pasa operations/schemas/evidencia a calcular_score: texto_ops (operation_id+summary+description+grupo) da el 30% de accion, grupos CR/BQ + nombres de schema dan el 25% de objeto, evidencia.estado da el +-0.05 y los topes. (5) nodo seleccionar_operaciones via _asignar_operaciones :1203, operaciones_de() otra vez solo para los elegibles -> lista numerada con campos_respuesta derivados de response_schema + schemas_detalle. HALLAZGO: el campo catalog del JSON (control_records/behavior_qualifiers estructurados) NO lo consume nadie en el flujo; catalogo_estructurado_de solo se llama desde su test. El grafo reconstruye esa vista desde operations[].grupo.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-16T20:43:47 | Tags: `bian`, `cache-json`, `puntos-consumo`, `langgraph`, `migracion`*
+
 ### Los trabajos LLM largos en este host se ejecutan c...
 
 > Los trabajos LLM largos en este host se ejecutan contra el Ollama local (http://localhost:11434, modelo qwen3.8:27b-q8_0) en lugar de free tiers con cuota diaria; para que sobrevivan al cierre de la sesion SSH se lanzan con 'setsid nohup ... > log 2>&1 < /dev/null &' y sus logs viven en /home/super/graphify-runs/ (symlink latest.log + latest.pid).
@@ -98,11 +110,35 @@
 
 *Confidence: 0.95 | Status: active | Created: 2026-09-14T16:58:48 | Tags: `entorno`, `neovim`, `lazyvim`, `toolchain`, `sin-root`, `aarch64`*
 
+### BIAN R14 publica OpenAPI para solo 258 de los 341 ...
+
+> BIAN R14 publica OpenAPI para solo 258 de los 341 Service Domains del Service Landscape (verificado 2026-09-16 contra el arbol de bian-official/public, commit b58bf4c2c3, ruta release14.0.0/semantic-apis/oas3 /yamls/). La brecha de 83 SD es ESTRUCTURAL, no un hueco de descarga: la cache local docs/bian-cache/release14.0.0 ya tiene los 258 publicados y cero pendientes, asi que --actualizar-cache-bian nunca llenara esos 83. Evidencia disponible para los 83 sin OpenAPI: los 341 SD traen control_record en el landscape (el NOMBRE del Control Record, p.ej. Building Maintenance -> Building Maintenance Arrangement) y textos (service_role/examples_of_use/key_features), pero solo 7 de los 83 tienen diagrama BOM PUML. No hay operaciones ni schemas para ellos. Consecuencia de diseno: para esos SD no se puede anclar una operacion oficial; el entregable tendria que ser un contrato PROPUESTO, analogo al precedente bq_personalizados_propuestos con estado CUSTOM_BQ_CANDIDATE.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-16T21:21:46 | Tags: `bian`, `openapi`, `brecha-83-sd`, `landscape`, `contratos-propuestos`*
+
+### El test acotado del 2026-08-28 sobre los filtros d...
+
+> El test acotado del 2026-08-28 sobre los filtros de riesgo de trade-executor quedo CERRADO el 2026-09-16 con el release pro-v0.1.149: MAX_SPREAD_TO_REWARD_RATIO volvio de 2.0 a 0.15 y MIN_RISK_REWARD_RATIO de 0.2 a 1.0. Los otros dos parametros del mismo test se MANTIENEN deliberadamente y no son un revert olvidado: RISK_PERCENT_PER_TRADE sigue en 0.1 (techo de riesgo bajo mientras el P&L acumulado sea negativo) y TARGET_HEIGHT_FRACTION en 0.34 (un objetivo mas lejano es lo que puede hacer que alguna ruptura cumpla el R:R minimo restaurado). DAILY_LOSS_LIMIT_ENFORCE sigue en false. Consecuencia esperada y aceptada: con R:R minimo 1.0 el executor rechaza la enorme mayoria de las rupturas, porque la geometria real de la familia da ~0.2.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-16T20:43:00 | Tags: `trade-executor`, `riesgo`, `revert`, `gates`, `pro-v2`*
+
 ### En los servidores de plataforma_trader el desplieg...
 
 > En los servidores de plataforma_trader el despliegue vive en /opt/plataforma-trader/ con 'current' como symlink al release activo (releases/vX.Y.Z) y un shared/.env aparte; las credenciales CAPITAL_* (CAPITAL_API_KEY, CAPITAL_IDENTIFIER, CAPITAL_PASSWORD, CAPITAL_DEMO, a veces CAPITAL_EPIC) estan duplicadas en cuatro .env por servicio: capital-publisher, history-service, trade-executor y risk-monitor (market-metadata-poller reusa capital-publisher/.env). Cambiar credenciales de Capital.com exige editar los cuatro archivos, no uno. Acceso a prueba_v2_app: ssh -i ~/.ssh/id_ed25519_aaguerram ubuntu@52.49.23.177.
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-14T02:12:40 | Tags: `plataforma-trader`, `capital-com`, `despliegue`, `prueba-v2`, `credenciales`*
+
+### En BIAN R14, un dato de una HU puede necesitar var...
+
+> En BIAN R14, un dato de una HU puede necesitar varios Behavior Qualifier del MISMO Service Domain: en Party Reference Data Directory, el BQ Reference expone los datos personales y de contacto (PartyNameSalutation, CellPhoneNumber, eMailAddress) y el BQ Associations expone la relacion entre dos Party (AssociateReference, AssociateType, ProxyRepresentativePowerofAttorneyReference), que es el que corresponde cuando la HU pide recuperar el tutor/representante de un menor. Elegir el Service Domain correcto no basta: hay que cubrir cada dato con SU BQ.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-15T21:17:15 | Tags: `bian`, `party-reference-data-directory`, `behavior-qualifier`, `associations`, `cuentas-menores`*
+
+### En runtime, generacion_contrato_bian lee la eviden...
+
+> En runtime, generacion_contrato_bian lee la evidencia de operaciones BIAN de archivos JSON de cache (docs/bian-cache/release14.0.0/<SD>.json, cache_version 2, 258 de 341 SD sembrados): operations CR+BQ, schemas, schemas_detalle con cuerpo, catalog estructurado y evidence (source_url + commit_sha + content_sha256). El OpenAPI YAML oficial de bian-official/public (release{R}/semantic-apis/oas3 /yamls/{SD}.yaml) es SOLO formato de transporte de la descarga: se parsea en memoria con yaml.safe_load en CatalogoBianCache._recuperar, _normalizar lo convierte a JSON y el YAML se descarta; docs/ no contiene ningun .yaml. yaml.safe_load sobre un contrato BIAN solo corre en dos casos frios: un Service Domain ausente de la cache con descargar_faltantes=true, o --actualizar-cache-bian. Los unicos YAML que el proyecto lee de disco son config.yaml (cada corrida), scripts/evaluate_retrieval/corpus_dorado.yaml (solo el benchmark) e infra/retrieval/docker-compose.yml (solo Docker). Consecuencia: cambiar la fuente de contratos BIAN toca _normalizar y el shape del JSON cacheado, no el grafo LangGraph.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-16T17:02:19 | Tags: `bian`, `cache-json`, `openapi-yaml`, `evidencia`, `catalogo-operaciones`*
 
 ---
 
@@ -125,6 +161,12 @@
 > Decision: para generacion_contrato_ia_v2 se usa el agente/namespace MEMANTO 'generacion-contrato-ia-v2' (namespace Moorcheh memanto_agent_generacion-contrato-ia-v2) sobre el servidor on-prem compartido de Produbanco (100.102.221.79:8080, Tailscale). Reproducible en otra maquina con: python scripts/setup_memanto.py
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-13T03:01:32*
+
+### Taxonomia BIAN deduplicada en el prompt de candidatos + rol_max_chars 600
+
+> En generacion_contrato_bian, el prompt del paso 2 (mapeo.candidatos, subido a v1.1.0 el 2026-09-16) recibe ahora un bloque <taxonomia_bian> con la documentacion de las 5 Business Areas y los 36 Business Domains del landscape, DEDUPLICADA y enviada una sola vez (~3.3k tokens; inline por SD costaria ~23k por la misma informacion). Regla general: un dato que se repite entre Service Domains va como bloque de cabecera, nunca inline en las 341 lineas del catalogo. Ademas rol_max_chars subio de 240 a 600 (con 240 se recortaba el service_role de 219 de los 341 SD). Como eso sube el SUELO del prompt, los escalones de degradacion dejaron de ser solo el CAG y pasaron a ser pares (chars_negocio, rol_max_chars) en _escalones_catalogo: primero se sacrifica el vocabulario de negocio y solo al final el rol, y el ultimo escalon es siempre (0, 240). Coste total medido del paso 2: de ~26.6k a ~39.7k tokens (+49%). Tests: tests/unit_test/test_taxonomia_bian.py y TestEscalonesDeDegradacion en test_cag_catalogo.py; suite completa 339 tests en verde.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-17T03:39:48 | Tags: `bian`, `prompts`, `candidatos`, `tokens`, `degradacion`*
 
 ### Arquitectura de mapear-historias: outer graph con ...
 
@@ -157,6 +199,12 @@
 > Decisiones de decision contractual anadidas a generacion_contrato_bian el 2026-09-14/15 (commit d3375ba), las dos deterministas y simetricas: (1) finalizar_por_operacion_solida RECORRE LOS TRES GRUPOS, incluido `directo`. Estar en el grupo directo (score >= 0.90) NO implica estar SELECTED: aplicar_hallazgos_adversariales degrada la DECISION sin mover el candidato de grupo, asi que un propietario con evidencia solida se quedaba sin contrato solo por estar ya en directo. Caso medido: Party Reference Data Directory con confianza 0.9650, objeto_bom 1.0, evidencia CACHED_VERIFIED y RetrieveReference anclada sin reservas, y aun asi UNRESOLVED/TENTATIVE_SCORE. Era ademas una incoherencia: un tentativo degradado si se rescataba y un directo degradado no. (2) degradar_sin_operacion_anclada: un SELECTED que no ancla NINGUNA de las operaciones oficiales de su Service Domain pasa a UNRESOLVED/NO_OPERATION_ANCHORED con reason_code DOWNGRADED_NO_OPERATION_ANCHORED, porque el entregable del pipeline es 'que operacion BIAN implementa esta historia' y sin operacion no hay nada que implementar. Como el resto del modulo exige una senal calculada aparte: solo aplica si ese SD SI tenia operaciones oficiales en el catalogo -si no trae ninguna, o el paso 2 esta apagado con --sin-operaciones, no hay nada que reprochar-, y degrada la decision sin mover de grupo. Caso medido: en 2 de 3 corridas PRDD salia SELECTED junto a Correspondence, promovido por el revisor adversarial con confianza 0.965 (mas alta que su propio score), con 17 operaciones disponibles y cero ancladas. Leccion que generaliza: cuando existe un movimiento que SUBE por evidencia fuerte, hay que preguntarse si falta el simetrico que BAJA por ausencia de esa misma evidencia; sin el, el pipeline solo sabe premiar.
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-15T04:56:28 | Tags: `clasificacion`, `ownership`, `operaciones`, `bian`, `determinismo`*
+
+### En generacion_contrato_bian el prompt de candidato...
+
+> En generacion_contrato_bian el prompt de candidatos (mapeo.candidatos, _HUM_CANDIDATOS) coloca el bloque estatico grande (taxonomia + catalogo de 341 SD, ~39.7k tokens) AL FINAL y la parte variable (funcionalidad/HU/intencion) al principio. Ese orden es el peor posible en los dos ejes: impide cualquier cache de prefijo del proveedor (el prefijo identico entre HU queda detras de texto variable) y deja la HU lejos de la posicion de recencia. Invertirlo (estatico primero, HU al final) es un win en ambos ejes y cuesta solo subir prompt_version. Alternativa medida al dump completo: routing jerarquico de dos etapas apoyado en la taxonomia ya implementada — etapa 1 elige Business Domains sobre 41 lineas (~3.3k tok), etapa 2 manda solo los SD de esos dominios con el texto COMPLETO (27 SD medianos = ~4.4k tok; 52 SD de los dominios mas grandes = ~11.3k tok), total ~7.7-14.6k frente a 36.4k hoy con el rol recortado o 64.4k con todo. Distribucion real: 5 areas, 36 dominios, 341 SD, mediana 9 SD por dominio, max 20.
+
+*Confidence: 0.95 | Status: active | Created: 2026-09-17T12:08:41 | Tags: `bian`, `prompts`, `candidatos`, `tokens`, `routing-jerarquico`, `cache-prefijo`*
 
 ### Regla de negocio de BQ personalizado: un Control R...
 
@@ -210,6 +258,12 @@
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-15T10:24:29 | Tags: `checkpointer`, `durabilidad`, `langgraph`, `sqlite`, `persistencia`*
 
+### El nodo seleccionar_operaciones de mapear-historia...
+
+> El nodo seleccionar_operaciones de mapear-historias recibe el checklist de datos requeridos (intencion.business_objects, numerado) y debe cerrar cada dato: cubrirlo en datos_cubiertos, proponer un bq_personalizado, o declararlo en datos_no_cubiertos+gaps. El reparto lo verifica cobertura_datos_requeridos de forma determinista: dato callado = incidencia DATO_REQUERIDO_NO_EVALUADO, dato declarado = DATO_REQUERIDO_SIN_OPERACION, y la tasa es data_coverage_rate. Sin ese checklist el nodo solo ve la HU cruda y la regla 'conjunto minimo suficiente' lo hace parar en la primera operacion del escenario principal, dejando datos reales sin cubrir con todas las metricas en verde.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-15T21:17:07 | Tags: `bian`, `mapear-historias`, `operaciones`, `cobertura`, `datos-requeridos`*
+
 ### A escala de 341 Service Domains el recall de recup...
 
 > A escala de 341 Service Domains el recall de recuperacion es un problema OPCIONAL, no una restriccion: medido el 2026-09-14, el indice global compacto que ya recibe revisar_completitud (nombre + rol recortado a 90 chars) pesa 39.979 chars = ~10k tokens, el catalogo entero con texto_para_indexar y el tope actual de 1.195 chars pesa ~93k tokens, y sin tope ~154k tokens. Es decir: el catalogo COMPLETO cabe en el contexto de los modelos de contexto largo, asi que generar candidatos con todo el catalogo en prompt (CAG) hace Recall@K estructuralmente 1.0 y elimina la clase entera de fallo que el benchmark mide. Regla de decision: CAG gana cuando el corpus es pequeno, estatico (release BIAN fijo), compartido entre todas las consultas y auditable -las cuatro se cumplen aqui-; RAG se reserva para lo grande, fresco o por tenant. Antes de invertir mas en ponderar la fusion RRF hay que medir CAG contra retrieval en el mismo corpus dorado. Salvedad de costo: el ahorro por prompt caching depende del proveedor (Gemini y Anthropic cachean prefijos; Groq no), y en Ollama local sobre el GB10 el contexto largo es gratis en dinero pero no en latencia ni memoria.
@@ -221,6 +275,12 @@
 > El estilo Python de generacion_contrato_bian lo fija ruff desde [tool.ruff] del pyproject.toml: line-length 100, target-version py311, select E4/E7/E9/F/I/UP/B (E501 deliberadamente fuera porque el formatter ya corta lo que puede y los strings de prompt largos no deben ensuciar el diagnostico), isort con known-first-party src/tests/unit_test/e2e (unit_test y e2e son los nombres con que los tests se importan entre si porque discover -s tests inserta tests/ como top_level_dir), extend-exclude .venv/docs/salida/graphify-out. El alcance formateado es src/ + tests/ + scripts/ (87 archivos), normalizado de una vez en main y verificado con 'ruff check' y 'ruff format --check'. El editor formatea al guardar con el MISMO ruff del .venv, nunca con reglas propias del editor.
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-14T17:16:42 | Tags: `ruff`, `estilo`, `formateo`, `pyproject`, `python`*
+
+### El regimen bull/bear de Bulkowski NO debe escalars...
+
+> El regimen bull/bear de Bulkowski NO debe escalarse al timeframe operado: su separacion es un rango historico fijo del S&P 500 (marzo 2000-octubre 2002) y todas las tablas del libro estan segmentadas por esa escala secular. Medido el 2026-09-16 sobre el historico real del US500: la etiqueta cambia 0,02 veces por dia con EMA-200 diaria (lo actual) contra 2,15 en 15m, 7,13 en 5m y 36,11 en 1m, y el reparto bull/bear converge a ~55/45 al bajar la escala. El contexto de corto plazo entra como COLUMNA APARTE (benchmarkShortTrend, strategy-engine/benchmark_short.go), publicada pero que ningun criterio/measure rule/Kelly lee, para medirla en los modelos custom_. Que el regimen deje de ser constante se resuelve con MAS HISTORIA, no con menos escala: los eventos en vivo son 40.304 bull y CERO bear, mientras 11 epics ya replayados 2020-2026 aportan 3.533 bear sobre 37.469.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-16T19:49:12 | Tags: `regimen`, `benchmark`, `us500`, `strategy-engine`, `escala`*
 
 ---
 
@@ -239,6 +299,12 @@
 > Lo que queda pendiente ya no son fases de implementacion sino decisiones que necesitan datos o cuota: ver la memoria de pendientes (canary flag por flag, ampliar la capa hu_real del corpus, medir CAG con LLM real).
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-13T03:10:24*
+
+### PENDIENTE ABIERTO al 2026-09-17 en generacion_cont...
+
+> PENDIENTE ABIERTO al 2026-09-17 en generacion_contrato_bian, en este orden exacto y cada paso decide si el siguiente vale la pena: (1) medir el corpus traducido -- correr scripts/evaluate_retrieval/evaluate.py --tipo hu_real apuntando validar_sd.ruta_catalogo_bian al nuevo docs/BIAN_Service_Landscape_V14.0_Matrix_View.es.json, y comparar contra la corrida en ingles; ese delta es la respuesta a cuanto del gap de recuperacion era IDIOMA y no es circular porque la consulta es una HU real escrita por un humano. (2) Probar embeddings multilingues DE ESTANTERIA (BGE-m3, multilingual-e5) sobre el corpus ya en espanol, como linea base sin entrenar: si un modelo entrenado por terceros con millones de pares ES-EN no le gana a la cadena actual, un fine-tune propio con pares sinteticos del lado ingles tampoco. (3) Solo si (1) y (2) mueven la aguja, fine-tune de un bi-encoder con hard negatives sacados del grafo (hermanos del mismo Business Domain, mediana 9 SD, y los 125 SD que comparten Party); material disponible sin etiquetar: 4.580 operaciones, 63.712 propiedades de schema, 3.475 aristas MODELA, 761 BQ, 239 CR. Gate SIEMPRE por capa hu_real, nunca por el promedio global (el canal lexico mide 0.95 global y 0.17 en hu_real). (4) El techo de todo esto siguen siendo 6 consultas hu_real etiquetadas: con 6, un acierto mueve el MRR 0.17 y no se distingue una mejora real de la suerte; ampliar a ~100 sigue siendo el prerrequisito. Recordatorio incomodo medido: en el caso real el SD correcto ya volvia top-1 y la corrida terminaba UNRESOLVED por el revisor adversarial, asi que mejorar el paso 2 al 100% no cambia ese resultado -- esto es una mejora de COSTE y arquitectura (quita el dump de 36k tokens y el diccionario a mano vocabulario_bian.py), no la cura de la precision final. Pendiente aparte: todo el trabajo de src/ desde el 2026-09-15 sigue SIN COMMITEAR (30 archivos, 880 inserciones) mas las rutas nuevas sin trackear.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-17T14:11:03 | Tags: `bian`, `retrieval`, `bi-encoder`, `traduccion-es`, `pendiente`, `hu-etiquetadas`*
 
 ### Pendiente en generacion_contrato_bian para retomar...
 
@@ -268,7 +334,11 @@
 
 *Promises, obligations, and TODOs that need follow-through.*
 
-*No memories of this type.*
+### PENDIENTE ABIERTO al 2026-09-16: completar el repl...
+
+> PENDIENTE ABIERTO al 2026-09-16: completar el replay historico 2020-2026 de los 122 epics que faltan (solo 11 de 133 hechos). Se corre desde la MAQUINA LOCAL contra el Postgres remoto con scripts/run-replay-historico.sh (ver la memoria de como correrlo). Es el unico camino identificado para que el analisis deje de seleccionar ruido: la mediana de muestra por celda (estrategia x epic x temporalidad x direccion) es 1 sobre 3.922 celdas, y el regimen es una CONSTANTE en los datos en vivo (40.304 bull, CERO bear) mientras los 11 epics ya replayados aportan 3.533 bear sobre 37.469. Ademas es el prerrequisito para RE-MEDIR la columna benchmarkShortTrend, que sobre los 8.344 cierres actuales no muestra senal detectable. Prerrequisitos ya cumplidos: (1) pro-v0.1.150 dejo desplegada la imagen con benchmarkShortTrend, asi que la pasada unica la captura; (2) el US500 semanal ya tiene 351 velas sin huecos desde 2020-01-06, de sobra para las 200 de la EMA -- no hay que construirlo agregando diarias.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-16T20:42:54 | Tags: `replay`, `pendiente`, `dataset`, `regimen`, `muestra`*
 
 ---
 
@@ -374,23 +444,29 @@
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-13T22:14:39*
 
+### El replay historico de strategy-engine debe correr...
+
+> El replay historico de strategy-engine se corre desde la MAQUINA LOCAL conectada al Postgres remoto, no en el servidor: asi se hizo la pasada del 2026-09-15 y es sensiblemente mas rapido, porque el cuello de botella es CPU (33 detectores x 8 temporalidades por vela) y no la latencia contra la base, y la instancia Lightsail ademas esta atendiendo el stack en vivo. Dos reglas mas: (1) correrlo DESPUES de desplegar la imagen que ya trae las columnas deseadas y una sola vez, porque inserta con 'on conflict (event_id) do nothing' y un evento escrito por una imagen vieja NUNCA se actualiza en una segunda pasada; (2) lanzarlo desacoplado de la terminal -- el intento del 2026-09-15 corrio los 133 epics atado a la sesion y murio con 'context canceled' tras 11 epics. Usar scripts/run-replay-historico.sh (lotes de 8, reanudable via epics-hechos.txt) con REPLAY_NETWORK=host y scripts/replay.env.example.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-16T19:49:15 | Tags: `replay`, `strategy-engine`, `idempotencia`, `ssh`, `operacion`*
+
 ### Al fijar el interprete de un venv para pyright en ...
 
 > Al fijar el interprete de un venv para pyright en Neovim, la configuracion debe entregarse en on_init (mutando client.settings antes de que el servidor pida su configuracion), no en on_attach seguido de un notify workspace/didChangeConfiguration: reconfigurar despues hace que pyright descarte los diagnosticos del buffer ya abierto y no vuelva a publicarlos hasta la siguiente edicion.
 
 *Confidence: 0.9 | Status: active | Created: 2026-09-14T17:16:44 | Tags: `neovim`, `lsp`, `pyright`, `venv`, `diagnosticos`*
 
-### El link de bian.org a la pagina de un objeto tiene...
-
-> El link de bian.org a la pagina de un objeto tiene la forma object_<N>.html?object=<id>. <N> NO es un tipo semantico (Service Domain, Class, etc) sino el numero de shard de almacenamiento interno del sitio (data/all_objects_data_<N>.js, 47 shards, ~127.000 objetos totales, mapeo en data/all_objects_data_mapping.js). Un mismo object_id aparece fisicamente duplicado (identico) en varios shards a la vez -no son objetos distintos-, asi que hay que dedupear por object_id (no por (object_id, shard)) y usar siempre el shard CANONICO del mapping.js. Ademas, cada vez que una clase se dibuja en un diagrama, bian.org le crea un objeto tipo 'Class' extra que es un duplicado posicional (coincide con el alias N<numero> que usan los .puml locales) -hay que preferir tipos mas especificos (Business object, Capability, Grouping segun la categoria) para desambiguar el objeto canonico real. Implementado en generacion_contrato_ia_v2/scripts/bian_object_catalog/.
-
-*Confidence: 1.0 | Status: active | Created: 2026-09-13T22:14:37*
-
 ### El usuario de este proyecto verifica activamente l...
 
 > El usuario de este proyecto verifica activamente los JSON generados (entity.json, bian-object-catalog.json, BIAN_Service_Landscape_V14.0_Matrix_View.json) contra las paginas REALES de bian.org (capturas de pantalla, URLs abiertas en el navegador) en vez de confiar ciegamente en la extraccion local. Esa verificacion encontro y corrigio varios bugs reales en la misma sesion: (1) documentation tomaba la seccion equivocada (Role Definition en vez de la seccion homonima, casi siempre vacia), (2) 2 Service Domains quedaban mal clasificados por confundir eje modelo/vista, (3) sd_overview_url duplicado en 2 sub-objetos en vez de vivir 1 sola vez en la raiz. Leccion: antes de dar por buena una extraccion de datos BIAN, cruzar al menos 1-2 casos contra la pagina real de bian.org, no asumir que el pipeline de extraccion es correcto solo porque corre sin errores.
 
 *Confidence: 0.95 | Status: active | Created: 2026-09-13T22:14:43*
+
+### El link de bian.org a la pagina de un objeto tiene...
+
+> El link de bian.org a la pagina de un objeto tiene la forma object_<N>.html?object=<id>. <N> NO es un tipo semantico (Service Domain, Class, etc) sino el numero de shard de almacenamiento interno del sitio (data/all_objects_data_<N>.js, 47 shards, ~127.000 objetos totales, mapeo en data/all_objects_data_mapping.js). Un mismo object_id aparece fisicamente duplicado (identico) en varios shards a la vez -no son objetos distintos-, asi que hay que dedupear por object_id (no por (object_id, shard)) y usar siempre el shard CANONICO del mapping.js. Ademas, cada vez que una clase se dibuja en un diagrama, bian.org le crea un objeto tipo 'Class' extra que es un duplicado posicional (coincide con el alias N<numero> que usan los .puml locales) -hay que preferir tipos mas especificos (Business object, Capability, Grouping segun la categoria) para desambiguar el objeto canonico real. Implementado en generacion_contrato_ia_v2/scripts/bian_object_catalog/.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-13T22:14:37*
 
 ### En la shell que expone Claude Code en este host, '...
 
@@ -410,6 +486,12 @@
 
 *Confidence: 0.95 | Status: active | Created: 2026-09-14T21:53:11 | Tags: `metodologia`, `comparacion-fuentes`, `json`, `bian`*
 
+### El 'default irlanda' de la columna source_server (...
+
+> El 'default irlanda' de la columna source_server (trade_orders y trade_closures en prueba_v2) existe SOLO en la base, nunca en el script versionado scripts/migracion-londres-a-irlanda/migrar-historial.sh, que unicamente hace 'add column if not exists source_server text' + un update puntual. Consecuencia verificada el 2026-09-16: en prueba_v2 esas dos tablas se autoetiquetan (0 nulos con ordenes creandose en vivo) pero shadow_tick_trials (6730/446389) y trade_realized_transactions (101/8440) acumulan nulos por no tener default, y en pro_v2 la columna directamente NO existe porque ese par nacio de un snapshot y no del script. Antes de usar source_server como filtro de analisis hay que verificar por servidor que la columna existe y tiene default, nunca asumirlo desde el repo.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-16T17:04:55 | Tags: `source-server`, `migracion`, `schema-drift`, `pro-v2`, `prueba-v2`*
+
 ---
 
 ## Observations
@@ -424,7 +506,11 @@
 
 *Tool outputs, files, reports, and external references.*
 
-*No memories of this type.*
+### En generacion_contrato_bian existe docs/BIAN_Servi...
+
+> En generacion_contrato_bian existe docs/BIAN_Service_Landscape_V14.0_Matrix_View.es.json: el Service Landscape BIAN V14 con los 341 Service Domains traducidos al espanol A MANO por Claude (sin script ni llamadas a la API del proyecto, 2026-09-17). Se traducen role_definition/example_of_use/executive_summary/key_features, los 4 general_comment, la documentation de las 5 Business Areas y los 38 Business Domains, y documentation se REGENERA desde los 4 campos con marcadores en espanol. Quedan INTACTOS en ingles por ser claves de join del pipeline: name del SD, nombres de area/dominio, functional_pattern, asset_type, generic_artifact_type, control_record, registration_status, URLs y rutas de diagramas; tambien se conservan en ingles los nombres de otros SD citados dentro de la prosa. El archivo declara idioma=es y un bloque traduccion con la nota de que vale como INDICE DE RECUPERACION y NO como evidencia BIAN: la evidencia sigue siendo el archivo en ingles. El original no se modifico (MD5 6eefb924363847e5d05af8569b837365, respaldo en docs/_respaldo/). Las traducciones fuente por lotes quedan en docs/_respaldo/traduccion_es/ con ensamblar.py, que se niega a escribir si falta un SD o un campo. Consecuencia: NO es reproducible por script; si scripts/generate_matrix_view/ regenera el landscape ingles, el .es.json queda desincronizado. Se valido que CatalogoJson lo carga (341 SD, area_doc/domain_doc en 341) y la suite sigue en 339 tests OK.
+
+*Confidence: 1.0 | Status: active | Created: 2026-09-17T14:08:58 | Tags: `bian`, `landscape`, `traduccion-es`, `indice-recuperacion`, `evidencia`*
 
 ---
 

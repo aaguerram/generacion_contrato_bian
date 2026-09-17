@@ -21,6 +21,7 @@ from __future__ import annotations
 import unittest
 
 from src.adaptadores.salida.analista_mapeo_langchain import (
+    AnalistaMapeoBianLangChain,
     _formatear_indice_global,
     formatear_catalogo,
 )
@@ -74,6 +75,44 @@ class TestCagCatalogo(unittest.TestCase):
         cag = _formatear_indice_global(self.catalogo, chars_negocio=300)
         self.assertGreater(len(cag), len(base))
         self.assertEqual(base.count("\n"), cag.count("\n"), "mismo nº de SD, más contenido")
+
+
+class TestEscalonesDeDegradacion(unittest.TestCase):
+    """La escalera que se recorre cuando NINGÚN modelo acepta el prompt por tamaño.
+
+    Subir `rol_max_chars` sube el SUELO del paso 2 (240 -> 600 son ~9.7k tokens más), así que la
+    escalera tiene que poder volver al índice mínimo: sin ese último escalón, un catálogo que no
+    cabe deja la HU sin candidatos en vez de degradarse.
+    """
+
+    @staticmethod
+    def _analista(rol: int, cag: int):
+        class ChatFalso:
+            def with_structured_output(self, schema):
+                return self
+
+        return AnalistaMapeoBianLangChain(ChatFalso(), rol_max_chars=rol, cag_chars_por_sd=cag)
+
+    def test_sin_cag_degrada_el_rol_como_ultimo_recurso(self):
+        self.assertEqual(self._analista(600, 0)._escalones_catalogo(), [(0, 600), (0, 240)])
+
+    def test_el_negocio_se_sacrifica_antes_que_el_rol(self):
+        escalones = self._analista(600, 300)._escalones_catalogo()
+        self.assertEqual(escalones, [(300, 600), (150, 600), (0, 600), (0, 240)])
+        negocio = [c for c, _ in escalones]
+        self.assertEqual(negocio, sorted(negocio, reverse=True))
+
+    def test_en_el_minimo_no_hay_escalon_redundante(self):
+        self.assertEqual(self._analista(240, 0)._escalones_catalogo(), [(0, 240)])
+
+    def test_cada_escalon_manda_estrictamente_menos(self):
+        catalogo = CatalogoJson(CATALOGO).cargar()
+        tamanos = [
+            len(formatear_catalogo(catalogo, rol, negocio))
+            for negocio, rol in self._analista(600, 300)._escalones_catalogo()
+        ]
+        self.assertEqual(tamanos, sorted(tamanos, reverse=True))
+        self.assertEqual(len(set(tamanos)), len(tamanos))
 
 
 if __name__ == "__main__":

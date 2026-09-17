@@ -56,14 +56,14 @@ HU = "Como cliente quiero autorizar una transacción con Smart Token.\nEscenario
 class _MapeadorVacio(MapeadorOperacionesBianPort):
     """El modelo respondio, pero no propuso ninguna operacion."""
 
-    def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
+    def mapear(self, historia, funcionalidad, intencion, operaciones_por_sd, paquetes_por_sd):
         return MapeoOperacionesLLM(operaciones=[])
 
 
 class _MapeadorAlucinado(MapeadorOperacionesBianPort):
     """El modelo propuso operaciones que no existen: el blindaje las tira y lo deja anotado."""
 
-    def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
+    def mapear(self, historia, funcionalidad, intencion, operaciones_por_sd, paquetes_por_sd):
         return MapeoOperacionesLLM(
             operaciones=[],
             citas_descartadas=["Transaction Authorization/InventarUnaOperacion"],
@@ -90,7 +90,7 @@ class _AnalistaSinPropietario(_AnalistaGuion):
 
 
 class _MapeadorBueno(MapeadorOperacionesBianPort):
-    def mapear(self, historia, funcionalidad, operaciones_por_sd, paquetes_por_sd):
+    def mapear(self, historia, funcionalidad, intencion, operaciones_por_sd, paquetes_por_sd):
         sd, ops = next(iter(operaciones_por_sd.items()))
         return MapeoOperacionesLLM(
             operaciones=[
