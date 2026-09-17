@@ -271,7 +271,9 @@ en el JSON de resultado con `origen_candidato: "llm"`:
 
 - **`attempt: 4`, `provider_used: "gemini"`.** Los tres primeros modelos de la cadena no
   resolvieron este nodo, mientras que el nodo 1 lo resolvió el primero al primer intento. Es la
-  consecuencia directa del prompt de ~40k tokens.
+  consecuencia directa del prompt de ~40k tokens. Esa corrida es **anterior** a los presupuestos
+  declarados por modelo (`max_input_tokens`): hoy esos tres intentos fallidos no se gastan — los
+  modelos a los que el prompt no les cabe se saltan sin llamarlos.
 - **`Party Authentication` entra aunque sea una dependencia.** El prompt lo exige: los SD que
   cubren `external_dependencies` **deben** entrar; ya se evaluarán como dependencia en el nodo 5.
 - **3 de los 4 acabaron `descartados`** y solo `Party Reference Data Directory` acabó en
@@ -450,8 +452,9 @@ de 9 SD por dominio, máximo 20.
 | **RetryPolicy** | `_RETRY` (fija) | 3 intentos sobre errores transitorios. **No** reintenta ante `TodosLosModelosAgotados` |
 | **Failover entre modelos** | `routing.llm_priority` | Este es el nodo donde más se nota: en el ejemplo real hizo falta el **4º intento** |
 | **Cadena propia por nodo** | `routing.llm_priority_por_nodo["mapeo.candidatos"]` | Aquí sí conviene: es un prompt grande. Un modelo con ventana pequeña gasta un round-trip 413 en cada corrida |
-| **Degradación por tamaño** | `cag_habilitado`, `cag_chars_por_sd`, `rol_max_chars` | `_invocar_reduciendo` recorta el catálogo por escalones. **Único junto al nodo 3** |
-| **Memoria de 413** | automática en `ChatConFailover` | Se salta sin llamar a los modelos que ya rechazaron un prompt de ese tamaño o menor |
+| **Degradación por tamaño** | `cag_habilitado`, `cag_chars_por_sd`, `rol_max_chars` | `_invocar_reduciendo` recorta el catálogo por escalones. **Es el ÚNICO nodo del pipeline con escalera**: ningún otro reduce su prompt, así que a los demás un 413 sin respuesta les mata la HU |
+| **Presupuesto declarado** | `providers.<n>.llm.models[].max_input_tokens` | Se mide el prompt **antes** de llamar y se salta sin gastar nada a quien no lo admita. Con la cadena por defecto, en el escalón `(0,600)` (~39.7k tokens) se saltan **4 modelos**: los 2 de Groq y 2 de OpenRouter |
+| **Memoria de 413** | automática en `ChatConFailover` | Segundo filtro, aprendido: se salta sin llamar a los modelos que ya rechazaron un prompt de ese tamaño o menor |
 
 ---
 
@@ -541,7 +544,7 @@ Relacionados directamente con este nodo:
 
 ## 14. Nodos vecinos
 
-- ← [`01-extraer-intencion.md`](01-extraer-intencion.md)
+- ← [`../01-extraer-intencion.md`](../01-extraer-intencion.md) — vive en la raíz: el nodo 1 no cambió con el routing
 - → `03-revisar-completitud.md` *(pendiente)* — corrige el mayor riesgo de este nodo: el falso
   negativo. Vuelve a mirar el catálogo, ahora sabiendo qué se propuso, y devuelve
   `missing_candidates`.

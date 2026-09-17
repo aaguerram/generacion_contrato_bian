@@ -20,6 +20,7 @@ from langchain_core.runnables import Runnable, RunnableLambda
 from src.dominio.historias import (
     CandidatoServiceDomainLLM,
     CandidatosHistoriaLLM,
+    EnrutamientoDominiosLLM,
     EvaluacionCandidatoLLM,
     IntencionHistoriaLLM,
     MapeoOperacionesLLM,
@@ -117,18 +118,38 @@ def _responder_intencion(entrada: Any) -> IntencionHistoriaLLM:
     )
 
 
+def _responder_enrutamiento(entrada: Any) -> EnrutamientoDominiosLLM:
+    """Elige 3 Business Domains estables por HU. Deliberadamente NO elige uno solo: el fake tiene
+    que ejercitar el camino en el que 2b ve varios dominios, que es el caso real."""
+    texto = str(entrada)
+    archivo = _archivo_hu(texto)
+    dominios = re.findall(r'Business Domain "([^"]+)"', _bloque(texto, "taxonomia_bian"))
+    if not dominios:
+        return EnrutamientoDominiosLLM(rationale="(fake) taxonomía vacía; sin enrutar.")
+    ordenados = sorted(dominios, key=lambda d: _sem(archivo, d))
+    return EnrutamientoDominiosLLM(
+        business_domains=ordenados[:2],
+        dependency_domains=ordenados[2:3],
+        rationale=f"(fake) enrutamiento estable para '{archivo}'.",
+    )
+
+
 def _responder_candidatos(entrada: Any) -> CandidatosHistoriaLLM:
     texto = str(entrada)
     archivo = _archivo_hu(texto)
     nombres = re.findall(r'-\s+"([^"]+)"', _bloque(texto, "catalogo_bian"))
-    elegidos = []
-    for nombre in nombres:
-        h = _sem(archivo, nombre)
-        if (h // 1000) % 40 == 0:  # ~1 de cada 40 -> unos pocos por historia, estable
-            elegidos.append(CandidatoServiceDomainLLM(
-                service_domain=nombre, rationale=f"(fake) candidato estable para '{archivo}'.",
-                supporting_intent=[],
-            ))
+    # Los N primeros al ordenar por hash(HU, nombre): estable por historia y, a diferencia de un
+    # muestreo "1 de cada 40", INDEPENDIENTE del tamaño del catálogo. Importa desde el routing
+    # jerárquico: el nodo 2b ve ~30 SD en vez de 341, y con la regla vieja el fake se quedaba
+    # casi sin candidatos y la demo offline terminaba sin ningún Service Domain.
+    elegidos = [
+        CandidatoServiceDomainLLM(
+            service_domain=nombre,
+            rationale=f"(fake) candidato estable para '{archivo}'.",
+            supporting_intent=[],
+        )
+        for nombre in sorted(nombres, key=lambda n: _sem(archivo, n))[:8]
+    ]
     return CandidatosHistoriaLLM(candidatos=elegidos, coverage_notes=[], assumptions=[], gaps=[])
 
 
@@ -204,6 +225,7 @@ def _responder_operaciones(entrada: Any) -> MapeoOperacionesLLM:
 
 _RESPONDERS = {
     "IntencionHistoriaLLM": _responder_intencion,
+    "EnrutamientoDominiosLLM": _responder_enrutamiento,
     "CandidatosHistoriaLLM": _responder_candidatos,
     "RevisionCompletitudLLM": _responder_completitud,
     "EvaluacionCandidatoLLM": _responder_evaluacion,

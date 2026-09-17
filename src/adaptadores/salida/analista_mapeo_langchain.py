@@ -20,6 +20,7 @@ from src.adaptadores.salida.prompts_mapeo import (
     SPEC_ADVERSARIAL,
     SPEC_CANDIDATOS,
     SPEC_COMPLETITUD,
+    SPEC_ENRUTAMIENTO,
     SPEC_EVALUACION,
     SPEC_INTENCION,
     SPEC_RECONCILIACION,
@@ -28,6 +29,7 @@ from src.adaptadores.salida.prompts_mapeo import (
 from src.aplicacion.puertos.analista_mapeo import AnalistaMapeoBianPort
 from src.dominio.historias import (
     CandidatosHistoriaLLM,
+    EnrutamientoDominiosLLM,
     EvaluacionCandidatoLLM,
     FuncionalidadMacro,
     HistoriaUsuario,
@@ -45,6 +47,10 @@ from src.dominio.normalizacion import normalizar
 logger = logging.getLogger(__name__)
 
 _ROL_MAX_CHARS = 600
+# "Sin recorte": un tope tan alto que `_recortar` nunca corta. Es lo que usa la etapa 2b del
+# routing jerárquico -- con el catálogo ya acotado a unos 30 SD, el texto entero de cada uno
+# (~189 tokens) cuesta menos que los 341 con el rol mutilado.
+_SIN_RECORTE = 10**9
 # Suelo del último escalón de degradación: el índice mínimo con el que el paso 2 siempre cupo.
 _ROL_MIN_CHARS = 240
 # La documentación de un nodo de la jerarquía BIAN: 490 chars el más largo, así que el tope no
@@ -241,8 +247,14 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
         # 0 = índice de siempre; >0 = escalón CAG (ver `formatear_catalogo`).
         self._cag_chars_por_sd = max(0, cag_chars_por_sd)
 
-    def _escalones_catalogo(self) -> list[tuple[int, int]]:
+    def _escalones_catalogo(self, *, texto_completo: bool = False) -> list[tuple[int, int]]:
         """Presupuestos decrecientes del catálogo `(chars_negocio, rol_max_chars)`.
+
+        Con `texto_completo` (etapa 2b del routing jerárquico) se antepone un escalón SIN recorte:
+        el catálogo ya viene acotado a los Service Domains de los dominios enrutados, así que
+        caben enteros -- rol completo + `examples_of_use` + `features`, que es justo lo que la
+        escalera borraba y nadie veía nunca. Los escalones de siempre quedan DEBAJO como red: si
+        el router eligiera media taxonomía, se degrada en vez de morir.
 
         Primero se recorta el vocabulario de negocio (el escalón CAG) y solo al final el Service
         Role, porque el rol es la señal más discriminante: es lo último que se sacrifica.
@@ -259,6 +271,8 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
         escalones = [(c, self._rol_max_chars) for c in negocio]
         if self._rol_max_chars > _ROL_MIN_CHARS:
             escalones.append((0, _ROL_MIN_CHARS))
+        if texto_completo:
+            escalones.insert(0, (_SIN_RECORTE, _SIN_RECORTE))
         return escalones
 
     # ── infra ────────────────────────────────────────────────────────────────
@@ -328,13 +342,50 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
         })
         return out.model_copy(update={"metadatos": self._huella(SPEC_INTENCION, "extraer_intencion", historia.archivo)})
 
-    # ── nodo 2 ───────────────────────────────────────────────────────────────
+    # ── nodo 2a ──────────────────────────────────────────────────────────────
+    def enrutar_dominios(
+        self,
+        historia: HistoriaUsuario,
+        funcionalidad: FuncionalidadMacro,
+        intencion: IntencionHistoriaLLM,
+        catalogo: list[EntradaCatalogo],
+    ) -> EnrutamientoDominiosLLM:
+        """Etapa 1 del routing jerárquico: 36 vías con la documentación COMPLETA de cada nodo.
+
+        No tiene escalones porque no los necesita: la taxonomía entera son ~3.3k tokens, un orden
+        de magnitud por debajo del catálogo. Si esto no cupiera, nada cabría.
+        """
+        areas = {e.business_area for e in catalogo if e.business_area}
+        dominios = {(e.business_area, e.business_domain) for e in catalogo if e.business_domain}
+        out: EnrutamientoDominiosLLM = self._cadena(
+            SPEC_ENRUTAMIENTO, EnrutamientoDominiosLLM
+        ).invoke({
+            "funcionalidad_macro": funcionalidad.funcionalidad_macro,
+            "historia_archivo": historia.archivo,
+            "historia_titulo": historia.titulo,
+            "historia_contenido": historia.contenido,
+            "intencion_resumen": intencion.resumen_funcional or "(sin resumen)",
+            "intencion_actions": _lista(intencion.business_actions),
+            "intencion_objects": _lista(intencion.business_objects),
+            "intencion_outcomes": _lista(intencion.outcomes),
+            "intencion_dependencies": _lista(intencion.external_dependencies),
+            "total_areas": len(areas),
+            "total_dominios": len(dominios),
+            "taxonomia_bian": formatear_taxonomia(catalogo),
+        })
+        return out.model_copy(update={
+            "metadatos": self._huella(SPEC_ENRUTAMIENTO, "enrutar_dominios", historia.archivo)
+        })
+
+    # ── nodo 2b ──────────────────────────────────────────────────────────────
     def generar_candidatos(
         self,
         historia: HistoriaUsuario,
         funcionalidad: FuncionalidadMacro,
         intencion: IntencionHistoriaLLM,
         catalogo: list[EntradaCatalogo],
+        *,
+        texto_completo: bool = False,
     ) -> CandidatosHistoriaLLM:
         taxonomia = formatear_taxonomia(catalogo)
         out: CandidatosHistoriaLLM = self._invocar_reduciendo(
@@ -353,10 +404,11 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
                 "catalogo_total": len(catalogo),
                 "catalogo": formatear_catalogo(catalogo, presupuesto[1], presupuesto[0]),
                 # Fuera del lambda de escalones a propósito: la taxonomía es fija y pequeña, no
-                # es lo que hace que una petición no quepa.
+                # es lo que hace que una petición no quepa. Con routing solo trae los dominios
+                # elegidos, porque `catalogo` ya viene acotado a ellos.
                 "taxonomia_bian": taxonomia,
             },
-            self._escalones_catalogo(),
+            self._escalones_catalogo(texto_completo=texto_completo),
         )
         return out.model_copy(update={"metadatos": self._huella(SPEC_CANDIDATOS, "generar_candidatos", historia.archivo)})
 

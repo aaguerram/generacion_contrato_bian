@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import unittest
+from unittest import mock
 
 from langchain_core.runnables import Runnable, RunnableLambda
 
@@ -15,6 +16,7 @@ from src.adaptadores.salida.llm.failover import (
     es_transitorio,
     no_cabe,
 )
+from src.adaptadores.salida.llm.tokens import estimar_tokens
 
 
 class _ChatGuion:
@@ -235,3 +237,163 @@ class TestClasificacionPorTamano(unittest.TestCase):
 
     def test_por_tamano_tambien_se_pasa_al_siguiente_modelo(self):
         self.assertTrue(degradar_a_siguiente(RuntimeError("413 Request too large")))
+
+
+class TestPresupuestoDeclaradoPorModelo(unittest.TestCase):
+    """`max_input_tokens` por modelo: el prompt se mide ANTES de llamar.
+
+    La diferencia con el aprendizaje por 413 es cuándo actúa. El aprendizaje necesita que el
+    modelo ya haya rechazado una petición al menos una vez -y esa primera llamada se paga en cada
+    proceso nuevo-; el presupuesto declarado evita también esa. Con la cadena real
+    (`groq -> gemini -> ...`) y el catálogo BIAN de ~36k tokens, eso son dos llamadas fallidas a
+    Groq menos por CADA nodo de prompt grande de CADA corrida.
+
+    Sin API.
+    """
+
+    def _entrada_con_presupuesto(self, nombre, tope, *guion) -> EntradaModelo:
+        return EntradaModelo(
+            nombre, nombre, _ChatGuion(*guion), max_input_tokens=tope  # type: ignore[arg-type]
+        )
+
+    def test_un_prompt_que_no_cabe_en_el_presupuesto_no_gasta_la_llamada(self):
+        # Si `pequeno` llegara a llamarse, su guion daría "ok-pequeno".
+        pequeno = self._entrada_con_presupuesto("groq", 10, "ok-pequeno")
+        grande = self._entrada_con_presupuesto("gemini", 100_000, "ok-grande")
+        chat = ChatConFailover([pequeno, grande], reintentos_transitorios=1)
+
+        self.assertEqual(chat.with_structured_output(dict).invoke("P" * 4000), "ok-grande")
+        self.assertEqual(chat.ultimo_uso().proveedor, "gemini")
+
+    def test_el_mismo_modelo_sigue_siendo_el_primero_para_un_prompt_que_si_cabe(self):
+        """No es un latch sobre el modelo: es una decisión sobre ESTA petición."""
+        pequeno = self._entrada_con_presupuesto("groq", 50, "ok-pequeno")
+        grande = self._entrada_con_presupuesto("gemini", 100_000, "ok-grande")
+        chat = ChatConFailover([pequeno, grande], reintentos_transitorios=1)
+        runnable = chat.with_structured_output(dict)
+
+        runnable.invoke("P" * 4000)  # no cabe en groq
+        self.assertEqual(runnable.invoke("P" * 8), "ok-pequeno")  # este sí
+        self.assertEqual(chat.ultimo_uso().proveedor, "groq")
+
+    def test_sin_presupuesto_declarado_se_llama_como_siempre(self):
+        chat = ChatConFailover([_entrada("groq", "ok-groq")], reintentos_transitorios=1)
+        self.assertEqual(chat.with_structured_output(dict).invoke("P" * 100_000), "ok-groq")
+
+    def test_si_ningun_presupuesto_admite_el_prompt_se_pide_reducirlo(self):
+        """`PeticionDemasiadoGrande`, no `TodosLosModelosAgotados`: el analista reduce el catálogo.
+
+        Es la propiedad que hace que esto sea gratis en vez de peligroso — cero llamadas gastadas
+        y, aun así, la misma señal que habría producido un 413 real.
+        """
+        chat = ChatConFailover(
+            [
+                self._entrada_con_presupuesto("groq", 10, "nunca"),
+                self._entrada_con_presupuesto("gemini", 20, "nunca"),
+            ],
+            reintentos_transitorios=1,
+        )
+        with self.assertRaises(PeticionDemasiadoGrande) as ctx:
+            chat.with_structured_output(dict).invoke("P" * 4000)
+        # El mensaje nombra qué presupuestos no daban: sin eso, diagnosticar por qué una corrida
+        # no llamó a nadie obligaba a leer el yaml a mano.
+        self.assertIn("groq:groq<=10", str(ctx.exception))
+        self.assertIn("gemini:gemini<=20", str(ctx.exception))
+
+    def test_el_presupuesto_no_tapa_el_413_real(self):
+        """El estimador es aproximado: un modelo con presupuesto generoso de más sigue pudiendo
+        devolver 413, y ese camino tiene que seguir funcionando."""
+        optimista = self._entrada_con_presupuesto(
+            "groq", 100_000, RuntimeError("413 Request too large")
+        )
+        respaldo = self._entrada_con_presupuesto("gemini", 100_000, "ok-respaldo")
+        chat = ChatConFailover([optimista, respaldo], reintentos_transitorios=1)
+        self.assertEqual(chat.with_structured_output(dict).invoke("P" * 4000), "ok-respaldo")
+
+
+class TestEstimacionDeTokens(unittest.TestCase):
+    def test_crece_con_el_texto_y_es_cero_para_vacio(self):
+        self.assertEqual(estimar_tokens(""), 0)
+        self.assertLess(estimar_tokens("hola"), estimar_tokens("hola " * 500))
+
+    def test_el_heuristico_por_caracteres_respeta_la_razon(self):
+        """Por defecto la estimación es `len / chars_por_token`, redondeando hacia arriba."""
+        self.assertEqual(estimar_tokens("x" * 400, chars_por_token=4.0), 100)
+        self.assertEqual(estimar_tokens("x" * 401, chars_por_token=4.0), 101)
+        self.assertEqual(estimar_tokens("x" * 400, chars_por_token=2.0), 200)
+
+    def test_una_razon_invalida_no_revienta(self):
+        self.assertEqual(estimar_tokens("x" * 400, chars_por_token=0), 100)
+
+    def test_el_default_no_toca_tiktoken(self):
+        """Regresión del cuelgue: `tiktoken.get_encoding` DESCARGA el vocabulario la primera vez
+        y sin red no vuelve nunca. Si el camino por defecto lo tocara, colgaría la primera
+        llamada LLM de cada corrida en una máquina sin salida a Internet."""
+        with mock.patch("src.adaptadores.salida.llm.tokens._encoder") as encoder:
+            estimar_tokens("x" * 400)
+            encoder.assert_not_called()
+
+    def test_un_tokenizador_roto_degrada_al_heuristico(self):
+        roto = mock.Mock()
+        roto.encode.side_effect = RuntimeError("boom")
+        with mock.patch("src.adaptadores.salida.llm.tokens._encoder", return_value=roto):
+            self.assertEqual(
+                estimar_tokens("x" * 400, chars_por_token=4.0, tokenizador="tiktoken"), 100
+            )
+
+    def test_tiktoken_se_usa_solo_si_se_pide(self):
+        cod = mock.Mock()
+        cod.encode.return_value = [0] * 7
+        with mock.patch("src.adaptadores.salida.llm.tokens._encoder", return_value=cod):
+            self.assertEqual(estimar_tokens("x" * 400, tokenizador="tiktoken"), 7)
+
+
+class TestPresupuestoDesdeConfig(unittest.TestCase):
+    """`providers.<n>.llm.models[].max_input_tokens` y su valor por defecto por proveedor."""
+
+    def _prov(self, llm: dict):
+        from src.configuracion.config_yaml import _proveedor
+
+        return _proveedor("p", {"api_key_env": "", "llm": llm})
+
+    def test_forma_de_siempre_sigue_funcionando(self):
+        prov = self._prov({"models": ["a", "b"]})
+        self.assertEqual(prov.llm_models, ("a", "b"))
+        self.assertIsNone(prov.max_input_tokens("a"))
+
+    def test_presupuesto_por_modelo(self):
+        prov = self._prov({"models": ["a", {"name": "b", "max_input_tokens": 12000}]})
+        self.assertEqual(prov.llm_models, ("a", "b"))
+        self.assertIsNone(prov.max_input_tokens("a"))
+        self.assertEqual(prov.max_input_tokens("b"), 12000)
+
+    def test_el_default_del_proveedor_se_aplica_a_sus_modelos(self):
+        prov = self._prov(
+            {"max_input_tokens": 12000, "models": ["a", {"name": "b", "max_input_tokens": 500}]}
+        )
+        self.assertEqual(prov.max_input_tokens("a"), 12000)
+        self.assertEqual(prov.max_input_tokens("b"), 500, "el del modelo manda sobre el default")
+
+    def test_un_presupuesto_invalido_falla_al_cargar_y_no_en_la_primera_llamada(self):
+        for llm in (
+            {"max_input_tokens": 0, "models": ["a"]},
+            {"models": [{"name": "a", "max_input_tokens": -1}]},
+            {"models": [{"name": "a", "max_input_tokens": "muchos"}]},
+            {"models": [{"max_input_tokens": 100}]},  # objeto sin `name`
+        ):
+            with self.assertRaises(ValueError):
+                self._prov(llm)
+
+    def test_config_yaml_real_declara_presupuesto_en_toda_la_cadena_de_failover(self):
+        """Regresión del objetivo de la feature: si alguien añade un modelo a la cadena por
+        defecto sin presupuesto, vuelve a gastarse un 413 por corrida para descubrirlo."""
+        from src.configuracion.config_yaml import cargar_config
+
+        config = cargar_config()
+        sin_presupuesto = [
+            f"{prov}:{modelo}"
+            for prov in config.routing.llm_priority
+            for modelo in getattr(config.proveedores.get(prov), "llm_models", ())
+            if config.proveedores[prov].max_input_tokens(modelo) is None
+        ]
+        self.assertEqual(sin_presupuesto, [])

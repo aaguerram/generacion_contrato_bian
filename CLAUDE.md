@@ -119,6 +119,22 @@ tarda más, la causa está en el failover, no en el checkpointer.
   en vez de `TodosLosModelosAgotados`, y `AnalistaMapeoBianLangChain` reintenta **reduciendo el
   catálogo** por escalones CAG decrecientes hasta 0 — cambiar de modelo no arregla un prompt que
   no cabe en ninguno; lo único que lo arregla es mandar menos.
+- **Presupuesto de entrada declarado por modelo** (`providers.<n>.llm.models[].max_input_tokens`,
+  o `providers.<n>.llm.max_input_tokens` como default del proveedor): el paso anterior aprendía el
+  límite **del 413**, así que la primera llamada fallida se paga igual en cada proceso nuevo.
+  Declarándolo, `ChatConFailover` estima el tamaño del prompt **antes** de llamar y salta sin
+  gastar nada a todo modelo cuyo presupuesto no lo admita; si ninguno lo admite lanza
+  `PeticionDemasiadoGrande` —la misma señal que el 413 real—, así que el escalón de catálogo se
+  reduce sin haber quemado una sola llamada. Los dos filtros conviven: el declarado es a priori,
+  el aprendido cubre al modelo cuyo límite real es menor que el declarado. Medido con la cadena
+  por defecto y el catálogo de 341 SD (~39.7k tokens estimados en el escalón `(0,600)`): se saltan
+  los 2 modelos de Groq y 2 de OpenRouter, o sea **4 round-trips menos por cada nodo de prompt
+  grande y por corrida**; con el escalón CAG `(300,600)` (~60.6k) son 6. Un modelo SIN presupuesto
+  declarado se llama como siempre. `llm.tokenizador` elige cómo se mide: `caracteres`
+  (`len/llm.chars_por_token`, **el default**: sin dependencias ni red) o `tiktoken` (real, pero
+  **descarga el vocabulario la primera vez y sin red se cuelga** — por eso es opt-in y su carga
+  tiene plazo). La estimación es aproximada a propósito: pasarse de generoso solo devuelve al 413
+  de siempre, que sigue funcionando.
 - **Failover** (`src/adaptadores/salida/llm/failover.py` · `ChatConFailover`): recorre
   `routing.llm_priority` y, dentro de cada proveedor, `providers.<n>.llm.models` **en orden**.
   429 / 402 / "no disponible" / salida no parseable -> siguiente modelo; 503 / timeout ->
@@ -140,15 +156,34 @@ tarda más, la causa está en el failover, no en el checkpointer.
    1. `extraer_intencion` → `IntencionHistoriaLLM` (resumen, `business_actions`/`objects`,
       `outcomes`, `external_dependencies`, `traceability_ids` HU-/SC-/BR-, `assumptions`, `gaps`).
       **No nombra ningún SD.**
-   2. `generar_candidatos` → `CandidatosHistoriaLLM` (nombres del catálogo; **pista, no exhaustiva**).
+   2a. `enrutar_dominios` → `EnrutamientoDominiosLLM` (**routing jerárquico**,
+      `routing_jerarquico_habilitado`, **ON** en `config.yaml`): elige **Business Domains** sobre
+      `<taxonomia_bian>` antes de ver ningún SD, y separa `business_domains` (por la acción/objeto)
+      de `dependency_domains` (uno por cada `external_dependency`). **No nombra ningún SD.** La
+      ganancia NO es filtrar: es que el paso siguiente pueda mostrar el texto **entero** de los que
+      quedan. Hoy, con 341 SD en un prompt, el rol va recortado a 600 chars y `examples_of_use` /
+      `features` **no se mandan nunca** — justo el vocabulario con el que habla una HU. Medido con
+      la HU real de `cuentas_menores`: **41.1k tokens → 4.7k (2a) + 9.2k (2b) = 13.8k** con 3
+      dominios (18.6k con 5, que es el caso más ancho de los tres E2E). A ese tamaño **Groq vuelve
+      a caber** — con el prompt de 341 SD está estructuralmente excluido. El recorte lo hace código
+      determinista, no el LLM: un nombre que no resuelve contra la taxonomía real queda como
+      incidencia `ROUTING_DOMINIO_NO_RESUELTO` y no filtra nada, y si no resuelve **ninguno** se
+      sigue con el catálogo completo (`ROUTING_SIN_DOMINIOS`) — enrutar mal cuesta tokens, nunca
+      candidatos. `preparar_candidatos` sigue resolviendo nombres contra los **341**, así que un SD
+      de un dominio no enrutado que nombre el nodo 3 entra igual. Ver `metricas.routing_*` y, si
+      empieza a perder candidatos, la red pendiente en `implementacion_pendiente.md` §10.
+   2b. `generar_candidatos` → `CandidatosHistoriaLLM` (nombres del catálogo; **pista, no exhaustiva**).
       Ve el catálogo formateado (`formatear_catalogo`: nombre · Area > Domain · [patrón/asset] ::
       `service_role` recortado a `rol_max_chars`, **600** — con 240 se recortaba el rol de 219 de
       los 341 SD) **más `<taxonomia_bian>`** (`formatear_taxonomia`): qué cubre cada Business Area
       (5) y Business Domain (36) según el propio landscape, **deduplicado y enviado una vez**
       (~3.3k tokens; inline por SD costaría ~23k por la misma información). Antes esa jerarquía
-      viajaba como etiqueta sin definir aunque pesa un 10% del score. `documentation` del SD NO se
-      manda **nunca**: es la concatenación literal de `service_role` + `examples_of_use` +
-      `executive_summary` + `features`, ~76k tokens por cero información nueva.
+      viajaba como etiqueta sin definir aunque pesa un 10% del score. Con routing ambos bloques
+      llegan **acotados a los dominios elegidos** y **sin recortar** (`texto_completo`: rol entero
+      + `examples_of_use` + `features`, ~189 tokens por SD), y la escalera de degradación queda
+      debajo solo como red. `documentation` del SD NO se manda **nunca**: es la concatenación
+      literal de `service_role` + `examples_of_use` + `executive_summary` + `features`, ~76k
+      tokens por cero información nueva.
    3. `revisar_completitud` → `RevisionCompletitudLLM` (usa el índice global BIAN como hint:
       `missing_candidates` / `unsupported_candidates` / `ownership_conflicts` /
       `duplicated_responsibilities` / `coverage_gaps` / `blocking_codes` `BIAN-SCOPE-009`).

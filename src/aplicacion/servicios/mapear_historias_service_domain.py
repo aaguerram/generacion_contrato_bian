@@ -94,6 +94,7 @@ from src.dominio.fusion_rrf import fusion_rrf
 from src.dominio.historias import (
     BqPersonalizadoAplicado,
     DecisionServiceDomainConsolidada,
+    EnrutamientoDominiosLLM,
     EvidenciaBian,
     HistoriaConServiceDomains,
     HistoriaUsuario,
@@ -325,6 +326,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         parametros_base: dict | None = None,
         actualizar_cache_bian: bool = False,
         top_n_omitidos: int = 5,
+        routing_jerarquico: bool = False,
         recuperadores: list[RecuperadorSemanticoPort] | None = None,
         retrieval_top_k: int = 20,
         retrieval_max_inyectados: int = 5,
@@ -356,6 +358,10 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         self._parametros_base = dict(parametros_base or {})
         self._actualizar_cache_bian = actualizar_cache_bian
         self._top_n_omitidos = max(0, top_n_omitidos)
+        # Routing jerárquico: parte el paso de candidatos en 2a (elige Business Domains sobre la
+        # taxonomía) + 2b (ve solo los SD de esos dominios, pero con el texto COMPLETO). Apagado,
+        # el subgrafo es exactamente el de siempre: un nodo, los 341 SD con el rol recortado.
+        self._routing_jerarquico = routing_jerarquico
         # Retrieval híbrido (Fase 3 del plan, en memoria): opcional -- lista vacía = desactivado,
         # el pipeline se comporta exactamente como antes (solo candidatos LLM + completitud).
         self._recuperadores = list(recuperadores or [])
@@ -511,9 +517,79 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         intencion = self._analista.extraer_intencion(estado["historia"], estado["funcionalidad"])
         return {"intencion": intencion, "huellas": _huellas(intencion)}
 
+    def _h_enrutar(self, estado: EstadoHistoria) -> dict:
+        """Nodo 2a: elige Business Domains y recorta el catálogo que verá el nodo 2b.
+
+        La llamada LLM elige; el recorte es DETERMINISTA y desconfiado: un nombre que no resuelve
+        contra la taxonomía real no filtra nada y queda como incidencia, y si no resuelve ninguno
+        se sigue con el catálogo completo. Enrutar mal debe costar tokens, nunca candidatos.
+        """
+        catalogo = estado["catalogo"]
+        enr = self._analista.enrutar_dominios(
+            estado["historia"], estado["funcionalidad"], estado["intencion"], catalogo
+        )
+        filtrado, incidencias = self._filtrar_por_dominios(estado["historia"], catalogo, enr)
+        logger.info(
+            "HU '%s' -> enrutada a %d dominio(s) [%s]: %d de %d Service Domains visibles",
+            estado["historia"].archivo,
+            len(enr.todos()),
+            ", ".join(enr.todos()) or "(ninguno)",
+            len(filtrado),
+            len(catalogo),
+        )
+        return {
+            "enrutamiento": enr,
+            "catalogo_enrutado": filtrado,
+            "huellas": _huellas(enr),
+            "incidencias": incidencias,
+        }
+
+    @staticmethod
+    def _filtrar_por_dominios(
+        historia: HistoriaUsuario,
+        catalogo: list[EntradaCatalogo],
+        enr: EnrutamientoDominiosLLM,
+    ) -> tuple[list[EntradaCatalogo], list[dict]]:
+        """Los SD de los Business Domains elegidos. Sin dominios resolubles -> catálogo completo."""
+        reales = {normalizar(e.business_domain): e.business_domain for e in catalogo if e.business_domain}
+        incidencias: list[dict] = []
+        elegidos: set[str] = set()
+        for nombre in enr.todos():
+            clave = normalizar(nombre)
+            if clave in reales:
+                elegidos.add(clave)
+            else:
+                incidencias.append({
+                    "historia": historia.archivo,
+                    "service_domain_propuesto": "",
+                    "decision": "IGNORED",
+                    "motivo": "ROUTING_DOMINIO_NO_RESUELTO",
+                    "detalle": f"'{nombre}' no es un Business Domain de la taxonomia BIAN R14",
+                })
+        if not elegidos:
+            # Nunca dejar al nodo 2b sin catálogo: sin routing utilizable se degrada al
+            # comportamiento de siempre (los 341 con el rol recortado), que es peor en coste pero
+            # no pierde ningún candidato.
+            incidencias.append({
+                "historia": historia.archivo,
+                "service_domain_propuesto": "",
+                "decision": "IGNORED",
+                "motivo": "ROUTING_SIN_DOMINIOS",
+                "detalle": "El enrutamiento no resolvio ningun Business Domain; se usa el catalogo completo",
+            })
+            return list(catalogo), incidencias
+        return [e for e in catalogo if normalizar(e.business_domain or "") in elegidos], incidencias
+
     def _h_candidatos(self, estado: EstadoHistoria) -> dict:
+        # Con routing, el catálogo llega acotado y se manda SIN recortar (`texto_completo`). El
+        # kwarg solo viaja en ese caso: un adaptador que no enrute nunca lo recibe.
+        enrutado = estado.get("catalogo_enrutado")
         cand = self._analista.generar_candidatos(
-            estado["historia"], estado["funcionalidad"], estado["intencion"], estado["catalogo"]
+            estado["historia"],
+            estado["funcionalidad"],
+            estado["intencion"],
+            enrutado or estado["catalogo"],
+            **({"texto_completo": True} if enrutado else {}),
         )
         return {"candidatos": cand, "huellas": _huellas(cand)}
 
@@ -1121,6 +1197,10 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 dict.fromkeys([*bloqueos, *comp.blocking_codes, *adv.blocking_codes])
             ),
             intencion=intencion,
+            enrutamiento=estado.get("enrutamiento") or EnrutamientoDominiosLLM(),
+            service_domains_visibles=len(
+                estado.get("catalogo_enrutado") or estado.get("catalogo") or []
+            ),
             revision_completitud=comp,
             revision_adversarial=adv,
             total_directos=len(grupos.candidatos_directos),
@@ -1605,6 +1685,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             "paso2_operaciones": self._mapear_operaciones,
             "actualizar_cache_bian": self._actualizar_cache_bian,
             "top_n_omitidos": self._top_n_omitidos,
+            "routing_jerarquico_activo": self._routing_jerarquico,
             "retrieval_hibrido_activo": bool(self._recuperadores),
             "retrieval_top_k": self._retrieval_top_k,
             "retrieval_max_inyectados": self._retrieval_max_inyectados,
@@ -1741,7 +1822,32 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             else None
         )
 
+        # ── routing jerárquico (nodo 2a) ──────────────────────────────────────
+        # Lo que hay que poder vigilar de un router NO es lo que acierta, es lo que descarta: si
+        # deja fuera el dominio bueno, el Service Domain no aparece en ningún sitio y la HU se
+        # queda corta sin decir por qué. Por eso van los tres crudos -- dominios elegidos, SD
+        # visibles y cuántas veces hubo que caer al catálogo completo -- y no una tasa de éxito,
+        # que sin corpus dorado no se puede calcular.
+        con_ruta = [h for h in procesadas if h.enrutamiento.todos()]
+        routing_dominios_por_hu = (
+            round(sum(len(h.enrutamiento.todos()) for h in con_ruta) / len(con_ruta), 2)
+            if con_ruta
+            else None
+        )
+        visibles = [h.service_domains_visibles for h in procesadas if h.service_domains_visibles]
+        routing_sd_visibles_por_hu = (
+            round(sum(visibles) / len(visibles), 1) if visibles else None
+        )
+
         return {
+            "routing_dominios_por_hu": routing_dominios_por_hu,
+            "routing_sd_visibles_por_hu": routing_sd_visibles_por_hu,
+            "routing_dominios_no_resueltos": sum(
+                1 for i in incidencias if i.get("motivo") == "ROUTING_DOMINIO_NO_RESUELTO"
+            ),
+            "routing_fallback_catalogo_completo": sum(
+                1 for i in incidencias if i.get("motivo") == "ROUTING_SIN_DOMINIOS"
+            ),
             "candidate_drop_rate": candidate_drop_rate,
             "candidatos_truncados": truncados,
             "candidatos_evaluados": total_evaluados,
@@ -1901,14 +2007,32 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 lambda e: self._clave("intencion", e["historia"], e["funcionalidad"]),
             ),
         )
+        if self._routing_jerarquico:
+            g.add_node(
+                "enrutar_dominios",
+                self._h_enrutar,
+                retry_policy=_RETRY,
+                cache_policy=self._politica(
+                    "enrutamiento",
+                    lambda e: self._clave(
+                        "enrutamiento", e["historia"], e["funcionalidad"], e.get("intencion")
+                    ),
+                ),
+            )
         g.add_node(
             "generar_candidatos",
             self._h_candidatos,
             retry_policy=_RETRY,
             cache_policy=self._politica(
                 "candidatos",
+                # El enrutamiento entra en la clave porque decide QUÉ catálogo ve este nodo: sin
+                # él, un routing distinto reutilizaría candidatos calculados sobre otros dominios.
                 lambda e: self._clave(
-                    "candidatos", e["historia"], e["funcionalidad"], e.get("intencion")
+                    "candidatos",
+                    e["historia"],
+                    e["funcionalidad"],
+                    e.get("intencion"),
+                    e.get("enrutamiento"),
                 ),
             ),
         )
@@ -1977,7 +2101,11 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         g.add_node("ensamblar", self._h_ensamblar)
 
         g.add_edge(START, "extraer_intencion")
-        g.add_edge("extraer_intencion", "generar_candidatos")
+        if self._routing_jerarquico:
+            g.add_edge("extraer_intencion", "enrutar_dominios")
+            g.add_edge("enrutar_dominios", "generar_candidatos")
+        else:
+            g.add_edge("extraer_intencion", "generar_candidatos")
         g.add_edge("generar_candidatos", "revisar_completitud")
         g.add_edge("revisar_completitud", "preparar_candidatos")
         g.add_conditional_edges(

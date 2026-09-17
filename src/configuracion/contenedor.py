@@ -75,7 +75,15 @@ def _entradas_llm(
             except (RuntimeError, ValueError, ImportError) as exc:
                 logger.warning("omito %s:%s — %s", prov.nombre, modelo, exc)
                 continue
-            entradas.append(EntradaModelo(prov.nombre, modelo, chat, prov.structured_method))
+            entradas.append(
+                EntradaModelo(
+                    prov.nombre,
+                    modelo,
+                    chat,
+                    prov.structured_method,
+                    max_input_tokens=prov.max_input_tokens(modelo),
+                )
+            )
     return entradas
 
 
@@ -102,13 +110,20 @@ def crear_chat_failover(
     logger.info(
         "cadena de failover LLM%s: %s",
         f" [{nodo}]" if nodo else "",
-        " -> ".join(e.etiqueta() for e in entradas),
+        # Con el presupuesto de entrada a la vista: es lo que decide si un modelo se llega a
+        # llamar siquiera para los nodos de prompt grande.
+        " -> ".join(
+            e.etiqueta() + (f"(<={e.max_input_tokens} tok)" if e.max_input_tokens else "")
+            for e in entradas
+        ),
     )
     return ChatConFailover(
         entradas,
         reintentos_transitorios=config.llm.reintentos_transitorios,
         backoff_inicial_seg=config.llm.backoff_inicial_seg,
         backoff_max_seg=config.llm.backoff_max_seg,
+        chars_por_token=config.llm.chars_por_token,
+        tokenizador=config.llm.tokenizador,
     )
 
 
@@ -285,6 +300,7 @@ def crear_caso_uso_mapeo(
         },
         actualizar_cache_bian=actualizar_cache_bian,
         top_n_omitidos=mh.top_n_omitidos,
+        routing_jerarquico=mh.routing_jerarquico_habilitado,
         recuperadores=recuperadores,
         retrieval_top_k=mh.retrieval_top_k,
         retrieval_max_inyectados=mh.retrieval_max_inyectados,

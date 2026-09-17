@@ -15,6 +15,7 @@ import yaml
 
 _RAIZ = Path(__file__).resolve().parents[2]  # .../generacion_contrato_ia_v2
 _ESFUERZOS = ("low", "medium", "high")
+_TOKENIZADORES = ("caracteres", "tiktoken")
 
 
 @dataclass(frozen=True)
@@ -27,6 +28,14 @@ class ProveedorConfig:
     structured_method: str | None  # "json_schema" | "function_calling" | "json_mode" | None
     llm_models: tuple[str, ...]
     embedding_models: tuple[str, ...]
+    # {nombre del modelo: tokens de ENTRADA que admite}. Solo los modelos que lo declaran; el
+    # resto se llama sin comprobación previa, como siempre. Ver `max_input_tokens` en
+    # `providers.<n>.llm.models[]` y `ChatConFailover`.
+    llm_max_input_tokens: dict[str, int] = field(default_factory=dict)
+
+    def max_input_tokens(self, modelo: str) -> int | None:
+        """Presupuesto de entrada declarado para `modelo`, o `None` si no declara ninguno."""
+        return self.llm_max_input_tokens.get(modelo)
 
     @property
     def usable_llm(self) -> bool:
@@ -63,10 +72,25 @@ class LLMConfig:
     reintentos_transitorios: int = 4
     backoff_inicial_seg: float = 2.0
     backoff_max_seg: float = 30.0
+    # Cómo se mide un prompt contra `max_input_tokens` (ver `adaptadores/salida/llm/tokens.py`).
+    # `caracteres` (por defecto) = len/chars_por_token: sin dependencias y sin red.
+    # `tiktoken` = tokenización real; más preciso, pero descarga el vocabulario la primera vez.
+    tokenizador: str = "caracteres"
+    # Razón del estimador por caracteres. 4.0 es la regla con la que ya se dimensionaba el
+    # catálogo BIAN en la documentación del proyecto.
+    chars_por_token: float = 4.0
 
     def __post_init__(self) -> None:
         if self.esfuerzo not in _ESFUERZOS:
             raise ValueError(f"llm.esfuerzo='{self.esfuerzo}' inválido; use {_ESFUERZOS}.")
+        if self.tokenizador not in _TOKENIZADORES:
+            raise ValueError(
+                f"llm.tokenizador='{self.tokenizador}' inválido; use {_TOKENIZADORES}."
+            )
+        if self.chars_por_token <= 0:
+            raise ValueError(
+                f"llm.chars_por_token={self.chars_por_token} inválido; debe ser > 0."
+            )
 
 
 @dataclass(frozen=True)
@@ -97,6 +121,13 @@ class MapearHistoriasConfig:
     paso2_operaciones: bool = True
     rol_max_chars: int = 600
     top_n_omitidos: int = 5
+    # Routing jerárquico: parte el paso de candidatos en 2a (elige Business Domains sobre la
+    # taxonomía, 36 vías con la documentación completa) + 2b (ve solo los SD de esos dominios,
+    # pero con el texto ENTERO: rol sin recortar + examples_of_use + features). Medido sobre el
+    # landscape real: 41.1k tokens -> ~11.4k, y deja de hacer falta la escalera de degradación.
+    # El default de la dataclass es False para que un `Config` construido a mano (tests) se
+    # comporte como siempre; `config.yaml` lo enciende.
+    routing_jerarquico_habilitado: bool = False
     # Flags de retrieval, INDEPENDIENTES: se puede tener híbrido sin grafo, grafo sin reranker,
     # o los tres. Un solo interruptor que mezclara las tres cosas impediría aislar qué aporta cada
     # una cuando se comparan corridas.
@@ -232,10 +263,65 @@ class Config:
         ]
 
 
+def _entero_positivo(valor, donde: str) -> int:
+    try:
+        n = int(valor)
+    except (TypeError, ValueError):
+        raise ValueError(f"{donde}: '{valor}' no es un entero de tokens válido.") from None
+    if n <= 0:
+        raise ValueError(f"{donde}: {n} inválido; max_input_tokens debe ser > 0.")
+    return n
+
+
+def _modelos_llm(nombre: str, llm: dict) -> tuple[tuple[str, ...], dict[str, int]]:
+    """Lee `providers.<n>.llm.models` aceptando DOS formas por elemento.
+
+    La de siempre (solo el nombre) y la que declara su presupuesto de entrada::
+
+        models:
+          - openai/gpt-oss-120b                 # sin presupuesto declarado
+          - name: openai/gpt-oss-20b
+            max_input_tokens: 12000
+
+    `providers.<n>.llm.max_input_tokens` sirve de valor por defecto para los modelos del
+    proveedor que no declaren el suyo: casi siempre el límite lo pone el plan (el free tier de
+    Groq, por ejemplo), no el modelo. El presupuesto es de ENTRADA -- debe dejar sitio para la
+    respuesta dentro de la ventana de contexto.
+    """
+    por_defecto = llm.get("max_input_tokens")
+    if por_defecto is not None:
+        por_defecto = _entero_positivo(por_defecto, f"providers.{nombre}.llm.max_input_tokens")
+
+    modelos: list[str] = []
+    limites: dict[str, int] = {}
+    for i, m in enumerate(llm.get("models") or []):
+        if isinstance(m, dict):
+            crudo = m.get("name") or m.get("model") or m.get("nombre")
+            if not crudo:
+                raise ValueError(
+                    f"providers.{nombre}.llm.models[{i}]: un modelo en forma de objeto necesita "
+                    "'name'."
+                )
+            modelo = str(crudo).strip()
+            declarado = m.get("max_input_tokens", por_defecto)
+        else:
+            modelo = str(m).strip()
+            declarado = por_defecto
+        if not modelo:
+            continue
+        modelos.append(modelo)
+        if declarado is not None:
+            limites[modelo] = _entero_positivo(
+                declarado, f"providers.{nombre}.llm.models[{i}].max_input_tokens"
+            )
+    return tuple(modelos), limites
+
+
 def _proveedor(nombre: str, raw: dict) -> ProveedorConfig:
     api_key_env = str(raw.get("api_key_env") or "").strip()
     llm = raw.get("llm") or {}
     emb = raw.get("embedding") or {}
+    llm_models, llm_max_input_tokens = _modelos_llm(nombre, llm)
     return ProveedorConfig(
         nombre=nombre,
         enabled=bool(raw.get("enabled", True)),
@@ -243,8 +329,9 @@ def _proveedor(nombre: str, raw: dict) -> ProveedorConfig:
         api_key=(os.getenv(api_key_env) or None) if api_key_env else None,
         base_url=raw.get("base_url") or None,
         structured_method=raw.get("structured_method") or None,
-        llm_models=tuple(str(m) for m in (llm.get("models") or []) if m),
+        llm_models=llm_models,
         embedding_models=tuple(str(m) for m in (emb.get("models") or []) if m),
+        llm_max_input_tokens=llm_max_input_tokens,
     )
 
 
@@ -278,6 +365,8 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
         reintentos_transitorios=int(lc.get("reintentos_transitorios", 4)),
         backoff_inicial_seg=float(lc.get("backoff_inicial_seg", 2.0)),
         backoff_max_seg=float(lc.get("backoff_max_seg", 30.0)),
+        tokenizador=str(lc.get("tokenizador", "caracteres")).strip().lower(),
+        chars_por_token=float(lc.get("chars_por_token", 4.0)),
     )
 
     oc = raw.get("observabilidad") or {}
@@ -337,6 +426,7 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
         rrf_k=int(mh.get("rrf_k", 60)),
         rrf_peso_lexico=float(mh.get("rrf_peso_lexico", 1.0)),
         rrf_peso_vectorial=float(mh.get("rrf_peso_vectorial", 1.0)),
+        routing_jerarquico_habilitado=bool(mh.get("routing_jerarquico_habilitado", False)),
         cag_habilitado=bool(mh.get("cag_habilitado", False)),
         cag_chars_por_sd=int(mh.get("cag_chars_por_sd", 300)),
         grafo_senales_adversarial=bool(mh.get("grafo_senales_adversarial", False)),

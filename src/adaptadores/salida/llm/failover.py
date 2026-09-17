@@ -6,6 +6,14 @@ Se recorre una lista ordenada de `(proveedor, modelo)`:
   - error real (bug, config)                          -> se propaga
 Si se agotan todos, se lanza `TodosLosModelosAgotados` con el último error.
 
+ANTES de llamar a cada modelo se comprueba que el prompt quepa en su presupuesto de entrada
+(`EntradaModelo.max_input_tokens`, que sale de `providers.<n>.llm.models[].max_input_tokens`).
+Un modelo cuyo contexto no admite esta petición se **salta sin gastar la llamada**: los intentos
+se gastan solo donde el contexto entra. Si nadie la admite se lanza `PeticionDemasiadoGrande`
+—la misma señal que produce un 413 real—, así que quien armó el prompt puede reducirlo. Un
+modelo sin `max_input_tokens` declarado se llama igual que siempre y su límite se aprende del
+primer 413.
+
 `ChatConFailover` no es un `BaseChatModel` pero expone `with_structured_output(schema)` que
 devuelve un `Runnable` — así las cadenas `PROMPT | chat.with_structured_output(X)` no cambian.
 """
@@ -20,6 +28,8 @@ from typing import Protocol
 
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.runnables import Runnable, RunnableLambda
+
+from src.adaptadores.salida.llm.tokens import CHARS_POR_TOKEN_POR_DEFECTO, estimar_tokens
 
 
 class SoportaStructured(Protocol):
@@ -100,6 +110,10 @@ class EntradaModelo:
     modelo: str
     chat: BaseChatModel
     structured_method: str | None = None
+    # Presupuesto de ENTRADA declarado para este modelo, en tokens
+    # (`providers.<n>.llm.models[].max_input_tokens`). `None` = sin límite declarado: se llama y
+    # se deja que el proveedor conteste, que es el comportamiento histórico.
+    max_input_tokens: int | None = None
 
     def __post_init__(self) -> None:
         self._cache: dict[tuple, Runnable] = {}
@@ -130,6 +144,8 @@ class ChatConFailover:
         reintentos_transitorios: int = 4,
         backoff_inicial_seg: float = 2.0,
         backoff_max_seg: float = 30.0,
+        chars_por_token: float = CHARS_POR_TOKEN_POR_DEFECTO,
+        tokenizador: str = "caracteres",
     ) -> None:
         if not entradas:
             raise ValueError("ChatConFailover necesita al menos un modelo.")
@@ -137,6 +153,9 @@ class ChatConFailover:
         self._reintentos = max(1, reintentos_transitorios)
         self._b0 = backoff_inicial_seg
         self._bmax = backoff_max_seg
+        # Cómo se mide un prompt contra el presupuesto de cada modelo; ver `tokens.estimar_tokens`.
+        self._chars_por_token = chars_por_token
+        self._tokenizador = tokenizador
         # LangGraph puede evaluar candidatos en paralelo. Un valor global en la instancia
         # mezclaría el modelo de llamadas concurrentes; thread-local mantiene cada huella ligada
         # a la misma invocación síncrona que acaba de terminar.
@@ -154,11 +173,15 @@ class ChatConFailover:
         return getattr(self._uso_local, "valor", None)
 
     @staticmethod
-    def _tamano(prompt_value) -> int:
+    def _texto(prompt_value) -> str:
         try:
-            return len(prompt_value.to_string())
+            return prompt_value.to_string()
         except Exception:  # noqa: BLE001 - cualquier prompt raro cae a su repr
-            return len(str(prompt_value))
+            return str(prompt_value)
+
+    @classmethod
+    def _tamano(cls, prompt_value) -> int:
+        return len(cls._texto(prompt_value))
 
     def with_structured_output(self, schema, **kw) -> Runnable:  # noqa: N802 (compat LangChain)
         def _invocar(prompt_value, config=None):
@@ -166,13 +189,38 @@ class ChatConFailover:
             ultimo: BaseException | None = None
             intento_total = 0
             rechazo_por_tamano = False
-            tamano = self._tamano(prompt_value)
+            texto = self._texto(prompt_value)
+            tamano = len(texto)
+            # Se estima UNA vez por invocación y se compara contra el presupuesto de cada modelo:
+            # tokenizar es barato al lado de un round-trip HTTP, y así la decisión es la misma
+            # para toda la cadena.
+            tokens = estimar_tokens(
+                texto,
+                chars_por_token=self._chars_por_token,
+                tokenizador=self._tokenizador,
+            )
+            sin_presupuesto: list[str] = []
             for entrada in self._entradas:
-                # Si este modelo ya rechazó por tamaño una petición igual o MENOR, mandarle esta
-                # es gastar un round-trip para leer el mismo 413. No es un latch sobre el modelo
-                # -sigue siendo el primero que se prueba para cualquier prompt más pequeño-, es
-                # memoria sobre el TAMAÑO. Medido: con CAG encendido, Groq devolvía 413 en los dos
-                # modelos en cada nodo grande, corrida tras corrida.
+                # PRIMER filtro, antes de gastar nada: el presupuesto DECLARADO en config.yaml.
+                # Si el prompt no cabe en lo que este modelo admite, llamarlo solo sirve para
+                # leer un 413 que ya sabíamos. A diferencia del aprendizaje de abajo, esto no
+                # necesita haber fallado antes ni una vez -- y es lo que hace que los intentos se
+                # gasten solo en modelos donde el contexto entra.
+                if entrada.max_input_tokens is not None and tokens > entrada.max_input_tokens:
+                    logger.info(
+                        "%s omitido sin llamar: ~%d tokens estimados > max_input_tokens=%d",
+                        entrada.etiqueta(), tokens, entrada.max_input_tokens,
+                    )
+                    rechazo_por_tamano = True
+                    sin_presupuesto.append(f"{entrada.etiqueta()}<={entrada.max_input_tokens}")
+                    continue
+                # SEGUNDO filtro, aprendido: si este modelo ya rechazó por tamaño una petición
+                # igual o MENOR, mandarle esta es gastar un round-trip para leer el mismo 413. No
+                # es un latch sobre el modelo -sigue siendo el primero que se prueba para
+                # cualquier prompt más pequeño-, es memoria sobre el TAMAÑO. Medido: con CAG
+                # encendido, Groq devolvía 413 en los dos modelos en cada nodo grande, corrida
+                # tras corrida. Sigue haciendo falta con `max_input_tokens` declarado: cubre al
+                # modelo cuyo presupuesto real es menor que el declarado (o el no declarado).
                 limite = self._limite_tamano.get(entrada.etiqueta())
                 if limite is not None and tamano >= limite:
                     logger.info(
@@ -223,9 +271,14 @@ class ChatConFailover:
                             break
                         raise  # error real -> propagar
             if rechazo_por_tamano:
+                detalle = (
+                    f" Sin presupuesto declarado suficiente: {', '.join(sin_presupuesto)}."
+                    if sin_presupuesto
+                    else ""
+                )
                 raise PeticionDemasiadoGrande(
-                    f"Ningún modelo aceptó una petición de {tamano} chars "
-                    f"[{self.descripcion}]. Último error: {_corto(ultimo)}"
+                    f"Ningún modelo aceptó una petición de {tamano} chars (~{tokens} tokens) "
+                    f"[{self.descripcion}].{detalle} Último error: {_corto(ultimo)}"
                 ) from ultimo
             raise TodosLosModelosAgotados(
                 f"Se agotaron todos los modelos [{self.descripcion}]. Último error: {_corto(ultimo)}"

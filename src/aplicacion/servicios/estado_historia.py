@@ -11,6 +11,7 @@ from typing import Annotated, TypedDict
 
 from src.dominio.historias import (
     CandidatosHistoriaLLM,
+    EnrutamientoDominiosLLM,
     EvaluacionCandidatoLLM,
     FuncionalidadMacro,
     HistoriaConServiceDomains,
@@ -34,6 +35,11 @@ class EstadoHistoria(TypedDict, total=False):
     catalogo: list[EntradaCatalogo]
     # nodos LLM
     intencion: IntencionHistoriaLLM
+    # Routing jerárquico (opcional): `enrutamiento` es lo que dijo el LLM y `catalogo_enrutado` el
+    # subconjunto determinista que se le enseña al nodo de candidatos. `catalogo` sigue completo
+    # a propósito: `preparar_candidatos` resuelve nombres contra los 341, no contra el recorte.
+    enrutamiento: EnrutamientoDominiosLLM
+    catalogo_enrutado: list[EntradaCatalogo]
     candidatos: CandidatosHistoriaLLM
     revision_completitud: RevisionCompletitudLLM
     # preparación determinista + fan-out por candidato

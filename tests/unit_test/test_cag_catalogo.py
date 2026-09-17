@@ -114,6 +114,29 @@ class TestEscalonesDeDegradacion(unittest.TestCase):
         self.assertEqual(tamanos, sorted(tamanos, reverse=True))
         self.assertEqual(len(set(tamanos)), len(tamanos))
 
+    def test_con_texto_completo_el_primer_escalon_no_recorta_nada(self):
+        """Etapa 2b del routing jerárquico: el catálogo ya viene acotado, así que cabe entero."""
+        catalogo = CatalogoJson(CATALOGO).cargar()
+        escalones = self._analista(600, 0)._escalones_catalogo(texto_completo=True)
+
+        self.assertEqual(len(escalones), 3, "el sin-recorte se antepone a los de siempre")
+        negocio, rol = escalones[0]
+        completo = formatear_catalogo(catalogo, rol, negocio)
+        self.assertNotIn("...", completo, "ningún campo debe quedar truncado")
+        # Y los escalones históricos siguen debajo como red por si el router elige media taxonomía.
+        self.assertEqual(escalones[1:], [(0, 600), (0, 240)])
+        self.assertGreater(len(completo), len(formatear_catalogo(catalogo, 600, 0)))
+
+    def test_el_texto_completo_incluye_el_vocabulario_de_negocio(self):
+        """Lo que hoy no ve NADIE: con CAG apagado, `examples_of_use`/`features` nunca se mandan."""
+        catalogo = [e for e in CatalogoJson(CATALOGO).cargar() if e.examples_of_use][:1]
+        negocio, rol = self._analista(600, 0)._escalones_catalogo(texto_completo=True)[0]
+        linea = formatear_catalogo(catalogo, rol, negocio)
+
+        self.assertIn(" | ", linea)
+        self.assertIn(" ".join(catalogo[0].examples_of_use.split())[:60], linea)
+        self.assertNotIn(" | ", formatear_catalogo(catalogo, 600, 0))
+
 
 if __name__ == "__main__":
     unittest.main()

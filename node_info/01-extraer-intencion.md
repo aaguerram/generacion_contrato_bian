@@ -261,8 +261,11 @@ Salida literal del nodo en esa corrida (`historias[0].intencion` del JSON de res
    proveedor equivocado cuando hay cadena por nodo (`routing.llm_priority_por_nodo`).
 9. **El handler devuelve** `{"intencion": ..., "huellas": [metadatos]}`. `huellas` está anotado
    con `operator.add`, así que se concatena; `intencion` se sobrescribe.
-10. **Arista fija** `extraer_intencion → generar_candidatos`. No hay condicional: este nodo
-    siempre continúa, incluso si devolvió listas vacías.
+10. **Arista fija** al nodo siguiente. No hay condicional: este nodo siempre continúa, incluso
+    si devolvió listas vacías. A quién continúa depende del flag de routing:
+    `extraer_intencion → enrutar_dominios` con `routing_jerarquico_habilitado: true` (el default
+    de `config.yaml`), o `extraer_intencion → generar_candidatos` con el flag apagado. **El nodo 1
+    en sí no cambia**: mismo prompt, misma entrada, misma salida, mismos consumidores.
 
 ---
 
@@ -289,7 +292,7 @@ flowchart TD
     G -- "OK: JSON valido contra pydantic" --> H["model_copy<br/>adjunta MetadatosPrompt<br/>prompt_sha256 + provider_used + attempt"]
     H --> Z
     Z --> I["estado.intencion = IntencionHistoriaLLM<br/>estado.huellas += metadatos"]
-    I --> J(["2. generar_candidatos<br/>arista fija, sin condicional"])
+    I --> J(["2a. enrutar_dominios<br/>arista fija, sin condicional<br/>(o 2b directo si el routing esta apagado)"])
 
     classDef llm fill:#fde68a,stroke:#b45309,color:#1f2937
     classDef err fill:#fecaca,stroke:#b91c1c,color:#1f2937
@@ -376,6 +379,7 @@ unresolved_questions.
 | **Failover entre modelos** | `routing.llm_priority` + `providers.<n>.llm.models` | 429 / 402 / "no disponible" / salida no parseable → siguiente modelo. 503 / timeout → reintenta el mismo y luego avanza |
 | **Cadena propia por nodo** | `routing.llm_priority_por_nodo["mapeo.intencion"]` | Vacío por defecto. Este nodo lo resuelve cualquier modelo: es el mejor candidato para pinnear el modelo **más barato** de la cadena |
 | **Checkpointer** | `durabilidad: sync\|async` | Si la corrida muere después de este nodo, `--reanudar <thread_id>` **no** vuelve a pagar esta llamada |
+| **Presupuesto declarado** | `providers.<n>.llm.models[].max_input_tokens` | Se comprueba igual antes de llamar, pero aquí nunca descarta a nadie: el prompt es de unos pocos miles de tokens y cabe en el presupuesto más pequeño de la cadena |
 | **`PeticionDemasiadoGrande`** | — | **No aplica**: este nodo no usa `_invocar_reduciendo` porque no manda catálogo |
 
 `_RETRY` tiene una salvaguarda explícita: si la excepción es `TodosLosModelosAgotados`,
@@ -448,4 +452,8 @@ Las regresiones que dependen directamente de la salida de este nodo:
 
 ## 12. Siguiente nodo
 
-[`02-generar-candidatos.md`](02-generar-candidatos.md) — el primero que ve BIAN.
+[`02a-enrutar-dominios.md`](02a-enrutar-dominios.md) — el primero que ve BIAN, aunque todavía no
+un Service Domain: elige Business Domains sobre la taxonomía usando la intención que este nodo
+acaba de extraer. Con `routing_jerarquico_habilitado: false` el siguiente es directamente
+[`02b-generar-candidatos.md`](02b-generar-candidatos.md), documentado en su versión previa al
+routing en [`historico/02-generar-candidatos.md`](historico/02-generar-candidatos.md).

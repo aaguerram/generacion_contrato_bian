@@ -39,6 +39,33 @@ routing:
   #   mapeo.evaluacion:  [groq, gemini, huggingface, openrouter, ollama]
 
 # ── Proveedores ─────────────────────────────────────────────────────────────
+#
+#  PRESUPUESTO DE ENTRADA POR MODELO (`max_input_tokens`)
+#  ------------------------------------------------------
+#  Cada modelo puede declarar cuántos tokens de ENTRADA admite. Antes de cada llamada,
+#  `ChatConFailover` estima el tamaño del prompt y **se salta sin llamar** a todo modelo cuyo
+#  presupuesto no lo admita: los intentos se gastan solo donde el contexto entra, en vez de
+#  pagar un round-trip para leer un 413 previsible. Si NINGÚN modelo lo admite se lanza
+#  `PeticionDemasiadoGrande` -- la misma señal que un 413 real --, así que el paso de candidatos
+#  reduce el catálogo por escalones y vuelve a intentar. Antes de esto, un nodo de prompt grande
+#  gastaba una llamada fallida por modelo, en cada corrida.
+#
+#  Dos formas admitidas por elemento de `models`:
+#      models:
+#        - openai/gpt-oss-120b            # sin presupuesto: se llama y se aprende del 413
+#        - name: openai/gpt-oss-20b
+#          max_input_tokens: 12000
+#  y `llm.max_input_tokens` a nivel de proveedor como valor por defecto de sus modelos (es lo
+#  habitual: el límite lo pone el PLAN, no el modelo).
+#
+#  Cómo elegir el número: ventana de contexto del modelo MENOS lo que ocupará la respuesta.
+#  Pasarse solo devuelve al comportamiento de antes (413 real, que también se aprende);
+#  quedarse corto desperdicia un modelo que sí servía. El estimador es aproximado (~10-20%),
+#  por eso el 413 sigue existiendo como red.
+#
+#  ¡OJO! Solo el de Groq está MEDIDO en este repo (su free tier corta en ~15k tokens/min y el
+#  catálogo BIAN de ~36k tokens siempre devolvía 413). El resto son presupuestos declarados a
+#  partir de la ventana de contexto publicada de cada modelo: ajústalos a tu plan.
 providers:
   # ── Ollama: servidor propio (docker, qwen3.8 27B para chat + qwen3-embedding 8B para
   #  embeddings). API compatible OpenAI vía `/v1`, sin autenticación real -- ver OLLAMA_API_KEY
@@ -50,6 +77,9 @@ providers:
     base_url: http://100.102.221.79:11434/v1
     structured_method: json_schema
     llm:
+      # Servidor propio: el límite lo pone el `num_ctx` con el que se sirve el modelo (262k
+      # declarados), no un plan. Se deja margen para la respuesta.
+      max_input_tokens: 200000
       models:
         - qwen3.8:27b-q8_0
     embedding:
@@ -62,12 +92,16 @@ providers:
     base_url: https://api.groq.com/openai/v1
     structured_method: json_schema
     llm:
+      # MEDIDO: el free tier corta en ~15k tokens/min y devuelve 413 "Request too large".
+      # 12000 deja margen para la respuesta dentro de esa misma ventana de minuto.
+      max_input_tokens: 12000
       models:
         - openai/gpt-oss-120b               # ~nivel gemini-3.8-flash, ~2.5s, structured OK
         - openai/gpt-oss-20b                # más rápido (~0.7s), algo menos calibrado
     # NOTA: el free tier de Groq limita ~15k tokens/min. `validar-sd` (prompts pequeños)
-    # sí usa Groq; `mapear-historias` (catálogo BIAN ~26k tokens) recibe 413 y el failover
-    # pasa al siguiente proveedor. Groq no publica endpoint de embeddings.
+    # sí usa Groq; `mapear-historias` (catálogo BIAN ~36k tokens con rol_max_chars=600) NO le
+    # cabe: con `max_input_tokens` declarado esos nodos ya ni se le mandan. Groq no publica
+    # endpoint de embeddings.
 
   huggingface:
     enabled: true
@@ -75,6 +109,8 @@ providers:
     base_url: https://router.huggingface.co/v1
     structured_method: json_schema
     llm:
+      # Los tres publican ventana de 128k; el techo real aquí es el crédito, no el contexto.
+      max_input_tokens: 100000
       models:
         - deepseek-ai/DeepSeek-V4-Flash             # flash frontier, ~3s, structured OK
         - openai/gpt-oss-120b                       # ~0.5s, mejor calibrado
@@ -88,11 +124,17 @@ providers:
     base_url: https://openrouter.ai/api/v1
     structured_method: json_schema          # cómo pedir salida estructurada
     llm:
+      # Los `:free` recortan contexto respecto al modelo de pago; presupuestos conservadores.
+      # El auto-router va al final y es el más incierto: no se sabe qué modelo sirve la petición.
       models:
-        - nvidia/nemotron-3-super-120b-a12b:free
-        - nvidia/nemotron-3.5-lightning:free
-        - google/gemma-4-31b-it:free
-        - openrouter/free                    # auto-router de modelos free (último recurso)
+        - name: nvidia/nemotron-3-super-120b-a12b:free
+          max_input_tokens: 60000
+        - name: nvidia/nemotron-3.5-lightning:free
+          max_input_tokens: 60000
+        - name: google/gemma-4-31b-it:free
+          max_input_tokens: 30000
+        - name: openrouter/free              # auto-router de modelos free (último recurso)
+          max_input_tokens: 30000
     embedding:
       models:
         - openai/text-embedding-3-small
@@ -101,6 +143,9 @@ providers:
     enabled: true
     api_key_env: GOOGLE_API_KEY
     llm:
+      # Ventana de 1M; el límite del free tier es de PETICIONES/día, no de tamaño. Es el único
+      # proveedor de la cadena al que el catálogo BIAN completo le cabe con holgura.
+      max_input_tokens: 900000
       models:
         - gemini-3.6-flash                   # free tier 20 req/día
         - gemini-3.5-flash
@@ -130,6 +175,7 @@ providers:
     enabled: false
     api_key_env: ANTHROPIC_API_KEY
     llm:
+      max_input_tokens: 180000       # ventana de 200k menos margen para la respuesta
       models:
         - claude-sonnet-5
 
@@ -137,6 +183,7 @@ providers:
     enabled: false
     api_key_env: OPENAI_API_KEY
     llm:
+      max_input_tokens: 110000       # ventana de 128k menos margen para la respuesta
       models:
         - gpt-4o-mini
     embedding:
@@ -151,6 +198,14 @@ llm:
   reintentos_transitorios: 4     # reintentos por 503/timeout/overloaded ANTES de pasar al siguiente modelo
   backoff_inicial_seg: 2.0
   backoff_max_seg: 30.0
+  # Cómo se mide un prompt contra el `max_input_tokens` de cada modelo (ver providers):
+  #   caracteres  (por defecto) -> len(prompt) / chars_por_token. Sin dependencias y sin red.
+  #   tiktoken                  -> tokenización real (o200k_base), más precisa.
+  # `tiktoken` NO es el default a propósito: descarga el vocabulario la primera vez y, sin salida
+  # a Internet, la llamada se cuelga -- se comprobó colgando la primera invocación LLM. Aun
+  # activándolo, la carga tiene plazo y degrada al heurístico en vez de bloquear.
+  tokenizador: caracteres
+  chars_por_token: 4.0           # razón del estimador por caracteres
 
 # ── Observabilidad (LangSmith) ─────────────────────────────────────────────
 observabilidad:
@@ -187,6 +242,20 @@ mapear_historias:
   paso2_operaciones: true        # paso 6: mapear SD directos -> operaciones oficiales CR/BQ
   rol_max_chars: 600             # recorte del Service Role al armar el catálogo del prompt
                                  # (240 recortaba 219 de los 341 SD; 600 deja solo 26, +9.7k tokens)
+  # ── Routing jerárquico: el paso de candidatos en DOS nodos ────────────────
+  #  2a `enrutar_dominios`  -> elige Business Domains sobre la taxonomía (36 vías, con la
+  #                            documentación COMPLETA de cada nodo de la jerarquía, ~4.3k tok)
+  #  2b `generar_candidatos`-> ve solo los SD de esos dominios, pero con el TEXTO ENTERO:
+  #                            rol sin recortar + examples_of_use + features (~189 tok por SD)
+  #  La ganancia no es mirar menos, es poder mostrarlo todo de los que quedan -- hoy nadie ve
+  #  nunca los examples_of_use y 26 roles van cortados. Medido sobre los 341 SD reales:
+  #  41.1k -> ~11.4k tokens (mediana 3 dominios), y a ese tamaño Groq vuelve a caber.
+  #  Riesgo que introduce: un dominio no elegido es invisible. Redes activas: el prompt de 2a
+  #  exige dominios para las external_dependencies y un mínimo de 3; el filtrado es determinista
+  #  y cae al catálogo COMPLETO si no resuelve ninguno; y el nodo 3 sigue viendo el índice de los
+  #  341 nombres (`missing_candidates`). Vigila `metricas.routing_*`. Si empieza a perder
+  #  candidatos, la red pendiente está documentada en implementacion_pendiente.md §10.
+  routing_jerarquico_habilitado: true
   top_n_omitidos: 5             # 2º pase léxico: nº de SD "posibles omitidos" a reportar por HU (0 = off)
   ruta_operaciones: docs/bian-operation-catalogs.json
   ruta_cache_bian: docs/bian-cache        # cache-first del OpenAPI oficial (CR + BQ + schemas con cuerpo)

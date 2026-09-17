@@ -518,3 +518,85 @@ está reclamando contratos que no puede sostener con una operación.
   `test_catalogo_bian_unico.py::test_la_documentacion_describe_al_service_domain_y_no_a_otra_cosa`.
   Los 3 no comparables (`Card Transaction Tracking` sin `documentation`; `Operational Risk Models` y
   `Sales Planning` sin `role_definition`) no los publica ninguna de las dos fuentes oficiales.
+
+---
+
+## 10. Red 2 del routing jerárquico — inyección por retrieval (NO implementada, a propósito)
+
+> **Cuándo abrir esto:** solo si `metricas.routing_*` o los E2E muestran que el nodo 2a está
+> perdiendo candidatos. Mientras no ocurra, implementarlo es añadir una pieza que no arregla nada
+> — exactamente el error que este documento ya cometió una vez con la fusión RRF.
+
+### El riesgo que introdujo el routing
+
+Partir el paso de candidatos en `enrutar_dominios` (2a) + `generar_candidatos` (2b) creó **un modo
+de fallo que antes no existía**: un Business Domain que 2a no elige es invisible para 2b, así que
+ningún Service Domain de ese dominio puede proponerse. Con el catálogo completo eso era imposible
+por construcción.
+
+Medido sobre los tres casos E2E, los candidatos reales de una HU abarcan **3, 4 y 5 Business
+Domains** y hasta **4 Business Areas**. El patrón: el **propietario** cae en 1-2 dominios
+(`Customer Management`, `Document Management and Archive`), pero las **dependencias** —auth,
+permisos, riesgo, auditoría, notificación— viven dispersas en `Cross Channel`, `External Agency` y
+`Account Management`. Un router que solo persiga al propietario las pierde todas.
+
+### Las tres redes que SÍ están activas
+
+1. **En el prompt de 2a**: exige `dependency_domains` (uno por cada `external_dependency`) y un
+   mínimo de 3 Business Domains, con la instrucción explícita de que el error caro es excluir.
+2. **En el filtrado determinista** (`_filtrar_por_dominios`): un nombre que no resuelve contra la
+   taxonomía real **no filtra nada** (incidencia `ROUTING_DOMINIO_NO_RESUELTO`), y si no resuelve
+   ninguno se usa el **catálogo completo** (`ROUTING_SIN_DOMINIOS`). Degradar, no morir.
+3. **Aguas abajo**: `revisar_completitud` (nodo 3) sigue viendo el índice global de los **341**
+   nombres y puede devolver `missing_candidates`; y `preparar_candidatos` resuelve nombres contra
+   los 341, no contra el recorte. Un SD de un dominio no enrutado que nombre el nodo 3 entra igual.
+   Lo fija `tests/unit_test/test_routing_jerarquico.py::test_un_candidato_de_otro_dominio_se_resuelve_igual`.
+
+### La red 2, si hiciera falta
+
+Correr los recuperadores ya implementados (`RecuperadorBM25` / `RecuperadorLexico`, en memoria,
+sin API ni Qdrant) sobre los **341** SD con la consulta que ya usa el retrieval híbrido
+(`business_actions` + `business_objects` + `capacidades_funcionales` + `outcomes` de `intencion`),
+y **forzar la inclusión en el catálogo de 2b** de los top-K cuyo Business Domain no fue elegido.
+
+Por qué encaja aquí y no antes: con el catálogo completo el retrieval **solo puede empatar** — el
+candidato correcto ya estaba en el prompt, así que inyectarlo no añade nada (por eso
+`retrieval_hibrido_habilitado` sigue en `false` y medirlo no lo justificó). Con routing pasa a
+cubrir el único fallo nuevo, que es justo lo que un canal disperso sabe hacer: encontrar por
+vocabulario algo que la taxonomía descartó.
+
+Boceto:
+
+```python
+# en _h_enrutar, después de _filtrar_por_dominios
+rescatados = self._rescate_por_retrieval(estado, filtrado)   # top-K fuera de los dominios elegidos
+filtrado += rescatados
+# incidencia por cada uno: DOMINIO_DESCARTADO_CON_SENAL (qué SD, qué dominio, qué score)
+```
+
+Puntos a respetar si se implementa:
+
+- **Tope propio** (`routing_rescate_max`), no reutilizar `retrieval_max_inyectados`: son dos
+  presupuestos distintos y hay que poder medirlos por separado.
+- **Presupuesto de tiempo**: reutilizar `_Presupuesto`, como el resto del retrieval opcional.
+- **Flag propio** (`routing_rescate_habilitado`), OFF por defecto, para poder comparar corridas
+  con y sin red.
+- **Incidencia siempre**, aunque el rescate esté apagado: saber *cuántas veces habría rescatado*
+  es el dato que dice si hace falta. Esa parte —medir sin inyectar— es más barata que la red y
+  debería ir primero.
+- El coste en tokens es real: cada SD rescatado son ~189 tokens con el texto completo.
+
+### Cómo decidir si hace falta
+
+Sin corpus dorado no hay tasa de acierto del router. Lo que sí se puede medir hoy:
+
+| Señal | Dónde | Qué significa |
+|---|---|---|
+| `routing_fallback_catalogo_completo` > 0 | `metricas` | el router no resolvió nada; no es pérdida, es coste |
+| `routing_dominios_no_resueltos` alto | `metricas` | el modelo inventa nombres de dominio → revisar el prompt de 2a, no añadir red |
+| `HISTORIA_SIN_CONTRATO` sube al encender routing | `incidencias` | **esta es la señal de alarma real** |
+| Un E2E deja de encontrar su SD | `tests/e2e/` | idem, y con caso reproducible |
+
+Regla estadística del proyecto: una tanda en verde no es una mejora, y una en rojo tampoco es una
+regresión. La varianza medida de la suite E2E es del 27%; hacen falta 15-20 corridas por
+configuración para distinguir señal de ruido (`E2E_REPETICIONES=15`).

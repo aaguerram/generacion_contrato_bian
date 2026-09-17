@@ -1,7 +1,7 @@
 """Puerto driven: el analista BIAN LLM del caso de uso `mapear-historias`.
 
-Un solo puerto con un método por nodo LLM del subgrafo (extracción -> candidatos ->
-completitud -> evaluación por candidato -> revisión adversarial -> reconciliación). El
+Un solo puerto con un método por nodo LLM del subgrafo (extracción -> [enrutamiento] ->
+candidatos -> completitud -> evaluación por candidato -> revisión adversarial -> reconciliación). El
 adaptador construye cada prompt SOLO con la evidencia que recibe (catálogo local + paquete
 de evidencia oficial por candidato); no puede aportar conocimiento externo. El scoring, los
 umbrales y la decisión final son deterministas (capa de dominio), nunca del LLM.
@@ -13,6 +13,7 @@ from abc import ABC, abstractmethod
 
 from src.dominio.historias import (
     CandidatosHistoriaLLM,
+    EnrutamientoDominiosLLM,
     EvaluacionCandidatoLLM,
     FuncionalidadMacro,
     HistoriaUsuario,
@@ -33,6 +34,21 @@ class AnalistaMapeoBianPort(ABC):
     ) -> IntencionHistoriaLLM:
         """Nodo 1: interpreta la historia. Sin nombres de Service Domain, sin decisiones BIAN."""
 
+    def enrutar_dominios(
+        self,
+        historia: HistoriaUsuario,
+        funcionalidad: FuncionalidadMacro,
+        intencion: IntencionHistoriaLLM,
+        catalogo: list[EntradaCatalogo],
+    ) -> EnrutamientoDominiosLLM:
+        """Nodo 2a (opcional): elige Business Domains sobre la taxonomía, antes de ver ningún SD.
+
+        NO es abstracto a propósito: enrutar es una estrategia, no un requisito del puerto. Un
+        adaptador que no la implemente devuelve un enrutamiento vacío, que el caso de uso
+        interpreta como "sin filtrar" -- el catálogo completo, que es el comportamiento histórico.
+        """
+        return EnrutamientoDominiosLLM()
+
     @abstractmethod
     def generar_candidatos(
         self,
@@ -40,8 +56,15 @@ class AnalistaMapeoBianPort(ABC):
         funcionalidad: FuncionalidadMacro,
         intencion: IntencionHistoriaLLM,
         catalogo: list[EntradaCatalogo],
+        *,
+        texto_completo: bool = False,
     ) -> CandidatosHistoriaLLM:
-        """Nodo 2: propone nombres de Service Domain del catálogo. Es una PISTA, no exhaustiva."""
+        """Nodo 2b: propone nombres de Service Domain del catálogo. Es una PISTA, no exhaustiva.
+
+        `texto_completo` = el catálogo recibido ya viene acotado (viene de `enrutar_dominios`), así
+        que cabe escribirlo SIN recortar: rol entero + `examples_of_use` + `features`. Es donde
+        está la ganancia del routing -- no en mirar menos, sino en poder mostrarlo todo.
+        """
 
     @abstractmethod
     def revisar_completitud(

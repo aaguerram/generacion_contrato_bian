@@ -3,6 +3,7 @@
 Un prompt por nodo LLM del subgrafo. Cada uno hace UNA cosa contra evidencia acotada:
 
     intencion      interpreta la historia (sin BIAN)
+    enrutamiento   elige Business Domains sobre la taxonomía (etapa 1 del routing jerárquico)
     candidatos     propone nombres de Service Domain del catálogo (pista, no exhaustiva)
     completitud    revisa la lista con el índice global BIAN como hint
     evaluacion     evalúa UN candidato contra SU paquete de evidencia oficial cerrado
@@ -103,7 +104,64 @@ PROMPT_INTENCION = SPEC_INTENCION.template
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  Nodo 2 — generar_candidatos
+#  Nodo 2a — enrutar_dominios  (routing jerárquico, etapa 1 de 2)
+# ══════════════════════════════════════════════════════════════════════════════
+_SIS_ENRUTAMIENTO = f"""\
+<rol>
+Eres arquitecto senior de BIAN (Service Landscape Release 14). Antes de mirar ningún Service
+Domain concreto, decides qué zonas de la taxonomía BIAN pueden contenerlos.
+</rol>
+
+<alcance>
+Esta es la PRIMERA de dos etapas. Tu salida no elige Service Domains: elige en qué Business
+Domains se va a buscar. Un dominio que no elijas NO se mirará después, así que el error caro
+aquí es dejar fuera un dominio que hacía falta, no incluir uno de más.
+Por eso: ante la duda, INCLUYE. Elige al menos 3 Business Domains y no más de 6.
+</alcance>
+
+<procedimiento>
+1. Lee `business_actions` y `business_objects`: ¿qué Business Domain describe administrar ese
+   objeto o ejecutar esa acción? Van en `business_domains`.
+2. Lee `external_dependencies` una por una (autenticación, permisos, riesgo, auditoría,
+   notificación, proveedor externo, documentos). Cada una vive casi siempre en OTRO Business
+   Domain -- y a menudo en otra Business Area- que la acción principal. Van en
+   `dependency_domains`. Dejarlas fuera es el fallo más frecuente de este paso.
+3. Copia los nombres EXACTOS de `<taxonomia_bian>`. Un nombre que no esté ahí no existe.
+4. `rationale`: una frase por dominio elegido, diciendo qué acción/objeto/dependencia lo motiva.
+5. `gaps`: capacidades de la historia para las que no ves ningún Business Domain.
+</procedimiento>
+
+{_ANTIALUCINACION}"""
+
+_HUM_ENRUTAMIENTO = """\
+<funcionalidad_macro>{funcionalidad_macro}</funcionalidad_macro>
+
+<historia archivo="{historia_archivo}" titulo="{historia_titulo}">
+{historia_contenido}
+</historia>
+
+<intencion_funcional>
+resumen: {intencion_resumen}
+business_actions: {intencion_actions}
+business_objects: {intencion_objects}
+outcomes: {intencion_outcomes}
+external_dependencies: {intencion_dependencies}
+</intencion_funcional>
+
+<taxonomia_bian total_areas="{total_areas}" total_dominios="{total_dominios}">
+{taxonomia_bian}
+</taxonomia_bian>
+
+Devuelve 'business_domains' (por la acción/objeto), 'dependency_domains' (por cada
+external_dependency), 'rationale', 'assumptions' y 'gaps'. Nombres EXACTOS de la taxonomía.
+"""
+
+SPEC_ENRUTAMIENTO = _spec("mapeo.enrutamiento", "1.0.0", _SIS_ENRUTAMIENTO, _HUM_ENRUTAMIENTO)
+PROMPT_ENRUTAMIENTO = SPEC_ENRUTAMIENTO.template
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  Nodo 2b — generar_candidatos
 # ══════════════════════════════════════════════════════════════════════════════
 _SIS_CANDIDATOS = f"""\
 <rol>
@@ -540,6 +598,7 @@ PROMPT_MAPEO_OPERACIONES = SPEC_OPERACIONES.template
 
 SPECS: dict[str, PromptSpec] = {
     "intencion": SPEC_INTENCION,
+    "enrutamiento": SPEC_ENRUTAMIENTO,
     "candidatos": SPEC_CANDIDATOS,
     "completitud": SPEC_COMPLETITUD,
     "evaluacion": SPEC_EVALUACION,

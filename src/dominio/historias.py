@@ -6,6 +6,7 @@ Arquitectura de nodos LLM del caso de uso `MapearHistoriasUseCase` (map-reduce s
 por cada HU un subgrafo con fan-out por candidato):
 
     extraer_intencion        -> IntencionHistoriaLLM      (interpretacion + acciones + objetos)
+    enrutar_dominios         -> EnrutamientoDominiosLLM   (36 Business Domains; opcional, ver flag)
     generar_candidatos       -> CandidatosHistoriaLLM     (nombres de SD, pista, no exhaustivo)
     revisar_completitud      -> RevisionCompletitudLLM    (missing / unsupported / conflicts / gaps)
       [det] union candidatos LLM + omitidos lexicos + missing -> paquete de evidencia por candidato
@@ -273,7 +274,40 @@ class IntencionHistoriaLLM(BaseModel):
     metadatos: MetadatosPrompt | None = None
 
 
-# ── Nodo 2: generación de candidatos (pista, no exhaustiva) ───────────────────
+# ── Nodo 2a: enrutamiento por la taxonomía BIAN (antes de ver ningún SD) ──────
+class EnrutamientoDominiosLLM(BaseModel):
+    """Qué Business Domains de la taxonomía BIAN pueden contener los SD de esta historia.
+
+    Primera etapa del routing jerárquico: reduce una decisión de 341 vías con el rol recortado a
+    una de 36 vías con la documentación COMPLETA de cada nodo de la jerarquía. Lo que gana no es
+    filtrar -- es que la segunda etapa pueda mostrar el texto entero de los SD que sobreviven.
+
+    No nombra ningún Service Domain: eso es el nodo 2b.
+    """
+
+    business_domains: list[str] = Field(
+        default_factory=list,
+        description="Nombres EXACTOS de Business Domain de la taxonomía, incluidos los de las dependencias.",
+    )
+    rationale: str = ""
+    # Las dependencias (auth, permisos, riesgo, auditoría, notificación) viven casi siempre en
+    # otro Business Domain -- y a veces en otra Business Area- que el propietario. Medido sobre
+    # los tres casos E2E: los candidatos reales de una HU abarcan de 3 a 5 dominios y hasta 4
+    # áreas. Si el router solo persigue al propietario, las pierde todas.
+    dependency_domains: list[str] = Field(
+        default_factory=list,
+        description="Business Domains elegidos por cubrir una external_dependency, no la acción principal.",
+    )
+    assumptions: list[str] = Field(default_factory=list)
+    gaps: list[str] = Field(default_factory=list)
+    metadatos: MetadatosPrompt | None = None
+
+    def todos(self) -> list[str]:
+        """Unión sin duplicados y conservando el orden: es lo que se usa para filtrar."""
+        return list(dict.fromkeys([*self.business_domains, *self.dependency_domains]))
+
+
+# ── Nodo 2b: generación de candidatos (pista, no exhaustiva) ──────────────────
 class CandidatoServiceDomainLLM(BaseModel):
     service_domain: str = Field(
         description="Nombre de un Service Domain del catálogo (copia literal)."
@@ -848,6 +882,12 @@ class HistoriaConServiceDomains(BaseModel):
     unresolved_questions: list[str] = Field(default_factory=list)
     blocking_codes: list[str] = Field(default_factory=list)
     intencion: IntencionHistoriaLLM = Field(default_factory=IntencionHistoriaLLM)
+    # Vacío cuando el routing jerárquico está apagado: entonces el nodo de candidatos vio los 341.
+    enrutamiento: EnrutamientoDominiosLLM = Field(default_factory=EnrutamientoDominiosLLM)
+    service_domains_visibles: int = Field(
+        default=0,
+        description="Cuántos SD vio el nodo de candidatos (341 sin routing; los de los dominios elegidos con él).",
+    )
     revision_completitud: RevisionCompletitudLLM = Field(default_factory=RevisionCompletitudLLM)
     revision_adversarial: RevisionAdversarialLLM = Field(default_factory=RevisionAdversarialLLM)
     total_directos: int = 0
