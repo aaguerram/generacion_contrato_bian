@@ -161,8 +161,10 @@ providers:
           max_input_tokens: 800000
         - name: minimax-m3              # rank 5 · huggingface + router9
           max_input_tokens: 900000
-        - name: minimax-m2.5            # septor · VERIFICADO con json_schema (15 s)
-          max_input_tokens: 160000
+        # minimax-m2.5 (septor) RETIRADO el 2026-09-20: responde y parsea bien, pero como JUEZ es
+        # flojo — atendió el nodo 3 del E2E 1 y devolvió todos los campos vacíos sobre un caso
+        # donde el conflicto Location Data Management vs Party Reference Data Directory por los
+        # datos de contacto SÍ estaba (ambos entre los 9 candidatos, señales 2.83 y 1.72).
         - name: qwen3-coder             # septor · VERIFICADO con json_schema (2.7 s)
           max_input_tokens: 200000
         - name: gpt-oss-120b            # rank 6 · groq + huggingface + ollama + electronhub:
