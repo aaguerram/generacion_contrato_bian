@@ -51,7 +51,8 @@ Cuatro cosas que **NO** hace:
 | Modelo de salida | `src/dominio/historias.py` | `382` (`RevisionCompletitudLLM`) |
 | Fuente de `disponibilidad_evidencia` | `src/adaptadores/salida/catalogo_bian_cache.py` | `evidencia_de(...)` |
 
-Identidad: **`prompt_id = "mapeo.completitud"`, `prompt_version = "1.1.0"`**.
+Identidad: **`prompt_id = "mapeo.completitud"`, `prompt_version = "1.3.0"`** (1.1.0 añadió la
+evidencia BOM y los roles completos; 1.2.0 la señal cruda; 1.3.0 arregló los campos de hallazgos).
 
 ---
 
@@ -142,6 +143,41 @@ pendiente**, con tres salidas posibles:
 
 Sin decidir esto, cada candidato repescado cuesta una llamada LLM con evidencia completa en el
 nodo 5. En esta corrida son 3.
+
+### A/B con juez FIJO: ¿la señal cruda cambia el juicio?
+
+Las tres primeras mediciones fueron inválidas porque cada rama la atendió un modelo distinto
+(gemini-3.5-flash, flash-lite, ollama, y dos nemotron distintos dentro de DreamPrompting). La
+cuarta fijó `claude-opus-5` vía ACLIDE en ambas ramas, con la misma entrada:
+
+| | con señal | sin señal |
+|---|---|---|
+| Conflicto de propiedad | cita los valores REALES: *"señales: 2.70/2 canales vs 1.71/2 canales"* | **los fabrica y los invierte**: *"mayor señal de Party Reference Data Directory (6) frente a Location Data Management (4)"* — los reales son 1.71 y 2.70 |
+| Candidatos repescados del canal | 1 (Party Routing Profile) | 1 (Issued Device Administration) |
+
+**La señal se justifica por medición, no solo por principio: sin ella el juez no se abstiene,
+inventa la cifra.** Lo que la señal NO hace es frenar la repesca de lo que el umbral del nodo 2a
+filtró — ambas ramas repescan uno, y el resto de `missing_candidates` sale del índice global, no
+del canal.
+
+### El defecto que destapó el A/B (arreglado en 1.3.0)
+
+Con 1.2.0, `duplicated_responsibilities` traía **8 entradas y ninguna era una duplicación**: todas
+decían lo contrario (*"no se demuestra duplicación con eBranch Operations"*, *"responsabilidad
+distinta de los demás candidatos"*). `ownership_conflicts` tenía el mismo vicio en una de sus
+entradas (*"no aporta evidencia suficiente para afirmar disputa"*). Esas negaciones acababan en el
+JSON de la historia como si fueran hallazgos.
+
+1.3.0 declara las dos listas como **hallazgos confirmados, no inventario**: una entrada solo entra
+si se pueden nombrar los DOS candidatos y el objeto concreto en disputa, **vacío es la respuesta
+normal**, y la duda va a `review_summary`. Medido con el mismo juez:
+
+| | 1.2.0 | 1.3.0 |
+|---|---|---|
+| `duplicated_responsibilities` | 8 (ninguna real) | **0** (correcto) |
+| `ownership_conflicts` | 1 | **2, ambas reales** (añade LDM vs Legal Entity Directory) |
+| `missing_candidates` | 6 | 3 |
+| Tiempo | 52.3 s | **11.9 s** |
 
 ---
 
