@@ -172,6 +172,29 @@ tarda más, la causa está en el failover, no en el checkpointer.
       candidatos. `preparar_candidatos` sigue resolviendo nombres contra los **341**, así que un SD
       de un dominio no enrutado que nombre el nodo 3 entra igual. Ver `metricas.routing_*` y, si
       empieza a perder candidatos, la red pendiente en `implementacion_pendiente.md` §10.
+      **Canal de propiedad de clases BOM** (`entidades_bom_habilitado`, **OFF**; `entidades_canales`,
+      `entidades_max_candidatos`, `entidades_top_k_clases`, `entidades_rrf_k`): la red determinista
+      para ese modo de fallo, en el mismo nodo y sin LLM. `docs/entity.json` (2.668 clases de los
+      diagramas BOM/CR) distingue, por clase, el SD que la **define** (ocurrencia sin
+      `notes.Extensible`) de los que solo la importan (`Extensible` + `BOMDiagram` apuntando al
+      dueño; `Party` se define en Party Reference Data Directory y se importa en otros 129 SD).
+      Paso 1, **qué clases pide la HU**, es recuperación híbrida (`RecuperadorClasesPort`: BM25
+      sobre el documento de la clase —nombre + definición + atributos + valores de enum— con la
+      consulta traducida, y embeddings multilingües con la HU en español; el diccionario
+      `CLASES_BOM_POR_TERMINO` es un canal más, fusión RRF en
+      `clases_requeridas_desde_rankings`). Pasos 2-4, **quién la define, con qué Behavior
+      Qualifier, y si el enum solo tipifica o la clase guarda el valor** (`_nota_de_enum`), los
+      responde el modelo BIAN (`candidatos_por_propiedad`), nunca un ranking. Los propietarios se
+      AÑADEN al catálogo enrutado (`_rescatar_propietarios`, incidencia
+      `ROUTING_PROPIETARIO_DE_CLASE_BOM`) con su rastro (`candidatos_por_clase`: clase, BQ, canal y
+      posición que la propuso). Da `SD + BQ`, nunca una operación: eso sigue siendo el paso 9.
+      Fuera del corpus las 40 cajas del metamodelo (`X_SD_Operations`, `X_Instantiation`, ...,
+      `es_artefacto_del_metamodelo`): tienen dueño pero no son objetos de negocio y eran la mitad
+      del ruido del canal denso. Medido (`scripts/evaluate_retrieval/README.md`, hu_real n=6):
+      bm25+vectorial solo, Recall@10 1.00 / MRR 0.569 frente a 0.67 / 0.573 del texto del SD;
+      fusionados 1.00 / 0.639. El diccionario **resta** en la fusión, por eso no va en el default.
+      Ciego al eje de la acción salvo por el canal vectorial (Correspondence llega #4 en la HU de
+      notificación por `Correspondence Management Function`).
    2b. `generar_candidatos` → `CandidatosHistoriaLLM` (nombres del catálogo; **pista, no exhaustiva**).
       Ve el catálogo formateado (`formatear_catalogo`: nombre · Area > Domain · [patrón/asset] ::
       `service_role` recortado a `rol_max_chars`, **600** — con 240 se recortaba el rol de 219 de

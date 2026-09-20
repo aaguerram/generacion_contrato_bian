@@ -128,6 +128,18 @@ class MapearHistoriasConfig:
     # El default de la dataclass es False para que un `Config` construido a mano (tests) se
     # comporte como siempre; `config.yaml` lo enciende.
     routing_jerarquico_habilitado: bool = False
+    # Canal determinista del nodo 2a: propiedad de clases del BOM (`docs/entity.json`). OFF por
+    # defecto como todos los de retrieval, y medible por separado: no cambia el prompt de 2a, solo
+    # impide que el enrutamiento pierda a un propietario que el modelo BIAN ya atribuye.
+    entidades_bom_habilitado: bool = False
+    entidades_max_candidatos: int = 5
+    ruta_entidades: str = "docs/entity.json"
+    # Canales del paso 1 (qué clases pide la HU): `diccionario` (CLASES_BOM_POR_TERMINO, sin
+    # índice), `bm25` (texto de la clase, traducido) y `vectorial` (embeddings multilingües, sin
+    # traducir). Se fusionan con RRF; con uno solo no hay fusión.
+    entidades_canales: tuple[str, ...] = ("diccionario",)
+    entidades_top_k_clases: int = 12
+    entidades_rrf_k: int = 20
     # Flags de retrieval, INDEPENDIENTES: se puede tener híbrido sin grafo, grafo sin reranker,
     # o los tres. Un solo interruptor que mezclara las tres cosas impediría aislar qué aporta cada
     # una cuando se comparan corridas.
@@ -204,6 +216,10 @@ class Config:
     @property
     def ruta_catalogo_bian(self) -> str:
         return self._abs(self.validar_sd.ruta_catalogo_bian)
+
+    @property
+    def ruta_entidades(self) -> str:
+        return self._abs(self.mapear_historias.ruta_entidades)
 
     @property
     def ruta_grafo_bian(self) -> str:
@@ -427,6 +443,16 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
         rrf_peso_lexico=float(mh.get("rrf_peso_lexico", 1.0)),
         rrf_peso_vectorial=float(mh.get("rrf_peso_vectorial", 1.0)),
         routing_jerarquico_habilitado=bool(mh.get("routing_jerarquico_habilitado", False)),
+        entidades_bom_habilitado=bool(mh.get("entidades_bom_habilitado", False)),
+        entidades_max_candidatos=int(mh.get("entidades_max_candidatos", 5)),
+        ruta_entidades=str(mh.get("ruta_entidades") or "docs/entity.json"),
+        entidades_canales=tuple(
+            str(c).strip().lower()
+            for c in (mh.get("entidades_canales") or ["diccionario"])
+            if str(c).strip()
+        ),
+        entidades_top_k_clases=int(mh.get("entidades_top_k_clases", 12)),
+        entidades_rrf_k=int(mh.get("entidades_rrf_k", 20)),
         cag_habilitado=bool(mh.get("cag_habilitado", False)),
         cag_chars_por_sd=int(mh.get("cag_chars_por_sd", 300)),
         grafo_senales_adversarial=bool(mh.get("grafo_senales_adversarial", False)),

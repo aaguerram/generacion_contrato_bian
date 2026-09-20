@@ -256,6 +256,40 @@ mapear_historias:
   #  341 nombres (`missing_candidates`). Vigila `metricas.routing_*`. Si empieza a perder
   #  candidatos, la red pendiente está documentada en implementacion_pendiente.md §10.
   routing_jerarquico_habilitado: true
+  # Canal DETERMINISTA del nodo 2a (docs/entity.json, 0 llamadas LLM): qué Service Domain DEFINE
+  # cada clase del BOM que la historia necesita. La ocurrencia SIN `notes.Extensible` es la del
+  # dueño; las que la llevan son cajas importadas del modelo genérico (`Party` se define en Party
+  # Reference Data Directory y se importa en otros 129 SD). Los propietarios así atribuidos se
+  # añaden al catálogo enrutado aunque el LLM no eligiera su Business Domain -incidencia
+  # ROUTING_PROPIETARIO_DE_CLASE_BOM-, que es justo el modo de fallo medido del router.
+  # OFF por defecto: encenderlo es una decisión de producto. Ya está MEDIDO (2026-09-20,
+  # scripts/evaluate_retrieval/README.md, hu_real n=6): el canal solo (bm25+vectorial) da
+  # Recall@10 1.00 / MRR 0.569 frente a 0.67 / 0.573 del mejor canal de texto del SD, y fusionado
+  # con él 1.00 / 0.639 -recupera las dos HU de "actualizar" que el texto del SD dejaba en los
+  # puestos 29 y 14-. Es ciego al eje de la ACCIÓN (Correspondence en la HU de notificación llega
+  # por el canal vectorial, puesto 5): complementa al router, no lo sustituye.
+  entidades_bom_habilitado: true
+  # Tope de propietarios que el canal puede añadir al catálogo de 2b. Medido con bm25+vectorial,
+  # el positivo cae en los puestos 1,5,9,10,1,1: con 5 se rescatan 4 de 6, con 10 los 6. Cada SD
+  # añadido cuesta ~189 tokens en 2b, nunca un candidato, así que el tope puede ser generoso.
+  entidades_max_candidatos: 10
+  ruta_entidades: docs/entity.json
+  # Paso 1 del canal (qué clases del BOM pide la HU) como recuperación híbrida. Canales:
+  #   diccionario -> CLASES_BOM_POR_TERMINO (ES->EN a mano, sin índice; el de siempre)
+  #   bm25        -> BM25 sobre el documento de cada clase con dueño (nombre + definición +
+  #                  atributos + valores de enum), consulta traducida. Sin red.
+  #   vectorial   -> embeddings multilingües sobre ese mismo documento, consulta en español tal
+  #                  cual (quita la dependencia del diccionario). Usa routing.embedding_priority;
+  #                  sin proveedor utilizable se omite con aviso.
+  # Con más de un canal se fusionan con RRF (entidades_rrf_k). Medido (hu_real, n=6, MRR):
+  # diccionario 0.372 · bm25 0.378 · vectorial 0.339 · bm25+vectorial 0.569 · los tres 0.517.
+  # El diccionario RESTA en la fusión (mete Party por "cliente" en todas las HU y aplana el
+  # ranking), por eso el default es bm25+vectorial. Sin embeddings utilizables queda bm25 solo.
+  #   .venv/bin/python scripts/evaluate_retrieval/evaluate.py --tipo hu_real \
+  #       --canales rrf-bm25,bom-dic,bom-bm25,bom-vec,bom-rrf,bom-rrf3,rrf-bm25+bom-rrf
+  entidades_canales: [bm25, vectorial]
+  entidades_top_k_clases: 12
+  entidades_rrf_k: 20
   top_n_omitidos: 5             # 2º pase léxico: nº de SD "posibles omitidos" a reportar por HU (0 = off)
   ruta_operaciones: docs/bian-operation-catalogs.json
   ruta_cache_bian: docs/bian-cache        # cache-first del OpenAPI oficial (CR + BQ + schemas con cuerpo)

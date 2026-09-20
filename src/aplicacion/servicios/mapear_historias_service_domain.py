@@ -47,6 +47,7 @@ except ImportError:  # pragma: no cover
 from src.aplicacion.puertos.analista_mapeo import AnalistaMapeoBianPort
 from src.aplicacion.puertos.catalogo import CatalogoServiceDomainsPort
 from src.aplicacion.puertos.catalogo_bom import CatalogoBomPort
+from src.aplicacion.puertos.catalogo_entidades import CatalogoEntidadesBianPort
 from src.aplicacion.puertos.catalogo_operaciones_bian import CatalogoOperacionesBianPort
 from src.aplicacion.puertos.entrada_mapeo import MapearHistoriasUseCase
 from src.aplicacion.puertos.grafo_bian import GrafoBianPort
@@ -54,6 +55,7 @@ from src.aplicacion.puertos.lector_historias import LectorHistoriasPort
 from src.aplicacion.puertos.mapeador_operaciones import MapeadorOperacionesBianPort
 from src.aplicacion.puertos.publicador_mapeo import PublicadorMapeoPort
 from src.aplicacion.puertos.recuperador import RecuperadorSemanticoPort
+from src.aplicacion.puertos.recuperador_clases import RecuperadorClasesPort
 from src.aplicacion.puertos.reranker import RerankerPort
 from src.aplicacion.servicios.estado_historia import EstadoHistoria
 from src.aplicacion.servicios.estado_mapeo import EstadoMapeo
@@ -89,15 +91,23 @@ from src.dominio.cobertura_operaciones import (
     resolver_dato_requerido,
     resolver_operation_id,
 )
+from src.dominio.entidades_bian import (
+    ConsultaClases,
+    candidatos_por_propiedad,
+    clases_requeridas,
+    clases_requeridas_desde_rankings,
+)
 from src.dominio.deteccion_omitidos import detectar_omitidos
 from src.dominio.fusion_rrf import fusion_rrf
 from src.dominio.historias import (
     BqPersonalizadoAplicado,
+    CandidatoClaseBom,
     DecisionServiceDomainConsolidada,
     EnrutamientoDominiosLLM,
     EvidenciaBian,
     HistoriaConServiceDomains,
     HistoriaUsuario,
+    IntencionHistoriaLLM,
     MapeoOperacionesLLM,
     MetadatosPrompt,
     OperacionBian,
@@ -327,6 +337,12 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         actualizar_cache_bian: bool = False,
         top_n_omitidos: int = 5,
         routing_jerarquico: bool = False,
+        catalogo_entidades: CatalogoEntidadesBianPort | None = None,
+        entidades_max_candidatos: int = 5,
+        recuperadores_clases: list[RecuperadorClasesPort] | None = None,
+        entidades_canal_diccionario: bool = True,
+        entidades_top_k_clases: int = 12,
+        entidades_rrf_k: int = 20,
         recuperadores: list[RecuperadorSemanticoPort] | None = None,
         retrieval_top_k: int = 20,
         retrieval_max_inyectados: int = 5,
@@ -362,6 +378,20 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # taxonomía) + 2b (ve solo los SD de esos dominios, pero con el texto COMPLETO). Apagado,
         # el subgrafo es exactamente el de siempre: un nodo, los 341 SD con el rol recortado.
         self._routing_jerarquico = routing_jerarquico
+        # Canal DETERMINISTA del nodo 2a: quién DEFINE cada clase del BOM que la historia
+        # necesita (`entidades_bian`). `None` = apagado y el nodo 2a es exactamente el de antes.
+        # No sustituye al enrutamiento por LLM: le impide perder un propietario que el propio
+        # modelo BIAN ya atribuye, que es el modo de fallo medido del router.
+        self._catalogo_entidades = catalogo_entidades
+        self._entidades_max_candidatos = max(0, entidades_max_candidatos)
+        # Paso 1 del canal como recuperación híbrida: cada `RecuperadorClasesPort` propone clases
+        # (BM25 sobre el texto traducido, embeddings sobre el texto natural) y el diccionario
+        # `CLASES_BOM_POR_TERMINO` es un canal más; se fusionan con RRF. Sin recuperadores, el
+        # paso 1 es el diccionario solo, exactamente como antes.
+        self._recuperadores_clases = list(recuperadores_clases or [])
+        self._entidades_canal_diccionario = entidades_canal_diccionario
+        self._entidades_top_k_clases = max(1, entidades_top_k_clases)
+        self._entidades_rrf_k = max(1, entidades_rrf_k)
         # Retrieval híbrido (Fase 3 del plan, en memoria): opcional -- lista vacía = desactivado,
         # el pipeline se comporta exactamente como antes (solo candidatos LLM + completitud).
         self._recuperadores = list(recuperadores or [])
@@ -529,20 +559,117 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             estado["historia"], estado["funcionalidad"], estado["intencion"], catalogo
         )
         filtrado, incidencias = self._filtrar_por_dominios(estado["historia"], catalogo, enr)
+        por_clase = self._candidatos_por_clase(estado["intencion"])
+        filtrado, inc_clase = self._rescatar_propietarios(
+            estado["historia"], catalogo, filtrado, por_clase
+        )
         logger.info(
-            "HU '%s' -> enrutada a %d dominio(s) [%s]: %d de %d Service Domains visibles",
+            "HU '%s' -> enrutada a %d dominio(s) [%s]: %d de %d Service Domains visibles%s",
             estado["historia"].archivo,
             len(enr.todos()),
             ", ".join(enr.todos()) or "(ninguno)",
             len(filtrado),
             len(catalogo),
+            f" | propiedad de clase BOM: {', '.join(c.service_domain for c in por_clase)}"
+            if por_clase
+            else "",
         )
         return {
             "enrutamiento": enr,
             "catalogo_enrutado": filtrado,
+            "candidatos_por_clase": por_clase,
             "huellas": _huellas(enr),
-            "incidencias": incidencias,
+            "incidencias": incidencias + inc_clase,
         }
+
+    def _candidatos_por_clase(self, intencion: IntencionHistoriaLLM) -> list[CandidatoClaseBom]:
+        """Service Domains que DEFINEN una clase del BOM que la historia necesita. Sin LLM.
+
+        Paso 1 (qué clases pide la historia) es recuperación: el diccionario ES->EN, BM25 sobre el
+        documento de cada clase y/o embeddings sobre el texto natural, fusionados con RRF
+        (`clases_requeridas_desde_rankings`). Pasos 2-4 (quién define cada clase, con qué
+        Behavior Qualifier y si el enum solo tipifica o la clase guarda el valor) los responde el
+        modelo BIAN, no un ranking (`candidatos_por_propiedad`). La consulta son los
+        `business_objects` que el nodo 1 ya extrajo, y solo ellos.
+        """
+        if self._catalogo_entidades is None or self._entidades_max_candidatos == 0:
+            return []
+        clases = self._catalogo_entidades.clases()
+        if not clases:
+            return []
+        enums = self._catalogo_entidades.nombres_enum()
+        # SOLO los objetos de negocio: el canal responde "qué CLASES necesita la historia", y las
+        # acciones y capacidades no son clases. Medido en la corrida real del E2E 1: con acciones +
+        # capacidades ("pantalla", "avatar", "navegar", "menú Perfil") el canal denso se va a clases
+        # de perfil/sesión/dispositivo y el dueño del dato cae del top-10; solo con los objetos no.
+        consulta = ConsultaClases.desde_textos(intencion.business_objects)
+        top_k = self._entidades_top_k_clases
+        if not self._recuperadores_clases:
+            # Un solo canal (el diccionario): sin fusión, con los pesos de siempre.
+            requeridas = clases_requeridas(consulta.terminos, clases, nombres_enum=enums, tope=top_k)
+        else:
+            rankings: dict[str, list[str]] = {}
+            if self._entidades_canal_diccionario:
+                rankings["diccionario"] = [
+                    r.clase
+                    for r in clases_requeridas(
+                        consulta.terminos, clases, nombres_enum=enums, tope=top_k
+                    )
+                ]
+            for recuperador in self._recuperadores_clases:
+                try:
+                    rankings[recuperador.nombre] = [
+                        c.clase for c in recuperador.recuperar(consulta, top_k)
+                    ]
+                except Exception as exc:  # un canal caído no tumba el nodo: se sigue sin él
+                    logger.warning(
+                        "canal de clases '%s' falló (%s); se fusiona sin él",
+                        recuperador.nombre,
+                        exc,
+                    )
+            requeridas = clases_requeridas_desde_rankings(
+                rankings, clases, k=self._entidades_rrf_k, tope=top_k
+            )
+        return candidatos_por_propiedad(
+            requeridas, clases, nombres_enum=enums, tope=self._entidades_max_candidatos
+        )
+
+    @staticmethod
+    def _rescatar_propietarios(
+        historia: HistoriaUsuario,
+        catalogo: list[EntradaCatalogo],
+        filtrado: list[EntradaCatalogo],
+        por_clase: list[CandidatoClaseBom],
+    ) -> tuple[list[EntradaCatalogo], list[dict]]:
+        """Añade al catálogo enrutado los propietarios que el routing por LLM dejó fuera.
+
+        Añade **el Service Domain**, no su Business Domain entero: la atribución del BOM es por
+        clase y por SD, así que abrir el dominio completo metería decenas de SD sin evidencia.
+        """
+        if not por_clase:
+            return filtrado, []
+        presentes = {normalizar(e.service_domain) for e in filtrado}
+        indice = {normalizar(e.service_domain): e for e in catalogo}
+        incidencias: list[dict] = []
+        anadidos: list[EntradaCatalogo] = []
+        for candidato in por_clase:
+            clave = normalizar(candidato.service_domain)
+            if clave in presentes or clave not in indice:
+                continue
+            anadidos.append(indice[clave])
+            presentes.add(clave)
+            clases = ", ".join(e.clase for e in candidato.evidencias[:3])
+            incidencias.append({
+                "historia": historia.archivo,
+                "service_domain_propuesto": candidato.service_domain,
+                "decision": "ADDED",
+                "motivo": "ROUTING_PROPIETARIO_DE_CLASE_BOM",
+                "detalle": (
+                    f"El routing no incluyo su Business Domain, pero define en su BOM la(s) "
+                    f"clase(s) {clases} que la historia necesita (score {candidato.score})"
+                ),
+            })
+        return filtrado + anadidos, incidencias
 
     @staticmethod
     def _filtrar_por_dominios(
@@ -1201,6 +1328,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             service_domains_visibles=len(
                 estado.get("catalogo_enrutado") or estado.get("catalogo") or []
             ),
+            candidatos_por_clase=list(estado.get("candidatos_por_clase") or []),
             revision_completitud=comp,
             revision_adversarial=adv,
             total_directos=len(grupos.candidatos_directos),
@@ -1686,6 +1814,14 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             "actualizar_cache_bian": self._actualizar_cache_bian,
             "top_n_omitidos": self._top_n_omitidos,
             "routing_jerarquico_activo": self._routing_jerarquico,
+            "entidades_bom_activo": self._catalogo_entidades is not None
+            and self._entidades_max_candidatos > 0,
+            "entidades_canales": (
+                (["diccionario"] if self._entidades_canal_diccionario or not self._recuperadores_clases else [])
+                + [r.nombre for r in self._recuperadores_clases]
+            )
+            if self._catalogo_entidades is not None
+            else [],
             "retrieval_hibrido_activo": bool(self._recuperadores),
             "retrieval_top_k": self._retrieval_top_k,
             "retrieval_max_inyectados": self._retrieval_max_inyectados,

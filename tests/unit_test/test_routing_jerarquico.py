@@ -19,6 +19,7 @@ import unittest
 from pathlib import Path
 
 from src.adaptadores.salida.catalogo_bian_cache import CatalogoBianCache
+from src.adaptadores.salida.catalogo_entidades_json import CatalogoEntidadesJson
 from src.adaptadores.salida.catalogo_json import CatalogoJson
 from src.adaptadores.salida.lector_historias_fs import LectorHistoriasFilesystem
 from src.adaptadores.salida.publicador_mapeo_json import PublicadorMapeoJson
@@ -131,7 +132,9 @@ def _entrada(tmp: str) -> tuple[str, str, str]:
     return str(raiz / "HU"), str(func), str(raiz / "out")
 
 
-def _servicio(analista, *, routing: bool) -> MapearHistoriasServiceDomainsService:
+def _servicio(
+    analista, *, routing: bool, entidades=None, **extra
+) -> MapearHistoriasServiceDomainsService:
     return MapearHistoriasServiceDomainsService(
         CatalogoJson(str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json")),
         LectorHistoriasFilesystem(),
@@ -145,8 +148,10 @@ def _servicio(analista, *, routing: bool) -> MapearHistoriasServiceDomainsServic
         ),
         _MapeadorNulo(),
         routing_jerarquico=routing,
+        catalogo_entidades=entidades,
         mapear_operaciones=False,
         concurrencia=1,
+        **extra,
     )
 
 
@@ -287,3 +292,62 @@ class TestEnrutamientoDominiosLLM(unittest.TestCase):
                 return ReconciliacionFuncionalidadLLM()
 
         self.assertEqual(_Minimo().enrutar_dominios(None, None, None, []).todos(), [])
+
+
+class _AnalistaContacto(_AnalistaEnrutado):
+    """Intención de la HU real del E2E 1: el correo y el celular del cliente."""
+
+    def extraer_intencion(self, historia, funcionalidad):
+        return IntencionHistoriaLLM(
+            resumen_funcional="guion",
+            business_actions=["mostrar"],
+            business_objects=[
+                "informacion de contacto del cliente (numero celular y correo electronico)"
+            ],
+            traceability_ids=["SC-01"],
+        )
+
+
+class TestPropiedadDeClaseRescataAlPropietario(unittest.TestCase):
+    """El canal determinista de 2a: el modelo BIAN atribuye la clase, el router no puede perderla.
+
+    Con `entity.json`, un Service Domain que DEFINE en su BOM una clase que la historia necesita
+    entra al catálogo de 2b aunque el enrutamiento por LLM no eligiera su Business Domain. Es el
+    modo de fallo medido del router (2 de 7 candidatos invisibles en una corrida real).
+    """
+
+    @staticmethod
+    def _correr(analista):
+        entidades = CatalogoEntidadesJson(str(DOCS / "entity.json"))
+        with tempfile.TemporaryDirectory() as tmp:
+            hu, func, salida = _entrada(tmp)
+            servicio = _servicio(analista, routing=True, entidades=entidades)
+            return servicio.ejecutar(hu, func, salida)
+
+    def test_el_propietario_entra_aunque_su_dominio_no_se_enrutara(self):
+        # El router elige un Business Domain que NO contiene a Party Reference Data Directory.
+        a = _AnalistaContacto(["Market Data"], candidatos=[])
+        resultado = self._correr(a)
+
+        self.assertIn(_SD, a.catalogo_candidatos, "2b tiene que ver al dueño de la clase Party")
+        motivos = [i.get("motivo") for i in resultado.incidencias]
+        self.assertIn("ROUTING_PROPIETARIO_DE_CLASE_BOM", motivos)
+
+    def test_queda_auditable_en_el_json_con_su_bq_y_la_nota_del_enum(self):
+        a = _AnalistaContacto(["Market Data"], candidatos=[])
+        resultado = self._correr(a)
+
+        por_clase = resultado.historias[0].candidatos_por_clase
+        self.assertTrue(por_clase, "el canal debe dejar su rastro en el resultado")
+        dueno = next(c for c in por_clase if c.service_domain == _SD)
+        self.assertIn("Reference", dueno.bqs(), "entity.json llega al BQ, nunca a la operación")
+        contacto = next(e for e in dueno.evidencias if e.clase == "Contact Point")
+        self.assertIn("Electronic Address", contacto.valores_enum)
+        self.assertIn("SOLO tipifica", contacto.nota, "el enum no guarda el valor: lo dice la nota")
+
+    def test_sin_catalogo_de_entidades_el_nodo_2a_es_el_de_siempre(self):
+        a = _AnalistaContacto(["Market Data"], candidatos=[])
+        resultado = _correr(a, routing=True)
+
+        self.assertNotIn(_SD, a.catalogo_candidatos)
+        self.assertEqual(resultado.historias[0].candidatos_por_clase, [])

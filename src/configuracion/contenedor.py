@@ -15,6 +15,7 @@ from src.adaptadores.salida.analista_mapeo_langchain import AnalistaMapeoBianLan
 from src.adaptadores.salida.catalogo_bian_cache import CatalogoBianCache
 from src.adaptadores.salida.cache_nodos_archivo import CacheNodosArchivo
 from src.adaptadores.salida.catalogo_bom_puml import CatalogoBomPuml
+from src.adaptadores.salida.catalogo_entidades_json import CatalogoEntidadesJson
 from src.adaptadores.salida.checkpointer_sqlite import crear_checkpointer
 from src.adaptadores.salida.catalogo_json import CatalogoJson
 from src.adaptadores.salida.embeddings_failover import EmbeddingsConFailover
@@ -29,6 +30,8 @@ from src.adaptadores.salida.publicador_json import PublicadorJson
 from src.adaptadores.salida.prompts_mapeo import SPEC_OPERACIONES
 from src.adaptadores.salida.publicador_mapeo_json import PublicadorMapeoJson
 from src.adaptadores.salida.recuperador_bm25 import RecuperadorBM25
+from src.adaptadores.salida.recuperador_clases_bm25 import RecuperadorClasesBM25
+from src.adaptadores.salida.recuperador_clases_vectorial import RecuperadorClasesVectorial
 from src.adaptadores.salida.recuperador_lexico import RecuperadorLexico
 from src.adaptadores.salida.recuperador_qdrant import RecuperadorQdrant
 from src.adaptadores.salida.recuperador_vectorial import RecuperadorVectorial
@@ -36,6 +39,7 @@ from src.adaptadores.salida.reranker_local import RerankerCrossEncoder
 from src.aplicacion.puertos.entrada import ValidarServiceDomainUseCase
 from src.aplicacion.puertos.entrada_mapeo import MapearHistoriasUseCase
 from src.aplicacion.puertos.recuperador import RecuperadorSemanticoPort
+from src.aplicacion.puertos.recuperador_clases import RecuperadorClasesPort
 from src.aplicacion.servicios.mapear_historias_service_domain import (
     MapearHistoriasServiceDomainsService,
 )
@@ -229,6 +233,36 @@ def _recuperadores_hibridos(
     return recuperadores
 
 
+def _recuperadores_clases(
+    config: Config, catalogo_entidades: CatalogoEntidadesJson, proveedor: str | None
+) -> list[RecuperadorClasesPort]:
+    """Canales del paso 1 del canal de propiedad de clases BOM, según `entidades_canales`.
+
+    `diccionario` no es un recuperador (lo aplica el servicio); `bm25` no necesita red; `vectorial`
+    es best-effort: sin proveedor de embeddings utilizable se sigue sin ese canal, con aviso.
+    """
+    canales = set(config.mapear_historias.entidades_canales)
+    salida: list[RecuperadorClasesPort] = []
+    if "bm25" in canales:
+        salida.append(RecuperadorClasesBM25(catalogo_entidades))
+    if "vectorial" in canales:
+        try:
+            emb, modelo_emb = _embeddings(config, proveedor)
+            salida.append(
+                RecuperadorClasesVectorial(catalogo_entidades, emb, modelo_embeddings=modelo_emb)
+            )
+        except RuntimeError as exc:
+            logger.warning(
+                "canal vectorial de clases BOM: sin proveedor de embeddings utilizable (%s); "
+                "sigo con los demás canales",
+                exc,
+            )
+    desconocidos = canales - {"diccionario", "bm25", "vectorial"}
+    if desconocidos:
+        logger.warning("entidades_canales desconocidos, ignorados: %s", sorted(desconocidos))
+    return salida
+
+
 def crear_caso_uso_mapeo(
     config: Config, *, proveedor: str | None = None, actualizar_cache_bian: bool = False
 ) -> MapearHistoriasUseCase:
@@ -259,6 +293,14 @@ def crear_caso_uso_mapeo(
     recuperadores = (
         _recuperadores_hibridos(config, catalogo, proveedor)
         if mh.retrieval_hibrido_habilitado
+        else []
+    )
+    catalogo_entidades = (
+        CatalogoEntidadesJson(config.ruta_entidades) if mh.entidades_bom_habilitado else None
+    )
+    recuperadores_clases = (
+        _recuperadores_clases(config, catalogo_entidades, proveedor)
+        if catalogo_entidades is not None
         else []
     )
 
@@ -301,6 +343,12 @@ def crear_caso_uso_mapeo(
         actualizar_cache_bian=actualizar_cache_bian,
         top_n_omitidos=mh.top_n_omitidos,
         routing_jerarquico=mh.routing_jerarquico_habilitado,
+        catalogo_entidades=catalogo_entidades,
+        entidades_max_candidatos=mh.entidades_max_candidatos,
+        recuperadores_clases=recuperadores_clases,
+        entidades_canal_diccionario="diccionario" in mh.entidades_canales,
+        entidades_top_k_clases=mh.entidades_top_k_clases,
+        entidades_rrf_k=mh.entidades_rrf_k,
         recuperadores=recuperadores,
         retrieval_top_k=mh.retrieval_top_k,
         retrieval_max_inyectados=mh.retrieval_max_inyectados,

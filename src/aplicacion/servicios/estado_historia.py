@@ -10,6 +10,7 @@ import operator
 from typing import Annotated, TypedDict
 
 from src.dominio.historias import (
+    CandidatoClaseBom,
     CandidatosHistoriaLLM,
     EnrutamientoDominiosLLM,
     EvaluacionCandidatoLLM,
@@ -40,6 +41,9 @@ class EstadoHistoria(TypedDict, total=False):
     # a propósito: `preparar_candidatos` resuelve nombres contra los 341, no contra el recorte.
     enrutamiento: EnrutamientoDominiosLLM
     catalogo_enrutado: list[EntradaCatalogo]
+    # Candidatos DETERMINISTAS del nodo 2a: Service Domains que definen en su BOM una clase que
+    # la historia necesita (`entidades_bian`). Vacío si el canal está apagado.
+    candidatos_por_clase: list[CandidatoClaseBom]
     candidatos: CandidatosHistoriaLLM
     revision_completitud: RevisionCompletitudLLM
     # preparación determinista + fan-out por candidato

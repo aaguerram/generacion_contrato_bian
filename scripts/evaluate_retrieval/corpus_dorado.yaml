@@ -11,6 +11,16 @@ casos:
   - Party Authentication
   - Transaction Authorization
   procedencia: tests/resources/datos_personales/
+  consulta_intencion:
+  - pantalla de datos personales
+  - información personal
+  - información de contacto
+  - número celular
+  - correo electrónico
+  - avatar del usuario
+  - nombre completo
+  - número de identificación
+  procedencia_intencion: tests/resources/datos_personales/expected-result.json (intencion.business_objects, corrida real validada)
 - id: notificar-actualizacion-datos
   tipo: hu_real
   hu: Notificar actualización de datos
@@ -23,6 +33,13 @@ casos:
   - Party Authentication
   - Customer Access Entitlement
   procedencia: tests/resources/datos_personales_notificacion/
+  consulta_intencion:
+  - número de celular
+  - correo electrónico
+  - notificación
+  - registro de cambio
+  - esquema de notificaciones
+  procedencia_intencion: tests/resources/datos_personales_notificacion/expected-result.json (intencion.business_objects, corrida real validada)
 - id: actualizar-correo-electronico
   tipo: hu_real
   hu: Actualizar correo electrónico
@@ -60,6 +77,13 @@ casos:
   - Legal Entity Directory
   - Customer Relationship Management
   procedencia: HU - copia/HU-Actualizar cuentas de menores.txt
+  consulta_intencion:
+  - datos personales del usuario menor
+  - número celular
+  - correo electrónico
+  - mensaje informativo de restricción
+  - nombre del tutor
+  procedencia_intencion: tests/resources/cuentas_menores/expected-result.json (intencion.business_objects, corrida real validada)
 - id: validar-nombre-sd-exacto
   tipo: nombre_canonico
   hu: (validar-sd) nombre canónico exacto

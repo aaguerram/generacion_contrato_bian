@@ -12,6 +12,7 @@
 > |---|---|
 > | `02-generar-candidatos.md` | **Solo con el flag apagado.** Con routing, el catálogo llega acotado a los dominios enrutados y **sin recortar**; ver [`../02b-generar-candidatos.md`](../02b-generar-candidatos.md) |
 > | `README.md` (este) | El diagrama del subgrafo tiene 10 nodos; con routing son 11 |
+> | `02a-enrutar-dominios.md` | **Solo con `entidades_bom_habilitado: false`.** Foto del 2026-09-17: router LLM + recorte, sin el canal de propiedad de clases BOM; ver [`../02a-enrutar-dominios-v1.md`](../02a-enrutar-dominios-v1.md) |
 >
 > El nodo 1 **no se archivó**: [`../01-extraer-intencion.md`](../01-extraer-intencion.md) sigue en
 > la raíz porque describe el funcionamiento actual. El routing no le cambió nada salvo la arista

@@ -1,3 +1,13 @@
+> ## 🗄️ ARCHIVO HISTÓRICO — nodo 2a ANTES del canal de propiedad de clases BOM
+>
+> Foto del 2026-09-17. Describe el nodo 2a cuando era **solo** el router por LLM + el recorte
+> determinista. Desde el 2026-09-20 el nodo tiene además el **canal de propiedad de clases BOM**
+> (`entidades_bom_habilitado`), paso 1 híbrido (BM25 + embeddings) y el rescate de propietarios.
+> La documentación viva es [`../02a-enrutar-dominios-v1.md`](../02a-enrutar-dominios-v1.md).
+> **No editar.** Sigue siendo cierto con `entidades_bom_habilitado: false`.
+
+---
+
 # Nodo 2a — `enrutar_dominios` `[LLM]`
 
 > **En una frase:** antes de mirar ni un solo Service Domain, decide **en qué Business Domains de

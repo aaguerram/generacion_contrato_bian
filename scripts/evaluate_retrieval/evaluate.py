@@ -3,6 +3,13 @@
 Compara, sobre las mismas consultas, cada canal por separado y sus combinaciones:
 
     lexico | vectorial | rrf(lexico+vectorial) | +graph | +rerank
+    bom-dic | bom-bm25 | bom-vec | bom-rrf | bom-rrf3 | rrf-bm25+bom | bm25+bom
+
+Los `bom-*` son el canal de PROPIEDAD de clases del BOM (`docs/entity.json`, nodo 2a): la consulta
+recupera CLASES (diccionario ES->EN, BM25 sobre el documento de la clase, embeddings sobre el texto
+natural, o su fusión RRF) y el Service Domain sale de quién DEFINE cada clase (ocurrencia sin
+`Extensible`), no de un ranking de texto del SD. `rrf-bm25+bom` fusiona a nivel de SD el mejor
+canal de texto con `bom-rrf3`; `bm25+bom` es la variante sin embeddings (todo offline).
 
 y reporta Recall@1/5/10, MRR y la posición del positivo, más cuántos `hard_negatives` se colaron
 por delante — que en este dominio es la métrica que duele: el problema no es que falte el
@@ -32,12 +39,20 @@ sys.path.insert(0, str(RAIZ))
 
 import yaml  # noqa: E402
 
+from src.adaptadores.salida.catalogo_entidades_json import CatalogoEntidadesJson  # noqa: E402
 from src.adaptadores.salida.catalogo_json import CatalogoJson  # noqa: E402
 from src.adaptadores.salida.grafo_bian_json import GrafoBianJson  # noqa: E402
 from src.adaptadores.salida.recuperador_bm25 import RecuperadorBM25  # noqa: E402
+from src.adaptadores.salida.recuperador_clases_bm25 import RecuperadorClasesBM25  # noqa: E402
 from src.adaptadores.salida.recuperador_lexico import RecuperadorLexico  # noqa: E402
 from src.adaptadores.salida.reranker_local import RerankerCrossEncoder  # noqa: E402
 from src.configuracion.settings import cargar_settings  # noqa: E402
+from src.dominio.entidades_bian import (  # noqa: E402
+    ConsultaClases,
+    candidatos_por_propiedad,
+    clases_requeridas,
+    clases_requeridas_desde_rankings,
+)
 from src.dominio.fusion_rrf import fusion_rrf  # noqa: E402
 from src.dominio.modelos import VARIANTES_TEXTO_SD  # noqa: E402
 from src.dominio.normalizacion import normalizar  # noqa: E402
@@ -52,8 +67,21 @@ CANALES_POR_DEFECTO = (
     "rrf-bm25",
     "rrf+graph",
     "rrf+graph+rerank",
+    "bom-dic",
+    "bom-bm25",
+    "bom-vec",
+    "bom-rrf",
+    "bom-rrf3",
+    "bm25+bom",
+    "rrf-bm25+bom",
+    "rrf-bm25+bom-rrf",
+)
+CANALES_BOM = (
+    "bom-dic", "bom-bm25", "bom-vec", "bom-rrf", "bom-rrf3", "bm25+bom", "rrf-bm25+bom", "rrf-bm25+bom-rrf",
 )
 TOP_K = 20
+TOP_K_CLASES = 12
+K_RRF_CLASES = 20
 # Rejilla del barrido `--barrido`: k de RRF x peso del canal disperso (el denso queda fijo en 1.0).
 KS_BARRIDO = (10, 20, 60)
 PESOS_BARRIDO = (0.0, 0.25, 0.5, 1.0)
@@ -89,7 +117,79 @@ def _qdrant(config):
         return None
 
 
+def _vectorial_clases(config, catalogo_entidades):
+    try:
+        from src.adaptadores.salida.recuperador_clases_vectorial import RecuperadorClasesVectorial
+        from src.configuracion.contenedor import _embeddings
+
+        emb, modelo = _embeddings(config, None)
+        return RecuperadorClasesVectorial(catalogo_entidades, emb, modelo_embeddings=modelo)
+    except Exception as exc:
+        print(f"  (canal vectorial de clases omitido: {exc})")
+        return None
+
+
+def _ranking_bom(canal: str, consulta: str, ctx: dict) -> list[str]:
+    """Service Domains vía propiedad de clases: paso 1 según el canal, pasos 2-4 siempre iguales."""
+    bom = ctx.get("bom")
+    if not bom:
+        return []
+    clases, enums = bom["clases"], bom["enums"]
+    q = ConsultaClases.desde_textos([consulta])
+    rankings: dict[str, list[str]] = {}
+    quiere = {
+        "bom-dic": {"diccionario"},
+        "bom-bm25": {"bm25"},
+        "bom-vec": {"vectorial"},
+        "bom-rrf": {"bm25", "vectorial"},
+        "bom-rrf3": {"diccionario", "bm25", "vectorial"},
+    }[canal]
+    if "diccionario" in quiere:
+        rankings["diccionario"] = [
+            r.clase for r in clases_requeridas(q.terminos, clases, nombres_enum=enums, tope=TOP_K_CLASES)
+        ]
+    if "bm25" in quiere and bom.get("bm25"):
+        rankings["bm25"] = [c.clase for c in bom["bm25"].recuperar(q, TOP_K_CLASES)]
+    if "vectorial" in quiere and bom.get("vectorial"):
+        rankings["vectorial"] = [c.clase for c in bom["vectorial"].recuperar(q, TOP_K_CLASES)]
+    if canal == "bom-dic":
+        requeridas = clases_requeridas(q.terminos, clases, nombres_enum=enums, tope=TOP_K_CLASES)
+    else:
+        requeridas = clases_requeridas_desde_rankings(rankings, clases, k=K_RRF_CLASES, tope=TOP_K_CLASES)
+    return [
+        c.service_domain
+        for c in candidatos_por_propiedad(requeridas, clases, nombres_enum=enums, tope=TOP_K)
+    ]
+
+
 def _ranking(canal: str, consulta: str, ctx: dict, *, k_rrf: int = 60, peso_disperso: float = 1.0) -> list[str]:
+    if canal.startswith("bom-"):
+        return _ranking_bom(canal, consulta, ctx)
+    if canal == "bm25+bom":
+        # Todo offline: BM25 sobre el texto del SD + propiedad de clases (diccionario + BM25).
+        rankings = {}
+        bom = ctx.get("bom") or {}
+        if bom:
+            q = ConsultaClases.desde_textos([consulta])
+            rankings["diccionario"] = [
+                r.clase for r in clases_requeridas(q.terminos, bom["clases"], nombres_enum=bom["enums"], tope=TOP_K_CLASES)
+            ]
+            if bom.get("bm25"):
+                rankings["bm25"] = [c.clase for c in bom["bm25"].recuperar(q, TOP_K_CLASES)]
+            requeridas = clases_requeridas_desde_rankings(rankings, bom["clases"], k=K_RRF_CLASES, tope=TOP_K_CLASES)
+            via_bom = [c.service_domain for c in candidatos_por_propiedad(requeridas, bom["clases"], nombres_enum=bom["enums"], tope=TOP_K)]
+        else:
+            via_bom = []
+        bm = [c.service_domain for c in ctx["bm25"].recuperar(consulta, TOP_K)] if ctx.get("bm25") else []
+        canales = [r for r in (bm, via_bom) if r]
+        return [n for n, _ in fusion_rrf(canales, k=k_rrf)]
+    if canal in ("rrf-bm25+bom", "rrf-bm25+bom-rrf"):
+        # Fusión a nivel de SD del mejor canal de texto con el canal de propiedad: con diccionario
+        # (`bom-rrf3`) o sin él (`bom-rrf`), porque medido el diccionario resta en la fusión.
+        base = _ranking("rrf-bm25", consulta, ctx, k_rrf=k_rrf, peso_disperso=peso_disperso)
+        via_bom = _ranking_bom("bom-rrf3" if canal == "rrf-bm25+bom" else "bom-rrf", consulta, ctx)
+        canales = [r for r in (base, via_bom) if r]
+        return [n for n, _ in fusion_rrf(canales, k=k_rrf)]
     lex = [c.service_domain for c in ctx["lexico"].recuperar(consulta, TOP_K)]
     bm = [c.service_domain for c in ctx["bm25"].recuperar(consulta, TOP_K)] if ctx.get("bm25") else []
     vec = (
@@ -206,6 +306,15 @@ def main(argv: list[str] | None = None) -> int:
         "--tipo", default="", help="Evalúa solo los casos del corpus con este `tipo` (ver README)."
     )
     p.add_argument(
+        "--consulta",
+        default="frase",
+        choices=("frase", "intencion"),
+        help="Qué texto se usa como consulta: `frase` (el enunciado curado del caso) o `intencion` "
+        "(los `business_objects` REALES que el nodo 1 extrajo en una corrida validada, "
+        "`consulta_intencion`; los casos sin ese campo se omiten). El nodo 2a consume la intención, "
+        "no la frase: medir con la frase sobreestima el canal.",
+    )
+    p.add_argument(
         "--texto-rerank",
         default="indice",
         choices=list(VARIANTES_TEXTO_SD),
@@ -226,6 +335,15 @@ def main(argv: list[str] | None = None) -> int:
         if not casos:
             print(f"ningún caso con tipo='{args.tipo}'")
             return 1
+    if args.consulta == "intencion":
+        con = [c for c in casos if c.get("consulta_intencion")]
+        omitidos = [c["id"] for c in casos if not c.get("consulta_intencion")]
+        casos = [dict(c, consulta=". ".join(c["consulta_intencion"])) for c in con]
+        if omitidos:
+            print(f"(--consulta intencion: {len(omitidos)} caso(s) sin intención real, omitidos: {omitidos})")
+        if not casos:
+            print("ningún caso con `consulta_intencion`")
+            return 1
     config = cargar_settings()
     catalogo = CatalogoJson(config.ruta_catalogo_bian)
     entradas = catalogo.cargar()
@@ -238,7 +356,20 @@ def main(argv: list[str] | None = None) -> int:
         c for c in (args.barrido, args.barrido_texto) if c
     )
     reranker = RerankerCrossEncoder(config.mapear_historias.reranker_modelo)
+    entidades = CatalogoEntidadesJson(config.ruta_entidades)
+    quiere_bom = any(c in CANALES_BOM for c in canales_activos)
+    quiere_bom_vec = any(
+        c in ("bom-vec", "bom-rrf", "bom-rrf3", "rrf-bm25+bom", "rrf-bm25+bom-rrf") for c in canales_activos
+    )
     ctx = {
+        "bom": {
+            "clases": entidades.clases(),
+            "enums": entidades.nombres_enum(),
+            "bm25": RecuperadorClasesBM25(entidades),
+            "vectorial": _vectorial_clases(config, entidades) if quiere_bom_vec else None,
+        }
+        if quiere_bom
+        else None,
         "lexico": RecuperadorLexico(catalogo),
         "bm25": RecuperadorBM25(catalogo),
         "vectorial": _vectorial(config, catalogo)

@@ -135,3 +135,47 @@ _EXTENSION_RETRIEVAL: dict[str, str] = {
 }
 
 EQUIVALENCIAS_RETRIEVAL: dict[str, str] = {**EQUIVALENCIAS_BASE, **_EXTENSION_RETRIEVAL}
+
+
+# ── Puente hacia los NOMBRES DE CLASE del BOM (`entidades_bian`) ──────────────────────────────
+# Dos diferencias con el mapa de arriba, y conviene no mezclarlas:
+#
+# 1. Es 1:N. El corpus del BOM escribe `eMail Address` y `Cell/Phone Number`, así que `correo ->
+#    mail` no empareja con nada: hacen falta las DOS formas. Medido sobre el caso E2E 1, sin esto
+#    el dueño real (`Party Reference Data Directory`) cae del puesto 1 al 8.
+# 2. Algunas entradas no son traducción lingüística sino **el nombre de la clase con la que BIAN
+#    modela ese concepto**: un cliente, un usuario o un menor son todos un `Party`. Es la misma
+#    inferencia que hace un modelador ("si represento a un cliente, uso Party"), y sin ella el
+#    canal no encuentra al propietario. Sigue sin colar la respuesta: nombra una CLASE del modelo,
+#    nunca un Service Domain.
+CLASES_BOM_POR_TERMINO: dict[str, set[str]] = {
+    # contacto: las dos formas que usa el corpus
+    "correo": {"email", "mail"},
+    "correos": {"email", "mail"},
+    "email": {"email", "mail"},
+    "celular": {"cell", "phone", "mobile"},
+    "movil": {"mobile", "phone", "cell"},
+    "telefono": {"phone", "telephone"},
+    "telefonico": {"phone", "telephone"},
+    "direccion": {"address"},
+    "domicilio": {"address", "residential"},
+    "contacto": {"contact"},
+    # la parte -> la clase Party
+    "cliente": {"customer", "party"},
+    "clientes": {"customer", "party"},
+    "usuario": {"user", "party"},
+    "usuarios": {"user", "party"},
+    "persona": {"person", "party"},
+    "personas": {"person", "party"},
+    "menor": {"minor", "party"},
+    "menores": {"minor", "party"},
+    "tutor": {"guardian", "party"},
+    "titular": {"holder", "party"},
+    "representante": {"representative", "party"},
+    # comunicaciones
+    "notificar": {"notification", "notify"},
+    "notificacion": {"notification", "notify"},
+    "notificaciones": {"notification", "notify"},
+    "enviar": {"send", "outbound", "delivery"},
+    "envio": {"send", "outbound", "delivery"},
+}

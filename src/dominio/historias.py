@@ -307,6 +307,48 @@ class EnrutamientoDominiosLLM(BaseModel):
         return list(dict.fromkeys([*self.business_domains, *self.dependency_domains]))
 
 
+# ── Nodo 2a (determinista): propiedad de clases del BOM -> Service Domains ────
+class EvidenciaClaseBom(BaseModel):
+    """Una clase del BOM que un Service Domain DEFINE (su ocurrencia no lleva `Extensible`).
+
+    No es recuperación léxica: es una atribución del propio modelo BIAN. Ver `entidades_bian`.
+    """
+
+    clase: str
+    bq: str = Field(default="", description="Behavior Qualifier al que pertenece la clase (notes.BQ).")
+    control_record: str = ""
+    motivos: list[str] = Field(default_factory=list)
+    enum: str = Field(default="", description="Enum con el que la clase tipifica el dato buscado.")
+    valores_enum: list[str] = Field(default_factory=list)
+    # La distinción que necesita el nodo 3: un enum TIPIFICA; los atributos adicionales son los
+    # que GUARDAN el valor. `Contact Point` dice que un Party tiene un correo, `Phone Address`
+    # guarda el número. Sin esto los dos Service Domains parecen aportar lo mismo.
+    atributos_adicionales: list[str] = Field(default_factory=list)
+    # Otros Service Domains que TAMBIÉN definen esta clase (ocurrencia sin `Extensible`). Vacío =
+    # atribución inequívoca del modelo. No reparte el peso: los dos la definen, los dos son
+    # candidatos, y quién es el dueño del DATO de la historia lo decide la evaluación, no el canal.
+    compartida_con: list[str] = Field(default_factory=list)
+    importada_en: list[str] = Field(
+        default_factory=list,
+        description="Service Domains que la referencian sin definirla (llevan `Extensible`).",
+    )
+    nota: str = ""
+
+
+class CandidatoClaseBom(BaseModel):
+    service_domain: str
+    score: float = 0.0
+    evidencias: list[EvidenciaClaseBom] = Field(default_factory=list)
+
+    def bqs(self) -> list[str]:
+        """Behavior Qualifiers citados, sin duplicar y en orden de aparición."""
+        vistos: list[str] = []
+        for e in self.evidencias:
+            if e.bq and e.bq not in vistos:
+                vistos.append(e.bq)
+        return vistos
+
+
 # ── Nodo 2b: generación de candidatos (pista, no exhaustiva) ──────────────────
 class CandidatoServiceDomainLLM(BaseModel):
     service_domain: str = Field(
@@ -887,6 +929,10 @@ class HistoriaConServiceDomains(BaseModel):
     service_domains_visibles: int = Field(
         default=0,
         description="Cuántos SD vio el nodo de candidatos (341 sin routing; los de los dominios elegidos con él).",
+    )
+    candidatos_por_clase: list[CandidatoClaseBom] = Field(
+        default_factory=list,
+        description="Service Domains que DEFINEN una clase del BOM que la historia necesita (nodo 2a determinista).",
     )
     revision_completitud: RevisionCompletitudLLM = Field(default_factory=RevisionCompletitudLLM)
     revision_adversarial: RevisionAdversarialLLM = Field(default_factory=RevisionAdversarialLLM)
