@@ -6,6 +6,7 @@ from .anthropic import AnthropicStrategy
 from .cohere import CohereStrategy
 from .estrategia import ConfiguracionProveedor, ProveedorLLMStrategy
 from .fake import FakeStrategy
+from .freellmapi import FreeLLMAPIStrategy
 from .gemini import GeminiStrategy
 from .groq import GroqStrategy
 from .huggingface import HuggingFaceStrategy
@@ -15,6 +16,7 @@ from .openrouter import OpenRouterStrategy
 
 _REGISTRO: dict[str, type[ProveedorLLMStrategy]] = {
     OllamaStrategy.nombre: OllamaStrategy,
+    FreeLLMAPIStrategy.nombre: FreeLLMAPIStrategy,
     GroqStrategy.nombre: GroqStrategy,
     GeminiStrategy.nombre: GeminiStrategy,
     HuggingFaceStrategy.nombre: HuggingFaceStrategy,

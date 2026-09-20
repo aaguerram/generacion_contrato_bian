@@ -19,6 +19,9 @@ from src.adaptadores.salida.llm.failover import PeticionDemasiadoGrande, Soporta
 from src.adaptadores.salida.prompts_mapeo import (
     SPEC_ADVERSARIAL,
     SPEC_CANDIDATOS,
+    SPEC_CANDIDATOS_BOM,
+    SPEC_CANDIDATOS_GRUPO,
+    SPEC_CANDIDATOS_GRUPO_BOM,
     SPEC_COMPLETITUD,
     SPEC_ENRUTAMIENTO,
     SPEC_EVALUACION,
@@ -135,8 +138,18 @@ def formatear_catalogo(
     return "\n".join(lineas)
 
 
-def formatear_taxonomia(catalogo: list[EntradaCatalogo]) -> str:
+def formatear_taxonomia(
+    catalogo: list[EntradaCatalogo], totales_por_dominio: dict[str, int] | None = None
+) -> str:
     """La jerarquía BIAN CON su definición, deduplicada y enviada UNA vez.
+
+    `totales_por_dominio` (nombre del Business Domain -> nº REAL de SD en el landscape) existe
+    desde que el nodo 2a puede AÑADIR un Service Domain suelto al catálogo enrutado (propietario
+    de una clase BOM que la historia necesita). Sin él, un dominio abierto por un solo rescate
+    salía como `"Loans and Deposits" (1 SD)` -medido el 2026-09-20 con Savings Account-, que le
+    dice al modelo que el dominio es diminuto cuando lo que pasa es que solo ve una parte. Con los
+    totales, la etiqueta dice `(1 de 12 SD visibles)`; si el dominio está entero, `(12 SD)` como
+    siempre.
 
     Cada línea de `formatear_catalogo` lleva `· Sales and Service > Customer Management`, pero
     hasta ahora esa jerarquía viajaba como una etiqueta sin definir -- y pesa en el score del paso
@@ -164,7 +177,39 @@ def formatear_taxonomia(catalogo: list[EntradaCatalogo]) -> str:
         lineas.append(f'- Business Area "{area}"' + (f" :: {_recortar(doc, _TAXONOMIA_MAX_CHARS)}" if doc else ""))
         for dominio, (doc_dom, n) in dominios.get(area, {}).items():
             sufijo = f" :: {_recortar(doc_dom, _TAXONOMIA_MAX_CHARS)}" if doc_dom else ""
-            lineas.append(f'  - Business Domain "{dominio}" ({n} SD){sufijo}')
+            total = (totales_por_dominio or {}).get(dominio)
+            conteo = f"{n} de {total} SD visibles" if total and total > n else f"{n} SD"
+            lineas.append(f'  - Business Domain "{dominio}" ({conteo}){sufijo}')
+    return "\n".join(lineas)
+
+
+def formatear_propietarios_bom(candidatos) -> str:
+    """El bloque `<propietarios_bom>` del prompt 1.2.0 de candidatos: una entrada por Service
+    Domain que el canal de propiedad de clases BOM del nodo 2a propuso, con la evidencia que lo
+    sostiene. Hechos del modelo, sin adjetivos: "define X [BQ Y]: nota" -- el LLM decide.
+    """
+    lineas = []
+    for c in candidatos:
+        clases = []
+        for e in c.evidencias:
+            # Una clase que solo aporta su NOMBRE ("define Party Routing Profile") no es evidencia
+            # de nada: medido, 2b la tomó como argumento y propuso ese SD. Fuera del bloque.
+            if not (e.bq or e.control_record or e.nota or e.atributos_adicionales):
+                continue
+            pieza = f'"{e.clase}"'
+            if e.bq:
+                pieza += f" [BQ {e.bq}]"
+            elif e.control_record:
+                pieza += f" [CR {e.control_record}]"
+            if e.nota:
+                pieza += f": {e.nota}"
+            elif e.atributos_adicionales:
+                pieza += f": atributos {', '.join(e.atributos_adicionales[:6])}"
+            if e.compartida_con:
+                pieza += f" (compartida_con: {', '.join(e.compartida_con)})"
+            clases.append(pieza)
+        if clases:
+            lineas.append(f'- "{c.service_domain}" define ' + "; ".join(clases))
     return "\n".join(lineas)
 
 
@@ -386,12 +431,33 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
         catalogo: list[EntradaCatalogo],
         *,
         texto_completo: bool = False,
+        totales_por_dominio: dict[str, int] | None = None,
+        propietarios_bom=None,
+        grupo: str | None = None,
     ) -> CandidatosHistoriaLLM:
-        taxonomia = formatear_taxonomia(catalogo)
+        taxonomia = formatear_taxonomia(catalogo, totales_por_dominio)
+        # Cuatro variantes del mismo prompt_id, elegidas por lo que viaja: 1.1.0 (catálogo
+        # entero, byte a byte el de siempre), 1.2.0 (+<propietarios_bom>), 1.3.0 (UN grupo del
+        # fan-out: vacío es respuesta válida y lo ausente no es gap), 1.3.1 (grupo + evidencia).
+        if grupo:
+            spec = SPEC_CANDIDATOS_GRUPO_BOM if propietarios_bom else SPEC_CANDIDATOS_GRUPO
+        else:
+            spec = SPEC_CANDIDATOS_BOM if propietarios_bom else SPEC_CANDIDATOS
+        bloque_bom = (
+            {
+                "propietarios_bom": formatear_propietarios_bom(propietarios_bom),
+                "propietarios_bom_total": len(propietarios_bom),
+            }
+            if propietarios_bom
+            else {}
+        )
+        if grupo:
+            bloque_bom["grupo_nombre"] = grupo
         out: CandidatosHistoriaLLM = self._invocar_reduciendo(
-            SPEC_CANDIDATOS,
+            spec,
             CandidatosHistoriaLLM,
             lambda presupuesto: {
+                **bloque_bom,
                 "funcionalidad_macro": funcionalidad.funcionalidad_macro,
                 "historia_archivo": historia.archivo,
                 "historia_titulo": historia.titulo,
@@ -410,7 +476,7 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
             },
             self._escalones_catalogo(texto_completo=texto_completo),
         )
-        return out.model_copy(update={"metadatos": self._huella(SPEC_CANDIDATOS, "generar_candidatos", historia.archivo)})
+        return out.model_copy(update={"metadatos": self._huella(spec, "generar_candidatos", historia.archivo)})
 
     # ── nodo 3 ───────────────────────────────────────────────────────────────
     def revisar_completitud(

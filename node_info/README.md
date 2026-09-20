@@ -20,7 +20,7 @@ Domains). Cada archivo responde siempre a lo mismo, en este orden:
 |---|------|------|---------|--------|
 | 1 | `extraer_intencion` | LLM | [`01-extraer-intencion.md`](01-extraer-intencion.md) | ✅ vigente |
 | **2a** | `enrutar_dominios` | LLM + determinista | [`02a-enrutar-dominios-v1.md`](02a-enrutar-dominios-v1.md) | ✅ vigente (v1, 2026-09-20: router + canal de propiedad de clases BOM) |
-| **2b** | `generar_candidatos` | LLM | [`02b-generar-candidatos.md`](02b-generar-candidatos.md) | ✅ escrito |
+| **2b** | `generar_candidatos` | LLM | [`02b-generar-candidatos-v1.md`](02b-generar-candidatos-v1.md) | ✅ vigente (v1, 2026-09-20: catálogo enrutado + propietarios rescatados) |
 | **3** | `revisar_completitud` | LLM | [`03-revisar-completitud.md`](03-revisar-completitud.md) | ✅ escrito |
 | 4 | `preparar_candidatos` | determinista | `04-preparar-candidatos.md` | ⏳ pendiente |
 | 5 | `evaluar_candidato` | LLM (fan-out) | `05-evaluar-candidato.md` | ⏳ pendiente |
@@ -42,6 +42,7 @@ nodos. Se conserva por dos motivos: describe el camino que el código **sigue ej
 | [`historico/02-generar-candidatos.md`](historico/02-generar-candidatos.md) | Solo con el flag apagado. Reemplazado por `02a` + `02b` |
 | [`historico/README.md`](historico/README.md) | El diagrama tenía 10 nodos; ahora son 11 |
 | [`historico/02a-enrutar-dominios.md`](historico/02a-enrutar-dominios.md) | Solo con `entidades_bom_habilitado: false`. Reemplazado por `02a-enrutar-dominios-v1.md` |
+| [`historico/02b-generar-candidatos.md`](historico/02b-generar-candidatos.md) | Solo con `entidades_bom_habilitado: false`. Reemplazado por `02b-generar-candidatos-v1.md` |
 
 El documento del **nodo 1 no está aquí**: se quedó en la raíz porque sigue siendo fiel al
 funcionamiento actual. El routing no le cambió nada salvo a quién continúa.

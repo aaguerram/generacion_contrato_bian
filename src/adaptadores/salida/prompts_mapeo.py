@@ -73,6 +73,11 @@ toma ninguna decisión de arquitectura.
 3. `business_actions`: verbos de negocio concretos que la historia EJECUTA (p. ej. "actualizar",
    "activar", "registrar"). Un verbo por elemento, en infinitivo.
 4. `business_objects`: objetos de negocio que la historia administra o produce.
+4b. `datos`: los DATOS concretos que la historia muestra, captura o cambia, uno por elemento
+   y en singular (p. ej. "número celular", "correo electrónico", "nombre del tutor",
+   "número de identificación"). Sin la pantalla, sin el botón, sin la entidad que los agrupa:
+   "información de contacto" NO es un dato; "número celular" sí. Vacío solo si la historia
+   no toca ningún dato.
 5. `outcomes`: resultados observables al terminar cada escenario.
 6. `external_dependencies`: sistemas, factores o servicios que la historia SOLO consume como
    precondición (autenticación, permisos, riesgo, auditoría, notificación, proveedor externo).
@@ -95,11 +100,12 @@ _HUM_INTENCION = """\
 </historia>
 
 Devuelve la estructura pedida: resumen_funcional, capacidades_funcionales, business_actions,
-business_objects, outcomes, external_dependencies, traceability_ids, assumptions, gaps,
+business_objects, datos, outcomes, external_dependencies, traceability_ids, assumptions, gaps,
 unresolved_questions.
 """
 
-SPEC_INTENCION = _spec("mapeo.intencion", "1.0.0", _SIS_INTENCION, _HUM_INTENCION)
+# 1.1.0: `datos` -- los datos concretos, uno por elemento. Sube la versión porque cambia el prompt.
+SPEC_INTENCION = _spec("mapeo.intencion", "1.1.0", _SIS_INTENCION, _HUM_INTENCION)
 PROMPT_INTENCION = SPEC_INTENCION.template
 
 
@@ -222,6 +228,62 @@ Devuelve 'candidatos' (service_domain EXACTO del catálogo, rationale, supportin
 # definir. Sube la versión (y con ella el prompt_sha256 de la huella) porque cambia el prompt.
 SPEC_CANDIDATOS = _spec("mapeo.candidatos", "1.1.0", _SIS_CANDIDATOS, _HUM_CANDIDATOS)
 PROMPT_CANDIDATOS = SPEC_CANDIDATOS.template
+
+# 1.2.0 (flag `evidencia_bom_en_candidatos`): el nodo 2a puede añadir al catálogo Service Domains
+# que DEFINEN una clase del BOM que la historia necesita. Sin este bloque, esos SD le llegan a 2b
+# como una línea más del catálogo y 2b no sabe por qué están ahí (medido 2026-09-20: propuso 1 de
+# 5 rescatados). El bloque es evidencia ESTRUCTURAL del modelo BIAN -qué SD define qué clase, con
+# qué Behavior Qualifier, y si la clase solo tipifica el dato o lo guarda-, redactada sin
+# recomendación: 2b sigue decidiendo qué propone. Mismo prompt_id; cambia el template, sube la
+# versión y con ella el prompt_sha256 de la huella.
+_SIS_CANDIDATOS_BOM = _SIS_CANDIDATOS.replace(
+    "- `supporting_intent`: qué business_action / business_object concreto sugiere ese candidato.",
+    "- `<propietarios_bom>` es evidencia estructural del modelo BIAN, no una recomendación: dice "
+    "qué Service Domain DEFINE en su Business Object Model cada clase que la historia parece "
+    "necesitar, con qué Behavior Qualifier, y si esa clase SOLO TIPIFICA el dato (un enum con "
+    "los tipos posibles) o GUARDA EL VALOR (atributos con el dato). Úsala para distinguir quién "
+    "administra el dato de quién solo lo referencia; una clase `compartida_con` otros SD es una "
+    "ambigüedad del propio modelo, no un empate a resolver aquí. Un SD que aparezca ahí y no te "
+    "parezca plausible puede quedarse fuera; uno que no aparezca puede entrar igual.\n"
+    "- `supporting_intent`: qué business_action / business_object concreto sugiere ese candidato.",
+)
+assert _SIS_CANDIDATOS_BOM != _SIS_CANDIDATOS
+_HUM_CANDIDATOS_BOM = _HUM_CANDIDATOS.replace(
+    "<catalogo_bian fuente=",
+    "<propietarios_bom fuente=\"docs/entity.json\" total=\"{propietarios_bom_total}\">\n"
+    "{propietarios_bom}\n"
+    "</propietarios_bom>\n\n"
+    "<catalogo_bian fuente=",
+)
+assert _HUM_CANDIDATOS_BOM != _HUM_CANDIDATOS
+SPEC_CANDIDATOS_BOM = _spec("mapeo.candidatos", "1.2.0", _SIS_CANDIDATOS_BOM, _HUM_CANDIDATOS_BOM)
+
+# 1.3.x (fan-out `candidatos_por_dominio`): la llamada ve UN GRUPO del catálogo (un Business
+# Domain, o los propietarios rescatados), no el catálogo entero. Sin decírselo, el modelo hace dos
+# cosas medidas el 2026-09-20 en el E2E 1: propone "lo menos irrelevante" del grupo porque el
+# alcance le pide incluir todo lo plausible (IT Management -> Systems Operations para una pantalla
+# de datos personales) y reporta como `gaps` que falta el dueño del dato, que sí está, en otro
+# grupo. El bloque <alcance_catalogo> corrige las dos: vacío es una respuesta válida, y lo que no
+# está en ESTE grupo no es un hueco.
+_ALCANCE_GRUPO = (
+    "- Este mensaje trae SOLO UN GRUPO del catálogo (ver `<alcance_catalogo>`); otros grupos se "
+    "evalúan en paralelo y un paso posterior une todo. Si NINGÚN Service Domain de este grupo es "
+    "plausible para la historia, devuelve `candidatos` VACÍO: no elijas \"el menos irrelevante\". "
+    "No registres en `coverage_notes` ni en `gaps` lo que no está en este grupo: puede estar en "
+    "otro.\n"
+)
+_ANCLA_PROC = "- `supporting_intent`: qué business_action / business_object concreto sugiere ese candidato."
+_SIS_CANDIDATOS_GRUPO = _SIS_CANDIDATOS.replace(_ANCLA_PROC, _ALCANCE_GRUPO + _ANCLA_PROC)
+_SIS_CANDIDATOS_GRUPO_BOM = _SIS_CANDIDATOS_BOM.replace(_ANCLA_PROC, _ALCANCE_GRUPO + _ANCLA_PROC)
+assert _SIS_CANDIDATOS_GRUPO != _SIS_CANDIDATOS and _SIS_CANDIDATOS_GRUPO_BOM != _SIS_CANDIDATOS_BOM
+_BLOQUE_ALCANCE = (
+    "<alcance_catalogo>\nGrupo \"{grupo_nombre}\": {catalogo_total} Service Domain(s) de un "
+    "catálogo mayor que se evalúa por grupos en paralelo.\n</alcance_catalogo>\n\n<catalogo_bian fuente="
+)
+_HUM_CANDIDATOS_GRUPO = _HUM_CANDIDATOS.replace("<catalogo_bian fuente=", _BLOQUE_ALCANCE)
+_HUM_CANDIDATOS_GRUPO_BOM = _HUM_CANDIDATOS_BOM.replace("<catalogo_bian fuente=", _BLOQUE_ALCANCE)
+SPEC_CANDIDATOS_GRUPO = _spec("mapeo.candidatos", "1.3.0", _SIS_CANDIDATOS_GRUPO, _HUM_CANDIDATOS_GRUPO)
+SPEC_CANDIDATOS_GRUPO_BOM = _spec("mapeo.candidatos", "1.3.1", _SIS_CANDIDATOS_GRUPO_BOM, _HUM_CANDIDATOS_GRUPO_BOM)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -597,6 +659,9 @@ PROMPT_MAPEO_OPERACIONES = SPEC_OPERACIONES.template
 
 
 SPECS: dict[str, PromptSpec] = {
+    "candidatos_bom": SPEC_CANDIDATOS_BOM,
+    "candidatos_grupo": SPEC_CANDIDATOS_GRUPO,
+    "candidatos_grupo_bom": SPEC_CANDIDATOS_GRUPO_BOM,
     "intencion": SPEC_INTENCION,
     "enrutamiento": SPEC_ENRUTAMIENTO,
     "candidatos": SPEC_CANDIDATOS,

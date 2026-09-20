@@ -140,6 +140,14 @@ class MapearHistoriasConfig:
     entidades_canales: tuple[str, ...] = ("diccionario",)
     entidades_top_k_clases: int = 12
     entidades_rrf_k: int = 20
+    # Rescatar (abrir 2b a un propietario no enrutado) exige score >= min_score O >= min_canales.
+    entidades_min_score_rescate: float = 1.0
+    entidades_min_canales_rescate: int = 2
+    # ¿El nodo 2b ve la evidencia del canal (`<propietarios_bom>`, prompt mapeo.candidatos 1.2.0)?
+    evidencia_bom_en_candidatos: bool = False
+    # 2b en fan-out (`Send` por Business Domain + grupo de rescatados) en vez de una llamada.
+    candidatos_por_dominio_habilitado: bool = False
+    candidatos_grupo_min_sd: int = 3
     # Flags de retrieval, INDEPENDIENTES: se puede tener híbrido sin grafo, grafo sin reranker,
     # o los tres. Un solo interruptor que mezclara las tres cosas impediría aislar qué aporta cada
     # una cuando se comparan corridas.
@@ -453,6 +461,11 @@ def cargar_config(ruta: str | Path | None = None) -> Config:
         ),
         entidades_top_k_clases=int(mh.get("entidades_top_k_clases", 12)),
         entidades_rrf_k=int(mh.get("entidades_rrf_k", 20)),
+        entidades_min_score_rescate=float(mh.get("entidades_min_score_rescate", 1.0)),
+        entidades_min_canales_rescate=int(mh.get("entidades_min_canales_rescate", 2)),
+        evidencia_bom_en_candidatos=bool(mh.get("evidencia_bom_en_candidatos", False)),
+        candidatos_por_dominio_habilitado=bool(mh.get("candidatos_por_dominio_habilitado", False)),
+        candidatos_grupo_min_sd=int(mh.get("candidatos_grupo_min_sd", 3)),
         cag_habilitado=bool(mh.get("cag_habilitado", False)),
         cag_chars_por_sd=int(mh.get("cag_chars_por_sd", 300)),
         grafo_senales_adversarial=bool(mh.get("grafo_senales_adversarial", False)),

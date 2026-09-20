@@ -59,6 +59,7 @@ class _AnalistaEnrutado(AnalistaMapeoBianPort):
         self.catalogo_candidatos: list[str] = []
         self.texto_completo: bool | None = None
         self.llamadas_enrutar = 0
+        self.llamadas_candidatos: list[dict] = []
 
     def extraer_intencion(self, historia, funcionalidad):
         return IntencionHistoriaLLM(
@@ -77,10 +78,18 @@ class _AnalistaEnrutado(AnalistaMapeoBianPort):
         )
 
     def generar_candidatos(
-        self, historia, funcionalidad, intencion, catalogo, *, texto_completo=False
+        self, historia, funcionalidad, intencion, catalogo, *, texto_completo=False, **kw
     ):
         self.catalogo_candidatos = [e.service_domain for e in catalogo]
         self.texto_completo = texto_completo
+        self.totales_por_dominio = kw.get("totales_por_dominio")
+        self.propietarios_bom = kw.get("propietarios_bom")
+        self.llamadas_candidatos.append({
+            "grupo": kw.get("grupo"),
+            "catalogo": [e.service_domain for e in catalogo],
+            "dominios": sorted({e.business_domain for e in catalogo}),
+            "propietarios_bom": [c.service_domain for c in (kw.get("propietarios_bom") or [])],
+        })
         return CandidatosHistoriaLLM(
             candidatos=[CandidatoServiceDomainLLM(service_domain=n) for n in self._candidatos]
         )
@@ -351,3 +360,242 @@ class TestPropiedadDeClaseRescataAlPropietario(unittest.TestCase):
 
         self.assertNotIn(_SD, a.catalogo_candidatos)
         self.assertEqual(resultado.historias[0].candidatos_por_clase, [])
+
+
+class TestTaxonomiaConDominiosAbiertosAMedias(unittest.TestCase):
+    """Desde que 2a puede añadir un SD suelto, la taxonomía de 2b debe decir cuánto ve de cada rama."""
+
+    def test_un_dominio_parcial_dice_cuantos_ve_de_cuantos(self):
+        from src.adaptadores.salida.analista_mapeo_langchain import formatear_taxonomia
+
+        catalogo = CatalogoJson(str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json")).cargar()
+        totales = {}
+        for e in catalogo:
+            totales[e.business_domain] = totales.get(e.business_domain, 0) + 1
+        parcial = [e for e in catalogo if e.service_domain in ("Savings Account", _SD)]
+        texto = formatear_taxonomia(parcial, totales)
+        self.assertIn(f'"Loans and Deposits" (1 de {totales["Loans and Deposits"]} SD visibles)', texto)
+        # Sin totales, la etiqueta es la de siempre (compatibilidad con validar-sd y con 2a).
+        self.assertIn('"Loans and Deposits" (1 SD)', formatear_taxonomia(parcial))
+
+    def test_un_dominio_entero_conserva_la_etiqueta_de_siempre(self):
+        from src.adaptadores.salida.analista_mapeo_langchain import formatear_taxonomia
+
+        catalogo = CatalogoJson(str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json")).cargar()
+        totales = {}
+        for e in catalogo:
+            totales[e.business_domain] = totales.get(e.business_domain, 0) + 1
+        entero = [e for e in catalogo if e.business_domain == _DOMINIO]
+        self.assertIn(f'"{_DOMINIO}" ({len(entero)} SD)', formatear_taxonomia(entero, totales))
+
+    def test_2b_recibe_los_totales_solo_con_routing(self):
+        a = _AnalistaEnrutado([_DOMINIO])
+        _correr(a, routing=True)
+        self.assertIsInstance(a.totales_por_dominio, dict)
+        self.assertEqual(sum(a.totales_por_dominio.values()), 341)
+        b = _AnalistaEnrutado([_DOMINIO])
+        _correr(b, routing=False)
+        self.assertIsNone(b.totales_por_dominio)
+
+
+class TestCacheDelNodo2aIncluyeElCanal(unittest.TestCase):
+    """Cambiar la configuración del canal de propiedad con la caché caliente NO puede devolver la
+    salida anterior: la firma del canal entra en la clave del nodo 2a."""
+
+    def test_otro_tope_del_canal_vuelve_a_ejecutar_2a(self):
+        from src.adaptadores.salida.cache_nodos_archivo import CacheNodosArchivo
+
+        entidades = CatalogoEntidadesJson(str(DOCS / "entity.json"))
+        with tempfile.TemporaryDirectory() as tmp:
+            hu, func, salida = _entrada(tmp)
+            cache = CacheNodosArchivo(Path(tmp) / "cache")
+            a1 = _AnalistaContacto(["Market Data"], candidatos=[])
+            _servicio(a1, routing=True, entidades=entidades, cache_nodos=cache,
+                      entidades_max_candidatos=10).ejecutar(hu, func, salida + "1")
+            a2 = _AnalistaContacto(["Market Data"], candidatos=[])
+            _servicio(a2, routing=True, entidades=entidades, cache_nodos=cache,
+                      entidades_max_candidatos=10).ejecutar(hu, func, salida + "2")
+            self.assertEqual(a2.llamadas_enrutar, 0, "misma configuración: 2a sale de la caché")
+            a3 = _AnalistaContacto(["Market Data"], candidatos=[])
+            _servicio(a3, routing=True, entidades=entidades, cache_nodos=cache,
+                      entidades_max_candidatos=3).ejecutar(hu, func, salida + "3")
+            self.assertEqual(a3.llamadas_enrutar, 1, "otro tope del canal: 2a se vuelve a ejecutar")
+
+
+class TestEvidenciaBomEnCandidatos(unittest.TestCase):
+    """El flag `evidencia_bom_en_candidatos` decide si 2b ve POR QUÉ está cada rescatado."""
+
+    @staticmethod
+    def _correr(analista, **extra):
+        entidades = CatalogoEntidadesJson(str(DOCS / "entity.json"))
+        with tempfile.TemporaryDirectory() as tmp:
+            hu, func, salida = _entrada(tmp)
+            return _servicio(analista, routing=True, entidades=entidades, **extra).ejecutar(hu, func, salida)
+
+    def test_sin_flag_2b_no_recibe_la_evidencia(self):
+        a = _AnalistaContacto(["Market Data"], candidatos=[])
+        r = self._correr(a)
+        self.assertIsNone(a.propietarios_bom)
+        self.assertFalse(r.parametros["evidencia_bom_en_candidatos"])
+
+    def test_con_flag_2b_recibe_los_candidatos_por_clase_del_2a(self):
+        a = _AnalistaContacto(["Market Data"], candidatos=[])
+        r = self._correr(a, evidencia_bom_en_candidatos=True)
+        self.assertTrue(a.propietarios_bom, "2b tiene que recibir la lista del canal")
+        self.assertEqual(
+            [c.service_domain for c in a.propietarios_bom],
+            [c.service_domain for c in r.historias[0].candidatos_por_clase],
+        )
+        self.assertTrue(r.parametros["evidencia_bom_en_candidatos"])
+
+    def test_la_metrica_cuenta_rescatados_propuestos(self):
+        # El guion propone a PRDD, que el router NO enrutó (Market Data) y el canal rescató.
+        a = _AnalistaContacto(["Market Data"], candidatos=[_SD])
+        r = self._correr(a)
+        self.assertGreaterEqual(r.metricas["bom_rescatados"], 1)
+        self.assertEqual(r.metricas["bom_rescatados_propuestos"], 1)
+        self.assertGreater(r.metricas["bom_rescatados_propuestos_rate"], 0)
+        b = _AnalistaContacto([_DOMINIO], candidatos=[_SD])   # nada que rescatar: PRDD ya estaba
+        r2 = self._correr(b)
+        if r2.metricas["bom_rescatados"] == 0:
+            self.assertIsNone(r2.metricas["bom_rescatados_propuestos_rate"])
+
+
+class _AnalistaConDatos(_AnalistaContacto):
+    """Nodo 1 con el campo `datos` (prompt 1.1.0): la consulta del canal son los datos, no los objetos."""
+
+    def extraer_intencion(self, historia, funcionalidad):
+        i = super().extraer_intencion(historia, funcionalidad)
+        return i.model_copy(update={"business_objects": ["informacion de contacto del cliente"],
+                                    "datos": ["numero celular", "correo electronico"]})
+
+
+class _CanalEspia(RecuperadorClasesPortEspia := __import__("src.aplicacion.puertos.recuperador_clases", fromlist=["RecuperadorClasesPort"]).RecuperadorClasesPort):
+    def __init__(self):
+        self.consultas = []
+
+    @property
+    def nombre(self):
+        return "espia"
+
+    def recuperar(self, consulta, k):
+        self.consultas.append(consulta)
+        return []
+
+
+class TestConsultaDelCanalUsaDatos(unittest.TestCase):
+    def test_con_datos_la_consulta_son_los_datos(self):
+        entidades = CatalogoEntidadesJson(str(DOCS / "entity.json"))
+        espia = _CanalEspia()
+        with tempfile.TemporaryDirectory() as tmp:
+            hu, func, salida = _entrada(tmp)
+            _servicio(_AnalistaConDatos(["Market Data"], candidatos=[]), routing=True, entidades=entidades,
+                      recuperadores_clases=[espia]).ejecutar(hu, func, salida)
+        self.assertEqual(len(espia.consultas), 1)
+        self.assertEqual(espia.consultas[0].texto, "numero celular. correo electronico")
+        self.assertNotIn("contacto", espia.consultas[0].texto)
+
+    def test_sin_datos_se_cae_a_los_objetos(self):
+        entidades = CatalogoEntidadesJson(str(DOCS / "entity.json"))
+        espia = _CanalEspia()
+        with tempfile.TemporaryDirectory() as tmp:
+            hu, func, salida = _entrada(tmp)
+            _servicio(_AnalistaContacto(["Market Data"], candidatos=[]), routing=True, entidades=entidades,
+                      recuperadores_clases=[espia]).ejecutar(hu, func, salida)
+        self.assertIn("contacto", espia.consultas[0].texto)
+
+
+class TestFanOutDeCandidatosPorDominio(unittest.TestCase):
+    """2b en `Send`: una llamada por Business Domain enrutado + una por los rescatados."""
+
+    def _correr(self, analista, **extra):
+        entidades = CatalogoEntidadesJson(str(DOCS / "entity.json"))
+        with tempfile.TemporaryDirectory() as tmp:
+            hu, func, salida = _entrada(tmp)
+            return _servicio(analista, routing=True, entidades=entidades, candidatos_por_dominio=True, **extra).ejecutar(hu, func, salida)
+
+    def test_una_llamada_por_dominio_y_una_por_rescatados(self):
+        a = _AnalistaContacto(["Market Data", _DOMINIO], candidatos=[_SD])
+        r = self._correr(a)
+        llamadas = a.llamadas_candidatos
+        self.assertGreaterEqual(len(llamadas), 2, "al menos los dos dominios enrutados")
+        por_dominio = [l for l in llamadas if len(l["dominios"]) == 1]
+        self.assertEqual(len(por_dominio), 2, "cada grupo de dominio ve UN solo Business Domain")
+        self.assertTrue(all(l["propietarios_bom"] == [] for l in por_dominio), "los grupos de dominio no ven el bloque")
+        rescatados = [l for l in llamadas if len(l["dominios"]) > 1 or l not in por_dominio]
+        self.assertTrue(r.parametros["candidatos_por_dominio_activo"])
+        self.assertTrue(r.metricas["bom_rescatados"] >= 1, "la HU de contacto rescata propietarios")
+        self.assertEqual(len(rescatados), 1, "un único grupo de rescatados")
+
+    def test_el_grupo_de_rescatados_es_el_unico_que_ve_la_evidencia(self):
+        a = _AnalistaContacto(["Market Data"], candidatos=[_SD])
+        self._correr(a, evidencia_bom_en_candidatos=True)
+        con_bloque = [l for l in a.llamadas_candidatos if l["propietarios_bom"]]
+        self.assertEqual(len(con_bloque), 1)
+        self.assertTrue(set(con_bloque[0]["propietarios_bom"]) <= set(con_bloque[0]["catalogo"]),
+                        "la evidencia solo habla de los SD de ESE grupo")
+
+    def test_la_fusion_llega_al_nodo_3_y_al_resultado(self):
+        a = _AnalistaContacto(["Market Data", _DOMINIO], candidatos=[_SD])
+        r = self._correr(a)
+        todos = [*r.historias[0].service_domains.candidatos_directos, *r.historias[0].service_domains.candidatos_tentativos,
+                 *r.historias[0].service_domains.candidatos_descartados]
+        self.assertIn(_SD, [x.service_domain for x in todos], "el candidato del guion sobrevive a la fusión")
+        # (las huellas por llamada las pone el adaptador real; el doble no adjunta metadatos)
+
+    def test_cada_llamada_de_grupo_lleva_su_nombre_y_el_prompt_de_grupo(self):
+        from src.adaptadores.salida.prompts_mapeo import SPEC_CANDIDATOS_GRUPO, SPEC_CANDIDATOS_GRUPO_BOM
+
+        a = _AnalistaContacto(["Market Data", _DOMINIO], candidatos=[_SD])
+        self._correr(a)
+        self.assertTrue(all(l["grupo"] for l in a.llamadas_candidatos), "cada llamada dice qué grupo ve")
+        self.assertIn("<alcance_catalogo>", SPEC_CANDIDATOS_GRUPO.template.messages[1].prompt.template)
+        self.assertIn("devuelve `candidatos` VACÍO", SPEC_CANDIDATOS_GRUPO.template.messages[0].prompt.template)
+        self.assertIn("<propietarios_bom", SPEC_CANDIDATOS_GRUPO_BOM.template.messages[1].prompt.template)
+        self.assertEqual((SPEC_CANDIDATOS_GRUPO.version, SPEC_CANDIDATOS_GRUPO_BOM.version), ("1.3.0", "1.3.1"))
+
+    def test_sin_routing_no_hay_fan_out(self):
+        a = _AnalistaContacto([_DOMINIO], candidatos=[_SD])
+        with tempfile.TemporaryDirectory() as tmp:
+            hu, func, salida = _entrada(tmp)
+            _servicio(a, routing=False, candidatos_por_dominio=True).ejecutar(hu, func, salida)
+        self.assertEqual(len(a.llamadas_candidatos), 1)
+        self.assertEqual(len(a.llamadas_candidatos[0]["catalogo"]), 341)
+
+
+class TestRescateConUmbral(unittest.TestCase):
+    """Poca señal (un solo canal, score bajo) no abre 2b, pero queda como incidencia."""
+
+    def test_un_candidato_debil_no_se_rescata_y_deja_incidencia(self):
+        from src.dominio.historias import CandidatoClaseBom, EvidenciaClaseBom
+        catalogo = CatalogoJson(str(DOCS / "BIAN_Service_Landscape_V14.0_Matrix_View.json")).cargar()
+        filtrado = [e for e in catalogo if e.business_domain == "Payments"]  # sin ninguno de los tres
+        fuerte = CandidatoClaseBom(service_domain="Location Data Management", score=3.6,
+                                   evidencias=[EvidenciaClaseBom(clase="Phone Address", motivos=["bm25#4", "vectorial#8"])])
+        dos_canales = CandidatoClaseBom(service_domain=_SD, score=0.9,
+                                        evidencias=[EvidenciaClaseBom(clase="Contact Point", motivos=["bm25#1", "vectorial#2"])])
+        debil = CandidatoClaseBom(service_domain="Suitability Checking", score=0.84,
+                                  evidencias=[EvidenciaClaseBom(clase="Suitability Assessment Involvement", motivos=["vectorial#5"])])
+        historia = type("H", (), {"archivo": "HU-01.txt"})()
+        nuevo, inc = MapearHistoriasServiceDomainsService._rescatar_propietarios(
+            historia, catalogo, filtrado, [fuerte, dos_canales, debil], min_score=1.0, min_canales=2)
+        nombres = {e.service_domain for e in nuevo}
+        self.assertIn("Location Data Management", nombres, "score alto: rescatado")
+        self.assertIn(_SD, nombres, "dos canales: rescatado aunque el score sea < 1.0")
+        self.assertNotIn("Suitability Checking", nombres)
+        motivos = {i["service_domain_propuesto"]: i["motivo"] for i in inc}
+        self.assertEqual(motivos["Suitability Checking"], "ROUTING_PROPIETARIO_NO_RESCATADO")
+        self.assertEqual(motivos["Location Data Management"], "ROUTING_PROPIETARIO_DE_CLASE_BOM")
+
+
+class TestGruposPequenos(unittest.TestCase):
+    def test_los_dominios_pequenos_se_juntan(self):
+        a = _AnalistaContacto(["Party", _DOMINIO], candidatos=[_SD])   # Party tiene 2 SD
+        entidades = CatalogoEntidadesJson(str(DOCS / "entity.json"))
+        with tempfile.TemporaryDirectory() as tmp:
+            hu, func, salida = _entrada(tmp)
+            _servicio(a, routing=True, entidades=entidades, candidatos_por_dominio=True,
+                      candidatos_grupo_min_sd=3).ejecutar(hu, func, salida)
+        solos = [l for l in a.llamadas_candidatos if l["dominios"] == ["Party"]]
+        self.assertEqual(solos, [], "Party (2 SD) no va solo")
+        self.assertTrue(any("Party" in (l["grupo"] or "") for l in a.llamadas_candidatos), "pero sí se evalúa, en un grupo compuesto")

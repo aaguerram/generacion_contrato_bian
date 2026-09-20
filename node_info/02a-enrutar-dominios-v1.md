@@ -78,7 +78,16 @@ Lee **4 claves** del `EstadoHistoria`:
 Fuera del estado, el canal de propiedad lee **`docs/entity.json`** a través del puerto
 (2.668 clases de los diagramas BOM y Control Record de BIAN R14; se carga una vez por proceso).
 
-### Por qué el canal usa solo `business_objects`
+### Por qué el canal usa `datos` (y si no los hay, `business_objects`)
+
+Desde el prompt `mapeo.intencion` 1.1.0 el nodo 1 devuelve además `datos`: los datos concretos
+que la historia muestra, captura o cambia, uno por elemento ("número celular", "correo
+electrónico", "nombre del tutor"). Es la consulta del canal. Motivo medido el 2026-09-20 sobre la
+misma HU en dos corridas: `business_objects` unas veces dice "número celular; correo electrónico"
+y otras "información de contacto del cliente", y solo con la primera forma el canal encuentra
+`Phone Address` y `Electronic Address`. Sin `datos` (modelo antiguo o vacío) se usan los objetos.
+
+### Por qué no usa acciones ni capacidades
 
 El canal responde *"qué clases del BOM necesita la historia"*. Las acciones y capacidades no son
 clases. Medido en la corrida real del E2E 1 (2026-09-20): con acciones + capacidades en la
@@ -138,7 +147,8 @@ objetos, posición 5.
 |---|---|---|
 | `ROUTING_DOMINIO_NO_RESUELTO` | El LLM nombró un dominio que no está en la taxonomía | Ninguno: no filtra nada |
 | `ROUTING_SIN_DOMINIOS` | Ningún dominio resolvió | Catálogo completo (341) |
-| `ROUTING_PROPIETARIO_DE_CLASE_BOM` | Un dueño del canal no estaba en el catálogo enrutado | Se **añade** ese SD (no su dominio entero) |
+| `ROUTING_PROPIETARIO_DE_CLASE_BOM` | Un dueño del canal no estaba en el catálogo enrutado y pasa el umbral | Se **añade** ese SD (no su dominio entero) |
+| `ROUTING_PROPIETARIO_NO_RESCATADO` | Un dueño del canal no estaba y NO pasa el umbral (score < 1.0 y un solo canal) | Ninguno: queda en `candidatos_por_clase` |
 
 ### Lo que llega al JSON final
 
@@ -181,7 +191,19 @@ Party  en Location Data Management        notes={'Extensible': 'no',
 - **Dueños múltiples no reparten** (desde v1): si dos SD definen la clase, cada uno recibe el
   peso entero y la evidencia lo anota en `compartida_con`. Repartir dejaba fuera al correcto
   (`Contact Point` a 0.5 para Legal Entity Directory y 0.5 para Party Reference Data Directory,
-  cortado por el tope). El coste: una clase con 4 dueños arrastra 4 SD (ver §12).
+  cortado por el tope).
+- **Dueños efectivos** (`ClaseBian.duenos_efectivos`): una ocurrencia sin `Extensible` pero sin
+  atributos, BQ ni Control Record es una caja vacía. Cuando otro dueño sí trae sustancia, la caja
+  vacía no cuenta (`Correspondence` en Savings Account y Term Deposit, 0 atributos, frente a
+  Correspondence y Document Directory con 8). Si todos están vacíos se conservan todos. Medido
+  sobre entity.json: 488 de las 909 ocurrencias dueñas de clases compartidas son vacías.
+- **camelCase separado en el documento de la clase** (`separar_camel`): los valores de enum del
+  BOM van como `EmailAddress`/`MobileNumber` y el tokenizador los dejaba como una sola palabra;
+  `Electronic Address` no respondía a "correo electrónico" y `Correspondence` (atributo `Email`)
+  sí. 999 tokens camelCase en el corpus.
+- **"contacto" → `contact` + `address`**: en BIAN los datos de contacto son Contact Point y las
+  clases `*Address`; solo con `contact` la consulta caía en las clases del CENTRO de contacto
+  (`Customer Contact`, Contact Handler), que siguen entrando pero ya no solas.
 
 ### Paso 1: qué clases pide la historia (recuperación híbrida)
 
@@ -208,6 +230,23 @@ Por cada `CandidatoClaseBom` (hasta `entidades_max_candidatos`), si su SD no est
 catálogo enrutado, **se añade ese SD** —no su Business Domain entero: la atribución es por clase y
 por SD, abrir el dominio metería decenas de SD sin evidencia— con incidencia
 `ROUTING_PROPIETARIO_DE_CLASE_BOM`. Los que ya estaban no generan incidencia.
+
+**Umbral de rescate** (segunda tanda, `entidades_min_score_rescate: 1.0` /
+`entidades_min_canales_rescate: 2`): se rescata si el score llega a 1.0 (fue top-1 de algún
+canal o acumuló) **o** si lo propusieron dos canales distintos. Lo que no llega queda auditable
+en `candidatos_por_clase` y como incidencia `ROUTING_PROPIETARIO_NO_RESCATADO` con el motivo
+(score y nº de canales). Medido en el E2E 1: los rescates ruidosos —Suitability Checking, Market
+Information Management, Counterparty Administration— venían de UN canal (el denso) en posiciones
+5-6 con 0.81-0.88; Location Data Management (3.6-5.6, dos canales) y Party Reference Data
+Directory (dos canales) pasan.
+
+### Frases del negocio (`FRASES_BOM_POR_TERMINO`)
+
+Antes de tokenizar palabra a palabra, `tokenizar_consulta` resuelve frases y las retira del
+texto: "datos/información de contacto" → `point address electronic phone postal` (Contact Point +
+las clases `*Address`), **sin `contact`**, porque `contact` a secas es el centro de contacto
+(`Customer Contact`, Contact Handler #1 del canal en todas las corridas anteriores). También
+"correo electrónico", "número celular", "punto de contacto".
 
 ---
 
@@ -527,8 +566,9 @@ degradación porque la taxonomía son ~3.3k tokens fijos.
 |---|---|---|
 | El dominio del propietario no se elige | Fallo caro del router | **Lo compensa el canal** si el SD define una clase que la historia necesita. Si no (evidencia del SD es una operación, no una clase), siguen el nodo 3 (`missing_candidates`) y `preparar_candidatos` (resuelve contra los 341) |
 | El canal no encuentra al dueño del dato | Consulta pobre (`business_objects` vagos) o clase del dato fuera de `top_k` | El router sigue debajo. Vigilar `candidatos_por_clase` vacío o sin la clase esperada |
-| El canal arrastra SD por una clase compartida | Clase con N dueños vota N veces con el peso entero (`Correspondence` → Savings Account, Term Deposit) | Coste: ~189 tokens por SD en 2b, nunca un candidato perdido. Medido: 488 de las 909 ocurrencias dueñas de clases compartidas están **vacías** (0 atributos, sin BQ/CR); una regla que no cuente una ocurrencia vacía como definición cuando otro dueño sí tiene sustancia está **pendiente de decidir** |
-| Ruido de traducción | "contacto" → `contact` (centro de contacto) · "correo" → `mail` (`Correspondence`) | El diccionario `CLASES_BOM_POR_TERMINO` es 1→N y no desambigua. Revisar entradas, no añadir redes |
+| El canal arrastra SD por una clase compartida | Clase con N dueños vota N veces con el peso entero | Mitigado por `duenos_efectivos`: las ocurrencias vacías no votan si otro dueño tiene sustancia (Savings Account y Term Deposit ya no entran por `Correspondence`). Un empate entre dueños con sustancia (Legal Entity Directory y PRDD por `Contact Point`) es legítimo y se anota en `compartida_con` |
+| Ruido de traducción | "contacto" → `contact` caía en el centro de contacto (`Customer Contact`, Contact Handler #1 del canal) | Regla por FRASE (`FRASES_BOM_POR_TERMINO`): "datos/información de contacto" → Contact Point + `*Address`, sin `contact`. `Correspondence` NO es ruido de traducción: su clase tiene un atributo `Email` real |
+| Rescate solo-vectorial | Una clase que solo el canal denso propuso en posición 5-6 (Suitability Checking, Market Information Management) | Umbral de rescate: score ≥ 1.0 o ≥ 2 canales; si no, `ROUTING_PROPIETARIO_NO_RESCATADO` |
 | Nombre de dominio inventado | Alucinación del router | `ROUTING_DOMINIO_NO_RESUELTO`; no filtra nada |
 | Ningún dominio resuelve | Salida vacía del router | `ROUTING_SIN_DOMINIOS`; catálogo completo |
 | Caché caliente tras cambiar `entidades_*` | Clave sin la config del canal | Salida vieja. Borrar `.cache/nodos-langgraph/` |

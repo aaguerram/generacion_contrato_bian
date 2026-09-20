@@ -41,8 +41,10 @@ class TestAgnosticismoPrompts(unittest.TestCase):
         self.assertIn("reason_codes", texto)
 
     def test_specs_tienen_id_y_version_estables(self):
-        ids = {spec.id for spec in SPECS.values()}
-        self.assertEqual(len(ids), len(SPECS))  # un id por prompt
+        # Un mismo prompt_id puede convivir en dos VERSIONES (mapeo.candidatos 1.1.0 y 1.2.0, con y
+        # sin <propietarios_bom>): la identidad reproducible de una huella es (id, version).
+        identidades = {(spec.id, spec.version) for spec in SPECS.values()}
+        self.assertEqual(len(identidades), len(SPECS))  # una (id, version) por prompt
         for spec in SPECS.values():
             self.assertTrue(spec.id.startswith("mapeo."))
             self.assertRegex(spec.version, r"^\d+\.\d+\.\d+$")

@@ -98,6 +98,7 @@ from src.dominio.entidades_bian import (
     clases_requeridas_desde_rankings,
 )
 from src.dominio.deteccion_omitidos import detectar_omitidos
+from src.dominio.fusion_candidatos import fusionar_candidatos
 from src.dominio.fusion_rrf import fusion_rrf
 from src.dominio.historias import (
     BqPersonalizadoAplicado,
@@ -343,6 +344,11 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         entidades_canal_diccionario: bool = True,
         entidades_top_k_clases: int = 12,
         entidades_rrf_k: int = 20,
+        entidades_min_score_rescate: float = 1.0,
+        entidades_min_canales_rescate: int = 2,
+        evidencia_bom_en_candidatos: bool = False,
+        candidatos_por_dominio: bool = False,
+        candidatos_grupo_min_sd: int = 3,
         recuperadores: list[RecuperadorSemanticoPort] | None = None,
         retrieval_top_k: int = 20,
         retrieval_max_inyectados: int = 5,
@@ -392,6 +398,39 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         self._entidades_canal_diccionario = entidades_canal_diccionario
         self._entidades_top_k_clases = max(1, entidades_top_k_clases)
         self._entidades_rrf_k = max(1, entidades_rrf_k)
+        # Para RESCATAR (añadir al catálogo de 2b) un propietario que el router no enrutó se exige
+        # o bien score >= min_score (1.0 = fue top-1 de algún canal, o acumuló) o bien que lo
+        # propongan >= min_canales canales distintos. Medido en el E2E 1: los rescates ruidosos
+        # (Suitability Checking, Market Information Management, Counterparty Administration)
+        # venían de UN solo canal, el denso, en posiciones 5-6, con 0.81-0.88. El candidato sigue
+        # en `candidatos_por_clase` (auditable); lo que no se hace es abrirle la puerta a 2b.
+        self._entidades_min_score_rescate = float(entidades_min_score_rescate)
+        self._entidades_min_canales_rescate = max(1, int(entidades_min_canales_rescate))
+        # ¿2b ve la evidencia del canal (`<propietarios_bom>`, prompt 1.2.0)? OFF por defecto:
+        # cambia el prompt y sesga a 2b hacia lo que el canal dijo; se enciende tras medirlo.
+        self._evidencia_bom_en_candidatos = bool(evidencia_bom_en_candidatos)
+        # Fan-out de 2b (`Send`): UNA llamada por Business Domain enrutado (+ una para los
+        # propietarios rescatados por el canal, que es la única que ve `<propietarios_bom>`), y
+        # un nodo determinista que une. Medido 2026-09-20 sin fan-out: 80-88 SD en un prompt de
+        # 19-21k tokens, Groq excluido por presupuesto, Gemini 3.6 en 503, 43-99 s por HU. Con
+        # ~15 SD por llamada el prompt baja a ~4k y cabe en toda la cadena.
+        self._candidatos_por_dominio = bool(candidatos_por_dominio)
+        # Un grupo con menos SD que esto no va solo: medido (grupo "Party", 2 SD), el modelo
+        # propone "lo menos irrelevante" aun con el prompt de grupo. Los pequeños se juntan en un
+        # solo grupo, que sigue siendo pequeño en tokens pero le da algo con qué comparar.
+        self._candidatos_grupo_min_sd = max(1, int(candidatos_grupo_min_sd))
+        # Firma del canal para la clave de caché del nodo 2a (ver `_compilar_subgrafo`).
+        self._firma_entidades = (
+            "entidades:off"
+            if catalogo_entidades is None or self._entidades_max_candidatos == 0
+            else "entidades:"
+            + ",".join(
+                (["diccionario"] if self._entidades_canal_diccionario or not self._recuperadores_clases else [])
+                + [r.nombre for r in self._recuperadores_clases]
+            )
+            + f":tope={self._entidades_max_candidatos}:topk={self._entidades_top_k_clases}"
+            f":k={self._entidades_rrf_k}"
+        )
         # Retrieval híbrido (Fase 3 del plan, en memoria): opcional -- lista vacía = desactivado,
         # el pipeline se comporta exactamente como antes (solo candidatos LLM + completitud).
         self._recuperadores = list(recuperadores or [])
@@ -561,7 +600,12 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         filtrado, incidencias = self._filtrar_por_dominios(estado["historia"], catalogo, enr)
         por_clase = self._candidatos_por_clase(estado["intencion"])
         filtrado, inc_clase = self._rescatar_propietarios(
-            estado["historia"], catalogo, filtrado, por_clase
+            estado["historia"],
+            catalogo,
+            filtrado,
+            por_clase,
+            min_score=self._entidades_min_score_rescate,
+            min_canales=self._entidades_min_canales_rescate,
         )
         logger.info(
             "HU '%s' -> enrutada a %d dominio(s) [%s]: %d de %d Service Domains visibles%s",
@@ -578,6 +622,11 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             "enrutamiento": enr,
             "catalogo_enrutado": filtrado,
             "candidatos_por_clase": por_clase,
+            # Los SD que el canal AÑADIÓ (no estaban en los dominios enrutados): el fan-out de 2b
+            # los agrupa aparte y es el único grupo que ve la evidencia del canal.
+            "sd_rescatados": [
+                i["service_domain_propuesto"] for i in inc_clase if i.get("decision") == "ADDED"
+            ],
             "huellas": _huellas(enr),
             "incidencias": incidencias + inc_clase,
         }
@@ -602,7 +651,9 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # acciones y capacidades no son clases. Medido en la corrida real del E2E 1: con acciones +
         # capacidades ("pantalla", "avatar", "navegar", "menú Perfil") el canal denso se va a clases
         # de perfil/sesión/dispositivo y el dueño del dato cae del top-10; solo con los objetos no.
-        consulta = ConsultaClases.desde_textos(intencion.business_objects)
+        # `datos` (nodo 1, prompt 1.1.0) son los datos concretos uno por elemento; si el modelo
+        # no los dio, se cae a los objetos de negocio, que es lo que había antes.
+        consulta = ConsultaClases.desde_textos(intencion.datos or intencion.business_objects)
         top_k = self._entidades_top_k_clases
         if not self._recuperadores_clases:
             # Un solo canal (el diccionario): sin fusión, con los pesos de siempre.
@@ -635,16 +686,31 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         )
 
     @staticmethod
+    def _canales_de(candidato: CandidatoClaseBom) -> set[str]:
+        """Qué canales del paso 1 propusieron alguna clase de este candidato (`bm25#3` -> `bm25`)."""
+        return {
+            m.split("#", 1)[0].split(":", 1)[0]
+            for e in candidato.evidencias
+            for m in e.motivos
+            if m
+        }
+
+    @staticmethod
     def _rescatar_propietarios(
         historia: HistoriaUsuario,
         catalogo: list[EntradaCatalogo],
         filtrado: list[EntradaCatalogo],
         por_clase: list[CandidatoClaseBom],
+        *,
+        min_score: float = 0.0,
+        min_canales: int = 1,
     ) -> tuple[list[EntradaCatalogo], list[dict]]:
         """Añade al catálogo enrutado los propietarios que el routing por LLM dejó fuera.
 
         Añade **el Service Domain**, no su Business Domain entero: la atribución del BOM es por
         clase y por SD, así que abrir el dominio completo metería decenas de SD sin evidencia.
+        Un candidato con poca señal (score < `min_score` Y menos de `min_canales` canales) no se
+        rescata, pero tampoco desaparece: queda como incidencia `ROUTING_PROPIETARIO_NO_RESCATADO`.
         """
         if not por_clase:
             return filtrado, []
@@ -656,9 +722,23 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             clave = normalizar(candidato.service_domain)
             if clave in presentes or clave not in indice:
                 continue
+            canales = MapearHistoriasServiceDomainsService._canales_de(candidato)
+            clases = ", ".join(e.clase for e in candidato.evidencias[:3])
+            if candidato.score < min_score and len(canales) < min_canales:
+                incidencias.append({
+                    "historia": historia.archivo,
+                    "service_domain_propuesto": candidato.service_domain,
+                    "decision": "NOT_ADDED",
+                    "motivo": "ROUTING_PROPIETARIO_NO_RESCATADO",
+                    "detalle": (
+                        f"Define la(s) clase(s) {clases}, pero con score {candidato.score} "
+                        f"(< {min_score}) y {len(canales)} canal(es) (< {min_canales}): poca "
+                        f"señal para abrirle 2b; queda en candidatos_por_clase"
+                    ),
+                })
+                continue
             anadidos.append(indice[clave])
             presentes.add(clave)
-            clases = ", ".join(e.clase for e in candidato.evidencias[:3])
             incidencias.append({
                 "historia": historia.archivo,
                 "service_domain_propuesto": candidato.service_domain,
@@ -711,14 +791,120 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # Con routing, el catálogo llega acotado y se manda SIN recortar (`texto_completo`). El
         # kwarg solo viaja en ese caso: un adaptador que no enrute nunca lo recibe.
         enrutado = estado.get("catalogo_enrutado")
+        extra: dict = {}
+        if enrutado:
+            # Con routing el catálogo puede traer dominios abiertos A MEDIAS (un propietario
+            # rescatado por el canal de propiedad de clases BOM), y la taxonomía debe decirlo:
+            # "1 de 12 SD visibles", no "1 SD". Los totales salen del catálogo completo.
+            totales: dict[str, int] = {}
+            for e in estado["catalogo"]:
+                if e.business_domain:
+                    totales[e.business_domain] = totales.get(e.business_domain, 0) + 1
+            extra = {"texto_completo": True, "totales_por_dominio": totales}
+            # La evidencia del canal de propiedad (por qué un SD rescatado está en el catálogo)
+            # solo viaja con el flag: es un prompt distinto (1.2.0) y hay que poder medirlo.
+            if self._evidencia_bom_en_candidatos and estado.get("candidatos_por_clase"):
+                extra["propietarios_bom"] = list(estado["candidatos_por_clase"])
         cand = self._analista.generar_candidatos(
             estado["historia"],
             estado["funcionalidad"],
             estado["intencion"],
             enrutado or estado["catalogo"],
-            **({"texto_completo": True} if enrutado else {}),
+            **extra,
         )
         return {"candidatos": cand, "huellas": _huellas(cand)}
+
+    # ── 2b en fan-out: un grupo por Business Domain + el grupo de rescatados ────────────
+    def _grupos_candidatos(self, estado: EstadoHistoria) -> list[dict]:
+        """Parte `catalogo_enrutado` en grupos para `Send`: uno por Business Domain enrutado y uno
+        con los propietarios que rescató el canal de clases BOM (solo ese ve `<propietarios_bom>`).
+        Devuelve `[]` si no hay routing (sin `catalogo_enrutado` no hay nada que partir)."""
+        enrutado = estado.get("catalogo_enrutado") or []
+        if not enrutado:
+            return []
+        rescatados = {normalizar(n) for n in estado.get("sd_rescatados") or []}
+        por_dominio: dict[str, list[EntradaCatalogo]] = {}
+        grupo_rescatados: list[EntradaCatalogo] = []
+        for e in enrutado:
+            if normalizar(e.service_domain) in rescatados:
+                grupo_rescatados.append(e)
+            else:
+                por_dominio.setdefault(e.business_domain or "(sin dominio)", []).append(e)
+        grandes = {d: sds for d, sds in por_dominio.items() if len(sds) >= self._candidatos_grupo_min_sd}
+        pequenos = {d: sds for d, sds in por_dominio.items() if len(sds) < self._candidatos_grupo_min_sd}
+        grupos = [{"nombre": dominio, "catalogo": sds, "propietarios_bom": None}
+                  for dominio, sds in grandes.items()]
+        if pequenos:
+            juntos = [e for sds in pequenos.values() for e in sds]
+            nombre = " + ".join(pequenos)
+            if grandes and len(juntos) < self._candidatos_grupo_min_sd:
+                # Aún demasiado pequeño para ir solo: al grupo grande más pequeño, como vecino.
+                menor = min(grupos, key=lambda g: len(g["catalogo"]))
+                menor["catalogo"] = menor["catalogo"] + juntos
+                menor["nombre"] = f"{menor['nombre']} + {nombre}"
+            else:
+                grupos.append({"nombre": nombre, "catalogo": juntos, "propietarios_bom": None})
+        if grupo_rescatados:
+            evidencia = None
+            if self._evidencia_bom_en_candidatos:
+                evidencia = [c for c in estado.get("candidatos_por_clase") or []
+                             if normalizar(c.service_domain) in rescatados] or None
+            grupos.append({"nombre": "propietarios de clases BOM (rescatados)",
+                           "catalogo": grupo_rescatados, "propietarios_bom": evidencia})
+        return grupos
+
+    def _fan_out_grupos_candidatos(self, estado: EstadoHistoria):
+        """Arista condicional tras 2a: `Send` por grupo si el fan-out está activo y hay routing;
+        si no, el nodo 2b de una sola llamada de siempre."""
+        grupos = self._grupos_candidatos(estado) if self._candidatos_por_dominio else []
+        if not grupos:
+            return "generar_candidatos"
+        totales: dict[str, int] = {}
+        for e in estado["catalogo"]:
+            if e.business_domain:
+                totales[e.business_domain] = totales.get(e.business_domain, 0) + 1
+        ctx = {
+            "historia": estado["historia"],
+            "funcionalidad": estado["funcionalidad"],
+            "intencion": estado["intencion"],
+            "totales_por_dominio": totales,
+        }
+        logger.info(
+            "HU '%s' -> 2b en %d grupo(s): %s",
+            estado["historia"].archivo,
+            len(grupos),
+            ", ".join(f"{g['nombre']} ({len(g['catalogo'])} SD)" for g in grupos),
+        )
+        return [Send("generar_candidatos_grupo", {**ctx, "grupo": g}) for g in grupos]
+
+    def _h_candidatos_grupo(self, estado: dict) -> dict:
+        """UNA llamada de 2b sobre UN grupo (~15 SD, ~4k tokens). Misma pista, catálogo acotado."""
+        grupo = estado["grupo"]
+        extra: dict = {
+            "texto_completo": True,
+            "totales_por_dominio": estado["totales_por_dominio"],
+            "grupo": f"{grupo['nombre']} ({len(grupo['catalogo'])} SD)",
+        }
+        if grupo.get("propietarios_bom"):
+            extra["propietarios_bom"] = list(grupo["propietarios_bom"])
+        cand = self._analista.generar_candidatos(
+            estado["historia"], estado["funcionalidad"], estado["intencion"], grupo["catalogo"], **extra
+        )
+        return {
+            "candidatos_parciales": [cand],
+            "grupos_candidatos": [grupo["nombre"]],
+            "huellas": _huellas(cand),
+        }
+
+    def _h_fusionar_candidatos(self, estado: EstadoHistoria) -> dict:
+        """Reduce determinista del fan-out: unión de los parciales (ver `fusionar_candidatos`)."""
+        parciales = estado.get("candidatos_parciales") or []
+        nombres = estado.get("grupos_candidatos") or []
+        # Los dos acumuladores crecen en el mismo orden (cada grupo escribe ambos en un solo
+        # update); si por lo que sea no cuadran, se fusiona sin etiquetas antes que etiquetar mal.
+        if len(nombres) != len(parciales):
+            nombres = []
+        return {"candidatos": fusionar_candidatos(parciales, nombres)}
 
     def _h_completitud(self, estado: EstadoHistoria) -> dict:
         indice = {normalizar(e.service_domain): e for e in estado["catalogo"]}
@@ -1814,6 +2000,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             "actualizar_cache_bian": self._actualizar_cache_bian,
             "top_n_omitidos": self._top_n_omitidos,
             "routing_jerarquico_activo": self._routing_jerarquico,
+            "evidencia_bom_en_candidatos": self._evidencia_bom_en_candidatos,
+            "candidatos_por_dominio_activo": self._candidatos_por_dominio and self._routing_jerarquico,
             "entidades_bom_activo": self._catalogo_entidades is not None
             and self._entidades_max_candidatos > 0,
             "entidades_canales": (
@@ -1975,9 +2163,37 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             round(sum(visibles) / len(visibles), 1) if visibles else None
         )
 
+        # ¿Cuántos de los propietarios que el canal de clases BOM AÑADIÓ al catálogo llegaron a
+        # ser propuestos por 2b? Es la medida de si el rescate sirve de algo o solo cuesta tokens
+        # (medido 2026-09-20 sin evidencia en el prompt: 1 de 5). `None` = no hubo rescates.
+        rescatados_por_hu: dict[str, set[str]] = {}
+        for i in incidencias:
+            if i.get("motivo") == "ROUTING_PROPIETARIO_DE_CLASE_BOM":
+                rescatados_por_hu.setdefault(i.get("historia", ""), set()).add(
+                    normalizar(i.get("service_domain_propuesto", ""))
+                )
+        bom_rescatados = sum(len(v) for v in rescatados_por_hu.values())
+        bom_rescatados_propuestos = 0
+        for h in procesadas:
+            propuestos = {
+                normalizar(a.service_domain)
+                for a in (
+                    *h.service_domains.candidatos_directos,
+                    *h.service_domains.candidatos_tentativos,
+                    *h.service_domains.candidatos_descartados,
+                )
+                if getattr(a, "origen_candidato", "llm") == "llm"
+            }
+            bom_rescatados_propuestos += len(rescatados_por_hu.get(h.archivo, set()) & propuestos)
+
         return {
             "routing_dominios_por_hu": routing_dominios_por_hu,
             "routing_sd_visibles_por_hu": routing_sd_visibles_por_hu,
+            "bom_rescatados": bom_rescatados,
+            "bom_rescatados_propuestos": bom_rescatados_propuestos,
+            "bom_rescatados_propuestos_rate": (
+                round(bom_rescatados_propuestos / bom_rescatados, 4) if bom_rescatados else None
+            ),
             "routing_dominios_no_resueltos": sum(
                 1 for i in incidencias if i.get("motivo") == "ROUTING_DOMINIO_NO_RESUELTO"
             ),
@@ -2151,7 +2367,14 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 cache_policy=self._politica(
                     "enrutamiento",
                     lambda e: self._clave(
-                        "enrutamiento", e["historia"], e["funcionalidad"], e.get("intencion")
+                        "enrutamiento",
+                        e["historia"],
+                        e["funcionalidad"],
+                        e.get("intencion"),
+                        # La configuración del canal de propiedad de clases BOM decide qué
+                        # propietarios rescata este nodo; sin ella, cambiar los canales o el
+                        # tope con la caché caliente devolvería la salida anterior.
+                        self._firma_entidades,
                     ),
                 ),
             )
@@ -2169,6 +2392,13 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                     e["funcionalidad"],
                     e.get("intencion"),
                     e.get("enrutamiento"),
+                    # ...y también los propietarios que el canal de propiedad de clases BOM
+                    # AÑADIÓ al catálogo enrutado: el enrutamiento LLM ya no describe solo lo
+                    # que ve 2b. Se usa la lista de nombres, que es lo que cambia el prompt.
+                    [x.service_domain for x in (e.get("catalogo_enrutado") or [])],
+                    # ...y la evidencia del canal si 2b la ve (prompt 1.2.0): otro bloque, otra
+                    # llamada. Con el flag apagado es una constante y no cambia nada.
+                    e.get("candidatos_por_clase") if self._evidencia_bom_en_candidatos else None,
                 ),
             ),
         )
@@ -2239,7 +2469,35 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         g.add_edge(START, "extraer_intencion")
         if self._routing_jerarquico:
             g.add_edge("extraer_intencion", "enrutar_dominios")
-            g.add_edge("enrutar_dominios", "generar_candidatos")
+            if self._candidatos_por_dominio:
+                # 2b en fan-out: `Send` por grupo -> fusión determinista -> nodo 3. La rama de
+                # una sola llamada sigue registrada como red (sin grupos, p. ej. routing vacío).
+                g.add_node(
+                    "generar_candidatos_grupo",
+                    self._h_candidatos_grupo,
+                    retry_policy=_RETRY,
+                    cache_policy=self._politica(
+                        "candidatos_grupo",
+                        lambda e: self._clave(
+                            "candidatos_grupo",
+                            e["historia"],
+                            e["funcionalidad"],
+                            e.get("intencion"),
+                            [x.service_domain for x in e["grupo"]["catalogo"]],
+                            [c.service_domain for c in (e["grupo"].get("propietarios_bom") or [])],
+                        ),
+                    ),
+                )
+                g.add_node("fusionar_candidatos", self._h_fusionar_candidatos)
+                g.add_conditional_edges(
+                    "enrutar_dominios",
+                    self._fan_out_grupos_candidatos,
+                    ["generar_candidatos_grupo", "generar_candidatos"],
+                )
+                g.add_edge("generar_candidatos_grupo", "fusionar_candidatos")
+                g.add_edge("fusionar_candidatos", "revisar_completitud")
+            else:
+                g.add_edge("enrutar_dominios", "generar_candidatos")
         else:
             g.add_edge("extraer_intencion", "generar_candidatos")
         g.add_edge("generar_candidatos", "revisar_completitud")

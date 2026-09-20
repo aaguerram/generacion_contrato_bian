@@ -17,7 +17,11 @@ version: "1.0"
 #  y modelos fuertes (gpt-oss). Luego Gemini, luego Hugging Face (modelos fuertes pero crédito
 #  mensual free muy pequeño) y OpenRouter (free lento) como último recurso.
 routing:
-  llm_priority: [groq, gemini, huggingface, openrouter, ollama]
+  # freellmapi va SEGUNDO: es el router local de free tiers (~/Desktop/claude_cli/freellmapi) con
+  # los modelos más inteligentes del pool (Kimi K3, DeepSeek V4 Pro, GLM-5.2, ventanas de 131k a
+  # 1M) y sus propios cooldowns; Gemini queda detrás porque su free tier estuvo en 503/429 todo el
+  # 2026-09-20. Groq directo sigue primero: 1-3 s por llamada cuando cabe (12k) y tiene cuota.
+  llm_priority: [groq, freellmapi, gemini, huggingface, openrouter, ollama]
   # Embeddings SOLO para validar_sd.rag_estrategia: vectorial. Orden = precisión de retrieval.
   # Ollama primero (propio, sin cuota); Cohere, Gemini y OpenRouter de respaldo.
   embedding_priority: [ollama, cohere, gemini, openrouter]
@@ -34,7 +38,14 @@ routing:
   # `tests/unit_test/test_failover.py::TestFailoverReintentaLaCadenaEnCadaLlamada`.
   #
   # Vacío = todos los nodos comparten `llm_priority`. `--proveedor X` sigue mandando sobre esto.
-  llm_priority_por_nodo: {}
+  llm_priority_por_nodo:
+    # 2b (`mapeo.candidatos`): medido 2026-09-20, gemini-3.6-flash respondía 503 tres y cuatro
+    # veces seguidas (43-99 s por HU) y a 19-21k tokens Groq se saltaba por presupuesto. Con el
+    # fan-out el prompt baja a ~4k y Groq vuelve a caber, así que va primero. Se probó poner
+    # Ollama (qwen3.8 27B remoto) SEGUNDO para esquivar los 503 de Gemini: con Groq sin cuota, dos
+    # llamadas concurrentes de ~4k tokens con salida estructurada tardaron >10 min sin terminar.
+    # Ollama se queda al final: es la red de "sin cuota en ningún sitio", no una vía rápida.
+    mapeo.candidatos: [groq, freellmapi, gemini, huggingface, openrouter, ollama]
   #   mapeo.operaciones: [ollama, groq, gemini, huggingface, openrouter]   # 262k de contexto, sin cuota
   #   mapeo.evaluacion:  [groq, gemini, huggingface, openrouter, ollama]
 
@@ -85,6 +96,45 @@ providers:
     embedding:
       models:
         - qwen3-embedding:8b
+
+  # ── FreeLLMAPI: router local de free tiers (servidor propio, Docker en 100.102.221.79:3011) ──
+  #  Una clave unificada (FREELLMAPI_API_KEY, la del dashboard) abre los proveedores que el router
+  #  tenga configurados (HuggingFace, Groq, OpenRouter, Kilo, Ollama cloud, GitHub...). El id es el
+  #  slug canónico del router y ÉL decide en qué plataforma servirlo, con cooldown por 429/5xx y
+  #  cabecera X-Routed-Via. No se usa `auto`/`auto:smart`: la huella del prompt debe decir qué
+  #  modelo respondió. Catálogo completo: GET /v1/models con la clave (236 ids, ~90 caen por cuota
+  #  a lo largo del día; se resetea a medianoche UTC).
+  #
+  #  Lista MEDIDA el 2026-09-20 con salida estructurada (json_schema) a través del proxy, ordenada
+  #  por intelligence_rank del router (2 = mejor) y con la latencia observada en un prompt corto:
+  #    kimi-k3            rank 2 · 262k · 16 s   (HF)
+  #    deepseek-v4-pro    rank 3 · 131k ·  4 s   (HF)
+  #    glm-5.2            rank 3 · 200k ·  8 s   (HF)
+  #    deepseek-v4-flash  rank 4 · 1M   · 16 s   (HF)
+  #    minimax-m3         rank 5 · 1M   · 25 s   (HF)
+  #    gpt-oss-120b       rank 6 · 131k · 0.4 s  (Groq/HF/Ollama cloud, el router elige)
+  #  Descartados por no honrar response_format vía el router: qwen3.5-397b-a17b (HF ignora el
+  #  formato), nemotron-3-ultra-550b (Kilo), compound (sin tools).
+  #  max_input_tokens = ventana del router menos margen para la respuesta.
+  freellmapi:
+    enabled: true
+    api_key_env: FREELLMAPI_API_KEY
+    base_url: http://100.102.221.79:3011/v1
+    structured_method: json_schema
+    llm:
+      models:
+        - name: kimi-k3
+          max_input_tokens: 240000
+        - name: deepseek-v4-pro
+          max_input_tokens: 120000
+        - name: glm-5.2
+          max_input_tokens: 180000
+        - name: deepseek-v4-flash
+          max_input_tokens: 900000
+        - name: minimax-m3
+          max_input_tokens: 900000
+        - name: gpt-oss-120b
+          max_input_tokens: 120000
 
   groq:
     enabled: true
@@ -290,6 +340,33 @@ mapear_historias:
   entidades_canales: [bm25, vectorial]
   entidades_top_k_clases: 12
   entidades_rrf_k: 20
+  # Para RESCATAR un propietario que el router no enrutó (añadirlo al catálogo de 2b) hace falta
+  # score >= min_score (1.0 = top-1 de algún canal o acumulado) O que lo propongan >= min_canales
+  # canales. Medido (E2E 1, 2026-09-20): los rescates ruidosos -Suitability Checking, Market
+  # Information Management, Counterparty Administration- venían de UN canal (el denso) en
+  # posiciones 5-6 con 0.81-0.88. El candidato sigue auditable en candidatos_por_clase; queda
+  # como incidencia ROUTING_PROPIETARIO_NO_RESCATADO.
+  entidades_min_score_rescate: 1.0
+  entidades_min_canales_rescate: 2
+  # ¿2b ve POR QUÉ está cada propietario rescatado? Con true, el grupo de rescatados del fan-out
+  # recibe <propietarios_bom> (clase, BQ, "solo tipifica / guarda el valor", compartida_con; solo
+  # clases con sustancia) y usa el prompt mapeo.candidatos 1.3.1; con false, el 1.3.0. Medido en
+  # el E2E 1 (2026-09-20, 7 corridas con fan-out): con el bloque el grupo de rescatados propuso a
+  # Location Data Management -dueña de Phone Address / Electronic Address, las clases que GUARDAN
+  # celular y correo- 3 de 3 veces; sin él, 2 de 4, y las dos que no fueron el grupo devolvió
+  # VACÍO (un SD suelto sin explicación de por qué está ahí). El riesgo de sesgo se acotó al grupo
+  # de rescatados y a clases con sustancia. Métrica: metricas.bom_rescatados_propuestos_rate.
+  evidencia_bom_en_candidatos: true
+  # 2b en FAN-OUT (LangGraph `Send`): una llamada por Business Domain enrutado (~15 SD, ~4k
+  # tokens) + una para los propietarios rescatados por el canal de clases BOM -la única que ve
+  # <propietarios_bom> si evidencia_bom_en_candidatos está en true- y un nodo determinista que
+  # une. Medido 2026-09-20 con UNA llamada: 80-88 SD, 19-21k tokens, Groq fuera por presupuesto,
+  # Gemini 3.6 en 503, 43-99 s por HU. Con el fan-out cada llamada cabe en toda la cadena y van
+  # en paralelo (concurrencia_candidatos). Coste: N llamadas pequeñas en vez de 1 grande.
+  candidatos_por_dominio_habilitado: true
+  # Un grupo con menos SD que esto no va solo (medido: "Party", 2 SD, proponía "lo menos
+  # irrelevante" aun con el prompt de grupo); los pequeños se juntan entre sí o con el vecino.
+  candidatos_grupo_min_sd: 3
   top_n_omitidos: 5             # 2º pase léxico: nº de SD "posibles omitidos" a reportar por HU (0 = off)
   ruta_operaciones: docs/bian-operation-catalogs.json
   ruta_cache_bian: docs/bian-cache        # cache-first del OpenAPI oficial (CR + BQ + schemas con cuerpo)

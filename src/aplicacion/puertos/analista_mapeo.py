@@ -58,8 +58,22 @@ class AnalistaMapeoBianPort(ABC):
         catalogo: list[EntradaCatalogo],
         *,
         texto_completo: bool = False,
+        totales_por_dominio: dict[str, int] | None = None,
+        propietarios_bom: list | None = None,
+        grupo: str | None = None,
     ) -> CandidatosHistoriaLLM:
         """Nodo 2b: propone nombres de Service Domain del catálogo. Es una PISTA, no exhaustiva.
+
+        `grupo` (nombre del grupo del fan-out) llega solo con `candidatos_por_dominio`: el
+        catálogo es UNA parte y el prompt debe decirlo (vacío es válido; lo ausente no es gap).
+
+        `propietarios_bom` (`list[CandidatoClaseBom]`) llega solo con el flag
+        `evidencia_bom_en_candidatos`: la evidencia del canal de propiedad de clases BOM del nodo
+        2a, para que 2b sepa POR QUÉ un Service Domain rescatado está en el catálogo.
+
+        `totales_por_dominio` (Business Domain -> nº real de SD) llega solo con routing: el
+        catálogo acotado puede traer dominios abiertos a medias (propietarios rescatados por el
+        canal de propiedad de clases BOM) y el adaptador lo dice en la taxonomía.
 
         `texto_completo` = el catálogo recibido ya viene acotado (viene de `enrutar_dominios`), así
         que cabe escribirlo SIN recortar: rol entero + `examples_of_use` + `features`. Es donde

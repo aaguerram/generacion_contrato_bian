@@ -44,6 +44,13 @@ class EstadoHistoria(TypedDict, total=False):
     # Candidatos DETERMINISTAS del nodo 2a: Service Domains que definen en su BOM una clase que
     # la historia necesita (`entidades_bian`). Vacío si el canal está apagado.
     candidatos_por_clase: list[CandidatoClaseBom]
+    # Service Domains que el canal AÑADIÓ al catálogo enrutado (no estaban en los dominios del
+    # router). El fan-out de 2b los agrupa aparte.
+    sd_rescatados: list[str]
+    # 2b en fan-out (`candidatos_por_dominio`): un `CandidatosHistoriaLLM` por grupo; el nodo
+    # `fusionar_candidatos` los une en `candidatos`. Con una sola llamada queda vacío.
+    candidatos_parciales: Annotated[list[CandidatosHistoriaLLM], operator.add]
+    grupos_candidatos: Annotated[list[str], operator.add]  # nombre del grupo de cada parcial
     candidatos: CandidatosHistoriaLLM
     revision_completitud: RevisionCompletitudLLM
     # preparación determinista + fan-out por candidato

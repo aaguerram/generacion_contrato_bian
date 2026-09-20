@@ -148,6 +148,26 @@ EQUIVALENCIAS_RETRIEVAL: dict[str, str] = {**EQUIVALENCIAS_BASE, **_EXTENSION_RE
 #    inferencia que hace un modelador ("si represento a un cliente, uso Party"), y sin ella el
 #    canal no encuentra al propietario. Sigue sin colar la respuesta: nombra una CLASE del modelo,
 #    nunca un Service Domain.
+# Frases del negocio que en BIAN son UNA cosa distinta de sus palabras. "datos de contacto" no es
+# "contact" (que en el BOM es el centro de contacto: Customer Contact, Contact Handler) sino
+# Contact Point + las clases *Address (Electronic/Phone/Postal Address). Se resuelven ANTES de
+# tokenizar palabra a palabra y la frase se retira del texto, así `contact` no entra por ella.
+# Medido 2026-09-20 (E2E 1): con "contacto" -> contact, Contact Handler era el #1 del canal en
+# todas las corridas y entraba a 2b sin tener nada que ver con la historia.
+FRASES_BOM_POR_TERMINO: dict[str, set[str]] = {
+    "datos de contacto": {"point", "address", "electronic", "phone", "postal"},
+    "informacion de contacto": {"point", "address", "electronic", "phone", "postal"},
+    "medios de contacto": {"point", "address", "electronic", "phone", "postal"},
+    "punto de contacto": {"contact", "point"},
+    "correo electronico": {"electronic", "address", "email"},
+    # Sin `number`: es un token genérico del BOM (Card Number, Account Number, PaymentCardType...)
+    # y medido (E2E 1, 2026-09-20) metió tres SD de tarjetas como propietarios "del celular".
+    "numero celular": {"phone", "mobile", "cell"},
+    "numero de celular": {"phone", "mobile", "cell"},
+    "telefono celular": {"phone", "mobile", "cell"},
+    "telefono movil": {"phone", "mobile"},
+}
+
 CLASES_BOM_POR_TERMINO: dict[str, set[str]] = {
     # contacto: las dos formas que usa el corpus
     "correo": {"email", "mail"},
@@ -159,7 +179,10 @@ CLASES_BOM_POR_TERMINO: dict[str, set[str]] = {
     "telefonico": {"phone", "telephone"},
     "direccion": {"address"},
     "domicilio": {"address", "residential"},
-    "contacto": {"contact"},
+    # "datos de contacto" en BIAN son Contact Point + *Address (Electronic/Phone/Postal Address):
+    # sin `address`, "contacto" solo llegaba a las clases del CENTRO de contacto (Customer Contact).
+    "contacto": {"contact", "address"},
+    "contactos": {"contact", "address"},
     # la parte -> la clase Party
     "cliente": {"customer", "party"},
     "clientes": {"customer", "party"},

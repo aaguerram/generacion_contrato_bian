@@ -35,7 +35,11 @@ from dataclasses import dataclass
 
 from src.dominio.fusion_rrf import fusion_rrf
 from src.dominio.historias import CandidatoClaseBom, EvidenciaClaseBom
-from src.dominio.vocabulario_bian import CLASES_BOM_POR_TERMINO, EQUIVALENCIAS_RETRIEVAL
+from src.dominio.vocabulario_bian import (
+    CLASES_BOM_POR_TERMINO,
+    EQUIVALENCIAS_RETRIEVAL,
+    FRASES_BOM_POR_TERMINO,
+)
 
 _TOKEN = re.compile(r"[a-z0-9]+")
 # Ruido estructural del BOM: aparece en el nombre de casi cualquier clase de Control Record
@@ -63,8 +67,14 @@ def tokenizar_consulta(textos: Iterable[str]) -> set[str]:
     """
     salida: set[str] = set()
     for texto in textos:
-        plano = unicodedata.normalize("NFKD", texto or "").encode("ascii", "ignore").decode()
-        for t in _TOKEN.findall(plano.lower()):
+        plano = unicodedata.normalize("NFKD", texto or "").encode("ascii", "ignore").decode().lower()
+        # Frases primero (más larga primero) y se retiran del texto: "datos de contacto" aporta
+        # point/address/..., no `contact`.
+        for frase in sorted(FRASES_BOM_POR_TERMINO, key=len, reverse=True):
+            if frase in plano:
+                salida |= FRASES_BOM_POR_TERMINO[frase]
+                plano = plano.replace(frase, " ")
+        for t in _TOKEN.findall(plano):
             if t in _VACIAS or len(t) <= 2:
                 continue
             salida |= CLASES_BOM_POR_TERMINO.get(t, {EQUIVALENCIAS_RETRIEVAL.get(t, t)})
@@ -115,6 +125,21 @@ class ClaseBian:
 
     def duenos(self) -> list[OcurrenciaClase]:
         return [o for o in self.ocurrencias if o.es_dueno]
+
+    def duenos_efectivos(self) -> list[OcurrenciaClase]:
+        """Los dueños que DEFINEN algo, cuando alguno lo hace.
+
+        Una ocurrencia sin `Extensible` pero también sin atributos, BQ ni Control Record es una
+        caja vacía: la clase dibujada en el BOM de ese SD sin nada dentro. Medido sobre
+        entity.json: de las 909 ocurrencias dueñas de clases compartidas, 488 son así. Cuando otro
+        dueño sí trae sustancia, la caja vacía no cuenta como definición (`Correspondence` en
+        Savings Account y Term Deposit, 0 atributos, frente a Correspondence y Document Directory
+        con 8). Si TODOS los dueños están vacíos (81 clases), se conservan todos: no hay con qué
+        discriminar y el nombre sigue siendo evidencia.
+        """
+        todos = [o for o in self.duenos() if o.kind != "enum"]
+        con_sustancia = [o for o in todos if o.atributos or o.bq or o.control_record]
+        return con_sustancia or todos
 
     def importada_en(self) -> list[str]:
         return [o.service_domain for o in self.ocurrencias if o.diagrama == "bom" and not o.es_dueno]
@@ -234,7 +259,7 @@ def candidatos_por_propiedad(
         clase = clases.get(req.clase)
         if clase is None:
             continue
-        duenos = [o for o in clase.duenos() if o.kind != "enum"]
+        duenos = clase.duenos_efectivos()
         if not duenos:
             continue
         for o in duenos:
@@ -327,6 +352,21 @@ class CandidatoClase:
     score: float = 0.0
 
 
+_CAMEL = re.compile(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")
+
+
+def separar_camel(texto: str) -> str:
+    """`EmailAddress` -> `Email Address`, `MobileNumber` -> `Mobile Number`.
+
+    Los valores de enum y muchos nombres de tipo del BOM van en camelCase, y el tokenizador
+    (`[a-z0-9]+` sobre minúsculas) los deja como UNA palabra: `emailaddress` no matchea `email`.
+    Medido: 999 tokens camelCase en el corpus de clases; sin esto, `Electronic Address` (enum
+    `EmailAddress`) no respondía a "correo electrónico" y sí lo hacía `Correspondence`, cuyo
+    atributo dice `Email` a secas.
+    """
+    return _CAMEL.sub(" ", texto or "")
+
+
 def documento_de_clase(
     clase: ClaseBian,
     *,
@@ -347,19 +387,17 @@ def documento_de_clase(
         partes.append(clase.descripcion)
     partes.extend(clase.propiedades)
     vistos: set[str] = set()
-    for o in clase.duenos():
-        if o.kind == "enum":
-            continue
+    for o in clase.duenos_efectivos():
         if o.bq:
-            partes.append(o.bq)
+            partes.append(separar_camel(o.bq))
         for a in o.atributos:
             if a.nombre and a.nombre not in vistos:
-                partes.append(a.nombre)
+                partes.append(separar_camel(a.nombre))
                 vistos.add(a.nombre)
             if a.tipo in nombres_enum:
                 for v in enums.get(a.tipo, ()):
                     if v not in vistos:
-                        partes.append(v)
+                        partes.append(separar_camel(v))
                         vistos.add(v)
     return ". ".join(p for p in partes if p)
 

@@ -262,6 +262,16 @@ class IntencionHistoriaLLM(BaseModel):
     business_objects: list[str] = Field(
         default_factory=list, description="Objetos de negocio administrados."
     )
+    # Los DATOS concretos que la historia muestra, captura o cambia ("número celular", "correo
+    # electrónico", "nombre del tutor"), uno por elemento y sin la pantalla ni la entidad dueña.
+    # Existe porque `business_objects` varía entre corridas en cómo AGRUPA: a veces dice "número
+    # celular; correo electrónico" y a veces "información de contacto del cliente", y el canal de
+    # propiedad de clases BOM del nodo 2a solo encuentra `Phone Address`/`Electronic Address` con
+    # la primera forma (medido 2026-09-20 sobre la misma HU, dos corridas). Es la consulta del canal.
+    datos: list[str] = Field(
+        default_factory=list,
+        description="Datos concretos que la historia muestra, captura o cambia; uno por elemento.",
+    )
     outcomes: list[str] = Field(default_factory=list)
     external_dependencies: list[str] = Field(default_factory=list)
     traceability_ids: list[str] = Field(

@@ -28,7 +28,9 @@ from src.dominio.entidades_bian import (
     es_artefacto_del_metamodelo,
 )
 from unit_test.support import DOCS
-from src.dominio.entidades_bian import ClaseBian, OcurrenciaClase
+from src.dominio.entidades_bian import AtributoClase, ClaseBian, OcurrenciaClase, separar_camel
+from src.dominio.historias import CandidatoClaseBom, EvidenciaClaseBom
+from src.adaptadores.salida.analista_mapeo_langchain import formatear_propietarios_bom
 from unit_test.test_entidades_bian import LDM, PRDD, _catalogo
 from unit_test.test_routing_jerarquico import _AnalistaContacto, _entrada, _servicio
 
@@ -234,3 +236,91 @@ class TestNodo2aConCanalesDeClases(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestDuenosEfectivos(unittest.TestCase):
+    """Una caja vacía sin `Extensible` no es una definición cuando otro dueño sí define algo."""
+
+    def _correspondence(self):
+        return ClaseBian("Correspondence", (
+            OcurrenciaClase(service_domain="Correspondence", atributos=(AtributoClase("Correspondence Type", "CorrespondenceTypeValues"),)),
+            OcurrenciaClase(service_domain="Document Directory", atributos=(AtributoClase("Correspondence Type", "CorrespondenceTypeValues"),)),
+            OcurrenciaClase(service_domain="Savings Account"),      # 0 atributos, sin BQ/CR
+            OcurrenciaClase(service_domain="Term Deposit"),
+        ))
+
+    def test_las_cajas_vacias_no_votan_si_otro_dueno_tiene_sustancia(self):
+        c = self._correspondence()
+        self.assertEqual([o.service_domain for o in c.duenos_efectivos()], ["Correspondence", "Document Directory"])
+        clases = {"Correspondence": c}
+        requeridas = clases_requeridas_desde_rankings({"bm25": ["Correspondence"]}, clases)
+        candidatos = candidatos_por_propiedad(requeridas, clases)
+        self.assertEqual({x.service_domain for x in candidatos}, {"Correspondence", "Document Directory"})
+        self.assertEqual(candidatos[0].evidencias[0].compartida_con, ["Document Directory"])
+
+    def test_si_todos_estan_vacios_se_conservan_todos(self):
+        c = ClaseBian("Activity", (OcurrenciaClase(service_domain="A"), OcurrenciaClase(service_domain="B")))
+        self.assertEqual(len(c.duenos_efectivos()), 2)
+
+    def test_un_bq_o_un_control_record_son_sustancia(self):
+        c = ClaseBian("X", (OcurrenciaClase(service_domain="A", bq="Reference"), OcurrenciaClase(service_domain="B")))
+        self.assertEqual([o.service_domain for o in c.duenos_efectivos()], ["A"])
+
+
+class TestSepararCamel(unittest.TestCase):
+    def test_parte_los_valores_de_enum_del_bom(self):
+        self.assertEqual(separar_camel("EmailAddress"), "Email Address")
+        self.assertEqual(separar_camel("MobileNumber"), "Mobile Number")
+        self.assertEqual(separar_camel("URLAddress"), "URL Address")
+        self.assertEqual(separar_camel("Phone Number"), "Phone Number")
+
+    def test_el_documento_de_la_clase_expone_los_tokens(self):
+        clases, enums = _catalogo()
+        doc = documento_de_clase(clases["Phone Address"], nombres_enum=enums,
+                                 enums={"PhoneAddressTypeValues": ("PhoneNumber", "MobileNumber")})
+        self.assertIn("Mobile Number", doc)
+        self.assertNotIn("MobileNumber", doc)
+
+
+class TestFormatearPropietariosBom(unittest.TestCase):
+    def test_hechos_del_modelo_sin_recomendacion(self):
+        candidatos = [
+            CandidatoClaseBom(service_domain=PRDD, score=1.95, evidencias=[EvidenciaClaseBom(
+                clase="Contact Point", bq="Reference", motivos=["bm25#1"], enum="ContactPointTypeValues",
+                valores_enum=["Electronic Address", "Phone Number"], compartida_con=["Legal Entity Directory"],
+                nota="'Contact Point' SOLO tipifica con el enum ContactPointTypeValues (...): sin atributos adicionales, no guarda el valor")]),
+            CandidatoClaseBom(service_domain=LDM, score=1.0, evidencias=[EvidenciaClaseBom(
+                clase="Phone Address", motivos=["bm25#4"], atributos_adicionales=["Phone Number"])]),
+        ]
+        texto = formatear_propietarios_bom(candidatos)
+        self.assertIn(f'- "{PRDD}" define "Contact Point" [BQ Reference]: \'Contact Point\' SOLO tipifica', texto)
+        self.assertIn("(compartida_con: Legal Entity Directory)", texto)
+        self.assertIn(f'- "{LDM}" define "Phone Address": atributos Phone Number', texto)
+        for palabra in ("recomend", "candidato fuerte", "sugerimos", "score"):
+            self.assertNotIn(palabra, texto.lower())
+
+
+class TestFrasesDelNegocio(unittest.TestCase):
+    """"datos de contacto" es Contact Point + *Address, no el centro de contacto."""
+
+    def test_datos_de_contacto_no_produce_contact(self):
+        from src.dominio.entidades_bian import tokenizar_consulta
+        t = tokenizar_consulta(["información de contacto del cliente"])
+        self.assertNotIn("contact", t)
+        self.assertTrue({"point", "address", "electronic", "phone"} <= t, t)
+        self.assertIn("party", t, "el cliente sigue siendo Party")
+
+    def test_punto_de_contacto_si_lo_produce(self):
+        from src.dominio.entidades_bian import tokenizar_consulta
+        self.assertTrue({"contact", "point"} <= tokenizar_consulta(["punto de contacto"]))
+
+    def test_el_bloque_bom_omite_clases_sin_sustancia(self):
+        candidatos = [
+            CandidatoClaseBom(service_domain="Party Routing Profile", score=1.0,
+                              evidencias=[EvidenciaClaseBom(clase="Party Routing Profile", motivos=["vectorial#1"])]),
+            CandidatoClaseBom(service_domain=LDM, score=1.0,
+                              evidencias=[EvidenciaClaseBom(clase="Phone Address", atributos_adicionales=["Phone Number"])]),
+        ]
+        texto = formatear_propietarios_bom(candidatos)
+        self.assertNotIn("Party Routing Profile", texto)
+        self.assertIn(LDM, texto)

@@ -99,7 +99,11 @@ tarda más, la causa está en el failover, no en el checkpointer.
 ## Configuración: `config.yaml` + `.env`
 
 - **`.env`** = SOLO API keys (`GROQ_API_KEY`, `GOOGLE_API_KEY`, `HF_TOKEN`,
-  `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `LANGSMITH_API_KEY`). NADA más. No se versiona.
+  `OPENROUTER_API_KEY`, `FREELLMAPI_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`,
+  `LANGSMITH_API_KEY`). NADA más. No se versiona. `FREELLMAPI_API_KEY` es la clave unificada del
+  router local FreeLLMAPI (`~/Desktop/claude_cli/freellmapi`, Docker en `100.102.221.79:3011`):
+  una clave, todos los free tiers que el router tenga configurados; proveedor `freellmapi` en
+  `config.yaml`, estrategia `src/adaptadores/salida/llm/freellmapi.py` (OpenAI-compatible).
 - **`config.yaml`** (versionado, sin secretos) = proveedores, modelos, orden de failover, umbrales,
   rutas, observabilidad. Se carga en `src/configuracion/config_yaml.py` -> `Config`;
   `src/configuracion/settings.py` compone `.env` + `config.yaml` (`cargar_settings()` devuelve un `Config`).
@@ -154,8 +158,12 @@ tarda más, la causa está en el failover, no en el checkpointer.
    funcionalidad o SD**):
 
    1. `extraer_intencion` → `IntencionHistoriaLLM` (resumen, `business_actions`/`objects`,
-      `outcomes`, `external_dependencies`, `traceability_ids` HU-/SC-/BR-, `assumptions`, `gaps`).
-      **No nombra ningún SD.**
+      **`datos`** —los datos concretos que la HU muestra/captura/cambia, uno por elemento, prompt
+      `mapeo.intencion` 1.1.0; son la consulta del canal de propiedad de clases BOM de 2a, porque
+      `business_objects` varía entre corridas en cómo AGRUPA ("número celular; correo electrónico"
+      vs "información de contacto del cliente") y solo la forma desagregada llega a las clases del
+      dato—, `outcomes`, `external_dependencies`, `traceability_ids` HU-/SC-/BR-, `assumptions`,
+      `gaps`). **No nombra ningún SD.**
    2a. `enrutar_dominios` → `EnrutamientoDominiosLLM` (**routing jerárquico**,
       `routing_jerarquico_habilitado`, **ON** en `config.yaml`): elige **Business Domains** sobre
       `<taxonomia_bian>` antes de ver ningún SD, y separa `business_domains` (por la acción/objeto)
@@ -179,15 +187,25 @@ tarda más, la causa está en el failover, no en el checkpointer.
       `notes.Extensible`) de los que solo la importan (`Extensible` + `BOMDiagram` apuntando al
       dueño; `Party` se define en Party Reference Data Directory y se importa en otros 129 SD).
       Paso 1, **qué clases pide la HU**, es recuperación híbrida (`RecuperadorClasesPort`: BM25
-      sobre el documento de la clase —nombre + definición + atributos + valores de enum— con la
-      consulta traducida, y embeddings multilingües con la HU en español; el diccionario
-      `CLASES_BOM_POR_TERMINO` es un canal más, fusión RRF en
-      `clases_requeridas_desde_rankings`). Pasos 2-4, **quién la define, con qué Behavior
-      Qualifier, y si el enum solo tipifica o la clase guarda el valor** (`_nota_de_enum`), los
-      responde el modelo BIAN (`candidatos_por_propiedad`), nunca un ranking. Los propietarios se
-      AÑADEN al catálogo enrutado (`_rescatar_propietarios`, incidencia
-      `ROUTING_PROPIETARIO_DE_CLASE_BOM`) con su rastro (`candidatos_por_clase`: clase, BQ, canal y
-      posición que la propuso). Da `SD + BQ`, nunca una operación: eso sigue siendo el paso 9.
+      sobre el documento de la clase —nombre + definición + atributos + valores de enum, con el
+      camelCase separado (`EmailAddress` → `Email Address`, `separar_camel`)— con la consulta
+      traducida, y embeddings multilingües con la consulta en español; el diccionario
+      `CLASES_BOM_POR_TERMINO` es un canal más, fusión RRF en `clases_requeridas_desde_rankings`).
+      La consulta son los `datos` del nodo 1 (o `business_objects` si no hay). Pasos 2-4, **quién
+      la define, con qué Behavior Qualifier, y si el enum solo tipifica o la clase guarda el
+      valor** (`_nota_de_enum`), los responde el modelo BIAN (`candidatos_por_propiedad`), nunca
+      un ranking: cada clase vota con su peso ENTERO por cada dueño **efectivo**
+      (`duenos_efectivos`: una ocurrencia sin `Extensible` pero sin atributos/BQ/CR es una caja
+      vacía y no cuenta si otro dueño sí define algo — 488 de 909 ocurrencias dueñas de clases
+      compartidas son así), y la ambigüedad queda en `compartida_con`. Los propietarios se AÑADEN
+      al catálogo enrutado (`_rescatar_propietarios`, incidencia `ROUTING_PROPIETARIO_DE_CLASE_BOM`,
+      lista en `sd_rescatados`) **si pasan el umbral** (`entidades_min_score_rescate` 1.0 **o**
+      `entidades_min_canales_rescate` 2 canales; si no, `ROUTING_PROPIETARIO_NO_RESCATADO` — los
+      rescates ruidosos medidos venían de un solo canal denso en posición 5-6) con su rastro
+      (`candidatos_por_clase`: clase, BQ, canal y posición que la propuso). La consulta resuelve
+      FRASES antes que palabras (`FRASES_BOM_POR_TERMINO`: "datos de contacto" → Contact Point +
+      `*Address`, sin `contact`, que es el centro de contacto). Da `SD + BQ`, nunca una operación:
+      eso sigue siendo el paso 9.
       Fuera del corpus las 40 cajas del metamodelo (`X_SD_Operations`, `X_Instantiation`, ...,
       `es_artefacto_del_metamodelo`): tienen dueño pero no son objetos de negocio y eran la mitad
       del ruido del canal denso. Medido (`scripts/evaluate_retrieval/README.md`, hu_real n=6):
@@ -196,6 +214,23 @@ tarda más, la causa está en el failover, no en el checkpointer.
       Ciego al eje de la acción salvo por el canal vectorial (Correspondence llega #4 en la HU de
       notificación por `Correspondence Management Function`).
    2b. `generar_candidatos` → `CandidatosHistoriaLLM` (nombres del catálogo; **pista, no exhaustiva**).
+      **En fan-out** (`candidatos_por_dominio_habilitado`, ON): con routing, una llamada `Send`
+      por Business Domain enrutado (~15 SD, ~4k tokens: cabe en Groq y va en paralelo) + una para
+      los propietarios rescatados por el canal de 2a, y `fusionar_candidatos` **[determinista]**
+      une (`src/dominio/fusion_candidatos.py`: etiqueta gaps con `[grupo]` y descarta las notas de
+      un grupo que no propuso nada). Cada grupo usa el prompt `mapeo.candidatos` **1.3.0** (o
+      1.3.1 con evidencia): le dice que ve UN grupo, que vacío es respuesta válida y que lo ausente
+      no es gap — sin eso cada grupo proponía "lo menos irrelevante" (12-14 candidatos) y reportaba
+      como hueco el dueño del dato que estaba en otro grupo. Dominios con < `candidatos_grupo_min_sd`
+      (3) SD se juntan. Medido con UNA llamada: 80-88 SD, 19-21k tokens,
+      Groq fuera por presupuesto y 43-99 s por HU en 503 de Gemini. El grupo de rescatados es el
+      ÚNICO que ve `<propietarios_bom>` (`evidencia_bom_en_candidatos`, OFF: prompt
+      `mapeo.candidatos` 1.2.0 con la evidencia del canal —clase, BQ, "solo tipifica / guarda el
+      valor", `compartida_con`— redactada como hechos del modelo, sin recomendación; medido sin el
+      bloque 2b propuso 0 de 4 rescatados, con él 1 de 3 pero el que no tenía sustancia). La
+      taxonomía dice `(N de M SD visibles)` cuando 2a abrió un dominio a medias por un rescate.
+      Métrica: `bom_rescatados_propuestos_rate`. `llm_priority_por_nodo.mapeo.candidatos` deja a
+      Ollama al final: probado segundo, dos llamadas concurrentes al 27B remoto tardaron >10 min.
       Ve el catálogo formateado (`formatear_catalogo`: nombre · Area > Domain · [patrón/asset] ::
       `service_role` recortado a `rol_max_chars`, **600** — con 240 se recortaba el rol de 219 de
       los 341 SD) **más `<taxonomia_bian>`** (`formatear_taxonomia`): qué cubre cada Business Area
@@ -643,7 +678,11 @@ LLM es `tests/unit_test/test_grafo_mapeo.py::TestGrafoMapeoCoberturaDatosRequeri
 
 ## Datos verificados (sept-2026)
 
-- Cadena de failover por defecto (`config.yaml → routing.llm_priority`): **`groq → gemini → huggingface → openrouter`**.
+- Cadena de failover por defecto (`config.yaml → routing.llm_priority`): **`groq → freellmapi → gemini → huggingface → openrouter → ollama`**.
+  `freellmapi` (router local de free tiers) sirve `kimi-k3` (262k), `deepseek-v4-pro` (131k),
+  `glm-5.2` (200k), `deepseek-v4-flash` (1M), `minimax-m3` (1M) y `gpt-oss-120b`, todos medidos con
+  `json_schema` a través del proxy el 2026-09-20; `qwen3.5-397b` y `nemotron-3-ultra` no honran
+  `response_format` vía el router.
   OpenRouter free: `nvidia/nemotron-3-super-120b-a12b:free`, `nvidia/nemotron-3.5-lightning:free`,
   `google/gemma-4-31b-it:free` (a veces 429), `openrouter/free` (auto-router). Gemini pinneado:
   `gemini-3.6-flash` (free tier **20 req/día**), `gemini-3.5-flash`, `gemini-3.5-flash-lite`.

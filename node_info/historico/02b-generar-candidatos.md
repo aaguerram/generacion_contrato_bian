@@ -1,3 +1,14 @@
+> ## 🗄️ ARCHIVO HISTÓRICO — nodo 2b ANTES del canal de propiedad de clases BOM en 2a
+>
+> Foto del 2026-09-17. Describe el nodo 2b cuando `catalogo_enrutado` eran SOLO los Service
+> Domains de los Business Domains que eligió el router LLM. Desde el 2026-09-20 el nodo 2a
+> **añade** además los propietarios de las clases BOM que la historia necesita, así que 2b ve
+> dominios parcialmente abiertos y su clave de caché incluye ese catálogo. La documentación viva
+> es [`../02b-generar-candidatos-v1.md`](../02b-generar-candidatos-v1.md). **No editar.**
+> Sigue siendo cierto con `entidades_bom_habilitado: false`.
+
+---
+
 # Nodo 2b — `generar_candidatos` `[LLM]`
 
 > **En una frase:** mira el catálogo de Service Domains y propone cuáles podrían participar. Es
