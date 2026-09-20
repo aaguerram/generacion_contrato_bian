@@ -19,7 +19,6 @@ from __future__ import annotations
 import logging
 
 from langchain_core.language_models.chat_models import BaseChatModel
-from pydantic import ValidationError
 
 from .openai_compat import OpenAICompatibleStrategy
 
@@ -32,13 +31,21 @@ class AclideStrategy(OpenAICompatibleStrategy):
     key_env_hint = "ACLIDE_API_KEY"
 
     def crear_chat_model(self) -> BaseChatModel:
-        """Como el genérico, pero hablando la Responses API en vez de Chat Completions."""
+        """Como el genérico, pero hablando la Responses API y SIN `seed`.
+
+        El genérico prueba primero con `seed` y se queda sin él si el constructor lo rechaza. Aquí
+        eso no basta: `ChatOpenAI` acepta el parámetro al construirse y es la LLAMADA la que
+        revienta (`Responses.create() got an unexpected keyword argument 'seed'`), así que el
+        fallo aparecía en tiempo de ejecución con `llm.seed` puesto en `config.yaml`. La Responses
+        API no admite `seed`: no se manda.
+        """
         from langchain_openai import ChatOpenAI
 
         c = self._config
         if not c.api_key:
             raise RuntimeError(f"{self.key_env_hint} no está definida para '{self.nombre}'.")
-        base = dict(
+        logger.info("%s chat '%s' (responses API, sin seed)", self.nombre, c.chat_model)
+        return ChatOpenAI(
             model=c.chat_model,
             api_key=c.api_key,
             base_url=self._base_url(),
@@ -46,11 +53,3 @@ class AclideStrategy(OpenAICompatibleStrategy):
             max_retries=0,  # el failover gestiona los reintentos
             use_responses_api=True,
         )
-        for extra in ({"seed": c.seed} if c.seed is not None else {}, {}):
-            try:
-                modelo = ChatOpenAI(**base, **extra)
-            except (TypeError, ValidationError):
-                continue
-            logger.info("%s chat '%s' (responses API)", self.nombre, c.chat_model)
-            return modelo
-        raise RuntimeError(f"No se pudo instanciar ChatOpenAI para '{self.nombre}'.")

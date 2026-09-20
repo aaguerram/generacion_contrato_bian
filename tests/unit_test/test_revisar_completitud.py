@@ -51,13 +51,34 @@ class TestPrompt110(unittest.TestCase):
         # El prompt va justificado a 100 columnas: se comparan espacios normalizados.
         sistema = " ".join(SPEC_COMPLETITUD.template.messages[0].prompt.template.split())
         humano = SPEC_COMPLETITUD.template.messages[1].prompt.template
-        self.assertEqual(SPEC_COMPLETITUD.version, "1.2.0")
+        self.assertEqual(SPEC_COMPLETITUD.version, "1.3.0")
         self.assertIn("<propietarios_bom", humano)
         self.assertIn("SOLO TIPIFICA", sistema)
         self.assertIn("No devuelvas `unsupported_candidates`", sistema)
         self.assertIn("GUARDA EL VALOR", sistema)
         self.assertNotIn("unsupported_candidates, ownership_conflicts", humano)
         self.assertIn("NO incluye los candidatos actuales", humano)
+
+
+class TestHallazgosNoInventario(unittest.TestCase):
+    """`ownership_conflicts` y `duplicated_responsibilities` llevan hallazgos, no negaciones.
+
+    Medido con Claude Opus 5 de juez: devolvía 8 `duplicated_responsibilities` y ninguna era una
+    duplicación -todas explicaban que NO la había-, y esas negaciones acababan en el JSON de la
+    historia como si fueran hallazgos.
+    """
+
+    def test_el_prompt_prohibe_las_negaciones_y_declara_vacio_como_normal(self):
+        sistema = " ".join(SPEC_COMPLETITUD.template.messages[0].prompt.template.split())
+        self.assertIn("HALLAZGOS CONFIRMADOS, no un inventario", sistema)
+        self.assertIn("Vacío es la respuesta normal y correcta", sistema)
+        self.assertIn("Prohibido escribir una entrada para decir que NO hay conflicto", sistema)
+        self.assertIn("va en `review_summary`", sistema)
+
+    def test_pide_nombrar_las_dos_partes(self):
+        sistema = " ".join(SPEC_COMPLETITUD.template.messages[0].prompt.template.split())
+        self.assertIn("nombrar a los DOS candidatos", sistema)
+        self.assertIn("PAREJAS de candidatos cuya responsabilidad se solapa de verdad", sistema)
 
 
 class TestSenalCrudaSinVeredicto(unittest.TestCase):

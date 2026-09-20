@@ -312,12 +312,20 @@ o lo que sobra, sin decidir todavía ownership ni generar contratos.
    no significa que el Service Domain sobre, ni una alta que haga falta. Pésala con la historia.
    `<propietarios_bom>` incluye Service Domains que NO están en `<candidatos_actuales>`: si la
    historia los necesita, proponlos en `missing_candidates`.
-3. `duplicated_responsibilities`: candidatos cuya responsabilidad ya cubre otro candidato. Júzgalo
-   con el `service_role` COMPLETO que trae `<candidatos_actuales>`, no con el nombre.
+3. `duplicated_responsibilities`: PAREJAS de candidatos cuya responsabilidad se solapa de verdad.
+   Júzgalo con el `service_role` COMPLETO que trae `<candidatos_actuales>`, no con el nombre.
 4. `coverage_gaps`: capacidades / objetos / escenarios de la historia sin ningún candidato.
 5. `blocking_codes`: usa `BIAN-SCOPE-009` si hay cobertura funcional demostrada por la historia
    sin ningún candidato que la cubra.
 6. `review_summary`: 1-2 frases.
+
+`ownership_conflicts` y `duplicated_responsibilities` son listas de HALLAZGOS CONFIRMADOS, no un
+inventario de los candidatos. Una entrada solo entra si puedes nombrar a los DOS candidatos y el
+objeto o la responsabilidad concreta que se disputan. **Vacío es la respuesta normal y correcta.**
+Prohibido escribir una entrada para decir que NO hay conflicto o que NO hay duplicación ("no se
+demuestra duplicación con X", "no aporta evidencia suficiente para afirmar disputa"): eso no es un
+hallazgo, y acaba en el resultado de la historia como si lo fuera. Si la duda es relevante, va en
+`review_summary`.
 
 No devuelvas `unsupported_candidates`: lo calcula el código desde
 `<disponibilidad_evidencia>`, que tienes solo como contexto (un candidato sin evidencia oficial
@@ -374,7 +382,15 @@ coverage_gaps, blocking_codes, review_summary.
 # igual que `Correspondence` 0.91/1 canal). Se da el número y se dice explícitamente que NO es un
 # veredicto: ocultar los filtrados sesgaría hacia el umbral, y etiquetarlos como "descartados"
 # sesgaría en contra; el dato crudo deja decidir a quien tiene la historia delante.
-SPEC_COMPLETITUD = _spec("mapeo.completitud", "1.2.0", _SIS_COMPLETITUD, _HUM_COMPLETITUD)
+#
+# 1.3.0 (2026-09-20): `ownership_conflicts` y `duplicated_responsibilities` son HALLAZGOS, no
+# inventario. Medido con Claude Opus 5 como juez fijo: devolvía 8 entradas en
+# `duplicated_responsibilities` y NINGUNA era una duplicación -todas decían lo contrario ("no se
+# demuestra duplicación con eBranch Operations")-, y una de las 2 de `ownership_conflicts` se
+# desmentía a sí misma ("no aporta evidencia suficiente para afirmar disputa"). Esas negaciones
+# viajaban al JSON de la historia como si fueran hallazgos. Ahora el prompt dice que vacío es la
+# respuesta normal y que la duda va en `review_summary`.
+SPEC_COMPLETITUD = _spec("mapeo.completitud", "1.3.0", _SIS_COMPLETITUD, _HUM_COMPLETITUD)
 PROMPT_COMPLETITUD = SPEC_COMPLETITUD.template
 
 
