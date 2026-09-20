@@ -1,3 +1,14 @@
+> ## 🗄️ ARCHIVO HISTÓRICO — nodo 3 con el prompt `mapeo.completitud` 1.0.0
+>
+> Foto del 2026-09-17. Describe el nodo cuando el revisor veía los 341 en un índice recortado a 90
+> chars, los candidatos solo por su nombre, y se le pedía `unsupported_candidates`. Desde el
+> 2026-09-20 (prompt 1.1.0) ve la evidencia de clases del BOM del nodo 2a, los candidatos con su
+> `service_role` entero, un índice global SIN los ya propuestos, y `unsupported_candidates` lo
+> escribe el código. La documentación viva es
+> [`../03-revisar-completitud-v1.md`](../03-revisar-completitud-v1.md). **No editar.**
+
+---
+
 # Nodo 3 — `revisar_completitud` `[LLM]`
 
 > **En una frase:** vuelve a mirar **los 341 Service Domains** —ahora sabiendo qué se propuso— y

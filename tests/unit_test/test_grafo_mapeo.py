@@ -229,7 +229,7 @@ class _AnalistaGuion(AnalistaMapeoBianPort):
         )
 
     def revisar_completitud(
-        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia, **kw
     ):
         return RevisionCompletitudLLM()
 
@@ -429,7 +429,7 @@ class _AnalistaNotificacion(AnalistaMapeoBianPort):
         )
 
     def revisar_completitud(
-        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia, **kw
     ):
         return RevisionCompletitudLLM()
 
@@ -757,7 +757,7 @@ class _AnalistaNotificacionYaOwned(AnalistaMapeoBianPort):
         )
 
     def revisar_completitud(
-        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia, **kw
     ):
         return RevisionCompletitudLLM()
 
@@ -867,7 +867,7 @@ class _AnalistaActualizacionMalClasificada(AnalistaMapeoBianPort):
         )
 
     def revisar_completitud(
-        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia, **kw
     ):
         return RevisionCompletitudLLM()
 
@@ -983,7 +983,7 @@ class _AnalistaSinCandidatos(AnalistaMapeoBianPort):
         return CandidatosHistoriaLLM(candidatos=[])
 
     def revisar_completitud(
-        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia, **kw
     ):
         return RevisionCompletitudLLM()
 
@@ -1086,7 +1086,7 @@ class _AnalistaDatosPersonalesMenor(AnalistaMapeoBianPort):
         )
 
     def revisar_completitud(
-        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia, **kw
     ):
         return RevisionCompletitudLLM()
 

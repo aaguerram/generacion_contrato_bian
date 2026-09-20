@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+from .aclide import AclideStrategy
 from .anthropic import AnthropicStrategy
+from .blaze import BlazeStrategy
 from .cohere import CohereStrategy
+from .dreamprompting import DreamPromptingStrategy
 from .estrategia import ConfiguracionProveedor, ProveedorLLMStrategy
 from .fake import FakeStrategy
 from .freellmapi import FreeLLMAPIStrategy
@@ -17,6 +20,9 @@ from .openrouter import OpenRouterStrategy
 _REGISTRO: dict[str, type[ProveedorLLMStrategy]] = {
     OllamaStrategy.nombre: OllamaStrategy,
     FreeLLMAPIStrategy.nombre: FreeLLMAPIStrategy,
+    DreamPromptingStrategy.nombre: DreamPromptingStrategy,
+    BlazeStrategy.nombre: BlazeStrategy,
+    AclideStrategy.nombre: AclideStrategy,
     GroqStrategy.nombre: GroqStrategy,
     GeminiStrategy.nombre: GeminiStrategy,
     HuggingFaceStrategy.nombre: HuggingFaceStrategy,

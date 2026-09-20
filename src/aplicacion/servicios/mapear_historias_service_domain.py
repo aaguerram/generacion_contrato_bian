@@ -921,7 +921,17 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             estado["candidatos"],
             estado["catalogo"],
             disponibilidad,
+            # La evidencia de clases del BOM que produjo el nodo 2a: es con lo que se juzga un
+            # conflicto de propiedad (quién DEFINE la clase, y si solo tipifica o guarda el valor).
+            propietarios_bom=list(estado.get("candidatos_por_clase") or []),
         )
+        # `unsupported_candidates` NO lo decide el LLM: es una consulta a la caché de evidencia que
+        # el código ya hizo para armar el prompt. Pedírselo al modelo era hacerle copiar de vuelta
+        # un dato que ya le habíamos dado, con la posibilidad de que se equivocara al copiarlo.
+        sin_evidencia = sorted(
+            sd for sd, est in disponibilidad.items() if est == "BIAN_EVIDENCE_UNAVAILABLE"
+        )
+        rev = rev.model_copy(update={"unsupported_candidates": sin_evidencia})
         return {"revision_completitud": rev, "huellas": _huellas(rev)}
 
     def _candidatos_retrieval_hibrido(
@@ -2186,7 +2196,31 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             }
             bom_rescatados_propuestos += len(rescatados_por_hu.get(h.archivo, set()) & propuestos)
 
+        # ¿El nodo 3 aporta algo? `missing_candidates` es lo ÚNICO suyo que cambia el flujo (se
+        # evalúa como un candidato más, con origen "completitud"). Medido en el E2E 1 antes de
+        # mejorarlo: 0 aportados en una corrida con 9 candidatos del nodo 2b. Estas tres cifras
+        # dicen si la llamada se paga sola: cuántos añadió, cuántos sobrevivieron a la evaluación
+        # y cuántos acabaron siendo contrato.
+        completitud_aportados = sum(
+            1 for a in todos if getattr(a, "origen_candidato", "llm") == "completitud"
+        )
+        completitud_seleccionados = sum(
+            1
+            for h in procesadas
+            for a in h.service_domains.candidatos_directos
+            if getattr(a, "origen_candidato", "llm") == "completitud"
+        )
+        completitud_conflictos = sum(
+            len(h.revision_completitud.ownership_conflicts)
+            + len(h.revision_completitud.duplicated_responsibilities)
+            for h in procesadas
+            if h.revision_completitud is not None
+        )
+
         return {
+            "completitud_candidatos_aportados": completitud_aportados,
+            "completitud_candidatos_seleccionados": completitud_seleccionados,
+            "completitud_conflictos_detectados": completitud_conflictos,
             "routing_dominios_por_hu": routing_dominios_por_hu,
             "routing_sd_visibles_por_hu": routing_sd_visibles_por_hu,
             "bom_rescatados": bom_rescatados,
@@ -2409,7 +2443,12 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             cache_policy=self._politica(
                 "completitud",
                 lambda e: self._clave(
-                    "completitud", e["historia"], e.get("intencion"), e.get("candidatos")
+                    "completitud",
+                    e["historia"],
+                    e.get("intencion"),
+                    e.get("candidatos"),
+                    # La evidencia del canal de clases BOM entra en el prompt desde 1.1.0.
+                    e.get("candidatos_por_clase"),
                 ),
             ),
         )

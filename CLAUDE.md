@@ -99,8 +99,8 @@ tarda más, la causa está en el failover, no en el checkpointer.
 ## Configuración: `config.yaml` + `.env`
 
 - **`.env`** = SOLO API keys (`GROQ_API_KEY`, `GOOGLE_API_KEY`, `HF_TOKEN`,
-  `OPENROUTER_API_KEY`, `FREELLMAPI_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`,
-  `LANGSMITH_API_KEY`). NADA más. No se versiona. `FREELLMAPI_API_KEY` es la clave unificada del
+  `OPENROUTER_API_KEY`, `FREELLMAPI_API_KEY`, `DREAMPROMPTING_API_KEY`, `BLAZE_API_KEY`, `ACLIDE_API_KEY`, `ANTHROPIC_API_KEY`,
+  `OPENAI_API_KEY`, `LANGSMITH_API_KEY`). NADA más. No se versiona. `FREELLMAPI_API_KEY` es la clave unificada del
   router local FreeLLMAPI (`~/Desktop/claude_cli/freellmapi`, Docker en `100.102.221.79:3011`):
   una clave, todos los free tiers que el router tenga configurados; proveedor `freellmapi` en
   `config.yaml`, estrategia `src/adaptadores/salida/llm/freellmapi.py` (OpenAI-compatible).
@@ -242,9 +242,22 @@ tarda más, la causa está en el failover, no en el checkpointer.
       debajo solo como red. `documentation` del SD NO se manda **nunca**: es la concatenación
       literal de `service_role` + `examples_of_use` + `executive_summary` + `features`, ~76k
       tokens por cero información nueva.
-   3. `revisar_completitud` → `RevisionCompletitudLLM` (usa el índice global BIAN como hint:
-      `missing_candidates` / `unsupported_candidates` / `ownership_conflicts` /
-      `duplicated_responsibilities` / `coverage_gaps` / `blocking_codes` `BIAN-SCOPE-009`).
+   3. `revisar_completitud` → `RevisionCompletitudLLM` (prompt `mapeo.completitud` **1.1.0**): el
+      ÚNICO paso que sigue viendo los 341 después del routing. Ve el índice global **sin los ya
+      propuestos** (su trabajo es encontrar ausencias), los candidatos actuales con su
+      `service_role` **completo** (para juzgar solapes), y **`<propietarios_bom>`** — la evidencia
+      de clases del nodo 2a, que es con lo que se decide un `ownership_conflicts`: quién DEFINE la
+      clase y si **solo tipifica** el dato o **guarda el valor**. `unsupported_candidates` lo
+      escribe el CÓDIGO desde la caché de evidencia, no el LLM. Medido en el E2E 1: con el prompt
+      1.0.0 devolvía **cero en todos los campos**; con 1.1.0 detecta el conflicto real
+      (Location Data Management vs Party Reference Data Directory vs Legal Entity Directory sobre
+      Contact Point / Phone Address / Electronic Address), el duplicado eBranch
+      Management/Operations y 3 `missing_candidates`, por +1.6k tokens. De su salida **solo
+      `missing_candidates` cambia el flujo** (entra al nodo 4 con `origen="completitud"`); el resto
+      es documental. Métricas `completitud_candidatos_aportados` / `_seleccionados` /
+      `_conflictos_detectados`. **Pendiente**: el bloque lleva TODO `candidatos_por_clase`, así que
+      el nodo 3 repesca candidatos que el umbral de rescate del 2a había filtrado (3 en la corrida
+      medida) — ver `node_info/03-revisar-completitud-v1.md` §4.
    4. `preparar_candidatos` **[determinista]**: resuelve nombres LLM ∪ `missing_candidates` ∪
       **retrieval híbrido** (opcional, ver abajo) contra el Service Landscape, tope `max_candidatos_hu` —
       lo que exceda el tope NO desaparece en silencio: queda como incidencia
@@ -678,11 +691,40 @@ LLM es `tests/unit_test/test_grafo_mapeo.py::TestGrafoMapeoCoberturaDatosRequeri
 
 ## Datos verificados (sept-2026)
 
-- Cadena de failover por defecto (`config.yaml → routing.llm_priority`): **`groq → freellmapi → gemini → huggingface → openrouter → ollama`**.
-  `freellmapi` (router local de free tiers) sirve `kimi-k3` (262k), `deepseek-v4-pro` (131k),
-  `glm-5.2` (200k), `deepseek-v4-flash` (1M), `minimax-m3` (1M) y `gpt-oss-120b`, todos medidos con
-  `json_schema` a través del proxy el 2026-09-20; `qwen3.5-397b` y `nemotron-3-ultra` no honran
-  `response_format` vía el router.
+- Cadena de failover por defecto (`config.yaml → routing.llm_priority`), ordenada por POTENCIA y
+  con el proveedor local al final: **`freellmapi → groq → gemini → dreamprompting → huggingface →
+  openrouter → ollama`**. Excepción documentada: el nodo 2b (`mapeo.candidatos`) pone Groq primero
+  porque son 5-7 llamadas en paralelo por HU y ahí manda la latencia.
+  - `freellmapi` = router local de free tiers (`~/Desktop/claude_cli/freellmapi`, Docker en
+    `100.102.221.79:3011`, clave unificada `FREELLMAPI_API_KEY`). Un slug servido por varias
+    plataformas AGREGA su cuota ("unify"). Sirve `kimi-k3`, `glm-5.3` (1.31M), `deepseek-v4-pro`,
+    `glm-5.2`, `deepseek-v4-flash`, `gemini-3.8-flash`, `minimax-m3`, `minimax-m2.5`,
+    `qwen3-coder` y `gpt-oss-120b`.
+  - `dreamprompting` = meta-router propio (`DREAMPROMPTING_API_KEY`): 9 modelos verificados
+    (Nemotron 3 Super 120B, Command A, Mistral Large, Gemini 3.1/2.5 Flash, Llama 3.3 70B...), en
+    1-6 s. Va como proveedor aparte porque el adaptador de DreamPrompting del router valida la
+    identidad del modelo y este servicio la reescribe: por el router pasaban 2 de 10, en directo 10.
+  - **No honran `response_format`**: `qwen3.5-397b` y `nemotron-3-ultra` (vía router), las rutas de
+    ElectronHub de `deepseek-v4-flash`/`minimax-m3` (rompieron slugs que funcionaban y se dieron de
+    baja), y `claude-sonnet-5`/`minimax-m3` en Experiential Labs.
+  - `blaze` = BlazeAPI (`BLAZE_API_KEY`): 200k tokens/día sobre DeepSeek, 10 rpm. Su free tier
+    solo responde tras verificar la cuenta en su **Discord** (`discord.gg/cmPGdhXYxp`: entrar,
+    pulsar Verify y vincular en `blazeapi.org/settings`); sin eso, 403 en `chat/completions`
+    aunque `/usage` y `/models` contesten. Va al final del tramo remoto.
+  - `aclide` = ACLIDE (`ACLIDE_API_KEY`): **los modelos frontera del pool** — Claude Opus 5,
+    Claude Sonnet 5, GPT-6 Astra, GPT-5.6 (sol/terra/luna), Claude Haiku 4.5 — todos verificados
+    en 7-10 s. Dos particularidades que obligan a su propia estrategia (`llm/aclide.py`): no
+    expone Chat Completions (usa `/v1/responses`, `use_responses_api=True`) e **ignora
+    `response_format`** (con `json_schema` devuelve markdown; con `function_calling` responde
+    bien, de ahí su `structured_method`). Su free tier son 20 EUR/mes de créditos COMPARTIDOS y
+    cada llamada gasta 1.8-3.2, así que **no se lista en `llm_priority`**: queda el último de la
+    cadena, inalcanzable en la práctica, y se usa con `--proveedor aclide` o pinneado por nodo.
+  - **Inutilizables hoy**: Cerebras (402 Payment Required), GitHub Models (410, en migración),
+    Experiential Labs (exige verificación de tarjeta de 1 USD), ElectronHub premium (402).
+  - **El router local rechaza DreamPrompting y ACLIDE** aunque sus claves funcionen: su adaptador
+    valida que la respuesta traiga el mismo identificador de modelo y ambos servicios lo
+    reescriben ("returned a different or missing model identity"). Por eso van como proveedores
+    propios y no como modelos de `freellmapi`.
   OpenRouter free: `nvidia/nemotron-3-super-120b-a12b:free`, `nvidia/nemotron-3.5-lightning:free`,
   `google/gemma-4-31b-it:free` (a veces 429), `openrouter/free` (auto-router). Gemini pinneado:
   `gemini-3.6-flash` (free tier **20 req/día**), `gemini-3.5-flash`, `gemini-3.5-flash-lite`.

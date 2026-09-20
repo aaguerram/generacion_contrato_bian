@@ -95,7 +95,7 @@ class _AnalistaEnrutado(AnalistaMapeoBianPort):
         )
 
     def revisar_completitud(
-        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia
+        self, historia, intencion, candidatos, catalogo, disponibilidad_evidencia, **kw
     ):
         return RevisionCompletitudLLM()
 
@@ -288,7 +288,7 @@ class TestEnrutamientoDominiosLLM(unittest.TestCase):
             def generar_candidatos(self, *a, **kw):
                 return CandidatosHistoriaLLM()
 
-            def revisar_completitud(self, *a):
+            def revisar_completitud(self, *a, **kw):
                 return RevisionCompletitudLLM()
 
             def evaluar_candidato(self, *a):

@@ -14,6 +14,7 @@
 > | `README.md` (este) | El diagrama del subgrafo tiene 10 nodos; con routing son 11 |
 > | `02a-enrutar-dominios.md` | **Solo con `entidades_bom_habilitado: false`.** Foto del 2026-09-17: router LLM + recorte, sin el canal de propiedad de clases BOM; ver [`../02a-enrutar-dominios-v1.md`](../02a-enrutar-dominios-v1.md) |
 > | `02b-generar-candidatos.md` | **Solo con `entidades_bom_habilitado: false`.** Foto del 2026-09-17: 2b veía solo los dominios enrutados; ver [`../02b-generar-candidatos-v1.md`](../02b-generar-candidatos-v1.md) |
+> | `03-revisar-completitud.md` | Prompt `mapeo.completitud` 1.0.0: sin evidencia BOM, índice recortado, `unsupported_candidates` por el LLM; ver [`../03-revisar-completitud-v1.md`](../03-revisar-completitud-v1.md) |
 >
 > El nodo 1 **no se archivó**: [`../01-extraer-intencion.md`](../01-extraer-intencion.md) sigue en
 > la raíz porque describe el funcionamiento actual. El routing no le cambió nada salvo la arista

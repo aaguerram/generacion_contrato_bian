@@ -300,15 +300,28 @@ o lo que sobra, sin decidir todavía ownership ni generar contratos.
 1. `missing_candidates`: Service Domains del `<indice_global>` que las business_actions /
    business_objects / external_dependencies sugieren y que NO están en `<candidatos_actuales>`.
    Nómbralos con su nombre EXACTO del índice. La confirmación real la hará el paso de evidencia.
-2. `unsupported_candidates`: candidatos actuales cuyo `<disponibilidad_evidencia>` es
-   BIAN_EVIDENCE_UNAVAILABLE — se podrán evaluar pero probablemente queden sin resolver.
-3. `ownership_conflicts`: dos o más candidatos que reclamarían el mismo objeto de negocio como
-   propietario.
-4. `duplicated_responsibilities`: candidatos cuya responsabilidad ya cubre otro candidato.
-5. `coverage_gaps`: capacidades / objetos / escenarios de la historia sin ningún candidato.
-6. `blocking_codes`: usa `BIAN-SCOPE-009` si hay cobertura funcional demostrada por la historia
+   El índice NO repite los candidatos actuales: todo lo que ves ahí está sin proponer.
+2. `ownership_conflicts`: dos o más candidatos que reclamarían el mismo objeto de negocio como
+   propietario. `<propietarios_bom>` es la evidencia estructural del modelo BIAN para decidirlo:
+   dice qué Service Domain DEFINE cada clase del Business Object Model y si esa clase SOLO
+   TIPIFICA el dato (un enum con los tipos posibles) o GUARDA EL VALOR (atributos con el dato).
+   Dos candidatos que definen la MISMA clase, o uno que solo tipifica frente a otro que guarda el
+   valor del mismo dato, son un conflicto: nómbralos juntos en una línea, con el objeto en disputa.
+   La `señal` de cada línea es con cuánta fuerza los canales de recuperación propusieron esa clase
+   (score de fusión y cuántos canales coincidieron). Es un dato, NO un veredicto: una señal baja
+   no significa que el Service Domain sobre, ni una alta que haga falta. Pésala con la historia.
+   `<propietarios_bom>` incluye Service Domains que NO están en `<candidatos_actuales>`: si la
+   historia los necesita, proponlos en `missing_candidates`.
+3. `duplicated_responsibilities`: candidatos cuya responsabilidad ya cubre otro candidato. Júzgalo
+   con el `service_role` COMPLETO que trae `<candidatos_actuales>`, no con el nombre.
+4. `coverage_gaps`: capacidades / objetos / escenarios de la historia sin ningún candidato.
+5. `blocking_codes`: usa `BIAN-SCOPE-009` si hay cobertura funcional demostrada por la historia
    sin ningún candidato que la cubra.
-7. `review_summary`: 1-2 frases.
+6. `review_summary`: 1-2 frases.
+
+No devuelvas `unsupported_candidates`: lo calcula el código desde
+`<disponibilidad_evidencia>`, que tienes solo como contexto (un candidato sin evidencia oficial
+podrá evaluarse igual, pero probablemente quede sin resolver).
 </procedimiento>
 
 {_ANTIALUCINACION}"""
@@ -324,23 +337,44 @@ business_objects: {intencion_objects}
 external_dependencies: {intencion_dependencies}
 </intencion_funcional>
 
-<candidatos_actuales>
+<candidatos_actuales total="{candidatos_total}">
 {candidatos_actuales}
 </candidatos_actuales>
+
+<propietarios_bom fuente="docs/entity.json" total="{propietarios_bom_total}">
+{propietarios_bom}
+</propietarios_bom>
 
 <disponibilidad_evidencia>
 {disponibilidad_evidencia}
 </disponibilidad_evidencia>
 
-<indice_global fuente="docs/BIAN_Service_Landscape_V14.0_Matrix_View.json" total="{catalogo_total}">
+<indice_global fuente="docs/BIAN_Service_Landscape_V14.0_Matrix_View.json" total="{catalogo_total}" nota="NO incluye los candidatos actuales">
 {indice_global}
 </indice_global>
 
-Devuelve missing_candidates, unsupported_candidates, ownership_conflicts,
-duplicated_responsibilities, coverage_gaps, blocking_codes, review_summary.
+Devuelve missing_candidates, ownership_conflicts, duplicated_responsibilities,
+coverage_gaps, blocking_codes, review_summary.
 """
 
-SPEC_COMPLETITUD = _spec("mapeo.completitud", "1.0.0", _SIS_COMPLETITUD, _HUM_COMPLETITUD)
+# 1.1.0 (2026-09-20): (a) `<propietarios_bom>` -- la evidencia de clases del BOM que produce el
+# nodo 2a; sin ella el revisor no tenía con qué poblar `ownership_conflicts` y los dejaba siempre
+# vacíos (medido: no detectó Party Reference Data Directory vs Location Data Management, el
+# conflicto central de la HU del E2E 1). (b) `<candidatos_actuales>` con el `service_role`
+# COMPLETO: juzgar solapes por el nombre no funcionaba (eBranch Management + eBranch Operations
+# pasaron como no duplicados). (c) `<indice_global>` SIN los candidatos actuales: su única función
+# es encontrar ausencias, y repetirlos costaba tokens y confundía la tarea. (d) Fuera
+# `unsupported_candidates`: era pedirle al modelo que copiase de vuelta lo que el código ya le
+# había dado en `<disponibilidad_evidencia>`; ahora lo escribe el código.
+#
+# 1.2.0 (2026-09-20): `<propietarios_bom>` lleva la SEÑAL CRUDA de cada candidato del canal (score
+# de fusión + cuántos canales lo propusieron). Motivo: el bloque trae TODO `candidatos_por_clase`,
+# incluidos los que el umbral de rescate del nodo 2a no dejó entrar al catálogo del 2b, y sin la
+# cifra el revisor los leía todos con el mismo peso (`Location Data Management` 3.60/2 canales
+# igual que `Correspondence` 0.91/1 canal). Se da el número y se dice explícitamente que NO es un
+# veredicto: ocultar los filtrados sesgaría hacia el umbral, y etiquetarlos como "descartados"
+# sesgaría en contra; el dato crudo deja decidir a quien tiene la historia delante.
+SPEC_COMPLETITUD = _spec("mapeo.completitud", "1.2.0", _SIS_COMPLETITUD, _HUM_COMPLETITUD)
 PROMPT_COMPLETITUD = SPEC_COMPLETITUD.template
 
 

@@ -88,9 +88,15 @@ class AnalistaMapeoBianPort(ABC):
         candidatos: CandidatosHistoriaLLM,
         catalogo: list[EntradaCatalogo],
         disponibilidad_evidencia: dict[str, str],
+        propietarios_bom: list | None = None,
     ) -> RevisionCompletitudLLM:
-        """Nodo 3: usa el índice global BIAN como hint para detectar candidatos faltantes /
-        no soportados / conflictos de ownership / responsabilidades duplicadas."""
+        """Nodo 3: usa el índice global BIAN como hint para detectar candidatos faltantes,
+        conflictos de ownership y responsabilidades duplicadas.
+
+        `propietarios_bom` (`list[CandidatoClaseBom]`, del nodo 2a) es la evidencia estructural
+        con la que se juzga un conflicto de propiedad: qué Service Domain DEFINE cada clase y si
+        esa clase solo tipifica el dato o guarda su valor. `unsupported_candidates` NO lo devuelve
+        el LLM: lo calcula el código desde `disponibilidad_evidencia`."""
 
     @abstractmethod
     def evaluar_candidato(

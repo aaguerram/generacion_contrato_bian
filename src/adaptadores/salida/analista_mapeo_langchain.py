@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import os
 import time
 
 from src.adaptadores.salida.formato_bom import formatear_bom_puml, formatear_schemas_bom
@@ -183,10 +184,19 @@ def formatear_taxonomia(
     return "\n".join(lineas)
 
 
-def formatear_propietarios_bom(candidatos) -> str:
-    """El bloque `<propietarios_bom>` del prompt 1.2.0 de candidatos: una entrada por Service
-    Domain que el canal de propiedad de clases BOM del nodo 2a propuso, con la evidencia que lo
-    sostiene. Hechos del modelo, sin adjetivos: "define X [BQ Y]: nota" -- el LLM decide.
+def formatear_propietarios_bom(candidatos, *, con_senal: bool = False) -> str:
+    """El bloque `<propietarios_bom>`: una entrada por Service Domain que el canal de propiedad de
+    clases BOM del nodo 2a propuso, con la evidencia que lo sostiene. Hechos del modelo, sin
+    adjetivos: "define X [BQ Y]: nota" -- el LLM decide.
+
+    `con_senal` añade la **señal cruda** de recuperación: el score de fusión y qué canales
+    propusieron la clase. Lo usa el nodo 3, que recibe TODOS los candidatos del canal (incluidos
+    los que el umbral de rescate del nodo 2a no dejó entrar al catálogo del 2b), y sin esa cifra
+    los leería todos con el mismo peso: medido el 2026-09-20, `Location Data Management` (3.60, dos
+    canales) y `Correspondence` (0.91, un canal) llegaban escritos igual. Se da el NÚMERO, nunca el
+    veredicto: decir "filtrado" o "descartado" sería sustituir un sesgo por otro, y quien tiene la
+    historia delante para pesarlo es el revisor. El nodo 2b no lo usa: su bloque solo trae los
+    rescatados, que por definición pasaron el umbral.
     """
     lineas = []
     for c in candidatos:
@@ -208,13 +218,46 @@ def formatear_propietarios_bom(candidatos) -> str:
             if e.compartida_con:
                 pieza += f" (compartida_con: {', '.join(e.compartida_con)})"
             clases.append(pieza)
-        if clases:
-            lineas.append(f'- "{c.service_domain}" define ' + "; ".join(clases))
+        if not clases:
+            continue
+        cabecera = f'- "{c.service_domain}"'
+        if con_senal:
+            canales = sorted({m.split("#", 1)[0] for e in c.evidencias for m in e.motivos if m})
+            cabecera += (
+                f" (señal {c.score:.2f}, {len(canales)} canal(es): {', '.join(canales) or 'n/d'})"
+            )
+        lineas.append(cabecera + " define " + "; ".join(clases))
+    return "\n".join(lineas)
+
+
+def formatear_candidatos_para_revision(
+    candidatos, catalogo: list[EntradaCatalogo]
+) -> str:
+    """Los candidatos actuales CON su `service_role` completo, para el revisor de completitud.
+
+    Antes iban solo como nombre + `supporting_intent`, y con eso no se puede juzgar si dos
+    candidatos se pisan: medido en el E2E 1, `eBranch Management` y `eBranch Operations` pasaron
+    como responsabilidades no duplicadas. El rol entero cuesta ~150 tokens por candidato y hay
+    menos de 15; el índice global de los otros 330 sigue recortado.
+    """
+    por_nombre = {normalizar(e.service_domain): e for e in catalogo}
+    lineas = []
+    for c in candidatos:
+        entrada = por_nombre.get(normalizar(c.service_domain))
+        cabecera = f'- "{c.service_domain}"'
+        if entrada is not None and (entrada.business_area or entrada.business_domain):
+            cabecera += f" · {entrada.business_area} > {entrada.business_domain}"
+        cabecera += f'  (señal: {_lista(c.supporting_intent, "sin señal")})'
+        lineas.append(cabecera)
+        rol = (entrada.service_role if entrada is not None else "") or ""
+        if rol:
+            lineas.append(f"    service_role: {rol}")
     return "\n".join(lineas)
 
 
 def _formatear_indice_global(
-    catalogo: list[EntradaCatalogo], rol_max_chars: int = 90, chars_negocio: int = 0
+    catalogo: list[EntradaCatalogo], rol_max_chars: int = 90, chars_negocio: int = 0,
+    excluir: set[str] | None = None,
 ) -> str:
     """Índice global compacto (nombre + rol muy recortado) para el hint de completitud.
 
@@ -223,7 +266,10 @@ def _formatear_indice_global(
     necesita para decir "falta este" sin haberlo recuperado antes.
     """
     lineas = []
+    fuera = excluir or set()
     for e in catalogo:
+        if normalizar(e.service_domain) in fuera:
+            continue  # ya está propuesto: el índice solo sirve para encontrar AUSENCIAS
         partes = [f'- "{e.service_domain}"']
         rol = _recortar(e.service_role or "", rol_max_chars)
         if rol:
@@ -486,12 +532,19 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
         candidatos: CandidatosHistoriaLLM,
         catalogo: list[EntradaCatalogo],
         disponibilidad_evidencia: dict[str, str],
+        propietarios_bom=None,
     ) -> RevisionCompletitudLLM:
-        actuales = "\n".join(
-            f'- "{c.service_domain}"  ({_lista(c.supporting_intent, "sin señal")})'
-            for c in candidatos.candidatos
-        ) or "(lista vacía)"
+        actuales = formatear_candidatos_para_revision(candidatos.candidatos, catalogo) or "(lista vacía)"
         disp = "\n".join(f'- "{sd}": {estado}' for sd, estado in sorted(disponibilidad_evidencia.items())) or "(sin datos)"
+        # El índice global solo sirve para encontrar AUSENCIAS: los ya propuestos salen fuera.
+        propuestos = {normalizar(c.service_domain) for c in candidatos.candidatos}
+        indice = _formatear_indice_global(
+            catalogo, chars_negocio=self._cag_chars_por_sd, excluir=propuestos
+        )
+        # Con señal: el nodo 3 ve TODO el canal, no solo lo rescatado (ver `formatear_propietarios_bom`).
+        bom = formatear_propietarios_bom(
+            propietarios_bom or [], con_senal=os.environ.get("BOM_SIN_SENAL") != "1"
+        )
         out: RevisionCompletitudLLM = self._cadena(SPEC_COMPLETITUD, RevisionCompletitudLLM).invoke({
             "historia_archivo": historia.archivo,
             "historia_titulo": historia.titulo,
@@ -500,11 +553,12 @@ class AnalistaMapeoBianLangChain(AnalistaMapeoBianPort):
             "intencion_objects": _lista(intencion.business_objects),
             "intencion_dependencies": _lista(intencion.external_dependencies),
             "candidatos_actuales": actuales,
+            "candidatos_total": len(candidatos.candidatos),
+            "propietarios_bom": bom or "(sin evidencia del canal de clases BOM)",
+            "propietarios_bom_total": len(propietarios_bom or []),
             "disponibilidad_evidencia": disp,
-            "catalogo_total": len(catalogo),
-            "indice_global": _formatear_indice_global(
-                catalogo, chars_negocio=self._cag_chars_por_sd
-            ),
+            "catalogo_total": len(catalogo) - len(propuestos),
+            "indice_global": indice,
         })
         return out.model_copy(update={"metadatos": self._huella(SPEC_COMPLETITUD, "revisar_completitud", historia.archivo)})
 

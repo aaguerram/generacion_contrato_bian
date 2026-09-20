@@ -17,11 +17,29 @@ version: "1.0"
 #  y modelos fuertes (gpt-oss). Luego Gemini, luego Hugging Face (modelos fuertes pero crédito
 #  mensual free muy pequeño) y OpenRouter (free lento) como último recurso.
 routing:
-  # freellmapi va SEGUNDO: es el router local de free tiers (~/Desktop/claude_cli/freellmapi) con
-  # los modelos más inteligentes del pool (Kimi K3, DeepSeek V4 Pro, GLM-5.2, ventanas de 131k a
-  # 1M) y sus propios cooldowns; Gemini queda detrás porque su free tier estuvo en 503/429 todo el
-  # 2026-09-20. Groq directo sigue primero: 1-3 s por llamada cuando cabe (12k) y tiene cuota.
-  llm_priority: [groq, freellmapi, gemini, huggingface, openrouter, ollama]
+  # Orden por POTENCIA DE INTELIGENCIA, con el proveedor LOCAL al final.
+  #   freellmapi  router local de free tiers (~/Desktop/claude_cli/freellmapi): los modelos más
+  #               capaces del pool -Kimi K3 (rank 2), DeepSeek V4 Pro y GLM-5.2 (rank 3)- y su
+  #               propio failover entre plataformas. Va PRIMERO por capacidad.
+  #   groq        muy rápido (1-3 s) pero su mejor modelo libre es gpt-oss-120b (rank 6) y solo
+  #               acepta 12k de entrada.
+  #   gemini · huggingface · openrouter   respaldo por cuota.
+  #   ollama      servidor propio: sin cuota, pero el 27B tarda minutos con prompts concurrentes
+  #               (medido 2026-09-20: 548 s en un nodo). ÚLTIMA opción, nunca una vía rápida.
+  # Coste medido de anteponer freellmapi: kimi-k3 tardó 7-40 s por llamada frente a 1-3 s de Groq.
+  # Es un intercambio de latencia por capacidad, deliberado.
+  #   dreamprompting  meta-router propio: su mejor modelo es Nemotron 3 Super 120B (rank 8), por
+  #               debajo de Groq y Gemini, pero los 9 que lleva están verificados y responden en
+  #               1-6 s, así que va por delante de huggingface/openrouter como red fiable.
+  #   blaze       200k tokens/día, pero su mejor modelo (deepseek-v4-pro, rank 3) ya lo sirven
+  #               freellmapi y Router9: va al final del tramo remoto, como cuota extra.
+  #   aclide      los modelos más capaces del pool (Claude Opus 5, GPT-6 Astra), pero su free
+  #               tier son 20 EUR/mes de créditos COMPARTIDOS y cada llamada consume 1.8-3.2, así
+  #               que NO se lista aquí: al no estar en `llm_priority` la cadena lo deja el ÚLTIMO
+  #               de todos, detrás incluso de ollama, o sea inalcanzable en la práctica. Se usa a
+  #               propósito con `--proveedor aclide` o pinneado en `llm_priority_por_nodo` para el
+  #               nodo cuya calidad lo justifique.
+  llm_priority: [freellmapi, groq, gemini, dreamprompting, huggingface, openrouter, blaze, ollama]
   # Embeddings SOLO para validar_sd.rag_estrategia: vectorial. Orden = precisión de retrieval.
   # Ollama primero (propio, sin cuota); Cohere, Gemini y OpenRouter de respaldo.
   embedding_priority: [ollama, cohere, gemini, openrouter]
@@ -41,8 +59,10 @@ routing:
   llm_priority_por_nodo:
     # 2b (`mapeo.candidatos`): medido 2026-09-20, gemini-3.6-flash respondía 503 tres y cuatro
     # veces seguidas (43-99 s por HU) y a 19-21k tokens Groq se saltaba por presupuesto. Con el
-    # fan-out el prompt baja a ~4k y Groq vuelve a caber, así que va primero. Se probó poner
-    # Ollama (qwen3.8 27B remoto) SEGUNDO para esquivar los 503 de Gemini: con Groq sin cuota, dos
+    # fan-out el prompt baja a ~4k y Groq vuelve a caber. Este nodo es la EXCEPCIÓN al orden por
+    # inteligencia de `llm_priority`: son 5-7 llamadas por HU EN PARALELO y ahí la latencia se
+    # multiplica, así que aquí manda la velocidad y Groq va primero. Se probó poner Ollama
+    # (qwen3.8 27B remoto) segundo para esquivar los 503 de Gemini: con Groq sin cuota, dos
     # llamadas concurrentes de ~4k tokens con salida estructurada tardaron >10 min sin terminar.
     # Ollama se queda al final: es la red de "sin cuota en ningún sitio", no una vía rápida.
     mapeo.candidatos: [groq, freellmapi, gemini, huggingface, openrouter, ollama]
@@ -122,19 +142,118 @@ providers:
     base_url: http://100.102.221.79:3011/v1
     structured_method: json_schema
     llm:
+      # Ordenados por POTENCIA DE INTELIGENCIA. Un slug puede estar servido por VARIAS
+      # plataformas del router ("unify"): al pedirlo, el router las recorre todas con su propio
+      # cooldown por 429, así que más plataformas = más cuota agregada para el MISMO modelo.
+      # Entre paréntesis, las plataformas que lo respaldan hoy y el estado medido el 2026-09-20.
       models:
-        - name: kimi-k3
+        - name: kimi-k3                 # rank 2 · huggingface + router9
           max_input_tokens: 240000
-        - name: deepseek-v4-pro
+        - name: glm-5.3                 # router9 · 1.31M de contexto, el mayor del pool
+          max_input_tokens: 900000
+        - name: deepseek-v4-pro         # rank 3 · huggingface + router9
           max_input_tokens: 120000
-        - name: glm-5.2
+        - name: glm-5.2                 # rank 3 · huggingface
           max_input_tokens: 180000
-        - name: deepseek-v4-flash
+        - name: deepseek-v4-flash       # rank 4 · huggingface
           max_input_tokens: 900000
-        - name: minimax-m3
+        - name: gemini-3.8-flash        # router9
+          max_input_tokens: 800000
+        - name: minimax-m3              # rank 5 · huggingface + router9
           max_input_tokens: 900000
-        - name: gpt-oss-120b
+        - name: minimax-m2.5            # septor · VERIFICADO con json_schema (15 s)
+          max_input_tokens: 160000
+        - name: qwen3-coder             # septor · VERIFICADO con json_schema (2.7 s)
+          max_input_tokens: 200000
+        - name: gpt-oss-120b            # rank 6 · groq + huggingface + ollama + electronhub:
+          max_input_tokens: 120000      #   el de MÁS cuota agregada. VERIFICADO (0.8 s)
+  # ── DreamPrompting: meta-router de free tiers con UNA clave ─────────────────
+  #  Reenvía a Cloudflare, Groq, NVIDIA, Mistral, Cohere, Google, HuggingFace y OpenRouter; el id
+  #  lleva el prefijo del destino. Tokens gratis renovables cada 24 h.
+  #  Va como proveedor PROPIO y no dentro de `freellmapi` porque el adaptador del router valida la
+  #  identidad del modelo en la respuesta y este servicio la reescribe al reenviar: medido el
+  #  2026-09-20, por el router pasaban 2 de 10 modelos y en directo respondieron los 10.
+  #  Los 9 de abajo están VERIFICADOS con `json_schema` (latencia observada entre paréntesis),
+  #  ordenados por potencia: Nemotron 3 Super 120B > Command A > Mistral Large > los flash.
+  dreamprompting:
+    enabled: true
+    api_key_env: DREAMPROMPTING_API_KEY
+    base_url: https://dreamprompting.com/api/v1
+    structured_method: json_schema
+    llm:
+      models:
+        - name: nvidia/nvidia/nemotron-3-super-120b-a12b     # 120B, 1M ctx (4.9 s)
+          max_input_tokens: 800000
+        - name: cohere/command-a-03-2025                     # 256k ctx (5.6 s)
+          max_input_tokens: 200000
+        - name: mistral/mistral-large-latest                 # (1.2 s)
+          max_input_tokens: 110000
+        - name: cloudflare/@cf/nvidia/nemotron-3-120b-a12b   # 120B vía Cloudflare (1.8 s)
+          max_input_tokens: 110000
+        - name: google/gemini-3.1-flash-lite                 # 1M ctx (1.9 s)
+          max_input_tokens: 800000
+        - name: google/gemini-2.5-flash                      # 1M ctx (1.3 s)
+          max_input_tokens: 800000
+        - name: groq/openai/gpt-oss-120b                     # (1.0 s)
+          max_input_tokens: 110000
+        - name: huggingface/meta-llama/Llama-3.3-70B-Instruct  # (1.4 s)
+          max_input_tokens: 110000
+        - name: groq/qwen/qwen3.6-27b                        # (5.8 s)
+          max_input_tokens: 110000
+
+  # ── BlazeAPI: 200.000 tokens/día gratis sobre modelos DeepSeek ──────────────
+  #  El free tier solo responde tras verificar la cuenta en su Discord (si no: 403
+  #  permission_error en chat/completions, aunque /usage y /models sí contesten).
+  #  Solo van los VERIFICADOS con json_schema. El 2026-09-20 su proveedor de DeepSeek estaba
+  #  caído: 10 de 11 modelos daban 503 tras 13-18 s CADA UNO, y un modelo caído en la cadena se
+  #  paga en latencia. `tok/deepseek-v4-pro` (rank 3) está declarado porque es el que vale la pena
+  #  cuando vuelva; el resto se añade cuando se compruebe que responde, no antes.
+  #  Límite: 10 peticiones/minuto.
+  blaze:
+    enabled: true
+    api_key_env: BLAZE_API_KEY
+    base_url: https://api.blazeapi.org/paid/v1
+    structured_method: json_schema
+    llm:
+      models:
+        - name: tok/deepseek-v4-pro     # rank 3 · 503 el 2026-09-20 (proveedor caído)
           max_input_tokens: 120000
+        - name: tok/deepseek-chat-v3    # VERIFICADO con json_schema (7.0 s)
+          max_input_tokens: 130000
+
+  # ── ACLIDE: 20 EUR/mes de créditos compartidos, modelos FRONTERA ────────────
+  #  Los más capaces de todo el pool: Claude Opus 5, Claude Sonnet 5, GPT-6 Astra, GPT-5.6.
+  #  Dos particularidades que obligan a su propia estrategia (`llm/aclide.py`):
+  #   1. NO expone Chat Completions: su API OpenAI-compatible es `/v1/responses`
+  #      (`use_responses_api=True`).
+  #   2. IGNORA `response_format`: con json_schema devuelven markdown y el parseo falla. Con
+  #      `function_calling` responden bien, de ahí el `structured_method` de abajo.
+  #  Tampoco sirve por el router local: su adaptador valida la identidad del modelo en la
+  #  respuesta y ACLIDE devuelve otra.
+  #  Coste por llamada en SUS créditos (`credits.standard_turn`): gpt-6-astra 3.22, gpt-5.6-sol
+  #  1.84. Con 20 EUR/mes conviene reservarlo para los nodos que de verdad lo necesiten, no para
+  #  el fan-out de 2b. Todos los de abajo VERIFICADOS con function_calling (latencia observada).
+  aclide:
+    enabled: true
+    api_key_env: ACLIDE_API_KEY
+    base_url: https://aclide.com/v1
+    structured_method: function_calling
+    llm:
+      models:
+        - name: claude-opus-5                # frontera (10.3 s)
+          max_input_tokens: 180000
+        - name: gpt-6-astra                  # frontera (8.0 s)
+          max_input_tokens: 350000
+        - name: claude-sonnet-5              # (9.2 s)
+          max_input_tokens: 180000
+        - name: gpt-5.6-sol                  # (7.4 s)
+          max_input_tokens: 350000
+        - name: gpt-5.6-terra                # (7.5 s)
+          max_input_tokens: 350000
+        - name: gpt-5.6-luna                 # (8.4 s)
+          max_input_tokens: 350000
+        - name: claude-haiku-4-5-20251001    # el más barato en créditos (9.1 s)
+          max_input_tokens: 180000
 
   groq:
     enabled: true

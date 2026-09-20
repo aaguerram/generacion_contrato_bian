@@ -55,7 +55,7 @@ class _AnalistaContador(AnalistaMapeoBianPort):
     def generar_candidatos(self, *a):
         return self._registrar("generar_candidatos", *a)
 
-    def revisar_completitud(self, *a):
+    def revisar_completitud(self, *a, **kw):
         return self._registrar("revisar_completitud", *a)
 
     def evaluar_candidato(self, *a):
