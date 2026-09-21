@@ -6,7 +6,11 @@
   box-shadow: var(--sombra);
   padding: 1.25rem;
 }
-.pb-card__titulo { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.9rem; }
+/* `flex-wrap`: en una pantalla estrecha el título, el subtítulo y los botones no caben en una
+   línea, y sin envolver se comprimían en tres columnas de una palabra por renglón. */
+.pb-card__titulo {
+  display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.9rem; flex-wrap: wrap;
+}
 .pb-card__titulo h2 { margin: 0; }
 .pb-card__sub { color: var(--texto-suave); font-size: 0.85rem; }
 
@@ -62,3 +66,11 @@
 @media (prefers-reduced-motion: reduce) { .pb-spinner { animation-duration: 2s; } }
 
 .pb-vacio { text-align: center; padding: 2.5rem 1rem; color: var(--texto-suave); }
+
+@media (max-width: 640px) {
+  /* Los botones de la cabecera pasan a su propia línea y ocupan el ancho, que en un móvil es
+     además el tamaño de pulsación decente. */
+  .pb-card__titulo > :last-child { margin-left: 0 !important; width: 100%; }
+  .pb-card__titulo > :last-child .pb-btn { flex: 1; }
+  .pb-card { padding: 0.9rem 0.9rem 1rem; }
+}

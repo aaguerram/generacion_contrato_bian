@@ -28,10 +28,10 @@ export function NodoFlujo({ data }: NodeProps) {
   if (d.tipo !== 'nodo') {
     return (
       <div className={`nf-extremo nf-extremo--${d.tipo}`}>
-        <Handle type="target" position={Position.Left} className="nf-handle" />
+        <Handle type="target" position={Position.Top} className="nf-handle" />
         {d.tipo === 'inicio' ? 'Inicio' : 'Fin'}
         {d.grafo === 'historia' && <em> historia</em>}
-        <Handle type="source" position={Position.Right} className="nf-handle" />
+        <Handle type="source" position={Position.Bottom} className="nf-handle" />
       </div>
     )
   }
@@ -46,7 +46,7 @@ export function NodoFlujo({ data }: NodeProps) {
         d.seleccionable ? 'nf--seleccionable' : '',
       ].join(' ')}
     >
-      <Handle type="target" position={Position.Left} className="nf-handle" />
+      <Handle type="target" position={Position.Top} className="nf-handle" />
       <div className="nf__fila">
         <span className="nf__nombre">{d.etiqueta}</span>
         {ICONO[d.estadoVisual] && <span className="nf__icono">{ICONO[d.estadoVisual]}</span>}
@@ -58,7 +58,7 @@ export function NodoFlujo({ data }: NodeProps) {
         {d.ms > 0 && <span className="nf__ms">{(d.ms / 1000).toFixed(1)} s</span>}
         {d.esCorte && <span className="nf__tag nf__tag--corte">parar aquí</span>}
       </div>
-      <Handle type="source" position={Position.Right} className="nf-handle" />
+      <Handle type="source" position={Position.Bottom} className="nf-handle" />
     </div>
   )
 }

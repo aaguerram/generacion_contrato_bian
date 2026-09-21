@@ -1,5 +1,7 @@
 .flujo {
-  height: 30rem;
+  /* Crece con la ventana en vez de quedarse en una altura fija: el grafo en vertical necesita
+     alto, y en un monitor grande sobra. */
+  height: clamp(26rem, 68vh, 58rem);
   border: 1px solid var(--borde);
   border-radius: var(--radio-sm);
   background: var(--fondo-alt);
@@ -11,7 +13,9 @@
 
 /* ── el nodo ─────────────────────────────────────────────────────────────── */
 .nf {
-  width: 210px;
+  /* El tamaño lo fija el nodo de React Flow (el mismo que reserva dagre); aquí solo se rellena. */
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   padding: 0.45rem 0.6rem;
   border-radius: var(--radio-sm);
@@ -77,6 +81,7 @@
 .nf__ms { margin-left: auto; font-family: var(--mono); font-size: 0.62rem; color: var(--texto-suave); }
 
 .nf-extremo {
+  display: inline-block;
   padding: 0.3rem 0.7rem;
   border-radius: 999px;
   font-size: 0.68rem;

@@ -5,8 +5,11 @@
   color: var(--texto-inverso);
   border-bottom: 3px solid var(--acento);
 }
+/* Ancho completo: el margen lateral crece con la pantalla en vez de dejar la página encajonada
+   en una columna fija. `clamp` es el que hace el trabajo: 1rem en un móvil, hasta 2.5rem en un
+   monitor grande, sin un solo punto de corte. */
 .cabecera__inner {
-  max-width: 68rem; margin: 0 auto; padding: 0 1rem;
+  width: 100%; margin: 0 auto; padding: 0 clamp(1rem, 2.5vw, 2.5rem);
   display: flex; align-items: center; gap: 1.5rem; min-height: 3.6rem; flex-wrap: wrap;
 }
 .marca { display: flex; align-items: center; gap: 0.5rem; color: inherit; text-decoration: none; font-size: 1.05rem; }
@@ -21,7 +24,10 @@
 .nav__enlace:hover { background: rgb(255 255 255 / 10%); color: #fff; }
 .nav__enlace--activo { background: rgb(255 255 255 / 16%); color: #fff; font-weight: 600; }
 
-.contenido { flex: 1; width: 100%; max-width: 68rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+/* Sin `max-width`: la página usa el monitor entero. Lo que sí se limita es la MEDIDA de lectura,
+   y eso se hace por bloque (`.pagina__cab p`, los avisos), no estrangulando el contenedor: una
+   tabla de resultados o el lienzo del grafo sí quieren todo el ancho disponible. */
+.contenido { flex: 1; width: 100%; padding: 1.5rem clamp(1rem, 2.5vw, 2.5rem) 3rem; }
 
 .pie {
   padding: 1rem; text-align: center;
@@ -31,5 +37,6 @@
 
 @media (max-width: 640px) {
   .cabecera__inner { padding: 0.6rem 1rem; }
-  .nav { margin-left: 0; width: 100%; }
+  .nav { margin-left: 0; width: 100%; flex-wrap: wrap; }
+  .contenido { padding: 1rem 1rem 2rem; }
 }

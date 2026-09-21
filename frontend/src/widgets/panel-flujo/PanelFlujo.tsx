@@ -266,7 +266,24 @@ export function PanelFlujo({
           >
             <Background gap={18} size={1} />
             <Controls showInteractive={false} />
-            <MiniMap pannable zoomable className="flujo__mapa" />
+            {/* Sin `nodeColor` el minimapa pinta los nodos con su color por defecto sobre fondo
+                claro y se ve un rectángulo en blanco. Aquí además sirve de resumen: se ve por
+                dónde va la corrida sin mirar el lienzo. */}
+            <MiniMap
+              pannable
+              zoomable
+              className="flujo__mapa"
+              nodeStrokeWidth={2}
+              nodeColor={(n) => {
+                const e = (n.data as { estadoVisual?: string } | undefined)?.estadoVisual
+                if (e === 'en_curso') return '#69be28'
+                if (e === 'completado') return '#00693c'
+                if (e === 'fallido') return '#b3261e'
+                if (e === 'cortado') return '#b45309'
+                if (e === 'interrumpido') return '#9a9a9a'
+                return '#d9d9d9'
+              }}
+            />
             <Camara cuantos={nodos.length} activo={enCurso} vivo={vivo} />
           </ReactFlow>
           </ReactFlowProvider>
@@ -281,7 +298,7 @@ export function PanelFlujo({
         <span><i className="co" /> completado</span>
         <span><i className="fa" /> fallido</span>
         <span><i className="cr" /> corte</span>
-        <span>Fila de arriba: el flujo principal. Fila de abajo: el subgrafo de una historia.</span>
+        <span>Columna izquierda: el flujo principal. Columna derecha: el subgrafo de una historia.</span>
       </div>
 
       <ModalNodo

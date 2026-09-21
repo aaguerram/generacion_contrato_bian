@@ -2,33 +2,37 @@ import dagre from '@dagrejs/dagre'
 import type { Edge, Node } from '@xyflow/react'
 import type { AmbitoGrafo, Grafo } from '@entities/flujo'
 
-export const ANCHO_NODO = 176
+export const ANCHO_NODO = 190
 export const ALTO_NODO = 58
-const SEPARACION_FILAS = 130
+const SEPARACION_COLUMNAS = 150
 
-/** Una fila por ámbito: el flujo principal arriba, el subgrafo de una historia debajo. */
+/** Una columna por ámbito: el flujo principal a la izquierda, el subgrafo de una historia al lado. */
 function colocarAmbito(grafo: Grafo, ambito: AmbitoGrafo) {
   const nodos = grafo.nodos.filter((n) => n.grafo === ambito)
   const ids = new Set(nodos.map((n) => n.id))
   const g = new dagre.graphlib.Graph()
   g.setDefaultEdgeLabel(() => ({}))
-  g.setGraph({ rankdir: 'LR', nodesep: 22, ranksep: 54, marginx: 16, marginy: 16 })
+  // De arriba abajo: el flujo se lee como se lee una página.
+  //
+  // `nodesep` alto y `ranksep` bajo a propósito: en vertical, lo que limita el zoom es el ALTO, y
+  // en un monitor ancho sobra sitio a los lados. Separar más en horizontal y apretar en vertical
+  // sube la escala a la que cabe todo, que es lo que decide si las etiquetas se leen.
+  g.setGraph({ rankdir: 'TB', nodesep: 64, ranksep: 34, marginx: 16, marginy: 16 })
   for (const n of nodos) g.setNode(n.id, { width: ANCHO_NODO, height: ALTO_NODO })
   for (const a of grafo.aristas) {
     if (ids.has(a.origen) && ids.has(a.destino)) g.setEdge(a.origen, a.destino)
   }
   dagre.layout(g)
-  const alto = (g.graph().height as number) ?? 0
-  return { nodos, g, alto }
+  return { nodos, g, ancho: (g.graph().width as number) ?? 0 }
 }
 
 /**
- * Coloca el grafo en capas de izquierda a derecha, con un ámbito por fila.
+ * Coloca el grafo en capas de arriba abajo, con un ámbito por columna.
  *
- * Dos filas y no una: `procesar_historia` invoca el subgrafo de la historia, así que encadenarlos
- * produce una serpiente de 19 capas que, al caber entera en el panel, queda a escala 0.16 y no se
- * lee nada. Separados, cada fila tiene la mitad de capas y el dibujo además cuenta la verdad: son
- * dos grafos, uno dentro del otro.
+ * Dos columnas y no una: `procesar_historia` invoca el subgrafo de la historia, así que
+ * encadenarlos produce una sola columna del doble de alto que no cabe en pantalla. Separados,
+ * cada columna tiene la mitad de capas y el dibujo además cuenta la verdad: son dos grafos, uno
+ * dentro del otro.
  *
  * El aspecto de red sale del propio flujo. El abanico de `Send` -- una rama por historia, por
  * grupo y por candidato -- es lo que dibuja el haz de conexiones entre capas.
@@ -36,16 +40,21 @@ function colocarAmbito(grafo: Grafo, ambito: AmbitoGrafo) {
 export function colocar(grafo: Grafo): { nodos: Node[]; aristas: Edge[] } {
   const principal = colocarAmbito(grafo, 'principal')
   const historia = colocarAmbito(grafo, 'historia')
-  const desplazamiento = principal.alto + SEPARACION_FILAS
+  const desplazamiento = principal.ancho + SEPARACION_COLUMNAS
 
-  const posicionar = (fila: ReturnType<typeof colocarAmbito>, dy: number): Node[] =>
-    fila.nodos.map((n) => {
-      const pos = fila.g.node(n.id)
+  const posicionar = (col: ReturnType<typeof colocarAmbito>, dx: number): Node[] =>
+    col.nodos.map((n) => {
+      const pos = col.g.node(n.id)
       return {
         id: n.id,
         type: 'bian',
         // dagre da el CENTRO del nodo; React Flow espera la esquina superior izquierda.
-        position: { x: pos.x - ANCHO_NODO / 2, y: pos.y - ALTO_NODO / 2 + dy },
+        position: { x: pos.x - ANCHO_NODO / 2 + dx, y: pos.y - ALTO_NODO / 2 },
+        // Declaradas y no medidas: son las MISMAS que reserva dagre, así que el hueco calculado y
+        // la caja pintada coinciden. Además el minimapa necesita el tamaño para dibujar el nodo;
+        // sin él salía un recuadro en blanco.
+        width: ANCHO_NODO,
+        height: ALTO_NODO,
         data: { ...n },
         draggable: false,
       }

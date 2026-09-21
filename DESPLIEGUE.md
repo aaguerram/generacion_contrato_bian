@@ -54,6 +54,17 @@ docker buildx du                 # cuánto ocupa y cuánto es reclamable
 docker buildx prune --filter 'until=168h'   # tirar lo que no se usa hace una semana
 ```
 
+## Ancho completo y adaptable
+
+La página usa el monitor entero: el contenedor no tiene ancho máximo y el margen lateral crece con
+la pantalla (`clamp(1rem, 2.5vw, 2.5rem)`), sin puntos de corte. Lo que sí se limita es la MEDIDA
+de lectura de los párrafos largos, y eso se hace bloque a bloque: una tabla de resultados o el
+lienzo del grafo sí quieren todo el ancho disponible.
+
+El lienzo del flujo crece con la ventana (`clamp(26rem, 68vh, 58rem)`), que en vertical es lo que
+decide a qué escala cabe el grafo entero. Por debajo de 640 px, las cabeceras de tarjeta envuelven
+y sus botones pasan a ocupar la línea completa, que además es un tamaño de pulsación decente.
+
 ## Nada se instala en local
 
 `npm` solo corre dentro de la imagen del frontend (etapa `node:22-alpine`), que compila y deja el
@@ -88,10 +99,11 @@ principio, apagada, y cada nodo se enciende cuando la corrida entra en él.
   caso de uso con `--proveedor fake` -- construir el grafo no llama a ningún modelo -- y se le
   pregunta por sus nodos y aristas. Un diagrama mantenido aparte se desincroniza del código en
   cuanto alguien añade un nodo, y un dibujo que miente sobre el flujo es peor que no tenerlo.
-- **Dos filas**: arriba el grafo principal, abajo el subgrafo que corre por cada historia.
-  `procesar_historia` invoca el subgrafo con `.invoke()`, así que esa arista no existe en ninguno
-  de los dos grafos y se declara aparte, o el dibujo serían dos islas. Encadenarlos en una sola
-  fila daba 19 capas y el conjunto quedaba a escala 0,16: ilegible.
+- **Vertical, en dos columnas**: el flujo se lee de arriba abajo, con el grafo principal a la
+  izquierda y el subgrafo que corre por cada historia a la derecha. `procesar_historia` invoca el
+  subgrafo con `.invoke()`, así que esa arista no existe en ninguno de los dos grafos y se declara
+  aparte, o el dibujo serían dos islas. Encadenarlos en una sola columna la haría del doble de
+  alto y no cabría en pantalla.
 - **Un nodo del dibujo por TIPO de nodo, no por ejecución.** Con el abanico de `Send`,
   `evaluar_candidato` corre una vez por candidato: son 28 ejecuciones en un lote de dos historias.
   Se agrupan bajo un nodo con su contador, y el modal lista cada una.
