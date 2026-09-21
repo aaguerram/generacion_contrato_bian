@@ -4,10 +4,11 @@
 FROM node:22-alpine AS build
 WORKDIR /app
 
-# `npm install` y no `npm ci`: no se versiona un package-lock.json, precisamente para que nadie
-# tenga que ejecutar npm en local para generarlo.
-COPY package.json ./
-RUN npm install --no-audit --no-fund
+# `npm ci` contra el package-lock.json versionado: la imagen se construye con las MISMAS versiones
+# siempre. El lock se generó dentro de un contenedor, así que tenerlo no obliga a nadie a instalar
+# npm en su máquina.
+COPY package.json package-lock.json ./
+RUN npm ci --no-audit --no-fund
 
 COPY tsconfig*.json vite.config.ts index.html ./
 COPY src/ ./src/
