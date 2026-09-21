@@ -109,103 +109,6 @@ export function FormularioIntento({
       {error && <Aviso tipo="error">{error}</Aviso>}
 
       <Tarjeta
-        titulo="Historias de Usuario"
-        sub={plural(historias.length, 'historia', 'historias')}
-        acciones={
-          <Boton type="button" variante="acento" pequeno onClick={() => setEditando(-1)}>
-            Agregar historia
-          </Boton>
-        }
-      >
-        {historias.length === 0 ? (
-          <Vacio>
-            Todavía no hay historias. Pulsa <strong>Agregar historia</strong> y escribe su título y
-            su detalle.
-          </Vacio>
-        ) : (
-          <ol className="hu-lista">
-            {historias.map((h, i) => (
-              <li key={i} className="hu">
-                <span className="hu__n">{i + 1}</span>
-                <button
-                  type="button"
-                  className="hu__texto"
-                  onClick={() => setEditando(i)}
-                  title="Editar esta historia"
-                >
-                  <strong>{h.titulo}</strong>
-                  <span>{resumen(h)}</span>
-                </button>
-                <div className="hu__acciones">
-                  <button
-                    type="button"
-                    className="hu__icono"
-                    onClick={() => mover(i, -1)}
-                    disabled={i === 0}
-                    aria-label={`Subir ${h.titulo}`}
-                  >
-                    ↑
-                  </button>
-                  <button
-                    type="button"
-                    className="hu__icono"
-                    onClick={() => mover(i, 1)}
-                    disabled={i === historias.length - 1}
-                    aria-label={`Bajar ${h.titulo}`}
-                  >
-                    ↓
-                  </button>
-                  <Boton type="button" variante="fantasma" pequeno onClick={() => setEditando(i)}>
-                    Editar
-                  </Boton>
-                  <Boton type="button" variante="peligro" pequeno onClick={() => borrarHistoria(i)}>
-                    Quitar
-                  </Boton>
-                </div>
-              </li>
-            ))}
-          </ol>
-        )}
-        {tocado && faltaHistorias && (
-          <p className="pb-campo__error">Agrega al menos una historia.</p>
-        )}
-      </Tarjeta>
-
-      <ModalHistoria
-        abierto={editando !== null}
-        inicial={editando != null && editando >= 0 ? historias[editando] : undefined}
-        indice={editando ?? undefined}
-        onGuardar={guardarHistoria}
-        onCerrar={() => setEditando(null)}
-      />
-
-      <div style={{ height: '1rem' }} />
-
-      <Tarjeta titulo="Funcionalidad macro" sub="El contexto común a todas las historias">
-        <Campo
-          label="Funcionalidad"
-          error={tocado && faltaLabel ? 'La funcionalidad es obligatoria.' : undefined}
-          ayuda="El nombre corto de la funcionalidad que agrupa estas historias."
-        >
-          <Entrada
-            value={label}
-            onChange={(e) => setLabel(e.target.value)}
-            placeholder="Actualización de datos personales"
-          />
-        </Campo>
-        <Campo label="Detalle" ayuda="Descripción larga: qué permite hacer y con qué restricciones.">
-          <AreaTexto
-            value={detalle}
-            onChange={(e) => setDetalle(e.target.value)}
-            rows={4}
-            placeholder="Permitir que el cliente actualice su número celular y correo electrónico…"
-          />
-        </Campo>
-      </Tarjeta>
-
-      <div style={{ height: '1rem' }} />
-
-      <Tarjeta
         titulo="Opciones de ejecución"
         sub="Las mismas de la consola"
         acciones={
@@ -307,6 +210,103 @@ export function FormularioIntento({
           />
         </Campo>
       </Tarjeta>
+
+      <div style={{ height: '1rem' }} />
+
+      <Tarjeta titulo="Funcionalidad macro" sub="El contexto común a todas las historias">
+        <Campo
+          label="Funcionalidad"
+          error={tocado && faltaLabel ? 'La funcionalidad es obligatoria.' : undefined}
+          ayuda="El nombre corto de la funcionalidad que agrupa estas historias."
+        >
+          <Entrada
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
+            placeholder="Actualización de datos personales"
+          />
+        </Campo>
+        <Campo label="Detalle" ayuda="Descripción larga: qué permite hacer y con qué restricciones.">
+          <AreaTexto
+            value={detalle}
+            onChange={(e) => setDetalle(e.target.value)}
+            rows={4}
+            placeholder="Permitir que el cliente actualice su número celular y correo electrónico…"
+          />
+        </Campo>
+      </Tarjeta>
+
+      <div style={{ height: '1rem' }} />
+
+      <Tarjeta
+        titulo="Historias de Usuario"
+        sub={plural(historias.length, 'historia', 'historias')}
+        acciones={
+          <Boton type="button" variante="acento" pequeno onClick={() => setEditando(-1)}>
+            Agregar historia
+          </Boton>
+        }
+      >
+        {historias.length === 0 ? (
+          <Vacio>
+            Todavía no hay historias. Pulsa <strong>Agregar historia</strong> y escribe su título y
+            su detalle.
+          </Vacio>
+        ) : (
+          <ol className="hu-lista">
+            {historias.map((h, i) => (
+              <li key={i} className="hu">
+                <span className="hu__n">{i + 1}</span>
+                <button
+                  type="button"
+                  className="hu__texto"
+                  onClick={() => setEditando(i)}
+                  title="Editar esta historia"
+                >
+                  <strong>{h.titulo}</strong>
+                  <span>{resumen(h)}</span>
+                </button>
+                <div className="hu__acciones">
+                  <button
+                    type="button"
+                    className="hu__icono"
+                    onClick={() => mover(i, -1)}
+                    disabled={i === 0}
+                    aria-label={`Subir ${h.titulo}`}
+                  >
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    className="hu__icono"
+                    onClick={() => mover(i, 1)}
+                    disabled={i === historias.length - 1}
+                    aria-label={`Bajar ${h.titulo}`}
+                  >
+                    ↓
+                  </button>
+                  <Boton type="button" variante="fantasma" pequeno onClick={() => setEditando(i)}>
+                    Editar
+                  </Boton>
+                  <Boton type="button" variante="peligro" pequeno onClick={() => borrarHistoria(i)}>
+                    Quitar
+                  </Boton>
+                </div>
+              </li>
+            ))}
+          </ol>
+        )}
+        {tocado && faltaHistorias && (
+          <p className="pb-campo__error">Agrega al menos una historia.</p>
+        )}
+      </Tarjeta>
+
+      <ModalHistoria
+        abierto={editando !== null}
+        inicial={editando != null && editando >= 0 ? historias[editando] : undefined}
+        indice={editando ?? undefined}
+        onGuardar={guardarHistoria}
+        onCerrar={() => setEditando(null)}
+      />
 
       <div className="form-acciones">
         <Boton type="submit" cargando={guardando}>
