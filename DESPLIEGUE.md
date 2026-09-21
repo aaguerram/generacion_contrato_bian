@@ -21,6 +21,39 @@ Los puertos no son los habituales (5173 / 8000 / 5432) porque esos estaban ocupa
 de desarrollo. Dentro de la red de compose los servicios se llaman por su nombre (`api`, `db`), así
 que cambiar el puerto publicado no afecta a nada interno.
 
+## Caché de construcción: no se vuelve a descargar lo que ya está
+
+Tres mecanismos, cada uno para un caso distinto. Medido en esta máquina:
+
+| Qué cambió                            | Antes     | Ahora  |
+|---------------------------------------|-----------|--------|
+| Nada                                   | ~1 s      | ~1 s   |
+| Código (`src/`, `api/`, `frontend/src`) | ~1 s      | 1-4 s  |
+| `requirements.txt` del pipeline        | 1 min 56 s | **11 s** |
+| Solo `api/requirements.txt`            | 1 min 56 s | **3 s** |
+
+1. **Orden de las capas.** Las dependencias se copian e instalan ANTES que el código, así que
+   editar un `.py` o un componente no reinstala nada. Esto ya estaba.
+2. **`--mount=type=cache` sobre el directorio de pip y el de npm.** Es lo que arregla el caso que
+   dolía: al cambiar UNA línea de un archivo de dependencias, la capa se invalida entera y el
+   gestor reinstala todo. Con la caché montada, ese "todo" sale del disco en vez de la red —
+   medido en la reinstalación completa del pipeline: **165 paquetes servidos desde caché, cero
+   descargas**. Para que funcione, la imagen de la API **no** puede llevar `PIP_NO_CACHE_DIR`:
+   desactivar la caché de pip deja el mount vacío y el mecanismo sin efecto.
+3. **Dos capas de dependencias separadas en la API.** Las del pipeline (langchain, langgraph,
+   numpy…) van en su propia capa, antes que las cinco de la API (fastapi, uvicorn, psycopg).
+   Añadir una dependencia de la API ya no reinstala las del pipeline.
+
+Además, los `COPY --link` hacen cada copia independiente de la anterior: tocar el código no
+invalida la capa de 108 MB de evidencia BIAN, ni al revés.
+
+La caché vive en el constructor, no en las imágenes. Si ocupa demasiado:
+
+```bash
+docker buildx du                 # cuánto ocupa y cuánto es reclamable
+docker buildx prune --filter 'until=168h'   # tirar lo que no se usa hace una semana
+```
+
 ## Nada se instala en local
 
 `npm` solo corre dentro de la imagen del frontend (etapa `node:22-alpine`), que compila y deja el
