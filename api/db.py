@@ -1,0 +1,105 @@
+"""Acceso a PostgreSQL. Un pool, un esquema, y nada más.
+
+Por qué Postgres y no archivos: un intento se guarda, se ejecuta varias veces, se compara y se
+consulta desde el navegador. Eso es estado compartido entre procesos (el servidor web y el hilo
+que ejecuta el mapeo), y ahí un archivo JSON por intento se corrompe en cuanto dos escrituras se
+cruzan.
+
+Lo que NO se guarda aquí: los archivos que el pipeline necesita en disco (el directorio de HU y el
+JSON de funcionalidad). Esos se materializan en un workspace efímero justo antes de ejecutar,
+porque el caso de uso los recibe como RUTAS y no vamos a cambiarlo por la interfaz.
+"""
+
+from __future__ import annotations
+
+import os
+import time
+from contextlib import contextmanager
+from typing import Any, Iterator
+
+from psycopg import Connection
+from psycopg.rows import dict_row
+from psycopg_pool import ConnectionPool
+
+_ESQUEMA = """
+CREATE TABLE IF NOT EXISTS intentos (
+    id                    TEXT PRIMARY KEY,
+    nombre                TEXT        NOT NULL DEFAULT '',
+    creado_en             TIMESTAMPTZ NOT NULL,
+    actualizado_en        TIMESTAMPTZ NOT NULL,
+    estado                TEXT        NOT NULL DEFAULT 'guardado',
+    historias             TEXT        NOT NULL,
+    funcionalidad_label   TEXT        NOT NULL,
+    funcionalidad_detalle TEXT        NOT NULL DEFAULT '',
+    opciones              JSONB       NOT NULL DEFAULT '{}'::jsonb,
+    historias_detectadas  JSONB       NOT NULL DEFAULT '[]'::jsonb,
+    nombre_validacion     TEXT        NOT NULL DEFAULT '',
+    validacion            JSONB,
+    iniciado_en           TIMESTAMPTZ,
+    terminado_en          TIMESTAMPTZ,
+    segundos              DOUBLE PRECISION,
+    error                 TEXT        NOT NULL DEFAULT '',
+    resultado             JSONB,
+    comparacion           JSONB,
+    log                   TEXT        NOT NULL DEFAULT ''
+);
+CREATE INDEX IF NOT EXISTS intentos_creado_en_idx ON intentos (creado_en DESC);
+"""
+
+_pool: ConnectionPool | None = None
+
+
+def dsn() -> str:
+    return os.environ.get(
+        "DATABASE_URL", "postgresql://contratos:contratos@localhost:5434/contratos"
+    )
+
+
+def pool() -> ConnectionPool:
+    global _pool
+    if _pool is None:
+        _pool = ConnectionPool(dsn(), min_size=1, max_size=8, kwargs={"row_factory": dict_row})
+    return _pool
+
+
+@contextmanager
+def conexion() -> Iterator[Connection]:
+    with pool().connection() as con:
+        yield con
+
+
+def inicializar(intentos: int = 30, espera: float = 2.0) -> None:
+    """Crea el esquema, esperando a que Postgres acepte conexiones.
+
+    El reintento no es paranoia: en `docker compose` la API arranca a la vez que la base, y sin
+    esta espera el primer despliegue falla siempre aunque todo esté bien configurado.
+    """
+    ultimo: Exception | None = None
+    for intento in range(1, intentos + 1):
+        try:
+            with conexion() as con:
+                con.execute(_ESQUEMA)
+                con.commit()
+            return
+        except Exception as exc:  # noqa: BLE001 - se reintenta a propósito
+            ultimo = exc
+            if intento == intentos:
+                break
+            time.sleep(espera)
+    raise RuntimeError(f"No se pudo inicializar la base tras {intentos} intentos: {ultimo}")
+
+
+def consultar(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
+    with conexion() as con:
+        return con.execute(sql, params).fetchall()
+
+
+def uno(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
+    with conexion() as con:
+        return con.execute(sql, params).fetchone()
+
+
+def ejecutar(sql: str, params: tuple[Any, ...] = ()) -> None:
+    with conexion() as con:
+        con.execute(sql, params)
+        con.commit()

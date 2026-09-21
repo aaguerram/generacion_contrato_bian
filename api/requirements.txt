@@ -1,0 +1,10 @@
+# Dependencias EXCLUSIVAS del módulo API (`api/`). Se instalan aparte a propósito: el pipeline de
+# generación de contratos (`src/`) no las importa ni las necesita, y así `requirements.txt` de la
+# raíz sigue describiendo solo lo que hace falta para ejecutar el mapeo por consola.
+#
+#   .venv/bin/pip install -r api/requirements.txt
+fastapi>=0.115
+uvicorn[standard]>=0.32
+python-multipart>=0.0.9
+psycopg[binary]>=3.2
+psycopg-pool>=3.2

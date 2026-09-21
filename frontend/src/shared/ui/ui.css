@@ -1,0 +1,64 @@
+/* Componentes base. Todo en variables semánticas: ningún color de marca aparece aquí. */
+.pb-card {
+  background: var(--fondo-elevado);
+  border: 1px solid var(--borde-suave);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 1.25rem;
+}
+.pb-card__titulo { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.9rem; }
+.pb-card__titulo h2 { margin: 0; }
+.pb-card__sub { color: var(--texto-suave); font-size: 0.85rem; }
+
+.pb-btn {
+  display: inline-flex; align-items: center; gap: 0.45rem; justify-content: center;
+  padding: 0.55rem 1.1rem; border-radius: var(--radio-sm); border: 1px solid transparent;
+  font: inherit; font-weight: 600; cursor: pointer; transition: background .15s, border-color .15s, opacity .15s;
+}
+.pb-btn:disabled { opacity: .5; cursor: not-allowed; }
+.pb-btn--primario { background: var(--marca); color: var(--texto-inverso); }
+.pb-btn--primario:hover:not(:disabled) { background: var(--marca-oscura); }
+.pb-btn--acento { background: var(--acento); color: var(--pb-verde-secundario-100); }
+.pb-btn--acento:hover:not(:disabled) { background: var(--acento-oscuro); color: var(--texto-inverso); }
+.pb-btn--secundario { background: transparent; color: var(--marca); border-color: var(--marca); }
+.pb-btn--secundario:hover:not(:disabled) { background: var(--marca-clara); }
+.pb-btn--fantasma { background: transparent; color: var(--texto-suave); border-color: var(--borde); }
+.pb-btn--fantasma:hover:not(:disabled) { background: var(--fondo-alt); color: var(--texto); }
+.pb-btn--peligro { background: transparent; color: var(--error); border-color: var(--error); }
+.pb-btn--peligro:hover:not(:disabled) { background: var(--error-claro); }
+.pb-btn--sm { padding: 0.3rem 0.65rem; font-size: 0.82rem; }
+
+.pb-campo { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 1rem; }
+.pb-campo__label { font-weight: 600; font-size: 0.88rem; }
+.pb-campo__ayuda { color: var(--texto-suave); font-size: 0.8rem; }
+.pb-campo__error { color: var(--error); font-size: 0.8rem; }
+.pb-input, .pb-textarea, .pb-select {
+  width: 100%; padding: 0.55rem 0.7rem; font: inherit; color: var(--texto);
+  background: var(--fondo); border: 1px solid var(--borde); border-radius: var(--radio-sm);
+}
+.pb-textarea { resize: vertical; min-height: 7rem; font-family: var(--mono); font-size: 0.85rem; line-height: 1.5; }
+.pb-input:focus, .pb-textarea:focus, .pb-select:focus { border-color: var(--marca); outline: none; box-shadow: 0 0 0 3px var(--marca-clara); }
+
+.pb-badge {
+  display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.15rem 0.55rem;
+  border-radius: 999px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;
+  background: var(--fondo-alt); color: var(--texto-suave); border: 1px solid var(--borde-suave);
+}
+.pb-badge--guardado { background: var(--pb-gris-claro-10); color: var(--pb-gris-oscuro-80); }
+.pb-badge--ejecutando { background: var(--acento-claro); color: var(--acento-oscuro); border-color: var(--acento); }
+.pb-badge--completado { background: var(--marca-clara); color: var(--marca-oscura); border-color: var(--marca); }
+.pb-badge--fallido { background: var(--error-claro); color: var(--error); border-color: var(--error); }
+
+.pb-aviso { padding: 0.7rem 0.9rem; border-radius: var(--radio-sm); border: 1px solid; font-size: 0.88rem; margin-bottom: 1rem; }
+.pb-aviso--error { background: var(--error-claro); border-color: var(--error); color: var(--error); }
+.pb-aviso--ok { background: var(--marca-clara); border-color: var(--marca); color: var(--marca-oscura); }
+.pb-aviso--info { background: var(--aviso-claro); border-color: var(--aviso); color: var(--aviso); }
+
+.pb-spinner {
+  width: 0.9em; height: 0.9em; border: 2px solid currentColor; border-right-color: transparent;
+  border-radius: 50%; display: inline-block; animation: pb-giro .7s linear infinite;
+}
+@keyframes pb-giro { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .pb-spinner { animation-duration: 2s; } }
+
+.pb-vacio { text-align: center; padding: 2.5rem 1rem; color: var(--texto-suave); }

@@ -1,0 +1,16 @@
+.volver { font-size: 0.78rem; color: var(--texto-suave); text-decoration: none; }
+.volver:hover { color: var(--marca); }
+
+.pestanas { display: flex; gap: 0.2rem; border-bottom: 1px solid var(--borde); margin-bottom: 1.25rem; flex-wrap: wrap; }
+.pestanas__btn {
+  background: none; border: 0; border-bottom: 2px solid transparent;
+  padding: 0.55rem 0.9rem; cursor: pointer; font: inherit; font-size: 0.88rem;
+  color: var(--texto-suave); display: inline-flex; align-items: center; gap: 0.35rem;
+}
+.pestanas__btn:hover { color: var(--texto); }
+.pestanas__btn--activa { color: var(--marca); border-bottom-color: var(--marca); font-weight: 600; }
+.punto { width: 6px; height: 6px; border-radius: 50%; background: var(--acento); }
+
+.historias { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.historias li { display: flex; flex-direction: column; padding: 0.5rem 0.7rem; background: var(--fondo-alt); border-radius: var(--radio-sm); }
+.historias span { font-size: 0.72rem; color: var(--texto-suave); font-family: var(--mono); }

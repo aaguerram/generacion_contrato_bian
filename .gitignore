@@ -52,3 +52,14 @@ Thumbs.db
 # material de lineamiento (documentacion interna, no se publica en GitHub).
 # Anclado a la raiz para no ignorar un futuro paquete con el mismo nombre.
 /lineamiento/
+
+# Workspace de la API: HU materializadas y salidas de cada intento. Es estado de ejecución, no
+# fuente. En docker vive en un volumen; en local, aquí.
+/api_datos/
+
+# Artefactos del frontend (todo se compila DENTRO de la imagen docker).
+frontend/node_modules/
+frontend/dist/
+
+# Volcados del navegador de las sesiones de depuración.
+.playwright-mcp/

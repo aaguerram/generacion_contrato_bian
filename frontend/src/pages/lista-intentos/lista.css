@@ -1,0 +1,12 @@
+.rejilla { display: grid; gap: 0.6rem; }
+.fila {
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  background: var(--fondo-elevado); border: 1px solid var(--borde);
+  border-radius: var(--radio); padding: 0.9rem 1.1rem; box-shadow: var(--sombra);
+}
+.fila:hover { border-color: var(--marca); }
+.fila__principal { flex: 1; min-width: 14rem; text-decoration: none; color: inherit; }
+.fila__nombre { margin: 0; font-size: 1rem; }
+.fila__func { margin: 0.1rem 0 0.4rem; font-size: 0.82rem; color: var(--marca); }
+.fila__datos { display: flex; gap: 0.9rem; flex-wrap: wrap; font-size: 0.74rem; color: var(--texto-suave); }
+.fila__lado { display: flex; align-items: center; gap: 0.6rem; margin-left: auto; }

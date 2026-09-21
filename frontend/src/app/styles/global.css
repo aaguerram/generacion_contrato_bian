@@ -1,0 +1,143 @@
+/* Paleta OFICIAL de Produbanco, tomada de su design system público
+   (https://www.produbanco.com.ec/css/RichTextGDSColors.css). Los nombres se conservan tal cual
+   los publica el banco para que un cambio de marca se pueda cotejar contra la fuente. */
+:root {
+  /* Verde primario — el verde institucional */
+  --pb-verde-primario-100: #002a18;
+  --pb-verde-primario-80: #003f24;
+  --pb-verde-primario-70: #00693c;
+  --pb-verde-primario-60: #338763;
+  --pb-verde-primario-40: #66a58a;
+  --pb-verde-primario-30: #99c3b1;
+  --pb-verde-primario-20: #cce1d8;
+  --pb-verde-primario-10: #e7f7ee;
+
+  /* Verde secundario — el verde lima de acento */
+  --pb-verde-secundario-100: #2a4c10;
+  --pb-verde-secundario-80: #549820;
+  --pb-verde-secundario-70: #69be28;
+  --pb-verde-secundario-60: #87cb53;
+  --pb-verde-secundario-40: #a5d87e;
+  --pb-verde-secundario-30: #c3e5a9;
+  --pb-verde-secundario-20: #d4ecc1;
+  --pb-verde-secundario-10: #eef7e6;
+
+  /* Grises */
+  --pb-gris-oscuro-100: #1e1e1e;
+  --pb-gris-oscuro-90: #3f3f3f;
+  --pb-gris-oscuro-80: #5d5d5d;
+  --pb-gris-oscuro-70: #717171;
+  --pb-gris-oscuro-60: #9a9a9a;
+  --pb-gris-claro-100: #949494;
+  --pb-gris-claro-40: #c4c4c4;
+  --pb-gris-claro-30: #d9d9d9;
+  --pb-gris-claro-20: #e9e9e9;
+  --pb-gris-claro-10: #f5f5f5;
+
+  /* Roles semánticos: el resto de la interfaz usa SOLO estos, nunca un color de marca directo.
+     Así el modo oscuro se define en un sitio y ningún componente se entera. */
+  --fondo: #ffffff;
+  --fondo-alt: var(--pb-gris-claro-10);
+  --fondo-elevado: #ffffff;
+  --borde: var(--pb-gris-claro-30);
+  --borde-suave: var(--pb-gris-claro-20);
+  --texto: var(--pb-gris-oscuro-100);
+  --texto-suave: var(--pb-gris-oscuro-70);
+  --texto-inverso: #ffffff;
+  --marca: var(--pb-verde-primario-70);
+  --marca-oscura: var(--pb-verde-primario-80);
+  --marca-clara: var(--pb-verde-primario-10);
+  --acento: var(--pb-verde-secundario-70);
+  --acento-oscuro: var(--pb-verde-secundario-80);
+  --acento-claro: var(--pb-verde-secundario-10);
+  --exito: var(--pb-verde-secundario-80);
+  --aviso: #b45309;
+  --aviso-claro: #fff7ed;
+  --error: #b3261e;
+  --error-claro: #fdecea;
+
+  --radio: 10px;
+  --radio-sm: 6px;
+  --sombra: 0 1px 2px rgb(0 42 24 / 8%), 0 4px 16px rgb(0 42 24 / 6%);
+  --fuente: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+}
+
+:root:not([data-theme='light']) {
+  @media (prefers-color-scheme: dark) {
+    --fondo: #0f1512;
+    --fondo-alt: #141b17;
+    --fondo-elevado: #18211c;
+    --borde: #2a3830;
+    --borde-suave: #223029;
+    --texto: #eaf2ed;
+    --texto-suave: #a7bcb1;
+    --marca: var(--pb-verde-primario-40);
+    --marca-oscura: var(--pb-verde-primario-30);
+    --marca-clara: #15251d;
+    --acento: var(--pb-verde-secundario-60);
+    --acento-claro: #1a2a13;
+    --exito: var(--pb-verde-secundario-60);
+    --aviso-claro: #2a1f10;
+    --error: #ef9a93;
+    --error-claro: #2a1512;
+    --sombra: 0 1px 2px rgb(0 0 0 / 40%), 0 4px 16px rgb(0 0 0 / 30%);
+  }
+}
+
+:root[data-theme='dark'] {
+  --fondo: #0f1512;
+  --fondo-alt: #141b17;
+  --fondo-elevado: #18211c;
+  --borde: #2a3830;
+  --borde-suave: #223029;
+  --texto: #eaf2ed;
+  --texto-suave: #a7bcb1;
+  --marca: var(--pb-verde-primario-40);
+  --marca-oscura: var(--pb-verde-primario-30);
+  --marca-clara: #15251d;
+  --acento: var(--pb-verde-secundario-60);
+  --acento-claro: #1a2a13;
+  --exito: var(--pb-verde-secundario-60);
+  --aviso-claro: #2a1f10;
+  --error: #ef9a93;
+  --error-claro: #2a1512;
+  --sombra: 0 1px 2px rgb(0 0 0 / 40%), 0 4px 16px rgb(0 0 0 / 30%);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--fondo-alt);
+  color: var(--texto);
+  font-family: var(--fuente);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { margin: 0 0 0.5rem; line-height: 1.25; font-weight: 600; }
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.2rem; }
+h3 { font-size: 1rem; }
+p { margin: 0 0 0.75rem; }
+a { color: var(--marca); }
+
+code, pre { font-family: var(--mono); font-size: 0.86em; }
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+  border-radius: var(--radio-sm);
+}
+
+/* Cabecera de página: la comparten las tres rutas, por eso vive aquí y no en una de ellas. */
+.pagina__cab { display: flex; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+.pagina__cab h1 { margin: 0; font-size: 1.5rem; }
+.pagina__cab p { margin: 0.35rem 0 0; max-width: 46rem; color: var(--texto-suave); font-size: 0.85rem; }
+/* Solo empuja a la derecha si HAY un segundo elemento: con uno solo, "margin-left:auto" centraba
+   el título de la página. */
+.pagina__cab > * + :last-child { margin-left: auto; }

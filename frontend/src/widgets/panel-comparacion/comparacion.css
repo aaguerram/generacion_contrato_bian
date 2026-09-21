@@ -1,0 +1,14 @@
+.comparacion { margin-top: 1rem; }
+.comparacion__barras { display: grid; gap: 0.9rem; margin: 1rem 0; }
+.comparacion__nota { font-size: 0.76rem; color: var(--texto-suave); line-height: 1.55; }
+
+.barra__cab { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.3rem; }
+.barra__pista { height: 8px; border-radius: 999px; background: var(--borde-suave); overflow: hidden; }
+.barra__relleno { height: 100%; background: var(--acento); transition: width 0.3s ease; }
+.barra__relleno--completo { background: var(--marca); }
+
+.lista { margin-top: 1rem; font-size: 0.8rem; }
+.lista h4 { margin: 0 0 0.35rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.lista ul { margin: 0; padding-left: 1.1rem; line-height: 1.6; }
+.lista--error h4 { color: var(--error); }
+.lista--info h4 { color: var(--texto-suave); }

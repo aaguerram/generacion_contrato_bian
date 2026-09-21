@@ -1,0 +1,35 @@
+.app { display: flex; flex-direction: column; min-height: 100%; }
+
+.cabecera {
+  background: var(--marca-oscura);
+  color: var(--texto-inverso);
+  border-bottom: 3px solid var(--acento);
+}
+.cabecera__inner {
+  max-width: 68rem; margin: 0 auto; padding: 0 1rem;
+  display: flex; align-items: center; gap: 1.5rem; min-height: 3.6rem; flex-wrap: wrap;
+}
+.marca { display: flex; align-items: center; gap: 0.5rem; color: inherit; text-decoration: none; font-size: 1.05rem; }
+.marca__punto { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--acento); }
+.marca__texto strong { font-weight: 700; }
+
+.nav { display: flex; gap: 0.25rem; margin-left: auto; }
+.nav__enlace {
+  color: rgb(255 255 255 / 80%); text-decoration: none;
+  padding: 0.35rem 0.75rem; border-radius: var(--radio-sm); font-size: 0.88rem;
+}
+.nav__enlace:hover { background: rgb(255 255 255 / 10%); color: #fff; }
+.nav__enlace--activo { background: rgb(255 255 255 / 16%); color: #fff; font-weight: 600; }
+
+.contenido { flex: 1; width: 100%; max-width: 68rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+
+.pie {
+  padding: 1rem; text-align: center;
+  font-size: 0.74rem; color: var(--texto-suave);
+  border-top: 1px solid var(--borde);
+}
+
+@media (max-width: 640px) {
+  .cabecera__inner { padding: 0.6rem 1rem; }
+  .nav { margin-left: 0; width: 100%; }
+}

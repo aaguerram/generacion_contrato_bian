@@ -1,0 +1,71 @@
+# Pila completa: base de datos + API + frontend.
+#
+#   docker compose up -d --build     levantar
+#   docker compose logs -f api       ver una corrida
+#   docker compose down              parar (los datos sobreviven en los volúmenes)
+#
+# Los puertos publicados NO son los de siempre (5432/8000/5173) porque esos ya estaban ocupados en
+# la máquina de desarrollo. Dentro de la red de compose los servicios se llaman por su nombre
+# (`api`, `db`), así que cambiar el puerto publicado no afecta a nada interno.
+
+name: contratos-bian
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: contratos
+      POSTGRES_PASSWORD: contratos
+      POSTGRES_DB: contratos
+    ports:
+      - "5434:5432"
+    volumes:
+      - datos-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U contratos -d contratos"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    environment:
+      DATABASE_URL: postgresql://contratos:contratos@db:5432/contratos
+      API_WORKSPACE: /datos
+      PYTHONPATH: /app
+    env_file:
+      # Solo API keys. No se versiona y NO se copia a la imagen: se inyecta al arrancar, así que
+      # rotar una clave es reiniciar el contenedor, no reconstruirlo.
+      - path: .env
+        required: false
+    ports:
+      - "8010:8000"
+    volumes:
+      - datos-api:/datos
+      # La cache BIAN se rellena sola con los Service Domain que la corrida necesite y no estén.
+      # Montarla hace que ese trabajo sobreviva a una reconstrucción de la imagen.
+      - ./docs/bian-cache:/app/docs/bian-cache
+    depends_on:
+      db:
+        condition: service_healthy
+    # Permite volcar la pila del proceso con py-spy sin parar el contenedor. Diagnosticar una
+    # corrida colgada de media hora reiniciándola no es diagnosticar.
+    cap_add:
+      - SYS_PTRACE
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5174:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  datos-postgres:
+  datos-api:
