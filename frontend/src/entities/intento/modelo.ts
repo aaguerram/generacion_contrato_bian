@@ -5,6 +5,16 @@
 
 export type EstadoIntento = 'guardado' | 'ejecutando' | 'completado' | 'fallido'
 
+/**
+ * Una Historia de Usuario del formulario. Es una LISTA, no un texto pegado: cada historia tiene
+ * su título y su detalle en campos propios, así que el servidor no tiene que adivinar dónde
+ * empieza ninguna. El detalle puede llevar guiones o encabezados Markdown sin partir nada.
+ */
+export interface HistoriaEntrada {
+  titulo: string
+  detalle: string
+}
+
 export interface Funcionalidad {
   label: string
   detalle: string
@@ -44,7 +54,7 @@ export interface Intento {
   creado_en: string
   actualizado_en: string
   estado: EstadoIntento
-  historias: string
+  historias: HistoriaEntrada[]
   funcionalidad: Funcionalidad
   opciones: OpcionesEjecucion
   historias_detectadas: HistoriaDetectada[]
@@ -60,7 +70,7 @@ export interface Intento {
 
 export interface IntentoCrear {
   nombre: string
-  historias: string
+  historias: HistoriaEntrada[]
   funcionalidad: Funcionalidad
   opciones: OpcionesEjecucion
 }

@@ -73,12 +73,18 @@ justificación, scores) se ignora a propósito porque cambia entre corridas aunq
 negocio sea el mismo. Aquí la comparación es **informativa**: lo "inesperado" puede ser cobertura
 nueva, solo lo que falta señala una regresión.
 
-## Cómo separa las historias
+## Cómo llegan las historias al pipeline
 
-El servidor parte el texto pegado **solo por un marcador explícito**: una línea de tres guiones,
-un encabezado Markdown (`## Título`) o un código de historia (`HU-01:`). Sin marcador, todo el
-texto es UNA historia — es lo que el usuario escribió, y el pipeline la tratará como una HU larga
-en vez de como cinco a medias.
+El caso de uso recibe un **directorio con un archivo por historia**. La lista del formulario es la
+forma canónica y se escribe tal cual: un archivo por elemento, en el orden de la lista, con el
+título encabezando el contenido. No hay nada que adivinar.
+
+Antes las historias viajaban pegadas en un solo `textarea` y el servidor las partía por marcadores
+(una línea de guiones, `## Título`, `HU-01:`). Eso rompía en cuanto el detalle de una historia
+llevaba una regla horizontal o un encabezado Markdown, que es justo como se escribe una historia
+con criterios de aceptación: el separador la partía por la mitad. El separador sigue en el código
+(`api/historias.py`) para **migrar** los intentos guardados con el formato viejo, y esa migración
+corre sola al arrancar la API.
 
 ## Separación de capas
 

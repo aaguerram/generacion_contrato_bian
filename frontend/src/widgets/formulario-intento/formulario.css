@@ -18,3 +18,61 @@
   margin-top: 1.25rem;
   flex-wrap: wrap;
 }
+
+/* Lista de Historias de Usuario. Cada fila es un botón: el sitio natural para editar una historia
+   es la historia, no un menú aparte. */
+.hu-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.hu {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--borde);
+  border-left: 3px solid var(--acento);
+  border-radius: var(--radio-sm);
+  background: var(--fondo-alt);
+}
+.hu__n {
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--marca);
+  color: var(--texto-inverso);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.hu__texto {
+  flex: 1;
+  min-width: 12rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.hu__texto strong { font-size: 0.92rem; }
+.hu__texto span { font-size: 0.76rem; color: var(--texto-suave); }
+.hu__texto:hover strong { color: var(--marca); }
+.hu__acciones { display: flex; align-items: center; gap: 0.35rem; margin-left: auto; }
+.hu__icono {
+  width: 1.7rem;
+  height: 1.7rem;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+  background: var(--fondo-elevado);
+  color: var(--texto-suave);
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+.hu__icono:hover:not(:disabled) { color: var(--marca); border-color: var(--marca); }
+.hu__icono:disabled { opacity: 0.35; cursor: default; }

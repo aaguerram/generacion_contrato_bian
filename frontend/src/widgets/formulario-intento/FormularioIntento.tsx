@@ -1,39 +1,34 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   apiIntentos,
   OPCIONES_POR_DEFECTO,
+  type HistoriaEntrada,
   type Intento,
   type IntentoCrear,
   type OpcionesEjecucion,
   type Proveedores,
 } from '@entities/intento'
-import { Aviso, AreaTexto, Boton, Campo, Entrada, Tarjeta } from '@shared/ui'
+import { ModalHistoria } from '@features/editar-historia/ModalHistoria'
+import { Aviso, AreaTexto, Boton, Campo, Entrada, Tarjeta, Vacio } from '@shared/ui'
 import { plural } from '@shared/lib/formato'
 import './formulario.css'
 
 /**
  * Pide exactamente lo mismo que la consola para UNA ejecución:
- *   --directorio-hu   → el textarea de historias (todas pegadas; el servidor las separa)
+ *   --directorio-hu   → la lista de historias (una por elemento, con su título y su detalle)
  *   --funcionalidad   → label + detalle, que es el JSON que espera el CLI
  *   el resto de flags → el bloque de opciones avanzadas
+ *
+ * Las historias son una LISTA y se editan de una en una en un modal. La alternativa -- un solo
+ * textarea con todo pegado y un separador -- obligaba a adivinar dónde empieza cada historia, y
+ * partía por la mitad cualquiera cuyo detalle llevara una línea de guiones o un encabezado
+ * Markdown, que es justo como se escribe una historia.
  */
 
-const SEPARADORES = ['---', '## Título de la historia', 'HU-01: ...']
-
-/** Mismo criterio que `api/historias.py`: solo separa un marcador EXPLÍCITO. */
-function contarHistorias(texto: string): number {
-  const t = texto.replace(/\r\n/g, '\n').trim()
-  if (!t) return 0
-  const re = /^[ \t]*(?:[-=_*]{3,}|#{1,2}[ \t]+\S.*|HU[ _-]?\d+[ \t]*[:.-].*)[ \t]*$/gim
-  const cortes = [...t.matchAll(re)].map((m) => m.index ?? 0)
-  if (cortes.length === 0) return 1
-  const limites = [...new Set([0, ...cortes, t.length])].sort((a, b) => a - b)
-  let n = 0
-  for (let i = 0; i < limites.length - 1; i++) {
-    const bloque = t.slice(limites[i], limites[i + 1])
-    if (bloque.replace(/[-=_*#\s]/g, '')) n++
-  }
-  return n
+/** Primera línea del detalle, para que la lista diga algo de cada historia sin abrirla. */
+function resumen(h: HistoriaEntrada): string {
+  const linea = h.detalle.split('\n').find((l) => l.trim())
+  return linea ? linea.trim().slice(0, 120) : 'Sin detalle'
 }
 
 export function FormularioIntento({
@@ -48,7 +43,9 @@ export function FormularioIntento({
   onGuardar: (datos: IntentoCrear) => void
 }) {
   const [nombre, setNombre] = useState(inicial?.nombre ?? '')
-  const [historias, setHistorias] = useState(inicial?.historias ?? '')
+  const [historias, setHistorias] = useState<HistoriaEntrada[]>(inicial?.historias ?? [])
+  // `null` = cerrado · `-1` = agregando · `n >= 0` = editando esa posición.
+  const [editando, setEditando] = useState<number | null>(null)
   const [label, setLabel] = useState(inicial?.funcionalidad.label ?? '')
   const [detalle, setDetalle] = useState(inicial?.funcionalidad.detalle ?? '')
   const [opciones, setOpciones] = useState<OpcionesEjecucion>(
@@ -64,8 +61,7 @@ export function FormularioIntento({
     return () => ac.abort()
   }, [])
 
-  const nHistorias = useMemo(() => contarHistorias(historias), [historias])
-  const faltaHistorias = !historias.trim()
+  const faltaHistorias = historias.length === 0
   const faltaLabel = !label.trim()
   const invalido = faltaHistorias || faltaLabel
 
@@ -81,6 +77,28 @@ export function FormularioIntento({
     })
   }
 
+  const guardarHistoria = (h: HistoriaEntrada) => {
+    setHistorias((hs) => (editando != null && editando >= 0
+      ? hs.map((x, i) => (i === editando ? h : x))
+      : [...hs, h]))
+    setEditando(null)
+  }
+
+  const borrarHistoria = (i: number) => {
+    if (!window.confirm(`¿Quitar "${historias[i].titulo}" de la lista?`)) return
+    setHistorias((hs) => hs.filter((_, n) => n !== i))
+  }
+
+  const mover = (i: number, salto: number) => {
+    const j = i + salto
+    if (j < 0 || j >= historias.length) return
+    setHistorias((hs) => {
+      const copia = [...hs]
+      ;[copia[i], copia[j]] = [copia[j], copia[i]]
+      return copia
+    })
+  }
+
   const set = <K extends keyof OpcionesEjecucion>(k: K, v: OpcionesEjecucion[K]) =>
     setOpciones((o) => ({ ...o, [k]: v }))
 
@@ -90,32 +108,76 @@ export function FormularioIntento({
     <form onSubmit={enviar} noValidate>
       {error && <Aviso tipo="error">{error}</Aviso>}
 
-      <Tarjeta titulo="Historias de Usuario" sub={plural(nHistorias, 'historia', 'historias')}>
-        <Campo
-          label="Contenido de las historias"
-          error={tocado && faltaHistorias ? 'Pega al menos una historia.' : undefined}
-          ayuda={
-            <>
-              Pega todas las historias aquí. Para mandar varias, sepáralas con una línea{' '}
-              {SEPARADORES.map((s, i) => (
-                <span key={s}>
-                  {i > 0 && ' o '}
-                  <code>{s}</code>
-                </span>
-              ))}
-              . Sin separador, todo el texto se trata como una sola historia.
-            </>
-          }
-        >
-          <AreaTexto
-            value={historias}
-            onChange={(e) => setHistorias(e.target.value)}
-            rows={16}
-            placeholder={'Como usuario autenticado…\nQuiero…\nPara…\n\n---\n\nComo usuario…'}
-            spellCheck={false}
-          />
-        </Campo>
+      <Tarjeta
+        titulo="Historias de Usuario"
+        sub={plural(historias.length, 'historia', 'historias')}
+        acciones={
+          <Boton type="button" variante="acento" pequeno onClick={() => setEditando(-1)}>
+            Agregar historia
+          </Boton>
+        }
+      >
+        {historias.length === 0 ? (
+          <Vacio>
+            Todavía no hay historias. Pulsa <strong>Agregar historia</strong> y escribe su título y
+            su detalle.
+          </Vacio>
+        ) : (
+          <ol className="hu-lista">
+            {historias.map((h, i) => (
+              <li key={i} className="hu">
+                <span className="hu__n">{i + 1}</span>
+                <button
+                  type="button"
+                  className="hu__texto"
+                  onClick={() => setEditando(i)}
+                  title="Editar esta historia"
+                >
+                  <strong>{h.titulo}</strong>
+                  <span>{resumen(h)}</span>
+                </button>
+                <div className="hu__acciones">
+                  <button
+                    type="button"
+                    className="hu__icono"
+                    onClick={() => mover(i, -1)}
+                    disabled={i === 0}
+                    aria-label={`Subir ${h.titulo}`}
+                  >
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    className="hu__icono"
+                    onClick={() => mover(i, 1)}
+                    disabled={i === historias.length - 1}
+                    aria-label={`Bajar ${h.titulo}`}
+                  >
+                    ↓
+                  </button>
+                  <Boton type="button" variante="fantasma" pequeno onClick={() => setEditando(i)}>
+                    Editar
+                  </Boton>
+                  <Boton type="button" variante="peligro" pequeno onClick={() => borrarHistoria(i)}>
+                    Quitar
+                  </Boton>
+                </div>
+              </li>
+            ))}
+          </ol>
+        )}
+        {tocado && faltaHistorias && (
+          <p className="pb-campo__error">Agrega al menos una historia.</p>
+        )}
       </Tarjeta>
+
+      <ModalHistoria
+        abierto={editando !== null}
+        inicial={editando != null && editando >= 0 ? historias[editando] : undefined}
+        indice={editando ?? undefined}
+        onGuardar={guardarHistoria}
+        onCerrar={() => setEditando(null)}
+      />
 
       <div style={{ height: '1rem' }} />
 

@@ -1,19 +1,23 @@
-"""Separar en Historias de Usuario el texto que el usuario pega en un solo `textarea`.
+"""Traducción entre las Historias de Usuario del formulario y los archivos que espera el CLI.
 
-El CLI recibe un DIRECTORIO con un archivo por historia; el formulario recibe todo pegado. Esta
-es la única traducción entre ambos mundos, y vive aquí y no en `src/` porque es un problema de la
-interfaz, no del mapeo.
+El caso de uso recibe un DIRECTORIO con un archivo por historia. El formulario mantiene una
+**lista**: cada historia tiene su título y su detalle en campos separados, así que no hay que
+adivinar dónde empieza ninguna. `archivos_de_historias` es esa traducción, y es la que usa la API.
 
-La regla es deliberadamente conservadora: se parte por un separador EXPLÍCITO (una línea de tres o
-más guiones/iguales, o una línea `## algo`, o `HU-...:`), y si no aparece ninguno el texto entero
-es UNA sola historia. Adivinar dónde empieza cada historia cuando el usuario no lo dijo produce
-historias partidas por la mitad, que es peor que una historia larga.
+`separar_historias` es la traducción ANTIGUA, cuando todo llegaba pegado en un solo `textarea` y
+había que partirlo por marcadores. Se conserva para migrar los intentos guardados con aquel
+formato y para importar un pegote de texto, pero ya no está en el camino de guardar: el separador
+partía por la mitad cualquier historia cuyo detalle llevara una línea de guiones o un encabezado
+Markdown, que es justo lo que trae una historia escrita en Markdown.
+
+Vive aquí y no en `src/` porque es un problema de la interfaz, no del mapeo.
 """
 
 from __future__ import annotations
 
 import re
 import unicodedata
+from typing import Iterable, Sequence
 
 # Una línea que solo tiene --- o === (3+), o un encabezado markdown de nivel 1-2, o "HU-xxx:".
 _SEPARADOR = re.compile(
@@ -83,3 +87,41 @@ def separar_historias(texto: str) -> list[tuple[str, str, str]]:
         vistos.add(nombre)
         historias.append((f"{nombre}.txt", titulo, bloque))
     return historias
+
+
+def _nombres_unicos(bases: Iterable[str]) -> list[str]:
+    """Numera los repetidos. Dos historias pueden llamarse igual; dos archivos, no."""
+    vistos: set[str] = set()
+    salida: list[str] = []
+    for base in bases:
+        nombre, n = base, 2
+        while nombre in vistos:
+            nombre, n = f"{base}-{n}", n + 1
+        vistos.add(nombre)
+        salida.append(nombre)
+    return salida
+
+
+def archivos_de_historias(
+    historias: Sequence[tuple[str, str]],
+) -> list[tuple[str, str, str]]:
+    """`[(nombre de archivo, título, contenido)]` a partir de `[(título, detalle)]`.
+
+    El título entra en el contenido del archivo: el pipeline solo lee el texto de la HU, y el
+    título es parte de lo que la historia dice. Si el detalle ya empieza por el título no se
+    repite. Una historia sin detalle deja un archivo con solo el título, que es exactamente lo que
+    el usuario escribió y el pipeline lo reportará como historia pobre en vez de desaparecer.
+    """
+    resultado: list[tuple[str, str, str]] = []
+    limpias = [
+        (t.strip()[:_TITULO_MAX] or "Historia sin titulo", (d or "").replace("\r\n", "\n").strip())
+        for t, d in historias
+        if (t or "").strip() or (d or "").strip()
+    ]
+    bases = _nombres_unicos(
+        f"{i:02d}-{_slug(t, f'historia-{i}')}" for i, (t, _) in enumerate(limpias, 1)
+    )
+    for base, (titulo, detalle) in zip(bases, limpias):
+        cuerpo = detalle if detalle.lower().startswith(titulo.lower()) else f"{titulo}\n\n{detalle}"
+        resultado.append((f"{base}.txt", titulo, cuerpo.strip()))
+    return resultado

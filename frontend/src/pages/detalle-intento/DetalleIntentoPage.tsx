@@ -100,7 +100,7 @@ export function DetalleIntentoPage() {
       {pestana === 'ejecucion' && (
         <>
           <PanelEjecucion intento={intento} onCambio={setIntento} />
-          <Tarjeta titulo="Historias detectadas">
+          <Tarjeta titulo="Historias de este intento">
             <ul className="historias">
               {intento.historias_detectadas.map((h) => (
                 <li key={h.archivo}>
@@ -112,8 +112,8 @@ export function DetalleIntentoPage() {
               ))}
             </ul>
             <p className="pb-campo__ayuda">
-              El servidor separa el texto pegado solo por marcadores explícitos. Si ves una historia
-              donde esperabas varias, añade una línea con tres guiones entre ellas.
+              Un archivo por historia, en el orden de la lista. Es lo que el pipeline lee como
+              directorio de Historias de Usuario. Para cambiarlas, usa la pestaña de editar.
             </p>
           </Tarjeta>
         </>

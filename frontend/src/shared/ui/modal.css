@@ -1,0 +1,56 @@
+.modal {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  max-width: none;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+}
+/* Solo en [open]: el navegador cierra el diálogo con display:none, y un display suelto lo
+   dejaría siempre visible. */
+.modal[open] { display: flex; align-items: center; justify-content: center; }
+.modal::backdrop { background: rgb(0 42 24 / 55%); backdrop-filter: blur(2px); }
+
+.modal__caja {
+  width: min(44rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 3rem);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--fondo-elevado);
+  color: var(--texto);
+  border-radius: var(--radio);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 30%);
+  overflow: hidden;
+}
+
+.modal__cab {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid var(--borde);
+}
+.modal__cab h2 { margin: 0; font-size: 1.05rem; }
+.modal__cerrar {
+  margin-left: auto;
+  background: none;
+  border: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--texto-suave);
+  padding: 0 0.25rem;
+}
+.modal__cerrar:hover { color: var(--texto); }
+
+.modal__cuerpo { padding: 1.1rem; overflow: auto; }
+.modal__pie {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.85rem 1.1rem;
+  border-top: 1px solid var(--borde);
+  background: var(--fondo-alt);
+}

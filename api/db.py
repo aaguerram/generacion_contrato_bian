@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS intentos (
     creado_en             TIMESTAMPTZ NOT NULL,
     actualizado_en        TIMESTAMPTZ NOT NULL,
     estado                TEXT        NOT NULL DEFAULT 'guardado',
-    historias             TEXT        NOT NULL,
+    historias             JSONB       NOT NULL DEFAULT '[]'::jsonb,
     funcionalidad_label   TEXT        NOT NULL,
     funcionalidad_detalle TEXT        NOT NULL DEFAULT '',
     opciones              JSONB       NOT NULL DEFAULT '{}'::jsonb,
@@ -79,6 +79,7 @@ def inicializar(intentos: int = 30, espera: float = 2.0) -> None:
         try:
             with conexion() as con:
                 con.execute(_ESQUEMA)
+                _migrar_historias_a_lista(con)
                 con.commit()
             return
         except Exception as exc:  # noqa: BLE001 - se reintenta a propósito
@@ -87,6 +88,38 @@ def inicializar(intentos: int = 30, espera: float = 2.0) -> None:
                 break
             time.sleep(espera)
     raise RuntimeError(f"No se pudo inicializar la base tras {intentos} intentos: {ultimo}")
+
+
+def _migrar_historias_a_lista(con: Connection) -> None:
+    """Convierte la columna `historias` de TEXT a JSONB partiendo el texto guardado.
+
+    El formulario pasó de un `textarea` con todo pegado a una lista de historias con título y
+    detalle. Los intentos ya guardados llevan el texto viejo, y tirarlos sería perder el trabajo
+    del usuario por un cambio de interfaz: se parten UNA vez, con el mismo separador de entonces,
+    y desde ahí viven como lista. Es idempotente: si la columna ya es JSONB no hace nada.
+    """
+    from psycopg.types.json import Jsonb
+
+    from api.historias import separar_historias
+
+    fila = con.execute(
+        """SELECT data_type FROM information_schema.columns
+           WHERE table_name='intentos' AND column_name='historias'"""
+    ).fetchone()
+    if not fila or fila["data_type"] == "jsonb":
+        return
+
+    viejos = con.execute("SELECT id, historias FROM intentos").fetchall()
+    con.execute("ALTER TABLE intentos ALTER COLUMN historias DROP DEFAULT")
+    con.execute("ALTER TABLE intentos ALTER COLUMN historias TYPE JSONB USING '[]'::jsonb")
+    con.execute("ALTER TABLE intentos ALTER COLUMN historias SET DEFAULT '[]'::jsonb")
+    for f in viejos:
+        lista = [
+            {"titulo": titulo, "detalle": cuerpo}
+            for _, titulo, cuerpo in separar_historias(f["historias"] or "")
+        ]
+        con.execute("UPDATE intentos SET historias=%s WHERE id=%s", (Jsonb(lista), f["id"]))
+    print(f"migrados {len(viejos)} intento(s) de historias en texto a lista")
 
 
 def consultar(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:

@@ -21,6 +21,19 @@ class Funcionalidad(BaseModel):
     detalle: str = Field(default="", description="Descripción larga de la funcionalidad.")
 
 
+class HistoriaEntrada(BaseModel):
+    """Una Historia de Usuario tal como la escribe el formulario: título + detalle.
+
+    Es la forma CANÓNICA: el formulario mantiene una lista y cada elemento se guarda entero, en su
+    propio campo. Antes esto viajaba como un solo texto que el servidor partía por marcadores, y
+    eso rompía en cuanto el detalle de una historia contenía una línea de guiones o un encabezado
+    Markdown: el separador partía la historia por la mitad. Con la lista no hay nada que adivinar.
+    """
+
+    titulo: str = Field(min_length=1, max_length=200, description="Cómo se reconoce la historia.")
+    detalle: str = Field(default="", description="El cuerpo de la historia, tal cual se escribió.")
+
+
 class OpcionesEjecucion(BaseModel):
     """Los mismos interruptores que acepta `python -m src mapear-historias`."""
 
@@ -36,10 +49,9 @@ class IntentoCrear(BaseModel):
     """Lo que el formulario manda para GUARDAR un intento. Guardar no ejecuta nada."""
 
     nombre: str = Field(default="", description="Etiqueta libre para reconocer el intento.")
-    historias: str = Field(
+    historias: list[HistoriaEntrada] = Field(
         min_length=1,
-        description="Todas las Historias de Usuario pegadas en un solo texto. Se separan por el "
-        "marcador de historia (ver `separar_historias`).",
+        description="Las Historias de Usuario, una por elemento. El orden es el que se guarda.",
     )
     funcionalidad: Funcionalidad
     opciones: OpcionesEjecucion = Field(default_factory=OpcionesEjecucion)
@@ -74,7 +86,7 @@ class Intento(BaseModel):
     creado_en: datetime
     actualizado_en: datetime
     estado: EstadoIntento = "guardado"
-    historias: str
+    historias: list[HistoriaEntrada] = Field(default_factory=list)
     funcionalidad: Funcionalidad
     opciones: OpcionesEjecucion = Field(default_factory=OpcionesEjecucion)
     historias_detectadas: list[HistoriaDetectada] = Field(default_factory=list)

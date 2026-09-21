@@ -24,10 +24,11 @@ from typing import Any
 from psycopg.types.json import Jsonb
 
 from api import db
-from api.historias import separar_historias
+from api.historias import archivos_de_historias
 from api.modelos import (
     Funcionalidad,
     HistoriaDetectada,
+    HistoriaEntrada,
     Intento,
     IntentoCrear,
     OpcionesEjecucion,
@@ -67,7 +68,7 @@ def _a_modelo(f: dict[str, Any]) -> Intento:
         creado_en=f["creado_en"],
         actualizado_en=f["actualizado_en"],
         estado=f["estado"],
-        historias=f["historias"],
+        historias=[HistoriaEntrada(**h) for h in (f["historias"] or [])],
         funcionalidad=Funcionalidad(
             label=f["funcionalidad_label"], detalle=f["funcionalidad_detalle"]
         ),
@@ -93,7 +94,8 @@ def materializar(intento: Intento) -> list[HistoriaDetectada]:
         shutil.rmtree(hu)  # re-guardar reemplaza las historias, nunca las acumula
     hu.mkdir(parents=True, exist_ok=True)
     detectadas: list[HistoriaDetectada] = []
-    for archivo, titulo, contenido in separar_historias(intento.historias):
+    pares = [(h.titulo, h.detalle) for h in intento.historias]
+    for archivo, titulo, contenido in archivos_de_historias(pares):
         (hu / archivo).write_text(contenido, encoding="utf-8")
         detectadas.append(
             HistoriaDetectada(archivo=archivo, titulo=titulo, caracteres=len(contenido))
@@ -138,7 +140,7 @@ def guardar_nuevo(datos: IntentoCrear) -> Intento:
             borrador.nombre,
             t,
             t,
-            datos.historias,
+            Jsonb([h.model_dump() for h in datos.historias]),
             datos.funcionalidad.label,
             datos.funcionalidad.detalle,
             Jsonb(datos.opciones.model_dump()),
@@ -160,7 +162,7 @@ def actualizar(id_: str, datos: IntentoCrear) -> Intento:
            WHERE id=%s""",
         (
             datos.nombre or datos.funcionalidad.label,
-            datos.historias,
+            Jsonb([h.model_dump() for h in datos.historias]),
             datos.funcionalidad.label,
             datos.funcionalidad.detalle,
             Jsonb(datos.opciones.model_dump()),
