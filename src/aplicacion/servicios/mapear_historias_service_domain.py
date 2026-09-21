@@ -53,6 +53,10 @@ from src.aplicacion.puertos.entrada_mapeo import MapearHistoriasUseCase
 from src.aplicacion.puertos.grafo_bian import GrafoBianPort
 from src.aplicacion.puertos.lector_historias import LectorHistoriasPort
 from src.aplicacion.puertos.mapeador_operaciones import MapeadorOperacionesBianPort
+from src.aplicacion.puertos.observador_ejecucion import (
+    EjecucionDetenida,
+    ObservadorEjecucionPort,
+)
 from src.aplicacion.puertos.publicador_mapeo import PublicadorMapeoPort
 from src.aplicacion.puertos.recuperador import RecuperadorSemanticoPort
 from src.aplicacion.puertos.recuperador_clases import RecuperadorClasesPort
@@ -131,6 +135,10 @@ _TRANSITORIOS = ("503", "429", "UNAVAILABLE", "RESOURCE_EXHAUSTED", "INTERNAL", 
 
 
 def _es_transitorio(exc: Exception) -> bool:
+    # Parar es lo que se pidió, no un fallo: reintentarlo tres veces sería ejecutar de nuevo el
+    # nodo en el que el usuario dijo "hasta aquí".
+    if isinstance(exc, EjecucionDetenida):
+        return False
     t = str(exc).upper()
     # el failover multi-modelo ya agotó todo -> no tiene sentido reintentar el nodo entero
     if (
@@ -364,7 +372,10 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         cache_nodos_ttl: int = 0,
         durabilidad: str = "exit",
         checkpointer=None,
+        observador: ObservadorEjecucionPort | None = None,
     ) -> None:
+        # Antes que nada: `_compilar()` envuelve cada nodo con él y se llama en este __init__.
+        self._observador = observador
         self._catalogo = catalogo
         self._lector = lector
         self._analista = analista
@@ -483,6 +494,13 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         *,
         reanudar: str | None = None,
     ) -> ResultadoMapeoHistorias:
+        """Corre el mapeo entero y devuelve el resultado.
+
+        Si hay un observador que pide parar en un nodo, esto NO devuelve: propaga
+        `EjecucionDetenida`. Es deliberado — una corrida cortada a la mitad no produce un mapeo, y
+        devolver uno a medias lo haría indistinguible de un mapeo completo. Lo que sí queda es
+        todo lo que el observador ya registró nodo a nodo.
+        """
         config: dict = {"recursion_limit": 60, "max_concurrency": self._concurrencia}
         extra: dict = {}
         entrada: dict | None = {
@@ -2377,6 +2395,83 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             return None
         return CachePolicy(key_func=clave, ttl=self._cache_nodos_ttl)
 
+    # ══ observación de la ejecución ═══════════════════════════════════════
+    @staticmethod
+    def _instancia(estado) -> str:
+        """Qué repetición de un nodo es esta.
+
+        Con el abanico de `Send` un mismo nodo corre varias veces en paralelo -- una por historia,
+        por grupo o por candidato --, y sin esto todas se confundirían en una sola. Lee solo las
+        claves de reparto del grafo, no reglas de negocio.
+        """
+        if not isinstance(estado, dict):
+            return ""
+        partes: list[str] = []
+        historia = estado.get("historia")
+        if historia is not None:
+            partes.append(str(getattr(historia, "archivo", historia)))
+        grupo = estado.get("grupo")
+        if isinstance(grupo, dict) and grupo.get("nombre"):
+            partes.append(str(grupo["nombre"]))
+        paquete = estado.get("paquete")
+        if paquete is not None:
+            partes.append(str(getattr(paquete, "service_domain", paquete)))
+        return " · ".join(partes)
+
+    def _observado(self, nombre: str, fn):
+        """Envuelve un nodo para avisar al observador al entrar y al salir.
+
+        Sin observador devuelve la función TAL CUAL: el grafo sin observar no paga ni una
+        indirección, y el comportamiento de siempre queda intacto.
+
+        Un fallo del propio observador no puede tumbar la corrida observada, así que sus llamadas
+        van protegidas. Lo que sí interrumpe es `EjecucionDetenida`, que no es un fallo: es el
+        "para después de este nodo" que pidió quien lanzó la corrida.
+        """
+        if self._observador is None:
+            return fn
+
+        obs = self._observador
+
+        def envuelto(estado, *args, **kwargs):
+            instancia = self._instancia(estado)
+            try:
+                obs.nodo_inicia(nombre, instancia, estado if isinstance(estado, dict) else {})
+            except Exception:  # pragma: no cover - observar nunca rompe lo observado
+                logger.debug("el observador falló al abrir el nodo %s", nombre, exc_info=True)
+            inicio = time.perf_counter()
+            try:
+                salida = fn(estado, *args, **kwargs)
+            except EjecucionDetenida:
+                raise
+            except Exception as exc:
+                ms = (time.perf_counter() - inicio) * 1000
+                try:
+                    obs.nodo_falla(nombre, instancia, f"{type(exc).__name__}: {exc}", ms)
+                except Exception:  # pragma: no cover
+                    logger.debug("el observador falló al cerrar %s", nombre, exc_info=True)
+                raise
+            ms = (time.perf_counter() - inicio) * 1000
+            try:
+                obs.nodo_termina(nombre, instancia, salida, ms)
+            except Exception:  # pragma: no cover
+                logger.debug("el observador falló al cerrar el nodo %s", nombre, exc_info=True)
+            try:
+                parar = obs.detener_tras(nombre)
+            except Exception:  # pragma: no cover
+                parar = False
+            if parar:
+                logger.info("nodo '%s' terminado: se detiene la corrida como se pidió", nombre)
+                raise EjecucionDetenida(nombre)
+            return salida
+
+        envuelto.__name__ = getattr(fn, "__name__", nombre)
+        return envuelto
+
+    def _nodo(self, g, nombre: str, fn, **kw) -> None:
+        """`add_node` pasando por el observador. Todo nodo del grafo se registra por aquí."""
+        g.add_node(nombre, self._observado(nombre, fn), **kw)
+
     # ══ ensamblado de grafos ══════════════════════════════════════════════
     def _compilar_subgrafo(self):
         g = StateGraph(EstadoHistoria)
@@ -2384,7 +2479,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
         # (`preparar_candidatos`, `clasificar`, `aplicar_adversarial`, `ensamblar`) cuestan
         # milisegundos y recalcularlos siempre evita que una entrada de caché vieja fije una
         # decisión que el código ya cambió.
-        g.add_node(
+        self._nodo(
+            g,
             "extraer_intencion",
             self._h_intencion,
             retry_policy=_RETRY,
@@ -2394,7 +2490,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             ),
         )
         if self._routing_jerarquico:
-            g.add_node(
+            self._nodo(
+                g,
                 "enrutar_dominios",
                 self._h_enrutar,
                 retry_policy=_RETRY,
@@ -2412,7 +2509,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                     ),
                 ),
             )
-        g.add_node(
+        self._nodo(
+            g,
             "generar_candidatos",
             self._h_candidatos,
             retry_policy=_RETRY,
@@ -2436,7 +2534,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 ),
             ),
         )
-        g.add_node(
+        self._nodo(
+            g,
             "revisar_completitud",
             self._h_completitud,
             retry_policy=_RETRY,
@@ -2452,8 +2551,9 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 ),
             ),
         )
-        g.add_node("preparar_candidatos", self._h_preparar)
-        g.add_node(
+        self._nodo(g, "preparar_candidatos", self._h_preparar)
+        self._nodo(
+            g,
             "evaluar_candidato",
             self._h_evaluar,
             retry_policy=_RETRY,
@@ -2470,8 +2570,9 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 ),
             ),
         )
-        g.add_node("clasificar", self._h_clasificar)
-        g.add_node(
+        self._nodo(g, "clasificar", self._h_clasificar)
+        self._nodo(
+            g,
             "revisar_adversarial",
             self._h_adversarial,
             retry_policy=_RETRY,
@@ -2482,8 +2583,9 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 ),
             ),
         )
-        g.add_node("aplicar_adversarial", self._h_aplicar_adversarial)
-        g.add_node(
+        self._nodo(g, "aplicar_adversarial", self._h_aplicar_adversarial)
+        self._nodo(
+            g,
             "seleccionar_operaciones",
             self._h_operaciones,
             retry_policy=_RETRY,
@@ -2503,7 +2605,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 ),
             ),
         )
-        g.add_node("ensamblar", self._h_ensamblar)
+        self._nodo(g, "ensamblar", self._h_ensamblar)
 
         g.add_edge(START, "extraer_intencion")
         if self._routing_jerarquico:
@@ -2511,7 +2613,8 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
             if self._candidatos_por_dominio:
                 # 2b en fan-out: `Send` por grupo -> fusión determinista -> nodo 3. La rama de
                 # una sola llamada sigue registrada como red (sin grupos, p. ej. routing vacío).
-                g.add_node(
+                self._nodo(
+                    g,
                     "generar_candidatos_grupo",
                     self._h_candidatos_grupo,
                     retry_policy=_RETRY,
@@ -2527,7 +2630,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                         ),
                     ),
                 )
-                g.add_node("fusionar_candidatos", self._h_fusionar_candidatos)
+                self._nodo(g, "fusionar_candidatos", self._h_fusionar_candidatos)
                 g.add_conditional_edges(
                     "enrutar_dominios",
                     self._fan_out_grupos_candidatos,
@@ -2554,9 +2657,10 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
 
     def _compilar(self):
         g = StateGraph(EstadoMapeo)
-        g.add_node("cargar", self._nodo_cargar)
-        g.add_node("procesar_historia", self._nodo_procesar)
-        g.add_node(
+        self._nodo(g, "cargar", self._nodo_cargar)
+        self._nodo(g, "procesar_historia", self._nodo_procesar)
+        self._nodo(
+            g,
             "reconciliar",
             self._nodo_reconciliar,
             retry_policy=_RETRY,
@@ -2573,7 +2677,7 @@ class MapearHistoriasServiceDomainsService(MapearHistoriasUseCase):
                 ),
             ),
         )
-        g.add_node("publicar", self._nodo_publicar)
+        self._nodo(g, "publicar", self._nodo_publicar)
 
         g.add_edge(START, "cargar")
         g.add_conditional_edges("cargar", self._fan_out, ["procesar_historia"])

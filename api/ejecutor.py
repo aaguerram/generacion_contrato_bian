@@ -16,6 +16,7 @@ import dataclasses
 import logging
 import threading
 import time
+import uuid
 import json
 import traceback
 from collections import deque
@@ -23,6 +24,7 @@ from pathlib import Path
 
 from api import almacen
 from api.modelos import Intento
+from api.observador import ObservadorPostgres
 
 logger = logging.getLogger("api.ejecutor")
 
@@ -91,6 +93,7 @@ def _correr(intento: Intento) -> None:
     """Cuerpo del hilo. Cualquier error acaba en `estado='fallido'` con su traza, nunca se pierde."""
     # Import perezoso: cargar el pipeline entero (LangGraph, catálogos) cuesta segundos, y no debe
     # pagarse al arrancar el servidor ni en las peticiones que solo listan intentos.
+    from src.aplicacion.puertos.observador_ejecucion import EjecucionDetenida
     from src.configuracion.contenedor import crear_caso_uso_mapeo
     from src.configuracion.settings import cargar_settings
 
@@ -128,8 +131,14 @@ def _correr(intento: Intento) -> None:
                 cfg, mapear_historias=dataclasses.replace(cfg.mapear_historias, **cambios)
             )
 
+        # El observador es lo que convierte la corrida en algo que se puede MIRAR: escribe un
+        # paso por nodo (entrada, salida, modelo, tiempo) y corta donde se pidió.
+        observador = ObservadorPostgres(intento.id, intento.corrida, o.detener_en)
         caso = crear_caso_uso_mapeo(
-            cfg, proveedor=o.proveedor or None, actualizar_cache_bian=o.actualizar_cache_bian
+            cfg,
+            proveedor=o.proveedor or None,
+            actualizar_cache_bian=o.actualizar_cache_bian,
+            observador=observador,
         )
         logger.info("intento %s: arranca el mapeo (sin límite de tiempo)", intento.id)
         resultado = caso.ejecutar(str(d / "hu"), str(d / "funcionalidad.json"), str(d / "salida"))
@@ -143,6 +152,18 @@ def _correr(intento: Intento) -> None:
             "intento %s: completado en %.1fs · %d historia(s)",
             intento.id, segundos, getattr(resultado, "total_historias", 0),
         )
+    except EjecucionDetenida as parada:
+        # Parar es el resultado que se pidió, no un fallo. No hay mapeo que publicar -- la corrida
+        # no llegó al final --, pero cada paso ya quedó guardado y es lo que la interfaz enseña.
+        segundos = time.perf_counter() - inicio
+        logger.info(
+            "intento %s: detenido a petición tras el nodo '%s' (%.1fs)",
+            intento.id, parada.nodo, segundos,
+        )
+        try:
+            almacen.marcar_detenido(intento.id, segundos, parada.nodo)
+        except Exception:  # pragma: no cover
+            pass
     except Exception as exc:
         segundos = time.perf_counter() - inicio
         logger.error("intento %s: FALLÓ tras %.1fs — %s", intento.id, segundos, exc)
@@ -153,6 +174,16 @@ def _correr(intento: Intento) -> None:
         if corrida:
             corrida.lineas.append(traceback.format_exc())
     finally:
+        # Pase lo que pase -- fin normal, corte o fallo --, ningún paso puede quedar abierto: la
+        # interfaz lo pintaría corriendo para siempre.
+        try:
+            huerfanos = almacen.cerrar_pasos_huerfanos(
+                intento.corrida, "interrumpido: la corrida terminó antes que este nodo"
+            )
+            if huerfanos:
+                logger.info("cerrados %d paso(s) que quedaron abiertos", huerfanos)
+        except Exception:  # pragma: no cover
+            pass
         raiz.removeHandler(captura)
         raiz.setLevel(nivel_previo)
         captura.volcar()
@@ -189,7 +220,9 @@ def lanzar(id_: str) -> Intento:
     with _CERROJO:
         if esta_ejecutando(id_):
             return almacen.leer(id_)
-        intento = almacen.marcar_ejecutando(id_)
+        # Identificador propio de ESTA ejecución: los pasos del grafo se guardan por corrida, así
+        # que volver a ejecutar un intento no mezcla su flujo con el de la vez anterior.
+        intento = almacen.marcar_ejecutando(id_, uuid.uuid4().hex)
         corrida = Corrida(id_)
         corrida.hilo = threading.Thread(
             target=_correr, args=(intento,), name=f"mapeo-{id_}", daemon=True

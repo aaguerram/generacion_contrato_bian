@@ -7,11 +7,12 @@ interna del pipeline, y el pipeline no debe cambiar porque cambie un formulario.
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
-EstadoIntento = Literal["guardado", "ejecutando", "completado", "fallido"]
+# "detenido" no es un fallo: es el corte que pidió quien lanzó la corrida.
+EstadoIntento = Literal["guardado", "ejecutando", "completado", "fallido", "detenido"]
 
 
 class Funcionalidad(BaseModel):
@@ -43,6 +44,11 @@ class OpcionesEjecucion(BaseModel):
     concurrencia: int | None = Field(default=None, ge=1, le=16)
     sin_operaciones: bool = Field(default=False, description="Desactiva el paso 2 (operaciones).")
     actualizar_cache_bian: bool = False
+    detener_en: str | None = Field(
+        default=None,
+        description="Nombre del nodo del grafo TRAS el cual se corta la corrida entera. "
+        "Vacío = ejecutar el flujo completo.",
+    )
 
 
 class IntentoCrear(BaseModel):
@@ -99,6 +105,11 @@ class Intento(BaseModel):
     error: str = ""
     tiene_resultado: bool = False
     comparacion: ResumenComparacion | None = None
+    corrida: str = Field(
+        default="",
+        description="Identificador de la ÚLTIMA ejecución. Los pasos del grafo se guardan por "
+        "corrida, así que sin esto no se sabría cuáles pintar.",
+    )
 
 
 class ListaIntentos(BaseModel):
@@ -119,3 +130,51 @@ class EstadoEjecucion(BaseModel):
 class Proveedores(BaseModel):
     disponibles: list[str]
     cadena_por_defecto: list[str]
+
+
+# ── el grafo y su ejecución paso a paso ─────────────────────────────────────
+class NodoGrafo(BaseModel):
+    """Un nodo del flujo de LangGraph, tal como lo declara el código."""
+
+    id: str
+    etiqueta: str
+    grafo: Literal["principal", "historia"] = "principal"
+    tipo: Literal["nodo", "inicio", "fin"] = "nodo"
+    llm: bool = False
+    abanico: bool = Field(default=False, description="Se repite por historia, grupo o candidato.")
+    descripcion: str = ""
+
+
+class AristaGrafo(BaseModel):
+    origen: str
+    destino: str
+    condicional: bool = False
+
+
+class Grafo(BaseModel):
+    nodos: list[NodoGrafo]
+    aristas: list[AristaGrafo]
+
+
+class PasoNodo(BaseModel):
+    """Una ejecución concreta de un nodo. Con abanico hay varias del mismo nodo."""
+
+    id: int
+    nodo: str
+    instancia: str = ""
+    # "interrumpido" = el nodo estaba a mitad cuando la corrida terminó. Ni terminó ni falló.
+    estado: Literal["en_curso", "completado", "fallido", "interrumpido"]
+    proveedor: str = ""
+    modelo: str = ""
+    prompt_id: str = ""
+    ms: float | None = None
+    iniciado_en: datetime
+    terminado_en: datetime | None = None
+    error: str = ""
+
+
+class DetallePaso(PasoNodo):
+    """El paso CON sus datos. Es lo que abre el modal: entrada y salida en pestañas."""
+
+    entrada: Any = None
+    salida: Any = None

@@ -560,6 +560,26 @@ tarda más, la causa está en el failover, no en el checkpointer.
      `business_objects` son el checklist de datos requeridos del paso 9), `MapearHistoriasUseCase`.
    - `python -m src mapear-historias --directorio-hu ./HU --funcionalidad ./ejemplos/funcionalidad-actualizacion-datos-personales.json --directorio ./salida [--proveedor fake|groq|gemini|huggingface|openrouter] [--config <ruta>] [--umbral-directo 0.9] [--umbral-tentativo 0.63] [--concurrencia 2] [--sin-operaciones] [--sin-timestamp] [--actualizar-cache-bian]`
 
+## Observar la ejecución (`ObservadorEjecucionPort`)
+
+`src/aplicacion/puertos/observador_ejecucion.py` define un puerto OPCIONAL que recibe un aviso al
+entrar y al salir de **cada** nodo del grafo, con el estado de entrada, la salida, el tiempo y la
+posibilidad de **parar** la corrida tras un nodo (`EjecucionDetenida`). Todo `add_node` pasa por
+`self._nodo(g, ...)`, que envuelve el handler con `_observado`. **Sin observador, `_observado`
+devuelve la función tal cual**: el CLI no paga ni una indirección y el grafo se comporta como
+siempre (`tests/unit_test/test_observador_ejecucion.py`).
+
+`instancia` distingue las repeticiones del abanico de `Send` (una por historia, por grupo, por
+candidato) leyendo solo las claves de reparto del grafo, nunca reglas de negocio. Observar no
+puede tumbar lo observado: todas las llamadas al observador van protegidas, y `_es_transitorio`
+excluye `EjecucionDetenida` para que el `retry_policy` no reejecute tres veces el nodo donde se
+pidió parar.
+
+Lo consume el módulo `api/` (`ObservadorPostgres`), que guarda un paso por nodo y lo publica por
+un canal de eventos del servidor. Ver [`DESPLIEGUE.md`](DESPLIEGUE.md). **Ojo con `interrupt_after`
+de LangGraph**: no sirve aquí para cortar en un nodo del subgrafo, porque `_nodo_procesar` lo
+invoca con `.invoke()` directo y la interrupción no propaga al grafo exterior.
+
 ## REGLA OBLIGATORIA para cualquier cambio en `src/`
 
 Respeta las fronteras de capa de [`ARQUITECTURA.md`](ARQUITECTURA.md). Prohibido:

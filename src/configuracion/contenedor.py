@@ -264,8 +264,18 @@ def _recuperadores_clases(
 
 
 def crear_caso_uso_mapeo(
-    config: Config, *, proveedor: str | None = None, actualizar_cache_bian: bool = False
+    config: Config,
+    *,
+    proveedor: str | None = None,
+    actualizar_cache_bian: bool = False,
+    observador=None,
 ) -> MapearHistoriasUseCase:
+    """Arma el caso de uso de mapeo.
+
+    `observador` es opcional y cumple `ObservadorEjecucionPort`: si se pasa, el grafo avisa al
+    entrar y al salir de cada nodo y puede pararse en uno concreto. Sin él -- el caso del CLI --
+    el grafo se comporta exactamente como siempre.
+    """
     mh = config.mapear_historias
     chat = crear_chat_failover(config, proveedor=proveedor)
     # Una cadena propia por cada nodo que la pida en `routing.llm_priority_por_nodo`. Se construye
@@ -376,6 +386,7 @@ def crear_caso_uso_mapeo(
         durabilidad=mh.durabilidad,
         # La base se abre (y se crea) solo si se pidió durabilidad: una corrida normal no debe
         # dejar un archivo SQLite por ahí sin que nadie lo haya pedido.
+        observador=observador,
         checkpointer=crear_checkpointer(config.ruta_checkpoints)
         if mh.durabilidad != "exit"
         else None,

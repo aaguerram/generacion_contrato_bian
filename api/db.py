@@ -44,6 +44,36 @@ CREATE TABLE IF NOT EXISTS intentos (
     log                   TEXT        NOT NULL DEFAULT ''
 );
 CREATE INDEX IF NOT EXISTS intentos_creado_en_idx ON intentos (creado_en DESC);
+ALTER TABLE intentos ADD COLUMN IF NOT EXISTS corrida TEXT NOT NULL DEFAULT '';
+
+-- Un registro por PASO del grafo. No es un log: son datos consultables (qué entró, qué salió,
+-- qué modelo respondió, cuánto tardó), y son la memoria de la corrida cuando el proceso ya no
+-- está. La interfaz los reproduce para pintar el flujo sin depender de haber estado conectada.
+CREATE TABLE IF NOT EXISTS eventos_nodo (
+    id            BIGSERIAL PRIMARY KEY,
+    intento_id    TEXT        NOT NULL REFERENCES intentos(id) ON DELETE CASCADE,
+    -- Una corrida es un intento EJECUTADO. El mismo intento se ejecuta varias veces y cada
+    -- corrida tiene su propia historia de nodos: sin esto se mezclarían.
+    corrida       TEXT        NOT NULL,
+    nodo          TEXT        NOT NULL,
+    -- Distingue las repeticiones de un nodo en el abanico de `Send` (una por historia, grupo o
+    -- candidato). Cadena vacía = el nodo corre una sola vez.
+    instancia     TEXT        NOT NULL DEFAULT '',
+    estado        TEXT        NOT NULL,         -- en_curso | completado | fallido
+    entrada       JSONB,
+    salida        JSONB,
+    proveedor     TEXT        NOT NULL DEFAULT '',
+    modelo        TEXT        NOT NULL DEFAULT '',
+    prompt_id     TEXT        NOT NULL DEFAULT '',
+    ms            DOUBLE PRECISION,
+    iniciado_en   TIMESTAMPTZ NOT NULL,
+    terminado_en  TIMESTAMPTZ,
+    error         TEXT        NOT NULL DEFAULT ''
+);
+-- El índice es por (corrida, id): así se lee "dame lo nuevo desde el evento N" de una corrida sin
+-- recorrer la tabla, que es exactamente lo que hace la reconexión del canal de eventos.
+CREATE INDEX IF NOT EXISTS eventos_nodo_corrida_idx ON eventos_nodo (corrida, id);
+CREATE INDEX IF NOT EXISTS eventos_nodo_intento_idx ON eventos_nodo (intento_id, id DESC);
 """
 
 _pool: ConnectionPool | None = None
@@ -123,13 +153,18 @@ def _migrar_historias_a_lista(con: Connection) -> None:
 
 
 def consultar(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
+    """Varias filas. Vale también para un UPDATE ... RETURNING: la salida del `with` confirma."""
     with conexion() as con:
         return con.execute(sql, params).fetchall()
 
 
-def uno(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
+def uno(sql: str, params: tuple[Any, ...] = (), commit: bool = False) -> dict[str, Any] | None:
+    """Una fila. `commit=True` para un INSERT ... RETURNING, que escribe y devuelve a la vez."""
     with conexion() as con:
-        return con.execute(sql, params).fetchone()
+        fila = con.execute(sql, params).fetchone()
+        if commit:
+            con.commit()
+        return fila
 
 
 def ejecutar(sql: str, params: tuple[Any, ...] = ()) -> None:

@@ -3,7 +3,8 @@
  * página no debe acoplarse a la forma interna del mapeo.
  */
 
-export type EstadoIntento = 'guardado' | 'ejecutando' | 'completado' | 'fallido'
+// 'detenido' no es un fallo: es el corte que se pidió antes de ejecutar.
+export type EstadoIntento = 'guardado' | 'ejecutando' | 'completado' | 'fallido' | 'detenido'
 
 /**
  * Una Historia de Usuario del formulario. Es una LISTA, no un texto pegado: cada historia tiene
@@ -27,6 +28,8 @@ export interface OpcionesEjecucion {
   concurrencia: number | null
   sin_operaciones: boolean
   actualizar_cache_bian: boolean
+  /** Nodo del grafo TRAS el cual se corta la corrida entera. `null` = flujo completo. */
+  detener_en: string | null
 }
 
 export interface HistoriaDetectada {
@@ -66,6 +69,8 @@ export interface Intento {
   error: string
   tiene_resultado: boolean
   comparacion: ResumenComparacion | null
+  /** Identificador de la última ejecución: los pasos del grafo se guardan por corrida. */
+  corrida: string
 }
 
 export interface IntentoCrear {
@@ -95,6 +100,7 @@ export const OPCIONES_POR_DEFECTO: OpcionesEjecucion = {
   concurrencia: null,
   sin_operaciones: false,
   actualizar_cache_bian: false,
+  detener_en: null,
 }
 
 /** Un intento en curso es el único estado en el que la interfaz debe seguir preguntando. */

@@ -5,16 +5,19 @@ import { useGuardarIntento } from '@features/guardar-intento/useGuardarIntento'
 import { FormularioIntento } from '@widgets/formulario-intento/FormularioIntento'
 import { PanelComparacion } from '@widgets/panel-comparacion/PanelComparacion'
 import { PanelEjecucion } from '@widgets/panel-ejecucion/PanelEjecucion'
+import { PanelFlujo } from '@widgets/panel-flujo/PanelFlujo'
 import { PanelResultado } from '@widgets/panel-resultado/PanelResultado'
 import { Aviso, Boton, Insignia, Tarjeta } from '@shared/ui'
 import { LimiteDeError } from '@shared/ui/LimiteDeError'
 import { fecha, plural } from '@shared/lib/formato'
+import { usePoll } from '@shared/lib/usePoll'
 import './detalle.css'
 
-type Pestana = 'ejecucion' | 'resultado' | 'validacion' | 'editar'
+type Pestana = 'ejecucion' | 'flujo' | 'resultado' | 'validacion' | 'editar'
 
 const PESTANAS: Array<[Pestana, string]> = [
   ['ejecucion', 'Ejecución'],
+  ['flujo', 'Flujo'],
   ['resultado', 'Resultado'],
   ['validacion', 'Validación'],
   ['editar', 'Editar'],
@@ -45,6 +48,20 @@ export function DetalleIntentoPage() {
     void cargar(ac.signal)
     return () => ac.abort()
   }, [cargar])
+
+  // Mientras hay una corrida, el estado se refresca AQUÍ y no dentro de una pestaña: si el
+  // seguimiento viviera en la pestaña de ejecución, mirar el flujo mientras corre dejaría a la
+  // página sin enterarse de que terminó.
+  usePoll(
+    async () => {
+      const i = await apiIntentos.obtener(id)
+      setIntento((previo) =>
+        previo && i.estado === previo.estado && i.corrida === previo.corrida ? previo : i,
+      )
+    },
+    3000,
+    intento?.estado === 'ejecutando',
+  )
 
   const onGuardar = async (datos: IntentoCrear) => {
     const i = await guardar(datos, id)
@@ -117,6 +134,12 @@ export function DetalleIntentoPage() {
             </p>
           </Tarjeta>
         </>
+      )}
+
+      {pestana === 'flujo' && (
+        <LimiteDeError>
+          <PanelFlujo intento={intento} onCambio={setIntento} />
+        </LimiteDeError>
       )}
 
       {pestana === 'resultado' && (

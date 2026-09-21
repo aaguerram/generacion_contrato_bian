@@ -39,7 +39,7 @@ _COLUMNAS = (
     "id, nombre, creado_en, actualizado_en, estado, historias, funcionalidad_label, "
     "funcionalidad_detalle, opciones, historias_detectadas, nombre_validacion, "
     "(validacion IS NOT NULL) AS tiene_validacion, iniciado_en, terminado_en, segundos, error, "
-    "(resultado IS NOT NULL) AS tiene_resultado, comparacion"
+    "(resultado IS NOT NULL) AS tiene_resultado, comparacion, corrida"
 )
 
 
@@ -82,6 +82,7 @@ def _a_modelo(f: dict[str, Any]) -> Intento:
         error=f.get("error") or "",
         tiene_resultado=bool(f.get("tiene_resultado")),
         comparacion=ResumenComparacion(**comp) if comp else None,
+        corrida=f.get("corrida") or "",
     )
 
 
@@ -193,11 +194,17 @@ def borrar(id_: str) -> None:
     shutil.rmtree(workspace() / id_, ignore_errors=True)
 
 
-def marcar_ejecutando(id_: str) -> Intento:
+def marcar_ejecutando(id_: str, corrida: str) -> Intento:
+    """Abre una corrida nueva. Los pasos de la anterior NO se borran: son su historia.
+
+    Lo que sí se limpia es el resultado, el log y la comparación, que describen la corrida
+    anterior y confundirían con los de esta.
+    """
     db.ejecutar(
         """UPDATE intentos SET estado='ejecutando', iniciado_en=%s, terminado_en=NULL,
-               segundos=NULL, error='', resultado=NULL, comparacion=NULL, log='' WHERE id=%s""",
-        (ahora(), id_),
+               segundos=NULL, error='', resultado=NULL, comparacion=NULL, log='', corrida=%s
+           WHERE id=%s""",
+        (ahora(), corrida, id_),
     )
     return leer(id_)
 
@@ -261,3 +268,100 @@ def anexar_log(id_: str, texto: str) -> None:
 def log(id_: str) -> str:
     fila = db.uno("SELECT log FROM intentos WHERE id=%s", (id_,))
     return (fila or {}).get("log") or ""
+
+
+# ── eventos de nodo (el paso a paso de una corrida) ─────────────────────────
+def abrir_evento_nodo(
+    intento_id: str, corrida: str, nodo: str, instancia: str, entrada: Any
+) -> int:
+    """Registra que el grafo ENTRÓ en un nodo y devuelve el id de la fila, para cerrarla luego.
+
+    Se escribe al entrar y no al salir porque la interfaz tiene que poder pintar "este nodo está
+    trabajando". Un nodo LLM puede tardar un minuto, y hasta ahora ese minuto era indistinguible
+    de estar colgado.
+    """
+    fila = db.uno(
+        """INSERT INTO eventos_nodo (intento_id, corrida, nodo, instancia, estado, entrada,
+               iniciado_en)
+           VALUES (%s,%s,%s,%s,'en_curso',%s,%s) RETURNING id""",
+        (intento_id, corrida, nodo, instancia, Jsonb(entrada), ahora()),
+        commit=True,
+    )
+    return int(fila["id"])
+
+
+def cerrar_evento_nodo(
+    fila: int,
+    estado: str,
+    salida: Any,
+    ms: float,
+    error: str = "",
+    proveedor: str = "",
+    modelo: str = "",
+    prompt_id: str = "",
+) -> None:
+    db.ejecutar(
+        """UPDATE eventos_nodo SET estado=%s, salida=%s, ms=%s, error=%s, proveedor=%s,
+               modelo=%s, prompt_id=%s, terminado_en=%s WHERE id=%s""",
+        (estado, Jsonb(salida) if salida is not None else None, ms, error, proveedor,
+         modelo, prompt_id, ahora(), fila),
+    )
+
+
+def eventos_desde(corrida: str, desde: int = 0, limite: int = 500) -> list[dict[str, Any]]:
+    """Los pasos de una corrida con id mayor que `desde`, en orden.
+
+    Es la lectura que hace el canal de eventos, tanto en vivo como al reconectar: el cliente dice
+    por dónde iba y se le manda lo que falta. Por eso el estado vive en la base y no solo en
+    memoria — reconectar no puede costar la corrida.
+    """
+    return db.consultar(
+        """SELECT id, nodo, instancia, estado, proveedor, modelo, prompt_id, ms,
+                  iniciado_en, terminado_en, error
+             FROM eventos_nodo WHERE corrida=%s AND id > %s ORDER BY id LIMIT %s""",
+        (corrida, desde, limite),
+    )
+
+
+def evento_nodo(id_: int) -> dict[str, Any] | None:
+    """Un paso CON sus datos de entrada y salida. Es lo que abre el modal de un nodo."""
+    return db.uno(
+        """SELECT id, intento_id, corrida, nodo, instancia, estado, entrada, salida, proveedor,
+                  modelo, prompt_id, ms, iniciado_en, terminado_en, error
+             FROM eventos_nodo WHERE id=%s""",
+        (id_,),
+    )
+
+
+def eventos_de_corrida(corrida: str) -> list[dict[str, Any]]:
+    """Todos los pasos de una corrida con sus datos. Lo que se pinta al abrir un intento ya hecho."""
+    return db.consultar(
+        """SELECT id, nodo, instancia, estado, entrada, salida, proveedor, modelo, prompt_id, ms,
+                  iniciado_en, terminado_en, error
+             FROM eventos_nodo WHERE corrida=%s ORDER BY id""",
+        (corrida,),
+    )
+
+
+def marcar_detenido(id_: str, segundos: float, nodo: str) -> None:
+    """Una corrida cortada a petición NO es un fallo: se distingue en el estado."""
+    db.ejecutar(
+        """UPDATE intentos SET estado='detenido', terminado_en=%s, segundos=%s,
+               error=%s, actualizado_en=%s WHERE id=%s""",
+        (ahora(), segundos, f"detenida a petición después del nodo '{nodo}'", ahora(), id_),
+    )
+
+
+def cerrar_pasos_huerfanos(corrida: str, motivo: str) -> int:
+    """Cierra los pasos que se quedaron en `en_curso` cuando la corrida terminó.
+
+    Al detener o al fallar, los nodos que estaban a mitad nunca reciben su aviso de salida, así
+    que su fila se quedaría abierta para siempre y la interfaz los pintaría girando eternamente.
+    No son un fallo del nodo: son trabajo interrumpido, y se marcan como tal.
+    """
+    filas = db.consultar(
+        """UPDATE eventos_nodo SET estado='interrumpido', error=%s, terminado_en=%s
+            WHERE corrida=%s AND estado='en_curso' RETURNING id""",
+        (motivo, ahora(), corrida),
+    )
+    return len(filas)

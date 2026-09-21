@@ -79,11 +79,77 @@ es pedirle un timeout a alguien: al navegador, a nginx o al propio servidor. Por
 
 Cerrar la pestaña no cancela nada: el estado está en Postgres y la corrida sigue en el servidor.
 
+## Ver el flujo mientras corre
+
+La pestaña **Flujo** dibuja el grafo de LangGraph con React Flow. La red entera se ve desde el
+principio, apagada, y cada nodo se enciende cuando la corrida entra en él.
+
+- **La topología se lee del grafo real** (`GET /api/grafo`), no está escrita a mano: se compila el
+  caso de uso con `--proveedor fake` -- construir el grafo no llama a ningún modelo -- y se le
+  pregunta por sus nodos y aristas. Un diagrama mantenido aparte se desincroniza del código en
+  cuanto alguien añade un nodo, y un dibujo que miente sobre el flujo es peor que no tenerlo.
+- **Dos filas**: arriba el grafo principal, abajo el subgrafo que corre por cada historia.
+  `procesar_historia` invoca el subgrafo con `.invoke()`, así que esa arista no existe en ninguno
+  de los dos grafos y se declara aparte, o el dibujo serían dos islas. Encadenarlos en una sola
+  fila daba 19 capas y el conjunto quedaba a escala 0,16: ilegible.
+- **Un nodo del dibujo por TIPO de nodo, no por ejecución.** Con el abanico de `Send`,
+  `evaluar_candidato` corre una vez por candidato: son 28 ejecuciones en un lote de dos historias.
+  Se agrupan bajo un nodo con su contador, y el modal lista cada una.
+- **Pasar por encima de un nodo abre su detalle** con los datos de entrada y de salida en
+  pestañas, el modelo que respondió, el prompt y el tiempo. Se abre con un respiro de 350 ms:
+  sin él, cruzar el lienzo con el ratón encadenaría modales.
+- **Mientras corre, la cámara sigue al nodo activo** con zoom legible, y al terminar vuelve a la
+  vista completa.
+
+### Detener la corrida en un nodo
+
+En el detalle de cualquier nodo hay un botón para que la corrida se pare al terminarlo. La
+siguiente ejecución llega hasta ahí y no ejecuta nada de lo que viene después; el intento queda en
+estado `detenido`, que **no** es un fallo.
+
+El corte se pone en el modal y no con un doble clic en el lienzo por una razón concreta: mientras
+un `<dialog>` modal está abierto, el resto de la página queda inerte y el doble clic no llegaría
+nunca al nodo.
+
+No se usa `interrupt_after` de LangGraph, que sería lo idiomático, porque aquí no funcionaría:
+`procesar_historia` invoca el subgrafo con `.invoke()` directo, así que una interrupción dentro
+del subgrafo no pausaría el grafo exterior. En su lugar, el observador lanza una señal de parada
+después del nodo elegido y la corrida termina ahí. No hay mapeo publicado -- la corrida no llegó
+al final --, pero cada paso ya está guardado.
+
+### Por qué eventos del servidor y no un socket
+
+La comunicación es de **una sola dirección**: el servidor cuenta por dónde va y el cliente
+escucha. Un canal de eventos del servidor (`GET /api/intentos/{id}/eventos`) deja menos superficie
+expuesta que un socket bidireccional y trae reconexión automática de serie. El cliente manda
+`desde` con el último paso que vio y el servidor le rellena el hueco **desde la base**, así que
+perder la conexión no cuesta la corrida.
+
+nginx lleva `X-Accel-Buffering: no` en esa respuesta; sin eso bufferizaría los eventos hasta
+cerrar la conexión, que es justo lo contrario de lo que hace falta.
+
+### Qué se guarda de cada paso
+
+Una fila por paso en la tabla `eventos_nodo`: nodo, instancia del abanico, estado, datos de
+entrada, datos de salida, proveedor, modelo, identificador del prompt, duración y marcas de
+tiempo. Es la memoria de la corrida cuando el proceso ya no está: abrir un intento de ayer pinta
+su flujo igual que si se acabara de ejecutar.
+
+Los datos se **resumen** antes de guardarlos (`api/serializacion.py`). El estado que circula por
+el grafo lleva el catálogo entero de 341 Service Domains, y guardarlo en cada uno de los ~60 pasos
+de una corrida serían decenas de copias del mismo catálogo. Lo pesado se sustituye por un marcador
+que dice qué había y cuánto ocupaba, nunca desaparece en silencio.
+
+El estado `interrumpido` de un paso significa que ese nodo estaba a mitad cuando la corrida
+terminó. Ni terminó ni falló. Sin eso, un corte dejaba filas abiertas para siempre y la interfaz
+pintaba esos nodos girando sin fin.
+
 ## Dónde viven los datos
 
 | Qué                                   | Dónde                                   |
 |---------------------------------------|-----------------------------------------|
 | Intentos, resultados, log, validación | PostgreSQL, tabla `intentos` (JSONB)     |
+| Cada paso del grafo de una corrida    | PostgreSQL, tabla `eventos_nodo`         |
 | HU y `funcionalidad.json` de la corrida | volumen `datos-api` en `/datos/<id>/`  |
 | Cache BIAN que la corrida descargue   | `./docs/bian-cache` montado desde el repo |
 
