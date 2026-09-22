@@ -408,6 +408,39 @@ def marcar_detenido(id_: str, segundos: float, nodo: str) -> None:
     )
 
 
+# Lo que se le cuenta a quien vuelve y encuentra su corrida cortada. Dice qué pasó y qué hacer,
+# porque desde la pantalla es indistinguible de un fallo del mapeo.
+_ERROR_REINICIO = (
+    "la corrida se interrumpió porque el servidor se reinició; no hay resultado, vuelve a ejecutarla"
+)
+
+
+def reconciliar_corridas_interrumpidas() -> int:
+    """Cierra las corridas que un reinicio del servidor dejó colgadas. Devuelve cuántas eran.
+
+    Se llama AL ARRANCAR. El mapeo corre en hilos de ESTE proceso, así que un proceso recién
+    nacido no puede tener ninguna corrida viva: toda generación que la base diga `ejecutando` es
+    de un proceso que ya no existe. Sin esto se quedaba así para siempre, con la insignia girando,
+    los nodos a medias sin cerrar y el botón de ejecutar bloqueado por su propio fantasma.
+
+    Queda `fallido` y no `guardado` porque es la verdad de lo que pasó: hubo una corrida y no
+    terminó. Sus pasos siguen en la base y se pueden mirar; lo que no hay es resultado.
+
+    **Depende de que la API corra con UN solo worker** (`--workers 1` en su Dockerfile, que es
+    además de donde sale que el log viva en memoria). Con varios procesos, este arranque mataría
+    las corridas vivas de los otros.
+    """
+    filas = db.consultar(
+        """UPDATE generaciones SET estado='fallido', terminado_en=%s, error=%s, actualizado_en=%s
+            WHERE estado='ejecutando' RETURNING id, corrida""",
+        (ahora(), _ERROR_REINICIO, ahora()),
+    )
+    for f in filas:
+        if f["corrida"]:
+            cerrar_pasos_huerfanos(f["corrida"], "interrumpido: el servidor se reinició")
+    return len(filas)
+
+
 def cerrar_pasos_huerfanos(corrida: str, motivo: str) -> int:
     """Cierra los pasos que se quedaron en `en_curso` cuando la corrida terminó.
 

@@ -89,6 +89,16 @@ es pedirle un timeout a alguien: al navegador, a nginx o al propio servidor. Por
   El paralelismo real del pipeline lo da `concurrencia`, no el número de workers.
 
 Cerrar la pestaña no cancela nada: el estado está en Postgres y la corrida sigue en el servidor.
+Al volver, la página recupera de la base los pasos que ocurrieron mientras no estabas y sigue
+escuchando los nuevos.
+
+Lo que sí corta una corrida es **reiniciar el contenedor de la API**, porque el mapeo vive en un
+hilo de ese proceso. Antes la generación se quedaba marcada como `ejecutando` para siempre, con la
+insignia girando y el botón de ejecutar bloqueado por su propio fantasma. Ahora el arranque las
+reconcilia: un proceso recién nacido no puede tener corridas vivas, así que toda generación que la
+base diga `ejecutando` pasa a `fallido` con el motivo, y sus pasos a medias se cierran como
+`interrumpido`. Los pasos que sí terminaron se conservan. Esto vale porque la API corre con **un
+solo worker**; con varios procesos, arrancar uno mataría las corridas de los otros.
 
 ## Ver el flujo mientras corre
 

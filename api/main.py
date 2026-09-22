@@ -9,6 +9,7 @@ en un hilo y devuelve al instante; el cliente sigue el avance con `/estado`. Ver
 from __future__ import annotations
 
 import json
+import logging
 
 import asyncio
 
@@ -29,6 +30,8 @@ from api.modelos import (
     Proveedores,
 )
 
+logger = logging.getLogger("api.main")
+
 app = FastAPI(
     title="Generación de contratos BIAN — API",
     version="1.0.0",
@@ -39,13 +42,23 @@ app = FastAPI(
     ),
 )
 
-# El frontend de Vite sirve en 5173; en producción se sirve desde el mismo origen y esto sobra.
 @app.on_event("startup")
 def _crear_esquema() -> None:
-    """Crea las tablas al arrancar, esperando a que Postgres acepte conexiones (ver `db`)."""
+    """Prepara la base al arrancar: esquema primero (ver `db`), corridas colgadas después.
+
+    El orden importa: la reconciliación escribe sobre `generaciones`, que el esquema acaba de
+    crear o migrar.
+    """
     db.inicializar()
+    colgadas = almacen.reconciliar_corridas_interrumpidas()
+    if colgadas:
+        logger.warning(
+            "%d corrida(s) quedaron a medias en el reinicio anterior y se marcaron como fallidas",
+            colgadas,
+        )
 
 
+# El frontend de Vite sirve en 5173; en producción se sirve desde el mismo origen y esto sobra.
 app.add_middleware(
     CORSMiddleware,
     allow_origin_regex=r"http://(localhost|127\.0\.0\.1)(:\d+)?",
