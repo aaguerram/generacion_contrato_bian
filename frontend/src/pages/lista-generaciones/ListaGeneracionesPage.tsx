@@ -28,13 +28,13 @@ export function ListaGeneracionesPage() {
   }, [cargar])
 
   // Mientras haya una corrida viva, la lista se refresca sola: el estado cambia en el servidor.
-  const hayVivos = (generaciones ?? []).some((i) => i.estado === 'ejecutando')
+  const hayVivos = (generaciones ?? []).some((g) => g.estado === 'ejecutando')
   usePoll(() => cargar(), 4000, hayVivos)
 
-  const borrar = async (i: Generacion) => {
-    if (!window.confirm(`¿Borrar "${i.nombre}"? Se pierde su resultado y su registro.`)) return
+  const borrar = async (g: Generacion) => {
+    if (!window.confirm(`¿Borrar "${g.nombre}"? Se pierde su resultado y su registro.`)) return
     try {
-      await apiGeneraciones.borrar(i.id)
+      await apiGeneraciones.borrar(g.id)
       void cargar()
     } catch (e) {
       setError(e instanceof Error ? e.message : 'No se pudo borrar la generación')
@@ -70,21 +70,27 @@ export function ListaGeneracionesPage() {
       )}
 
       <div className="rejilla">
-        {generaciones?.map((i) => (
-          <article key={i.id} className="fila">
-            <Link to={`/generaciones/${i.id}`} className="fila__principal">
-              <h2 className="fila__nombre">{i.nombre}</h2>
-              <p className="fila__func">{i.funcionalidad.label || 'Sin funcionalidad'}</p>
+        {generaciones?.map((g) => (
+          // Una versión archivada se lee igual pero pesa menos: el ojo va a las vivas, que son
+          // las que se pueden ejecutar. Se atenúa la fila entera menos la etiqueta que explica
+          // por qué, porque una fila apagada sin motivo parece un error de carga.
+          <article key={g.id} className={`fila${g.relanzada_como ? ' fila--archivada' : ''}`}>
+            <Link to={`/generaciones/${g.id}`} className="fila__principal">
+              <h2 className="fila__nombre">
+                {g.nombre}
+                {g.relanzada_como && <span className="fila__etiqueta">archivada</span>}
+              </h2>
+              <p className="fila__func">{g.funcionalidad.label || 'Sin funcionalidad'}</p>
               <div className="fila__datos">
-                <span>{plural(i.historias_detectadas.length, 'historia', 'historias')}</span>
-                <span>{fecha(i.creado_en)}</span>
-                {i.segundos != null && <span>{duracion(i.segundos)}</span>}
-                {i.tiene_validacion && <span>con validación</span>}
+                <span>{plural(g.historias_detectadas.length, 'historia', 'historias')}</span>
+                <span>{fecha(g.creado_en)}</span>
+                {g.segundos != null && <span>{duracion(g.segundos)}</span>}
+                {g.tiene_validacion && <span>con validación</span>}
               </div>
             </Link>
             <div className="fila__lado">
-              <Insignia estado={i.estado} />
-              <Boton variante="peligro" pequeno onClick={() => void borrar(i)}>
+              <Insignia estado={g.estado} />
+              <Boton variante="peligro" pequeno onClick={() => void borrar(g)}>
                 Borrar
               </Boton>
             </div>

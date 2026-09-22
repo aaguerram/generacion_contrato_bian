@@ -201,7 +201,9 @@ silencio haría que la corrida nueva se comparase contra una referencia que quie
 eligió.
 
 Así, cada corrida deja su propia prueba de lo que pasó aquel día en vez de machacar la anterior, y
-la lista se lee como un historial: el nombre sin fecha es siempre la versión viva.
+la lista se lee como un historial: el nombre sin fecha es siempre la versión viva. Las archivadas se
+distinguen ahí mismo, con el fondo apagado, el borde discontinuo y una etiqueta; el ojo va a las
+vivas, que son las que se pueden ejecutar.
 
 La hora del sufijo la pone el servidor, así que el contenedor de la API fija su `TZ` en
 `docker-compose.yml`. Sin eso el nombre archivado diría una hora y la ficha de al lado otra, porque

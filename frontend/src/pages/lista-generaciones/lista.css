@@ -10,3 +10,31 @@
 .fila__func { margin: 0.1rem 0 0.4rem; font-size: 0.82rem; color: var(--marca); }
 .fila__datos { display: flex; gap: 0.9rem; flex-wrap: wrap; font-size: 0.74rem; color: var(--texto-suave); }
 .fila__lado { display: flex; align-items: center; gap: 0.6rem; margin-left: auto; }
+
+/* Una generación archivada ya cedió su nombre a una copia: se consulta, no se ejecuta. Se
+   distingue por el fondo y el borde discontinuo -- "esto está cerrado" -- y no bajando la opacidad
+   de la fila, que apagaría también su estado y dejaría el texto peor de leer. */
+.fila--archivada {
+  background: var(--fondo-alt);
+  border-style: dashed;
+  border-color: var(--borde-suave);
+  box-shadow: none;
+}
+.fila--archivada:hover { border-color: var(--texto-suave); }
+.fila--archivada .fila__nombre { color: var(--texto-suave); font-weight: 600; }
+.fila--archivada .fila__func { color: var(--texto-suave); }
+
+.fila__etiqueta {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.05rem 0.45rem;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  background: var(--fondo);
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--texto-suave);
+  vertical-align: middle;
+}
