@@ -6,7 +6,6 @@ export interface DatosNodo extends NodoGrafo {
   repeticiones: number
   ms: number
   esCorte: boolean
-  seleccionable: boolean
 }
 
 const ICONO: Record<EstadoVisual, string> = {
@@ -43,7 +42,6 @@ export function NodoFlujo({ data }: NodeProps) {
         `nf--${d.estadoVisual}`,
         d.llm ? 'nf--llm' : '',
         d.esCorte ? 'nf--corte' : '',
-        d.seleccionable ? 'nf--seleccionable' : '',
       ].join(' ')}
     >
       <Handle type="target" position={Position.Top} className="nf-handle" />

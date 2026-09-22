@@ -14,6 +14,8 @@
 
 .modal__caja {
   width: min(44rem, calc(100vw - 2rem));
+  /* Un `<dialog>` hereda `max-width: none` del `.modal`, pero la caja fija el suyo. */
+  max-width: calc(100vw - 2rem);
   max-height: calc(100vh - 3rem);
   margin: auto;
   display: flex;
@@ -33,19 +35,37 @@
   border-bottom: 1px solid var(--borde);
 }
 .modal__cab h2 { margin: 0; font-size: 1.05rem; }
+/* La X vive arriba a la derecha de la cabecera y se ve como un botón: es la salida evidente
+   del diálogo, no un adorno del título. */
 .modal__cerrar {
   margin-left: auto;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
   background: none;
-  border: 0;
-  font-size: 1.5rem;
+  border: 1px solid var(--borde);
+  border-radius: 50%;
+  font-size: 1.35rem;
   line-height: 1;
   cursor: pointer;
   color: var(--texto-suave);
-  padding: 0 0.25rem;
+  padding: 0;
 }
-.modal__cerrar:hover { color: var(--texto); }
+.modal__cerrar:hover { color: var(--texto); background: var(--fondo-alt); }
+.modal__cerrar:focus-visible { outline: 2px solid var(--marca); outline-offset: 2px; }
 
-.modal__cuerpo { padding: 1.1rem; overflow: auto; }
+.modal__cuerpo { padding: 1.1rem; overflow: auto; min-width: 0; }
+/* Un diálogo ancho Y alto para contenido que se lee en árbol o en tabla (el JSON de un nodo):
+   lo pide quien lo abre, el resto sigue en 44rem. Ocupa toda la altura y el cuerpo es una
+   columna flex para que un hijo con `flex: 1; min-height: 0` (el marco del visor) reciba
+   exactamente el alto que sobra: así SUS barras de scroll -- la horizontal sobre todo -- quedan
+   siempre a la vista, en vez de debajo de un cuerpo que también se desplaza. */
+.modal__caja--ancha { width: min(72rem, calc(100vw - 2rem)); height: calc(100vh - 3rem); }
+.modal__caja--ancha .modal__cuerpo { display: flex; flex-direction: column; }
+.modal__caja--ancha .modal__cuerpo > * { flex: 0 0 auto; }
 .modal__pie {
   display: flex;
   gap: 0.6rem;

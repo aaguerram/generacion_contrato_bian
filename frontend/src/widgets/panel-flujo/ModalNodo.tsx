@@ -2,14 +2,10 @@ import { useEffect, useState } from 'react'
 import { apiFlujo, type DetallePaso, type NodoGrafo, type PasoNodo } from '@entities/flujo'
 import { Aviso, Boton } from '@shared/ui'
 import { Modal } from '@shared/ui/Modal'
+import { VisorJson } from '@shared/ui/VisorJson'
 import { duracion } from '@shared/lib/formato'
 
 type Pestana = 'entrada' | 'salida'
-
-function Json({ valor }: { valor: unknown }) {
-  if (valor === null || valor === undefined) return <p className="pb-campo__ayuda">Sin datos.</p>
-  return <pre className="nf-json">{JSON.stringify(valor, null, 2)}</pre>
-}
 
 /**
  * Lo que hizo un nodo, en grande.
@@ -71,6 +67,7 @@ export function ModalNodo({
   return (
     <Modal
       abierto={abierto}
+      ancho
       titulo={nodo.etiqueta}
       onCerrar={onCerrar}
       pie={
@@ -161,7 +158,13 @@ export function ModalNodo({
           {cargando && !detalle ? (
             <p className="pb-campo__ayuda">Cargando el detalle…</p>
           ) : (
-            <Json valor={pestana === 'entrada' ? detalle?.entrada : detalle?.salida} />
+            // `key` por pestaña y paso: el árbol guarda qué nodos abrió el usuario, y ese estado es
+            // de ESTE dato; al cambiar de pestaña o de ejecución se empieza de cero.
+            <VisorJson
+              key={`${paso?.id}-${pestana}`}
+              valor={pestana === 'entrada' ? detalle?.entrada : detalle?.salida}
+              nombreRaiz={pestana}
+            />
           )}
         </>
       )}

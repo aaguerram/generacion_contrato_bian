@@ -1,0 +1,116 @@
+/* Colores de los tipos de dato del árbol JSON. Son tokens propios porque la paleta semántica de
+   la app no distingue "cadena" de "número"; el modo oscuro sigue el mismo mecanismo que
+   `global.css`. */
+:root {
+  --json-clave: var(--pb-verde-primario-80);
+  --json-cadena: #0b5e8a;
+  --json-numero: #8a3d00;
+  --json-booleano: #6b2fa0;
+  --json-nulo: var(--pb-gris-oscuro-70);
+}
+:root:not([data-theme='light']) {
+  @media (prefers-color-scheme: dark) {
+    --json-clave: var(--pb-verde-primario-30);
+    --json-cadena: #8fd0ff;
+    --json-numero: #ffb478;
+    --json-booleano: #d3a6ff;
+    --json-nulo: #a7bcb1;
+  }
+}
+:root[data-theme='dark'] {
+  --json-clave: var(--pb-verde-primario-30);
+  --json-cadena: #8fd0ff;
+  --json-numero: #ffb478;
+  --json-booleano: #d3a6ff;
+  --json-nulo: #a7bcb1;
+}
+
+.visor-json { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+/* Dentro de una columna flex (el cuerpo del modal ancho) el visor se queda con el alto que
+   sobra y el marco lo absorbe; el `max-height` del marco es solo el techo fuera de ese caso. */
+.modal__caja--ancha .modal__cuerpo > .visor-json { flex: 1 1 auto; min-height: 0; }
+.visor-json__marco { flex: 1 1 auto; min-height: 0; }
+
+.visor-json__barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+.visor-json__buscar {
+  flex: 1 1 12rem;
+  min-width: 10rem;
+  padding: 0.35rem 0.6rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--texto);
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+}
+.visor-json__buscar:focus-visible { outline: 2px solid var(--marca); outline-offset: 1px; }
+.visor-json__btn {
+  padding: 0.3rem 0.65rem;
+  font: inherit;
+  font-size: 0.76rem;
+  color: var(--texto-suave);
+  background: transparent;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+  cursor: pointer;
+}
+.visor-json__btn:hover { color: var(--texto); background: var(--fondo-alt); }
+.visor-json__btn:focus-visible { outline: 2px solid var(--marca); outline-offset: 1px; }
+.visor-json__check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.76rem;
+  color: var(--texto-suave);
+  cursor: pointer;
+  user-select: none;
+}
+.visor-json__tamano { margin-left: auto; font-size: 0.7rem; color: var(--texto-suave); font-family: var(--mono); }
+
+/* El marco es el que se desplaza, en los dos ejes: el árbol crece hacia abajo con cada nodo
+   que se abre y hacia la derecha con cada nivel de sangría y cada cadena larga. */
+.visor-json__marco {
+  overflow: auto;
+  background: var(--fondo-alt);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+  scrollbar-gutter: stable;
+}
+.visor-json__marco > .jer-editor-container {
+  /* `max-content`: el árbol pide el ancho que necesita y el marco lo desplaza, en vez de
+     apretarse al ancho del modal y partir cada valor en varios renglones. */
+  min-width: max-content;
+  width: auto;
+  box-sizing: border-box;
+  padding: 0.6rem 1rem 0.6rem 0.4rem;
+  border-radius: 0;
+}
+
+/* Una línea por valor: sin partir cadenas ni claves. El scroll horizontal es el que absorbe lo
+   que no cabe. La librería trae `pre-wrap` + `overflow-wrap: anywhere`, de ahí el `!important`
+   contra una regla inyectada con la misma especificidad. */
+.visor-json__marco .jer-value-string,
+.visor-json__marco .jer-key-text,
+.visor-json__marco .jer-collection-name {
+  white-space: pre !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+/* "Ajustar líneas": quien prefiere leer sin desplazarse. El árbol vuelve al ancho del marco. */
+.visor-json__marco--ajustar > .jer-editor-container { min-width: 0; width: 100%; }
+.visor-json__marco--ajustar .jer-value-string {
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Detalles de lectura: fila compacta, filas de colección con línea guía a la izquierda para
+   seguir la sangría con la vista. */
+.visor-json__marco .jer-collection-inner { border-left: 1px solid var(--borde-suave); }
+.visor-json__marco .jer-value-main-row { line-height: 1.45; }
+.visor-json__marco .jer-key-text { font-weight: 600; }
+.visor-json__marco .jer-collection-item-count { font-size: 0.9em; }

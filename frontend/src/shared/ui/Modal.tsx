@@ -14,12 +14,15 @@ export function Modal({
   onCerrar,
   children,
   pie,
+  ancho = false,
 }: {
   abierto: boolean
   titulo: string
   onCerrar: () => void
   children: ReactNode
   pie?: ReactNode
+  /** Caja ancha (72rem) para contenido que se lee en árbol o tabla. */
+  ancho?: boolean
 }) {
   const ref = useRef<HTMLDialogElement>(null)
 
@@ -51,7 +54,7 @@ export function Modal({
         if (e.target === ref.current) onCerrar()
       }}
     >
-      <div className="modal__caja">
+      <div className={`modal__caja${ancho ? ' modal__caja--ancha' : ''}`}>
         <header className="modal__cab">
           <h2>{titulo}</h2>
           <button className="modal__cerrar" onClick={onCerrar} aria-label="Cerrar">

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   Background,
   Controls,
@@ -8,7 +8,6 @@ import {
   useReactFlow,
   type Edge,
   type Node,
-  type NodeMouseHandler,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import {
@@ -28,7 +27,6 @@ import { NodoFlujo, type DatosNodo } from './NodoFlujo'
 import './flujo.css'
 
 const TIPOS = { bian: NodoFlujo }
-const RETARDO_HOVER = 350
 
 /**
  * La cámara del lienzo: encuadra al cargar y sigue al nodo que está corriendo.
@@ -81,7 +79,6 @@ export function PanelFlujo({
   const [grafo, setGrafo] = useState<Grafo | null>(null)
   const [error, setError] = useState('')
   const [abierto, setAbierto] = useState<NodoGrafo | null>(null)
-  const temporizador = useRef<ReturnType<typeof setTimeout> | null>(null)
   const vivo = estaVivo(intento)
   const { pasos, conectado } = useFlujoEnVivo(intento.id, intento.corrida, vivo)
   const { ejecutar, lanzando, error: errorEjecutar } = useEjecutarIntento()
@@ -112,11 +109,10 @@ export function PanelFlujo({
             repeticiones: r?.pasos.length ?? 0,
             ms: r?.ms ?? 0,
             esCorte: intento.opciones.detener_en === info.id,
-            seleccionable: !vivo && info.tipo === 'nodo',
           } satisfies DatosNodo as unknown as Record<string, unknown>,
         }
       }),
-    [base.nodos, resumen, intento.opciones.detener_en, vivo],
+    [base.nodos, resumen, intento.opciones.detener_en],
   )
 
   // Una arista se ilumina cuando su ORIGEN ya corrió: así el camino recorrido se ve de un vistazo.
@@ -157,16 +153,6 @@ export function PanelFlujo({
     },
     [grafo],
   )
-
-  // Se abre al pasar por encima, con un respiro: sin él, cruzar el lienzo con el ratón abriría
-  // un modal detrás de otro. Pulsar lo abre al instante.
-  const alEntrar: NodeMouseHandler = (_, n) => {
-    if (temporizador.current) clearTimeout(temporizador.current)
-    temporizador.current = setTimeout(() => abrir(n.id), RETARDO_HOVER)
-  }
-  const alSalir: NodeMouseHandler = () => {
-    if (temporizador.current) clearTimeout(temporizador.current)
-  }
 
   const marcarCorte = async (id: string) => {
     const info = grafo?.nodos.find((n) => n.id === id)
@@ -222,7 +208,7 @@ export function PanelFlujo({
 
       <p className="pb-campo__ayuda" style={{ marginTop: 0 }}>
         La red del flujo se ve entera desde el principio, apagada. Cada nodo se enciende cuando la
-        corrida entra en él. Pasa por encima de uno para ver sus datos de entrada y salida.{' '}
+        corrida entra en él. Pulsa en un nodo para ver sus datos de entrada y salida.{' '}
         {vivo ? (
           <strong>Hay una corrida en curso: el corte no se puede cambiar ahora.</strong>
         ) : (
@@ -250,8 +236,6 @@ export function PanelFlujo({
             nodes={nodos}
             edges={aristas}
             nodeTypes={TIPOS}
-            onNodeMouseEnter={alEntrar}
-            onNodeMouseLeave={alSalir}
             onNodeClick={(_, n) => abrir(n.id)}
             fitView
             // El zoom mínimo por defecto de React Flow es 0.5, y el flujo entero en horizontal
