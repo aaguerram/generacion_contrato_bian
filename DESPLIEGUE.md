@@ -193,8 +193,12 @@ El botón de ejecutar tiene dos caras y solo una está visible, en las pestañas
 "Volver a ejecutar" **no vuelve a correr encima del resultado anterior**. Le pega al nombre la fecha
 de su corrida (`e2e001` pasa a `e2e001-22-09-2026_07:56:21`), deja ese registro congelado con su
 resultado, su log y su comparación, y crea uno nuevo con el nombre limpio, las mismas historias, la
-misma funcionalidad, las mismas opciones y el mismo archivo de validación. La página se va a la
-copia, que es la que tiene el botón de ejecutar.
+misma funcionalidad y las mismas opciones. La página se va a la copia, que es la que tiene el botón
+de ejecutar.
+
+El archivo de validación **no** se hereda: se sube en cada versión, a propósito. Arrastrarlo en
+silencio haría que la corrida nueva se comparase contra una referencia que quien la lanzó no
+eligió.
 
 Así, cada corrida deja su propia prueba de lo que pasó aquel día en vez de machacar la anterior, y
 la lista se lee como un historial: el nombre sin fecha es siempre la versión viva.

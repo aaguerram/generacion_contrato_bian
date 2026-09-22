@@ -123,8 +123,8 @@ class TestRelanzar(unittest.TestCase):
             almacen.relanzar("abc123")
         self.assertEqual(self.creadas, [])
 
-    def test_el_archivo_de_validacion_viaja_a_la_copia(self) -> None:
-        """Define contra qué se compara, no es resultado: sin esto habría que volver a subirlo."""
+    def test_el_archivo_de_validacion_NO_viaja_a_la_copia(self) -> None:
+        """Se sube a propósito en cada versión: heredarlo compararía contra algo no elegido."""
         almacen.leer = lambda id_: _generacion(tiene_validacion=True, nombre_validacion="val.json")
         almacen.validacion = lambda id_: {"historias": []}
         copiadas: list[tuple[str, str, dict[str, Any]]] = []
@@ -132,9 +132,11 @@ class TestRelanzar(unittest.TestCase):
             copiadas.append((id_, nombre, contenido)) or _generacion(id="copia1")
         )
 
-        almacen.relanzar("abc123")
+        copia = almacen.relanzar("abc123")
 
-        self.assertEqual(copiadas, [("copia1", "val.json", {"historias": []})])
+        self.assertEqual(copiadas, [], "la copia nace sin archivo de validación")
+        self.assertFalse(copia.tiene_validacion)
+        self.assertEqual(copia.nombre_validacion, "")
 
 
 if __name__ == "__main__":

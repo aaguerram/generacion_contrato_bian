@@ -222,8 +222,9 @@ def relanzar(id_: str) -> Generacion:
     congelada con la fecha de su corrida pegada al nombre, y el nombre "limpio" pasa a una copia
     con las mismas historias, la misma funcionalidad y las mismas opciones, lista para ejecutar.
 
-    Se copia también el archivo de validación: es parte de CÓMO se define la generación (contra
-    qué se compara), no del resultado de la corrida, y sin él habría que volver a subirlo cada vez.
+    Lo que NO se copia es el archivo de validación: se sube a propósito en cada versión. Una
+    comparación arrastrada en silencio diría que la corrida nueva coincide con una referencia que
+    quien la lanzó no eligió.
 
     La copia se crea ANTES de tocar la vieja: si algo falla, no queda una generación renombrada
     apuntando a una copia que no existe. El archivado es una sola sentencia por lo mismo.
@@ -242,10 +243,6 @@ def relanzar(id_: str) -> Generacion:
             opciones=vieja.opciones,
         )
     )
-    contenido = validacion(id_)
-    if contenido is not None:
-        nueva = guardar_validacion(nueva.id, vieja.nombre_validacion, contenido)
-
     db.ejecutar(
         "UPDATE generaciones SET nombre=%s, relanzada_como=%s, actualizado_en=%s WHERE id=%s",
         (nombre_archivado(vieja.nombre, vieja.iniciado_en or ahora()), nueva.id, ahora(), id_),
