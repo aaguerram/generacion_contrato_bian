@@ -63,7 +63,15 @@
    columna flex para que un hijo con `flex: 1; min-height: 0` (el marco del visor) reciba
    exactamente el alto que sobra: así SUS barras de scroll -- la horizontal sobre todo -- quedan
    siempre a la vista, en vez de debajo de un cuerpo que también se desplaza. */
-.modal__caja--ancha { width: min(72rem, calc(100vw - 2rem)); height: calc(100vh - 3rem); }
+/* Casi toda la pantalla, con el margen creciendo con ella: a 72rem sobraban 248 px sin usar
+   mientras el árbol del JSON pedía 456 más de los que tenía. El margen va con `clamp` y no fijo
+   en 3rem porque en un móvil esos 3rem dejaban el diálogo ANCHO más estrecho que el normal, que
+   se queda a 1rem del borde. A partir de 100rem crece el margen en vez del diálogo, que ya es
+   más ancho de lo que se lee cómodo. */
+.modal__caja--ancha {
+  width: min(100rem, calc(100vw - clamp(1rem, 3vw, 3rem)));
+  height: calc(100vh - 3rem);
+}
 /* `flex: 1` en el CUERPO, que es lo que hacía falta: la caja ya ocupaba toda la altura, pero el
    cuerpo medía solo su contenido, así que dentro no había espacio sobrante que repartir y un hijo
    que quisiera estirarse no tenía de dónde. Medido: caja 852 px, cuerpo 483, visor 270, y 250 px
