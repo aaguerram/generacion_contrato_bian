@@ -4,7 +4,7 @@
  */
 
 // 'detenido' no es un fallo: es el corte que se pidió antes de ejecutar.
-export type EstadoIntento = 'guardado' | 'ejecutando' | 'completado' | 'fallido' | 'detenido'
+export type EstadoGeneracion = 'guardado' | 'ejecutando' | 'completado' | 'fallido' | 'detenido'
 
 /**
  * Una Historia de Usuario del formulario. Es una LISTA, no un texto pegado: cada historia tiene
@@ -51,12 +51,12 @@ export interface ResumenComparacion {
   detalle: string
 }
 
-export interface Intento {
+export interface Generacion {
   id: string
   nombre: string
   creado_en: string
   actualizado_en: string
-  estado: EstadoIntento
+  estado: EstadoGeneracion
   historias: HistoriaEntrada[]
   funcionalidad: Funcionalidad
   opciones: OpcionesEjecucion
@@ -73,7 +73,7 @@ export interface Intento {
   corrida: string
 }
 
-export interface IntentoCrear {
+export interface GeneracionCrear {
   nombre: string
   historias: HistoriaEntrada[]
   funcionalidad: Funcionalidad
@@ -82,7 +82,7 @@ export interface IntentoCrear {
 
 export interface EstadoEjecucion {
   id: string
-  estado: EstadoIntento
+  estado: EstadoGeneracion
   segundos: number | null
   error: string
   lineas_log: string[]
@@ -103,5 +103,5 @@ export const OPCIONES_POR_DEFECTO: OpcionesEjecucion = {
   detener_en: null,
 }
 
-/** Un intento en curso es el único estado en el que la interfaz debe seguir preguntando. */
-export const estaVivo = (i: Pick<Intento, 'estado'>): boolean => i.estado === 'ejecutando'
+/** Una generación en curso es el único estado en el que la interfaz debe seguir preguntando. */
+export const estaVivo = (g: Pick<Generacion, 'estado'>): boolean => g.estado === 'ejecutando'

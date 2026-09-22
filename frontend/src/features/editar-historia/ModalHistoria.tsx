@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { HistoriaEntrada } from '@entities/intento'
+import type { HistoriaEntrada } from '@entities/generacion'
 import { AreaTexto, Boton, Campo, Entrada } from '@shared/ui'
 import { Modal } from '@shared/ui/Modal'
 
@@ -57,7 +57,7 @@ export function ModalHistoria({
             Cancelar
           </Boton>
           <span className="pb-campo__ayuda" style={{ marginLeft: 'auto' }}>
-            Esto solo edita la lista. El intento se guarda con su propio botón.
+            Esto solo edita la lista. La generación se guarda con su propio botón.
           </span>
         </>
       }

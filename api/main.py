@@ -2,7 +2,7 @@
 
     .venv/bin/uvicorn api.main:app --reload --port 8000
 
-No impone NINGÚN límite de tiempo al mapeo: `POST /api/intentos/{id}/ejecutar` arranca la corrida
+No impone NINGÚN límite de tiempo al mapeo: `POST /api/generaciones/{id}/ejecutar` arranca la corrida
 en un hilo y devuelve al instante; el cliente sigue el avance con `/estado`. Ver `api/ejecutor.py`.
 """
 
@@ -22,9 +22,9 @@ from api.modelos import (
     DetallePaso,
     EstadoEjecucion,
     Grafo,
-    Intento,
-    IntentoCrear,
-    ListaIntentos,
+    Generacion,
+    GeneracionCrear,
+    ListaGeneraciones,
     PasoNodo,
     Proveedores,
 )
@@ -34,7 +34,7 @@ app = FastAPI(
     version="1.0.0",
     description=(
         "Capa de entrada HTTP del pipeline de mapeo de Historias de Usuario a BIAN Service "
-        "Domains. Guarda intentos, los ejecuta sin límite de tiempo y los compara contra un "
+        "Domains. Guarda generaciones, las ejecuta sin límite de tiempo y las compara contra un "
         "archivo de validación."
     ),
 )
@@ -55,11 +55,11 @@ app.add_middleware(
 )
 
 
-def _leer(id_: str) -> Intento:
+def _leer(id_: str) -> Generacion:
     try:
         return almacen.leer(id_)
     except KeyError:
-        raise HTTPException(status_code=404, detail=f"No existe el intento '{id_}'") from None
+        raise HTTPException(status_code=404, detail=f"No existe la generación '{id_}'") from None
 
 
 @app.get("/api/salud")
@@ -80,43 +80,43 @@ def proveedores() -> Proveedores:
     return Proveedores(disponibles=sorted(estrategias_disponibles()), cadena_por_defecto=cadena)
 
 
-# ── Intentos ────────────────────────────────────────────────────────────────
-@app.get("/api/intentos", response_model=ListaIntentos)
-def listar_intentos() -> ListaIntentos:
-    intentos = almacen.listar()
-    return ListaIntentos(total=len(intentos), intentos=intentos)
+# ── Generaciones ────────────────────────────────────────────────────────────────
+@app.get("/api/generaciones", response_model=ListaGeneraciones)
+def listar_generaciones() -> ListaGeneraciones:
+    generaciones = almacen.listar()
+    return ListaGeneraciones(total=len(generaciones), generaciones=generaciones)
 
 
-@app.post("/api/intentos", response_model=Intento, status_code=201)
-def crear_intento(datos: IntentoCrear) -> Intento:
-    """Guarda el intento. **No ejecuta nada**: deja el formulario listo para pulsar Ejecutar."""
+@app.post("/api/generaciones", response_model=Generacion, status_code=201)
+def crear_generacion(datos: GeneracionCrear) -> Generacion:
+    """Guarda la generación. **No ejecuta nada**: deja el formulario listo para pulsar Ejecutar."""
     return almacen.guardar_nuevo(datos)
 
 
-@app.get("/api/intentos/{id_}", response_model=Intento)
-def obtener_intento(id_: str) -> Intento:
+@app.get("/api/generaciones/{id_}", response_model=Generacion)
+def obtener_generacion(id_: str) -> Generacion:
     return _leer(id_)
 
 
-@app.put("/api/intentos/{id_}", response_model=Intento)
-def actualizar_intento(id_: str, datos: IntentoCrear) -> Intento:
+@app.put("/api/generaciones/{id_}", response_model=Generacion)
+def actualizar_generacion(id_: str, datos: GeneracionCrear) -> Generacion:
     _leer(id_)
     if ejecutor.esta_ejecutando(id_):
-        raise HTTPException(status_code=409, detail="El intento se está ejecutando ahora mismo.")
+        raise HTTPException(status_code=409, detail="La generación se está ejecutando ahora mismo.")
     return almacen.actualizar(id_, datos)
 
 
-@app.delete("/api/intentos/{id_}", status_code=204)
-def borrar_intento(id_: str) -> None:
+@app.delete("/api/generaciones/{id_}", status_code=204)
+def borrar_generacion(id_: str) -> None:
     _leer(id_)
     if ejecutor.esta_ejecutando(id_):
-        raise HTTPException(status_code=409, detail="El intento se está ejecutando ahora mismo.")
+        raise HTTPException(status_code=409, detail="La generación se está ejecutando ahora mismo.")
     almacen.borrar(id_)
 
 
 # ── Validación ──────────────────────────────────────────────────────────────
-@app.post("/api/intentos/{id_}/validacion", response_model=Intento)
-async def subir_validacion(id_: str, archivo: UploadFile = File(...)) -> Intento:
+@app.post("/api/generaciones/{id_}/validacion", response_model=Generacion)
+async def subir_validacion(id_: str, archivo: UploadFile = File(...)) -> Generacion:
     """Archivo con el resultado esperado, para comparar con lo que produzca la ejecución."""
     _leer(id_)
     crudo = await archivo.read()
@@ -131,53 +131,53 @@ async def subir_validacion(id_: str, archivo: UploadFile = File(...)) -> Intento
     return almacen.guardar_validacion(id_, archivo.filename or "validacion.json", contenido)
 
 
-@app.delete("/api/intentos/{id_}/validacion", response_model=Intento)
-def quitar_validacion(id_: str) -> Intento:
+@app.delete("/api/generaciones/{id_}/validacion", response_model=Generacion)
+def quitar_validacion(id_: str) -> Generacion:
     _leer(id_)
     return almacen.quitar_validacion(id_)
 
 
 # ── Ejecución ───────────────────────────────────────────────────────────────
-@app.post("/api/intentos/{id_}/ejecutar", response_model=Intento, status_code=202)
-def ejecutar(id_: str) -> Intento:
+@app.post("/api/generaciones/{id_}/ejecutar", response_model=Generacion, status_code=202)
+def ejecutar(id_: str) -> Generacion:
     """Arranca el mapeo y **devuelve de inmediato** (202). La corrida no tiene límite de tiempo."""
-    intento = _leer(id_)
-    if not intento.historias_detectadas:
-        raise HTTPException(status_code=400, detail="El intento no tiene ninguna Historia de Usuario.")
+    generacion = _leer(id_)
+    if not generacion.historias_detectadas:
+        raise HTTPException(status_code=400, detail="La generación no tiene ninguna Historia de Usuario.")
     if ejecutor.esta_ejecutando(id_):
         raise HTTPException(status_code=409, detail="Ya se está ejecutando.")
     return ejecutor.lanzar(id_)
 
 
-@app.get("/api/intentos/{id_}/estado", response_model=EstadoEjecucion)
+@app.get("/api/generaciones/{id_}/estado", response_model=EstadoEjecucion)
 def estado(id_: str, desde: int = Query(default=0, ge=0)) -> EstadoEjecucion:
     """Avance de la corrida. `desde` evita reenviar las líneas de log ya vistas."""
-    intento = _leer(id_)
+    generacion = _leer(id_)
     return EstadoEjecucion(
         id=id_,
-        estado=intento.estado,
-        segundos=intento.segundos,
-        error=intento.error,
+        estado=generacion.estado,
+        segundos=generacion.segundos,
+        error=generacion.error,
         lineas_log=ejecutor.lineas_log(id_, desde),
     )
 
 
-@app.get("/api/intentos/{id_}/resultado")
+@app.get("/api/generaciones/{id_}/resultado")
 def resultado(id_: str) -> JSONResponse:
     """El `mapeo-historias-service-domains.json` completo de la última corrida."""
     _leer(id_)
     datos = almacen.resultado(id_)
     if datos is None:
-        raise HTTPException(status_code=404, detail="Este intento todavía no tiene resultado.")
+        raise HTTPException(status_code=404, detail="Esta generación todavía no tiene resultado.")
     return JSONResponse(datos)
 
 
-@app.get("/api/intentos/{id_}/validacion")
+@app.get("/api/generaciones/{id_}/validacion")
 def obtener_validacion(id_: str) -> JSONResponse:
     _leer(id_)
     datos = almacen.validacion(id_)
     if datos is None:
-        raise HTTPException(status_code=404, detail="Este intento no tiene archivo de validación.")
+        raise HTTPException(status_code=404, detail="Esta generación no tiene archivo de validación.")
     return JSONResponse(datos)
 
 
@@ -188,7 +188,7 @@ def grafo() -> Grafo:
     return grafo_mod.topologia()
 
 
-@app.get("/api/intentos/{id_}/pasos", response_model=list[PasoNodo])
+@app.get("/api/generaciones/{id_}/pasos", response_model=list[PasoNodo])
 def pasos(id_: str) -> list[PasoNodo]:
     """Los pasos ya registrados de la última corrida, SIN sus datos.
 
@@ -196,10 +196,10 @@ def pasos(id_: str) -> list[PasoNodo]:
     encendieron, y mandar la entrada y la salida de todos pesaría megabytes para dibujar colores.
     El detalle se pide por paso, cuando alguien abre uno.
     """
-    intento = _leer(id_)
-    if not intento.corrida:
+    generacion = _leer(id_)
+    if not generacion.corrida:
         return []
-    return [PasoNodo(**f) for f in almacen.eventos_desde(intento.corrida, 0, limite=5000)]
+    return [PasoNodo(**f) for f in almacen.eventos_desde(generacion.corrida, 0, limite=5000)]
 
 
 @app.get("/api/pasos/{paso_id}", response_model=DetallePaso)
@@ -208,7 +208,7 @@ def paso(paso_id: int) -> DetallePaso:
     fila = almacen.evento_nodo(paso_id)
     if fila is None:
         raise HTTPException(status_code=404, detail=f"No existe el paso {paso_id}")
-    fila.pop("intento_id", None)
+    fila.pop("generacion_id", None)
     fila.pop("corrida", None)
     return DetallePaso(**fila)
 
@@ -225,7 +225,7 @@ def _sse(evento: str, datos: str, id_: int | None = None) -> str:
     return "\n".join(trozos) + "\n\n"
 
 
-@app.get("/api/intentos/{id_}/eventos")
+@app.get("/api/generaciones/{id_}/eventos")
 async def eventos(id_: str, desde: int = Query(default=0, ge=0)) -> StreamingResponse:
     """Canal de eventos del servidor con el avance del grafo, un mensaje por paso.
 
@@ -234,8 +234,8 @@ async def eventos(id_: str, desde: int = Query(default=0, ge=0)) -> StreamingRes
     serie. `desde` es el último paso que el cliente ya vio; al reconectar se le manda lo que
     falta desde la base, no desde memoria, así que perder la conexión no cuesta la corrida.
     """
-    intento = _leer(id_)
-    corrida = intento.corrida
+    generacion = _leer(id_)
+    corrida = generacion.corrida
 
     async def flujo():
         import json as _json
@@ -254,7 +254,7 @@ async def eventos(id_: str, desde: int = Query(default=0, ge=0)) -> StreamingRes
 
             actual = await run_in_threadpool(almacen.leer, id_)
             if actual.corrida != corrida:
-                # Alguien relanzó el intento: esta corrida ya no es la vigente y el cliente debe
+                # Alguien relanzó la generación: esta corrida ya no es la vigente y el cliente debe
                 # reconectar contra la nueva en vez de seguir escuchando una muerta.
                 yield _sse("fin", _json.dumps({"motivo": "corrida reemplazada"}))
                 return

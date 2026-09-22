@@ -20,8 +20,8 @@ logger = logging.getLogger("api.observador")
 class ObservadorPostgres:
     """Un observador por CORRIDA. Escribe una fila por paso y sabe dónde hay que parar."""
 
-    def __init__(self, intento_id: str, corrida: str, detener_en: str | None = None) -> None:
-        self.intento_id = intento_id
+    def __init__(self, generacion_id: str, corrida: str, detener_en: str | None = None) -> None:
+        self.generacion_id = generacion_id
         self.corrida = corrida
         self.detener_en = (detener_en or "").strip() or None
         self.detenido = False
@@ -32,7 +32,7 @@ class ObservadorPostgres:
     def nodo_inicia(self, nodo: str, instancia: str, entrada: Mapping[str, Any]) -> None:
         try:
             fila = almacen.abrir_evento_nodo(
-                self.intento_id, self.corrida, nodo, instancia, resumir(dict(entrada))
+                self.generacion_id, self.corrida, nodo, instancia, resumir(dict(entrada))
             )
             self._abiertos[(nodo, instancia)] = fila
         except Exception:

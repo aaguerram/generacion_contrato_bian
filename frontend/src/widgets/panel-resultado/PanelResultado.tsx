@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { apiIntentos, type Intento } from '@entities/intento'
+import { apiGeneraciones, type Generacion } from '@entities/generacion'
 import {
   GRUPOS,
   METRICAS_CLAVE,
@@ -134,30 +134,30 @@ function FichaSd({ sd }: { sd: ServiceDomainAsignado }) {
   )
 }
 
-export function PanelResultado({ intento }: { intento: Intento }) {
+export function PanelResultado({ generacion }: { generacion: Generacion }) {
   const [datos, setDatos] = useState<ResultadoMapeo | null>(null)
   const [error, setError] = useState('')
   const [cargando, setCargando] = useState(false)
 
   useEffect(() => {
-    if (!intento.tiene_resultado) {
+    if (!generacion.tiene_resultado) {
       setDatos(null)
       return
     }
     const ac = new AbortController()
     setCargando(true)
-    apiIntentos
-      .resultado(intento.id, ac.signal)
+    apiGeneraciones
+      .resultado(generacion.id, ac.signal)
       .then((d) => setDatos(d as ResultadoMapeo))
       .catch((e) => setError(e instanceof Error ? e.message : 'No se pudo leer el resultado'))
       .finally(() => setCargando(false))
     return () => ac.abort()
-  }, [intento.id, intento.tiene_resultado, intento.terminado_en])
+  }, [generacion.id, generacion.tiene_resultado, generacion.terminado_en])
 
-  if (!intento.tiene_resultado) {
+  if (!generacion.tiene_resultado) {
     return (
       <Tarjeta titulo="Resultado">
-        <Vacio>Todavía no hay resultado. Ejecuta el intento para generarlo.</Vacio>
+        <Vacio>Todavía no hay resultado. Ejecuta la generación para generarlo.</Vacio>
       </Tarjeta>
     )
   }
@@ -172,7 +172,7 @@ export function PanelResultado({ intento }: { intento: Intento }) {
         <Boton
           variante="secundario"
           pequeno
-          onClick={() => window.open(`/api/intentos/${intento.id}/resultado`, '_blank')}
+          onClick={() => window.open(`/api/generaciones/${generacion.id}/resultado`, '_blank')}
         >
           Ver JSON completo
         </Boton>

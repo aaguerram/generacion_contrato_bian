@@ -1,8 +1,8 @@
-"""Intentos en PostgreSQL + el workspace en disco que el pipeline necesita.
+"""Generaciones en PostgreSQL + el workspace en disco que el pipeline necesita.
 
 Dos almacenamientos, cada uno con su razón:
 
-  - **Postgres** guarda el intento entero (formulario, estado, resultado, comparación, log). Es
+  - **Postgres** guarda la generación entera (formulario, estado, resultado, comparación, log). Es
     estado compartido entre el servidor web y el hilo que ejecuta el mapeo, y tiene que sobrevivir
     a reinicios del contenedor.
   - **Un workspace en disco** (`API_WORKSPACE`, un volumen) materializa lo único que el caso de
@@ -29,8 +29,8 @@ from api.modelos import (
     Funcionalidad,
     HistoriaDetectada,
     HistoriaEntrada,
-    Intento,
-    IntentoCrear,
+    Generacion,
+    GeneracionCrear,
     OpcionesEjecucion,
     ResumenComparacion,
 )
@@ -53,16 +53,16 @@ def workspace() -> Path:
     return p
 
 
-def dir_intento(id_: str) -> Path:
+def dir_generacion(id_: str) -> Path:
     d = workspace() / id_
     d.mkdir(parents=True, exist_ok=True)
     return d
 
 
 # ── mapeo fila <-> modelo ───────────────────────────────────────────────────
-def _a_modelo(f: dict[str, Any]) -> Intento:
+def _a_modelo(f: dict[str, Any]) -> Generacion:
     comp = f.get("comparacion")
-    return Intento(
+    return Generacion(
         id=f["id"],
         nombre=f["nombre"],
         creado_en=f["creado_en"],
@@ -87,15 +87,15 @@ def _a_modelo(f: dict[str, Any]) -> Intento:
 
 
 # ── escritura del workspace ─────────────────────────────────────────────────
-def materializar(intento: Intento) -> list[HistoriaDetectada]:
+def materializar(generacion: Generacion) -> list[HistoriaDetectada]:
     """Deja en disco lo que el CLI espera como rutas. Se regenera entero en cada llamada."""
-    d = dir_intento(intento.id)
+    d = dir_generacion(generacion.id)
     hu = d / "hu"
     if hu.exists():
         shutil.rmtree(hu)  # re-guardar reemplaza las historias, nunca las acumula
     hu.mkdir(parents=True, exist_ok=True)
     detectadas: list[HistoriaDetectada] = []
-    pares = [(h.titulo, h.detalle) for h in intento.historias]
+    pares = [(h.titulo, h.detalle) for h in generacion.historias]
     for archivo, titulo, contenido in archivos_de_historias(pares):
         (hu / archivo).write_text(contenido, encoding="utf-8")
         detectadas.append(
@@ -104,8 +104,8 @@ def materializar(intento: Intento) -> list[HistoriaDetectada]:
     (d / "funcionalidad.json").write_text(
         json.dumps(
             {
-                "funcionalidad_macro": intento.funcionalidad.label,
-                "detalle": intento.funcionalidad.detalle,
+                "funcionalidad_macro": generacion.funcionalidad.label,
+                "detalle": generacion.funcionalidad.detalle,
             },
             ensure_ascii=False,
             indent=2,
@@ -117,11 +117,11 @@ def materializar(intento: Intento) -> list[HistoriaDetectada]:
 
 
 # ── operaciones ─────────────────────────────────────────────────────────────
-def guardar_nuevo(datos: IntentoCrear) -> Intento:
-    """Crea el intento. **Guardar no ejecuta nada.**"""
+def guardar_nuevo(datos: GeneracionCrear) -> Generacion:
+    """Crea la generación. **Guardar no ejecuta nada.**"""
     id_ = uuid.uuid4().hex[:12]
     t = ahora()
-    borrador = Intento(
+    borrador = Generacion(
         id=id_,
         nombre=datos.nombre or datos.funcionalidad.label,
         creado_en=t,
@@ -133,7 +133,7 @@ def guardar_nuevo(datos: IntentoCrear) -> Intento:
     )
     detectadas = materializar(borrador)
     db.ejecutar(
-        """INSERT INTO intentos (id, nombre, creado_en, actualizado_en, estado, historias,
+        """INSERT INTO generaciones (id, nombre, creado_en, actualizado_en, estado, historias,
                funcionalidad_label, funcionalidad_detalle, opciones, historias_detectadas)
            VALUES (%s,%s,%s,%s,'guardado',%s,%s,%s,%s,%s)""",
         (
@@ -151,14 +151,14 @@ def guardar_nuevo(datos: IntentoCrear) -> Intento:
     return leer(id_)
 
 
-def actualizar(id_: str, datos: IntentoCrear) -> Intento:
+def actualizar(id_: str, datos: GeneracionCrear) -> Generacion:
     """Reemplaza el formulario y vuelve a materializar el workspace."""
     actual = leer(id_)
     actual.historias = datos.historias
     actual.funcionalidad = datos.funcionalidad
     detectadas = materializar(actual)
     db.ejecutar(
-        """UPDATE intentos SET nombre=%s, historias=%s, funcionalidad_label=%s,
+        """UPDATE generaciones SET nombre=%s, historias=%s, funcionalidad_label=%s,
                funcionalidad_detalle=%s, opciones=%s, historias_detectadas=%s, actualizado_en=%s
            WHERE id=%s""",
         (
@@ -175,33 +175,33 @@ def actualizar(id_: str, datos: IntentoCrear) -> Intento:
     return leer(id_)
 
 
-def leer(id_: str) -> Intento:
-    fila = db.uno(f"SELECT {_COLUMNAS} FROM intentos WHERE id=%s", (id_,))
+def leer(id_: str) -> Generacion:
+    fila = db.uno(f"SELECT {_COLUMNAS} FROM generaciones WHERE id=%s", (id_,))
     if fila is None:
         raise KeyError(id_)
     return _a_modelo(fila)
 
 
-def listar() -> list[Intento]:
+def listar() -> list[Generacion]:
     return [
         _a_modelo(f)
-        for f in db.consultar(f"SELECT {_COLUMNAS} FROM intentos ORDER BY creado_en DESC")
+        for f in db.consultar(f"SELECT {_COLUMNAS} FROM generaciones ORDER BY creado_en DESC")
     ]
 
 
 def borrar(id_: str) -> None:
-    db.ejecutar("DELETE FROM intentos WHERE id=%s", (id_,))
+    db.ejecutar("DELETE FROM generaciones WHERE id=%s", (id_,))
     shutil.rmtree(workspace() / id_, ignore_errors=True)
 
 
-def marcar_ejecutando(id_: str, corrida: str) -> Intento:
+def marcar_ejecutando(id_: str, corrida: str) -> Generacion:
     """Abre una corrida nueva. Los pasos de la anterior NO se borran: son su historia.
 
     Lo que sí se limpia es el resultado, el log y la comparación, que describen la corrida
     anterior y confundirían con los de esta.
     """
     db.ejecutar(
-        """UPDATE intentos SET estado='ejecutando', iniciado_en=%s, terminado_en=NULL,
+        """UPDATE generaciones SET estado='ejecutando', iniciado_en=%s, terminado_en=NULL,
                segundos=NULL, error='', resultado=NULL, comparacion=NULL, log='', corrida=%s
            WHERE id=%s""",
         (ahora(), corrida, id_),
@@ -213,7 +213,7 @@ def marcar_completado(
     id_: str, segundos: float, resultado: dict[str, Any] | None, comparacion: dict[str, Any] | None
 ) -> None:
     db.ejecutar(
-        """UPDATE intentos SET estado='completado', terminado_en=%s, segundos=%s, error='',
+        """UPDATE generaciones SET estado='completado', terminado_en=%s, segundos=%s, error='',
                resultado=%s, comparacion=%s, actualizado_en=%s WHERE id=%s""",
         (
             ahora(),
@@ -228,51 +228,51 @@ def marcar_completado(
 
 def marcar_fallido(id_: str, segundos: float, error: str) -> None:
     db.ejecutar(
-        """UPDATE intentos SET estado='fallido', terminado_en=%s, segundos=%s, error=%s,
+        """UPDATE generaciones SET estado='fallido', terminado_en=%s, segundos=%s, error=%s,
                actualizado_en=%s WHERE id=%s""",
         (ahora(), round(segundos, 1), error[:4000], ahora(), id_),
     )
 
 
-def guardar_validacion(id_: str, nombre: str, contenido: dict[str, Any]) -> Intento:
+def guardar_validacion(id_: str, nombre: str, contenido: dict[str, Any]) -> Generacion:
     db.ejecutar(
-        "UPDATE intentos SET validacion=%s, nombre_validacion=%s, actualizado_en=%s WHERE id=%s",
+        "UPDATE generaciones SET validacion=%s, nombre_validacion=%s, actualizado_en=%s WHERE id=%s",
         (Jsonb(contenido), nombre, ahora(), id_),
     )
     return leer(id_)
 
 
-def quitar_validacion(id_: str) -> Intento:
+def quitar_validacion(id_: str) -> Generacion:
     db.ejecutar(
-        "UPDATE intentos SET validacion=NULL, nombre_validacion='', actualizado_en=%s WHERE id=%s",
+        "UPDATE generaciones SET validacion=NULL, nombre_validacion='', actualizado_en=%s WHERE id=%s",
         (ahora(), id_),
     )
     return leer(id_)
 
 
 def validacion(id_: str) -> dict[str, Any] | None:
-    fila = db.uno("SELECT validacion FROM intentos WHERE id=%s", (id_,))
+    fila = db.uno("SELECT validacion FROM generaciones WHERE id=%s", (id_,))
     return (fila or {}).get("validacion")
 
 
 def resultado(id_: str) -> dict[str, Any] | None:
-    fila = db.uno("SELECT resultado FROM intentos WHERE id=%s", (id_,))
+    fila = db.uno("SELECT resultado FROM generaciones WHERE id=%s", (id_,))
     return (fila or {}).get("resultado")
 
 
 def anexar_log(id_: str, texto: str) -> None:
     """El log se acumula en la fila: sobrevive al reinicio del contenedor y se ve desde la web."""
-    db.ejecutar("UPDATE intentos SET log = log || %s WHERE id=%s", (texto, id_))
+    db.ejecutar("UPDATE generaciones SET log = log || %s WHERE id=%s", (texto, id_))
 
 
 def log(id_: str) -> str:
-    fila = db.uno("SELECT log FROM intentos WHERE id=%s", (id_,))
+    fila = db.uno("SELECT log FROM generaciones WHERE id=%s", (id_,))
     return (fila or {}).get("log") or ""
 
 
 # ── eventos de nodo (el paso a paso de una corrida) ─────────────────────────
 def abrir_evento_nodo(
-    intento_id: str, corrida: str, nodo: str, instancia: str, entrada: Any
+    generacion_id: str, corrida: str, nodo: str, instancia: str, entrada: Any
 ) -> int:
     """Registra que el grafo ENTRÓ en un nodo y devuelve el id de la fila, para cerrarla luego.
 
@@ -281,10 +281,10 @@ def abrir_evento_nodo(
     de estar colgado.
     """
     fila = db.uno(
-        """INSERT INTO eventos_nodo (intento_id, corrida, nodo, instancia, estado, entrada,
+        """INSERT INTO eventos_nodo (generacion_id, corrida, nodo, instancia, estado, entrada,
                iniciado_en)
            VALUES (%s,%s,%s,%s,'en_curso',%s,%s) RETURNING id""",
-        (intento_id, corrida, nodo, instancia, Jsonb(entrada), ahora()),
+        (generacion_id, corrida, nodo, instancia, Jsonb(entrada), ahora()),
         commit=True,
     )
     return int(fila["id"])
@@ -326,7 +326,7 @@ def eventos_desde(corrida: str, desde: int = 0, limite: int = 500) -> list[dict[
 def evento_nodo(id_: int) -> dict[str, Any] | None:
     """Un paso CON sus datos de entrada y salida. Es lo que abre el modal de un nodo."""
     return db.uno(
-        """SELECT id, intento_id, corrida, nodo, instancia, estado, entrada, salida, proveedor,
+        """SELECT id, generacion_id, corrida, nodo, instancia, estado, entrada, salida, proveedor,
                   modelo, prompt_id, ms, iniciado_en, terminado_en, error
              FROM eventos_nodo WHERE id=%s""",
         (id_,),
@@ -334,7 +334,7 @@ def evento_nodo(id_: int) -> dict[str, Any] | None:
 
 
 def eventos_de_corrida(corrida: str) -> list[dict[str, Any]]:
-    """Todos los pasos de una corrida con sus datos. Lo que se pinta al abrir un intento ya hecho."""
+    """Todos los pasos de una corrida con sus datos. Lo que se pinta al abrir una generación ya hecha."""
     return db.consultar(
         """SELECT id, nodo, instancia, estado, entrada, salida, proveedor, modelo, prompt_id, ms,
                   iniciado_en, terminado_en, error
@@ -346,7 +346,7 @@ def eventos_de_corrida(corrida: str) -> list[dict[str, Any]]:
 def marcar_detenido(id_: str, segundos: float, nodo: str) -> None:
     """Una corrida cortada a petición NO es un fallo: se distingue en el estado."""
     db.ejecutar(
-        """UPDATE intentos SET estado='detenido', terminado_en=%s, segundos=%s,
+        """UPDATE generaciones SET estado='detenido', terminado_en=%s, segundos=%s,
                error=%s, actualizado_en=%s WHERE id=%s""",
         (ahora(), segundos, f"detenida a petición después del nodo '{nodo}'", ahora(), id_),
     )

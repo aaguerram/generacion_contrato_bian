@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { apiIntentos, type Intento, type IntentoCrear } from '@entities/intento'
-import { useGuardarIntento } from '@features/guardar-intento/useGuardarIntento'
-import { FormularioIntento } from '@widgets/formulario-intento/FormularioIntento'
+import { apiGeneraciones, type Generacion, type GeneracionCrear } from '@entities/generacion'
+import { useGuardarGeneracion } from '@features/guardar-generacion/useGuardarGeneracion'
+import { FormularioGeneracion } from '@widgets/formulario-generacion/FormularioGeneracion'
 import { PanelComparacion } from '@widgets/panel-comparacion/PanelComparacion'
 import { PanelEjecucion } from '@widgets/panel-ejecucion/PanelEjecucion'
 import { PanelFlujo } from '@widgets/panel-flujo/PanelFlujo'
@@ -23,21 +23,21 @@ const PESTANAS: Array<[Pestana, string]> = [
   ['editar', 'Editar'],
 ]
 
-export function DetalleIntentoPage() {
+export function DetalleGeneracionPage() {
   const { id = '' } = useParams()
   const navegar = useNavigate()
-  const [intento, setIntento] = useState<Intento | null>(null)
+  const [generacion, setGeneracion] = useState<Generacion | null>(null)
   const [error, setError] = useState('')
   const [pestana, setPestana] = useState<Pestana>('ejecucion')
-  const { guardar, guardando, error: errorGuardar } = useGuardarIntento()
+  const { guardar, guardando, error: errorGuardar } = useGuardarGeneracion()
 
   const cargar = useCallback(
     async (signal?: AbortSignal) => {
       try {
-        setIntento(await apiIntentos.obtener(id, signal))
+        setGeneracion(await apiGeneraciones.obtener(id, signal))
         setError('')
       } catch (e) {
-        setError(e instanceof Error ? e.message : 'No se pudo abrir el intento')
+        setError(e instanceof Error ? e.message : 'No se pudo abrir la generación')
       }
     },
     [id],
@@ -54,19 +54,19 @@ export function DetalleIntentoPage() {
   // página sin enterarse de que terminó.
   usePoll(
     async () => {
-      const i = await apiIntentos.obtener(id)
-      setIntento((previo) =>
-        previo && i.estado === previo.estado && i.corrida === previo.corrida ? previo : i,
+      const g = await apiGeneraciones.obtener(id)
+      setGeneracion((previo) =>
+        previo && g.estado === previo.estado && g.corrida === previo.corrida ? previo : g,
       )
     },
     3000,
-    intento?.estado === 'ejecutando',
+    generacion?.estado === 'ejecutando',
   )
 
-  const onGuardar = async (datos: IntentoCrear) => {
-    const i = await guardar(datos, id)
-    if (i) {
-      setIntento(i)
+  const onGuardar = async (datos: GeneracionCrear) => {
+    const g = await guardar(datos, id)
+    if (g) {
+      setGeneracion(g)
       setPestana('ejecucion')
     }
   }
@@ -75,27 +75,27 @@ export function DetalleIntentoPage() {
     return (
       <>
         <Aviso tipo="error">{error}</Aviso>
-        <Link to="/intentos">Volver a la lista</Link>
+        <Link to="/generaciones">Volver a la lista</Link>
       </>
     )
   }
-  if (!intento) return <p className="pb-campo__ayuda">Cargando…</p>
+  if (!generacion) return <p className="pb-campo__ayuda">Cargando…</p>
 
   return (
     <>
       <div className="pagina__cab">
         <div>
-          <Link to="/intentos" className="volver">
-            ← Intentos
+          <Link to="/generaciones" className="volver">
+            ← Generaciones
           </Link>
-          <h1>{intento.nombre}</h1>
+          <h1>{generacion.nombre}</h1>
           <p>
-            {intento.funcionalidad.label || 'Sin funcionalidad'} ·{' '}
-            {plural(intento.historias_detectadas.length, 'historia', 'historias')} · creado el{' '}
-            {fecha(intento.creado_en)}
+            {generacion.funcionalidad.label || 'Sin funcionalidad'} ·{' '}
+            {plural(generacion.historias_detectadas.length, 'historia', 'historias')} · creado el{' '}
+            {fecha(generacion.creado_en)}
           </p>
         </div>
-        <Insignia estado={intento.estado} />
+        <Insignia estado={generacion.estado} />
       </div>
 
       <nav className="pestanas" role="tablist">
@@ -108,18 +108,18 @@ export function DetalleIntentoPage() {
             onClick={() => setPestana(clave)}
           >
             {texto}
-            {clave === 'validacion' && intento.tiene_validacion && <span className="punto" />}
-            {clave === 'resultado' && intento.tiene_resultado && <span className="punto" />}
+            {clave === 'validacion' && generacion.tiene_validacion && <span className="punto" />}
+            {clave === 'resultado' && generacion.tiene_resultado && <span className="punto" />}
           </button>
         ))}
       </nav>
 
       {pestana === 'ejecucion' && (
         <>
-          <PanelEjecucion intento={intento} onCambio={setIntento} />
-          <Tarjeta titulo="Historias de este intento">
+          <PanelEjecucion generacion={generacion} onCambio={setGeneracion} />
+          <Tarjeta titulo="Historias de esta generación">
             <ul className="historias">
-              {intento.historias_detectadas.map((h) => (
+              {generacion.historias_detectadas.map((h) => (
                 <li key={h.archivo}>
                   <strong>{h.titulo}</strong>
                   <span>
@@ -138,26 +138,26 @@ export function DetalleIntentoPage() {
 
       {pestana === 'flujo' && (
         <LimiteDeError>
-          <PanelFlujo intento={intento} onCambio={setIntento} />
+          <PanelFlujo generacion={generacion} onCambio={setGeneracion} />
         </LimiteDeError>
       )}
 
       {pestana === 'resultado' && (
         <LimiteDeError>
-          <PanelResultado intento={intento} />
+          <PanelResultado generacion={generacion} />
         </LimiteDeError>
       )}
-      {pestana === 'validacion' && <PanelComparacion intento={intento} onCambio={setIntento} />}
+      {pestana === 'validacion' && <PanelComparacion generacion={generacion} onCambio={setGeneracion} />}
       {pestana === 'editar' && (
         <>
-          {intento.estado === 'ejecutando' && (
+          {generacion.estado === 'ejecutando' && (
             <Aviso tipo="info">
               Hay una corrida en curso. Los cambios que guardes se aplicarán a la siguiente
               ejecución.
             </Aviso>
           )}
-          <FormularioIntento
-            inicial={intento}
+          <FormularioGeneracion
+            inicial={generacion}
             guardando={guardando}
             error={errorGuardar}
             onGuardar={(d) => void onGuardar(d)}
@@ -166,12 +166,12 @@ export function DetalleIntentoPage() {
             <Boton
               variante="peligro"
               onClick={async () => {
-                if (!window.confirm('¿Borrar este intento y su resultado?')) return
-                await apiIntentos.borrar(intento.id)
-                navegar('/intentos')
+                if (!window.confirm('¿Borrar esta generación y su resultado?')) return
+                await apiGeneraciones.borrar(generacion.id)
+                navegar('/generaciones')
               }}
             >
-              Borrar intento
+              Borrar generación
             </Boton>
           </Tarjeta>
         </>

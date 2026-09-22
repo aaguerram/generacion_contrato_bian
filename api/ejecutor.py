@@ -23,7 +23,7 @@ from collections import deque
 from pathlib import Path
 
 from api import almacen
-from api.modelos import Intento
+from api.modelos import Generacion
 from api.observador import ObservadorPostgres
 
 logger = logging.getLogger("api.ejecutor")
@@ -41,7 +41,7 @@ _MAX_LINEAS = 500
 class _CapturaLog(logging.Handler):
     """Se engancha al logger raíz mientras dura UNA corrida y guarda sus líneas.
 
-    Escribe a la fila del intento en Postgres por lotes: una sentencia UPDATE por línea de log
+    Escribe a la fila de la generación en Postgres por lotes: una sentencia UPDATE por línea de log
     ahogaría la base en una corrida que emite cientos, y el detalle por línea no vale ese coste.
     """
 
@@ -89,20 +89,20 @@ def esta_ejecutando(id_: str) -> bool:
     return bool(c and c.hilo and c.hilo.is_alive())
 
 
-def _correr(intento: Intento) -> None:
+def _correr(generacion: Generacion) -> None:
     """Cuerpo del hilo. Cualquier error acaba en `estado='fallido'` con su traza, nunca se pierde."""
     # Import perezoso: cargar el pipeline entero (LangGraph, catálogos) cuesta segundos, y no debe
-    # pagarse al arrancar el servidor ni en las peticiones que solo listan intentos.
+    # pagarse al arrancar el servidor ni en las peticiones que solo listan generaciones.
     from src.aplicacion.puertos.observador_ejecucion import EjecucionDetenida
     from src.configuracion.contenedor import crear_caso_uso_mapeo
     from src.configuracion.settings import cargar_settings
 
-    d = almacen.dir_intento(intento.id)
+    d = almacen.dir_generacion(generacion.id)
     # El workspace se regenera SIEMPRE antes de correr: la fuente de verdad es Postgres, y el
-    # contenedor puede haberse reiniciado desde que se guardó el intento.
-    almacen.materializar(intento)
-    corrida = corrida_viva(intento.id)
-    captura = _CapturaLog(intento.id, corrida.lineas if corrida else deque())
+    # contenedor puede haberse reiniciado desde que se guardó la generación.
+    almacen.materializar(generacion)
+    corrida = corrida_viva(generacion.id)
+    captura = _CapturaLog(generacion.id, corrida.lineas if corrida else deque())
     raiz = logging.getLogger()
     nivel_previo = raiz.level
     raiz.addHandler(captura)
@@ -112,7 +112,7 @@ def _correr(intento: Intento) -> None:
     inicio = time.perf_counter()
     try:
         cfg = cargar_settings()
-        o = intento.opciones
+        o = generacion.opciones
         # Los mismos "pisa el config.yaml" que ofrece el CLI, sin tocar el archivo versionado.
         # `Config` y `MapearHistorias` son dataclasses FROZEN: se copian con `replace`, nunca se
         # mutan -- así dos corridas simultáneas con opciones distintas no se pisan la una a la otra.
@@ -133,42 +133,42 @@ def _correr(intento: Intento) -> None:
 
         # El observador es lo que convierte la corrida en algo que se puede MIRAR: escribe un
         # paso por nodo (entrada, salida, modelo, tiempo) y corta donde se pidió.
-        observador = ObservadorPostgres(intento.id, intento.corrida, o.detener_en)
+        observador = ObservadorPostgres(generacion.id, generacion.corrida, o.detener_en)
         caso = crear_caso_uso_mapeo(
             cfg,
             proveedor=o.proveedor or None,
             actualizar_cache_bian=o.actualizar_cache_bian,
             observador=observador,
         )
-        logger.info("intento %s: arranca el mapeo (sin límite de tiempo)", intento.id)
+        logger.info("generación %s: arranca el mapeo (sin límite de tiempo)", generacion.id)
         resultado = caso.ejecutar(str(d / "hu"), str(d / "funcionalidad.json"), str(d / "salida"))
         segundos = time.perf_counter() - inicio
 
         ruta = _ruta_resultado_mas_reciente(d / "salida")
         datos = json.loads(ruta.read_text(encoding="utf-8")) if ruta else None
-        comparacion = _comparar_si_hay(intento.id, datos)
-        almacen.marcar_completado(intento.id, segundos, datos, comparacion)
+        comparacion = _comparar_si_hay(generacion.id, datos)
+        almacen.marcar_completado(generacion.id, segundos, datos, comparacion)
         logger.info(
-            "intento %s: completado en %.1fs · %d historia(s)",
-            intento.id, segundos, getattr(resultado, "total_historias", 0),
+            "generación %s: completada en %.1fs · %d historia(s)",
+            generacion.id, segundos, getattr(resultado, "total_historias", 0),
         )
     except EjecucionDetenida as parada:
         # Parar es el resultado que se pidió, no un fallo. No hay mapeo que publicar -- la corrida
         # no llegó al final --, pero cada paso ya quedó guardado y es lo que la interfaz enseña.
         segundos = time.perf_counter() - inicio
         logger.info(
-            "intento %s: detenido a petición tras el nodo '%s' (%.1fs)",
-            intento.id, parada.nodo, segundos,
+            "generación %s: detenida a petición tras el nodo '%s' (%.1fs)",
+            generacion.id, parada.nodo, segundos,
         )
         try:
-            almacen.marcar_detenido(intento.id, segundos, parada.nodo)
+            almacen.marcar_detenido(generacion.id, segundos, parada.nodo)
         except Exception:  # pragma: no cover
             pass
     except Exception as exc:
         segundos = time.perf_counter() - inicio
-        logger.error("intento %s: FALLÓ tras %.1fs — %s", intento.id, segundos, exc)
+        logger.error("generación %s: FALLÓ tras %.1fs — %s", generacion.id, segundos, exc)
         try:
-            almacen.marcar_fallido(intento.id, segundos, f"{type(exc).__name__}: {exc}")
+            almacen.marcar_fallido(generacion.id, segundos, f"{type(exc).__name__}: {exc}")
         except Exception:  # pragma: no cover
             pass
         if corrida:
@@ -178,7 +178,7 @@ def _correr(intento: Intento) -> None:
         # interfaz lo pintaría corriendo para siempre.
         try:
             huerfanos = almacen.cerrar_pasos_huerfanos(
-                intento.corrida, "interrumpido: la corrida terminó antes que este nodo"
+                generacion.corrida, "interrumpido: la corrida terminó antes que este nodo"
             )
             if huerfanos:
                 logger.info("cerrados %d paso(s) que quedaron abiertos", huerfanos)
@@ -199,7 +199,7 @@ def _ruta_resultado_mas_reciente(salida: Path) -> Path | None:
 
 
 def _comparar_si_hay(id_: str, resultado: dict | None) -> dict | None:
-    """Compara contra el archivo de validación, si el intento tiene uno."""
+    """Compara contra el archivo de validación, si la generación tiene uno."""
     esperado = almacen.validacion(id_)
     if not (resultado and esperado):
         return None
@@ -215,21 +215,21 @@ def _comparar_si_hay(id_: str, resultado: dict | None) -> dict | None:
         ).model_dump()
 
 
-def lanzar(id_: str) -> Intento:
+def lanzar(id_: str) -> Generacion:
     """Arranca la corrida y devuelve AL INSTANTE. El cliente consulta `/estado` cuando quiera."""
     with _CERROJO:
         if esta_ejecutando(id_):
             return almacen.leer(id_)
         # Identificador propio de ESTA ejecución: los pasos del grafo se guardan por corrida, así
-        # que volver a ejecutar un intento no mezcla su flujo con el de la vez anterior.
-        intento = almacen.marcar_ejecutando(id_, uuid.uuid4().hex)
+        # que volver a ejecutar una generación no mezcla su flujo con el de la vez anterior.
+        generacion = almacen.marcar_ejecutando(id_, uuid.uuid4().hex)
         corrida = Corrida(id_)
         corrida.hilo = threading.Thread(
-            target=_correr, args=(intento,), name=f"mapeo-{id_}", daemon=True
+            target=_correr, args=(generacion,), name=f"mapeo-{id_}", daemon=True
         )
         _VIVAS[id_] = corrida
         corrida.hilo.start()
-        return intento
+        return generacion
 
 
 def lineas_log(id_: str, desde: int = 0) -> list[str]:

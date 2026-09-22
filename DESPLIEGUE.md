@@ -81,7 +81,7 @@ Una corrida real tarda de minutos a decenas de minutos, según cuántas Historia
 candidatos y qué proveedor del failover conteste. Mantener abierta una petición HTTP todo ese rato
 es pedirle un timeout a alguien: al navegador, a nginx o al propio servidor. Por eso:
 
-- `POST /api/intentos/{id}/ejecutar` arranca un hilo y devuelve **202 al instante**.
+- `POST /api/generaciones/{id}/ejecutar` arranca un hilo y devuelve **202 al instante**.
 - El cliente pregunta por `/estado` cada 2 s y va viendo el log real.
 - nginx tiene `proxy_read_timeout 1h` para las peticiones que sí pueden tardar.
 - La API corre con **un solo worker**: las corridas viven en hilos de ESE proceso y su log en
@@ -107,16 +107,17 @@ principio, apagada, y cada nodo se enciende cuando la corrida entra en él.
 - **Un nodo del dibujo por TIPO de nodo, no por ejecución.** Con el abanico de `Send`,
   `evaluar_candidato` corre una vez por candidato: son 28 ejecuciones en un lote de dos historias.
   Se agrupan bajo un nodo con su contador, y el modal lista cada una.
-- **Pasar por encima de un nodo abre su detalle** con los datos de entrada y de salida en
-  pestañas, el modelo que respondió, el prompt y el tiempo. Se abre con un respiro de 350 ms:
-  sin él, cruzar el lienzo con el ratón encadenaría modales.
+- **Pulsar un nodo abre su detalle** con los datos de entrada y de salida en pestañas, el modelo
+  que respondió, el prompt y el tiempo. El JSON se explora en árbol: cada objeto y cada lista se
+  pliega, hay búsqueda por clave o valor, y el marco desplaza en los dos ejes. Antes se abría al
+  pasar el ratón por encima, y cruzar el lienzo encadenaba modales aunque hubiera un retardo.
 - **Mientras corre, la cámara sigue al nodo activo** con zoom legible, y al terminar vuelve a la
   vista completa.
 
 ### Detener la corrida en un nodo
 
 En el detalle de cualquier nodo hay un botón para que la corrida se pare al terminarlo. La
-siguiente ejecución llega hasta ahí y no ejecuta nada de lo que viene después; el intento queda en
+siguiente ejecución llega hasta ahí y no ejecuta nada de lo que viene después; la generación queda en
 estado `detenido`, que **no** es un fallo.
 
 El corte se pone en el modal y no con un doble clic en el lienzo por una razón concreta: mientras
@@ -132,7 +133,7 @@ al final --, pero cada paso ya está guardado.
 ### Por qué eventos del servidor y no un socket
 
 La comunicación es de **una sola dirección**: el servidor cuenta por dónde va y el cliente
-escucha. Un canal de eventos del servidor (`GET /api/intentos/{id}/eventos`) deja menos superficie
+escucha. Un canal de eventos del servidor (`GET /api/generaciones/{id}/eventos`) deja menos superficie
 expuesta que un socket bidireccional y trae reconexión automática de serie. El cliente manda
 `desde` con el último paso que vio y el servidor le rellena el hueco **desde la base**, así que
 perder la conexión no cuesta la corrida.
@@ -144,7 +145,7 @@ cerrar la conexión, que es justo lo contrario de lo que hace falta.
 
 Una fila por paso en la tabla `eventos_nodo`: nodo, instancia del abanico, estado, datos de
 entrada, datos de salida, proveedor, modelo, identificador del prompt, duración y marcas de
-tiempo. Es la memoria de la corrida cuando el proceso ya no está: abrir un intento de ayer pinta
+tiempo. Es la memoria de la corrida cuando el proceso ya no está: abrir una generación de ayer pinta
 su flujo igual que si se acabara de ejecutar.
 
 Los datos se **resumen** antes de guardarlos (`api/serializacion.py`). El estado que circula por
@@ -160,20 +161,20 @@ pintaba esos nodos girando sin fin.
 
 | Qué                                   | Dónde                                   |
 |---------------------------------------|-----------------------------------------|
-| Intentos, resultados, log, validación | PostgreSQL, tabla `intentos` (JSONB)     |
+| Generaciones, resultados, log, validación | PostgreSQL, tabla `generaciones` (JSONB) |
 | Cada paso del grafo de una corrida    | PostgreSQL, tabla `eventos_nodo`         |
 | HU y `funcionalidad.json` de la corrida | volumen `datos-api` en `/datos/<id>/`  |
 | Cache BIAN que la corrida descargue   | `./docs/bian-cache` montado desde el repo |
 
 La fuente de verdad es Postgres: el workspace se **regenera** antes de cada corrida, así que
-reconstruir la imagen no pierde ningún intento. La cache BIAN se monta desde el repositorio para
+reconstruir la imagen no pierde ninguna generación. La cache BIAN se monta desde el repositorio para
 que lo que una corrida descargue sobreviva a una reconstrucción.
 
 ## Cómo se usa la página
 
-1. **Nuevo intento**: pega todas las Historias de Usuario en una caja y describe la funcionalidad
+1. **Nueva generación**: pega todas las Historias de Usuario en una caja y describe la funcionalidad
    macro (nombre + detalle). Es la misma información que pide la consola.
-2. **Guardar no ejecuta nada.** El botón de ejecutar aparece después, en el detalle del intento.
+2. **Guardar no ejecuta nada.** El botón de ejecutar aparece después, en el detalle de la generación.
 3. **Ejecutar** lanza el mapeo y la pestaña de ejecución enseña el log en vivo.
 4. **Validación**: opcionalmente sube un `mapeo-historias-service-domains.json` de una corrida ya
    validada. Al terminar la siguiente corrida se compara contra él.
@@ -194,7 +195,7 @@ Antes las historias viajaban pegadas en un solo `textarea` y el servidor las par
 (una línea de guiones, `## Título`, `HU-01:`). Eso rompía en cuanto el detalle de una historia
 llevaba una regla horizontal o un encabezado Markdown, que es justo como se escribe una historia
 con criterios de aceptación: el separador la partía por la mitad. El separador sigue en el código
-(`api/historias.py`) para **migrar** los intentos guardados con el formato viejo, y esa migración
+(`api/historias.py`) para **migrar** las generaciones guardadas con el formato viejo, y esa migración
 corre sola al arrancar la API.
 
 ## Separación de capas
@@ -209,7 +210,7 @@ la capa de cada import, así que una violación de la regla de dependencias se v
 ```bash
 docker compose ps
 docker compose logs api --tail 50
-docker compose exec db psql -U contratos -d contratos -c "select id, estado, segundos from intentos;"
+docker compose exec db psql -U contratos -d contratos -c "select id, estado, segundos from generaciones;"
 
 # La pila del proceso, sin pararlo (el servicio trae SYS_PTRACE por esto mismo):
 docker compose exec api pip install -q py-spy && docker compose exec api py-spy dump --pid 1

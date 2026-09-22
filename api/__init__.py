@@ -7,7 +7,7 @@ Si algo de lo que hay en este paquete acaba siendo necesario para el mapeo, su s
 
 Lo que sí es responsabilidad de esta capa:
   - materializar en disco lo que el CLI recibe como rutas (las HU y el JSON de funcionalidad);
-  - guardar intentos para poder repetirlos y compararlos;
+  - guardar generaciones para poder repetirlas y compararlas;
   - ejecutar el mapeo SIN límite de tiempo, en un hilo aparte, y dejar que el cliente pregunte
     por el estado (una corrida real tarda minutos y ninguna petición HTTP debe esperar tanto).
 """

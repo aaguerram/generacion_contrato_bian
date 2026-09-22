@@ -11,7 +11,7 @@ import { apiFlujo, type PasoNodo } from '@entities/flujo'
  * Al reconectar se pide `desde` el último paso visto y el servidor lo rellena desde la base, así
  * que perder la conexión no cuesta la corrida: el estado no vive en esta pestaña.
  */
-export function useFlujoEnVivo(idIntento: string, corrida: string, activo: boolean) {
+export function useFlujoEnVivo(idGeneracion: string, corrida: string, activo: boolean) {
   const [pasos, setPasos] = useState<PasoNodo[]>([])
   const [conectado, setConectado] = useState(false)
   const ultimo = useRef(0)
@@ -20,14 +20,14 @@ export function useFlujoEnVivo(idIntento: string, corrida: string, activo: boole
   const recargar = useCallback(
     async (signal?: AbortSignal) => {
       try {
-        const lista = await apiFlujo.pasos(idIntento, signal)
+        const lista = await apiFlujo.pasos(idGeneracion, signal)
         setPasos(lista)
         ultimo.current = lista.length ? Math.max(...lista.map((p) => p.id)) : 0
       } catch {
         /* si falla, se queda lo que ya había; el canal lo volverá a intentar */
       }
     },
-    [idIntento],
+    [idGeneracion],
   )
 
   const recordar = useCallback((nuevos: PasoNodo[]) => {
@@ -46,7 +46,7 @@ export function useFlujoEnVivo(idIntento: string, corrida: string, activo: boole
    *
    * Cubre tres momentos y por eso depende de los tres valores: abrir la pantalla, cambiar de
    * corrida (volver a ejecutar) y, sobre todo, el FINAL de una corrida. Al terminar, la página
-   * marca el intento como completado y esta pestaña cierra el canal; si los últimos avisos aún
+   * marca la generación como completada y esta pestaña cierra el canal; si los últimos avisos aún
    * venían de camino, se pierden y los nodos que estaban a mitad se quedarían girando para
    * siempre. Medido: 3 nodos en curso con la base diciendo que los 60 pasos estaban completos.
    */
@@ -55,7 +55,7 @@ export function useFlujoEnVivo(idIntento: string, corrida: string, activo: boole
     const ac = new AbortController()
     void recargar(ac.signal)
     return () => ac.abort()
-  }, [idIntento, corrida, activo, recargar])
+  }, [idGeneracion, corrida, activo, recargar])
 
   // Lo que va pasando, mientras pasa.
   useEffect(() => {
@@ -63,7 +63,7 @@ export function useFlujoEnVivo(idIntento: string, corrida: string, activo: boole
       setConectado(false)
       return
     }
-    const fuente = new EventSource(`/api/intentos/${idIntento}/eventos?desde=${ultimo.current}`)
+    const fuente = new EventSource(`/api/generaciones/${idGeneracion}/eventos?desde=${ultimo.current}`)
     fuente.onopen = () => setConectado(true)
     fuente.addEventListener('paso', (e) => {
       try {
@@ -81,7 +81,7 @@ export function useFlujoEnVivo(idIntento: string, corrida: string, activo: boole
       fuente.close()
       setConectado(false)
     }
-  }, [idIntento, corrida, activo, recordar])
+  }, [idGeneracion, corrida, activo, recordar])
 
   return { pasos, conectado }
 }

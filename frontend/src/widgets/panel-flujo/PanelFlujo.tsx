@@ -17,8 +17,8 @@ import {
   type NodoGrafo,
   type PasoNodo,
 } from '@entities/flujo'
-import { estaVivo, type Intento } from '@entities/intento'
-import { useEjecutarIntento } from '@features/ejecutar-intento/useEjecutarIntento'
+import { estaVivo, type Generacion } from '@entities/generacion'
+import { useEjecutarGeneracion } from '@features/ejecutar-generacion/useEjecutarGeneracion'
 import { useFlujoEnVivo } from '@features/seguir-flujo/useFlujoEnVivo'
 import { Aviso, Boton, Tarjeta } from '@shared/ui'
 import { colocar } from './layout'
@@ -70,18 +70,18 @@ function Camara({ cuantos, activo, vivo }: { cuantos: number; activo: string | n
 }
 
 export function PanelFlujo({
-  intento,
+  generacion,
   onCambio,
 }: {
-  intento: Intento
-  onCambio: (i: Intento) => void
+  generacion: Generacion
+  onCambio: (g: Generacion) => void
 }) {
   const [grafo, setGrafo] = useState<Grafo | null>(null)
   const [error, setError] = useState('')
   const [abierto, setAbierto] = useState<NodoGrafo | null>(null)
-  const vivo = estaVivo(intento)
-  const { pasos, conectado } = useFlujoEnVivo(intento.id, intento.corrida, vivo)
-  const { ejecutar, lanzando, error: errorEjecutar } = useEjecutarIntento()
+  const vivo = estaVivo(generacion)
+  const { pasos, conectado } = useFlujoEnVivo(generacion.id, generacion.corrida, vivo)
+  const { ejecutar, lanzando, error: errorEjecutar } = useEjecutarGeneracion()
 
   useEffect(() => {
     const ac = new AbortController()
@@ -92,7 +92,7 @@ export function PanelFlujo({
     return () => ac.abort()
   }, [])
 
-  const cortadoEn = intento.estado === 'detenido' ? intento.opciones.detener_en : null
+  const cortadoEn = generacion.estado === 'detenido' ? generacion.opciones.detener_en : null
   const resumen = useMemo(() => resumirPorNodo(pasos, cortadoEn), [pasos, cortadoEn])
   const base = useMemo(() => (grafo ? colocar(grafo) : { nodos: [], aristas: [] }), [grafo])
 
@@ -108,11 +108,11 @@ export function PanelFlujo({
             estadoVisual: r?.estado ?? 'apagado',
             repeticiones: r?.pasos.length ?? 0,
             ms: r?.ms ?? 0,
-            esCorte: intento.opciones.detener_en === info.id,
+            esCorte: generacion.opciones.detener_en === info.id,
           } satisfies DatosNodo as unknown as Record<string, unknown>,
         }
       }),
-    [base.nodos, resumen, intento.opciones.detener_en],
+    [base.nodos, resumen, generacion.opciones.detener_en],
   )
 
   // Una arista se ilumina cuando su ORIGEN ya corrió: así el camino recorrido se ve de un vistazo.
@@ -157,19 +157,19 @@ export function PanelFlujo({
   const marcarCorte = async (id: string) => {
     const info = grafo?.nodos.find((n) => n.id === id)
     if (!info || info.tipo !== 'nodo' || vivo) return
-    const detener_en = intento.opciones.detener_en === id ? null : id
-    const { apiIntentos } = await import('@entities/intento')
+    const detener_en = generacion.opciones.detener_en === id ? null : id
+    const { apiGeneraciones } = await import('@entities/generacion')
     onCambio(
-      await apiIntentos.actualizar(intento.id, {
-        nombre: intento.nombre,
-        historias: intento.historias,
-        funcionalidad: intento.funcionalidad,
-        opciones: { ...intento.opciones, detener_en },
+      await apiGeneraciones.actualizar(generacion.id, {
+        nombre: generacion.nombre,
+        historias: generacion.historias,
+        funcionalidad: generacion.funcionalidad,
+        opciones: { ...generacion.opciones, detener_en },
       }),
     )
   }
 
-  const corte = intento.opciones.detener_en
+  const corte = generacion.opciones.detener_en
 
   return (
     <Tarjeta
@@ -194,8 +194,8 @@ export function PanelFlujo({
             cargando={lanzando}
             disabled={vivo}
             onClick={async () => {
-              const i = await ejecutar(intento.id)
-              if (i) onCambio(i)
+              const g = await ejecutar(generacion.id)
+              if (g) onCambio(g)
             }}
           >
             {corte ? `Ejecutar hasta ${corte}` : 'Ejecutar'}
@@ -225,8 +225,8 @@ export function PanelFlujo({
           después no se ejecuta.
         </Aviso>
       )}
-      {intento.estado === 'detenido' && (
-        <Aviso tipo="info">{intento.error || 'Corrida detenida a petición.'}</Aviso>
+      {generacion.estado === 'detenido' && (
+        <Aviso tipo="info">{generacion.error || 'Corrida detenida a petición.'}</Aviso>
       )}
 
       <div className="flujo">

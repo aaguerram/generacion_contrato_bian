@@ -1,23 +1,23 @@
 import { useCallback, useState } from 'react'
-import { apiIntentos, type Intento, type IntentoCrear } from '@entities/intento'
+import { apiGeneraciones, type Generacion, type GeneracionCrear } from '@entities/generacion'
 
 /**
- * Guardar un intento. **Guardar no ejecuta nada**: deja el formulario persistido y habilita el
+ * Guardar una generación. **Guardar no ejecuta nada**: deja el formulario persistido y habilita el
  * botón de ejecutar. Esa separación es deliberada — una corrida cuesta minutos y cuota de LLM, y
  * no debe dispararse por pulsar "guardar".
  */
-export function useGuardarIntento() {
+export function useGuardarGeneracion() {
   const [guardando, setGuardando] = useState(false)
   const [error, setError] = useState('')
 
   const guardar = useCallback(
-    async (datos: IntentoCrear, id?: string): Promise<Intento | null> => {
+    async (datos: GeneracionCrear, id?: string): Promise<Generacion | null> => {
       setGuardando(true)
       setError('')
       try {
-        return id ? await apiIntentos.actualizar(id, datos) : await apiIntentos.crear(datos)
+        return id ? await apiGeneraciones.actualizar(id, datos) : await apiGeneraciones.crear(datos)
       } catch (e) {
-        setError(e instanceof Error ? e.message : 'No se pudo guardar el intento')
+        setError(e instanceof Error ? e.message : 'No se pudo guardar la generación')
         return null
       } finally {
         setGuardando(false)

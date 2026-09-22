@@ -1,11 +1,11 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
-import { DetalleIntentoPage } from '@pages/detalle-intento/DetalleIntentoPage'
-import { ListaIntentosPage } from '@pages/lista-intentos/ListaIntentosPage'
-import { NuevoIntentoPage } from '@pages/nuevo-intento/NuevoIntentoPage'
+import { DetalleGeneracionPage } from '@pages/detalle-generacion/DetalleGeneracionPage'
+import { ListaGeneracionesPage } from '@pages/lista-generaciones/ListaGeneracionesPage'
+import { NuevaGeneracionPage } from '@pages/nueva-generacion/NuevaGeneracionPage'
 import { Layout } from '@widgets/layout/Layout'
 
 /**
- * Rutas de la aplicación. `/intentos/nuevo` va ANTES que `/intentos/:id` porque si no "nuevo" se
+ * Rutas de la aplicación. `/generaciones/nueva` va ANTES que `/generaciones/:id` porque si no "nueva" se
  * leería como un identificador.
  */
 export const router = createBrowserRouter([
@@ -13,11 +13,11 @@ export const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
-      { index: true, element: <Navigate to="/intentos" replace /> },
-      { path: 'intentos', element: <ListaIntentosPage /> },
-      { path: 'intentos/nuevo', element: <NuevoIntentoPage /> },
-      { path: 'intentos/:id', element: <DetalleIntentoPage /> },
-      { path: '*', element: <Navigate to="/intentos" replace /> },
+      { index: true, element: <Navigate to="/generaciones" replace /> },
+      { path: 'generaciones', element: <ListaGeneracionesPage /> },
+      { path: 'generaciones/nueva', element: <NuevaGeneracionPage /> },
+      { path: 'generaciones/:id', element: <DetalleGeneracionPage /> },
+      { path: '*', element: <Navigate to="/generaciones" replace /> },
     ],
   },
 ])

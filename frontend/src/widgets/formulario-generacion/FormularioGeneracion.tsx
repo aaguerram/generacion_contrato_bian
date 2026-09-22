@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import {
-  apiIntentos,
+  apiGeneraciones,
   OPCIONES_POR_DEFECTO,
   type HistoriaEntrada,
-  type Intento,
-  type IntentoCrear,
+  type Generacion,
+  type GeneracionCrear,
   type OpcionesEjecucion,
   type Proveedores,
-} from '@entities/intento'
+} from '@entities/generacion'
 import { ModalHistoria } from '@features/editar-historia/ModalHistoria'
 import { Aviso, AreaTexto, Boton, Campo, Entrada, Tarjeta, Vacio } from '@shared/ui'
 import { plural } from '@shared/lib/formato'
@@ -31,16 +31,16 @@ function resumen(h: HistoriaEntrada): string {
   return linea ? linea.trim().slice(0, 120) : 'Sin detalle'
 }
 
-export function FormularioIntento({
+export function FormularioGeneracion({
   inicial,
   guardando,
   error,
   onGuardar,
 }: {
-  inicial?: Intento
+  inicial?: Generacion
   guardando: boolean
   error?: string
-  onGuardar: (datos: IntentoCrear) => void
+  onGuardar: (datos: GeneracionCrear) => void
 }) {
   const [nombre, setNombre] = useState(inicial?.nombre ?? '')
   const [historias, setHistorias] = useState<HistoriaEntrada[]>(inicial?.historias ?? [])
@@ -57,7 +57,7 @@ export function FormularioIntento({
 
   useEffect(() => {
     const ac = new AbortController()
-    apiIntentos.proveedores(ac.signal).then(setProveedores).catch(() => setProveedores(null))
+    apiGeneraciones.proveedores(ac.signal).then(setProveedores).catch(() => setProveedores(null))
     return () => ac.abort()
   }, [])
 
@@ -202,11 +202,11 @@ export function FormularioIntento({
       <div style={{ height: '1rem' }} />
 
       <Tarjeta titulo="Identificación" sub="Opcional">
-        <Campo label="Nombre del intento" ayuda="Para reconocerlo en la lista. Si lo dejas vacío se usa la funcionalidad.">
+        <Campo label="Nombre de la generación" ayuda="Para reconocerla en la lista. Si lo dejas vacío se usa la funcionalidad.">
           <Entrada
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            placeholder={label || 'Mi intento'}
+            placeholder={label || 'Mi generación'}
           />
         </Campo>
       </Tarjeta>
@@ -310,7 +310,7 @@ export function FormularioIntento({
 
       <div className="form-acciones">
         <Boton type="submit" cargando={guardando}>
-          {inicial ? 'Guardar cambios' : 'Guardar intento'}
+          {inicial ? 'Guardar cambios' : 'Guardar generación'}
         </Boton>
         <span className="pb-campo__ayuda">
           Guardar no ejecuta nada. El botón de ejecutar aparece después de guardar.

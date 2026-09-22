@@ -5,7 +5,7 @@ El caso de uso recibe un DIRECTORIO con un archivo por historia. El formulario m
 adivinar dónde empieza ninguna. `archivos_de_historias` es esa traducción, y es la que usa la API.
 
 `separar_historias` es la traducción ANTIGUA, cuando todo llegaba pegado en un solo `textarea` y
-había que partirlo por marcadores. Se conserva para migrar los intentos guardados con aquel
+había que partirlo por marcadores. Se conserva para migrar las generaciones guardadas con aquel
 formato y para importar un pegote de texto, pero ya no está en el camino de guardar: el separador
 partía por la mitad cualquier historia cuyo detalle llevara una línea de guiones o un encabezado
 Markdown, que es justo lo que trae una historia escrita en Markdown.

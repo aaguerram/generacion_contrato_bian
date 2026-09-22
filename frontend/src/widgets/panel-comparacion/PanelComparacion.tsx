@@ -1,4 +1,4 @@
-import type { Intento } from '@entities/intento'
+import type { Generacion } from '@entities/generacion'
 import { SubirValidacion } from '@features/subir-validacion/SubirValidacion'
 import { Aviso, Tarjeta, Vacio } from '@shared/ui'
 import './comparacion.css'
@@ -46,21 +46,21 @@ function Lista({ titulo, items, tono }: { titulo: string; items: string[]; tono:
  * error. Solo lo FALTANTE señala una regresión.
  */
 export function PanelComparacion({
-  intento,
+  generacion,
   onCambio,
 }: {
-  intento: Intento
-  onCambio: (i: Intento) => void
+  generacion: Generacion
+  onCambio: (g: Generacion) => void
 }) {
-  const c = intento.comparacion
+  const c = generacion.comparacion
 
   return (
     <Tarjeta titulo="Validación">
-      <SubirValidacion intento={intento} onCambio={onCambio} />
+      <SubirValidacion generacion={generacion} onCambio={onCambio} />
 
-      {intento.tiene_validacion && !c && (
+      {generacion.tiene_validacion && !c && (
         <Vacio>
-          Hay archivo de validación pero todavía no hay comparación. Ejecuta el intento para
+          Hay archivo de validación pero todavía no hay comparación. Ejecuta la generación para
           contrastar el resultado.
         </Vacio>
       )}

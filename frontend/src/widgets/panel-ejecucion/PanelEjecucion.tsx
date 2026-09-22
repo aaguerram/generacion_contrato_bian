@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { apiIntentos, estaVivo, type Intento } from '@entities/intento'
-import { useEjecutarIntento } from '@features/ejecutar-intento/useEjecutarIntento'
+import { apiGeneraciones, estaVivo, type Generacion } from '@entities/generacion'
+import { useEjecutarGeneracion } from '@features/ejecutar-generacion/useEjecutarGeneracion'
 import { Aviso, Boton, Insignia, Tarjeta } from '@shared/ui'
 import { duracion } from '@shared/lib/formato'
 import { usePoll } from '@shared/lib/usePoll'
@@ -13,32 +13,32 @@ import './ejecucion.css'
  * real y el tiempo transcurrido. Una corrida puede tardar minutos y eso no es un error.
  */
 export function PanelEjecucion({
-  intento,
+  generacion,
   onCambio,
 }: {
-  intento: Intento
-  onCambio: (i: Intento) => void
+  generacion: Generacion
+  onCambio: (g: Generacion) => void
 }) {
-  const { ejecutar, lanzando, error } = useEjecutarIntento()
+  const { ejecutar, lanzando, error } = useEjecutarGeneracion()
   const [log, setLog] = useState<string[]>([])
   const [transcurrido, setTranscurrido] = useState(0)
   const finLog = useRef<HTMLDivElement>(null)
-  const vivo = estaVivo(intento)
+  const vivo = estaVivo(generacion)
 
   // Cronómetro local: el servidor solo da la duración al terminar, y ver el tiempo correr es lo
   // que distingue "sigue trabajando" de "se colgó".
   useEffect(() => {
-    if (!vivo || !intento.iniciado_en) return
-    const desde = new Date(intento.iniciado_en).getTime()
+    if (!vivo || !generacion.iniciado_en) return
+    const desde = new Date(generacion.iniciado_en).getTime()
     const id = setInterval(() => setTranscurrido((Date.now() - desde) / 1000), 1000)
     return () => clearInterval(id)
-  }, [vivo, intento.iniciado_en])
+  }, [vivo, generacion.iniciado_en])
 
   usePoll(
     async () => {
-      const e = await apiIntentos.estado(intento.id)
+      const e = await apiGeneraciones.estado(generacion.id)
       setLog(e.lineas_log)
-      if (e.estado !== intento.estado) onCambio(await apiIntentos.obtener(intento.id))
+      if (e.estado !== generacion.estado) onCambio(await apiGeneraciones.obtener(generacion.id))
     },
     2000,
     vivo,
@@ -48,42 +48,42 @@ export function PanelEjecucion({
     finLog.current?.scrollIntoView({ block: 'nearest' })
   }, [log.length])
 
-  // Al abrir un intento ya terminado, recupera el log de su última corrida.
+  // Al abrir una generación ya terminada, recupera el log de su última corrida.
   useEffect(() => {
     if (vivo) return
-    apiIntentos
-      .estado(intento.id)
+    apiGeneraciones
+      .estado(generacion.id)
       .then((e) => setLog(e.lineas_log))
       .catch(() => undefined)
-  }, [intento.id, vivo])
+  }, [generacion.id, vivo])
 
   const lanzar = async () => {
-    const i = await ejecutar(intento.id)
-    if (i) {
+    const g = await ejecutar(generacion.id)
+    if (g) {
       setLog([])
       setTranscurrido(0)
-      onCambio(i)
+      onCambio(g)
     }
   }
 
   return (
     <Tarjeta
       titulo="Ejecución"
-      sub={<Insignia estado={intento.estado} />}
+      sub={<Insignia estado={generacion.estado} />}
       acciones={
         <Boton variante="acento" onClick={() => void lanzar()} cargando={lanzando} disabled={vivo}>
-          {intento.estado === 'guardado' ? 'Ejecutar' : 'Volver a ejecutar'}
+          {generacion.estado === 'guardado' ? 'Ejecutar' : 'Volver a ejecutar'}
         </Boton>
       }
     >
       {error && <Aviso tipo="error">{error}</Aviso>}
-      {intento.estado === 'fallido' && intento.error && (
+      {generacion.estado === 'fallido' && generacion.error && (
         <Aviso tipo="error">
-          <strong>La corrida falló.</strong> {intento.error}
+          <strong>La corrida falló.</strong> {generacion.error}
         </Aviso>
       )}
-      {intento.estado === 'completado' && (
-        <Aviso tipo="ok">Completado en {duracion(intento.segundos)}.</Aviso>
+      {generacion.estado === 'completado' && (
+        <Aviso tipo="ok">Completado en {duracion(generacion.segundos)}.</Aviso>
       )}
       {vivo && (
         <Aviso tipo="info">

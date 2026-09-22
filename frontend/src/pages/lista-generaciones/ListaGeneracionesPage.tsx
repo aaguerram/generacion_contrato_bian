@@ -1,23 +1,23 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { apiIntentos, type Intento } from '@entities/intento'
+import { apiGeneraciones, type Generacion } from '@entities/generacion'
 import { Aviso, Boton, Insignia, Tarjeta, Vacio } from '@shared/ui'
 import { duracion, fecha, plural } from '@shared/lib/formato'
 import { usePoll } from '@shared/lib/usePoll'
 import './lista.css'
 
-export function ListaIntentosPage() {
+export function ListaGeneracionesPage() {
   const navegar = useNavigate()
-  const [intentos, setIntentos] = useState<Intento[] | null>(null)
+  const [generaciones, setGeneraciones] = useState<Generacion[] | null>(null)
   const [error, setError] = useState('')
 
   const cargar = useCallback(async (signal?: AbortSignal) => {
     try {
-      const r = await apiIntentos.listar(signal)
-      setIntentos(r.intentos)
+      const r = await apiGeneraciones.listar(signal)
+      setGeneraciones(r.generaciones)
       setError('')
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'No se pudo leer la lista de intentos')
+      setError(e instanceof Error ? e.message : 'No se pudo leer la lista de generaciones')
     }
   }, [])
 
@@ -28,16 +28,16 @@ export function ListaIntentosPage() {
   }, [cargar])
 
   // Mientras haya una corrida viva, la lista se refresca sola: el estado cambia en el servidor.
-  const hayVivos = (intentos ?? []).some((i) => i.estado === 'ejecutando')
+  const hayVivos = (generaciones ?? []).some((i) => i.estado === 'ejecutando')
   usePoll(() => cargar(), 4000, hayVivos)
 
-  const borrar = async (i: Intento) => {
+  const borrar = async (i: Generacion) => {
     if (!window.confirm(`¿Borrar "${i.nombre}"? Se pierde su resultado y su registro.`)) return
     try {
-      await apiIntentos.borrar(i.id)
+      await apiGeneraciones.borrar(i.id)
       void cargar()
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'No se pudo borrar el intento')
+      setError(e instanceof Error ? e.message : 'No se pudo borrar la generación')
     }
   }
 
@@ -45,34 +45,34 @@ export function ListaIntentosPage() {
     <>
       <div className="pagina__cab">
         <div>
-          <h1>Intentos</h1>
+          <h1>Generaciones</h1>
           <p>
-            Cada intento guarda un lote de Historias de Usuario con su funcionalidad macro. Guardar
+            Cada generación guarda un lote de Historias de Usuario con su funcionalidad macro. Guardar
             no ejecuta nada; ejecutar lanza el mapeo a Service Domains.
           </p>
         </div>
-        <Boton variante="acento" onClick={() => navegar('/intentos/nuevo')}>
-          Nuevo intento
+        <Boton variante="acento" onClick={() => navegar('/generaciones/nueva')}>
+          Nueva generación
         </Boton>
       </div>
 
       {error && <Aviso tipo="error">{error}</Aviso>}
 
-      {intentos === null && !error && <p className="pb-campo__ayuda">Cargando…</p>}
+      {generaciones === null && !error && <p className="pb-campo__ayuda">Cargando…</p>}
 
-      {intentos?.length === 0 && (
+      {generaciones?.length === 0 && (
         <Tarjeta>
           <Vacio>
-            Todavía no hay intentos. Crea el primero con las Historias de Usuario que quieras
+            Todavía no hay generaciones. Crea la primera con las Historias de Usuario que quieras
             mapear.
           </Vacio>
         </Tarjeta>
       )}
 
       <div className="rejilla">
-        {intentos?.map((i) => (
+        {generaciones?.map((i) => (
           <article key={i.id} className="fila">
-            <Link to={`/intentos/${i.id}`} className="fila__principal">
+            <Link to={`/generaciones/${i.id}`} className="fila__principal">
               <h2 className="fila__nombre">{i.nombre}</h2>
               <p className="fila__func">{i.funcionalidad.label || 'Sin funcionalidad'}</p>
               <div className="fila__datos">

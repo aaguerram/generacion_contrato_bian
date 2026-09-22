@@ -12,7 +12,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field
 
 # "detenido" no es un fallo: es el corte que pidió quien lanzó la corrida.
-EstadoIntento = Literal["guardado", "ejecutando", "completado", "fallido", "detenido"]
+EstadoGeneracion = Literal["guardado", "ejecutando", "completado", "fallido", "detenido"]
 
 
 class Funcionalidad(BaseModel):
@@ -51,10 +51,10 @@ class OpcionesEjecucion(BaseModel):
     )
 
 
-class IntentoCrear(BaseModel):
-    """Lo que el formulario manda para GUARDAR un intento. Guardar no ejecuta nada."""
+class GeneracionCrear(BaseModel):
+    """Lo que el formulario manda para GUARDAR una generación. Guardar no ejecuta nada."""
 
-    nombre: str = Field(default="", description="Etiqueta libre para reconocer el intento.")
+    nombre: str = Field(default="", description="Etiqueta libre para reconocer la generación.")
     historias: list[HistoriaEntrada] = Field(
         min_length=1,
         description="Las Historias de Usuario, una por elemento. El orden es el que se guarda.",
@@ -84,14 +84,14 @@ class ResumenComparacion(BaseModel):
     detalle: str = ""
 
 
-class Intento(BaseModel):
-    """Un intento guardado. Se puede ejecutar varias veces; la última corrida manda."""
+class Generacion(BaseModel):
+    """Una generación guardada. Se puede ejecutar varias veces; la última corrida manda."""
 
     id: str
     nombre: str = ""
     creado_en: datetime
     actualizado_en: datetime
-    estado: EstadoIntento = "guardado"
+    estado: EstadoGeneracion = "guardado"
     historias: list[HistoriaEntrada] = Field(default_factory=list)
     funcionalidad: Funcionalidad
     opciones: OpcionesEjecucion = Field(default_factory=OpcionesEjecucion)
@@ -112,16 +112,16 @@ class Intento(BaseModel):
     )
 
 
-class ListaIntentos(BaseModel):
+class ListaGeneraciones(BaseModel):
     total: int
-    intentos: list[Intento]
+    generaciones: list[Generacion]
 
 
 class EstadoEjecucion(BaseModel):
     """Lo que el cliente consulta mientras el mapeo corre. No hay límite de tiempo: se pregunta."""
 
     id: str
-    estado: EstadoIntento
+    estado: EstadoGeneracion
     segundos: float | None = None
     error: str = ""
     lineas_log: list[str] = Field(default_factory=list)

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { apiIntentos, type Intento } from '@entities/intento'
+import { apiGeneraciones, type Generacion } from '@entities/generacion'
 import { Aviso, Boton } from '@shared/ui'
 
 /**
@@ -8,11 +8,11 @@ import { Aviso, Boton } from '@shared/ui'
  * en la siguiente ejecución.
  */
 export function SubirValidacion({
-  intento,
+  generacion,
   onCambio,
 }: {
-  intento: Intento
-  onCambio: (i: Intento) => void
+  generacion: Generacion
+  onCambio: (g: Generacion) => void
 }) {
   const input = useRef<HTMLInputElement>(null)
   const [ocupado, setOcupado] = useState(false)
@@ -22,7 +22,7 @@ export function SubirValidacion({
     setOcupado(true)
     setError('')
     try {
-      onCambio(await apiIntentos.subirValidacion(intento.id, archivo))
+      onCambio(await apiGeneraciones.subirValidacion(generacion.id, archivo))
     } catch (e) {
       setError(e instanceof Error ? e.message : 'No se pudo subir el archivo')
     } finally {
@@ -35,7 +35,7 @@ export function SubirValidacion({
     setOcupado(true)
     setError('')
     try {
-      onCambio(await apiIntentos.quitarValidacion(intento.id))
+      onCambio(await apiGeneraciones.quitarValidacion(generacion.id))
     } catch (e) {
       setError(e instanceof Error ? e.message : 'No se pudo quitar el archivo')
     } finally {
@@ -56,9 +56,9 @@ export function SubirValidacion({
           if (f) void subir(f)
         }}
       />
-      {intento.tiene_validacion ? (
+      {generacion.tiene_validacion ? (
         <div style={{ display: 'flex', alignItems: 'center', gap: '.6rem', flexWrap: 'wrap' }}>
-          <span className="pb-badge pb-badge--completado">{intento.nombre_validacion}</span>
+          <span className="pb-badge pb-badge--completado">{generacion.nombre_validacion}</span>
           <Boton variante="fantasma" pequeno onClick={() => input.current?.click()} cargando={ocupado}>
             Reemplazar
           </Boton>
