@@ -1,8 +1,8 @@
 # Memory — generacion-contrato-ia-v2
 
-> Generated: 2026-09-20 09:12:24  
-> Total memories: **68**  
-> Breakdown: instruction: 3, fact: 17, decision: 21, goal: 3, commitment: 1, context: 3, learning: 19, artifact: 1
+> Generated: 2026-09-22 11:16:40  
+> Total memories: **76**  
+> Breakdown: instruction: 3, fact: 18, decision: 26, goal: 3, commitment: 1, context: 3, learning: 21, artifact: 1
 
 ---
 
@@ -37,6 +37,12 @@
 ## Facts
 
 *Verified information, project status, and established truths.*
+
+### FreeLLMAPI (router local de free tiers, repo ~/Des...
+
+> FreeLLMAPI (router local de free tiers, repo ~/Desktop/claude_cli/freellmapi, Docker en http://100.102.221.79:3011, API /v1 OpenAI-compatible con la clave unificada del dashboard, guardada en settings.unified_api_key de data_respaldo/freellmapi.db) integrado en generacion_contrato_bian el 2026-09-20 como proveedor 'freellmapi' (estrategia src/adaptadores/salida/llm/freellmapi.py, FREELLMAPI_API_KEY en .env), segundo en routing.llm_priority tras groq y antes de gemini. Ids = slug canonico del router (kimi-k3, deepseek-v4-pro, glm-5.2, deepseek-v4-flash, minimax-m3, gpt-oss-120b), el router elige plataforma (X-Routed-Via) y gestiona cooldowns. Medido con json_schema via proxy: los 6 anteriores OK (4-25 s; gpt-oss-120b 0.4 s); FALLAN qwen3.5-397b-a17b (HF ignora response_format) y nemotron-3-ultra-550b (Kilo). No usar auto/auto:smart: la huella no sabria que modelo respondio. GET /v1/models lista 236 ids con context_window y available.
+
+*Confidence: 0.95 | Status: active | Created: 2026-09-20T18:29:30 | Tags: `freellmapi`, `proveedores`, `failover`, `config`, `entorno`*
 
 ### Conectividad validada el 2026-09-12: MEMANTO agent...
 
@@ -162,6 +168,12 @@
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-13T03:01:32*
 
+### Proveedores free anadidos al proyecto generacion_c...
+
+> Proveedores free anadidos al proyecto generacion_contrato_bian el 2026-09-20 ademas de freellmapi: (1) dreamprompting (DREAMPROMPTING_API_KEY, https://dreamprompting.com/api/v1) = meta-router con una clave hacia Cloudflare/Groq/NVIDIA/Mistral/Cohere/Google/HF/OpenRouter; 9 modelos VERIFICADOS con json_schema en 1-6 s (nemotron-3-super-120b, command-a, mistral-large, gemini-3.1/2.5-flash, llama-3.3-70b...). Va como proveedor PROPIO y no dentro de freellmapi porque el adaptador del router valida la identidad del modelo en la respuesta y DreamPrompting la reescribe al reenviar: por el router pasaban 2 de 10, en directo 10. (2) blaze (BLAZE_API_KEY) = 200k tokens/dia sobre DeepSeek, 10 rpm; su free tier exige verificar en Discord (discord.gg/cmPGdhXYxp, el enlace solo esta en el bundle JS de su web, no en el HTML) y despues el 403 desaparece. Solo se declararon 2 modelos porque su proveedor DeepSeek estaba caido y 10 de 11 daban 503 tras 13-18 s CADA UNO: un modelo caido en la cadena se paga en latencia. Cadena final por potencia con el local al final: freellmapi -> groq -> gemini -> dreamprompting -> huggingface -> openrouter -> blaze -> ollama.
+
+*Confidence: 0.95 | Status: active | Created: 2026-09-20T20:38:15 | Tags: `proveedores`, `dreamprompting`, `blaze`, `failover`, `config`, `free-tier`*
+
 ### Taxonomia BIAN deduplicada en el prompt de candidatos + rol_max_chars 600
 
 > En generacion_contrato_bian, el prompt del paso 2 (mapeo.candidatos, subido a v1.1.0 el 2026-09-16) recibe ahora un bloque <taxonomia_bian> con la documentacion de las 5 Business Areas y los 36 Business Domains del landscape, DEDUPLICADA y enviada una sola vez (~3.3k tokens; inline por SD costaria ~23k por la misma informacion). Regla general: un dato que se repite entre Service Domains va como bloque de cabecera, nunca inline en las 341 lineas del catalogo. Ademas rol_max_chars subio de 240 a 600 (con 240 se recortaba el service_role de 219 de los 341 SD). Como eso sube el SUELO del prompt, los escalones de degradacion dejaron de ser solo el CAG y pasaron a ser pares (chars_negocio, rol_max_chars) en _escalones_catalogo: primero se sacrifica el vocabulario de negocio y solo al final el rol, y el ultimo escalon es siempre (0, 240). Coste total medido del paso 2: de ~26.6k a ~39.7k tokens (+49%). Tests: tests/unit_test/test_taxonomia_bian.py y TestEscalonesDeDegradacion en test_cag_catalogo.py; suite completa 339 tests en verde.
@@ -182,17 +194,35 @@
 
 *Confidence: 0.95 | Status: active | Created: 2026-09-13T03:10:16*
 
+### ACLIDE integrado en generacion_contrato_bian el 20...
+
+> ACLIDE integrado en generacion_contrato_bian el 2026-09-20 como proveedor propio  (src/adaptadores/salida/llm/aclide.py, ACLIDE_API_KEY): es el unico proveedor free del pool con modelos FRONTERA verificados -claude-opus-5 (10.3s), gpt-6-astra (8.0s), claude-sonnet-5 (9.2s), gpt-5.6-sol/terra/luna (7-8s), claude-haiku-4.5 (9.1s)-. DOS particularidades criticas: (1) NO expone /v1/chat/completions, solo /v1/responses, asi que necesita ChatOpenAI(use_responses_api=True) -disponible en langchain-openai 1.6.2-; (2) IGNORA response_format: con json_schema los modelos devuelven markdown y el parseo revienta con 'Invalid JSON: expected value at line 1 column 1', con function_calling responden bien, por eso structured_method: function_calling. Por el router freellmapi NO sirve: su adaptador valida la identidad del modelo en la respuesta y ACLIDE devuelve otra (mismo problema que DreamPrompting). Free tier = 20 EUR/mes de creditos COMPARTIDOS y cada llamada gasta 1.8-3.2 (campo credits.standard_turn del catalogo), asi que NO se lista en llm_priority: queda el ultimo de la cadena y se usa con --proveedor aclide o pinneado por nodo. Su /v1/models esta tras Cloudflare y bloquea clientes sin User-Agent de navegador (403 error 1010).
+
+*Confidence: 0.95 | Status: active | Created: 2026-09-20T20:47:45 | Tags: `aclide`, `proveedores`, `responses-api`, `function-calling`, `frontera`, `creditos`*
+
 ### Scoring determinista de mapear-historias (scoring_...
 
 > Scoring determinista de mapear-historias (scoring_bian.calcular_score, dominio puro): 30% accion oficial (tokenizacion camelCase) + 25% objeto/schema BOM + 20% ownership + 15% trazabilidad + 10% coherencia Business Area/Domain + hasta +-0.05 segun evidencia. Dos ejes de decision: grupo (directo>=0.90 / tentativo / descartado) y decision_contractual (SELECTED/UNRESOLVED/REJECTED) con motivo_decision tipado (OWNED_SELECTED, TENTATIVE_SCORE, NO_OFFICIAL_BIAN_EVIDENCE, CONSUMED_DEPENDENCY, RELATED_NOT_OWNED, OUT_OF_SCOPE, NAME_UNRESOLVED). Umbrales configurables en config.yaml (mapear_historias.umbral_*) o flags --umbral-directo/--umbral-tentativo.
 
 *Confidence: 0.9 | Status: active | Created: 2026-09-13T03:10:17*
 
+### Paso 1 del canal de propiedad de clases BOM (nodo ...
+
+> Paso 1 del canal de propiedad de clases BOM (nodo 2a de mapear-historias) implementado como recuperacion hibrida el 2026-09-20: RecuperadorClasesPort con RecuperadorClasesBM25 (consulta traducida ES->EN) + RecuperadorClasesVectorial (HU en espanol, qwen3-embedding:8b, indice cacheado en .cache/clases-bom.vectorstore.*), fusion RRF k=20 sobre top-12 clases (clases_requeridas_desde_rankings); pasos 2-4 (dueno sin Extensible, BQ, nota del enum) sin cambios. Se excluyen las 40 cajas del metamodelo BIAN (X_SD_Operations, X_Instantiation, X_Invocation, X_Reporting, X_ Analytics Object: cero atributos, cero descripcion) via es_artefacto_del_metamodelo. Medido en hu_real (n=6): bom-rrf (bm25+vec) R@10 1.00 / MRR 0.569 vs rrf-bm25 (texto del SD) 0.67 / 0.573; fusionados rrf-bm25+bom-rrf 1.00 / 0.639. El diccionario CLASES_BOM_POR_TERMINO RESTA en la fusion (0.569 -> 0.517), por eso entidades_canales default = [bm25, vectorial]; entidades_max_candidatos 10 (posiciones 1,5,9,10,1,1). Flag entidades_bom_habilitado sigue OFF: encenderlo es decision de producto; falta canary con corrida real. Nada commiteado.
+
+*Confidence: 0.95 | Status: active | Created: 2026-09-20T14:49:18 | Tags: `bian`, `nodo2a`, `entity-json`, `hybrid-search`, `recall`, `medicion`, `pendiente`*
+
 ### Creados en generacion_contrato_ia_v2/scripts/ (sep...
 
 > Creados en generacion_contrato_ia_v2/scripts/ (sept-2026): generate_entities (arma docs/entity.json: por cada clase BIAN BOM, en que Service Domains/diagramas BOM+Control Record aparece, con descripcion+propiedades de docs/BIANBOM4XMI.xlsx), bian_object_catalog (arma docs/bian-object-catalog.json: resuelve nombre->object_id/url/documentacion en bian.org para Service Domains+clases+Business Areas+Business Domains, cache de shards ~142MB en generacion_contrato_ia_v2/descarga/bian-object-catalog-shards/, gitignored), generate_matrix_view (arma docs/BIAN_Service_Landscape_V14.0_Matrix_View.json: arbol Business Area->Business Domain->Service Domain desde BIANv14.xlsm+SD.json+entity.json+bian-object-catalog.json). generate_matrix_view y bian_object_catalog tienen dependencia circular: correr generate_matrix_view -> bian_object_catalog -> generate_matrix_view de nuevo para que Business Areas/Domains queden con object_url+documentacion (Service Domains no la tienen, se resuelven aparte contra bian-view-catalog.json).
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-13T22:14:41*
+
+### Tanda 1-2-3 del nodo 2b (2026-09-20): (1) nodo 1 e...
+
+> Tanda 1-2-3 del nodo 2b (2026-09-20): (1) nodo 1 emite 'datos' (prompt mapeo.intencion 1.1.0) y el canal de propiedad de clases BOM de 2a consulta SOLO por ellos -en 4/4 corridas del E2E 1 nombro celular+correo y el canal puso Location Data Management #1 con Phone Address/Electronic Address, cosa que con business_objects pasaba 1/2-; (2) 2b en fan-out Send por Business Domain + grupo de rescatados (candidatos_por_dominio_habilitado) con fusion determinista; hizo falta un prompt DE GRUPO (mapeo.candidatos 1.3.0/1.3.1: vacio es respuesta valida, lo ausente no es gap) porque con el prompt de una llamada cada grupo proponia 'lo menos irrelevante' (12-14 candidatos, 15 gaps) -> con 1.3.0, 3/7 grupos vacios y 7-8 candidatos; la fusion etiqueta gaps con [grupo]; (3) llm_priority_por_nodo para mapeo.candidatos con Ollama al FINAL: puesto segundo, dos llamadas concurrentes al qwen3.8 27B remoto tardaron >10 min. Regla de certificacion del usuario: solo E2E 1 hasta 2b, no el benchmark ni las otras HU; no sesgar hacia PRDD. evidencia_bom_en_candidatos sigue OFF (n=1 por lado). Sin commitear.
+
+*Confidence: 0.95 | Status: active | Created: 2026-09-20T17:30:08 | Tags: `bian`, `nodo2b`, `fan-out`, `langgraph`, `send`, `nodo1`, `datos`, `certificacion`, `pendiente`*
 
 ### Decisiones de decision contractual anadidas a gene...
 
@@ -243,6 +273,12 @@
 > En generacion_contrato_bian cada modelo declara su presupuesto de ENTRADA en config.yaml (providers.<n>.llm.models[].max_input_tokens, o providers.<n>.llm.max_input_tokens como default del proveedor; models acepta string o {name, max_input_tokens}). ChatConFailover estima el tamano del prompt ANTES de llamar y salta sin gastar round-trip a todo modelo cuyo presupuesto no lo admita; si ninguno lo admite lanza PeticionDemasiadoGrande -- la misma senal que el 413 real --, asi que _invocar_reduciendo baja de escalon de catalogo sin haber quemado ninguna llamada. Convive con el filtro aprendido del 413 (el declarado es a priori; el aprendido cubre al modelo cuyo limite real es menor). Medido con la cadena por defecto groq->gemini->huggingface->openrouter->ollama y el catalogo de 341 SD: en el escalon (0,600) el prompt de mapeo.candidatos son ~39.7k tokens estimados y se saltan 4 modelos (los 2 de groq, gemma-4-31b:free y openrouter/free) = 4 round-trips menos por nodo grande y por corrida; con el escalon CAG (300,600), ~60.6k tokens y 6 modelos saltados. LECCION DE ENTORNO IMPORTANTE: tiktoken.get_encoding('o200k_base') DESCARGA el vocabulario la primera vez y en esta maquina (sin salida a Internet) se queda colgado indefinidamente -- colgo una corrida de tests hasta el timeout. Por eso llm.tokenizador='caracteres' (len/llm.chars_por_token, 4.0) es el DEFAULT y 'tiktoken' es opt-in, y aun activado la carga va en un hilo daemon con plazo de 20s que degrada al heuristico en vez de bloquear. Codigo: src/adaptadores/salida/llm/tokens.py (nuevo), failover.py, config_yaml.py (_modelos_llm), contenedor.py. Tests: tests/unit_test/test_failover.py::TestPresupuestoDeclaradoPorModelo / TestEstimacionDeTokens / TestPresupuestoDesdeConfig, incluida una regresion que falla si un modelo de la cadena por defecto se queda sin max_input_tokens. Suite: 355 tests OK.
 
 *Confidence: 1.0 | Status: active | Created: 2026-09-17T17:57:43 | Tags: `bian`, `failover`, `tokens`, `config`, `tiktoken`, `eficiencia`*
+
+### Segunda tanda del nodo 2b (2026-09-20 noche), cert...
+
+> Segunda tanda del nodo 2b (2026-09-20 noche), certificada con E2E 1 hasta 2b (3 corridas): umbral de rescate en 2a (score>=1.0 O >=2 canales; si no, incidencia ROUTING_PROPIETARIO_NO_RESCATADO) dejo los rescates en 1 (Location Data Management) en 2 de 3 corridas; FRASES_BOM_POR_TERMINO resuelve frases antes que palabras ('datos/informacion de contacto' -> point/address/electronic/phone/postal SIN contact; 'numero celular' SIN el token generico number, que metio 3 SD de tarjetas via PaymentCardType); grupos <3 SD se juntan (candidatos_grupo_min_sd); fusion descarta gaps/notas de grupos que no propusieron nada; <propietarios_bom> omite clases sin sustancia. evidencia_bom_en_candidatos pasa a TRUE: el grupo de rescatados propuso LDM 3/3 con el bloque y 2/4 sin el (los 2 fallos: grupo de 1-4 SD devolvio vacio sin explicacion). Ruido restante: cuando gemini-3.5-flash-lite atiende un grupo propone 5-6 (Contact Handler, Service Directory, Servicing Order); Groq y 3.5-flash 1-2. Suite 426 OK. Sin commitear desde c6fa027.
+
+*Confidence: 0.9 | Status: active | Created: 2026-09-20T17:42:23 | Tags: `bian`, `nodo2b`, `nodo2a`, `rescate`, `frases`, `fan-out`, `certificacion`, `pendiente`*
 
 ### Asimetria estructural del ownership en generacion_...
 
@@ -413,6 +449,12 @@
 
 *Knowledge acquired from experience, corrections, and insights.*
 
+### Leccion de medicion (2026-09-20, nodo 3 de generac...
+
+> Leccion de medicion (2026-09-20, nodo 3 de generacion_contrato_bian): para comparar dos variantes de prompt hay que FIJAR EL MODELO, y  NO sirve para eso porque solo reordena la cadena, no la restringe;  si restringe, pero si ese proveedor tiene varios modelos el failover interno puede atender cada rama con uno distinto. Hicieron falta 4 intentos: los 3 primeros quedaron contaminados (gemini-3.5-flash vs flash-lite, ollama, y dos nemotron distintos dentro de dreamprompting). La forma que funciono: config temporal con el proveedor reducido a UN solo modelo + --proveedor. Hallazgos del A/B limpio con claude-opus-5: (1) la senal cruda del bloque <propietarios_bom> se justifica porque SIN ella el juez no se abstiene, FABRICA la cifra y la invierte; (2) la senal NO frena la repesca de lo que el umbral del nodo 2a filtro; (3) se destapo que ownership_conflicts y duplicated_responsibilities se llenaban de NEGACIONES ('no se demuestra duplicacion con X'), 8 entradas y ninguna real, que viajaban al JSON como hallazgos -arreglado en el prompt 1.3.0 diciendo que son hallazgos confirmados y que vacio es la respuesta normal: 8->0 duplicados, 1->2 conflictos reales, 52s->12s-.
+
+*Confidence: 0.95 | Status: active | Created: 2026-09-20T21:34:00 | Tags: `medicion`, `ab-testing`, `prompt`, `nodo3`, `failover`, `leccion`*
+
 ### Medicion del nodo 2a (enrutar_dominios) con LLM re...
 
 > Medicion del nodo 2a (enrutar_dominios) con LLM real sobre tests/resources/datos_personales (HU 'Crear pantalla de datos personales', groq openai/gpt-oss-120b, 2 corridas identicas): el router elige business_domains [Channel Specific, Customer Management, IT Management] + dependency_domains [Cross Channel] -> 56 de 341 SD visibles. Falla en las DOS direcciones: (a) pierde 2 de los 7 candidatos de la corrida de referencia, Correspondence (Business Support > Document Management and Archive) y Operations Log (Reference Data > External Agency); (b) 30 de los 56 SD visibles son ruido porque elige Channel Specific e IT Management por el VOCABULARIO DE UI de la HU ('pantalla', 'avatar', 'iconos') en vez de por los objetos de negocio -- el propio rationale lo admite ('IT Management cubre la generacion y presentacion de los elementos UI'). Dato a favor de la red 2 de implementacion_pendiente.md §10: BM25 sobre las senales de intencion pone Correspondence en el puesto 2, o sea rescataria 1 de las 2 perdidas sin ninguna llamada extra; Operations Log queda fuera del top-20. Location Data Management NO aparece y es correcto: vive en Reference Data > Market Data (asset_type Location, CR Location Directory Entry, es el directorio de ubicaciones/domicilios), la HU no maneja domicilio, cero ocurrencias en los tres expected-result.json, y ni BM25 ni RecuperadorLexico lo suben al top-20 pese al falso amigo 'direccion de correo' vs 'location address'.
@@ -430,6 +472,12 @@
 > Causa raiz de un falso negativo real encontrado en produccion (HU 'Notificar actualizacion de datos' -> Service Domain Correspondence quedaba REJECTED sin operaciones pese a tener evidencia BIAN valida): eran las reglas de ownership/scoring/elegibilidad de operacion, NO un problema de retrieval. Fix: promocion determinista CONSUMED_DEPENDENCY->OWNED_CONTRACT solo si el hallazgo adversarial es ACCION_DIRECTA_COMO_DEPENDENCIA + dependency_kind=AUDIT_OR_NOTIFICATION (salida/resultado, no precondicion) + trazabilidad + evidence_refs, y ademas objeto_bom del score >= 0.15 (este ultimo umbral evito un falso positivo real: Party Authentication fue promovido citando su propio CR para un objeto de negocio ajeno, objeto_bom=0.0 exacto).
 
 *Confidence: 0.9 | Status: active | Created: 2026-09-13T03:10:21*
+
+### FreeLLMAPI: el plan gratuito entrega filas de mode...
+
+> FreeLLMAPI: el plan gratuito entrega filas de modelo solo por el catalogo firmado en tier MENSUAL (~303 modelos por detras del feed en vivo), asi que activar una clave de proveedor NO crea modelos; los adaptadores si existen. Workaround verificado el 2026-09-20: alta manual con POST /api/models (pide sesion del dashboard, no la clave unificada) + POST /api/models/:id/test, y DELETE para revertir. Con eso se anadieron septor (qwen3-coder, minimax-m2.5, hermes-3-405b), electronhub (gpt-oss-120b) y router9 (kimi-k3, glm-5.3, deepseek-v4-pro, minimax-m3, gemini-3.8-flash). LECCION IMPORTANTE: anadir una plataforma a un slug que YA funcionaba puede romperlo -las rutas de ElectronHub para deepseek-v4-flash y minimax-m3 devolvieron 502 format_ignored y el router NO reintenta en otra plataforma ante ese error-, hubo que darlas de baja; el /test del dashboard NO detecta esto porque no usa response_format, hay que probar con json_schema real. Inutilizables: cerebras (402), github models (410 en migracion), aclide/blaze/dreamprompting/experiential (catalogo solo con clave). Catalogos publicos sin clave: router9 y electronhub (campo premium_model).
+
+*Confidence: 0.95 | Status: active | Created: 2026-09-20T20:01:05 | Tags: `freellmapi`, `proveedores`, `cuota`, `json-schema`, `unify`, `leccion`*
 
 ### Causa raiz del canal lexico debil en generacion_co...
 
