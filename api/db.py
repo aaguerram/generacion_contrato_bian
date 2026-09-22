@@ -45,13 +45,17 @@ CREATE TABLE IF NOT EXISTS generaciones (
 );
 CREATE INDEX IF NOT EXISTS generaciones_creado_en_idx ON generaciones (creado_en DESC);
 ALTER TABLE generaciones ADD COLUMN IF NOT EXISTS corrida TEXT NOT NULL DEFAULT '';
+-- Id de la copia que la reemplaza. Una generación ya ejecutada no se vuelve a ejecutar encima de
+-- su propio resultado: al relanzarla se archiva con la fecha de su corrida y el nombre queda
+-- libre para la copia. Vacío = todavía es la versión viva de ese nombre.
+ALTER TABLE generaciones ADD COLUMN IF NOT EXISTS relanzada_como TEXT NOT NULL DEFAULT '';
 
 -- Un registro por PASO del grafo. No es un log: son datos consultables (qué entró, qué salió,
 -- qué modelo respondió, cuánto tardó), y son la memoria de la corrida cuando el proceso ya no
 -- está. La interfaz los reproduce para pintar el flujo sin depender de haber estado conectada.
 CREATE TABLE IF NOT EXISTS eventos_nodo (
     id            BIGSERIAL PRIMARY KEY,
-    generacion_id    TEXT        NOT NULL REFERENCES generaciones(id) ON DELETE CASCADE,
+    generacion_id TEXT        NOT NULL REFERENCES generaciones(id) ON DELETE CASCADE,
     -- Una corrida es una generación EJECUTADA. La misma generación se ejecuta varias veces y cada
     -- corrida tiene su propia historia de nodos: sin esto se mezclarían.
     corrida       TEXT        NOT NULL,

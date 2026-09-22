@@ -178,6 +178,30 @@ que lo que una corrida descargue sobreviva a una reconstrucción.
 3. **Ejecutar** lanza el mapeo y la pestaña de ejecución enseña el log en vivo.
 4. **Validación**: opcionalmente sube un `mapeo-historias-service-domains.json` de una corrida ya
    validada. Al terminar la siguiente corrida se compara contra él.
+5. **Volver a ejecutar** no ejecuta nada por sí mismo: archiva esta versión y abre una copia.
+
+### Una generación se ejecuta UNA vez
+
+El botón de ejecutar tiene dos caras y solo una está visible, en las pestañas Ejecución y Flujo:
+
+| Estado de la generación        | Botón               | Qué hace                                  |
+|--------------------------------|---------------------|-------------------------------------------|
+| Nunca ejecutada                | Ejecutar            | Lanza la corrida.                          |
+| Ejecutada                      | Volver a ejecutar   | Archiva esta versión y abre una copia.     |
+| Archivada (ya cedió su nombre) | ninguno             | Solo se consulta; enlaza a la versión nueva. |
+
+"Volver a ejecutar" **no vuelve a correr encima del resultado anterior**. Le pega al nombre la fecha
+de su corrida (`e2e001` pasa a `e2e001-22-09-2026_07:56:21`), deja ese registro congelado con su
+resultado, su log y su comparación, y crea uno nuevo con el nombre limpio, las mismas historias, la
+misma funcionalidad, las mismas opciones y el mismo archivo de validación. La página se va a la
+copia, que es la que tiene el botón de ejecutar.
+
+Así, cada corrida deja su propia prueba de lo que pasó aquel día en vez de machacar la anterior, y
+la lista se lee como un historial: el nombre sin fecha es siempre la versión viva.
+
+La hora del sufijo la pone el servidor, así que el contenedor de la API fija su `TZ` en
+`docker-compose.yml`. Sin eso el nombre archivado diría una hora y la ficha de al lado otra, porque
+el navegador pinta las fechas en la zona de quien mira.
 
 La comparación usa el **mismo criterio que la suite E2E**: Service Domains directos y tentativos, y
 sus operaciones por `(operation_id, method, path, tipo, grupo)`. Lo narrativo (razonamiento,

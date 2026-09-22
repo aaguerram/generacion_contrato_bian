@@ -149,6 +149,30 @@ def ejecutar(id_: str) -> Generacion:
     return ejecutor.lanzar(id_)
 
 
+@app.post("/api/generaciones/{id_}/relanzar", response_model=Generacion, status_code=201)
+def relanzar(id_: str) -> Generacion:
+    """Archiva esta generación y devuelve la COPIA que hereda su nombre, lista para ejecutar.
+
+    No ejecuta nada: deja preparada la siguiente versión. Quien la llama navega a la copia, que
+    es la que ya tiene el botón de ejecutar.
+    """
+    _leer(id_)
+    if ejecutor.esta_ejecutando(id_):
+        raise HTTPException(status_code=409, detail="La generación se está ejecutando ahora mismo.")
+    try:
+        return almacen.relanzar(id_)
+    except almacen.YaRelanzada:
+        raise HTTPException(
+            status_code=409,
+            detail="Esta generación ya se relanzó: su nombre lo tiene la copia.",
+        ) from None
+    except almacen.SinEjecutar:
+        raise HTTPException(
+            status_code=409,
+            detail="Todavía no se ha ejecutado: no hay ninguna corrida que archivar.",
+        ) from None
+
+
 @app.get("/api/generaciones/{id_}/estado", response_model=EstadoEjecucion)
 def estado(id_: str, desde: int = Query(default=0, ge=0)) -> EstadoEjecucion:
     """Avance de la corrida. `desde` evita reenviar las líneas de log ya vistas."""

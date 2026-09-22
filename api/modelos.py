@@ -110,6 +110,11 @@ class Generacion(BaseModel):
         description="Identificador de la ÚLTIMA ejecución. Los pasos del grafo se guardan por "
         "corrida, así que sin esto no se sabría cuáles pintar.",
     )
+    relanzada_como: str = Field(
+        default="",
+        description="Id de la copia que tomó el relevo al relanzar. Con esto puesto, esta "
+        "generación es un archivo histórico y ya no se ejecuta.",
+    )
 
 
 class ListaGeneraciones(BaseModel):

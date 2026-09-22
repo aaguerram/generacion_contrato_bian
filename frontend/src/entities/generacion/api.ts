@@ -17,6 +17,12 @@ export const apiGeneraciones = {
   /** Devuelve 202 al instante: la corrida sigue en el servidor sin límite de tiempo. */
   ejecutar: (id: string) => http.post<Generacion>(`/generaciones/${id}/ejecutar`),
 
+  /**
+   * Archiva esta generación y devuelve la COPIA que hereda su nombre. No ejecuta nada: deja la
+   * siguiente versión lista, y es a ella a donde hay que navegar.
+   */
+  relanzar: (id: string) => http.post<Generacion>(`/generaciones/${id}/relanzar`),
+
   estado: (id: string, desde = 0, signal?: AbortSignal) =>
     http.get<EstadoEjecucion>(`/generaciones/${id}/estado?desde=${desde}`, signal),
 

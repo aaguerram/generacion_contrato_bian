@@ -39,7 +39,7 @@ _COLUMNAS = (
     "id, nombre, creado_en, actualizado_en, estado, historias, funcionalidad_label, "
     "funcionalidad_detalle, opciones, historias_detectadas, nombre_validacion, "
     "(validacion IS NOT NULL) AS tiene_validacion, iniciado_en, terminado_en, segundos, error, "
-    "(resultado IS NOT NULL) AS tiene_resultado, comparacion, corrida"
+    "(resultado IS NOT NULL) AS tiene_resultado, comparacion, corrida, relanzada_como"
 )
 
 
@@ -83,6 +83,7 @@ def _a_modelo(f: dict[str, Any]) -> Generacion:
         tiene_resultado=bool(f.get("tiene_resultado")),
         comparacion=ResumenComparacion(**comp) if comp else None,
         corrida=f.get("corrida") or "",
+        relanzada_como=f.get("relanzada_como") or "",
     )
 
 
@@ -192,6 +193,64 @@ def listar() -> list[Generacion]:
 def borrar(id_: str) -> None:
     db.ejecutar("DELETE FROM generaciones WHERE id=%s", (id_,))
     shutil.rmtree(workspace() / id_, ignore_errors=True)
+
+
+class YaRelanzada(Exception):
+    """Esta generación ya cedió su nombre a una copia: es un archivo histórico."""
+
+
+class SinEjecutar(Exception):
+    """Todavía no se ha ejecutado, así que no hay ninguna corrida que archivar."""
+
+
+def nombre_archivado(nombre: str, cuando: datetime) -> str:
+    """El nombre con el que queda archivada una generación ya ejecutada.
+
+    Se le pega la fecha de SU corrida, no la del momento en que se pulsa el botón: lo que
+    identifica a una versión archivada es cuándo se ejecutó, que es lo que el usuario recuerda.
+    La hora es la del servidor (`astimezone`), para que el sufijo coincida con la que la página
+    muestra en la ficha; el contenedor fija su `TZ` en `docker-compose.yml`.
+    """
+    return f"{nombre}-{cuando.astimezone().strftime('%d-%m-%Y_%H:%M:%S')}"
+
+
+def relanzar(id_: str) -> Generacion:
+    """Archiva la generación ejecutada y devuelve una COPIA limpia que hereda su nombre.
+
+    Volver a ejecutar encima de una generación ya ejecutada machacaría su resultado, su log y su
+    comparación, que son la prueba de lo que pasó aquel día. En vez de eso, la vieja se queda
+    congelada con la fecha de su corrida pegada al nombre, y el nombre "limpio" pasa a una copia
+    con las mismas historias, la misma funcionalidad y las mismas opciones, lista para ejecutar.
+
+    Se copia también el archivo de validación: es parte de CÓMO se define la generación (contra
+    qué se compara), no del resultado de la corrida, y sin él habría que volver a subirlo cada vez.
+
+    La copia se crea ANTES de tocar la vieja: si algo falla, no queda una generación renombrada
+    apuntando a una copia que no existe. El archivado es una sola sentencia por lo mismo.
+    """
+    vieja = leer(id_)
+    if vieja.relanzada_como:
+        raise YaRelanzada(id_)
+    if vieja.estado == "guardado":
+        raise SinEjecutar(id_)
+
+    nueva = guardar_nuevo(
+        GeneracionCrear(
+            nombre=vieja.nombre,
+            historias=vieja.historias,
+            funcionalidad=vieja.funcionalidad,
+            opciones=vieja.opciones,
+        )
+    )
+    contenido = validacion(id_)
+    if contenido is not None:
+        nueva = guardar_validacion(nueva.id, vieja.nombre_validacion, contenido)
+
+    db.ejecutar(
+        "UPDATE generaciones SET nombre=%s, relanzada_como=%s, actualizado_en=%s WHERE id=%s",
+        (nombre_archivado(vieja.nombre, vieja.iniciado_en or ahora()), nueva.id, ahora(), id_),
+    )
+    return nueva
 
 
 def marcar_ejecutando(id_: str, corrida: str) -> Generacion:

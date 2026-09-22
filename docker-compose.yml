@@ -36,6 +36,11 @@ services:
       DATABASE_URL: postgresql://contratos:contratos@db:5432/contratos
       API_WORKSPACE: /datos
       PYTHONPATH: /app
+      # La base guarda todo en UTC y el navegador lo pinta en la hora de quien mira, así que esto
+      # solo afecta a lo que el servidor ESCRIBE como texto: el sufijo con el que se archiva una
+      # generación relanzada y las horas del log. Sin esto, el nombre archivado diría una hora y
+      # la ficha de al lado otra. Se cambia aquí, no en el código.
+      TZ: America/Guayaquil
     env_file:
       # Solo API keys. No se versiona y NO se copia a la imagen: se inyecta al arrancar, así que
       # rotar una clave es reiniciar el contenedor, no reconstruirlo.

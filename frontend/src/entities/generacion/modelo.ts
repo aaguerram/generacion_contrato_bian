@@ -71,6 +71,8 @@ export interface Generacion {
   comparacion: ResumenComparacion | null
   /** Identificador de la última ejecución: los pasos del grafo se guardan por corrida. */
   corrida: string
+  /** Id de la copia que heredó el nombre al relanzar. Con esto puesto, esta versión es historia. */
+  relanzada_como: string
 }
 
 export interface GeneracionCrear {
@@ -105,3 +107,13 @@ export const OPCIONES_POR_DEFECTO: OpcionesEjecucion = {
 
 /** Una generación en curso es el único estado en el que la interfaz debe seguir preguntando. */
 export const estaVivo = (g: Pick<Generacion, 'estado'>): boolean => g.estado === 'ejecutando'
+
+/**
+ * Qué acción admite una generación. Es UNA sola en cada momento, y de ahí sale qué botón se
+ * pinta: una generación ejecutada no se vuelve a ejecutar encima de su propio resultado, y una
+ * que ya cedió su nombre a una copia no admite nada, porque es un archivo histórico.
+ */
+export type AccionGeneracion = 'ejecutar' | 'relanzar' | 'ninguna'
+
+export const accionDe = (g: Pick<Generacion, 'estado' | 'relanzada_como'>): AccionGeneracion =>
+  g.relanzada_como ? 'ninguna' : g.estado === 'guardado' ? 'ejecutar' : 'relanzar'

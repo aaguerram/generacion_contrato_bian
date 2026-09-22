@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { apiGeneraciones, estaVivo, type Generacion } from '@entities/generacion'
-import { useEjecutarGeneracion } from '@features/ejecutar-generacion/useEjecutarGeneracion'
-import { Aviso, Boton, Insignia, Tarjeta } from '@shared/ui'
+import { AccionEjecutar } from '@features/ejecutar-generacion/AccionEjecutar'
+import { AvisoRelanzada } from '@features/relanzar-generacion/AvisoRelanzada'
+import { Aviso, Insignia, Tarjeta } from '@shared/ui'
 import { duracion } from '@shared/lib/formato'
 import { usePoll } from '@shared/lib/usePoll'
 import './ejecucion.css'
@@ -19,7 +20,7 @@ export function PanelEjecucion({
   generacion: Generacion
   onCambio: (g: Generacion) => void
 }) {
-  const { ejecutar, lanzando, error } = useEjecutarGeneracion()
+  const [error, setError] = useState('')
   const [log, setLog] = useState<string[]>([])
   const [transcurrido, setTranscurrido] = useState(0)
   const finLog = useRef<HTMLDivElement>(null)
@@ -57,13 +58,12 @@ export function PanelEjecucion({
       .catch(() => undefined)
   }, [generacion.id, vivo])
 
-  const lanzar = async () => {
-    const g = await ejecutar(generacion.id)
-    if (g) {
-      setLog([])
-      setTranscurrido(0)
-      onCambio(g)
-    }
+  // La corrida nueva empieza con el panel en limpio: el log y el cronómetro que se ven son los
+  // de la anterior y confundirían durante los primeros segundos.
+  const alLanzar = (g: Generacion) => {
+    setLog([])
+    setTranscurrido(0)
+    onCambio(g)
   }
 
   return (
@@ -71,12 +71,11 @@ export function PanelEjecucion({
       titulo="Ejecución"
       sub={<Insignia estado={generacion.estado} />}
       acciones={
-        <Boton variante="acento" onClick={() => void lanzar()} cargando={lanzando} disabled={vivo}>
-          {generacion.estado === 'guardado' ? 'Ejecutar' : 'Volver a ejecutar'}
-        </Boton>
+        <AccionEjecutar generacion={generacion} onCambio={alLanzar} onError={setError} />
       }
     >
       {error && <Aviso tipo="error">{error}</Aviso>}
+      <AvisoRelanzada generacion={generacion} />
       {generacion.estado === 'fallido' && generacion.error && (
         <Aviso tipo="error">
           <strong>La corrida falló.</strong> {generacion.error}

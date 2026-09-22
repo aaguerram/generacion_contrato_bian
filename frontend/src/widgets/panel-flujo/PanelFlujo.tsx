@@ -18,7 +18,8 @@ import {
   type PasoNodo,
 } from '@entities/flujo'
 import { estaVivo, type Generacion } from '@entities/generacion'
-import { useEjecutarGeneracion } from '@features/ejecutar-generacion/useEjecutarGeneracion'
+import { AccionEjecutar } from '@features/ejecutar-generacion/AccionEjecutar'
+import { AvisoRelanzada } from '@features/relanzar-generacion/AvisoRelanzada'
 import { useFlujoEnVivo } from '@features/seguir-flujo/useFlujoEnVivo'
 import { Aviso, Boton, Tarjeta } from '@shared/ui'
 import { colocar } from './layout'
@@ -81,7 +82,7 @@ export function PanelFlujo({
   const [abierto, setAbierto] = useState<NodoGrafo | null>(null)
   const vivo = estaVivo(generacion)
   const { pasos, conectado } = useFlujoEnVivo(generacion.id, generacion.corrida, vivo)
-  const { ejecutar, lanzando, error: errorEjecutar } = useEjecutarGeneracion()
+  const [errorEjecutar, setErrorEjecutar] = useState('')
 
   useEffect(() => {
     const ac = new AbortController()
@@ -188,23 +189,19 @@ export function PanelFlujo({
               Quitar el corte
             </Boton>
           )}
-          <Boton
-            variante="acento"
+          <AccionEjecutar
+            generacion={generacion}
+            onCambio={onCambio}
+            onError={setErrorEjecutar}
+            etiquetaEjecutar={corte ? `Ejecutar hasta ${corte}` : 'Ejecutar'}
             pequeno
-            cargando={lanzando}
-            disabled={vivo}
-            onClick={async () => {
-              const g = await ejecutar(generacion.id)
-              if (g) onCambio(g)
-            }}
-          >
-            {corte ? `Ejecutar hasta ${corte}` : 'Ejecutar'}
-          </Boton>
+          />
         </>
       }
     >
       {error && <Aviso tipo="error">{error}</Aviso>}
       {errorEjecutar && <Aviso tipo="error">{errorEjecutar}</Aviso>}
+      <AvisoRelanzada generacion={generacion} />
 
       <p className="pb-campo__ayuda" style={{ marginTop: 0 }}>
         La red del flujo se ve entera desde el principio, apagada. Cada nodo se enciende cuando la
