@@ -64,7 +64,12 @@
    exactamente el alto que sobra: así SUS barras de scroll -- la horizontal sobre todo -- quedan
    siempre a la vista, en vez de debajo de un cuerpo que también se desplaza. */
 .modal__caja--ancha { width: min(72rem, calc(100vw - 2rem)); height: calc(100vh - 3rem); }
-.modal__caja--ancha .modal__cuerpo { display: flex; flex-direction: column; }
+/* `flex: 1` en el CUERPO, que es lo que hacía falta: la caja ya ocupaba toda la altura, pero el
+   cuerpo medía solo su contenido, así que dentro no había espacio sobrante que repartir y un hijo
+   que quisiera estirarse no tenía de dónde. Medido: caja 852 px, cuerpo 483, visor 270, y 250 px
+   de modal vacío debajo. `min-height: 0` porque el mínimo por defecto de un hijo flex es su
+   contenido, y sin eso un JSON largo empuja el cuerpo fuera de la caja en vez de desplazarse. */
+.modal__caja--ancha .modal__cuerpo { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
 .modal__caja--ancha .modal__cuerpo > * { flex: 0 0 auto; }
 .modal__pie {
   display: flex;

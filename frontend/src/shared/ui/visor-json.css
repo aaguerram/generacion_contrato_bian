@@ -29,7 +29,11 @@
 /* Dentro de una columna flex (el cuerpo del modal ancho) el visor se queda con el alto que
    sobra y el marco lo absorbe; el `max-height` del marco es solo el techo fuera de ese caso. */
 .modal__caja--ancha .modal__cuerpo > .visor-json { flex: 1 1 auto; min-height: 0; }
-.visor-json__marco { flex: 1 1 auto; min-height: 0; }
+/* El marco se lleva el alto que sobre, pero nunca baja de este suelo: con la cabecera del nodo, su
+   ficha de datos, las pestañas y -- en un nodo del abanico -- la lista de ejecuciones, lo que
+   quedaba para el JSON eran un par de líneas. Si no cabe, el que se desplaza es el cuerpo del
+   diálogo; leer el dato importa más que ver la ficha entera de una vez. */
+.visor-json__marco { flex: 1 1 auto; min-height: 24rem; }
 
 .visor-json__barra {
   display: flex;
